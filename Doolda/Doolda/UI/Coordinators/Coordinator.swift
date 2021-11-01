@@ -10,11 +10,15 @@ import UIKit
 class Coordinator {
     private var parent: Coordinator?
     private var children: [Coordinator] = []
-    private var presenter: UINavigationController
+    let presenter: UINavigationController
     
     init(presenter: UINavigationController, parent: Coordinator? = nil) {
         self.presenter = presenter
         self.parent = parent
+    }
+    
+    func add(child: Coordinator) {
+        self.children.append(child)
     }
     
     func removeFromParent() {
