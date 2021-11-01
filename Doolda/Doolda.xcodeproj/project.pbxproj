@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
 		664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C2273007ED009F03E2 /* SceneDelegate.swift */; };
-		664893C5273007ED009F03E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C4273007ED009F03E2 /* SplashViewController.swift */; };
 		664893CA273007F1009F03E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664893C9273007F1009F03E2 /* Assets.xcassets */; };
 		664893CD273007F1009F03E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 664893CB273007F1009F03E2 /* LaunchScreen.storyboard */; };
 		664893ED27300D7D009F03E2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 664893EC27300D7D009F03E2 /* SnapKit */; };
 		664893F027300DB9009F03E2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 664893EF27300DB9009F03E2 /* Kingfisher */; };
+		664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F3273023D3009F03E2 /* SplashViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		664893C2273007ED009F03E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		664893C4273007ED009F03E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		664893C9273007F1009F03E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		664893CC273007F1009F03E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		664893CE273007F1009F03E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		664893F3273023D3009F03E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +102,7 @@
 		664893D727300936009F03E2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				664893C4273007ED009F03E2 /* SplashViewController.swift */,
+				664893F3273023D3009F03E2 /* SplashViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -352,7 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				664893C5273007ED009F03E2 /* SplashViewController.swift in Sources */,
+				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
 			);
