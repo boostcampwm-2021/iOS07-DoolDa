@@ -59,7 +59,7 @@
 		664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
-		FC9F1062273102E30060FEB7 /* DooldaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DooldaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,7 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				664893BF273007ED009F03E2 /* Doolda */,
-				FC9F1063273102E30060FEB7 /* DooldaTests */,
+				FC9F1063273102E30060FEB7 /* GetMyIdUseCaseTest */,
 				664893BE273007ED009F03E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				664893BD273007ED009F03E2 /* Doolda.app */,
-				FC9F1062273102E30060FEB7 /* DooldaTests.xctest */,
+				FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -312,12 +312,12 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		FC9F1063273102E30060FEB7 /* DooldaTests */ = {
+		FC9F1063273102E30060FEB7 /* GetMyIdUseCaseTest */ = {
 			isa = PBXGroup;
 			children = (
 				FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */,
 			);
-			path = DooldaTests;
+			path = GetMyIdUseCaseTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,9 +351,9 @@
 			productReference = 664893BD273007ED009F03E2 /* Doolda.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FC9F1061273102E30060FEB7 /* DooldaTests */ = {
+		FC9F1061273102E30060FEB7 /* GetMyIdUseCaseTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC9F1068273102E30060FEB7 /* Build configuration list for PBXNativeTarget "DooldaTests" */;
+			buildConfigurationList = FC9F1068273102E30060FEB7 /* Build configuration list for PBXNativeTarget "GetMyIdUseCaseTest" */;
 			buildPhases = (
 				FC9F105E273102E30060FEB7 /* Sources */,
 				FC9F105F273102E30060FEB7 /* Frameworks */,
@@ -364,9 +364,9 @@
 			dependencies = (
 				FC9F1067273102E30060FEB7 /* PBXTargetDependency */,
 			);
-			name = DooldaTests;
+			name = GetMyIdUseCaseTest;
 			productName = DooldaTests;
-			productReference = FC9F1062273102E30060FEB7 /* DooldaTests.xctest */;
+			productReference = FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -407,7 +407,7 @@
 			projectRoot = "";
 			targets = (
 				664893BC273007ED009F03E2 /* Doolda */,
-				FC9F1061273102E30060FEB7 /* DooldaTests */,
+				FC9F1061273102E30060FEB7 /* GetMyIdUseCaseTest */,
 			);
 		};
 /* End PBXProject section */
@@ -735,7 +735,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC9F1068273102E30060FEB7 /* Build configuration list for PBXNativeTarget "DooldaTests" */ = {
+		FC9F1068273102E30060FEB7 /* Build configuration list for PBXNativeTarget "GetMyIdUseCaseTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC9F1069273102E30060FEB7 /* Debug */,
