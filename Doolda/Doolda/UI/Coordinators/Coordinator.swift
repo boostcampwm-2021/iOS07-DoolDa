@@ -23,7 +23,7 @@ class Coordinator {
     
     func removeFromParent() {
         guard let parent = parent else { return }
-        parent.children = parent.children.filter { $0 == self }
+        parent.children = parent.children.filter { $0 != self }
     }
 }
 
