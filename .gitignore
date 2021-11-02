@@ -140,4 +140,7 @@ iOSInjectionProject/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+# Firebase Property List
+GoogleService-Info.plist
+
 # End of https://www.toptal.com/developers/gitignore/api/swift,cocoapods,macos,xcode
