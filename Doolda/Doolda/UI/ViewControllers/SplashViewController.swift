@@ -13,6 +13,13 @@ final class SplashViewController: UIViewController {
 
     // MARK: - Publics Properties
 
+    let background: UIImageView = {
+        var imageView = UIImageView(frame: UIScreen.main.bounds)
+        imageView.image = UIImage.splashBackground
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+
     let titleLabel: UILabel = {
         var label = UILabel()
         label.text = "둘다"
@@ -46,7 +53,7 @@ final class SplashViewController: UIViewController {
 
     // MARK: - Helpers
     private func configureUI() {
-
+        
     }
 
 }
