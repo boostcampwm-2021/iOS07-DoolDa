@@ -8,7 +8,12 @@
 import Foundation
 import Combine
 
-final class GetMyIdUsecase: GetMyIdUsecaseProtocol {
+protocol GetMyIdUseCaseProtocol {
+    func getMyId() -> AnyPublisher<String, Error>
+    
+}
+
+final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
     private let userRepository: UserRepositoryProtocol
         
     init(userRepository: UserRepositoryProtocol) {
