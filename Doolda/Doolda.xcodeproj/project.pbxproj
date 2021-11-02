@@ -13,6 +13,7 @@
 		1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232EE2731117100A9AD6B /* UIControl+Extensions.swift */; };
 		1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F227313D7300A9AD6B /* UIGestureRecognizer+Extensions.swift */; };
 		1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */; };
+		1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */; };
 		1DDAF0462730CE14006CD027 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0452730CE14006CD027 /* FirebaseAnalytics */; };
 		1DDAF0482730CE14006CD027 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0472730CE14006CD027 /* FirebaseAuth */; };
 		1DDAF04A2730CE14006CD027 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0492730CE14006CD027 /* FirebaseDatabase */; };
@@ -56,6 +57,7 @@
 		1D6232EE2731117100A9AD6B /* UIControl+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232F227313D7300A9AD6B /* UIGestureRecognizer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 		664893D827300972009F03E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
 				664893F62730242F009F03E2 /* Coordinator.swift in Sources */,
+				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
