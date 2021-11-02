@@ -5,12 +5,11 @@
 //  Created by 김민주 on 2021/11/02.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 protocol GetMyIdUseCaseProtocol {
     func getMyId() -> AnyPublisher<String, Error>
-    
 }
 
 final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
