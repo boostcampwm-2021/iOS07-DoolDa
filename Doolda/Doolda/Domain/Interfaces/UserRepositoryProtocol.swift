@@ -5,8 +5,8 @@
 //  Created by 김민주 on 2021/11/02.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 protocol UserRepositoryProtocol {
     func fetchMyId() -> AnyPublisher<String, Error>
@@ -14,6 +14,4 @@ protocol UserRepositoryProtocol {
 
     func saveMyId(_ id : String)
     func savePairId(_ id: String)
-    
-    func getGlobalFont() -> String
 }

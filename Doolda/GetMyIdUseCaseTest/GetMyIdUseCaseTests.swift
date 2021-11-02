@@ -31,10 +31,6 @@ class GetMyIdUseCaseTests: XCTestCase {
             func saveMyId(_ id: String) {}
             
             func savePairId(_ id: String) {}
-            
-            func getGlobalFont() -> String {
-                return "font"
-            }
         }
         
         self.dummyRepository = DummyRepository()
@@ -75,10 +71,6 @@ class GetMyIdUseCaseTests: XCTestCase {
             func saveMyId(_ id: String) {}
             
             func savePairId(_ id: String) {}
-            
-            func getGlobalFont() -> String {
-                return "font"
-            }
         }
         
         self.dummyRepository = DummyRepository()
