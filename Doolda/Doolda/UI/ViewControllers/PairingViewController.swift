@@ -46,13 +46,14 @@ class PairingViewController: UIViewController {
         return label
     }()
     
-    private lazy var myIdLabel: UILabel = {
-        let label = UILabel()
+    private lazy var myIdLabel: CopyableLabel = {
+        let label = CopyableLabel()
         // MARK: - FIXME : change font to global font
         label.font = .systemFont(ofSize: 16, weight: .regular)
         label.textColor = .dooldaLabel
         label.textAlignment = .center
         label.text = "12345678–1234–1234–1234–1234567890ab"
+//        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -179,7 +180,7 @@ class PairingViewController: UIViewController {
             })
 //            .assign(to: \.friendId, on: viewModel)
             .store(in: &cancellables)
-            
+        
         self.pairButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
