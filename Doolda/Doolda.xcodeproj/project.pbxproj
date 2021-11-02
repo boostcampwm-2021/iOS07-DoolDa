@@ -26,6 +26,7 @@
 		664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F927302905009F03E2 /* SplashViewCoordinator.swift */; };
 		664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FB27302947009F03E2 /* SplashViewModel.swift */; };
 		664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
+		FC9F10582730F0060060FEB7 /* GetMyIdUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUsecase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F105D2730F8720060FEB7 /* GetMyIdUsecasePorotocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105C2730F8720060FEB7 /* GetMyIdUsecasePorotocol.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		664893F927302905009F03E2 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
 		664893FB27302947009F03E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		FC9F10572730F0060060FEB7 /* GetMyIdUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUsecase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FC9F105C2730F8720060FEB7 /* GetMyIdUsecasePorotocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUsecasePorotocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +234,7 @@
 		664893E327300AA7009F03E2 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				FC9F10572730F0060060FEB7 /* GetMyIdUsecase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
 				664893F62730242F009F03E2 /* Coordinator.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
+				FC9F10582730F0060060FEB7 /* GetMyIdUsecase.swift in Sources */,
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
 				FC9F105D2730F8720060FEB7 /* GetMyIdUsecasePorotocol.swift in Sources */,
