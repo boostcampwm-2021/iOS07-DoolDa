@@ -15,4 +15,14 @@ class SplashViewCoordinator: Coordinator {
     }
 }
 
-extension SplashViewCoordinator: SplashViewCoordinatorDelegate { }
+extension SplashViewCoordinator: SplashViewCoordinatorDelegate {
+    func presentParingViewController() {
+        // ParingViewCoordinator 생성
+        // parent, child 설정
+    }
+
+    func presentDiaryViewController() {
+        // DiaryViewCoordinator 생성
+        // parent, child 설정
+    }
+}
