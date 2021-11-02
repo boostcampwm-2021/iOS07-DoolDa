@@ -13,9 +13,9 @@ final class SplashViewController: UIViewController {
 
     // MARK: - Publics Properties
 
-    let background: UIImageView = {
-        var imageView = UIImageView(frame: UIScreen.main.bounds)
-        imageView.image = UIImage.splashBackground
+    let backgroundImage: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage.hedgehogs
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -49,11 +49,19 @@ final class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
     }
 
     // MARK: - Helpers
     private func configureUI() {
-        
+        view.addSubview(backgroundImage)
+        backgroundImage.snp.makeConstraints { make in
+            make.height.equalTo(backgroundImage.snp.width)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
+        }
     }
 
 }
