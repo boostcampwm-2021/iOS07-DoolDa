@@ -17,12 +17,14 @@ class SplashViewCoordinator: Coordinator {
 
 extension SplashViewCoordinator: SplashViewCoordinatorDelegate {
     func presentParingViewController() {
-        // ParingViewCoordinator 생성
-        // parent, child 설정
+        let paringViewCoordinator = ParingViewCoordinator(presenter: self.presenter, parent: self)
+        self.add(child: paringViewCoordinator)
+        paringViewCoordinator.start()
     }
 
     func presentDiaryViewController() {
-        // DiaryViewCoordinator 생성
-        // parent, child 설정
+        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self)
+        self.add(child: diaryViewCoordinator)
+        diaryViewCoordinator.start()
     }
 }
