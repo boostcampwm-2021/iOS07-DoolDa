@@ -12,8 +12,8 @@ protocol UserRepositoryProtocol {
     func fetchMyId() -> AnyPublisher<String, Error>
     func fetchPairId() -> AnyPublisher<String, Error>
 
-    func saveMyId(_id : String)
-    func save(pairId: String)
+    func saveMyId(_ id : String)
+    func savePairId(_ id: String)
     
     func getGlobalFont() -> String
 }
