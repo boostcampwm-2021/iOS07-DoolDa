@@ -26,6 +26,7 @@
 		664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F927302905009F03E2 /* SplashViewCoordinator.swift */; };
 		664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FB27302947009F03E2 /* SplashViewModel.swift */; };
 		664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
+		664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664894172730F1B0009F03E2 /* PairingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		664893F927302905009F03E2 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
 		664893FB27302947009F03E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		664894172730F1B0009F03E2 /* PairingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				664893FB27302947009F03E2 /* SplashViewModel.swift */,
+				664894172730F1B0009F03E2 /* PairingViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
+				664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
 			);
