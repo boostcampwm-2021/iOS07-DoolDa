@@ -27,6 +27,7 @@
 		664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FB27302947009F03E2 /* SplashViewModel.swift */; };
 		664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
+		FC9F105D2730F8720060FEB7 /* GetMyIdUsecasePorotocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105C2730F8720060FEB7 /* GetMyIdUsecasePorotocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		664893FB27302947009F03E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
+		FC9F105C2730F8720060FEB7 /* GetMyIdUsecasePorotocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUsecasePorotocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */,
+				FC9F105C2730F8720060FEB7 /* GetMyIdUsecasePorotocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
+				FC9F105D2730F8720060FEB7 /* GetMyIdUsecasePorotocol.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
