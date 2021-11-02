@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */; };
+		1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */; };
 		1DDAF0462730CE14006CD027 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0452730CE14006CD027 /* FirebaseAnalytics */; };
 		1DDAF0482730CE14006CD027 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0472730CE14006CD027 /* FirebaseAuth */; };
 		1DDAF04A2730CE14006CD027 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0492730CE14006CD027 /* FirebaseDatabase */; };
@@ -48,6 +49,7 @@
 /* Begin PBXFileReference section */
 		1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewController.swift; sourceTree = "<group>"; };
 		1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */,
+				1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				664893F62730242F009F03E2 /* Coordinator.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
+				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
