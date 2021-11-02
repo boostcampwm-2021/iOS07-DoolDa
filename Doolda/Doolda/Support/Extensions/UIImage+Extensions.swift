@@ -9,4 +9,5 @@ import UIKit
 
 extension UIImage {
     static let refresh = UIImage(systemName: "arrow.clockwise")
+    static let hedgehogs = UIImage(named: "hedgehogs")
 }
