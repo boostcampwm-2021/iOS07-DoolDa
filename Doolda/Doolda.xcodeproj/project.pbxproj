@@ -13,7 +13,6 @@
 		1DDAF04C2730CE14006CD027 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04B2730CE14006CD027 /* FirebaseFirestore */; };
 		1DDAF04E2730CE14006CD027 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04D2730CE14006CD027 /* FirebaseMessaging */; };
 		1DDAF0502730CE14006CD027 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04F2730CE14006CD027 /* FirebaseStorage */; };
-		1DDAF0522730D268006CD027 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DDAF0512730D267006CD027 /* GoogleService-Info.plist */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
 		664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C2273007ED009F03E2 /* SceneDelegate.swift */; };
 		664893CA273007F1009F03E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664893C9273007F1009F03E2 /* Assets.xcassets */; };
@@ -30,7 +29,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		664893C2273007ED009F03E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 		664893BF273007ED009F03E2 /* Doolda */ = {
 			isa = PBXGroup;
 			children = (
-				1DDAF0512730D267006CD027 /* GoogleService-Info.plist */,
 				664893D4273008C2009F03E2 /* Application */,
 				664893D52730090B009F03E2 /* Resources */,
 				664893E927300B59009F03E2 /* Support */,
@@ -362,7 +359,6 @@
 			files = (
 				664893CD273007F1009F03E2 /* LaunchScreen.storyboard in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
-				1DDAF0522730D268006CD027 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
