@@ -171,5 +171,12 @@ class PairingViewController: UIViewController {
             }
             .store(in: &cancellables)
         
-    }
+        self.pairButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                print("pair button did tap")
+//                self?.viewModel.pairButtonDidTap()
+            }
+            .store(in: &cancellables)
+        
 }
