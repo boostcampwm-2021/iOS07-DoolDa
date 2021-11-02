@@ -9,6 +9,5 @@ import Combine
 import Foundation
 
 protocol GeneratePairIdUseCaseProtocol {
-    func checkIfUserIdExist(id: UUID) -> AnyPublisher<Bool, Error>
-    func generatePairId(myId: UUID, friendId: UUID) -> AnyPublisher<UUID, Error>
+    func generatePairId(myId: String, friendId: String) -> AnyPublisher<String, Error>
 }

@@ -26,70 +26,52 @@ enum PairingViewModelError: LocalizedError {
 }
 
 protocol PairingViewModelInput {
-    func changeFriend(id: String)
     func pairUpWithUsers()
 }
 
 protocol PairingViewModelOutput {
-    var pairIdPublisher: Published<UUID?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
+    var pairId: String? { get }
+    var error: Error? { get }
 }
 
 typealias PairingViewModelProtocol = PairingViewModelInput & PairingViewModelOutput
 
 final class PairingViewModel: PairingViewModelProtocol {
-    var pairIdPublisher: Published<UUID?>.Publisher { self.$pairId }
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
-    
-    private let myId: UUID
+    private let myId: String
     private let generatePairIdUseCase: GeneratePairIdUseCaseProtocol
     
-    private var friendId: UUID?
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published private var pairId: UUID?
-    @Published private var error: Error?
+    @Published var friendId: String? = ""
+    @Published var pairId: String? = ""
+    @Published var error: Error?
     
-    init(myId: UUID, generatePairIdUseCase: GeneratePairIdUseCaseProtocol) {
+    lazy var isValidFriendId: AnyPublisher<Bool, Never> = $friendId
+        .map { self.isValid(UUID: $0) }
+        .eraseToAnyPublisher()
+    
+    init(myId: String, generatePairIdUseCase: GeneratePairIdUseCaseProtocol) {
         self.myId = myId
         self.generatePairIdUseCase = generatePairIdUseCase
     }
     
-    func changeFriend(id: String) {
-        self.friendId = UUID(uuidString: id)
-        
-        if id.isEmpty {
-            self.error = PairingViewModelError.friendIdIsEmpty
-        } else if self.friendId == nil {
-            self.error = PairingViewModelError.friendIdIsInvalid
-        } else {
-            self.error = nil
-        }
-    }
-    
     func pairUpWithUsers() {
-        guard let friendId = friendId else {
+        guard let friendId = self.friendId, isValid(UUID: friendId) else {
             return self.error = PairingViewModelError.friendIdIsInvalid
         }
         
-        self.generatePairIdUseCase.checkIfUserIdExist(id: friendId).sink { completion in
-            if case let .failure(error) = completion {
-                self.error = error
-            }
-        } receiveValue: { result in
-            if result {
-                self.error = PairingViewModelError.friendIsAlreadyPairedWithAnotherUser
-            } else {
-                self.generatePairIdUseCase.generatePairId(myId: self.myId, friendId: friendId).sink { completion in
-                    if case let .failure(error) = completion {
-                        self.error = error
-                    }
-                } receiveValue: { pairId in
-                    self.pairId = pairId
+        self.generatePairIdUseCase.generatePairId(myId: self.myId, friendId: friendId)
+            .sink { [weak self] completion in
+                if case let .failure(error)  = completion {
+                    self?.error = error
                 }
-                .store(in: &self.cancellables)
+            } receiveValue: { [weak self] pairId in
+                self?.pairId = pairId
             }
-        }
-        .store(in: &self.cancellables)
+            .store(in: &cancellables)
+    }
+    
+    private func isValid(UUID id: String?) -> Bool {
+        return UUID(uuidString: id ?? "") != nil
     }
 }
