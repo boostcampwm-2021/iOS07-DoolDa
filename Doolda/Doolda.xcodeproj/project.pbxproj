@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1DDAF0462730CE14006CD027 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0452730CE14006CD027 /* FirebaseAnalytics */; };
 		1DDAF0482730CE14006CD027 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0472730CE14006CD027 /* FirebaseAuth */; };
 		1DDAF04A2730CE14006CD027 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0492730CE14006CD027 /* FirebaseDatabase */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewController.swift; sourceTree = "<group>"; };
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				664893F3273023D3009F03E2 /* SplashViewController.swift */,
+				1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
+				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
