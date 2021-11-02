@@ -33,11 +33,12 @@ protocol PairingViewModelOutput {
 typealias PairingViewModelProtocol = PairingViewModelInput & PairingViewModelOutput
 
 final class PairingViewModel: PairingViewModelProtocol {
-    let myId: UUID
-    
-    var friendId: UUID?
     var errorPublisher: Published<Error?>.Publisher { $error }
-    @Published var error: Error?
+    
+    private let myId: UUID
+    
+    private var friendId: UUID?
+    @Published private var error: Error?
     
     init(myId: UUID) {
         self.myId = myId
