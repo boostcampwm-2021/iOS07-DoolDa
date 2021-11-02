@@ -325,7 +325,6 @@
 		664893BF273007ED009F03E2 /* Doolda */ = {
 			isa = PBXGroup;
 			children = (
-				1DDAF0512730D267006CD027 /* GoogleService-Info.plist */,
 				664893D4273008C2009F03E2 /* Application */,
 				664893D52730090B009F03E2 /* Resources */,
 				664893E927300B59009F03E2 /* Support */,
