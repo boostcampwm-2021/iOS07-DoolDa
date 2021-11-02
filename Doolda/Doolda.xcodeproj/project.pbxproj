@@ -28,7 +28,20 @@
 		664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
+		FC9F1065273102E30060FEB7 /* GetMyIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */; };
+		FC9F106B2731035E0060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
+		FC9F106C2731035E0060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FC9F1066273102E30060FEB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 664893BC273007ED009F03E2;
+			remoteInfo = Doolda;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -46,6 +59,8 @@
 		664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
+		FC9F1062273102E30060FEB7 /* DooldaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DooldaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +79,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC9F105F273102E30060FEB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -71,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				664893BF273007ED009F03E2 /* Doolda */,
+				FC9F1063273102E30060FEB7 /* DooldaTests */,
 				664893BE273007ED009F03E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				664893BD273007ED009F03E2 /* Doolda.app */,
+				FC9F1062273102E30060FEB7 /* DooldaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,6 +312,14 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		FC9F1063273102E30060FEB7 /* DooldaTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */,
+			);
+			path = DooldaTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -319,6 +351,24 @@
 			productReference = 664893BD273007ED009F03E2 /* Doolda.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FC9F1061273102E30060FEB7 /* DooldaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC9F1068273102E30060FEB7 /* Build configuration list for PBXNativeTarget "DooldaTests" */;
+			buildPhases = (
+				FC9F105E273102E30060FEB7 /* Sources */,
+				FC9F105F273102E30060FEB7 /* Frameworks */,
+				FC9F1060273102E30060FEB7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC9F1067273102E30060FEB7 /* PBXTargetDependency */,
+			);
+			name = DooldaTests;
+			productName = DooldaTests;
+			productReference = FC9F1062273102E30060FEB7 /* DooldaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -330,6 +380,9 @@
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					664893BC273007ED009F03E2 = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					FC9F1061273102E30060FEB7 = {
 						CreatedOnToolsVersion = 13.0;
 					};
 				};
@@ -354,6 +407,7 @@
 			projectRoot = "";
 			targets = (
 				664893BC273007ED009F03E2 /* Doolda */,
+				FC9F1061273102E30060FEB7 /* DooldaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -366,6 +420,13 @@
 				664893CD273007F1009F03E2 /* LaunchScreen.storyboard in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
 				1DDAF0522730D268006CD027 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC9F1060273102E30060FEB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +470,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC9F105E273102E30060FEB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC9F106B2731035E0060FEB7 /* GetMyIdUseCase.swift in Sources */,
+				FC9F106C2731035E0060FEB7 /* UserRepositoryProtocol.swift in Sources */,
+				FC9F1065273102E30060FEB7 /* GetMyIdUseCaseTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FC9F1067273102E30060FEB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 664893BC273007ED009F03E2 /* Doolda */;
+			targetProxy = FC9F1066273102E30060FEB7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		664893CB273007F1009F03E2 /* LaunchScreen.storyboard */ = {
@@ -593,6 +672,48 @@
 			};
 			name = Release;
 		};
+		FC9F1069273102E30060FEB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9DGN7522H6;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = test.DooldaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FC9F106A273102E30060FEB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9DGN7522H6;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = test.DooldaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -610,6 +731,15 @@
 			buildConfigurations = (
 				664893D2273007F1009F03E2 /* Debug */,
 				664893D3273007F1009F03E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC9F1068273102E30060FEB7 /* Build configuration list for PBXNativeTarget "DooldaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC9F1069273102E30060FEB7 /* Debug */,
+				FC9F106A273102E30060FEB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
