@@ -9,13 +9,13 @@ import Combine
 import Foundation
 
 enum PairingViewModelError: LocalizedError {
-    case friendIdIsNotInvalid
+    case friendIdIsInvalid
     case friendIdIsEmpty
     case friendIsAlreadyPairedWithAnotherUser
     
     var errorDescription: String? {
         switch self {
-        case .friendIdIsNotInvalid:
+        case .friendIdIsInvalid:
             return "유효하지 않은 친구 ID 입니다."
         case .friendIdIsEmpty:
             return "친구 ID가 비어있습니다."
@@ -61,7 +61,7 @@ final class PairingViewModel: PairingViewModelProtocol {
         if id.isEmpty {
             self.error = PairingViewModelError.friendIdIsEmpty
         } else if self.friendId == nil {
-            self.error = PairingViewModelError.friendIdIsNotInvalid
+            self.error = PairingViewModelError.friendIdIsInvalid
         } else {
             self.error = nil
         }
@@ -69,7 +69,7 @@ final class PairingViewModel: PairingViewModelProtocol {
     
     func pairUpWithUsers() {
         guard let friendId = friendId else {
-            return self.error = PairingViewModelError.friendIdIsNotInvalid
+            return self.error = PairingViewModelError.friendIdIsInvalid
         }
         
         self.generatePairIdUseCase.checkIfUserIdExist(id: friendId).sink { _ in
