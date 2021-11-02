@@ -24,6 +24,7 @@ final class SplashViewController: UIViewController {
         var label = UILabel()
         label.text = "둘다"
         label.textColor = UIColor.dooldaLabel
+        label.textAlignment = .center
         return label
     }()
 
@@ -31,6 +32,7 @@ final class SplashViewController: UIViewController {
         var label = UILabel()
         label.text = "우리 둘만의 다이어리"
         label.textColor = UIColor.dooldaLabel
+        label.textAlignment = .center
         return label
     }()
     
@@ -50,10 +52,13 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureFont()
     }
 
     // MARK: - Helpers
     private func configureUI() {
+        view.backgroundColor = UIColor.splashBackground
+
         view.addSubview(backgroundImage)
         backgroundImage.snp.makeConstraints { make in
             make.height.equalTo(backgroundImage.snp.width)
@@ -62,6 +67,25 @@ final class SplashViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
+
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(view.frame.height * 0.20)
+        }
+
+        view.addSubview(subtitleLabel)
+        subtitleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(30)
+        }
+    }
+
+    private func configureFont() {
+        titleLabel.font = UIFont.systemFont(ofSize: 72, weight: .medium)
+        subtitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
     }
 
 }
