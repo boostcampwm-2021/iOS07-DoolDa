@@ -179,4 +179,11 @@ class PairingViewController: UIViewController {
             }
             .store(in: &cancellables)
         
+//        self.viewModel.$isFriendIdValid
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] isValid in
+//                self?.pairButton.isEnabled = isValid
+//            }
+//            .store(in: &cancellables)
+    }
 }
