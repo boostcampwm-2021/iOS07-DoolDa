@@ -194,6 +194,13 @@ class PairingViewController: UIViewController {
 //            .sink { [weak self] isValid in
 //                self?.pairButton.isEnabled = isValid
 //            }
-//            .store(in: &cancellables)
+//            .store(in: &cancellables)cellables)
+        
+        self.view.publisher(for: UITapGestureRecognizer())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.friendIdTextField.resignFirstResponder()
+            }
+            .store(in: &cancellables)
     }
 }
