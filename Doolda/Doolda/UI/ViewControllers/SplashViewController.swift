@@ -7,7 +7,25 @@
 
 import UIKit
 
+import SnapKit
+
 final class SplashViewController: UIViewController {
+
+    // MARK: - Publics Properties
+
+    let titleLabel: UILabel = {
+        var label = UILabel()
+        label.text = "둘다"
+        label.textColor = UIColor.dooldaLabel
+        return label
+    }()
+
+    let subtitleLabel: UILabel = {
+        var label = UILabel()
+        label.text = "우리 둘만의 다이어리"
+        label.textColor = UIColor.dooldaLabel
+        return label
+    }()
     
     // MARK: - Private Properties
     
@@ -25,4 +43,10 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
+    // MARK: - Helpers
+    private func configureUI() {
+
+    }
+
 }
