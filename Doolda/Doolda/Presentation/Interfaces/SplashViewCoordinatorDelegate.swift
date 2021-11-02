@@ -8,5 +8,6 @@
 import Foundation
 
 protocol SplashViewCoordinatorDelegate {
-    
+    func presentParingViewController()
+    func presentDiaryViewController()
 }
