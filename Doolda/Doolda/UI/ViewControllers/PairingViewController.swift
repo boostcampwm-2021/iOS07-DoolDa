@@ -5,6 +5,7 @@
 //  Created by Seunghun Yang on 2021/11/02.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -109,11 +110,16 @@ class PairingViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Private Properties
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.bindUI()
     }
     
     // MARK: - Helpers
@@ -152,5 +158,18 @@ class PairingViewController: UIViewController {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         }
+    }
+    
+    // MARK: - FIXME : ViewModel binding needed
+    
+    private func bindUI() {
+        self.refreshButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                print("refresh button did tap")
+//                self?.viewModel.refreshButtonDidTap()
+            }
+            .store(in: &cancellables)
+        
     }
 }
