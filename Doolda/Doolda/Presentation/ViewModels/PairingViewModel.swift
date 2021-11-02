@@ -72,14 +72,18 @@ final class PairingViewModel: PairingViewModelProtocol {
             return self.error = PairingViewModelError.friendIdIsInvalid
         }
         
-        self.generatePairIdUseCase.checkIfUserIdExist(id: friendId).sink { _ in
-            return
+        self.generatePairIdUseCase.checkIfUserIdExist(id: friendId).sink { completion in
+            if case let .failure(error) = completion {
+                self.error = error
+            }
         } receiveValue: { result in
             if result {
                 self.error = PairingViewModelError.friendIsAlreadyPairedWithAnotherUser
             } else {
-                self.generatePairIdUseCase.generatePairId(myId: self.myId, friendId: friendId).sink { _ in
-                    return
+                self.generatePairIdUseCase.generatePairId(myId: self.myId, friendId: friendId).sink { completion in
+                    if case let .failure(error) = completion {
+                        self.error = error
+                    }
                 } receiveValue: { pairId in
                     self.pairId = pairId
                 }
