@@ -11,8 +11,26 @@ import Combine
 class PairingViewModelTests: XCTestCase {
     private var pairingViewModel: PairingViewModelProtocol?
     
+    class MockGeneratePairIdUseCase: GeneratePairIdUseCaseProtocol {
+        func checkIfUserIdExist(id: UUID) -> AnyPublisher<Bool, Error> {
+            let future = Future<Bool, Error>.init { promise in
+                promise(.success(true))
+            }
+            
+            return future.eraseToAnyPublisher()
+        }
+        
+        func generatePairId(myId: UUID, friendId: UUID) -> AnyPublisher<UUID, Error> {
+            let future = Future<UUID, Error>.init { promise in
+                promise(.success(UUID()))
+            }
+            
+            return future.eraseToAnyPublisher()
+        }
+    }
+    
     override func setUpWithError() throws {
-        self.pairingViewModel = PairingViewModel(myId: UUID())
+        self.pairingViewModel = PairingViewModel(myId: UUID(), generatePairIdUseCase: MockGeneratePairIdUseCase())
     }
 
     override func tearDownWithError() throws {
