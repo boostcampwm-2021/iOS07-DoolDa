@@ -5,8 +5,8 @@
 //  Created by 정지승 on 2021/11/02.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 protocol GeneratePairIdUseCaseProtocol {
     func checkIfUserIdExist(id: UUID) -> AnyPublisher<Bool, Error>
