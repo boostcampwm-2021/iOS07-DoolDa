@@ -578,11 +578,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< dev
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
-=======
 				FC5FB79027325C4D008AC3D2 /* User.swift in Sources */,
->>>>>>> (#55) ✨: User DataTransferObject  구현
 				FC5FB79827327861008AC3D2 /* FirebaseDocument.swift in Sources */,
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
 				1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */,
