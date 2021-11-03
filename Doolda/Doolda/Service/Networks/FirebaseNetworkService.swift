@@ -23,6 +23,33 @@ class FirebaseNetworkService: FirebaseNetworkProtocol {
         }
     }
     
+    func setDocument(path: String? = nil, in collection: String, with data: [String: Any]) -> AnyPublisher<Bool, Error> {
+        let database = Firestore.firestore()
+        if let path = path {
+            let documentReference = database.collection(collection).document(path)
+            return Future<Bool, Error> { promise in
+                documentReference.setData(data) { error in
+                    if let error = error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(true))
+                    }
+                }
+            }.eraseToAnyPublisher()
+        } else {
+            let randomDocumentReference = database.collection(collection).document()
+            return Future<Bool, Error> { promise in
+                randomDocumentReference.setData(data) { error in
+                    if let error = error {
+                        promise(.failure(error))
+                    } else {
+                        promise(.success(true))
+                    }
+                }
+            }.eraseToAnyPublisher()
+        }
+    }
+
     func getDocument(path: String, in collection: String) -> AnyPublisher<[String: Any], Error> {
         let database = Firestore.firestore()
         let documentReference: DocumentReference = database.collection(collection).document(path)
