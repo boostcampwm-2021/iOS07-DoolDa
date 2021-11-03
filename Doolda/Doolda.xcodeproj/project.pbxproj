@@ -46,12 +46,20 @@
 		FC9F106C2731035E0060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F10702731323C0060FEB7 /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */; };
 		FC9F1078273139040060FEB7 /* FirebaseNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */; };
+		FC9F108227315EB80060FEB7 /* FirebaseNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */; };
 		FC9F108927315EEB0060FEB7 /* FirebaseNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */; };
 		FC9F108A27315EEB0060FEB7 /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		FC9F1066273102E30060FEB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 664893BC273007ED009F03E2;
+			remoteInfo = Doolda;
+		};
+		FC9F108327315EB80060FEB7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
 			proxyType = 1;
@@ -92,6 +100,8 @@
 		FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseTests.swift; sourceTree = "<group>"; };
 		FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkService.swift; sourceTree = "<group>"; };
 		FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkProtocol.swift; sourceTree = "<group>"; };
+		FC9F107F27315EB80060FEB7 /* FirebaseNetworkTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FirebaseNetworkTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +127,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC9F107C27315EB80060FEB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -133,6 +150,7 @@
 			children = (
 				664893BF273007ED009F03E2 /* Doolda */,
 				FC9F1063273102E30060FEB7 /* GetMyIdUseCaseTest */,
+				FC9F108027315EB80060FEB7 /* FirebaseNetworkTest */,
 				664893BE273007ED009F03E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -142,6 +160,7 @@
 			children = (
 				664893BD273007ED009F03E2 /* Doolda.app */,
 				FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */,
+				FC9F107F27315EB80060FEB7 /* FirebaseNetworkTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -373,6 +392,14 @@
 			path = GetMyIdUseCaseTest;
 			sourceTree = "<group>";
 		};
+		FC9F108027315EB80060FEB7 /* FirebaseNetworkTest */ = {
+			isa = PBXGroup;
+			children = (
+				FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */,
+			);
+			path = FirebaseNetworkTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -422,6 +449,24 @@
 			productReference = FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FC9F107E27315EB80060FEB7 /* FirebaseNetworkTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC9F108527315EB80060FEB7 /* Build configuration list for PBXNativeTarget "FirebaseNetworkTest" */;
+			buildPhases = (
+				FC9F107B27315EB80060FEB7 /* Sources */,
+				FC9F107C27315EB80060FEB7 /* Frameworks */,
+				FC9F107D27315EB80060FEB7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC9F108427315EB80060FEB7 /* PBXTargetDependency */,
+			);
+			name = FirebaseNetworkTest;
+			productName = FirebaseNetworkTest;
+			productReference = FC9F107F27315EB80060FEB7 /* FirebaseNetworkTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -437,6 +482,10 @@
 					};
 					FC9F1061273102E30060FEB7 = {
 						CreatedOnToolsVersion = 13.0;
+					};
+					FC9F107E27315EB80060FEB7 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 664893BC273007ED009F03E2;
 					};
 				};
 			};
@@ -461,6 +510,7 @@
 			targets = (
 				664893BC273007ED009F03E2 /* Doolda */,
 				FC9F1061273102E30060FEB7 /* GetMyIdUseCaseTest */,
+				FC9F107E27315EB80060FEB7 /* FirebaseNetworkTest */,
 			);
 		};
 /* End PBXProject section */
@@ -478,6 +528,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FC9F1060273102E30060FEB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC9F107D27315EB80060FEB7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -550,9 +607,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC9F107B27315EB80060FEB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 				FC5FB79127325D2C008AC3D2 /* User.swift in Sources */,
 				FC9F108927315EEB0060FEB7 /* FirebaseNetworkProtocol.swift in Sources */,
 				FC9F108A27315EEB0060FEB7 /* FirebaseNetworkService.swift in Sources */,
+				FC9F108227315EB80060FEB7 /* FirebaseNetworkTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -560,6 +625,11 @@
 			isa = PBXTargetDependency;
 			target = 664893BC273007ED009F03E2 /* Doolda */;
 			targetProxy = FC9F1066273102E30060FEB7 /* PBXContainerItemProxy */;
+		};
+		FC9F108427315EB80060FEB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 664893BC273007ED009F03E2 /* Doolda */;
+			targetProxy = FC9F108327315EB80060FEB7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -787,6 +857,52 @@
 			};
 			name = Release;
 		};
+		FC9F108627315EB80060FEB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9DGN7522H6;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = test.FirebaseNetworkTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Debug;
+		};
+		FC9F108727315EB80060FEB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9DGN7522H6;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = test.FirebaseNetworkTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -813,6 +929,15 @@
 			buildConfigurations = (
 				FC9F1069273102E30060FEB7 /* Debug */,
 				FC9F106A273102E30060FEB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC9F108527315EB80060FEB7 /* Build configuration list for PBXNativeTarget "FirebaseNetworkTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC9F108627315EB80060FEB7 /* Debug */,
+				FC9F108727315EB80060FEB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

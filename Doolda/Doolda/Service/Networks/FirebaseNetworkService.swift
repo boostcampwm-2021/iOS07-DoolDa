@@ -23,7 +23,6 @@ class FirebaseNetworkService: FirebaseNetworkProtocol {
         }
     }
     
-    
     func getDocument(path: String, in collection: String) -> AnyPublisher<[String: Any], Error> {
         let database = Firestore.firestore()
         let documentReference: DocumentReference = database.collection(collection).document(path)
