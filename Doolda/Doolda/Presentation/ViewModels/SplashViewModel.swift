@@ -12,6 +12,7 @@ import Combine
 final class SplashViewModel {
     var myId: String?
     var pairId: String?
+    @Published var networkError: Error?
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -31,8 +32,6 @@ final class SplashViewModel {
     }
 
     func viewDidLoad() {
-        // 식별코드 모두 있다면 coordinatorDelegate.presentDiaryViewController
-        // 없다면 coordinatorDelegate.presentParingViewController
         getMyId()
     }
 
@@ -68,12 +67,17 @@ final class SplashViewModel {
     }
 
     private func generateMyId() {
-
+        generateMyIdUseCase.generateMyId()
+            .sink { result in
+                switch result {
+                case .finished:
+                    self.coordinatorDelegate.presentParingViewController()
+                case .failure(let error):
+                    self.networkError = error
+                }
+            } receiveValue: { myId in
+                self.myId = myId
+            }
+            .store(in: &cancellables)
     }
-
-    // 내 식별코드 가져오기
-    // 내 식별코드가 있다면 그를 이용해 내 pairId를 가져온다
-    // 두 가지중 하나라도 실패하면 paringViewController로 이동하는 플래그 설정
-    // 모두 성공하면 DiaryViewcontroller로 이동
-
 }
