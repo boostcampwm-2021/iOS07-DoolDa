@@ -25,6 +25,10 @@ class Coordinator {
         guard let parent = parent else { return }
         parent.children = parent.children.filter { $0 != self }
     }
+    
+    func start() {
+        fatalError("start method should be implemented")
+    }
 }
 
 extension Coordinator: Equatable {

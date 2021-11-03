@@ -8,6 +8,6 @@
 import Foundation
 
 protocol SplashViewCoordinatorDelegate {
-    func presentParingViewController()
-    func presentDiaryViewController()
+    func userNotPaired(myId: String)
+    func userAlreadyPaired(myId: String, pairId: String)
 }

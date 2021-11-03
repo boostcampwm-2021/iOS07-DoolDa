@@ -8,9 +8,9 @@
 import UIKit
 
 final class AppCoordinator: Coordinator {
-    func start() {
-        let coordinator = SplashViewCoordinator(presenter: self.presenter, parent: self)
-        self.add(child: coordinator)
-        coordinator.start()
+    override func start() {
+        let splashViewCoordinator = SplashViewCoordinator(presenter: self.presenter, parent: self)
+        self.add(child: splashViewCoordinator)
+        splashViewCoordinator.start()
     }
 }

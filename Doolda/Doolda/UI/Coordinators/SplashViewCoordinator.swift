@@ -8,7 +8,7 @@
 import UIKit
 
 class SplashViewCoordinator: Coordinator {
-    func start() {
+    override func start() {
         let viewModel = SplashViewModel(coordinatorDelegate: self)
         let viewController = SplashViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
@@ -16,14 +16,14 @@ class SplashViewCoordinator: Coordinator {
 }
 
 extension SplashViewCoordinator: SplashViewCoordinatorDelegate {
-    func presentParingViewController() {
-        let paringViewCoordinator = ParingViewCoordinator(presenter: self.presenter, parent: self)
+    func userNotPaired(myId: String) {
+        let paringViewCoordinator = PairingViewCoordinator(presenter: self.presenter, parent: self, myId: myId)
         self.add(child: paringViewCoordinator)
         paringViewCoordinator.start()
     }
 
-    func presentDiaryViewController() {
-        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self)
+    func userAlreadyPaired(myId: String, pairId: String) {
+        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, myId: myId, pairId: pairId)
         self.add(child: diaryViewCoordinator)
         diaryViewCoordinator.start()
     }
