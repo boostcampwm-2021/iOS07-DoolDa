@@ -23,7 +23,7 @@ class FirebaseNetworkTest: XCTestCase {
         self.networkService = nil
     }
 
-    func testGetDummyPairId() throws {
+    func testgetDummyPairId() throws {
         guard let networkService = networkService else {
             XCTFail()
             return
@@ -54,7 +54,7 @@ class FirebaseNetworkTest: XCTestCase {
         subscriber.cancel()
     }
     
-    func testGetDummyRecentlyEditedUser() throws {
+    func testgetDummyRecentlyEditedUser() throws {
         guard let networkService = networkService else {
             XCTFail()
             return
