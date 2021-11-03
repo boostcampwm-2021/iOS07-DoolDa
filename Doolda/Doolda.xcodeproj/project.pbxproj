@@ -23,8 +23,6 @@
 		1DDAF04E2730CE14006CD027 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04D2730CE14006CD027 /* FirebaseMessaging */; };
 		1DDAF0502730CE14006CD027 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04F2730CE14006CD027 /* FirebaseStorage */; };
 		1DDAF0522730D268006CD027 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DDAF0512730D267006CD027 /* GoogleService-Info.plist */; };
-		310D80CF273106CA00F15F4F /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80CE273106CA00F15F4F /* UIColor+Extensions.swift */; };
-		310D80D1273112B900F15F4F /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D0273112B900F15F4F /* UIImage+Extensions.swift */; };
 		310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */; };
 		310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
@@ -86,7 +84,6 @@
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		310D80CE273106CA00F15F4F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		310D80D0273112B900F15F4F /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParingViewCoordinator.swift; sourceTree = "<group>"; };
 		310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewCoordinator.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +153,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		310D80E32732841500F15F4F /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				310D80CE273106CA00F15F4F /* UIColor+Extensions.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		664893B4273007ED009F03E2 = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +168,7 @@
 				FC9F1063273102E30060FEB7 /* GetMyIdUseCaseTest */,
 				FC9F108027315EB80060FEB7 /* FirebaseNetworkTest */,
 				664893BE273007ED009F03E2 /* Products */,
+				310D80E32732841500F15F4F /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -594,7 +600,6 @@
 				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
-				310D80CF273106CA00F15F4F /* UIColor+Extensions.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
 				FC9F1078273139040060FEB7 /* FirebaseNetworkProtocol.swift in Sources */,
