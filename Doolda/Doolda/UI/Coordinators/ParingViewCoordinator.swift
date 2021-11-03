@@ -38,3 +38,11 @@ class PairingViewCoordinator: Coordinator {
         self.presenter.pushViewController(viewController, animated: false)
     }
 }
+
+extension PairingViewCoordinator: PairingViewCoordinatorDelegate {
+    func userDidPaired(myId: String, pairId: String) {
+        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, myId: myId, pairId: pairId)
+        self.add(child: diaryViewCoordinator)
+        diaryViewCoordinator.start()
+    }
+}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */; };
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */; };
 		1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */; };
@@ -73,6 +74,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewController.swift; sourceTree = "<group>"; };
 		1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */,
+				1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
+				1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
 				FC5FB7952732627C008AC3D2 /* Pair.swift in Sources */,
