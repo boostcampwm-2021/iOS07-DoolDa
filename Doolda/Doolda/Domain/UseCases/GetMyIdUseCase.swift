@@ -23,3 +23,9 @@ final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
         return userRepository.fetchMyId()
     }
 }
+
+final class MockGetMyIdUseCase: GetMyIdUseCaseProtocol {
+    func getMyId() -> AnyPublisher<String, Error> {
+       return "".publisher.tryMap{_ in return ""}.eraseToAnyPublisher()
+    }
+}
