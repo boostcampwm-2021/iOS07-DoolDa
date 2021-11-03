@@ -13,14 +13,14 @@ final class SplashViewController: UIViewController {
 
     // MARK: - Subviews
 
-    let backgroundImage: UIImageView = {
+    private lazy var backgroundImage: UIImageView = {
         var imageView = UIImageView()
         imageView.image = UIImage.hedgehogs
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
-    let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         var label = UILabel()
         label.text = "둘다"
         label.textColor = UIColor.dooldaLabel
@@ -28,7 +28,7 @@ final class SplashViewController: UIViewController {
         return label
     }()
 
-    let subtitleLabel: UILabel = {
+    private lazy var subtitleLabel: UILabel = {
         var label = UILabel()
         label.text = "우리 둘만의 다이어리"
         label.textColor = UIColor.dooldaLabel
