@@ -5,28 +5,56 @@
 //  Created by Dozzing on 2021/11/04.
 //
 
+import Combine
 import XCTest
 
 class SplashViewModelTest: XCTestCase {
+    private var splashViewModel: SplashViewModel?
+    private var mockGetMyIdUseCase: GetMyIdUseCaseProtocol?
+    private var mockGetPairIdUseCase: GetPairIdUseCaseProtocol?
+    private var mockGenerateMyIdUseCase: GenerateMyIdUseCaseProtocol?
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    enum DummyError: Error {
+        case dummyError
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    class MockGetMyIdUseCase: GetMyIdUseCaseProtocol {
+        private var mockMyId: String?
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        init(mockMyId: String?) {
+            self.mockMyId = mockMyId
+        }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+        func getMyId() -> AnyPublisher<String, Error> {
+            guard let myId = self.mockMyId else {
+                return Result.Publisher(DummyError.dummyError).eraseToAnyPublisher()
+            }
+            return Result.Publisher(myId).eraseToAnyPublisher()
         }
     }
+
+    class MockGetPairIdUseCase: GetPairIdUseCaseProtocol {
+        private var mockPairId: String?
+
+        init(mockPariId: String?) {
+            self.mockPairId = mockPariId
+        }
+
+        func getPairId(with myId: String) -> AnyPublisher<String, Error> {
+            guard let pairId = self.mockPairId else {
+                return Result.Publisher(DummyError.dummyError).eraseToAnyPublisher()
+            }
+            return Result.Publisher(pairId).eraseToAnyPublisher()
+        }
+    }
+
+    override func setUpWithError() throws {
+        self.splashViewModel = nil
+        self.mockGetMyIdUseCase = nil
+        self.mockGetPairIdUseCase = nil
+        self.mockGenerateMyIdUseCase = nil
+    }
+
+    // 내 식별코드 가져오고
 
 }
