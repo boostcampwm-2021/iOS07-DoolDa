@@ -38,31 +38,26 @@ class UserRepository: UserRepositoryProtocol {
 
     func fetchMyId() -> AnyPublisher<String, Error> {
         if let userId: String = self.userDefaultsPersistenceService.get(key: UserRepository.userId) {
-            return Result.Publisher(.success(userId)).eraseToAnyPublisher()
+            return Just(userId).setFailureType(to: Error.self).eraseToAnyPublisher()
         } else {
-            return Result.Publisher(.failure(UserRepositoryError.nilUserId)).eraseToAnyPublisher()
+            return Fail(error: UserRepositoryError.nilUserId).eraseToAnyPublisher()
         }
     }
     
-    func fetchPairId() -> AnyPublisher<String, Error> {
+    func fetchPairId(for id: String) -> AnyPublisher<String, Error> {
         return Future<String, Error> { promise in
-            self.fetchMyId().sink { completion in
-                guard case .failure(let error) = completion else {return}
-                promise(.failure(error))
-            } receiveValue: { userId in
-                self.firebaseNetworkService
-                    .getDocument(path: userId, in: UserRepository.userCollection)
-                    .sink { completion in
-                        guard case .failure(let error) = completion else {return}
-                        promise(.failure(error))
-                    } receiveValue: { document in
-                        guard let user = User(data: document.data) else {
-                            promise(.failure(UserRepositoryError.DTOInitError))
-                            return
-                        }
-                        promise(.success(user.pairId))
-                    }.store(in: &self.disposeBag)
-            }.store(in: &self.disposeBag)
+            self.firebaseNetworkService
+                .getDocument(path: id, in: UserRepository.userCollection)
+                .sink { completion in
+                    guard case .failure(let error) = completion else {return}
+                    promise(.failure(error))
+                } receiveValue: { document in
+                    guard let user = User(data: document.data) else {
+                        promise(.failure(UserRepositoryError.DTOInitError))
+                        return
+                    }
+                    promise(.success(user.pairId))
+                }.store(in: &self.disposeBag)
         }.eraseToAnyPublisher()
     }
     
@@ -103,7 +98,6 @@ class UserRepository: UserRepositoryProtocol {
                     promise(.success(true))
                 }.store(in: &self.disposeBag)
         }.eraseToAnyPublisher()
-        
     }
     
 }
