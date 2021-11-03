@@ -6,7 +6,6 @@
 //  Created by Dozzing on 2021/11/02.
 //
 
-import Foundation
 import UIKit
 
 extension UIColor {
