@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1D0C8BC42732AF780091ACC0 /* GetPairIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetPairIdUseCase.swift */; };
+		1D0C8BD02732B7780091ACC0 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
+		1D0C8BD12732B7BA0091ACC0 /* GetPairIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetPairIdUseCase.swift */; };
 		1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */; };
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */; };
