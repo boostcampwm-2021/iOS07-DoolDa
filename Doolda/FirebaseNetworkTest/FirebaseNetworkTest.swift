@@ -54,4 +54,34 @@ class FirebaseNetworkTest: XCTestCase {
         wait(for: [expectation], timeout: 10)
         subscriber.cancel()
     }
+    
+    func testgetDummyRecentlyEditedUser() throws {
+        guard let networkService = networkService else {
+            XCTFail()
+            return
+        }
+        
+        let expectation = XCTestExpectation()
+        let publisher = networkService.getDocument(path: "some_uuid_for_pair", in: "pair")
+        
+        let subscriber = publisher
+            .sink { completion in
+            switch completion {
+            case .finished:
+                expectation.fulfill()
+                break
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+        } receiveValue: { data in
+            guard let pair = Pair(data: data) else {
+                XCTFail("초기화 에러")
+                return
+            }
+            XCTAssertEqual("some_uuid_for_user", pair.recentlyEditedUser)
+        }
+        
+        wait(for: [expectation], timeout: 10)
+        subscriber.cancel()
+    }
 }
