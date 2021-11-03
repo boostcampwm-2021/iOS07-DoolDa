@@ -11,7 +11,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 class FirebaseNetworkService: FirebaseNetworkProtocol {
-    enum Errors: LocalizedError {
+    enum Errors: Error, LocalizedError {
         case nilResultError
         
         var errorDescription: String? {
@@ -24,9 +24,11 @@ class FirebaseNetworkService: FirebaseNetworkProtocol {
     
     func setDocument(path: String? = nil, in collection: String, with data: [String: Any]) -> AnyPublisher<Bool, Error> {
         let database = Firestore.firestore()
-
+        
         if let path = path {
+            
             let documentReference = database.collection(collection).document(path)
+            
             return Future<Bool, Error> { promise in
                 documentReference.setData(data) { error in
                     if let error = error {
@@ -37,7 +39,9 @@ class FirebaseNetworkService: FirebaseNetworkProtocol {
                 }
             }.eraseToAnyPublisher()
         } else {
+            
             let randomDocumentReference = database.collection(collection).document()
+            
             return Future<Bool, Error> { promise in
                 randomDocumentReference.setData(data) { error in
                     if let error = error {
