@@ -13,7 +13,7 @@ protocol UserRepositoryProtocol {
     func fetchPairId() -> AnyPublisher<String, Error>
 
     func saveMyId(_ id : String) -> AnyPublisher<Bool, Error>
-    func savePairId(_ id: String) -> AnyPublisher<Bool, Error>
+    func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<Bool, Error>
     
     func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error>
 }
