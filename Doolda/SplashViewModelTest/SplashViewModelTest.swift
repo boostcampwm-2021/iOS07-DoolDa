@@ -10,12 +10,26 @@ import XCTest
 
 class SplashViewModelTest: XCTestCase {
     private var splashViewModel: SplashViewModel?
-    private var mockGetMyIdUseCase: GetMyIdUseCaseProtocol?
-    private var mockGetPairIdUseCase: GetPairIdUseCaseProtocol?
-    private var mockGenerateMyIdUseCase: GenerateMyIdUseCaseProtocol?
 
     enum DummyError: Error {
         case dummyError
+    }
+
+    class MockCoordinatorDelegate: SplashViewCoordinatorDelegate {
+        enum Result {
+            case notPaired
+            case alreadyPaired
+        }
+
+        var result: Result?
+
+        func userNotPaired(myId: String) {
+            self.result = .notPaired
+        }
+
+        func userAlreadyPaired(myId: String, pairId: String) {
+            self.result = .alreadyPaired
+        }
     }
 
     class MockGetMyIdUseCase: GetMyIdUseCaseProtocol {
@@ -65,11 +79,22 @@ class SplashViewModelTest: XCTestCase {
 
     override func setUpWithError() throws {
         self.splashViewModel = nil
-        self.mockGetMyIdUseCase = nil
-        self.mockGetPairIdUseCase = nil
-        self.mockGenerateMyIdUseCase = nil
     }
 
     // 내 식별코드 가져오고
+    func testGenerateMyIdSuccess() throws {
+        let mockMyId = "00000000-0000-0000-0000-000000000001"
+        let mockPairId = "00000000-0000-0000-0000-000000000002"
+        let mockCoordinatorDelegate = MockCoordinatorDelegate()
+        let mockGetMyIdUseCase = MockGetMyIdUseCase(mockMyId: mockMyId)
+        let mockGetPairIdUseCase = MockGetPairIdUseCase(mockPariId: mockPairId)
+        let mockGenerateMyIdUseCase = MockGenerateMyIdUseCase(mockMyId: mockMyId)
+        self.splashViewModel = SplashViewModel(coordinatorDelegate: mockCoordinatorDelegate,
+                                               getMyIdUseCase: mockGetMyIdUseCase,
+                                               getPairIdUseCase: mockGetPairIdUseCase,
+                                               generateMyIdUseCase: mockGenerateMyIdUseCase
+                                               )
+        
+    }
 
 }
