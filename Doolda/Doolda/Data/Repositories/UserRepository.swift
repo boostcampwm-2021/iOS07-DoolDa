@@ -42,6 +42,8 @@ struct UserRepository: UserRepositoryProtocol {
     }
     
     func fetchPairId() -> AnyPublisher<String, Error> {
+        var disposeBag = Set<AnyCancellable>()
+
         return Future<String, Error> { promise in
             self.fetchMyId().sink { completion in
                 guard case .failure(let error) = completion else {return}
@@ -58,8 +60,8 @@ struct UserRepository: UserRepositoryProtocol {
                             return
                         }
                         promise(.success(user.pairId))
-                    }
-            }
+                    }.store(in: &disposeBag)
+            }.store(in: &disposeBag)
         }.eraseToAnyPublisher()
     }
     
