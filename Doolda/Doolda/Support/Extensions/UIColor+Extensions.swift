@@ -14,5 +14,4 @@ extension UIColor {
     static let dooldaSubLabel = UIColor(named: "dooldaSubLabel")
     static let dooldaTheme = UIColor(named: "dooldaTheme")
     static let dooldaPlaceholder = UIColor(named: "dooldaPlaceholder")
-    static let splashBackground = UIColor(named: "splashBackground")
 }
