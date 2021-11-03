@@ -36,35 +36,45 @@ final class GeneratePairIdUseCase: GeneratePairIdUseCaseProtocol {
     }
     
     func generatePairId(myId: String, friendId: String) -> AnyPublisher<String, Error> {
-        if self.isValidId(myId) && self.isValidId(friendId) {
-            let pairId = UUID().uuidString
+        return Future<String, Error>.init { [weak self] promise in
+            guard let self = self else { return }
             
-            return Future<String, Error>.init { [weak self] promise in
-                guard let self = self else { return }
-                
-                self.userRepository.savePairId(pairId).sink { completion in
-                    if case let .failure(error) = completion {
+            if myId == friendId {
+                promise(.failure(GeneratePairIdUseCaseError.failedPairing))
+            } else if self.isValidUUID(friendId) {
+                self.userRepository.checkUserIdIsExist(friendId).sink { completion in
+                    if case let .failure(error)  = completion {
                         promise(.failure(error))
                     }
                 } receiveValue: { result in
                     if result {
-                        promise(.success(pairId))
+                        let pairId = UUID().uuidString
+                        
+                        self.userRepository.savePairId(pairId).sink { completion in
+                            if case let .failure(error) = completion {
+                                promise(.failure(error))
+                            }
+                        } receiveValue: { result in
+                            if result {
+                                promise(.success(pairId))
+                            } else {
+                                promise(.failure(GeneratePairIdUseCaseError.failedPairing))
+                            }
+                        }
+                        .store(in: &self.cancellables)
                     } else {
-                        promise(.failure(GeneratePairIdUseCaseError.failedPairing))
+                        promise(.failure(GeneratePairIdUseCaseError.invalidUserId))
                     }
                 }
                 .store(in: &self.cancellables)
+            } else {
+                promise(.failure(GeneratePairIdUseCaseError.invalidUserId))
             }
-            .eraseToAnyPublisher()
-        } else {
-            return Future<String, Error>.init {
-                $0(.failure(GeneratePairIdUseCaseError.invalidUserId))
-            }
-            .eraseToAnyPublisher()
         }
+        .eraseToAnyPublisher()
     }
     
-    private func isValidId(_ id: String) -> Bool {
-        return UUID(uuidString: id) != nil
+    private func isValidUUID(_ id: String) -> Bool {
+        return id.range(of: "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}", options: .regularExpression) != nil
     }
 }
