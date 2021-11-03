@@ -8,8 +8,14 @@
 import UIKit
 
 class SplashViewCoordinator: Coordinator {
-    override func start() {
-        let viewModel = SplashViewModel(coordinatorDelegate: self)
+    func start() {
+        let getMyIdUseCase = MockGetMyIdUseCase()
+        let getPairIdUseCase = GetPairIdUseCase()
+        let generateMyIdUseCase = GenerateMyIdUseCase()
+        let viewModel = SplashViewModel(coordinatorDelegate: self,
+                                        getMyIdUseCase: getMyIdUseCase,
+                                        getPairIdUseCase: getPairIdUseCase,
+                                        generateMyIdUseCase: generateMyIdUseCase)
         let viewController = SplashViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
     }
