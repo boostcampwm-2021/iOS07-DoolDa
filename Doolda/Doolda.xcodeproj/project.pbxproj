@@ -42,10 +42,7 @@
 		FC9F1065273102E30060FEB7 /* GetMyIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */; };
 		FC9F106B2731035E0060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F106C2731035E0060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
-		FC9F10702731323C0060FEB7 /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */; };
 		FC9F1078273139040060FEB7 /* FirebaseNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */; };
-		FC9F108927315EEB0060FEB7 /* FirebaseNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */; };
-		FC9F108A27315EEB0060FEB7 /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +84,6 @@
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseTests.swift; sourceTree = "<group>"; };
-		FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkService.swift; sourceTree = "<group>"; };
 		FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -320,7 +316,6 @@
 		664893E627300AE3009F03E2 /* Networks */ = {
 			isa = PBXGroup;
 			children = (
-				FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */,
 			);
 			path = Networks;
 			sourceTree = "<group>";
@@ -523,7 +518,6 @@
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
-				FC9F10702731323C0060FEB7 /* FirebaseNetworkService.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
