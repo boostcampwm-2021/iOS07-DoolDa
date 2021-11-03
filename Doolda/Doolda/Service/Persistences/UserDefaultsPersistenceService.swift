@@ -7,10 +7,17 @@
 
 import Foundation
 
-class UserDefaultsPersistenceService {
+class UserDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol {
+    func set(key: String, value: Any?) {
+        UserDefaults.standard.set(value, forKey: key)
+    }
     
-    func
+    func get<T>(key: String) -> T? {
+        let value = UserDefaults.standard.object(forKey: key)
+        return value as? T
+    }
     
-    
-    
+    func remove(key: String) {
+        UserDefaults.standard.removeObject(forKey: key)
+    }
 }
