@@ -9,6 +9,6 @@ import Combine
 import Foundation
 
 protocol FirebaseNetworkProtocol {
-    func getDocument(path: String, in collection: String) -> AnyPublisher<[String: Any], Error>
+    func getDocument(path: String, in collection: String) -> AnyPublisher<FirebaseDocument, Error>
     func setDocument(path: String?, in collection: String, with data: [String: Any]) -> AnyPublisher<Bool, Error> 
 }
