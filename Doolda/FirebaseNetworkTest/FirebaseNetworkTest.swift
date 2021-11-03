@@ -41,13 +41,12 @@ class FirebaseNetworkTest: XCTestCase {
             case .failure(let error):
                 XCTFail(error.localizedDescription)
             }
-        } receiveValue: { data in
-            guard let user = User(data: data) else {
+        } receiveValue: { firebaseDocument in
+            guard let user = User(data: firebaseDocument.data) else {
                 XCTFail("초기화 에러")
                 return
             }
             XCTAssertEqual("some_uuid_for_pair", user.pairId)
-            print(user.pairId)
         }
         
         wait(for: [expectation], timeout: 10)
@@ -72,8 +71,8 @@ class FirebaseNetworkTest: XCTestCase {
             case .failure(let error):
                 XCTFail(error.localizedDescription)
             }
-        } receiveValue: { data in
-            guard let pair = Pair(data: data) else {
+        } receiveValue: { firebaseDocument in
+            guard let pair = Pair(data: firebaseDocument.data) else {
                 XCTFail("초기화 에러")
                 return
             }
