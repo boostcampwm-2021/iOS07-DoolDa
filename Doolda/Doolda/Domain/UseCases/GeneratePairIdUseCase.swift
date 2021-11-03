@@ -44,8 +44,8 @@ final class GeneratePairIdUseCase: GeneratePairIdUseCaseProtocol {
     }
     
     func generatePairId(myId: String, friendId: String) {
-        if myId == friendId {
-            self.error = GeneratePairIdUseCaseError.failedPairing
+        guard myId != friendId else {
+            return self.error = GeneratePairIdUseCaseError.failedPairing
         }
         
         self.userRepository.checkUserIdIsExist(friendId)
