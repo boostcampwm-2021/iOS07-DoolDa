@@ -11,6 +11,7 @@ import UIKit
 import SnapKit
 
 class PairingViewController: UIViewController {
+    
     // MARK: - Subviews
     
     private lazy var scrollView: UIScrollView = UIScrollView()
@@ -24,7 +25,7 @@ class PairingViewController: UIViewController {
     
     private lazy var logoLabel: UILabel = {
         let label = UILabel()
-        // MARK: - FIXME : change font to dovemayo
+        // FIXME : change font to dovemayo
         label.font = UIFont(name: "Dovemayo", size: 72)
         label.textColor = .dooldaLabel
         label.text = "둘다"
@@ -33,7 +34,7 @@ class PairingViewController: UIViewController {
     
     private lazy var instructionLabel: UILabel = {
         let label = UILabel()
-        // MARK: - FIXME : change font to global font
+        // FIXME : change font to global font
         label.font = UIFont(name: "Dovemayo", size: 18)
         label.textColor = .dooldaLabel
         label.text = "서로의 초대코드를 입력하여 연결해 주세요"
@@ -42,7 +43,7 @@ class PairingViewController: UIViewController {
     
     private lazy var myIdTitleLabel: UILabel = {
         let label = UILabel()
-        // MARK: - FIXME : change font to global font
+        // FIXME : change font to global font
         label.font = UIFont(name: "Dovemayo", size: 14)
         label.textColor = .dooldaSubLabel
         label.text = "내 초대코드"
@@ -51,18 +52,17 @@ class PairingViewController: UIViewController {
     
     private lazy var myIdLabel: CopyableLabel = {
         let label = CopyableLabel()
-        // MARK: - FIXME : change font to global font
+        // FIXME : change font to global font
         label.font = UIFont(name: "Dovemayo", size: 16)
         label.textColor = .dooldaLabel
         label.textAlignment = .center
         label.text = "12345678–1234–1234–1234–1234567890ab"
-//        label.isUserInteractionEnabled = true
         return label
     }()
     
     private lazy var friendIdTitleLabel: UILabel = {
         let label = UILabel()
-        // MARK: - FIXME : change font to global font
+        // FIXME : change font to global font
         label.font = UIFont(name: "Dovemayo", size: 14)
         label.textColor = .dooldaSubLabel
         label.text = "상대방 초대코드를 전달 받으셨나요?"
@@ -71,7 +71,7 @@ class PairingViewController: UIViewController {
     
     private lazy var friendIdTextField: UITextField = {
         let textField = UITextField()
-        // MARK: - FIXME : change font to global font
+        // FIXME : change font to global font
         textField.font = UIFont(name: "Dovemayo", size: 16)
         textField.attributedPlaceholder = NSAttributedString(
             string: "전달 받은 초대코드 입력",
@@ -86,7 +86,7 @@ class PairingViewController: UIViewController {
         var configuration = UIButton.Configuration.filled()
         configuration.cornerStyle = .capsule
         var container = AttributeContainer()
-        // MARK: - FIXME : change font to global font
+        // FIXME : change font to global font
         container.font = UIFont(name: "Dovemayo", size: 16)
         configuration.attributedTitle = AttributedString("연결하기", attributes: container)
         configuration.baseBackgroundColor = .dooldaTheme
@@ -94,13 +94,6 @@ class PairingViewController: UIViewController {
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
         return button
-    }()
-    
-    let navigationBarAppearance: UINavigationBarAppearance = {
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .clear
-        appearance.configureWithTransparentBackground()
-        return appearance
     }()
     
     private lazy var divider: UIView = {
@@ -125,6 +118,13 @@ class PairingViewController: UIViewController {
         return stackView
     }()
     
+    private let transparentNavigationBarAppearance: UINavigationBarAppearance = {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .clear
+        appearance.configureWithTransparentBackground()
+        return appearance
+    }()
+    
     // MARK: - Private Properties
     
     private var cancellables: Set<AnyCancellable> = []
@@ -139,8 +139,8 @@ class PairingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        self.navigationController?.navigationBar.standardAppearance = transparentNavigationBarAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = transparentNavigationBarAppearance
     }
     
     // MARK: - Helpers
@@ -195,7 +195,7 @@ class PairingViewController: UIViewController {
         }
     }
     
-    // MARK: - FIXME : ViewModel binding needed
+    // MARK: - FIXME : should bind to viewModel
     
     private func bindUI() {
         self.refreshButton.publisher(for: .touchUpInside)
