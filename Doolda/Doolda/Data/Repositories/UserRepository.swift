@@ -11,6 +11,7 @@ struct UserRepository: UserRepositoryProtocol {
     enum UserRepositoryError: LocalizedError {
         case nilUserId
         case DTOInitError
+        case saveFail
         
         var errorDescription: String? {
             switch self {
@@ -66,8 +67,30 @@ struct UserRepository: UserRepositoryProtocol {
     }
     
     
-    func saveMyId(_ id: String) {}
+    func saveMyId(_ id: String) -> AnyPublisher<Bool, Error> {
+        var disposeBag = Set<AnyCancellable>()
+
+        return Future<Bool, Error> { promise in
+            self.firebaseNetworkService
+                .setDocument(path: id, in: UserRepository.userCollection, with: ["pair":""])
+                .sink { completion in
+                    guard case .failure(let error) = completion else {return}
+                    promise(.failure(error))
+                } receiveValue: { result in
+                    if result {
+                        self.userDefaultsPersistenceService.set(key: UserRepository.userId, value: id)
+                    }
+                    promise(.success(result))
+                }.store(in: &disposeBag)
+        }.eraseToAnyPublisher()
+    }
     
-    func savePairId(_ id: String) {}
+    func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<Bool, Error> {
+        <#code#>
+    }
+    
+    func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error> {
+        <#code#>
+    }
     
 }
