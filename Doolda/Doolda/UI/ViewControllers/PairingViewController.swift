@@ -70,7 +70,11 @@ class PairingViewController: UIViewController {
         let textField = UITextField()
         // MARK: - FIXME : change font to global font
         textField.font = UIFont(name: "Dovemayo", size: 16)
-        textField.placeholder = "전달 받은 초대코드 입력"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "전달 받은 초대코드 입력",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.dooldaPlaceholder as Any]
+        )
+        textField.textColor = .dooldaLabel
         textField.textAlignment = .center
         return textField
     }()
