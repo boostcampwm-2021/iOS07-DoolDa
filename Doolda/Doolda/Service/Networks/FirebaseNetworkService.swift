@@ -54,16 +54,16 @@ class FirebaseNetworkService: FirebaseNetworkProtocol {
         }
     }
 
-    func getDocument(path: String, in collection: String) -> AnyPublisher<FirebaseDocument, Error> {
+    func getDocument(path: String, in collection: String) -> AnyPublisher<[String: Any], Error> {
         let database = Firestore.firestore()
         let documentReference: DocumentReference = database.collection(collection).document(path)
         
-        return Future<FirebaseDocument,Error> { promise in
+        return Future<[String: Any],Error> { promise in
             documentReference.getDocument { documentSnapshot, error in
                 if let error = error {
                     promise(.failure(error))
                 } else if let documentData = documentSnapshot?.data() {
-                    promise(.success(FirebaseDocument(data: documentData)))
+                    promise(.success(documentData))
                 } else {
                     promise(.failure(Errors.nilResultError))
                 }
