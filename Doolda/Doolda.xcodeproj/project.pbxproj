@@ -39,6 +39,9 @@
 		664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
 		FC5FB79027325C4D008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
 		FC5FB79127325D2C008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
+		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
+		FC5FB7952732627C008AC3D2 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* Pair.swift */; };
+		FC5FB79627326306008AC3D2 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* Pair.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F1065273102E30060FEB7 /* GetMyIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */; };
@@ -94,6 +97,8 @@
 		664893FB27302947009F03E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		FC5FB78F27325C4D008AC3D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		FC5FB7942732627C008AC3D2 /* Pair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pair.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -278,6 +283,7 @@
 		664893DE27300A10009F03E2 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				FC5FB792273260C3008AC3D2 /* UserRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -286,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				FC5FB78F27325C4D008AC3D2 /* User.swift */,
+				FC5FB7942732627C008AC3D2 /* Pair.swift */,
 			);
 			path = DataTransferObjects;
 			sourceTree = "<group>";
@@ -589,11 +596,13 @@
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
 				FC9F10702731323C0060FEB7 /* FirebaseNetworkService.swift in Sources */,
+				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
+				FC5FB7952732627C008AC3D2 /* Pair.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,6 +620,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC5FB79627326306008AC3D2 /* Pair.swift in Sources */,
 				FC5FB79127325D2C008AC3D2 /* User.swift in Sources */,
 				FC9F108927315EEB0060FEB7 /* FirebaseNetworkProtocol.swift in Sources */,
 				FC9F108A27315EEB0060FEB7 /* FirebaseNetworkService.swift in Sources */,
