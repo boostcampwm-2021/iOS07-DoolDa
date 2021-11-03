@@ -7,11 +7,10 @@
 import Combine
 import Foundation
 
-struct UserRepository: UserRepositoryProtocol {
+class UserRepository: UserRepositoryProtocol {
     enum UserRepositoryError: LocalizedError {
         case nilUserId
         case DTOInitError
-        case saveFail
         
         var errorDescription: String? {
             switch self {
@@ -29,6 +28,9 @@ struct UserRepository: UserRepositoryProtocol {
     private let userDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol
     private let firebaseNetworkService: FirebaseNetworkServiceProtocol
     
+    private var disposeBag = Set<AnyCancellable>()
+
+    
     init(persistenceService: UserDefaultsPersistenceServiceProtocol, networkService: FirebaseNetworkServiceProtocol) {
         self.userDefaultsPersistenceService = persistenceService
         self.firebaseNetworkService = networkService
@@ -43,8 +45,6 @@ struct UserRepository: UserRepositoryProtocol {
     }
     
     func fetchPairId() -> AnyPublisher<String, Error> {
-        var disposeBag = Set<AnyCancellable>()
-
         return Future<String, Error> { promise in
             self.fetchMyId().sink { completion in
                 guard case .failure(let error) = completion else {return}
@@ -61,8 +61,8 @@ struct UserRepository: UserRepositoryProtocol {
                             return
                         }
                         promise(.success(user.pairId))
-                    }.store(in: &disposeBag)
-            }.store(in: &disposeBag)
+                    }.store(in: &self.disposeBag)
+            }.store(in: &self.disposeBag)
         }.eraseToAnyPublisher()
     }
     
@@ -90,7 +90,20 @@ struct UserRepository: UserRepositoryProtocol {
     }
     
     func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error> {
-        <#code#>
+        return Future<Bool, Error> { promise in
+            self.firebaseNetworkService.getDocument(path: id, in: UserRepository.userCollection)
+                .sink { completion in
+                    guard case .failure(let error) = completion else {return}
+                    if let localizedError = error as? FirebaseNetworkService.Errors,
+                       localizedError == FirebaseNetworkService.Errors.nilResultError {
+                        promise(.success(false))
+                    }
+                    promise(.failure(error))
+                } receiveValue: { _ in
+                    promise(.success(true))
+                }.store(in: &self.disposeBag)
+        }.eraseToAnyPublisher()
+        
     }
     
 }
