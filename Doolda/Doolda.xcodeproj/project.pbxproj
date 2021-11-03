@@ -37,8 +37,6 @@
 		664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F927302905009F03E2 /* SplashViewCoordinator.swift */; };
 		664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FB27302947009F03E2 /* SplashViewModel.swift */; };
 		664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
-		FC5FB79027325C4D008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
-		FC5FB79127325D2C008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F1065273102E30060FEB7 /* GetMyIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */; };
@@ -85,7 +83,6 @@
 		664893F927302905009F03E2 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
 		664893FB27302947009F03E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
-		FC5FB78F27325C4D008AC3D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,7 +263,6 @@
 		664893DF27300A2D009F03E2 /* DataTransferObjects */ = {
 			isa = PBXGroup;
 			children = (
-				FC5FB78F27325C4D008AC3D2 /* User.swift */,
 			);
 			path = DataTransferObjects;
 			sourceTree = "<group>";
@@ -511,11 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< dev
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
-=======
-				FC5FB79027325C4D008AC3D2 /* User.swift in Sources */,
->>>>>>> (#55) ✨: User DataTransferObject  구현
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
 				1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */,
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
@@ -550,9 +542,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-				FC5FB79127325D2C008AC3D2 /* User.swift in Sources */,
-				FC9F108927315EEB0060FEB7 /* FirebaseNetworkProtocol.swift in Sources */,
-				FC9F108A27315EEB0060FEB7 /* FirebaseNetworkService.swift in Sources */,
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
