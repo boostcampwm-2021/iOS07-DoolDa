@@ -43,7 +43,7 @@ final class SplashViewModel {
                 case .finished:
                     self.getPairId()
                 case .failure(_):
-                    self.coordinatorDelegate.presentParingViewController()
+                    self.generateMyId()
                 }
             } receiveValue: { myId in
                 self.myId = myId
@@ -55,11 +55,20 @@ final class SplashViewModel {
         guard let myId = self.myId else { return }
         getPairIdUseCase.getPairId(with: myId)
             .sink { result in
-
+                switch result {
+                case .finished:
+                    self.coordinatorDelegate.presentDiaryViewController()
+                case .failure(_):
+                    self.coordinatorDelegate.presentParingViewController()
+                }
             } receiveValue: { pairId in
-
+                self.pairId = pairId
             }
             .store(in: &cancellables)
+    }
+
+    private func generateMyId() {
+
     }
 
     // 내 식별코드 가져오기
