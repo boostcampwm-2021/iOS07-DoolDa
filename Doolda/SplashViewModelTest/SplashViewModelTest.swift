@@ -48,6 +48,21 @@ class SplashViewModelTest: XCTestCase {
         }
     }
 
+    class MockGenerateMyIdUseCase: GenerateMyIdUseCaseProtocol {
+        private var mockMyId: String?
+
+        init(mockMyId: String?) {
+            self.mockMyId = mockMyId
+        }
+
+        func generateMyId() -> AnyPublisher<String, Error> {
+            guard let myId = self.mockMyId else {
+                return Result.Publisher(DummyError.dummyError).eraseToAnyPublisher()
+            }
+            return Result.Publisher(myId).eraseToAnyPublisher()
+        }
+    }
+
     override func setUpWithError() throws {
         self.splashViewModel = nil
         self.mockGetMyIdUseCase = nil
