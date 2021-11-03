@@ -11,7 +11,7 @@ import SnapKit
 
 final class SplashViewController: UIViewController {
 
-    // MARK: - Publics Properties
+    // MARK: - Subviews
 
     let backgroundImage: UIImageView = {
         var imageView = UIImageView()
@@ -51,16 +51,16 @@ final class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        configureFont()
+        self.configureUI()
+        self.configureFont()
     }
 
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = UIColor.dooldaTheme
+        self.view.backgroundColor = UIColor.dooldaTheme
 
-        view.addSubview(backgroundImage)
-        backgroundImage.snp.makeConstraints { make in
+        self.view.addSubview(backgroundImage)
+        self.backgroundImage.snp.makeConstraints { make in
             make.height.equalTo(backgroundImage.snp.width)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -68,15 +68,15 @@ final class SplashViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
 
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
+        self.view.addSubview(titleLabel)
+        self.titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(view.frame.height * 0.20)
         }
 
-        view.addSubview(subtitleLabel)
-        subtitleLabel.snp.makeConstraints { make in
+        self.view.addSubview(subtitleLabel)
+        self.subtitleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(30)
@@ -84,8 +84,8 @@ final class SplashViewController: UIViewController {
     }
 
     private func configureFont() {
-        titleLabel.font = UIFont.systemFont(ofSize: 72, weight: .medium)
-        subtitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        self.titleLabel.font = UIFont(name: "Dovemayo", size: 72)
+        self.subtitleLabel.font = UIFont(name: "Dovemayo", size: 18)
     }
 
 }
