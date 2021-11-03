@@ -34,15 +34,15 @@ class GeneratePairIdUseCaseTests: XCTestCase {
             }.eraseToAnyPublisher()
         }
         
-        func savePairId(_ id: String) -> AnyPublisher<Bool, Error> {
+        func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<Bool, Error> {
             Future<Bool, Error>.init { promise in
-                promise(.success(id == Self.testSuccessId1 && id == Self.testSuccessId2))
+                promise(.success(myId == Self.testSuccessId1 && friendId == Self.testSuccessId2))
             }.eraseToAnyPublisher()
         }
         
         func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error> {
             Future<Bool, Error>.init { promise in
-                promise(.success(id == Self.testSuccessId1 && id == Self.testSuccessId2))
+                promise(.success(id == Self.testSuccessId1 || id == Self.testSuccessId2))
             }.eraseToAnyPublisher()
         }
     }
@@ -56,42 +56,51 @@ class GeneratePairIdUseCaseTests: XCTestCase {
     }
 
     func testGeneratePairId_Success() {
-        _ = self.generatePairIdUseCase.generatePairId(
+        self.generatePairIdUseCase.generatePairId(
             myId: MockUserRepository.testSuccessId1,
             friendId: MockUserRepository.testSuccessId2
-        ).sink { completion in
-            if case .finished = completion {
-                XCTFail()
-            }
-        } receiveValue: { pairId in
-            XCTAssertNotEqual(pairId, "")
+        )
+        
+        let testExpectation = expectation(description: "")
+        
+        _ = self.generatePairIdUseCase.pairedIdPublisher.sink { result in
+            XCTAssertNil(result)
+            testExpectation.fulfill()
         }
+        
+        waitForExpectations(timeout: 5, handler: nil)
     }
     
     func testGeneratePairId_Failure_SameUserId() {
-        _ = self.generatePairIdUseCase.generatePairId(
+        self.generatePairIdUseCase.generatePairId(
             myId: MockUserRepository.testSuccessId1,
             friendId: MockUserRepository.testSuccessId1
-        ).sink { completion in
-            if case .finished = completion {
-                XCTFail()
-            }
-        } receiveValue: { pairId in
-            XCTFail()
+        )
+        
+        let testExpectation = expectation(description: "")
+        
+        _ = self.generatePairIdUseCase.errorPublisher.sink { error in
+            XCTAssertNotNil(error)
+            testExpectation.fulfill()
         }
+        
+        waitForExpectations(timeout: 5, handler: nil)
     }
     
     func testGeneratePairId_Failure_NotExistUserId() {
-        _ = self.generatePairIdUseCase.generatePairId(
+        self.generatePairIdUseCase.generatePairId(
             myId: MockUserRepository.testSuccessId1,
             friendId: MockUserRepository.testFailureId
-        ).sink { completion in
-            if case .finished = completion {
-                XCTFail()
-            }
-        } receiveValue: { pairId in
-            XCTFail()
+        )
+        
+        let testExpectation = expectation(description: "")
+        
+        _ = self.generatePairIdUseCase.errorPublisher.sink { error in
+            XCTAssertNotNil(error)
+            testExpectation.fulfill()
         }
+        
+        waitForExpectations(timeout: 5, handler: nil)
     }
 
 }
