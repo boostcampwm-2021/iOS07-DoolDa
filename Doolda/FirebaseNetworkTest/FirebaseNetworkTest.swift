@@ -13,7 +13,7 @@ import Firebase
 
 class FirebaseNetworkTest: XCTestCase {
 
-    private var networkService: FirebaseNetworkProtocol?
+    private var networkService: FirebaseNetworkServiceProtocol?
     
     override func setUpWithError() throws {
         self.networkService = FirebaseNetworkService()
