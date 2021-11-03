@@ -8,7 +8,7 @@
 import UIKit
 
 class SplashViewCoordinator: Coordinator {
-    func start() {
+    override func start() {
         let getMyIdUseCase = MockGetMyIdUseCase()
         let getPairIdUseCase = GetPairIdUseCase()
         let generateMyIdUseCase = GenerateMyIdUseCase()
