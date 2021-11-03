@@ -46,6 +46,9 @@
 		6648945F27327F1D009F03E2 /* GeneratePairIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6648945E27327F1D009F03E2 /* GeneratePairIdUseCaseTests.swift */; };
 		6648946527327FDB009F03E2 /* GeneratePairIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6648945627325B07009F03E2 /* GeneratePairIdUseCase.swift */; };
 		6648946627327FDB009F03E2 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
+		669ADE2B2732DA66007B529B /* RefreshPairIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669ADE2A2732DA66007B529B /* RefreshPairIdUseCase.swift */; };
+		FC5FB79027325C4D008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
+		FC5FB79127325D2C008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
 		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB79127325D2C008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
@@ -154,6 +157,7 @@
 		664893F927302905009F03E2 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
 		664893FB27302947009F03E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		669ADE2A2732DA66007B529B /* RefreshPairIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshPairIdUseCase.swift; sourceTree = "<group>"; };
 		6648945627325B07009F03E2 /* GeneratePairIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePairIdUseCase.swift; sourceTree = "<group>"; };
 		6648945C27327F1D009F03E2 /* GeneratePairIdUseCaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeneratePairIdUseCaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6648945E27327F1D009F03E2 /* GeneratePairIdUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePairIdUseCaseTests.swift; sourceTree = "<group>"; };
@@ -454,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */,
+				669ADE2A2732DA66007B529B /* RefreshPairIdUseCase.swift */,
 				6648945627325B07009F03E2 /* GeneratePairIdUseCase.swift */,
 				1D0C8BC32732AF780091ACC0 /* GetPairIdUseCase.swift */,
 			);
@@ -885,6 +890,7 @@
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
+				669ADE2B2732DA66007B529B /* RefreshPairIdUseCase.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
 				1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
