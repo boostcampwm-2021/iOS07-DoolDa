@@ -13,6 +13,9 @@ import SnapKit
 class PairingViewController: UIViewController {
     // MARK: - Subviews
     
+    private lazy var scrollView: UIScrollView = UIScrollView()
+    private lazy var contentView: UIView = UIView()
+    
     private lazy var refreshButton: UIButton = {
         let button = UIButton()
         button.setImage(.refresh, for: .normal)
@@ -93,6 +96,13 @@ class PairingViewController: UIViewController {
         return button
     }()
     
+    let navigationBarAppearance: UINavigationBarAppearance = {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .clear
+        appearance.configureWithTransparentBackground()
+        return appearance
+    }()
+    
     private lazy var divider: UIView = {
         let view = UIView()
         view.backgroundColor = .dooldaSubLabel
@@ -127,25 +137,44 @@ class PairingViewController: UIViewController {
         self.bindUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.standardAppearance = navigationBarAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+    }
+    
     // MARK: - Helpers
     
     private func configureUI() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .dooldaTheme
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.refreshButton)
         
-        self.view.addSubview(self.logoLabel)
+        self.view.addSubview(scrollView)
+        self.scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        self.scrollView.addSubview(contentView)
+        self.contentView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().priority(.low)
+            make.centerY.equalToSuperview().priority(.low)
+        }
+        
+        self.contentView.addSubview(self.logoLabel)
         self.logoLabel.snp.makeConstraints { make in
             make.topMargin.equalToSuperview().offset(36)
             make.centerX.equalToSuperview()
         }
         
-        self.view.addSubview(self.instructionLabel)
+        self.contentView.addSubview(self.instructionLabel)
         self.instructionLabel.snp.makeConstraints { make in
             make.top.equalTo(self.logoLabel.snp.bottom).offset(18)
             make.centerX.equalToSuperview()
         }
         
-        self.view.addSubview(self.pairingInfoStackView)
+        self.contentView.addSubview(self.pairingInfoStackView)
         self.pairingInfoStackView.snp.makeConstraints { make in
             make.top.equalTo(self.instructionLabel.snp.bottom).offset(42)
             make.leading.equalToSuperview().offset(16)
@@ -156,12 +185,13 @@ class PairingViewController: UIViewController {
             make.height.equalTo(1)
         }
         
-        self.view.addSubview(self.pairButton)
+        self.contentView.addSubview(self.pairButton)
         self.pairButton.snp.makeConstraints { make in
             make.top.equalTo(self.pairingInfoStackView.snp.bottom).offset(44)
             make.height.equalTo(44)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -206,5 +236,22 @@ class PairingViewController: UIViewController {
                 self?.friendIdTextField.resignFirstResponder()
             }
             .store(in: &cancellables)
+        
+        UIResponder.keyboardHeightPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] keyboardHeight in
+                self?.updateScrollView(with: keyboardHeight)
+            }
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func updateScrollView(with keyboardHeight: CGFloat) {
+        self.scrollView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardHeight, right: 0.0)
+        self.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardHeight, right: 0.0)
+        if keyboardHeight != 0 {
+            self.scrollView.contentOffset = CGPoint(x: 0, y: (keyboardHeight + self.contentView.frame.height) - self.view.frame.height + 30)
+        }
     }
 }
