@@ -14,6 +14,7 @@
 		1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F227313D7300A9AD6B /* UIGestureRecognizer+Extensions.swift */; };
 		1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */; };
 		1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */; };
+		1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */; };
 		1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DD6AD3F27321E5800592AC8 /* dovemayo.otf */; };
 		1DDAF0462730CE14006CD027 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0452730CE14006CD027 /* FirebaseAnalytics */; };
 		1DDAF0482730CE14006CD027 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0472730CE14006CD027 /* FirebaseAuth */; };
@@ -59,6 +60,7 @@
 		1D6232F227313D7300A9AD6B /* UIGestureRecognizer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
+		1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -324,6 +326,7 @@
 				1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */,
 				1D6232EE2731117100A9AD6B /* UIControl+Extensions.swift */,
 				1D6232F227313D7300A9AD6B /* UIGestureRecognizer+Extensions.swift */,
+				1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 			files = (
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
+				1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */,
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
 				664893F62730242F009F03E2 /* Coordinator.swift in Sources */,
