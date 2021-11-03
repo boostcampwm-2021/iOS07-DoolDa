@@ -44,6 +44,8 @@
 		FC5FB7952732627C008AC3D2 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* Pair.swift */; };
 		FC5FB79627326306008AC3D2 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* Pair.swift */; };
 		FC5FB79827327861008AC3D2 /* FirebaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */; };
+		FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */; };
+		FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F1065273102E30060FEB7 /* GetMyIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */; };
@@ -104,6 +106,8 @@
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* Pair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pair.swift; sourceTree = "<group>"; };
 		FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDocument.swift; sourceTree = "<group>"; };
+		FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPersistenceService.swift; sourceTree = "<group>"; };
+		FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */,
+				FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 		664893E727300AEC009F03E2 /* Persistences */ = {
 			isa = PBXGroup;
 			children = (
+				FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */,
 			);
 			path = Persistences;
 			sourceTree = "<group>";
@@ -601,12 +607,14 @@
 				310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */,
 				664893F62730242F009F03E2 /* Coordinator.swift in Sources */,
 				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
+				FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
 				FC9F1078273139040060FEB7 /* FirebaseNetworkProtocol.swift in Sources */,
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */,
+				FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
 				FC9F10702731323C0060FEB7 /* FirebaseNetworkService.swift in Sources */,
@@ -845,7 +853,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9DGN7522H6;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -866,7 +874,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9DGN7522H6;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -888,7 +896,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9DGN7522H6;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -911,7 +919,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9DGN7522H6;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
