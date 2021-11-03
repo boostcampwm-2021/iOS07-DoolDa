@@ -23,10 +23,18 @@ enum GeneratePairIdUseCaseError: LocalizedError {
 }
 
 protocol GeneratePairIdUseCaseProtocol {
-    func generatePairId(myId: String, friendId: String) -> AnyPublisher<String, Error>
+    var pairedIdPublisher: Published<String?>.Publisher { get }
+    var errorPublisher: Published<Error?>.Publisher { get }
+    func generatePairId(myId: String, friendId: String)
 }
 
 final class GeneratePairIdUseCase: GeneratePairIdUseCaseProtocol {
+    var pairedIdPublisher: Published<String?>.Publisher { self.$pairedId }
+    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    
+    @Published private var pairedId: String?
+    @Published private var error: Error?
+    
     private let userRepository: UserRepositoryProtocol
     
     private var cancellables: Set<AnyCancellable> = []
@@ -35,43 +43,40 @@ final class GeneratePairIdUseCase: GeneratePairIdUseCaseProtocol {
         self.userRepository = userRepository
     }
     
-    func generatePairId(myId: String, friendId: String) -> AnyPublisher<String, Error> {
-        return Future<String, Error>.init { [weak self] promise in
-            guard let self = self else { return }
-            
-            if myId == friendId {
-                promise(.failure(GeneratePairIdUseCaseError.failedPairing))
-            } else if self.isValidUUID(friendId) {
-                self.userRepository.checkUserIdIsExist(friendId).sink { completion in
-                    if case let .failure(error)  = completion {
-                        promise(.failure(error))
-                    }
-                } receiveValue: { result in
-                    if result {
-                        let pairId = UUID().uuidString
-                        
-                        self.userRepository.savePairId(pairId).sink { completion in
-                            if case let .failure(error) = completion {
-                                promise(.failure(error))
-                            }
-                        } receiveValue: { result in
-                            if result {
-                                promise(.success(pairId))
-                            } else {
-                                promise(.failure(GeneratePairIdUseCaseError.failedPairing))
-                            }
-                        }
-                        .store(in: &self.cancellables)
-                    } else {
-                        promise(.failure(GeneratePairIdUseCaseError.invalidUserId))
-                    }
-                }
-                .store(in: &self.cancellables)
-            } else {
-                promise(.failure(GeneratePairIdUseCaseError.invalidUserId))
-            }
+    func generatePairId(myId: String, friendId: String) {
+        if myId == friendId {
+            self.error = GeneratePairIdUseCaseError.failedPairing
         }
-        .eraseToAnyPublisher()
+        
+        self.userRepository.checkUserIdIsExist(friendId)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] result in
+                if result {
+                    self?.savePairId(myId: myId, friendId: friendId)
+                } else {
+                    self?.error = GeneratePairIdUseCaseError.invalidUserId
+                }
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    private func savePairId(myId: String, friendId: String) {
+        let pairId = UUID().uuidString
+        
+        self.userRepository.savePairId(myId: "", friendId: "", pairId: pairId)
+            .sink { [weak self] completion in
+                guard let self = self,
+                      case .failure(let error) = completion else { return }
+                self.error = error
+                self.pairedId = nil
+            } receiveValue: { [weak self] isSucceed in
+                if isSucceed {
+                    self?.pairedId = pairId
+                }
+            }
+            .store(in: &self.cancellables)
     }
     
     private func isValidUUID(_ id: String) -> Bool {
