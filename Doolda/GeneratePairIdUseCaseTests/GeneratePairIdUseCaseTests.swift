@@ -56,7 +56,10 @@ class GeneratePairIdUseCaseTests: XCTestCase {
     }
 
     func testGeneratePairId_Success() {
-        _ = self.generatePairIdUseCase.generatePairId(myId: MockUserRepository.testSuccessId1, friendId: MockUserRepository.testSuccessId2).sink { completion in
+        _ = self.generatePairIdUseCase.generatePairId(
+            myId: MockUserRepository.testSuccessId1,
+            friendId: MockUserRepository.testSuccessId2
+        ).sink { completion in
             if case .finished = completion {
                 XCTFail()
             }
@@ -66,7 +69,10 @@ class GeneratePairIdUseCaseTests: XCTestCase {
     }
     
     func testGeneratePairId_Failure_SameUserId() {
-        _ = self.generatePairIdUseCase.generatePairId(myId: MockUserRepository.testSuccessId1, friendId: MockUserRepository.testSuccessId1).sink { completion in
+        _ = self.generatePairIdUseCase.generatePairId(
+            myId: MockUserRepository.testSuccessId1,
+            friendId: MockUserRepository.testSuccessId1
+        ).sink { completion in
             if case .finished = completion {
                 XCTFail()
             }
@@ -76,7 +82,10 @@ class GeneratePairIdUseCaseTests: XCTestCase {
     }
     
     func testGeneratePairId_Failure_NotExistUserId() {
-        _ = self.generatePairIdUseCase.generatePairId(myId: MockUserRepository.testSuccessId1, friendId: MockUserRepository.testFailureId).sink { completion in
+        _ = self.generatePairIdUseCase.generatePairId(
+            myId: MockUserRepository.testSuccessId1,
+            friendId: MockUserRepository.testFailureId
+        ).sink { completion in
             if case .finished = completion {
                 XCTFail()
             }
