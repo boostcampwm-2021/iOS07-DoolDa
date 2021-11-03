@@ -10,8 +10,6 @@ import Foundation
 import Combine
 
 final class SplashViewModel {
-    var myId: String?
-    var pairId: String?
     @Published var networkError: Error?
 
     private var cancellables: Set<AnyCancellable> = []
@@ -37,46 +35,33 @@ final class SplashViewModel {
 
     private func getMyId() {
         getMyIdUseCase.getMyId()
-            .sink { result in
-                switch result {
-                case .finished:
-                    self.getPairId()
-                case .failure(_):
-                    self.generateMyId()
-                }
+            .sink { [weak self] result in
+                guard case .failure(_) = result else { return }
+                self?.generateMyId()
             } receiveValue: { myId in
-                self.myId = myId
+                self.getPairId(with: myId)
             }
             .store(in: &cancellables)
     }
 
-    private func getPairId() {
-        guard let myId = self.myId else { return }
+    private func getPairId(with myId: String) {
         getPairIdUseCase.getPairId(with: myId)
-            .sink { result in
-                switch result {
-                case .finished:
-                    self.coordinatorDelegate.presentDiaryViewController()
-                case .failure(_):
-                    self.coordinatorDelegate.presentParingViewController()
-                }
+            .sink { [weak self] result in
+                guard case .failure(_) = result else { return }
+                self?.coordinatorDelegate.userNotPaired(myId: myId)
             } receiveValue: { pairId in
-                self.pairId = pairId
+                self.coordinatorDelegate.userAlreadyPaired(myId: myId, pairId: pairId)
             }
             .store(in: &cancellables)
     }
 
     private func generateMyId() {
         generateMyIdUseCase.generateMyId()
-            .sink { result in
-                switch result {
-                case .finished:
-                    self.coordinatorDelegate.presentParingViewController()
-                case .failure(let error):
-                    self.networkError = error
-                }
+            .sink { [weak self] result in
+                guard case .failure(let error) = result else { return }
+                self?.networkError = error
             } receiveValue: { myId in
-                self.myId = myId
+                self.coordinatorDelegate.userNotPaired(myId: myId)
             }
             .store(in: &cancellables)
     }
