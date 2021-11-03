@@ -32,10 +32,10 @@ final class GeneratePairIdUseCase: GeneratePairIdUseCaseProtocol {
     var pairedIdPublisher: Published<String?>.Publisher { self.$pairedId }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
+    private let userRepository: UserRepositoryProtocol
+    
     @Published private var pairedId: String?
     @Published private var error: Error?
-    
-    private let userRepository: UserRepositoryProtocol
     
     private var cancellables: Set<AnyCancellable> = []
     
