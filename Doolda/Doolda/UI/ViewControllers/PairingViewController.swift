@@ -22,7 +22,7 @@ class PairingViewController: UIViewController {
     private lazy var logoLabel: UILabel = {
         let label = UILabel()
         // MARK: - FIXME : change font to dovemayo
-        label.font = .systemFont(ofSize: 72, weight: .regular)
+        label.font = UIFont(name: "Dovemayo", size: 72)
         label.textColor = .dooldaLabel
         label.text = "둘다"
         return label
@@ -31,7 +31,7 @@ class PairingViewController: UIViewController {
     private lazy var instructionLabel: UILabel = {
         let label = UILabel()
         // MARK: - FIXME : change font to global font
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.font = UIFont(name: "Dovemayo", size: 18)
         label.textColor = .dooldaLabel
         label.text = "서로의 초대코드를 입력하여 연결해 주세요"
         return label
@@ -40,7 +40,7 @@ class PairingViewController: UIViewController {
     private lazy var myIdTitleLabel: UILabel = {
         let label = UILabel()
         // MARK: - FIXME : change font to global font
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont(name: "Dovemayo", size: 14)
         label.textColor = .dooldaSubLabel
         label.text = "내 초대코드"
         return label
@@ -49,7 +49,7 @@ class PairingViewController: UIViewController {
     private lazy var myIdLabel: CopyableLabel = {
         let label = CopyableLabel()
         // MARK: - FIXME : change font to global font
-        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.font = UIFont(name: "Dovemayo", size: 16)
         label.textColor = .dooldaLabel
         label.textAlignment = .center
         label.text = "12345678–1234–1234–1234–1234567890ab"
@@ -60,7 +60,7 @@ class PairingViewController: UIViewController {
     private lazy var friendIdTitleLabel: UILabel = {
         let label = UILabel()
         // MARK: - FIXME : change font to global font
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont(name: "Dovemayo", size: 14)
         label.textColor = .dooldaSubLabel
         label.text = "상대방 초대코드를 전달 받으셨나요?"
         return label
@@ -69,7 +69,7 @@ class PairingViewController: UIViewController {
     private lazy var friendIdTextField: UITextField = {
         let textField = UITextField()
         // MARK: - FIXME : change font to global font
-        textField.font = .systemFont(ofSize: 16, weight: .regular)
+        textField.font = UIFont(name: "Dovemayo", size: 16)
         textField.placeholder = "전달 받은 초대코드 입력"
         textField.textAlignment = .center
         return textField
@@ -80,7 +80,7 @@ class PairingViewController: UIViewController {
         configuration.cornerStyle = .capsule
         var container = AttributeContainer()
         // MARK: - FIXME : change font to global font
-        container.font = .systemFont(ofSize: 16, weight: .regular)
+        container.font = UIFont(name: "Dovemayo", size: 16)
         configuration.attributedTitle = AttributedString("연결하기", attributes: container)
         configuration.baseBackgroundColor = .dooldaTheme
         configuration.baseForegroundColor = .dooldaLabel

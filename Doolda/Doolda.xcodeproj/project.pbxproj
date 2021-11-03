@@ -14,6 +14,7 @@
 		1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F227313D7300A9AD6B /* UIGestureRecognizer+Extensions.swift */; };
 		1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */; };
 		1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */; };
+		1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DD6AD3F27321E5800592AC8 /* dovemayo.otf */; };
 		1DDAF0462730CE14006CD027 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0452730CE14006CD027 /* FirebaseAnalytics */; };
 		1DDAF0482730CE14006CD027 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0472730CE14006CD027 /* FirebaseAuth */; };
 		1DDAF04A2730CE14006CD027 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF0492730CE14006CD027 /* FirebaseDatabase */; };
@@ -58,6 +59,7 @@
 		1D6232F227313D7300A9AD6B /* UIGestureRecognizer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
+		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DD6AD3E27321E3700592AC8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1DD6AD3F27321E5800592AC8 /* dovemayo.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		664893B4273007ED009F03E2 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +159,7 @@
 		664893D52730090B009F03E2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1DD6AD3E27321E3700592AC8 /* Fonts */,
 				664893C9273007F1009F03E2 /* Assets.xcassets */,
 				664893CB273007F1009F03E2 /* LaunchScreen.storyboard */,
 				664893CE273007F1009F03E2 /* Info.plist */,
@@ -441,6 +452,7 @@
 				664893CD273007F1009F03E2 /* LaunchScreen.storyboard in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
 				1DDAF0522730D268006CD027 /* GoogleService-Info.plist in Resources */,
+				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
