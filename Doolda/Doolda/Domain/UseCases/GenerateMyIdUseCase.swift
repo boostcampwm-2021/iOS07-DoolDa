@@ -15,7 +15,7 @@ protocol GenerateMyIdUseCaseProtocol {
     func generate()
 }
 
-class GenerateMyIdUseCase: GenerateMyIdUseCaseProtocol {
+final class GenerateMyIdUseCase: GenerateMyIdUseCaseProtocol {
     private let userRepository: UserRepositoryProtocol
     
     private var cancellables: Set<AnyCancellable> = []
