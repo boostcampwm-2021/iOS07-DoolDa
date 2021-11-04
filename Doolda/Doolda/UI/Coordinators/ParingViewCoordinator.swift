@@ -34,7 +34,7 @@ class PairingViewCoordinator: Coordinator {
         )
         
         let viewController = PairingViewController(viewModel: viewModel)
-        self.presenter.pushViewController(viewController, animated: false)
+        self.presenter.setViewControllers([viewController], animated: false)
     }
 }
 
