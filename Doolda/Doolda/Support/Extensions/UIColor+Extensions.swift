@@ -11,6 +11,7 @@ import UIKit
 extension UIColor {
     static let dooldaLabel = UIColor(named: "dooldaLabel")
     static let dooldaSubLabel = UIColor(named: "dooldaSubLabel")
-    static let dooldaTheme = UIColor(named: "dooldaTheme")
+    static let dooldaBackground = UIColor(named: "dooldaBackground")
     static let dooldaPlaceholder = UIColor(named: "dooldaPlaceholder")
+    static let dooldaHighlighted = UIColor(named: "dooldaHighlighted")
 }

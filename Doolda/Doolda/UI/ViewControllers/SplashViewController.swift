@@ -61,7 +61,7 @@ final class SplashViewController: UIViewController {
 
     // MARK: - Helpers
     private func configureUI() {
-        self.view.backgroundColor = UIColor.dooldaTheme
+        self.view.backgroundColor = .dooldaBackground
 
         self.view.addSubview(backgroundImage)
         self.backgroundImage.snp.makeConstraints { make in

@@ -24,7 +24,7 @@ class DiaryViewController: UIViewController {
     }
 
     private func configureUI() {
-        self.view.backgroundColor = UIColor.dooldaTheme
+        self.view.backgroundColor = .dooldaBackground
 
         self.view.addSubview(label)
         self.label.snp.makeConstraints { make in

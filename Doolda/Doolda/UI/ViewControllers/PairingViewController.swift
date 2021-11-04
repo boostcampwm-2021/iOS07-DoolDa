@@ -89,7 +89,7 @@ class PairingViewController: UIViewController {
         // FIXME : change font to global font
         container.font = UIFont(name: "Dovemayo", size: 16)
         configuration.attributedTitle = AttributedString("연결하기", attributes: container)
-        configuration.baseBackgroundColor = .dooldaTheme
+        configuration.baseBackgroundColor = .dooldaHighlighted
         configuration.baseForegroundColor = .dooldaLabel
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
@@ -154,7 +154,7 @@ class PairingViewController: UIViewController {
     // MARK: - Helpers
     
     private func configureUI() {
-        self.view.backgroundColor = .dooldaTheme
+        self.view.backgroundColor = .dooldaBackground
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.refreshButton)
         
         self.view.addSubview(scrollView)
