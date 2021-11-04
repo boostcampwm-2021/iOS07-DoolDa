@@ -20,13 +20,13 @@ enum RefreshPairIdUseCaseError: LocalizedError {
 }
 
 protocol RefreshPairIdUseCaseProtocol {
-    var pairedIdPublisher: Published<String?>.Publisher { get }
+    var pairIdPublisher: Published<String?>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
     func refreshPairId(for id: String)
 }
 
 final class RefreshPairIdUseCase: RefreshPairIdUseCaseProtocol {
-    var pairedIdPublisher: Published<String?>.Publisher { self.$pairId }
+    var pairIdPublisher: Published<String?>.Publisher { self.$pairId }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
     private let userRepository: UserRepositoryProtocol
