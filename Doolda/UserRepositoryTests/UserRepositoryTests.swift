@@ -101,4 +101,43 @@ class UserRepositoryTest: XCTestCase {
         }.store(in: &self.disposeBag)
         wait(for: [expectation], timeout: 10)
     }
+    
+    func testCheckUserIdIsExistTrue() throws {
+        let expectation = XCTestExpectation()
+
+        guard let userRepository = userRepository else {
+            XCTFail()
+            return
+        }
+        
+        let sub = userRepository.checkUserIdIsExist(self.dummyUserId)
+            .sink { completion in
+            guard case .failure(let error) = completion else { return }
+                XCTFail(error.localizedDescription)
+        } receiveValue: { result in
+            XCTAssertTrue(result, "userId가 없습니다.")
+            expectation.fulfill()
+        }.store(in: &self.disposeBag)
+        wait(for: [expectation], timeout: 10)
+    }
+    
+    func testCheckUserIdIsExistFalse() throws {
+        let expectation = XCTestExpectation()
+
+        guard let userRepository = userRepository else {
+            XCTFail()
+            return
+        }
+        
+        let sub = userRepository.checkUserIdIsExist(self.dummyNotExistId)
+            .sink { completion in
+            guard case .failure(let error) = completion else { return }
+                XCTFail(error.localizedDescription)
+        } receiveValue: { result in
+            XCTAssertFalse(result, "userId가 있습니다..")
+            expectation.fulfill()
+        }.store(in: &self.disposeBag)
+        wait(for: [expectation], timeout: 10)
+    }
+    
 }
