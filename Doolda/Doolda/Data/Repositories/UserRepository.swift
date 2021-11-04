@@ -28,7 +28,6 @@ enum UserRepositoryError: LocalizedError {
 class UserRepository: UserRepositoryProtocol {
     
     static let userCollection = "user"
-    static let userId = "userId"
 
     private let userDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol
     private let firebaseNetworkService: FirebaseNetworkServiceProtocol
@@ -41,7 +40,7 @@ class UserRepository: UserRepositoryProtocol {
     }
 
     func fetchMyId() -> AnyPublisher<String, Error> {
-        if let userId: String = self.userDefaultsPersistenceService.get(key: UserRepository.userId) {
+        if let userId: String = self.userDefaultsPersistenceService.get(key: UserDefaults.Keys.userId) {
             return Just(userId).setFailureType(to: Error.self).eraseToAnyPublisher()
         } else {
             return Fail(error: UserRepositoryError.nilUserId).eraseToAnyPublisher()
@@ -74,7 +73,7 @@ class UserRepository: UserRepositoryProtocol {
                     promise(.failure(error))
                 } receiveValue: { result in
                     if result {
-                        self.userDefaultsPersistenceService.set(key: UserRepository.userId, value: id)
+                        self.userDefaultsPersistenceService.set(key: UserDefaults.Keys.userId, value: id)
                         promise(.success(id))
                     }
                     else {
