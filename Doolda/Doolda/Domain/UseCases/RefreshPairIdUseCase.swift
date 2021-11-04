@@ -9,11 +9,11 @@ import Combine
 import Foundation
 
 enum RefreshPairIdUseCaseError: LocalizedError {
-    case notExistPairId
+    case pairNotExist
     
     var errorDescription: String? {
         switch self {
-        case .notExistPairId:
+        case .pairNotExist:
             return "등록된 짝이 없습니다."
         }
     }
@@ -46,7 +46,6 @@ final class RefreshPairIdUseCase: RefreshPairIdUseCaseProtocol {
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
             } receiveValue: { [weak self] pairId in
-                    self?.error = RefreshPairIdUseCaseError.notExistPairId
                 self?.pairId = pairId
             }
             .store(in: &self.cancellables)
