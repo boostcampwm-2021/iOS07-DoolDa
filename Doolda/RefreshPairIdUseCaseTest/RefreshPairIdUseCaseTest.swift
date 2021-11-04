@@ -17,6 +17,7 @@ final class RefreshPairIdUseCaseTest: XCTestCase {
         }
         
         enum TestError: Error {
+            case notImplemented
             case notExistId
         }
         
@@ -27,10 +28,10 @@ final class RefreshPairIdUseCaseTest: XCTestCase {
         }
         
         func fetchMyId() -> AnyPublisher<String, Error> {
-            Just<String>("").setFailureType(to: Error.self).eraseToAnyPublisher()
+            Just("").setFailureType(to: Error.self).eraseToAnyPublisher()
         }
-        
-        func fetchPairId() -> AnyPublisher<String, Error> {
+
+        func fetchPairId(for id: String) -> AnyPublisher<String, Error> {
             switch testCase {
             case .success:
                 return Just(UUID().uuidString).setFailureType(to: Error.self).eraseToAnyPublisher()
@@ -41,59 +42,94 @@ final class RefreshPairIdUseCaseTest: XCTestCase {
             }
         }
         
-        func saveMyId(_ id: String) { }
+        func saveMyId(_ id: String) -> AnyPublisher<String, Error> {
+            Fail(error: TestError.notImplemented).eraseToAnyPublisher()
+        }
         
-        func savePairId(_ id: String) { }
+        func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<String, Error> {
+            Fail(error: TestError.notImplemented).eraseToAnyPublisher()
+        }
+        
+        func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error> {
+            Fail(error: TestError.notImplemented).eraseToAnyPublisher()
+        }
+    }
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    override func tearDownWithError() throws {
+        self.cancellables.forEach({ $0.cancel() })
     }
     
     func testRefreshPairId_success() {
         let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: MockUserRepository(testCase: .success))
-        refreshPairIdUseCase.refreshPairId()
+        let expectation = expectation(description: "testRefreshPairId_success")
         
-        refreshPairIdUseCase.pairedIdPublisher
+        refreshPairIdUseCase.pairIdPublisher
+            .dropFirst()
             .sink { pairId in
                 XCTAssertNotNil(pairId)
+                expectation.fulfill()
             }
-            .cancel()
+            .store(in: &self.cancellables)
         
         refreshPairIdUseCase.errorPublisher
+            .dropFirst()
             .sink { error in
                 XCTAssertNil(error)
+                expectation.fulfill()
             }
-            .cancel()
+            .store(in: &self.cancellables)
+        
+        refreshPairIdUseCase.refreshPairId(for: UUID().uuidString)
+        waitForExpectations(timeout: 5)
     }
     
     func testRefreshPairId_failure_notExist() {
         let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: MockUserRepository(testCase: .failureNotExist))
-        refreshPairIdUseCase.refreshPairId()
+        let expectation = expectation(description: "testRefreshPairId_failure_notExist")
         
-        refreshPairIdUseCase.pairedIdPublisher
+        refreshPairIdUseCase.pairIdPublisher
+            .dropFirst()
             .sink { pairId in
                 XCTAssertNil(pairId)
+                expectation.fulfill()
             }
-            .cancel()
+            .store(in: &self.cancellables)
         
         refreshPairIdUseCase.errorPublisher
+            .dropFirst()
             .sink { error in
                 XCTAssertNotNil(error)
+                expectation.fulfill()
             }
-            .cancel()
+            .store(in: &self.cancellables)
+        
+        refreshPairIdUseCase.refreshPairId(for: UUID().uuidString)
+        waitForExpectations(timeout: 5)
     }
     
     func testRefreshPairId_failure_isEmpty() {
         let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: MockUserRepository(testCase: .failurePairIdIsEmpty))
-        refreshPairIdUseCase.refreshPairId()
+        let expectation = expectation(description: "testRefreshPairId_failure_isEmpty")
         
-        refreshPairIdUseCase.pairedIdPublisher
+        refreshPairIdUseCase.pairIdPublisher
+            .dropFirst()
             .sink { pairId in
-                XCTAssertNil(pairId)
+                XCTAssertEqual("", pairId)
+                expectation.fulfill()
             }
-            .cancel()
+            .store(in: &self.cancellables)
         
         refreshPairIdUseCase.errorPublisher
+            .dropFirst()
             .sink { error in
                 XCTAssertNotNil(error)
+                expectation.fulfill()
             }
-            .cancel()
+            .store(in: &self.cancellables)
+        
+        refreshPairIdUseCase.refreshPairId(for: UUID().uuidString)
+        waitForExpectations(timeout: 5)
     }
 }
