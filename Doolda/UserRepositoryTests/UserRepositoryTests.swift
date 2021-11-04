@@ -5,12 +5,19 @@
 //  Created by 김민주 on 2021/11/04.
 //
 
+import Combine
 import XCTest
 
 class UserRepositoryTest: XCTestCase {
     
+    private let dummyUserId = "00000000-0000-0000-0000-000000000000"
+    private let dummyfriendId = "00000000-0000-0000-0000-000000000001"
+    private let dummyPairId = "00000000-0000-0000-0000-000000000002"
+    private let dummyNotExistId = "00000000-0000-0000-0000-000000000005"
+
     private var userRepository: UserRepositoryProtocol?
-    private let userId = "00000000-0000-0000-0000-000000000000"
+    private var disposeBag = Set<AnyCancellable>()
+
     
     override func setUpWithError() throws {
         let userRepository = UserRepository(persistenceService: UserDefaultsPersistenceService(),
@@ -20,26 +27,27 @@ class UserRepositoryTest: XCTestCase {
 
     override func tearDownWithError() throws {
         self.userRepository = nil
+        self.disposeBag.removeAll()
         let persistenceService = UserDefaultsPersistenceService()
         persistenceService.remove(key: UserRepository.userId)
     }
     
     func testFetchMyIdSuccess() throws {
         let persistenceService = UserDefaultsPersistenceService()
-        persistenceService.set(key: UserRepository.userId, value: self.userId)
+        persistenceService.set(key: UserRepository.userId, value: self.dummyUserId)
         
         guard let userRepository = userRepository else {
             XCTFail()
             return
         }
         
-        userRepository.fetchMyId()
+        let sub = userRepository.fetchMyId()
             .sink(receiveCompletion: { completion in
             guard case .failure(let error) = completion else { return }
                 XCTFail(error.localizedDescription)
         }, receiveValue: { myId in
-            XCTAssertEqual(myId, self.userId, "불러온 내 id값이 예상값과 일치하지 않습니다.")
-        })
+            XCTAssertEqual(myId, self.dummyUserId, "불러온 내 id값이 예상값과 일치하지 않습니다.")
+        }).store(in: &self.disposeBag)
     }
 
     func testFetchMyIdFail() throws {
@@ -48,14 +56,13 @@ class UserRepositoryTest: XCTestCase {
             return
         }
         
-        userRepository.fetchMyId()
+        let sub = userRepository.fetchMyId()
             .sink(receiveCompletion: { completion in
             guard case .failure(let error) = completion else { return }
                 print(error)
         }, receiveValue: { myId in
             XCTFail()
-
-        })
+        }).store(in: &self.disposeBag)
     }
     
     func testsaveMyId() throws {
@@ -65,16 +72,33 @@ class UserRepositoryTest: XCTestCase {
             XCTFail()
             return
         }
-        userRepository.saveMyId(self.userId).sink { completion in
+        let sub = userRepository.saveMyId(self.dummyUserId).sink { completion in
             guard case .failure(let error) = completion else { return }
                 XCTFail(error.localizedDescription)
-        } receiveValue: { result in
-            if !result {
-                XCTFail()
-            } else {
-                expectation.fulfill()
-            }
+        } receiveValue: { myId in
+            XCTAssertEqual(myId, self.dummyUserId, "불러온 내 id값이 예상값과 일치하지 않습니다." )
+            expectation.fulfill()
+        }.store(in: &self.disposeBag)
+        wait(for: [expectation], timeout: 10)
+    }
+    
+    func testSavePairId() throws {
+        let expectation = XCTestExpectation()
+
+        guard let userRepository = userRepository else {
+            XCTFail()
+            return
         }
+        let sub = userRepository.savePairId(myId: self.dummyUserId,
+                                            friendId: self.dummyfriendId,
+                                            pairId: self.dummyPairId)
+            .sink { completion in
+            guard case .failure(let error) = completion else { return }
+                XCTFail(error.localizedDescription)
+        } receiveValue: { pairId in
+            XCTAssertEqual(pairId, self.dummyPairId, "불러온 pair id값이 예상값과 일치하지 않습니다." )
+            expectation.fulfill()
+        }.store(in: &self.disposeBag)
         wait(for: [expectation], timeout: 10)
     }
 }
