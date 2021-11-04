@@ -9,9 +9,11 @@ import UIKit
 
 class SplashViewCoordinator: Coordinator {
     override func start() {
-        let getMyIdUseCase = MockGetMyIdUseCase()
-        let getPairIdUseCase = GetPairIdUseCase()
-        let generateMyIdUseCase = GenerateMyIdUseCase()
+        let userRespository = UserRepository(persistenceService: UserDefaultsPersistenceService(),
+                                             networkService: FirebaseNetworkService())
+        let getMyIdUseCase = GetMyIdUseCase(userRepository: userRespository)
+        let getPairIdUseCase = GetPairIdUseCase(userRepository: userRespository)
+        let generateMyIdUseCase = GenerateMyIdUseCase(userRepository: userRespository)
         let viewModel = SplashViewModel(coordinatorDelegate: self,
                                         getMyIdUseCase: getMyIdUseCase,
                                         getPairIdUseCase: getPairIdUseCase,

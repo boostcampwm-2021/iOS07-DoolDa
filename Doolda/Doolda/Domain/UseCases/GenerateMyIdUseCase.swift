@@ -53,9 +53,3 @@ final class GenerateMyIdUseCase: GenerateMyIdUseCaseProtocol {
             .store(in: &cancellables)
     }
 }
-
-final class GenerateMyIdUseCase: GenerateMyIdUseCaseProtocol {
-    func generateMyId() -> AnyPublisher<String, Error> {
-        "".publisher.tryMap{_ in return ""}.eraseToAnyPublisher()
-    }
-}

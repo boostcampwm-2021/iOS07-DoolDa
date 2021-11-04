@@ -23,10 +23,3 @@ final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
         return userRepository.fetchMyId()
     }
 }
-
-// FIXME: 나중에 여기는 지우자
-final class MockGetMyIdUseCase: GetMyIdUseCaseProtocol {
-    func getMyId() -> AnyPublisher<String, Error> {
-       return "".publisher.tryMap{_ in return ""}.eraseToAnyPublisher()
-    }
-}

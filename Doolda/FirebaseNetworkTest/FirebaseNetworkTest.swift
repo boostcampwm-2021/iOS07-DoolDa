@@ -42,7 +42,7 @@ class FirebaseNetworkTest: XCTestCase {
                 XCTFail(error.localizedDescription)
             }
         } receiveValue: { firebaseDocument in
-            guard let user = User(data: firebaseDocument.data) else {
+            guard let user = UserDocument(data: firebaseDocument.data) else {
                 XCTFail("초기화 에러")
                 return
             }
@@ -72,7 +72,7 @@ class FirebaseNetworkTest: XCTestCase {
                 XCTFail(error.localizedDescription)
             }
         } receiveValue: { firebaseDocument in
-            guard let pair = Pair(data: firebaseDocument.data) else {
+            guard let pair = PairDocument(data: firebaseDocument.data) else {
                 XCTFail("초기화 에러")
                 return
             }
