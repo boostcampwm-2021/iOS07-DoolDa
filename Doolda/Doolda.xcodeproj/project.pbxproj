@@ -70,9 +70,6 @@
 		FC5FB79827327861008AC3D2 /* FirebaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */; };
 		FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */; };
 		FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */; };
-		FC5FB7A427328A19008AC3D2 /* UserDefaultsPersistenceServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7A327328A19008AC3D2 /* UserDefaultsPersistenceServiceTest.swift */; };
-		FC5FB7AA27328C34008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */; };
-		FC5FB7AB27328C42008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */; };
 		FC5FB7AC27328E3E008AC3D2 /* FirebaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */; };
 		FC5FB7CC27339213008AC3D2 /* UserRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7CB27339213008AC3D2 /* UserRepositoryTests.swift */; };
 		FC5FB7D22733927B008AC3D2 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };

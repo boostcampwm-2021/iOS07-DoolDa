@@ -81,8 +81,12 @@ class SplashViewModelTest: XCTestCase {
         self.splashViewModel = nil
     }
 
-    // 내 식별코드 가져오고
-    func testGenerateMyIdSuccess() throws {
+    // 내 아이디 가져오기 실패 -> 내 아이디 만들기 실패
+    // 내 아이디 가져오기 실패 -> 내 아이디 만들기 성공
+    // 내 아이디 가져오기 성공 -> 짝 아이디 가져오기 실패
+    // 내 아이디 가져오기 성공 -> 짝 아이디 가져오기 성공
+
+    func testParingSuccess() throws {
         let mockMyId = "00000000-0000-0000-0000-000000000001"
         let mockPairId = "00000000-0000-0000-0000-000000000002"
         let mockCoordinatorDelegate = MockCoordinatorDelegate()
@@ -94,7 +98,9 @@ class SplashViewModelTest: XCTestCase {
                                                getPairIdUseCase: mockGetPairIdUseCase,
                                                generateMyIdUseCase: mockGenerateMyIdUseCase
                                                )
-        
+
+        self.splashViewModel?.viewDidLoad()
+        XCTAssertEqual(mockCoordinatorDelegate.result, .alreadyPaired)
     }
 
 }
