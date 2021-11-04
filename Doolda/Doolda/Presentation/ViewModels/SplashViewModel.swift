@@ -47,9 +47,12 @@ final class SplashViewModel {
     private func getPairId(with myId: String) {
         getPairIdUseCase.getPairId(for: myId)
             .sink { [weak self] result in
-                guard case .failure(_) = result else { return }
-                self?.coordinatorDelegate.userNotPaired(myId: myId)
+                guard case .failure(let error) = result else { return }
+                self?.networkError = error
             } receiveValue: { pairId in
+                if pairId.isEmpty {
+                    self.coordinatorDelegate.userNotPaired(myId: myId)
+                }
                 self.coordinatorDelegate.userAlreadyPaired(myId: myId, pairId: pairId)
             }
             .store(in: &cancellables)
