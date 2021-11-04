@@ -80,16 +80,18 @@ class UserRepository: UserRepositoryProtocol {
     
     func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<String, Error> {
         return Future<String, Error> { promise in
-            Publishers.Zip(
+            Publishers.Zip3(
                 self.firebaseNetworkService
                     .setDocument(path: myId, in: FirebaseCollection.user, with: ["pairId":pairId]),
                 self.firebaseNetworkService
-                    .setDocument(path: friendId, in: FirebaseCollection.user, with: ["pairId":pairId])
+                    .setDocument(path: friendId, in: FirebaseCollection.user, with: ["pairId":pairId]),
+                self.firebaseNetworkService
+                    .setDocument(path: pairId, in: FirebaseCollection.pair, with: ["recentlyEditedUser":friendId])
             ).sink { completion in
                 guard case .failure(let error) = completion else { return }
                 promise(.failure(error))
-            } receiveValue: { myIdResult, friendIdResult in
-                if myIdResult, friendIdResult {
+            } receiveValue: { myIdResult, friendIdResult, pairResult in
+                if myIdResult, friendIdResult, pairResult {
                     promise(.success(pairId))
                 } else {
                     promise(.failure(UserRepositoryError.savePairIdFail))
