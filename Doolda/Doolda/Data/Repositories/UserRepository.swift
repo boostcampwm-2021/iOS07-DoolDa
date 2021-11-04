@@ -20,13 +20,11 @@ enum UserRepositoryError: LocalizedError {
             return "DataTransferObjects가 올바르지 않습니다."
         case .savePairIdFail:
             return "PairID를 저장하는데 실패했습니다"
-
         }
     }
 }
 
 class UserRepository: UserRepositoryProtocol {
-    
     private let userDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol
     private let firebaseNetworkService: FirebaseNetworkServiceProtocol
     
@@ -69,12 +67,11 @@ class UserRepository: UserRepositoryProtocol {
                 .sink { completion in
                     guard case .failure(let error) = completion else {return}
                     promise(.failure(error))
-                } receiveValue: { result in
+                } receiveValue: { [weak self] result in
                     if result {
-                        self.userDefaultsPersistenceService.set(key: UserDefaults.Keys.userId, value: id)
+                        self?.userDefaultsPersistenceService.set(key: UserDefaults.Keys.userId, value: id)
                         promise(.success(id))
-                    }
-                    else {
+                    } else {
                         promise(.failure(UserRepositoryError.savePairIdFail))
                     }
                 }.store(in: &self.disposeBag)
@@ -116,5 +113,4 @@ class UserRepository: UserRepositoryProtocol {
                 }.store(in: &self.disposeBag)
         }.eraseToAnyPublisher()
     }
-    
 }
