@@ -16,25 +16,24 @@ class PairingViewCoordinator: Coordinator {
     }
     
     override func start() {
-//        let userDefaultsPersistenceService = UserDefaultsPersistenceService()
-//        let firebaseNetworkService = FirebaseNetworkService()
+        let userDefaultsPersistenceService = UserDefaultsPersistenceService()
+        let firebaseNetworkService = FirebaseNetworkService()
         
-//        let userRepository = UserRepository(
-//            userDefaultsPersistenceService: userDefaultsPersistenceService,
-//            firebaseNetworkService: firebaseNetworkService
-//        )
+        let userRepository = UserRepository(
+            persistenceService: userDefaultsPersistenceService,
+            networkService: firebaseNetworkService
+        )
         
-//        let generatePairIdUseCase = GeneratePairIdUseCase(userRepository: userRepository)
-//        let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: userRepository)
-//
-//        let viewModel = PairingViewModel(
-//            myId: self.myId,
-//            generatePairIdUseCase: generatePairIdUseCase,
-//            refreshPairIdUseCase: refreshPairIdUseCase
-//        )
+        let generatePairIdUseCase = GeneratePairIdUseCase(userRepository: userRepository)
+        let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: userRepository)
+
+        let viewModel = PairingViewModel(
+            myId: self.myId,
+            generatePairIdUseCase: generatePairIdUseCase,
+            refreshPairIdUseCase: refreshPairIdUseCase
+        )
         
-//        let viewController = PairingViewController(viewModel: viewModel)
-        let viewController = PairingViewController()
+        let viewController = PairingViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
     }
 }
