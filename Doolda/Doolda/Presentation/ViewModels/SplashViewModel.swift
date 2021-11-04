@@ -56,13 +56,20 @@ final class SplashViewModel {
     }
 
     private func generateMyId() {
-        generateMyIdUseCase.generateMyId()
-            .sink { [weak self] result in
-                guard case .failure(let error) = result else { return }
-                self?.networkError = error
-            } receiveValue: { myId in
+        generateMyIdUseCase.savedIdPublisher
+            .sink(receiveValue: { myId in
+                guard let myId = myId else { return }
                 self.coordinatorDelegate.userNotPaired(myId: myId)
-            }
+            })
             .store(in: &cancellables)
+
+        generateMyIdUseCase.errorPublisher
+            .sink(receiveValue: { error in
+                guard let error = error else { return }
+                self.networkError = error
+            })
+            .store(in: &cancellables)
+
+        generateMyIdUseCase.generate()
     }
 }
