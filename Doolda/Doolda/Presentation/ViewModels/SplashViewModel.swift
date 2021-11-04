@@ -53,8 +53,9 @@ final class SplashViewModel {
             } receiveValue: { [weak self] pairId in
                 if pairId.isEmpty {
                     self?.coordinatorDelegate.userNotPaired(myId: myId)
+                } else {
+                    self?.coordinatorDelegate.userAlreadyPaired(myId: myId, pairId: pairId)
                 }
-                self?.coordinatorDelegate.userAlreadyPaired(myId: myId, pairId: pairId)
             }
             .store(in: &self.cancellables)
     }
