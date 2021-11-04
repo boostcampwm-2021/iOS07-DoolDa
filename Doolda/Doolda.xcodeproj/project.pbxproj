@@ -71,6 +71,9 @@
 		FC5FB7DC2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7DB2733A4A9008AC3D2 /* UserDefaults+Extensions.swift */; };
 		FC5FB7DD2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7DB2733A4A9008AC3D2 /* UserDefaults+Extensions.swift */; };
 		FC5FB7DE2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7DB2733A4A9008AC3D2 /* UserDefaults+Extensions.swift */; };
+		FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */; };
+		FC5FB7E12733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */; };
+		FC5FB7E22733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F1065273102E30060FEB7 /* GetMyIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */; };
@@ -165,6 +168,7 @@
 		FC5FB7C927339213008AC3D2 /* UserRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UserRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5FB7CB27339213008AC3D2 /* UserRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryTests.swift; sourceTree = "<group>"; };
 		FC5FB7DB2733A4A9008AC3D2 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollection.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -513,6 +517,7 @@
 		664893EA27300B65009F03E2 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -852,6 +857,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
 				1D0C8BC42732AF780091ACC0 /* GetPairIdUseCase.swift in Sources */,
 				FC5FB79027325C4D008AC3D2 /* User.swift in Sources */,
@@ -901,6 +907,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC5FB7E12733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				FC5FB7AB27328C42008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
 				FC5FB7AA27328C34008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */,
 				FC5FB7DD2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */,
@@ -916,6 +923,7 @@
 				FC5FB7D32733927B008AC3D2 /* UserRepository.swift in Sources */,
 				FC5FB7D42733927B008AC3D2 /* User.swift in Sources */,
 				FC5FB7D52733927B008AC3D2 /* Pair.swift in Sources */,
+				FC5FB7E22733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				FC5FB7D62733927B008AC3D2 /* FirebaseDocument.swift in Sources */,
 				FC5FB7D72733927B008AC3D2 /* FirebaseNetworkProtocol.swift in Sources */,
 				FC5FB7D82733927B008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,

@@ -27,8 +27,6 @@ enum UserRepositoryError: LocalizedError {
 
 class UserRepository: UserRepositoryProtocol {
     
-    static let userCollection = "user"
-
     private let userDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol
     private let firebaseNetworkService: FirebaseNetworkServiceProtocol
     
@@ -50,7 +48,7 @@ class UserRepository: UserRepositoryProtocol {
     func fetchPairId(for id: String) -> AnyPublisher<String, Error> {
         return Future<String, Error> { promise in
             self.firebaseNetworkService
-                .getDocument(path: id, in: UserRepository.userCollection)
+                .getDocument(path: id, in: FirebaseCollection.user)
                 .sink { completion in
                     guard case .failure(let error) = completion else {return}
                     promise(.failure(error))
@@ -67,7 +65,7 @@ class UserRepository: UserRepositoryProtocol {
     func saveMyId(_ id: String) -> AnyPublisher<String, Error> {
         return Future<String, Error> { promise in
             self.firebaseNetworkService
-                .setDocument(path: id, in: UserRepository.userCollection, with: ["pairId":""])
+                .setDocument(path: id, in: FirebaseCollection.user, with: ["pairId":""])
                 .sink { completion in
                     guard case .failure(let error) = completion else {return}
                     promise(.failure(error))
@@ -87,9 +85,9 @@ class UserRepository: UserRepositoryProtocol {
         return Future<String, Error> { promise in
             Publishers.Zip(
                 self.firebaseNetworkService
-                    .setDocument(path: myId, in: UserRepository.userCollection, with: ["pairId":pairId]),
+                    .setDocument(path: myId, in: FirebaseCollection.user, with: ["pairId":pairId]),
                 self.firebaseNetworkService
-                    .setDocument(path: friendId, in: UserRepository.userCollection, with: ["pairId":pairId])
+                    .setDocument(path: friendId, in: FirebaseCollection.user, with: ["pairId":pairId])
             ).sink { completion in
                 guard case .failure(let error) = completion else {return}
                 promise(.failure(error))
@@ -105,7 +103,7 @@ class UserRepository: UserRepositoryProtocol {
     
     func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error> {
         return Future<Bool, Error> { promise in
-            self.firebaseNetworkService.getDocument(path: id, in: UserRepository.userCollection)
+            self.firebaseNetworkService.getDocument(path: id, in:FirebaseCollection.user)
                 .sink { completion in
                     guard case .failure(let error) = completion else {return}
                     if let localizedError = error as? FirebaseNetworkService.Errors,
