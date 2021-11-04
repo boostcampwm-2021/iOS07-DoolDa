@@ -22,7 +22,7 @@ enum RefreshPairIdUseCaseError: LocalizedError {
 protocol RefreshPairIdUseCaseProtocol {
     var pairedIdPublisher: Published<String?>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
-    func refreshPairId()
+    func refreshPairId(for id: String)
 }
 
 final class RefreshPairIdUseCase: RefreshPairIdUseCaseProtocol {
@@ -40,17 +40,14 @@ final class RefreshPairIdUseCase: RefreshPairIdUseCaseProtocol {
         self.userRepository = userRepository
     }
     
-    func refreshPairId() {
-        self.userRepository.fetchPairId()
+    func refreshPairId(for id: String) {
+        self.userRepository.fetchPairId(for: id)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
             } receiveValue: { [weak self] pairId in
-                if pairId.isEmpty {
                     self?.error = RefreshPairIdUseCaseError.notExistPairId
-                } else {
-                    self?.pairId = pairId
-                }
+                self?.pairId = pairId
             }
             .store(in: &self.cancellables)
     }
