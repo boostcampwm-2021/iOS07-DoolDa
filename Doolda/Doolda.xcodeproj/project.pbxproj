@@ -46,11 +46,11 @@
 		6648945F27327F1D009F03E2 /* GeneratePairIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6648945E27327F1D009F03E2 /* GeneratePairIdUseCaseTests.swift */; };
 		6648946527327FDB009F03E2 /* GeneratePairIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6648945627325B07009F03E2 /* GeneratePairIdUseCase.swift */; };
 		6648946627327FDB009F03E2 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
-		FC5FB79027325C4D008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
-		FC5FB79127325D2C008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
+		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
+		FC5FB79127325D2C008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
-		FC5FB7952732627C008AC3D2 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* Pair.swift */; };
-		FC5FB79627326306008AC3D2 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* Pair.swift */; };
+		FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* PairDocument.swift */; };
+		FC5FB79627326306008AC3D2 /* PairDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* PairDocument.swift */; };
 		FC5FB79827327861008AC3D2 /* FirebaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */; };
 		FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */; };
 		FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */; };
@@ -61,8 +61,8 @@
 		FC5FB7CC27339213008AC3D2 /* UserRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7CB27339213008AC3D2 /* UserRepositoryTests.swift */; };
 		FC5FB7D22733927B008AC3D2 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC5FB7D32733927B008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
-		FC5FB7D42733927B008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
-		FC5FB7D52733927B008AC3D2 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* Pair.swift */; };
+		FC5FB7D42733927B008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
+		FC5FB7D52733927B008AC3D2 /* PairDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* PairDocument.swift */; };
 		FC5FB7D62733927B008AC3D2 /* FirebaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */; };
 		FC5FB7D72733927B008AC3D2 /* FirebaseNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */; };
 		FC5FB7D82733927B008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */; };
@@ -157,9 +157,9 @@
 		6648945627325B07009F03E2 /* GeneratePairIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePairIdUseCase.swift; sourceTree = "<group>"; };
 		6648945C27327F1D009F03E2 /* GeneratePairIdUseCaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeneratePairIdUseCaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6648945E27327F1D009F03E2 /* GeneratePairIdUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePairIdUseCaseTests.swift; sourceTree = "<group>"; };
-		FC5FB78F27325C4D008AC3D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
-		FC5FB7942732627C008AC3D2 /* Pair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pair.swift; sourceTree = "<group>"; };
+		FC5FB7942732627C008AC3D2 /* PairDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDocument.swift; sourceTree = "<group>"; };
 		FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDocument.swift; sourceTree = "<group>"; };
 		FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPersistenceService.swift; sourceTree = "<group>"; };
 		FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
@@ -415,8 +415,8 @@
 		664893DF27300A2D009F03E2 /* DataTransferObjects */ = {
 			isa = PBXGroup;
 			children = (
-				FC5FB78F27325C4D008AC3D2 /* User.swift */,
-				FC5FB7942732627C008AC3D2 /* Pair.swift */,
+				FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */,
+				FC5FB7942732627C008AC3D2 /* PairDocument.swift */,
 				FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */,
 			);
 			path = DataTransferObjects;
@@ -860,7 +860,7 @@
 				FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
 				1D0C8BC42732AF780091ACC0 /* GetPairIdUseCase.swift in Sources */,
-				FC5FB79027325C4D008AC3D2 /* User.swift in Sources */,
+				FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */,
 				FC5FB79827327861008AC3D2 /* FirebaseDocument.swift in Sources */,
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
 				1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */,
@@ -889,7 +889,7 @@
 				1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
-				FC5FB7952732627C008AC3D2 /* Pair.swift in Sources */,
+				FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -921,8 +921,8 @@
 			files = (
 				FC5FB7D22733927B008AC3D2 /* UserRepositoryProtocol.swift in Sources */,
 				FC5FB7D32733927B008AC3D2 /* UserRepository.swift in Sources */,
-				FC5FB7D42733927B008AC3D2 /* User.swift in Sources */,
-				FC5FB7D52733927B008AC3D2 /* Pair.swift in Sources */,
+				FC5FB7D42733927B008AC3D2 /* UserDocument.swift in Sources */,
+				FC5FB7D52733927B008AC3D2 /* PairDocument.swift in Sources */,
 				FC5FB7E22733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				FC5FB7D62733927B008AC3D2 /* FirebaseDocument.swift in Sources */,
 				FC5FB7D72733927B008AC3D2 /* FirebaseNetworkProtocol.swift in Sources */,
@@ -949,8 +949,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC5FB7AC27328E3E008AC3D2 /* FirebaseDocument.swift in Sources */,
-				FC5FB79627326306008AC3D2 /* Pair.swift in Sources */,
-				FC5FB79127325D2C008AC3D2 /* User.swift in Sources */,
+				FC5FB79627326306008AC3D2 /* PairDocument.swift in Sources */,
+				FC5FB79127325D2C008AC3D2 /* UserDocument.swift in Sources */,
 				FC9F108927315EEB0060FEB7 /* FirebaseNetworkProtocol.swift in Sources */,
 				FC9F108A27315EEB0060FEB7 /* FirebaseNetworkService.swift in Sources */,
 				FC9F108227315EB80060FEB7 /* FirebaseNetworkTest.swift in Sources */,

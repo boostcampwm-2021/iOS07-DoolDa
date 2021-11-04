@@ -51,7 +51,7 @@ class UserRepository: UserRepositoryProtocol {
                     guard case .failure(let error) = completion else {return}
                     promise(.failure(error))
                 } receiveValue: { document in
-                    guard let user = User(data: document.data) else {
+                    guard let user = UserDocument(data: document.data) else {
                         promise(.failure(UserRepositoryError.DTOInitError))
                         return
                     }

@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  UserDocument.swift
 //  Doolda
 //
 //  Created by 김민주 on 2021/11/03.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: Codable {
+struct UserDocument: Codable {
     let pairId: String
     
     init?(data: [String: Any]) {
