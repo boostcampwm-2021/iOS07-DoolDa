@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol GetPairIdUseCaseProtocol {
-    func getPairId(myId: String) -> AnyPublisher<String, Error>
+    func getPairId(for id: String) -> AnyPublisher<String, Error>
 }
 
 class GetPairIdUseCase: GetPairIdUseCaseProtocol {
@@ -19,7 +19,7 @@ class GetPairIdUseCase: GetPairIdUseCaseProtocol {
         self.userRepository = userRepository
     }
     
-    func getPairId(myId: String) -> AnyPublisher<String, Error> {
-        return self.userRepository.fetchPairId(for: myId)
+    func getPairId(for id: String) -> AnyPublisher<String, Error> {
+        return self.userRepository.fetchPairId(for: id)
     }
 }
