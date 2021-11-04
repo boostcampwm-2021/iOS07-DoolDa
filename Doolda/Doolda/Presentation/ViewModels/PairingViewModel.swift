@@ -9,18 +9,12 @@ import Combine
 import Foundation
 
 enum PairingViewModelError: LocalizedError {
-    case friendIdIsInvalid
     case friendIdIsEmpty
-    case friendIsAlreadyPairedWithAnotherUser
     
     var errorDescription: String? {
         switch self {
-        case .friendIdIsInvalid:
-            return "유효하지 않은 친구 ID 입니다."
         case .friendIdIsEmpty:
             return "친구 ID가 비어있습니다."
-        case .friendIsAlreadyPairedWithAnotherUser:
-            return "친구가 이미 또 다른 친구와 연결되어 있습니다."
         }
     }
 }
