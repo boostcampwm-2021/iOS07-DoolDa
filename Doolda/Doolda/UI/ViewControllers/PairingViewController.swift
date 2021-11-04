@@ -128,6 +128,14 @@ class PairingViewController: UIViewController {
     // MARK: - Private Properties
     
     private var cancellables: Set<AnyCancellable> = []
+    private var viewModel: PairingViewModel?
+    
+    // MARK: - Initializers
+    
+    convenience init(viewModel: PairingViewModel) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
     
     // MARK: - Lifecycle Methods
     
@@ -198,37 +206,34 @@ class PairingViewController: UIViewController {
     // MARK: - FIXME : should bind to viewModel
     
     private func bindUI() {
+        guard let viewModel = self.viewModel else { return }
         self.refreshButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                print("refresh button did tap")
-//                self?.viewModel.refreshButtonDidTap()
+            .sink { _ in
+                viewModel.refreshButtonDidTap()
             }
             .store(in: &cancellables)
         
         self.friendIdTextField.publisher(for: .editingChanged)
             .receive(on: DispatchQueue.main)
             .compactMap { ($0 as? UITextField)?.text }
-            .sink(receiveValue: {
-                print($0)
-            })
-//            .assign(to: \.friendId, on: viewModel)
+            .assign(to: \.friendId, on: viewModel)
             .store(in: &cancellables)
         
         self.pairButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+            .sink { _ in
                 print("pair button did tap")
-//                self?.viewModel.pairButtonDidTap()
+                viewModel.pairButtonDidTap()
             }
             .store(in: &cancellables)
         
-//        self.viewModel.$isFriendIdValid
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] isValid in
-//                self?.pairButton.isEnabled = isValid
-//            }
-//            .store(in: &cancellables)cellables)
+        viewModel.isFriendIdValid
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isValid in
+                self?.pairButton.isEnabled = isValid
+            }
+            .store(in: &cancellables)
         
         self.view.publisher(for: UITapGestureRecognizer())
             .receive(on: DispatchQueue.main)
