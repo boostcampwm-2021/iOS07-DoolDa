@@ -5,6 +5,7 @@
 //  Created by 정지승 on 2021/11/01.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -35,10 +36,11 @@ final class SplashViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    
+
     // MARK: - Private Properties
     
     private var viewModel: SplashViewModel?
+    private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializers
     
@@ -53,6 +55,8 @@ final class SplashViewController: UIViewController {
         super.viewDidLoad()
         self.configureUI()
         self.configureFont()
+        // self.bindUI()
+        self.presentNetworkAlert()
     }
 
     // MARK: - Helpers
@@ -86,6 +90,34 @@ final class SplashViewController: UIViewController {
     private func configureFont() {
         self.titleLabel.font = UIFont(name: "Dovemayo", size: 72)
         self.subtitleLabel.font = UIFont(name: "Dovemayo", size: 18)
+    }
+
+    private func bindUI() {
+        self.viewModel?.$networkError
+            .receive(on: DispatchQueue.main)
+            .sink { error in
+                guard let _ = error else { return }
+                self.presentNetworkAlert()
+            }
+            .store(in: &cancellables)
+    }
+
+    // MARK: - Private Methods
+    private func presentNetworkAlert() {
+        let alert = UIAlertController(title: "네트워크 오류",
+                                      message: "Wifi나 3G/LTE/5G를 연결 후 재시도 해주세요🙏",
+                                      preferredStyle: .alert)
+        let refreshAction = UIAlertAction(title: "재시도", style: .default) { _ in
+            //self.viewModel?.viewDidLoad()
+            print("재시도")
+        }
+        let exitAction = UIAlertAction(title: "종료", style: .destructive) { _ in
+            exit(0)
+        }
+
+        alert.addAction(exitAction)
+        alert.addAction(refreshAction)
+        self.present(alert, animated: true)
     }
 
 }
