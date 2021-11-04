@@ -57,7 +57,7 @@ class GetPairIdUseCaseTest: XCTestCase {
     }
 
     func testGetPairIdSuccessForUserWithPair() {
-        self.getPairIdUseCase?.getPairId(myId: DummyUserRepository.userWithPair)
+        self.getPairIdUseCase?.getPairId(for: DummyUserRepository.userWithPair)
             .sink(receiveCompletion: { completion in
                 guard case .failure(_) = completion else { return }
                 XCTFail()
@@ -68,7 +68,7 @@ class GetPairIdUseCaseTest: XCTestCase {
     }
     
     func testGetPairIdSuccessForUserWithoutPair() {
-        self.getPairIdUseCase?.getPairId(myId: DummyUserRepository.userWithoutPair)
+        self.getPairIdUseCase?.getPairId(for: DummyUserRepository.userWithoutPair)
             .sink(receiveCompletion: { completion in
                 guard case .failure(_) = completion else { return }
                 XCTFail()
@@ -79,7 +79,7 @@ class GetPairIdUseCaseTest: XCTestCase {
     }
 
     func testGetPairIdSuccessForNotExistingUser() {
-        self.getPairIdUseCase?.getPairId(myId: DummyUserRepository.notExistingUser)
+        self.getPairIdUseCase?.getPairId(for: DummyUserRepository.notExistingUser)
             .sink(receiveCompletion: { completion in
                 guard case .failure(let error) = completion else { return XCTFail() }
                 guard let error = error as? DummyUserRepository.Errors else { return XCTFail() }
