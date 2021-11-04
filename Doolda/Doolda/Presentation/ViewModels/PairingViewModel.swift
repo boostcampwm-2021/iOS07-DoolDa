@@ -83,6 +83,10 @@ final class PairingViewModel: PairingViewModelProtocol {
         
         self.refreshPairIdUseCase.pairIdPublisher
             .dropFirst()
+            .filter { pairId in
+                guard let pairId = pairId else { return false }
+                return !pairId.isEmpty
+            }
             .sink { [weak self] pairId in
                 self?.pairId = pairId
             }
