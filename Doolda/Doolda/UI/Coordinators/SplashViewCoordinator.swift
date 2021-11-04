@@ -9,15 +9,25 @@ import UIKit
 
 class SplashViewCoordinator: Coordinator {
     override func start() {
-        let userRespository = UserRepository(persistenceService: UserDefaultsPersistenceService(),
-                                             networkService: FirebaseNetworkService())
+        let userDefaultsPersistenceService = UserDefaultsPersistenceService()
+        let firebaseNetworkService = FirebaseNetworkService()
+        
+        let userRespository = UserRepository(
+            persistenceService: userDefaultsPersistenceService,
+            networkService: firebaseNetworkService
+        )
+        
         let getMyIdUseCase = GetMyIdUseCase(userRepository: userRespository)
         let getPairIdUseCase = GetPairIdUseCase(userRepository: userRespository)
         let generateMyIdUseCase = GenerateMyIdUseCase(userRepository: userRespository)
-        let viewModel = SplashViewModel(coordinatorDelegate: self,
-                                        getMyIdUseCase: getMyIdUseCase,
-                                        getPairIdUseCase: getPairIdUseCase,
-                                        generateMyIdUseCase: generateMyIdUseCase)
+        
+        let viewModel = SplashViewModel(
+            coordinatorDelegate: self,
+            getMyIdUseCase: getMyIdUseCase,
+            getPairIdUseCase: getPairIdUseCase,
+            generateMyIdUseCase: generateMyIdUseCase
+        )
+        
         let viewController = SplashViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
     }
