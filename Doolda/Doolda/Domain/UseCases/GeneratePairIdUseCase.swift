@@ -71,10 +71,8 @@ final class GeneratePairIdUseCase: GeneratePairIdUseCaseProtocol {
                       case .failure(let error) = completion else { return }
                 self.error = error
                 self.pairedId = nil
-            } receiveValue: { [weak self] isSucceed in
-                if isSucceed {
-                    self?.pairedId = pairId
-                }
+            } receiveValue: { [weak self] pairId in
+                self?.pairedId = pairId
             }
             .store(in: &self.cancellables)
     }
