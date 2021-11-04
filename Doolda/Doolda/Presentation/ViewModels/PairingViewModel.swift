@@ -20,8 +20,8 @@ enum PairingViewModelError: LocalizedError {
 }
 
 protocol PairingViewModelInput {
-    func pairUpWithUsers()
-    func refreshPairId()
+    func pairButtonDidTap()
+    func refreshButtonDidTap()
 }
 
 protocol PairingViewModelOutput {
@@ -35,6 +35,11 @@ final class PairingViewModel: PairingViewModelProtocol {
     @Published var friendId: String?
     @Published var pairId: String?
     @Published var error: Error?
+    
+    lazy var isFriendIdValid: AnyPublisher<Bool, Never> = $friendId
+        .compactMap { $0 }
+        .compactMap { [weak self] in return self?.isValidUUID($0) }
+        .eraseToAnyPublisher()
     
     private let myId: String
     private let generatePairIdUseCase: GeneratePairIdUseCaseProtocol
@@ -54,7 +59,7 @@ final class PairingViewModel: PairingViewModelProtocol {
         bind()
     }
     
-    func pairUpWithUsers() {
+    func pairButtonDidTap() {
         guard let friendId = friendId else {
             return self.error = PairingViewModelError.friendIdIsEmpty
         }
@@ -62,7 +67,7 @@ final class PairingViewModel: PairingViewModelProtocol {
         self.generatePairIdUseCase.generatePairId(myId: self.myId, friendId: friendId)
     }
     
-    func refreshPairId() {
+    func refreshButtonDidTap() {
         self.refreshPairIdUseCase.refreshPairId(for: self.myId)
     }
     
@@ -98,5 +103,9 @@ final class PairingViewModel: PairingViewModelProtocol {
                 self?.error = error
             }
             .store(in: &self.cancellables)
+    }
+    
+    private func isValidUUID(_ id: String) -> Bool {
+        return id.range(of: "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}", options: .regularExpression) != nil
     }
 }
