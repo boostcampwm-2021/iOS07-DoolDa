@@ -88,6 +88,26 @@
                ReferencedContainer = "container:Doolda.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "310D81222733C7FC00F15F4F"
+               BuildableName = "SplashViewModelTest.xctest"
+               BlueprintName = "SplashViewModelTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "669ADE312732E4A8007B529B"
+               BuildableName = "RefreshPairIdUseCaseTest.xctest"
+               BlueprintName = "RefreshPairIdUseCaseTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
