@@ -11,6 +11,7 @@ class UserRepository: UserRepositoryProtocol {
     enum UserRepositoryError: LocalizedError {
         case nilUserId
         case DTOInitError
+        case savePairIdFail
         
         var errorDescription: String? {
             switch self {
@@ -18,6 +19,9 @@ class UserRepository: UserRepositoryProtocol {
                 return "유저의 아이디가 존재하지 않습니다."
             case .DTOInitError:
                 return "DataTransferObjects가 올바르지 않습니다."
+            case .savePairIdFail:
+                return "PairID를 저장하는데 실패했습니다"
+
             }
         }
     }
@@ -63,11 +67,9 @@ class UserRepository: UserRepositoryProtocol {
     
     
     func saveMyId(_ id: String) -> AnyPublisher<Bool, Error> {
-        var disposeBag = Set<AnyCancellable>()
-
         return Future<Bool, Error> { promise in
             self.firebaseNetworkService
-                .setDocument(path: id, in: UserRepository.userCollection, with: ["pair":""])
+                .setDocument(path: id, in: UserRepository.userCollection, with: ["pairId":""])
                 .sink { completion in
                     guard case .failure(let error) = completion else {return}
                     promise(.failure(error))
@@ -76,12 +78,28 @@ class UserRepository: UserRepositoryProtocol {
                         self.userDefaultsPersistenceService.set(key: UserRepository.userId, value: id)
                     }
                     promise(.success(result))
-                }.store(in: &disposeBag)
+                }.store(in: &self.disposeBag)
         }.eraseToAnyPublisher()
     }
     
     func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<Bool, Error> {
-        <#code#>
+        return Future<Bool, Error> { promise in
+            Publishers.Zip(
+                self.firebaseNetworkService
+                    .setDocument(path: myId, in: UserRepository.userCollection, with: ["pairId":pairId]),
+                self.firebaseNetworkService
+                    .setDocument(path: friendId, in: UserRepository.userCollection, with: ["pairId":pairId])
+            ).sink { completion in
+                guard case .failure(let error) = completion else {return}
+                promise(.failure(error))
+            } receiveValue: { myIdResult, FriendIdResult in
+                if myIdResult, FriendIdResult {
+                    promise(.success(true))
+                } else {
+                    promise(.failure(UserRepositoryError.savePairIdFail))
+                }
+            }.store(in: &self.disposeBag)
+        }.eraseToAnyPublisher()
     }
     
     func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error> {

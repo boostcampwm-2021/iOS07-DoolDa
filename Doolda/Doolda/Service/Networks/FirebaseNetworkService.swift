@@ -10,7 +10,7 @@ import Foundation
 import FirebaseCore
 import FirebaseFirestore
 
-class FirebaseNetworkService: FirebaseNetworkProtocol {
+class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
     enum Errors: LocalizedError {
         case nilResultError
         
