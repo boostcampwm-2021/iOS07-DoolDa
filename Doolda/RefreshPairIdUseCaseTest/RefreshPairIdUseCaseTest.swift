@@ -9,7 +9,7 @@ import Combine
 import XCTest
 
 final class RefreshPairIdUseCaseTest: XCTestCase {
-    final class MockUserRepository: UserRepositoryProtocol {
+    final class DummyUserRepository: UserRepositoryProtocol {
         enum TestCase {
             case success
             case failureNotExist
@@ -62,7 +62,7 @@ final class RefreshPairIdUseCaseTest: XCTestCase {
     }
     
     func testRefreshPairId_success() {
-        let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: MockUserRepository(testCase: .success))
+        let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: DummyUserRepository(testCase: .success))
         let expectation = expectation(description: "testRefreshPairId_success")
         
         refreshPairIdUseCase.pairIdPublisher
@@ -86,7 +86,7 @@ final class RefreshPairIdUseCaseTest: XCTestCase {
     }
     
     func testRefreshPairId_failure_notExist() {
-        let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: MockUserRepository(testCase: .failureNotExist))
+        let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: DummyUserRepository(testCase: .failureNotExist))
         let expectation = expectation(description: "testRefreshPairId_failure_notExist")
         
         refreshPairIdUseCase.pairIdPublisher
@@ -110,7 +110,7 @@ final class RefreshPairIdUseCaseTest: XCTestCase {
     }
     
     func testRefreshPairId_failure_isEmpty() {
-        let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: MockUserRepository(testCase: .failurePairIdIsEmpty))
+        let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: DummyUserRepository(testCase: .failurePairIdIsEmpty))
         let expectation = expectation(description: "testRefreshPairId_failure_isEmpty")
         
         refreshPairIdUseCase.pairIdPublisher
