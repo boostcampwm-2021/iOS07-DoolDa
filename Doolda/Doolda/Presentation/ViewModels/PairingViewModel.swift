@@ -32,15 +32,15 @@ protocol PairingViewModelOutput {
 typealias PairingViewModelProtocol = PairingViewModelInput & PairingViewModelOutput
 
 final class PairingViewModel: PairingViewModelProtocol {
+    @Published var friendId: String?
+    @Published var pairId: String?
+    @Published var error: Error?
+    
     private let myId: String
     private let generatePairIdUseCase: GeneratePairIdUseCaseProtocol
     private let refreshPairIdUseCase: RefreshPairIdUseCase
     
     private var cancellables: Set<AnyCancellable> = []
-    
-    @Published var friendId: String?
-    @Published var pairId: String?
-    @Published var error: Error?
     
     init(
         myId: String,
