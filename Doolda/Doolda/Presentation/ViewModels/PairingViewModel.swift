@@ -32,6 +32,7 @@ protocol PairingViewModelOutput {
 typealias PairingViewModelProtocol = PairingViewModelInput & PairingViewModelOutput
 
 final class PairingViewModel: PairingViewModelProtocol {
+    @Published var myId: String
     @Published var friendId: String?
     @Published var pairId: String?
     @Published var error: Error?
@@ -40,8 +41,7 @@ final class PairingViewModel: PairingViewModelProtocol {
         .compactMap { $0 }
         .compactMap { [weak self] in return self?.isValidUUID($0) }
         .eraseToAnyPublisher()
-    
-    private let myId: String
+
     private let generatePairIdUseCase: GeneratePairIdUseCaseProtocol
     private let refreshPairIdUseCase: RefreshPairIdUseCase
     
