@@ -28,13 +28,13 @@ class UserRepository: UserRepositoryProtocol {
     private let userDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol
     private let firebaseNetworkService: FirebaseNetworkServiceProtocol
     
-    private var disposeBag = Set<AnyCancellable>()
-
+    private var cancellables = Set<AnyCancellable>()
+    
     init(persistenceService: UserDefaultsPersistenceServiceProtocol, networkService: FirebaseNetworkServiceProtocol) {
         self.userDefaultsPersistenceService = persistenceService
         self.firebaseNetworkService = networkService
     }
-
+    
     func fetchMyId() -> AnyPublisher<String, Error> {
         if let userId: String = self.userDefaultsPersistenceService.get(key: UserDefaults.Keys.userId) {
             return Just(userId).setFailureType(to: Error.self).eraseToAnyPublisher()
@@ -48,7 +48,7 @@ class UserRepository: UserRepositoryProtocol {
             self.firebaseNetworkService
                 .getDocument(path: id, in: FirebaseCollection.user)
                 .sink { completion in
-                    guard case .failure(let error) = completion else {return}
+                    guard case .failure(let error) = completion else { return }
                     promise(.failure(error))
                 } receiveValue: { document in
                     guard let user = UserDocument(data: document.data) else {
@@ -56,7 +56,7 @@ class UserRepository: UserRepositoryProtocol {
                         return
                     }
                     promise(.success(user.pairId))
-                }.store(in: &self.disposeBag)
+                }.store(in: &self.cancellables)
         }.eraseToAnyPublisher()
     }
     
@@ -65,7 +65,7 @@ class UserRepository: UserRepositoryProtocol {
             self.firebaseNetworkService
                 .setDocument(path: id, in: FirebaseCollection.user, with: ["pairId":""])
                 .sink { completion in
-                    guard case .failure(let error) = completion else {return}
+                    guard case .failure(let error) = completion else { return }
                     promise(.failure(error))
                 } receiveValue: { [weak self] result in
                     if result {
@@ -74,7 +74,7 @@ class UserRepository: UserRepositoryProtocol {
                     } else {
                         promise(.failure(UserRepositoryError.savePairIdFail))
                     }
-                }.store(in: &self.disposeBag)
+                }.store(in: &self.cancellables)
         }.eraseToAnyPublisher()
     }
     
@@ -86,7 +86,7 @@ class UserRepository: UserRepositoryProtocol {
                 self.firebaseNetworkService
                     .setDocument(path: friendId, in: FirebaseCollection.user, with: ["pairId":pairId])
             ).sink { completion in
-                guard case .failure(let error) = completion else {return}
+                guard case .failure(let error) = completion else { return }
                 promise(.failure(error))
             } receiveValue: { myIdResult, friendIdResult in
                 if myIdResult, friendIdResult {
@@ -94,7 +94,7 @@ class UserRepository: UserRepositoryProtocol {
                 } else {
                     promise(.failure(UserRepositoryError.savePairIdFail))
                 }
-            }.store(in: &self.disposeBag)
+            }.store(in: &self.cancellables)
         }.eraseToAnyPublisher()
     }
     
@@ -102,7 +102,7 @@ class UserRepository: UserRepositoryProtocol {
         return Future<Bool, Error> { promise in
             self.firebaseNetworkService.getDocument(path: id, in:FirebaseCollection.user)
                 .sink { completion in
-                    guard case .failure(let error) = completion else {return}
+                    guard case .failure(let error) = completion else { return }
                     if let localizedError = error as? FirebaseNetworkService.Errors,
                        localizedError == FirebaseNetworkService.Errors.nilResultError {
                         promise(.success(false))
@@ -110,7 +110,7 @@ class UserRepository: UserRepositoryProtocol {
                     promise(.failure(error))
                 } receiveValue: { _ in
                     promise(.success(true))
-                }.store(in: &self.disposeBag)
+                }.store(in: &self.cancellables)
         }.eraseToAnyPublisher()
     }
 }
