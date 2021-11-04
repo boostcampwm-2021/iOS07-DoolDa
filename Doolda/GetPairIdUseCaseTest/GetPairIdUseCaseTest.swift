@@ -10,6 +10,7 @@ import XCTest
 
 class GetPairIdUseCaseTest: XCTestCase {
     private var getPairIdUseCase: GetPairIdUseCase?
+    private var cancellables: Set<AnyCancellable> = []
 
     class DummyUserRepository: UserRepositoryProtocol {
         static let notExistingUser = "00000000-0000-0000-0000-000000000000"
@@ -20,10 +21,11 @@ class GetPairIdUseCaseTest: XCTestCase {
         enum Errors: LocalizedError {
             case userDoesNotExists
             case unknownError
+            case notImplemented
         }
         
         func fetchMyId() -> AnyPublisher<String, Error> {
-            return Just("NOT IMPLEMENTED").setFailureType(to: Error.self).eraseToAnyPublisher()
+            return Fail(error: Errors.notImplemented).eraseToAnyPublisher()
         }
     
         func fetchPairId(for id: String) -> AnyPublisher<String, Error> {
@@ -38,13 +40,17 @@ class GetPairIdUseCaseTest: XCTestCase {
                 return Fail(error: Errors.unknownError).eraseToAnyPublisher()
             }
         }
-
-        func saveMyId(_ id : String) {
-            return
+        
+        func saveMyId(_ id: String) -> AnyPublisher<String, Error> {
+            return Fail(error: Errors.notImplemented).eraseToAnyPublisher()
         }
         
-        func savePairId(_ id: String) {
-            return
+        func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<String, Error> {
+            return Fail(error: Errors.notImplemented).eraseToAnyPublisher()
+        }
+        
+        func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error> {
+            return Fail(error: Errors.notImplemented).eraseToAnyPublisher()
         }
     }
     
@@ -54,39 +60,72 @@ class GetPairIdUseCaseTest: XCTestCase {
 
     override func tearDownWithError() throws {
         self.getPairIdUseCase = nil
+        self.cancellables = []
     }
 
     func testGetPairIdSuccessForUserWithPair() {
+        let expectation = self.expectation(description: "testGetPairIdSuccessForUserWithPair")
+        var error: Error?
+        var result: String?
+        
         self.getPairIdUseCase?.getPairId(for: DummyUserRepository.userWithPair)
             .sink(receiveCompletion: { completion in
-                guard case .failure(_) = completion else { return }
-                XCTFail()
+                guard case .failure(let encounteredError) = completion else { return }
+                error = encounteredError
+                expectation.fulfill()
             }, receiveValue: { pairId in
-                XCTAssertEqual(DummyUserRepository.pairId, pairId)
+                result = pairId
+                expectation.fulfill()
             })
-            .cancel()
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertNil(error)
+        XCTAssertEqual(result, DummyUserRepository.pairId)
     }
     
     func testGetPairIdSuccessForUserWithoutPair() {
+        let expectation = self.expectation(description: "testGetPairIdSuccessForUserWithoutPair")
+        var error: Error?
+        var result: String?
+        
         self.getPairIdUseCase?.getPairId(for: DummyUserRepository.userWithoutPair)
             .sink(receiveCompletion: { completion in
-                guard case .failure(_) = completion else { return }
-                XCTFail()
+                guard case .failure(let encounteredError) = completion else { return }
+                error = encounteredError
+                expectation.fulfill()
             }, receiveValue: { pairId in
-                XCTAssertEqual("", pairId)
+                result = pairId
+                expectation.fulfill()
             })
-            .cancel()
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertNil(error)
+        XCTAssertEqual(result, "")
     }
 
     func testGetPairIdSuccessForNotExistingUser() {
+        let expectation = self.expectation(description: "testGetPairIdSuccessForNotExistingUser")
+        var error: DummyUserRepository.Errors?
+        var result: String?
+        
         self.getPairIdUseCase?.getPairId(for: DummyUserRepository.notExistingUser)
             .sink(receiveCompletion: { completion in
-                guard case .failure(let error) = completion else { return XCTFail() }
-                guard let error = error as? DummyUserRepository.Errors else { return XCTFail() }
-                XCTAssertEqual(error, DummyUserRepository.Errors.userDoesNotExists)
-            }, receiveValue: { _ in
-                XCTFail()
+                guard case .failure(let encounteredError) = completion else { return XCTFail() }
+                error = encounteredError as? DummyUserRepository.Errors
+                expectation.fulfill()
+            }, receiveValue: { pairId in
+                result = pairId
+                expectation.fulfill()
             })
-            .cancel()
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertEqual(error, DummyUserRepository.Errors.userDoesNotExists)
+        XCTAssertNil(result)
     }
 }
