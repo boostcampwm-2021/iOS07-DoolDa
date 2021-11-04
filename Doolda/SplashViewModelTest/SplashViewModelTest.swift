@@ -71,7 +71,6 @@ class SplashViewModelTest: XCTestCase {
     }
 
     class DummyGenerateMyIdUseCase: GenerateMyIdUseCaseProtocol {
-
         var savedIdPublisher: Published<String?>.Publisher { self.$savedId }
         var errorPublisher: Published<Error?>.Publisher { self.$error }
 
@@ -104,14 +103,15 @@ class SplashViewModelTest: XCTestCase {
         let mockGetMyIdUseCase = DummyGetMyIdUseCase(mockMyId: nil)
         let mockGetPairIdUseCase = DummyGetPairIdUseCase(mockPariId: nil)
         let mockGenerateMyIdUseCase = DummyGenerateMyIdUseCase(mockMyId: nil)
-        self.splashViewModel = SplashViewModel(coordinatorDelegate: mockCoordinatorDelegate,
-                                               getMyIdUseCase: mockGetMyIdUseCase,
-                                               getPairIdUseCase: mockGetPairIdUseCase,
-                                               generateMyIdUseCase: mockGenerateMyIdUseCase
-                                               )
+        self.splashViewModel = SplashViewModel(
+            coordinatorDelegate: mockCoordinatorDelegate,
+            getMyIdUseCase: mockGetMyIdUseCase,
+            getPairIdUseCase: mockGetPairIdUseCase,
+            generateMyIdUseCase: mockGenerateMyIdUseCase
+        )
 
-        self.splashViewModel?.viewDidLoad()
-        XCTAssertNotNil(self.splashViewModel?.networkError, "Incorrect error")
+        self.splashViewModel?.prepareUserInfo()
+        XCTAssertNotNil(self.splashViewModel?.error, "Incorrect error")
         XCTAssertNil(mockCoordinatorDelegate.result, "Incorrect coordinator result")
         XCTAssertNil(mockCoordinatorDelegate.myId, "Incorrect myId")
         XCTAssertNil(mockCoordinatorDelegate.pairId, "Incorrect pairId")
@@ -122,13 +122,14 @@ class SplashViewModelTest: XCTestCase {
         let mockGetMyIdUseCase = DummyGetMyIdUseCase(mockMyId: nil)
         let mockGetPairIdUseCase = DummyGetPairIdUseCase(mockPariId: nil)
         let mockGenerateMyIdUseCase = DummyGenerateMyIdUseCase(mockMyId: self.dummyMyId)
-        self.splashViewModel = SplashViewModel(coordinatorDelegate: mockCoordinatorDelegate,
-                                               getMyIdUseCase: mockGetMyIdUseCase,
-                                               getPairIdUseCase: mockGetPairIdUseCase,
-                                               generateMyIdUseCase: mockGenerateMyIdUseCase
-                                               )
+        self.splashViewModel = SplashViewModel(
+            coordinatorDelegate: mockCoordinatorDelegate,
+            getMyIdUseCase: mockGetMyIdUseCase,
+            getPairIdUseCase: mockGetPairIdUseCase,
+            generateMyIdUseCase: mockGenerateMyIdUseCase
+        )
 
-        self.splashViewModel?.viewDidLoad()
+        self.splashViewModel?.prepareUserInfo()
         XCTAssertEqual(mockCoordinatorDelegate.result, .notPaired, "Incorrect coordinator result")
         XCTAssertEqual(mockCoordinatorDelegate.myId, self.dummyMyId, "Incorrect myId")
         XCTAssertNil(mockCoordinatorDelegate.pairId, "Incorrect pairId")
@@ -139,13 +140,14 @@ class SplashViewModelTest: XCTestCase {
         let mockGetMyIdUseCase = DummyGetMyIdUseCase(mockMyId: self.dummyMyId)
         let mockGetPairIdUseCase = DummyGetPairIdUseCase(mockPariId: nil)
         let mockGenerateMyIdUseCase = DummyGenerateMyIdUseCase(mockMyId: self.dummyMyId)
-        self.splashViewModel = SplashViewModel(coordinatorDelegate: mockCoordinatorDelegate,
-                                               getMyIdUseCase: mockGetMyIdUseCase,
-                                               getPairIdUseCase: mockGetPairIdUseCase,
-                                               generateMyIdUseCase: mockGenerateMyIdUseCase
-                                               )
+        self.splashViewModel = SplashViewModel(
+            coordinatorDelegate: mockCoordinatorDelegate,
+            getMyIdUseCase: mockGetMyIdUseCase,
+            getPairIdUseCase: mockGetPairIdUseCase,
+            generateMyIdUseCase: mockGenerateMyIdUseCase
+        )
 
-        self.splashViewModel?.viewDidLoad()
+        self.splashViewModel?.prepareUserInfo()
         XCTAssertEqual(mockCoordinatorDelegate.result, .notPaired, "Incorrect coordinator result")
         XCTAssertEqual(mockCoordinatorDelegate.myId, self.dummyMyId, "Incorrect myId")
         XCTAssertNil(mockCoordinatorDelegate.pairId, "Incorrect pairId")
@@ -156,13 +158,14 @@ class SplashViewModelTest: XCTestCase {
         let mockGetMyIdUseCase = DummyGetMyIdUseCase(mockMyId: self.dummyMyId)
         let mockGetPairIdUseCase = DummyGetPairIdUseCase(mockPariId: self.dummyPairId)
         let mockGenerateMyIdUseCase = DummyGenerateMyIdUseCase(mockMyId: self.dummyMyId)
-        self.splashViewModel = SplashViewModel(coordinatorDelegate: mockCoordinatorDelegate,
-                                               getMyIdUseCase: mockGetMyIdUseCase,
-                                               getPairIdUseCase: mockGetPairIdUseCase,
-                                               generateMyIdUseCase: mockGenerateMyIdUseCase
-                                               )
+        self.splashViewModel = SplashViewModel(
+            coordinatorDelegate: mockCoordinatorDelegate,
+            getMyIdUseCase: mockGetMyIdUseCase,
+            getPairIdUseCase: mockGetPairIdUseCase,
+            generateMyIdUseCase: mockGenerateMyIdUseCase
+        )
 
-        self.splashViewModel?.viewDidLoad()
+        self.splashViewModel?.prepareUserInfo()
         XCTAssertEqual(mockCoordinatorDelegate.result, .alreadyPaired, "Incorrect coordinator result")
         XCTAssertEqual(mockCoordinatorDelegate.myId, self.dummyMyId, "Incorrect myId")
         XCTAssertEqual(mockCoordinatorDelegate.pairId, self.dummyPairId, "Incorrect pairId")
