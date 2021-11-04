@@ -55,8 +55,8 @@ final class SplashViewController: UIViewController {
         super.viewDidLoad()
         self.configureUI()
         self.configureFont()
-        // self.bindUI()
-        self.presentNetworkAlert()
+        self.bindUI()
+        self.viewModel?.prepareUserInfo()
     }
 
     // MARK: - Helpers
@@ -93,7 +93,7 @@ final class SplashViewController: UIViewController {
     }
 
     private func bindUI() {
-        self.viewModel?.$networkError
+        self.viewModel?.$error
             .receive(on: DispatchQueue.main)
             .sink { error in
                 guard let _ = error else { return }
@@ -108,7 +108,7 @@ final class SplashViewController: UIViewController {
                                       message: "Wifi나 3G/LTE/5G를 연결 후 재시도 해주세요🙏",
                                       preferredStyle: .alert)
         let refreshAction = UIAlertAction(title: "재시도", style: .default) { _ in
-            //self.viewModel?.viewDidLoad()
+            self.viewModel?.prepareUserInfo()
             print("재시도")
         }
         let exitAction = UIAlertAction(title: "종료", style: .destructive) { _ in
