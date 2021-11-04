@@ -9,7 +9,10 @@ import Combine
 import XCTest
 
 class SplashViewModelTest: XCTestCase {
+
     private var splashViewModel: SplashViewModel?
+    private var mockMyId: String?
+    private var mockPairId: String?
 
     enum DummyError: Error {
         case dummyError
@@ -22,13 +25,18 @@ class SplashViewModelTest: XCTestCase {
         }
 
         var result: Result?
+        var myId: String?
+        var pairId: String?
 
         func userNotPaired(myId: String) {
             self.result = .notPaired
+            self.myId = myId
         }
 
         func userAlreadyPaired(myId: String, pairId: String) {
             self.result = .alreadyPaired
+            self.myId = myId
+            self.pairId = pairId
         }
     }
 
@@ -79,6 +87,8 @@ class SplashViewModelTest: XCTestCase {
 
     override func setUpWithError() throws {
         self.splashViewModel = nil
+        self.mockMyId = "00000000-0000-0000-0000-000000000001"
+        self.mockPairId = "00000000-0000-0000-0000-000000000002"
     }
 
     // 내 아이디 가져오기 실패 -> 내 아이디 만들기 실패
@@ -86,13 +96,11 @@ class SplashViewModelTest: XCTestCase {
     // 내 아이디 가져오기 성공 -> 짝 아이디 가져오기 실패
     // 내 아이디 가져오기 성공 -> 짝 아이디 가져오기 성공
 
-    func testParingSuccess() throws {
-        let mockMyId = "00000000-0000-0000-0000-000000000001"
-        let mockPairId = "00000000-0000-0000-0000-000000000002"
+    func testGetMyIdSuccess_GetPairIdFail() throws {
         let mockCoordinatorDelegate = MockCoordinatorDelegate()
-        let mockGetMyIdUseCase = MockGetMyIdUseCase(mockMyId: mockMyId)
-        let mockGetPairIdUseCase = MockGetPairIdUseCase(mockPariId: mockPairId)
-        let mockGenerateMyIdUseCase = MockGenerateMyIdUseCase(mockMyId: mockMyId)
+        let mockGetMyIdUseCase = MockGetMyIdUseCase(mockMyId: self.mockMyId)
+        let mockGetPairIdUseCase = MockGetPairIdUseCase(mockPariId: nil)
+        let mockGenerateMyIdUseCase = MockGenerateMyIdUseCase(mockMyId: self.mockMyId)
         self.splashViewModel = SplashViewModel(coordinatorDelegate: mockCoordinatorDelegate,
                                                getMyIdUseCase: mockGetMyIdUseCase,
                                                getPairIdUseCase: mockGetPairIdUseCase,
@@ -100,7 +108,26 @@ class SplashViewModelTest: XCTestCase {
                                                )
 
         self.splashViewModel?.viewDidLoad()
-        XCTAssertEqual(mockCoordinatorDelegate.result, .alreadyPaired)
+        XCTAssertEqual(mockCoordinatorDelegate.result, .notPaired, "Incorrect coordinator result")
+        XCTAssertEqual(mockCoordinatorDelegate.myId, self.mockMyId, "Incorrect myId")
+        XCTAssertNil(mockCoordinatorDelegate.pairId, "Incorrect pairId")
+    }
+
+    func testGetMyIdSuccess_GetPairIdSuccess() throws {
+        let mockCoordinatorDelegate = MockCoordinatorDelegate()
+        let mockGetMyIdUseCase = MockGetMyIdUseCase(mockMyId: self.mockMyId)
+        let mockGetPairIdUseCase = MockGetPairIdUseCase(mockPariId: self.mockPairId)
+        let mockGenerateMyIdUseCase = MockGenerateMyIdUseCase(mockMyId: self.mockMyId)
+        self.splashViewModel = SplashViewModel(coordinatorDelegate: mockCoordinatorDelegate,
+                                               getMyIdUseCase: mockGetMyIdUseCase,
+                                               getPairIdUseCase: mockGetPairIdUseCase,
+                                               generateMyIdUseCase: mockGenerateMyIdUseCase
+                                               )
+
+        self.splashViewModel?.viewDidLoad()
+        XCTAssertEqual(mockCoordinatorDelegate.result, .alreadyPaired, "Incorrect coordinator result")
+        XCTAssertEqual(mockCoordinatorDelegate.myId, self.mockMyId, "Incorrect myId")
+        XCTAssertEqual(mockCoordinatorDelegate.pairId, self.mockPairId, "Incorrect pairId")
     }
 
 }
