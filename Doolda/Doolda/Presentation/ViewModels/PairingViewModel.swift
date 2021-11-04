@@ -61,7 +61,11 @@ final class PairingViewModel: PairingViewModelProtocol {
     }
     
     func pairUpWithUsers() {
-        
+        guard let friendId = friendId else {
+            return self.error = PairingViewModelError.friendIdIsEmpty
+        }
+
+        self.generatePairIdUseCase.generatePairId(myId: self.myId, friendId: friendId)
     }
     
     func refreshPairId() {
@@ -69,6 +73,20 @@ final class PairingViewModel: PairingViewModelProtocol {
     }
     
     private func bind() {
+        self.generatePairIdUseCase.pairedIdPublisher
+            .dropFirst()
+            .sink { [weak self] pairId in
+                self?.pairId = pairId
+            }
+            .store(in: &self.cancellables)
+        
+        self.generatePairIdUseCase.errorPublisher
+            .dropFirst()
+            .sink { [weak self] error in
+                self?.error = error
+            }
+            .store(in: &self.cancellables)
+        
         self.refreshPairIdUseCase.pairIdPublisher
             .dropFirst()
             .sink { [weak self] pairId in
