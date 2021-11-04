@@ -11,44 +11,40 @@ import XCTest
 class GeneratePairIdUseCaseTests: XCTestCase {
     private var generatePairIdUseCase: GeneratePairIdUseCase! = nil
     
-    class MockUserRepository: UserRepositoryProtocol {
+    class DummyUserRepository: UserRepositoryProtocol {
+        enum Errors: Error {
+            case notImplemented
+            case failedToPair
+        }
+        
         static let testSuccessId1 = "2f48f241-9d64-4d16-bf56-70b9d4e0e791"
         static let testSuccessId2 = "2f48f241-9d64-4d16-bf56-70b9d4e0e721"
         static let testFailureId = "2f48f241-9d64-4d16-bf56-70b9d4e0e711"
-        
+
         func fetchMyId() -> AnyPublisher<String, Error> {
-            Future<String, Error>.init { promise in
-                promise(.success(""))
-            }.eraseToAnyPublisher()
+            return Fail(error: Errors.notImplemented).eraseToAnyPublisher()
         }
         
-        func fetchPairId() -> AnyPublisher<String, Error> {
-            Future<String, Error>.init { promise in
-                promise(.success(""))
-            }.eraseToAnyPublisher()
+        func fetchPairId(for id: String) -> AnyPublisher<String, Error> {
+            return Fail(error: Errors.notImplemented).eraseToAnyPublisher()
         }
         
-        func saveMyId(_ id: String) -> AnyPublisher<Bool, Error> {
-            Future<Bool, Error>.init { promise in
-                promise(.success(true))
-            }.eraseToAnyPublisher()
+        func saveMyId(_ id: String) -> AnyPublisher<String, Error> {
+            return Fail(error: Errors.notImplemented).eraseToAnyPublisher()
         }
         
-        func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<Bool, Error> {
-            Future<Bool, Error>.init { promise in
-                promise(.success(myId == Self.testSuccessId1 && friendId == Self.testSuccessId2))
-            }.eraseToAnyPublisher()
+        func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<String, Error> {
+            let isValid = myId == DummyUserRepository.testSuccessId1 && friendId == DummyUserRepository.testSuccessId2
+            return isValid ? Just(myId).setFailureType(to: Error.self).eraseToAnyPublisher() : Fail(error: Errors.failedToPair).eraseToAnyPublisher()
         }
         
         func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error> {
-            Future<Bool, Error>.init { promise in
-                promise(.success(id == Self.testSuccessId1 || id == Self.testSuccessId2))
-            }.eraseToAnyPublisher()
+            return Just(id == DummyUserRepository.testSuccessId1 || id == DummyUserRepository.testSuccessId2).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
     }
     
     override func setUpWithError() throws {
-        self.generatePairIdUseCase = GeneratePairIdUseCase(userRepository: MockUserRepository())
+        self.generatePairIdUseCase = GeneratePairIdUseCase(userRepository: DummyUserRepository())
     }
 
     override func tearDownWithError() throws {
@@ -57,8 +53,8 @@ class GeneratePairIdUseCaseTests: XCTestCase {
 
     func testGeneratePairId_Success() {
         self.generatePairIdUseCase.generatePairId(
-            myId: MockUserRepository.testSuccessId1,
-            friendId: MockUserRepository.testSuccessId2
+            myId: DummyUserRepository.testSuccessId1,
+            friendId: DummyUserRepository.testSuccessId2
         )
         
         let testExpectation = expectation(description: "")
@@ -73,8 +69,8 @@ class GeneratePairIdUseCaseTests: XCTestCase {
     
     func testGeneratePairId_Failure_SameUserId() {
         self.generatePairIdUseCase.generatePairId(
-            myId: MockUserRepository.testSuccessId1,
-            friendId: MockUserRepository.testSuccessId1
+            myId: DummyUserRepository.testSuccessId1,
+            friendId: DummyUserRepository.testSuccessId1
         )
         
         let testExpectation = expectation(description: "")
@@ -89,8 +85,8 @@ class GeneratePairIdUseCaseTests: XCTestCase {
     
     func testGeneratePairId_Failure_NotExistUserId() {
         self.generatePairIdUseCase.generatePairId(
-            myId: MockUserRepository.testSuccessId1,
-            friendId: MockUserRepository.testFailureId
+            myId: DummyUserRepository.testSuccessId1,
+            friendId: DummyUserRepository.testFailureId
         )
         
         let testExpectation = expectation(description: "")
