@@ -5,12 +5,11 @@
 //  Created by 정지승 on 2021/11/01.
 //
 
+import Combine
 import Foundation
 
-import Combine
-
 final class SplashViewModel {
-    @Published var networkError: Error?
+    @Published var error: Error?
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -29,14 +28,14 @@ final class SplashViewModel {
         self.generateMyIdUseCase = generateMyIdUseCase
     }
 
-    func viewDidLoad() {
+    func prepareUserInfo() {
         getMyId()
     }
 
     private func getMyId() {
         getMyIdUseCase.getMyId()
             .sink { [weak self] result in
-                guard case .failure(_) = result else { return }
+                guard case .failure = result else { return }
                 self?.generateMyId()
             } receiveValue: { myId in
                 self.getPairId(with: myId)
@@ -48,7 +47,7 @@ final class SplashViewModel {
         getPairIdUseCase.getPairId(for: myId)
             .sink { [weak self] result in
                 guard case .failure(let error) = result else { return }
-                self?.networkError = error
+                self?.error = error
             } receiveValue: { pairId in
                 if pairId.isEmpty {
                     self.coordinatorDelegate.userNotPaired(myId: myId)
@@ -69,7 +68,7 @@ final class SplashViewModel {
         generateMyIdUseCase.errorPublisher
             .sink(receiveValue: { error in
                 guard let error = error else { return }
-                self.networkError = error
+                self.error = error
             })
             .store(in: &cancellables)
 
