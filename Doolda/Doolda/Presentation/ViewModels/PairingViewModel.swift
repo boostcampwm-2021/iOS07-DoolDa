@@ -42,6 +42,7 @@ final class PairingViewModel: PairingViewModelProtocol {
         .compactMap { [weak self] in return self?.isValidUUID($0) }
         .eraseToAnyPublisher()
 
+    private let coordinatorDelegate: PairingViewCoordinatorDelegate
     private let generatePairIdUseCase: GeneratePairIdUseCaseProtocol
     private let refreshPairIdUseCase: RefreshPairIdUseCase
     
@@ -49,10 +50,12 @@ final class PairingViewModel: PairingViewModelProtocol {
     
     init(
         myId: String,
+        coordinatorDelegate: PairingViewCoordinatorDelegate,
         generatePairIdUseCase: GeneratePairIdUseCaseProtocol,
         refreshPairIdUseCase: RefreshPairIdUseCase
     ) {
         self.myId = myId
+        self.coordinatorDelegate = coordinatorDelegate
         self.generatePairIdUseCase = generatePairIdUseCase
         self.refreshPairIdUseCase = refreshPairIdUseCase
         
@@ -101,6 +104,14 @@ final class PairingViewModel: PairingViewModelProtocol {
             .dropFirst()
             .sink { [weak self] error in
                 self?.error = error
+            }
+            .store(in: &self.cancellables)
+
+        self.$pairId
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
+            .sink { pairId in
+                self.coordinatorDelegate.userDidPaired(myId: self.myId, pairId: pairId)
             }
             .store(in: &self.cancellables)
     }

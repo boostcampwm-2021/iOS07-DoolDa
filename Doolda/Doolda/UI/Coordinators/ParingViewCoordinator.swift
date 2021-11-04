@@ -23,12 +23,13 @@ class PairingViewCoordinator: Coordinator {
             persistenceService: userDefaultsPersistenceService,
             networkService: firebaseNetworkService
         )
-        
+
         let generatePairIdUseCase = GeneratePairIdUseCase(userRepository: userRepository)
         let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: userRepository)
 
         let viewModel = PairingViewModel(
             myId: self.myId,
+            coordinatorDelegate: self,
             generatePairIdUseCase: generatePairIdUseCase,
             refreshPairIdUseCase: refreshPairIdUseCase
         )
