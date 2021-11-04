@@ -62,7 +62,7 @@ class SplashViewModelTest: XCTestCase {
             self.mockPairId = mockPariId
         }
 
-        func getPairId(with id: String) -> AnyPublisher<String, Error> {
+        func getPairId(for id: String) -> AnyPublisher<String, Error> {
             guard let pairId = self.mockPairId else {
                 return Result.Publisher(DummyError.dummyError).eraseToAnyPublisher()
             }
@@ -71,17 +71,25 @@ class SplashViewModelTest: XCTestCase {
     }
 
     class DummyGenerateMyIdUseCase: GenerateMyIdUseCaseProtocol {
+
+        var savedIdPublisher: Published<String?>.Publisher { self.$savedId }
+        var errorPublisher: Published<Error?>.Publisher { self.$error }
+
+        @Published private var savedId: String?
+        @Published private var error: Error?
+
         private var mockMyId: String?
 
         init(mockMyId: String?) {
             self.mockMyId = mockMyId
         }
 
-        func generateMyId() -> AnyPublisher<String, Error> {
+        func generate() {
             guard let myId = self.mockMyId else {
-                return Result.Publisher(DummyError.dummyError).eraseToAnyPublisher()
+                self.error = DummyError.dummyError
+                return
             }
-            return Result.Publisher(myId).eraseToAnyPublisher()
+            self.savedId = myId
         }
     }
 
