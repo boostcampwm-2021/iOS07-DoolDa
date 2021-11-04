@@ -27,6 +27,7 @@ enum PairingViewModelError: LocalizedError {
 
 protocol PairingViewModelInput {
     func pairUpWithUsers()
+    func refreshPairId()
 }
 
 protocol PairingViewModelOutput {
@@ -39,6 +40,7 @@ typealias PairingViewModelProtocol = PairingViewModelInput & PairingViewModelOut
 final class PairingViewModel: PairingViewModelProtocol {
     private let myId: String
     private let generatePairIdUseCase: GeneratePairIdUseCaseProtocol
+    private let refreshPairIdUseCase: RefreshPairIdUseCase
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -46,32 +48,39 @@ final class PairingViewModel: PairingViewModelProtocol {
     @Published var pairId: String? = ""
     @Published var error: Error?
     
-    lazy var isValidFriendId: AnyPublisher<Bool, Never> = $friendId
-        .map { self.isValid(UUID: $0) }
-        .eraseToAnyPublisher()
-    
-    init(myId: String, generatePairIdUseCase: GeneratePairIdUseCaseProtocol) {
+    init(
+        myId: String,
+        generatePairIdUseCase: GeneratePairIdUseCaseProtocol,
+        refreshPairIdUseCase: RefreshPairIdUseCase
+    ) {
         self.myId = myId
         self.generatePairIdUseCase = generatePairIdUseCase
+        self.refreshPairIdUseCase = refreshPairIdUseCase
+        
+        bind()
     }
     
     func pairUpWithUsers() {
-        guard let friendId = self.friendId, isValid(UUID: friendId) else {
-            return self.error = PairingViewModelError.friendIdIsInvalid
-        }
         
-        self.generatePairIdUseCase.generatePairId(myId: self.myId, friendId: friendId)
-            .sink { [weak self] completion in
-                if case let .failure(error)  = completion {
-                    self?.error = error
-                }
-            } receiveValue: { [weak self] pairId in
-                self?.pairId = pairId
-            }
-            .store(in: &cancellables)
     }
     
-    private func isValid(UUID id: String?) -> Bool {
-        return UUID(uuidString: id ?? "") != nil
+    func refreshPairId() {
+        self.refreshPairIdUseCase.refreshPairId(for: self.myId)
+    }
+    
+    private func bind() {
+        self.refreshPairIdUseCase.pairIdPublisher
+            .dropFirst()
+            .sink { [weak self] pairId in
+                self?.pairId = pairId
+            }
+            .store(in: &self.cancellables)
+        
+        self.refreshPairIdUseCase.errorPublisher
+            .dropFirst()
+            .sink { [weak self] error in
+                self?.error = error
+            }
+            .store(in: &self.cancellables)
     }
 }
