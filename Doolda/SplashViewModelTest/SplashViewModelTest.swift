@@ -96,6 +96,23 @@ class SplashViewModelTest: XCTestCase {
     // 내 아이디 가져오기 성공 -> 짝 아이디 가져오기 실패
     // 내 아이디 가져오기 성공 -> 짝 아이디 가져오기 성공
 
+    func testGetMyIdFail_GenerateMyIdSuccess() throws {
+        let mockCoordinatorDelegate = MockCoordinatorDelegate()
+        let mockGetMyIdUseCase = MockGetMyIdUseCase(mockMyId: nil)
+        let mockGetPairIdUseCase = MockGetPairIdUseCase(mockPariId: nil)
+        let mockGenerateMyIdUseCase = MockGenerateMyIdUseCase(mockMyId: self.mockMyId)
+        self.splashViewModel = SplashViewModel(coordinatorDelegate: mockCoordinatorDelegate,
+                                               getMyIdUseCase: mockGetMyIdUseCase,
+                                               getPairIdUseCase: mockGetPairIdUseCase,
+                                               generateMyIdUseCase: mockGenerateMyIdUseCase
+                                               )
+
+        self.splashViewModel?.viewDidLoad()
+        XCTAssertEqual(mockCoordinatorDelegate.result, .notPaired, "Incorrect coordinator result")
+        XCTAssertEqual(mockCoordinatorDelegate.myId, self.mockMyId, "Incorrect myId")
+        XCTAssertNil(mockCoordinatorDelegate.pairId, "Incorrect pairId")
+    }
+
     func testGetMyIdSuccess_GetPairIdFail() throws {
         let mockCoordinatorDelegate = MockCoordinatorDelegate()
         let mockGetMyIdUseCase = MockGetMyIdUseCase(mockMyId: self.mockMyId)
