@@ -62,7 +62,7 @@ class SplashViewModelTest: XCTestCase {
             self.mockPairId = mockPariId
         }
 
-        func getPairId(with myId: String) -> AnyPublisher<String, Error> {
+        func getPairId(with id: String) -> AnyPublisher<String, Error> {
             guard let pairId = self.mockPairId else {
                 return Result.Publisher(DummyError.dummyError).eraseToAnyPublisher()
             }

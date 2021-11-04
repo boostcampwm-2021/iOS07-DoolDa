@@ -45,7 +45,7 @@ final class SplashViewModel {
     }
 
     private func getPairId(with myId: String) {
-        getPairIdUseCase.getPairId(with: myId)
+        getPairIdUseCase.getPairId(for: myId)
             .sink { [weak self] result in
                 guard case .failure(_) = result else { return }
                 self?.coordinatorDelegate.userNotPaired(myId: myId)
