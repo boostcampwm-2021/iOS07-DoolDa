@@ -38,8 +38,8 @@ final class PairingViewModel: PairingViewModelProtocol {
     
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var friendId: String? = ""
-    @Published var pairId: String? = ""
+    @Published var friendId: String?
+    @Published var pairId: String?
     @Published var error: Error?
     
     init(
