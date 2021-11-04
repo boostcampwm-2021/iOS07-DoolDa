@@ -58,6 +58,16 @@
 		FC5FB7AA27328C34008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */; };
 		FC5FB7AB27328C42008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */; };
 		FC5FB7AC27328E3E008AC3D2 /* FirebaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */; };
+		FC5FB7CC27339213008AC3D2 /* UserRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7CB27339213008AC3D2 /* UserRepositoryTests.swift */; };
+		FC5FB7D22733927B008AC3D2 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
+		FC5FB7D32733927B008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
+		FC5FB7D42733927B008AC3D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* User.swift */; };
+		FC5FB7D52733927B008AC3D2 /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* Pair.swift */; };
+		FC5FB7D62733927B008AC3D2 /* FirebaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */; };
+		FC5FB7D72733927B008AC3D2 /* FirebaseNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */; };
+		FC5FB7D82733927B008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */; };
+		FC5FB7D92733927B008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */; };
+		FC5FB7DA2733927B008AC3D2 /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F1065273102E30060FEB7 /* GetMyIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */; };
@@ -79,6 +89,13 @@
 			remoteInfo = Doolda;
 		};
 		FC5FB7A527328A19008AC3D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 664893BC273007ED009F03E2;
+			remoteInfo = Doolda;
+		};
+		FC5FB7CD27339213008AC3D2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
 			proxyType = 1;
@@ -138,13 +155,12 @@
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* Pair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pair.swift; sourceTree = "<group>"; };
 		FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDocument.swift; sourceTree = "<group>"; };
-		6648945627325B07009F03E2 /* GeneratePairIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePairIdUseCase.swift; sourceTree = "<group>"; };
-		6648945C27327F1D009F03E2 /* GeneratePairIdUseCaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeneratePairIdUseCaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6648945E27327F1D009F03E2 /* GeneratePairIdUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePairIdUseCaseTests.swift; sourceTree = "<group>"; };
 		FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPersistenceService.swift; sourceTree = "<group>"; };
 		FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		FC5FB7A127328A19008AC3D2 /* UserDefaultsPersistenceServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UserDefaultsPersistenceServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5FB7A327328A19008AC3D2 /* UserDefaultsPersistenceServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPersistenceServiceTest.swift; sourceTree = "<group>"; };
+		FC5FB7C927339213008AC3D2 /* UserRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UserRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC5FB7CB27339213008AC3D2 /* UserRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryTests.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +202,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FC5FB79E27328A19008AC3D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC5FB7C627339213008AC3D2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -241,6 +264,7 @@
 				6648945D27327F1D009F03E2 /* GeneratePairIdUseCaseTests */,
 				FC9F108027315EB80060FEB7 /* FirebaseNetworkTest */,
 				FC5FB7A227328A19008AC3D2 /* UserDefaultsPersistenceServiceTest */,
+				FC5FB7CA27339213008AC3D2 /* UserRepositoryTests */,
 				1D0C8BCA2732B5F90091ACC0 /* GetPairIdUseCaseTest */,
 				664893BE273007ED009F03E2 /* Products */,
 				310D80E32732841500F15F4F /* Recovered References */,
@@ -256,6 +280,7 @@
 				FC9F107F27315EB80060FEB7 /* FirebaseNetworkTest.xctest */,
 				FC5FB7A127328A19008AC3D2 /* UserDefaultsPersistenceServiceTest.xctest */,
 				1D0C8BC92732B5F90091ACC0 /* GetPairIdUseCaseTest.xctest */,
+				FC5FB7C927339213008AC3D2 /* UserRepositoryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -503,6 +528,14 @@
 			path = UserDefaultsPersistenceServiceTest;
 			sourceTree = "<group>";
 		};
+		FC5FB7CA27339213008AC3D2 /* UserRepositoryTests */ = {
+			isa = PBXGroup;
+			children = (
+				FC5FB7CB27339213008AC3D2 /* UserRepositoryTests.swift */,
+			);
+			path = UserRepositoryTests;
+			sourceTree = "<group>";
+		};
 		FC9F1063273102E30060FEB7 /* GetMyIdUseCaseTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -603,6 +636,24 @@
 			productReference = FC5FB7A127328A19008AC3D2 /* UserDefaultsPersistenceServiceTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FC5FB7C827339213008AC3D2 /* UserRepositoryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC5FB7CF27339213008AC3D2 /* Build configuration list for PBXNativeTarget "UserRepositoryTests" */;
+			buildPhases = (
+				FC5FB7C527339213008AC3D2 /* Sources */,
+				FC5FB7C627339213008AC3D2 /* Frameworks */,
+				FC5FB7C727339213008AC3D2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC5FB7CE27339213008AC3D2 /* PBXTargetDependency */,
+			);
+			name = UserRepositoryTests;
+			productName = UserRepositoryTests;
+			productReference = FC5FB7C927339213008AC3D2 /* UserRepositoryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FC9F1061273102E30060FEB7 /* GetMyIdUseCaseTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC9F1068273102E30060FEB7 /* Build configuration list for PBXNativeTarget "GetMyIdUseCaseTest" */;
@@ -662,6 +713,10 @@
 					FC5FB7A027328A19008AC3D2 = {
 						CreatedOnToolsVersion = 13.0;
 					};
+					FC5FB7C827339213008AC3D2 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 664893BC273007ED009F03E2;
+					};
 					FC9F1061273102E30060FEB7 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -696,6 +751,7 @@
 				FC9F107E27315EB80060FEB7 /* FirebaseNetworkTest */,
 				FC5FB7A027328A19008AC3D2 /* UserDefaultsPersistenceServiceTest */,
 				1D0C8BC82732B5F90091ACC0 /* GetPairIdUseCaseTest */,
+				FC5FB7C827339213008AC3D2 /* UserRepositoryTests */,
 			);
 		};
 /* End PBXProject section */
@@ -727,6 +783,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FC5FB79F27328A19008AC3D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC5FB7C727339213008AC3D2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -838,6 +901,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC5FB7C527339213008AC3D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC5FB7D22733927B008AC3D2 /* UserRepositoryProtocol.swift in Sources */,
+				FC5FB7D32733927B008AC3D2 /* UserRepository.swift in Sources */,
+				FC5FB7D42733927B008AC3D2 /* User.swift in Sources */,
+				FC5FB7D52733927B008AC3D2 /* Pair.swift in Sources */,
+				FC5FB7D62733927B008AC3D2 /* FirebaseDocument.swift in Sources */,
+				FC5FB7D72733927B008AC3D2 /* FirebaseNetworkProtocol.swift in Sources */,
+				FC5FB7D82733927B008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
+				FC5FB7D92733927B008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */,
+				FC5FB7DA2733927B008AC3D2 /* FirebaseNetworkService.swift in Sources */,
+				FC5FB7CC27339213008AC3D2 /* UserRepositoryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC9F105E273102E30060FEB7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -873,6 +953,11 @@
 			isa = PBXTargetDependency;
 			target = 664893BC273007ED009F03E2 /* Doolda */;
 			targetProxy = FC5FB7A527328A19008AC3D2 /* PBXContainerItemProxy */;
+		};
+		FC5FB7CE27339213008AC3D2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 664893BC273007ED009F03E2 /* Doolda */;
+			targetProxy = FC5FB7CD27339213008AC3D2 /* PBXContainerItemProxy */;
 		};
 		FC9F1067273102E30060FEB7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1202,6 +1287,52 @@
 			};
 			name = Release;
 		};
+		FC5FB7D027339213008AC3D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = test.UserRepositoryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Debug;
+		};
+		FC5FB7D127339213008AC3D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = test.UserRepositoryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Release;
+		};
 		FC9F1069273102E30060FEB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1334,6 +1465,15 @@
 			buildConfigurations = (
 				FC5FB7A827328A19008AC3D2 /* Debug */,
 				FC5FB7A927328A19008AC3D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC5FB7CF27339213008AC3D2 /* Build configuration list for PBXNativeTarget "UserRepositoryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC5FB7D027339213008AC3D2 /* Debug */,
+				FC5FB7D127339213008AC3D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
