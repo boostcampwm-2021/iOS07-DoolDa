@@ -12,8 +12,8 @@ protocol UserRepositoryProtocol {
     func fetchMyId() -> AnyPublisher<String, Error>
     func fetchPairId(for id: String) -> AnyPublisher<String, Error>
 
-    func saveMyId(_ id : String) -> AnyPublisher<Bool, Error>
-    func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<Bool, Error>
+    func saveMyId(_ id : String) -> AnyPublisher<String, Error>
+    func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<String, Error>
     
     func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error>
 }
