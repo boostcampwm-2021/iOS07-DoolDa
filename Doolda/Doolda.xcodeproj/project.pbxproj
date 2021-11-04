@@ -38,6 +38,7 @@
 		310D81322733CC1900F15F4F /* GenerateMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* GenerateMyIdUseCase.swift */; };
 		310D81332733CD5400F15F4F /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		310D81422733E61900F15F4F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 310D81412733E61800F15F4F /* GoogleService-Info.plist */; };
+		310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81472733F56700F15F4F /* DiaryViewController.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
 		664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C2273007ED009F03E2 /* SceneDelegate.swift */; };
 		664893CA273007F1009F03E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664893C9273007F1009F03E2 /* Assets.xcassets */; };
@@ -162,6 +163,7 @@
 		310D81232733C7FC00F15F4F /* SplashViewModelTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplashViewModelTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		310D81252733C7FC00F15F4F /* SplashViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModelTest.swift; sourceTree = "<group>"; };
 		310D81412733E61800F15F4F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		310D81472733F56700F15F4F /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		664893C2273007ED009F03E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 			children = (
 				664893F3273023D3009F03E2 /* SplashViewController.swift */,
 				1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */,
+				310D81472733F56700F15F4F /* DiaryViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -688,7 +691,7 @@
 		};
 		6648941C27310165009F03E2 /* PairingViewModelTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 310D813E2733E56D00F15F4F /* Build configuration list */;
+			buildConfigurationList = 310D813E2733E56D00F15F4F /* Build configuration list for PBXNativeTarget "PairingViewModelTests" */;
 			buildPhases = (
 			);
 			buildRules = (
@@ -702,7 +705,7 @@
 		};
 		6648945B27327F1D009F03E2 /* GeneratePairIdUseCaseTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 310D813F2733E56D00F15F4F /* Build configuration list */;
+			buildConfigurationList = 310D813F2733E56D00F15F4F /* Build configuration list for PBXNativeTarget "GeneratePairIdUseCaseTests" */;
 			buildPhases = (
 			);
 			buildRules = (
@@ -1005,6 +1008,7 @@
 				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
 				FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
+				310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
@@ -1678,7 +1682,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		310D813E2733E56D00F15F4F /* Build configuration list */ = {
+		310D813E2733E56D00F15F4F /* Build configuration list for PBXNativeTarget "PairingViewModelTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				310D81392733E47A00F15F4F /* Debug */,
@@ -1687,7 +1691,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		310D813F2733E56D00F15F4F /* Build configuration list */ = {
+		310D813F2733E56D00F15F4F /* Build configuration list for PBXNativeTarget "GeneratePairIdUseCaseTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				310D813B2733E47A00F15F4F /* Debug */,

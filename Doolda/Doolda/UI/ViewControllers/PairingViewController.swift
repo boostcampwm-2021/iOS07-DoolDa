@@ -227,6 +227,13 @@ class PairingViewController: UIViewController {
                 viewModel.pairButtonDidTap()
             }
             .store(in: &cancellables)
+
+        viewModel.$myId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] myId in
+                self?.myIdLabel.text = myId
+            }
+            .store(in: &self.cancellables)
         
         viewModel.isFriendIdValid
             .receive(on: DispatchQueue.main)

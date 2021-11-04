@@ -65,7 +65,7 @@ final class GeneratePairIdUseCase: GeneratePairIdUseCaseProtocol {
     private func savePairId(myId: String, friendId: String) {
         let pairId = UUID().uuidString
         
-        self.userRepository.savePairId(myId: "", friendId: "", pairId: pairId)
+        self.userRepository.savePairId(myId: myId, friendId: friendId, pairId: pairId)
             .sink { [weak self] completion in
                 guard let self = self,
                       case .failure(let error) = completion else { return }
