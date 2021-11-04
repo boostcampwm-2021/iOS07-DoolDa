@@ -9,7 +9,6 @@ import Combine
 import Foundation
 
 final class SplashViewModel {
-
     @Published var error: Error?
 
     private let coordinatorDelegate: SplashViewCoordinatorDelegate
