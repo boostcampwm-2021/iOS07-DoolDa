@@ -58,6 +58,7 @@
 		669ADE3F2732E55F007B529B /* RefreshPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */; };
 		66FE936B273564DB0036CED2 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
 		66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
+		66FE936F27356E160036CED2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936E27356E160036CED2 /* User.swift */; };
 		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB79127325D2C008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
@@ -187,6 +188,7 @@
 		669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshPairIdUseCaseTest.swift; sourceTree = "<group>"; };
 		66FE936A273564DB0036CED2 /* DDID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDID.swift; sourceTree = "<group>"; };
 		66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDIDDataTransferObject.swift; sourceTree = "<group>"; };
+		66FE936E27356E160036CED2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* PairDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDocument.swift; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				66FE936A273564DB0036CED2 /* DDID.swift */,
+				66FE936E27356E160036CED2 /* User.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1027,6 +1030,7 @@
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
 				664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */,
+				66FE936F27356E160036CED2 /* User.swift in Sources */,
 				FC9F10702731323C0060FEB7 /* FirebaseNetworkService.swift in Sources */,
 				FC5FB7DC2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */,
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
