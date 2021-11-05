@@ -22,11 +22,18 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
         }
     }
     
+    private let database: Firestore
+    
+    init() {
+        self.database = Firestore.firestore()
+        let setting = FirestoreSettings()
+        setting.isPersistenceEnabled = false
+        self.database.settings = setting
+    }
+    
     func setDocument(path: String? = nil, in collection: String, with data: [String: Any]) -> AnyPublisher<Bool, Error> {
-        let database = Firestore.firestore()
-
         if let path = path {
-            let documentReference = database.collection(collection).document(path)
+            let documentReference = self.database.collection(collection).document(path)
             return Future<Bool, Error> { promise in
                 documentReference.setData(data) { error in
                     if let error = error {
@@ -37,7 +44,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 }
             }.eraseToAnyPublisher()
         } else {
-            let randomDocumentReference = database.collection(collection).document()
+            let randomDocumentReference = self.database.collection(collection).document()
             return Future<Bool, Error> { promise in
                 randomDocumentReference.setData(data) { error in
                     if let error = error {
@@ -51,8 +58,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
     }
 
     func getDocument(path: String, in collection: String) -> AnyPublisher<FirebaseDocument, Error> {
-        let database = Firestore.firestore()
-        let documentReference: DocumentReference = database.collection(collection).document(path)
+        let documentReference: DocumentReference = self.database.collection(collection).document(path)
         
         return Future<FirebaseDocument,Error> { promise in
             documentReference.getDocument { documentSnapshot, error in
