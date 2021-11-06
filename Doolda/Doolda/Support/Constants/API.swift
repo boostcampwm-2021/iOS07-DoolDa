@@ -66,19 +66,11 @@ extension FirebaseAPIs {
             return nil
         case .createUserDocument:
             return [
-                "fields": [
-                    "pairId": [
-                        "stringValue": ""
-                    ]
-                ]
+                "fields": UserDocument.init(pairId: "").fields
             ]
         case .patchUserDocuement(_, let pairId):
             return [
-                "fields": [
-                    "pairId": [
-                        "stringValue": pairId
-                    ]
-                ]
+                "fields": UserDocument.init(pairId: pairId).fields
             ]
         }
     }

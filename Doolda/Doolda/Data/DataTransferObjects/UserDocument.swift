@@ -7,16 +7,14 @@
 
 import Foundation
 
-struct UserDocument: Codable {
-    let pairId: String
+struct UserDocument {
+    let fields: [String: Any]
     
-    init?(data: [String: Any]) {
-        if let key = data.keys.first,
-           key == "pairId",
-           let pairId = data[key] as? String {
-            self.pairId = pairId
-        } else {
-            return nil
-        }
+    init(pairId: String) {
+        self.fields = [
+            "pairId": [
+                "stringValue": pairId
+            ]
+        ]
     }
 }

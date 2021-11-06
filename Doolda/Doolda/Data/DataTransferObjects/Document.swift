@@ -10,6 +10,4 @@ import Foundation
 struct Document: Codable {
     let name: String
     let fields: [String: [String: String]]
-    
-
 }

@@ -51,11 +51,11 @@ class UserRepository: UserRepositoryProtocol {
                     guard case .failure(let error) = completion else { return }
                     promise(.failure(error))
                 } receiveValue: { document in
-                    guard let user = UserDocument(data: document.data) else {
-                        promise(.failure(UserRepositoryError.DTOInitError))
-                        return
-                    }
-                    promise(.success(user.pairId))
+//                    guard let user = UserDocument(data: document.data) else {
+//                        promise(.failure(UserRepositoryError.DTOInitError))
+//                        return
+//                    }
+//                    promise(.success(user.pairId))
                 }.store(in: &self.cancellables)
         }.eraseToAnyPublisher()
     }
