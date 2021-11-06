@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D0C8BC42732AF780091ACC0 /* GetPairIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetPairIdUseCase.swift */; };
+		1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		1D0C8BCC2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */; };
 		1D0C8BD02732B7780091ACC0 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
-		1D0C8BD12732B7BA0091ACC0 /* GetPairIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetPairIdUseCase.swift */; };
+		1D0C8BD12732B7BA0091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		1D3629FE2733C79300CFC069 /* GenerateMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* GenerateMyIdUseCase.swift */; };
 		1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */; };
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
@@ -34,7 +34,7 @@
 		310D812C2733C83B00F15F4F /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FB27302947009F03E2 /* SplashViewModel.swift */; };
 		310D812D2733C84B00F15F4F /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
 		310D812E2733C86000F15F4F /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
-		310D812F2733C86000F15F4F /* GetPairIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetPairIdUseCase.swift */; };
+		310D812F2733C86000F15F4F /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		310D81322733CC1900F15F4F /* GenerateMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* GenerateMyIdUseCase.swift */; };
 		310D81332733CD5400F15F4F /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81472733F56700F15F4F /* DiaryViewController.swift */; };
@@ -143,7 +143,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1D0C8BC32732AF780091ACC0 /* GetPairIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPairIdUseCase.swift; sourceTree = "<group>"; };
+		1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCase.swift; sourceTree = "<group>"; };
 		1D0C8BC92732B5F90091ACC0 /* GetPairIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetPairIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPairIdUseCaseTest.swift; sourceTree = "<group>"; };
 		1D3629FD2733C79300CFC069 /* GenerateMyIdUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateMyIdUseCase.swift; sourceTree = "<group>"; };
@@ -515,7 +515,7 @@
 				FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */,
 				669ADE2A2732DA66007B529B /* RefreshPairIdUseCase.swift */,
 				6648945627325B07009F03E2 /* GeneratePairIdUseCase.swift */,
-				1D0C8BC32732AF780091ACC0 /* GetPairIdUseCase.swift */,
+				1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */,
 				1D3629FD2733C79300CFC069 /* GenerateMyIdUseCase.swift */,
 			);
 			path = UseCases;
@@ -979,7 +979,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D0C8BD02732B7780091ACC0 /* UserRepositoryProtocol.swift in Sources */,
-				1D0C8BD12732B7BA0091ACC0 /* GetPairIdUseCase.swift in Sources */,
+				1D0C8BD12732B7BA0091ACC0 /* GetUserUseCase.swift in Sources */,
 				1D0C8BCC2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -991,7 +991,7 @@
 				310D81332733CD5400F15F4F /* UserRepositoryProtocol.swift in Sources */,
 				310D81322733CC1900F15F4F /* GenerateMyIdUseCase.swift in Sources */,
 				310D812E2733C86000F15F4F /* GetMyIdUseCase.swift in Sources */,
-				310D812F2733C86000F15F4F /* GetPairIdUseCase.swift in Sources */,
+				310D812F2733C86000F15F4F /* GetUserUseCase.swift in Sources */,
 				310D812D2733C84B00F15F4F /* SplashViewCoordinatorDelegate.swift in Sources */,
 				310D812C2733C83B00F15F4F /* SplashViewModel.swift in Sources */,
 				310D81262733C7FC00F15F4F /* SplashViewModelTest.swift in Sources */,
@@ -1005,7 +1005,7 @@
 				1D3629FE2733C79300CFC069 /* GenerateMyIdUseCase.swift in Sources */,
 				FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
-				1D0C8BC42732AF780091ACC0 /* GetPairIdUseCase.swift in Sources */,
+				1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */,
 				FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */,
 				FC5FB79827327861008AC3D2 /* FirebaseDocument.swift in Sources */,
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
