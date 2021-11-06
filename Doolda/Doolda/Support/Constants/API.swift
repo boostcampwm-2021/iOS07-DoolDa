@@ -10,12 +10,13 @@ import Foundation
 enum FirebaseAPIs: URLRequestBuilder {
     case getUserDocuement(String)
     case createUserDocument(String)
+    case patchUserDocuement(String, String)
 }
 
 extension FirebaseAPIs {
     var baseURL: URL? {
         switch self {
-        case .getUserDocuement, .createUserDocument:
+        case .getUserDocuement, .createUserDocument, .patchUserDocuement:
             return URL(string: "https://firestore.googleapis.com/v1/projects/doolda/databases/(default)/")
         }
     }
@@ -24,7 +25,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var path: String {
         switch self {
-        case .getUserDocuement(let userId):
+        case .getUserDocuement(let userId), .patchUserDocuement(let userId, _):
             return "documents/user/\(userId)"
         case .createUserDocument:
             return "documents/user"
@@ -39,6 +40,8 @@ extension FirebaseAPIs {
             return nil
         case .createUserDocument(let userId):
             return ["documentId": userId]
+        case .patchUserDocuement:
+            return ["currentDocument.exists": "true"]
         }
     }
 }
@@ -50,6 +53,8 @@ extension FirebaseAPIs {
             return .get
         case .createUserDocument:
             return .post
+        case .patchUserDocuement:
+            return .patch
         }
     }
 }
@@ -64,6 +69,14 @@ extension FirebaseAPIs {
                 "fields": [
                     "pairId": [
                         "stringValue": ""
+                    ]
+                ]
+            ]
+        case .patchUserDocuement(_, let pairId):
+            return [
+                "fields": [
+                    "pairId": [
+                        "stringValue": pairId
                     ]
                 ]
             ]
