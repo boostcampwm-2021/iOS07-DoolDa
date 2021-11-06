@@ -10,4 +10,9 @@ import Foundation
 struct User: Equatable {
     let id: DDID
     var pairId: DDID?
+    
+    init(id: DDID, pairId: DDID? = nil) {
+        self.id = id
+        self.pairId = pairId
+    }
 }
