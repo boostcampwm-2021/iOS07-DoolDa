@@ -8,19 +8,19 @@
 import Foundation
 
 struct DDID: Equatable {
-    let id: String
+    let ddidString: String
     
     init() {
-        self.id = UUID().uuidString
+        self.ddidString = UUID().uuidString
     }
     
     init?(from dto: DDIDDataTransferObject) {
         guard let id = dto.id,
-              Self.isValid(id: id) else { return nil }
-        self.id = id
+              Self.isValid(ddidString: id) else { return nil }
+        self.ddidString = id
     }
     
-    static func isValid(id: String) -> Bool {
-        return id.range(of: "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}", options: .regularExpression) != nil
+    static func isValid(ddidString: String) -> Bool {
+        return ddidString.range(of: "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}", options: .regularExpression) != nil
     }
 }
