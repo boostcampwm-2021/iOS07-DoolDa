@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol GetMyIdUseCaseProtocol {
-    func getMyId() -> AnyPublisher<String, Error>
+    func getMyId() -> AnyPublisher<DDID?, Never>
 }
 
 final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
@@ -19,7 +19,7 @@ final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
         self.userRepository = userRepository
     }
     
-    func getMyId() -> AnyPublisher<String, Error> {
+    func getMyId() -> AnyPublisher<DDID?, Error> {
         return userRepository.fetchMyId()
     }
 }
