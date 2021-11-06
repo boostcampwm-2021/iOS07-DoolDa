@@ -8,10 +8,10 @@
 import UIKit
 
 class PairingViewCoordinator: Coordinator {
-    private let myId: String
+    private let user: User
     
-    init(presenter: UINavigationController, parent: Coordinator? = nil, myId: String) {
-        self.myId = myId
+    init(presenter: UINavigationController, parent: Coordinator? = nil, user: User) {
+        self.user = user
         super.init(presenter: presenter, parent: parent)
     }
     
@@ -24,14 +24,14 @@ class PairingViewCoordinator: Coordinator {
             networkService: firebaseNetworkService
         )
 
-        let generatePairIdUseCase = GeneratePairIdUseCase(userRepository: userRepository)
-        let refreshPairIdUseCase = RefreshPairIdUseCase(userRepository: userRepository)
+        let pairUserUseCase = PairUserUseCase(userRepository: userRepository)
+        let refreshUserUseCase = RefreshUserUseCase(userRepository: userRepository)
 
         let viewModel = PairingViewModel(
-            myId: self.myId,
+            user: user,
             coordinatorDelegate: self,
-            generatePairIdUseCase: generatePairIdUseCase,
-            refreshPairIdUseCase: refreshPairIdUseCase
+            pairUserUseCase: pairUserUseCase,
+            refreshUserUseCase: refreshUserUseCase
         )
         
         let viewController = PairingViewController(viewModel: viewModel)
@@ -40,8 +40,8 @@ class PairingViewCoordinator: Coordinator {
 }
 
 extension PairingViewCoordinator: PairingViewCoordinatorDelegate {
-    func userDidPaired(myId: String, pairId: String) {
-        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, myId: myId, pairId: pairId)
+    func userDidPaired(user: User) {
+        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, user: User)
         self.add(child: diaryViewCoordinator)
         diaryViewCoordinator.start()
     }

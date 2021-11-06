@@ -8,5 +8,5 @@
 import Foundation
 
 protocol PairingViewCoordinatorDelegate {
-    func userDidPaired(myId: String, pairId: String)
+    func userDidPaired(user: User)
 }

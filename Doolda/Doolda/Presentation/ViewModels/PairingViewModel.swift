@@ -8,115 +8,94 @@
 import Combine
 import Foundation
 
-enum PairingViewModelError: LocalizedError {
-    case friendIdIsEmpty
-    
-    var errorDescription: String? {
-        switch self {
-        case .friendIdIsEmpty:
-            return "친구 ID가 비어있습니다."
-        }
-    }
-}
-
 protocol PairingViewModelInput {
+    var friendIdInput: String { get set }
     func pairButtonDidTap()
     func refreshButtonDidTap()
 }
 
 protocol PairingViewModelOutput {
-    var pairId: String? { get }
-    var error: Error? { get }
+    var myId: AnyPublisher<String, Never> { get }
+    var isFriendIdValid: AnyPublisher<Bool, Never> { get }
+    var pairedUserPublisher: Published<User?>.Publisher { get }
+    var isPairedByRefreshPublisher: Published<Bool>.Publisher { get }
+    var errorPublisher: Published<Error?>.Publisher { get }
 }
 
 typealias PairingViewModelProtocol = PairingViewModelInput & PairingViewModelOutput
 
 final class PairingViewModel: PairingViewModelProtocol {
-    @Published var myId: String
-    @Published var friendId: String?
-    @Published var pairId: String?
-    @Published var error: Error?
     
-    lazy var isFriendIdValid: AnyPublisher<Bool, Never> = $friendId
-        .compactMap { $0 }
-        .compactMap { [weak self] in return self?.isValidUUID($0) }
+    @Published var friendIdInput: String = ""
+    
+    lazy var myId: AnyPublisher<String, Never> = Just(user.id)
+        .map { $0.id }
         .eraseToAnyPublisher()
-
-    private let coordinatorDelegate: PairingViewCoordinatorDelegate
-    private let generatePairIdUseCase: GeneratePairIdUseCaseProtocol
-    private let refreshPairIdUseCase: RefreshPairIdUseCase
     
+    lazy var isFriendIdValid: AnyPublisher<Bool, Never> = $friendIdInput
+        .compactMap { [weak self] in return DDID.isValid(id: $0) }
+        .eraseToAnyPublisher()
+    
+    var pairedUserPublisher: Published<User?>.Publisher { self.$pairedUser }
+    var isPairedByRefreshPublisher: Published<Bool>.Publisher { self.$isPairedByRefresh }
+    var errorPublisher: Published<Error?>.Publisher { self.$error }
+
+    private let user: User
+    private let coordinatorDelegate: PairingViewCoordinatorDelegate
+    private let pairUserUseCase: PairUserUseCaseProtocol
+    private let refreshUserUseCase: RefreshUserUseCaseProtocol
     private var cancellables: Set<AnyCancellable> = []
+    @Published private var pairedUser: User?
+    @Published private var isPairedByRefresh: Bool = false
+    @Published private var error: Error?
     
     init(
-        myId: String,
+        user: User,
         coordinatorDelegate: PairingViewCoordinatorDelegate,
-        generatePairIdUseCase: GeneratePairIdUseCaseProtocol,
-        refreshPairIdUseCase: RefreshPairIdUseCase
+        pairUserUseCase: PairUserUseCaseProtocol,
+        refreshUserUseCase: RefreshUserUseCaseProtocol
     ) {
-        self.myId = myId
+        self.user = user
         self.coordinatorDelegate = coordinatorDelegate
-        self.generatePairIdUseCase = generatePairIdUseCase
-        self.refreshPairIdUseCase = refreshPairIdUseCase
-        
+        self.pairUserUseCase = pairUserUseCase
+        self.refreshUserUseCase = refreshUserUseCase
         bind()
     }
     
+    private func bind() {
+        self.pairUserUseCase.errorPublisher
+            .assign(to: \.error, on: self)
+            .store(in: &self.cancellables)
+        
+        self.refreshUserUseCase.errorPublisher
+            .assign(to: \.error, on: self)
+            .store(in: &self.cancellables)
+        
+        self.pairUserUseCase.pairedUserPublisher
+            .compactMap { $0 }
+            .sink { [weak self] user in
+                self?.coordinatorDelegate.userDidPaired(user: user)
+            }
+            .store(in: &self.cancellables)
+        
+        self.refreshUserUseCase.refreshedUserPublisher
+            .compactMap { $0 }
+            .sink { [weak self] user in
+                if user.pairId != nil {
+                    self?.coordinatorDelegate.userDidPaired(user: user)
+                } else {
+                    self?.isPairedByRefresh = false
+                }
+            }
+            .store(in: &self.cancellables)
+    }
+    
     func pairButtonDidTap() {
-        guard let friendId = friendId else {
-            return self.error = PairingViewModelError.friendIdIsEmpty
-        }
-
-        self.generatePairIdUseCase.generatePairId(myId: self.myId, friendId: friendId)
+        guard let friendId = DDID(from: self.friendIdInput) else { return }
+        self.pairUserUseCase.pair(user: self.user, friendId: friendId)
     }
     
     func refreshButtonDidTap() {
-        self.refreshPairIdUseCase.refreshPairId(for: self.myId)
-    }
-    
-    private func bind() {
-        self.generatePairIdUseCase.pairedIdPublisher
-            .dropFirst()
-            .sink { [weak self] pairId in
-                self?.pairId = pairId
-            }
-            .store(in: &self.cancellables)
-        
-        self.generatePairIdUseCase.errorPublisher
-            .dropFirst()
-            .sink { [weak self] error in
-                self?.error = error
-            }
-            .store(in: &self.cancellables)
-        
-        self.refreshPairIdUseCase.pairIdPublisher
-            .dropFirst()
-            .filter { pairId in
-                guard let pairId = pairId else { return false }
-                return !pairId.isEmpty
-            }
-            .sink { [weak self] pairId in
-                self?.pairId = pairId
-            }
-            .store(in: &self.cancellables)
-        
-        self.refreshPairIdUseCase.errorPublisher
-            .dropFirst()
-            .sink { [weak self] error in
-                self?.error = error
-            }
-            .store(in: &self.cancellables)
-
-        self.$pairId
-            .compactMap { $0 }
-            .filter { !$0.isEmpty }
-            .sink { pairId in
-                self.coordinatorDelegate.userDidPaired(myId: self.myId, pairId: pairId)
-            }
-            .store(in: &self.cancellables)
-    }
-    
-    private func isValidUUID(_ id: String) -> Bool {
-        return id.range(of: "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}", options: .regularExpression) != nil
+        self.refreshUserUseCase.refresh(for: self.user)
     }
 }
