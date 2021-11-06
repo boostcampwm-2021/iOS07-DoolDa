@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DDID {
+struct DDID: Equatable {
     let id: String
     
     init() {
