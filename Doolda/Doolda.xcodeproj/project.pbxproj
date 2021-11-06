@@ -11,7 +11,7 @@
 		1D0C8BCC2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */; };
 		1D0C8BD02732B7780091ACC0 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		1D0C8BD12732B7BA0091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
-		1D3629FE2733C79300CFC069 /* GenerateMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* GenerateMyIdUseCase.swift */; };
+		1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */; };
 		1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */; };
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */; };
@@ -35,7 +35,7 @@
 		310D812D2733C84B00F15F4F /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
 		310D812E2733C86000F15F4F /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		310D812F2733C86000F15F4F /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
-		310D81322733CC1900F15F4F /* GenerateMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* GenerateMyIdUseCase.swift */; };
+		310D81322733CC1900F15F4F /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */; };
 		310D81332733CD5400F15F4F /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81472733F56700F15F4F /* DiaryViewController.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
@@ -89,6 +89,7 @@
 		FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */; };
 		FC822FAE27366C7A00C918A0 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAD27366C7A00C918A0 /* Document.swift */; };
 		FC822FB027367AFD00C918A0 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAF27367AFD00C918A0 /* API.swift */; };
+		FC822FB22736BF8400C918A0 /* URLSessionNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FB12736BF8400C918A0 /* URLSessionNetworkProtocol.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F1065273102E30060FEB7 /* GetMyIdUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */; };
@@ -210,6 +211,7 @@
 		FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequsetBuilder.swift; sourceTree = "<group>"; };
 		FC822FAD27366C7A00C918A0 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		FC822FAF27367AFD00C918A0 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		FC822FB12736BF8400C918A0 /* URLSessionNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkProtocol.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FC9F1062273102E30060FEB7 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -495,6 +497,7 @@
 			children = (
 				FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */,
 				FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */,
+				FC822FB12736BF8400C918A0 /* URLSessionNetworkProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -525,7 +528,7 @@
 				669ADE2A2732DA66007B529B /* RefreshPairIdUseCase.swift */,
 				6648945627325B07009F03E2 /* GeneratePairIdUseCase.swift */,
 				1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */,
-				1D3629FD2733C79300CFC069 /* GenerateMyIdUseCase.swift */,
+				1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1029,6 +1032,7 @@
 				66FE936B273564DB0036CED2 /* DDID.swift in Sources */,
 				310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */,
 				664893F62730242F009F03E2 /* Coordinator.swift in Sources */,
+				FC822FB22736BF8400C918A0 /* URLSessionNetworkProtocol.swift in Sources */,
 				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
 				FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,

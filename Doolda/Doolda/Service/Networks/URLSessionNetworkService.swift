@@ -33,7 +33,7 @@ class URLSessionNetworkService {
     
     func request<T: Decodable>(_ urlRequest: URLRequestBuilder, model: T.Type) -> AnyPublisher<T, Error> {
         guard let urlRequset = urlRequest.urlRequest else {
-            return  Fail(error: Errors.invalidUrl).eraseToAnyPublisher()
+            return Fail(error: Errors.invalidUrl).eraseToAnyPublisher()
         }
         return self.session.dataTaskPublisher(for: urlRequset)
             .tryMap { element -> Data in
@@ -44,7 +44,6 @@ class URLSessionNetworkService {
                 return element.data
                 }
             .decode(type: T.self, decoder: decoder)
-            
             .eraseToAnyPublisher()
     }
 }
