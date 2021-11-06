@@ -19,7 +19,7 @@ final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
         self.userRepository = userRepository
     }
     
-    func getMyId() -> AnyPublisher<DDID?, Error> {
-        return userRepository.fetchMyId()
+    func getMyId() -> AnyPublisher<DDID?, Never> {
+        return userRepository.getMyId()
     }
 }
