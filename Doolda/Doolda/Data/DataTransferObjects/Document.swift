@@ -11,8 +11,5 @@ struct Document: Codable {
     let name: String
     let fields: [String: [String: String]]
     
-    enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case fields = "fields"
-    }
+
 }
