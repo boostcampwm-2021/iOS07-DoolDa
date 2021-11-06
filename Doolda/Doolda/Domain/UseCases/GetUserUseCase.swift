@@ -12,7 +12,7 @@ protocol GetUserUseCaseProtocol {
     func getUser(for id: DDID) -> AnyPublisher<User?, Error>
 }
 
-class GetUserUseCase: GetUserUseCaseProtocol {
+final class GetUserUseCase: GetUserUseCaseProtocol {
     private let userRepository: UserRepositoryProtocol
     
     init(userRepository: UserRepositoryProtocol) {
