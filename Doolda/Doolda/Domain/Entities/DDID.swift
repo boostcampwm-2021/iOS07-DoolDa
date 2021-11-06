@@ -21,14 +21,14 @@ struct DDID: Equatable {
     }
     
     init?(from string: String) {
-        if Self.isValid(id: string) {
-            self.id = string
+        if Self.isValid(ddidString: string) {
+            self.ddidString = string
         } else {
             return nil
         }
     }
     
-    static func isValid(id: String) -> Bool {
-        return id.range(of: "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}", options: .regularExpression) != nil
+    static func isValid(ddidString: String) -> Bool {
+        return ddidString.range(of: "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}", options: .regularExpression) != nil
     }
 }
