@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User {
+struct User: Equatable {
     let id: DDID
     var pairId: DDID?
 }
