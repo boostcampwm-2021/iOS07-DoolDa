@@ -18,7 +18,7 @@ class SplashViewCoordinator: Coordinator {
         )
         
         let getMyIdUseCase = GetMyIdUseCase(userRepository: userRespository)
-        let getPairIdUseCase = GetPairIdUseCase(userRepository: userRespository)
+        let getPairIdUseCase = GetUserUseCase(userRepository: userRespository)
         let generateMyIdUseCase = GenerateMyIdUseCase(userRepository: userRespository)
         
         let viewModel = SplashViewModel(
