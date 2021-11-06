@@ -20,7 +20,15 @@ struct DDID: Equatable {
         self.ddidString = id
     }
     
-    static func isValid(ddidString: String) -> Bool {
-        return ddidString.range(of: "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}", options: .regularExpression) != nil
+    init?(from string: String) {
+        if Self.isValid(id: string) {
+            self.id = string
+        } else {
+            return nil
+        }
+    }
+    
+    static func isValid(id: String) -> Bool {
+        return id.range(of: "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}", options: .regularExpression) != nil
     }
 }
