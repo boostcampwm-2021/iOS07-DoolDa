@@ -9,11 +9,11 @@ import Combine
 import Foundation
 
 protocol UserRepositoryProtocol {
-    func fetchMyId() -> AnyPublisher<String, Error>
-    func fetchPairId(for id: String) -> AnyPublisher<String, Error>
+    func setMyId(_ id: DDID) -> AnyPublisher<DDID, Never>
+    func getMyId() -> AnyPublisher<DDID?, Never>
 
-    func saveMyId(_ id : String) -> AnyPublisher<String, Error>
-    func savePairId(myId: String, friendId: String, pairId: String) -> AnyPublisher<String, Error>
+    func setUser(_ user: User) -> AnyPublisher<User, Error>
     
-    func checkUserIdIsExist(_ id: String) -> AnyPublisher<Bool, Error>
+    func fetchUser(_ id: DDID) -> AnyPublisher<User?, Error>
+    func fetchUser(_ user : User) -> AnyPublisher<User?, Error>
 }
