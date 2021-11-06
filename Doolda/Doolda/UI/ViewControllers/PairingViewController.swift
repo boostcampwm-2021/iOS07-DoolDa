@@ -217,7 +217,7 @@ class PairingViewController: UIViewController {
         self.friendIdTextField.publisher(for: .editingChanged)
             .receive(on: DispatchQueue.main)
             .compactMap { ($0 as? UITextField)?.text }
-            .assign(to: \.friendId, on: viewModel)
+            .assign(to: \.friendIdInput, on: viewModel)
             .store(in: &cancellables)
         
         self.pairButton.publisher(for: .touchUpInside)
@@ -228,7 +228,7 @@ class PairingViewController: UIViewController {
             }
             .store(in: &cancellables)
 
-        viewModel.$myId
+        viewModel.myId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] myId in
                 self?.myIdLabel.text = myId
