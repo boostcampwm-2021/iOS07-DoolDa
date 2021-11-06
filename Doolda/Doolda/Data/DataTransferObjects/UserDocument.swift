@@ -7,14 +7,25 @@
 
 import Foundation
 
-struct UserDocument {
-    let fields: [String: Any]
+struct UserDocument: Codable {
     
-    init(pairId: String) {
+    var userId: String? {
+        return name.components(separatedBy: "/").last
+    }
+    var pairId: String? {
+        return self.fields["pairId"]?["stringValue"]
+    }
+    
+    let name: String
+    let fields: [String: [String: String]]
+    
+    init(userId: String, pairId: String) {
+        self.name = userId
         self.fields = [
             "pairId": [
                 "stringValue": pairId
             ]
         ]
     }
+    
 }

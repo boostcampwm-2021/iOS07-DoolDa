@@ -64,13 +64,15 @@ extension FirebaseAPIs {
         switch self {
         case .getUserDocuement:
             return nil
-        case .createUserDocument:
+        case .createUserDocument(let userId):
+            let userDocument = UserDocument(userId: userId, pairId: "")
             return [
-                "fields": UserDocument.init(pairId: "").fields
+                "fields": userDocument.fields
             ]
-        case .patchUserDocuement(_, let pairId):
+        case .patchUserDocuement(let userId, let pairId):
+            let userDocument = UserDocument(userId: userId, pairId: pairId)
             return [
-                "fields": UserDocument.init(pairId: pairId).fields
+                "fields": userDocument.fields
             ]
         }
     }
