@@ -52,28 +52,33 @@ extension URLRequestBuilder {
         guard let requestURL = requestURL else {
             return nil
         }
+        
+        var urlRequest: URLRequest
+        
+        var component = URLComponents(url: requestURL, resolvingAgainstBaseURL: false)
+        
+        var parameter = [URLQueryItem]()
+        if let parameters = self.parameters {
+            for (name, value) in parameters {
+                if name.isEmpty { continue }
+                parameter.append(URLQueryItem(name: name, value: value))
+            }
+            if !parameter.isEmpty {
+                component?.queryItems = parameter
+            }
+        }
+        
+        if let compoentURL = component?.url {
+            urlRequest =  URLRequest(url: compoentURL)
+        } else {
+            urlRequest =  URLRequest(url: requestURL)
+        }
 
         switch method {
         case .get:
-            var component = URLComponents(url: requestURL, resolvingAgainstBaseURL: false)
-            var parameter = [URLQueryItem]()
-            if let parameters = self.parameters {
-                for (name, value) in parameters {
-                    if name.isEmpty { continue }
-                    parameter.append(URLQueryItem(name: name, value: value))
-                }
-                if !parameter.isEmpty {
-                    component?.queryItems = parameter
-                }
-            }
-            if let compoentURL = component?.url {
-                return URLRequest(url: compoentURL)
-            } else {
-                return URLRequest(url: requestURL)
-            }
-        
+            return urlRequest
+
         case .post, .put, .delete, .patch:
-            var urlRequest = URLRequest(url: requestURL)
             urlRequest.httpMethod = method.method
             
             if let httpbody = self.body {
