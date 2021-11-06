@@ -59,6 +59,7 @@
 		66FE936B273564DB0036CED2 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
 		66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
 		66FE936F27356E160036CED2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936E27356E160036CED2 /* User.swift */; };
+		66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */; };
 		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB79127325D2C008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
@@ -193,6 +194,7 @@
 		66FE936A273564DB0036CED2 /* DDID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDID.swift; sourceTree = "<group>"; };
 		66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDIDDataTransferObject.swift; sourceTree = "<group>"; };
 		66FE936E27356E160036CED2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserUseCase.swift; sourceTree = "<group>"; };
 		FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* PairDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDocument.swift; sourceTree = "<group>"; };
@@ -525,6 +527,8 @@
 				669ADE2A2732DA66007B529B /* RefreshPairIdUseCase.swift */,
 				6648945627325B07009F03E2 /* GeneratePairIdUseCase.swift */,
 				1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */,
+				1D3629FD2733C79300CFC069 /* GenerateMyIdUseCase.swift */,
+				66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */,
 				1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */,
 			);
 			path = UseCases;
@@ -1033,6 +1037,7 @@
 				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
 				FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
+				66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */,
 				310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
