@@ -67,24 +67,27 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                           return self.error = PairUserUseCaseError.notExistUser
                       }
                 
-                if self.canBePaired(user: user, with: friend) {
+                if self.isItPossibleToPair(user: user, with: friend) {
                     self.pairedUser = user
                 }
             }
             .store(in: &cancellables)
     }
     
-    private func canBePaired(user: User, with friend: User) -> Bool {
-        if user.pairId == nil && friend.pairId != nil {
+    private func isItPossibleToPair(user: User, with another: User) -> Bool {
+        let pairIdsOfUsers = (user.pairId, another.pairId)
+        
+        switch pairIdsOfUsers {
+        case let (user, another) where user == nil && another != nil:
             self.error = PairUserUseCaseError.friendAlreadyPairedWithAnotherUser
             return false
-        } else if user.pairId != nil && friend.pairId == nil {
+        case let (user, another) where user != nil && another == nil:
             self.error = PairUserUseCaseError.userAlreadyPairedWithAnotherUser
             return false
-        } else if user.pairId != nil && friend.pairId != nil && user.pairId != friend.pairId {
+        case let (user, another) where user != nil && another != nil && user != another:
             self.error = PairUserUseCaseError.userAlreadyPairedWithAnotherUser
             return false
-        } else {
+        default:
             return true
         }
     }
