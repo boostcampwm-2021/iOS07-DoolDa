@@ -30,7 +30,7 @@ struct UserDocument: Codable {
     func toUser() -> User? {
         guard let userIdString = self.userId,
               let userDDID = DDID(from: userIdString),
-              let pariId = self.pairID else { return nil }
-        return User(id: userDDID, pairId: UUID(uuidString: pairId))
+              let pairIdString = self.pairId else { return nil }
+        return User(id: userDDID, pairId: DDID(from: pairIdString))
     }
 }
