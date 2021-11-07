@@ -38,21 +38,18 @@ final class SplashViewModel {
 
     private func bind() {
         self.$user
+            .compactMap { $0 }
             .sink(receiveValue: { [weak self] user in
-                guard let user = user else {
-                    self?.registerUserUseCase.register() 
-                    return
-                }
                 if user.pairId?.ddidString.isEmpty == false {
                     self?.coordinatorDelegate.userAlreadyPaired(user: user)
-                }
-                else {
+                } else {
                     self?.coordinatorDelegate.userNotPaired(myId: user.id)
                 }
             })
             .store(in: &self.cancellables)
 
         self.registerUserUseCase.registeredUserPublisher
+            .compactMap { $0 }
             .sink(receiveValue: { [weak self] user in
                 self?.user = user
             })

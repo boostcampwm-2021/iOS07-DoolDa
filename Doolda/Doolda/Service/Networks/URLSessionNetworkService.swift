@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import Accelerate
 
-class URLSessionNetworkService {
+class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
     enum Errors: LocalizedError {
          case invalidUrl
          
