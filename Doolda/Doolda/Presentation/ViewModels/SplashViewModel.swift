@@ -36,16 +36,17 @@ final class SplashViewModel {
 
     private func getMyId() {
         self.getMyIdUseCase.getMyId()
-            .sink { [weak self] result in
-                guard case .failure = result else { return }
-                self?.generateMyId()
-            } receiveValue: { [weak self] myId in
+            .sink(receiveValue: { [weak self] myId in
+                guard let myId = myId else {
+                    self?.generateMyId()
+                    return
+                }
                 self?.getPairId(with: myId)
-            }
+            })
             .store(in: &self.cancellables)
     }
 
-    private func getPairId(with myId: String) {
+    private func getPairId(with myId: DDID) {
         self.getPairIdUseCase.getPairId(for: myId)
             .sink { [weak self] result in
                 guard case .failure(let error) = result else { return }
