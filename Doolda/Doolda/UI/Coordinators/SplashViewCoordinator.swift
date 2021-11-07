@@ -35,7 +35,8 @@ class SplashViewCoordinator: Coordinator {
 
 extension SplashViewCoordinator: SplashViewCoordinatorDelegate {
     func userNotPaired(myId: DDID) {
-        let paringViewCoordinator = PairingViewCoordinator(presenter: self.presenter, parent: self, myId: myId)
+        let user = User(id: myId)
+        let paringViewCoordinator = PairingViewCoordinator(presenter: self.presenter, parent: self, user: user)
         self.add(child: paringViewCoordinator)
         paringViewCoordinator.start()
     }
