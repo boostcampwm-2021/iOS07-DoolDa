@@ -104,19 +104,9 @@ final class SplashViewController: UIViewController {
 
     // MARK: - Private Methods
     private func presentNetworkAlert() {
-        let alert = UIAlertController(title: "네트워크 오류",
-                                      message: "Wifi나 3G/LTE/5G를 연결 후 재시도 해주세요🙏",
-                                      preferredStyle: .alert)
-        let refreshAction = UIAlertAction(title: "재시도", style: .default) { _ in
+        let alert = UIAlertController.networkAlert { _ in
             self.viewModel?.prepareUserInfo()
-            print("재시도")
         }
-        let exitAction = UIAlertAction(title: "종료", style: .destructive) { _ in
-            exit(0)
-        }
-
-        alert.addAction(exitAction)
-        alert.addAction(refreshAction)
         self.present(alert, animated: true)
     }
 
