@@ -8,6 +8,14 @@
 import Foundation
 import CoreGraphics
 
+protocol ComponentEntity {
+    var origin: CGPoint { get set }
+    var size: CGSize { get set }
+    var angle: CGFloat { get set }
+
+    func hitTest(at point: CGPoint) -> Bool
+}
+
 @propertyWrapper
 struct Angle {
     private var value: CGFloat = CGFloat.zero
@@ -20,12 +28,4 @@ struct Angle {
     init(wrappedValue initalValue: CGFloat) {
         self.wrappedValue = initalValue
     }
-}
-
-struct ComponentEntity {
-    var origin: CGPoint
-    var size: CGSize
-    @Angle var angle: CGFloat
-
-    func hitTest(at point: CGPoint) -> Bool { return false }
 }
