@@ -87,7 +87,6 @@
 		FC5FB810273403E0008AC3D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC5FB80F273403E0008AC3D2 /* GoogleService-Info.plist */; };
 		FC822FAA2736088100C918A0 /* URLSessionNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FA92736088100C918A0 /* URLSessionNetworkService.swift */; };
 		FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */; };
-		FC822FAE27366C7A00C918A0 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAD27366C7A00C918A0 /* Document.swift */; };
 		FC822FB027367AFD00C918A0 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAF27367AFD00C918A0 /* API.swift */; };
 		FC822FB22736BF8400C918A0 /* URLSessionNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FB12736BF8400C918A0 /* URLSessionNetworkProtocol.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
@@ -209,7 +208,6 @@
 		FC5FB80F273403E0008AC3D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC822FA92736088100C918A0 /* URLSessionNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkService.swift; sourceTree = "<group>"; };
 		FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequsetBuilder.swift; sourceTree = "<group>"; };
-		FC822FAD27366C7A00C918A0 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		FC822FAF27367AFD00C918A0 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		FC822FB12736BF8400C918A0 /* URLSessionNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkProtocol.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
@@ -486,7 +484,6 @@
 				FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */,
 				FC5FB7942732627C008AC3D2 /* PairDocument.swift */,
 				FC5FB79727327861008AC3D2 /* FirebaseDocument.swift */,
-				FC822FAD27366C7A00C918A0 /* Document.swift */,
 				66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */,
 			);
 			path = DataTransferObjects;
@@ -1037,7 +1034,6 @@
 				FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
 				310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */,
-				FC822FAE27366C7A00C918A0 /* Document.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
