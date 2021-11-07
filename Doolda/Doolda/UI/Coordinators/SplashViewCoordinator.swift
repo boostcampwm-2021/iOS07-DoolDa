@@ -10,11 +10,11 @@ import UIKit
 class SplashViewCoordinator: Coordinator {
     override func start() {
         let userDefaultsPersistenceService = UserDefaultsPersistenceService()
-        let firebaseNetworkService = FirebaseNetworkService()
+        let urlSessionNetworkService = URLSessionNetworkService()
         
         let userRespository = UserRepository(
             persistenceService: userDefaultsPersistenceService,
-            networkService: firebaseNetworkService
+            networkService: urlSessionNetworkService
         )
         
         let getMyIdUseCase = GetMyIdUseCase(userRepository: userRespository)
