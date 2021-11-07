@@ -8,12 +8,10 @@
 import UIKit
 
 class DiaryViewCoordinator: Coordinator {
-    private let myId: String
-    private let pairId: String
+    private let user: User
     
-    init(presenter: UINavigationController, parent: Coordinator? = nil, myId: String, pairId: String) {
-        self.myId = myId
-        self.pairId = pairId
+    init(presenter: UINavigationController, parent: Coordinator? = nil, user: User) {
+        self.user = user
         super.init(presenter: presenter, parent: parent)
     }
     
