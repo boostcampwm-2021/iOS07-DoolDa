@@ -33,7 +33,7 @@ final class PairingViewModel: PairingViewModelProtocol {
         .eraseToAnyPublisher()
     
     lazy var isFriendIdValid: AnyPublisher<Bool, Never> = $friendIdInput
-        .compactMap { [weak self] in return DDID.isValid(ddidString: $0) }
+        .compactMap { DDID.isValid(ddidString: $0) }
         .eraseToAnyPublisher()
     
     var pairedUserPublisher: Published<User?>.Publisher { self.$pairedUser }
