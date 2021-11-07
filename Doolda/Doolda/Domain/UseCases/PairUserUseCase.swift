@@ -9,14 +9,14 @@ import Combine
 import Foundation
 
 enum PairUserUseCaseError: LocalizedError {
-    case notExistUser
+    case userNotExists
     case myIdAndFriendIdAreTheSame
     case userAlreadyPairedWithAnotherUser
     case friendAlreadyPairedWithAnotherUser
     
     var errorDescription: String? {
         switch self {
-        case .notExistUser:
+        case .userNotExists:
             return "존재하지 않는 사용자입니다."
         case .myIdAndFriendIdAreTheSame:
             return "입력된 아이디가 내 아이디와 같습니다."
@@ -39,13 +39,13 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
     var pairedUserPublisher: Published<User?>.Publisher { self.$pairedUser }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
-    private let userRepository: _UserRepositoryProtocol
+    private let userRepository: UserRepositoryProtocol
     
     private var cancellables: Set<AnyCancellable> = []
     @Published private var pairedUser: User?
     @Published private var error: Error?
     
-    init(userRepository: _UserRepositoryProtocol) {
+    init(userRepository: UserRepositoryProtocol) {
         self.userRepository = userRepository
     }
     
@@ -59,12 +59,9 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                 guard case .failure(let error) = completion else { return }
                 self.error = error
             } receiveValue: { user, friend in
-                // 의문사항: 1. user나 friend가 nil로 전달되는 경우는 네트워크 에러 케이스 아닌가?
-                //         2. 존재하지 않는 친구 아이디 입력후 fetch 요청하면?
-                //              (1, 2)-> 존재하지 않는 아이디를 전달했을 경우 nil 오는가?
                 guard let user = user,
                       let friend = friend else {
-                          return self.error = PairUserUseCaseError.notExistUser
+                          return self.error = PairUserUseCaseError.userNotExists
                       }
                 
                 if self.isItPossibleToPair(user: user, with: friend) {
