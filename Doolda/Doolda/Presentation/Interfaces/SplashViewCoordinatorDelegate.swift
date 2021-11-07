@@ -8,6 +8,6 @@
 import Foundation
 
 protocol SplashViewCoordinatorDelegate {
-    func userNotPaired(user: User)
+    func userNotPaired(myId: DDID)
     func userAlreadyPaired(user: User)
 }

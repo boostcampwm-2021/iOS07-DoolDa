@@ -17,6 +17,7 @@ final class SplashViewModel {
     private let registerUserUseCase: RegisterUserUseCaseProtocol
 
     private var cancellables: Set<AnyCancellable> = []
+    @Published var user: User?
     
     init(
         coordinatorDelegate: SplashViewCoordinatorDelegate,
@@ -32,6 +33,23 @@ final class SplashViewModel {
 
     func prepareUserInfo() {
         self.getMyId()
+    }
+
+    private func bind() {
+        self.$user
+            .sink(receiveValue: { [weak self] user in
+                guard let user = user else {
+                    self?.registerUserUseCase.register() //
+                    return
+                }
+                if user.pairId == nil || user.pairId.isEmpty {
+                    self?.coordinatorDelegate.userNotPaired(myId: user.id)
+                }
+                else {
+                    self?.coordinatorDelegate.userAlreadyPaired(user: user)
+                }
+            })
+            .store(in: &self.cancellables)
     }
 
     private func getMyId() {
@@ -52,20 +70,9 @@ final class SplashViewModel {
                 guard case .failure(let error) = result else { return }
                 self?.error = error
             } receiveValue: { [weak self] user in
-                
+                self?.user = user
             }
-//        self.getPairIdUseCase.getPairId(for: myId)
-//            .sink { [weak self] result in
-//                guard case .failure(let error) = result else { return }
-//                self?.error = error
-//            } receiveValue: { [weak self] pairId in
-//                if pairId.isEmpty {
-//                    self?.coordinatorDelegate.userNotPaired(myId: myId)
-//                } else {
-//                    self?.coordinatorDelegate.userAlreadyPaired(myId: myId, pairId: pairId)
-//                }
-//            }
-//            .store(in: &self.cancellables)
+            .store(in: &self.cancellables)
     }
 
     private func generateMyId() {
