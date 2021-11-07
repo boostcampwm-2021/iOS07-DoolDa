@@ -48,7 +48,23 @@ class UserRepository: UserRepositoryProtocol {
     }
     
     func setUser(_ user: User) -> AnyPublisher<User, Error> {
-        <#code#>
+        guard let pairId = user.pairId else {
+            let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.createUserDocument(user.id.ddidString))
+            return publisher.tryMap { userDocument in
+                guard let newUser = userDocument.toUser() else {
+                    throw UserRepositoryError.nilUserId
+                }
+                return newUser
+            }.eraseToAnyPublisher()
+        }
+        
+        let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.patchUserDocuement(user.id.ddidString, pairId.ddidString))
+        return publisher.tryMap { userDocument in
+            guard let newUser = userDocument.toUser() else {
+                throw UserRepositoryError.nilUserId
+            }
+            return newUser
+        }.eraseToAnyPublisher()
     }
     
     func fetchUser(_ id: DDID) -> AnyPublisher<User?, Error> {
@@ -59,13 +75,6 @@ class UserRepository: UserRepositoryProtocol {
         <#code#>
     }
     
-    func fetchMyId() -> AnyPublisher<String, Error> {
-        if let userId: String = self.userDefaultsPersistenceService.get(key: UserDefaults.Keys.userId) {
-            return Just(userId).setFailureType(to: Error.self).eraseToAnyPublisher()
-        } else {
-            return Fail(error: UserRepositoryError.nilUserId).eraseToAnyPublisher()
-        }
-    }
     
     func fetchPairId(for id: String) -> AnyPublisher<String, Error> {
         return Future<String, Error> { promise in
