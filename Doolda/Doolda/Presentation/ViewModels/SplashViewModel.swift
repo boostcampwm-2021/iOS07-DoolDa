@@ -33,7 +33,7 @@ final class SplashViewModel {
 
     func prepareUserInfo() {
         self.bind()
-        self.getMyId()
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) { self.getMyId() }
     }
 
     private func bind() {
