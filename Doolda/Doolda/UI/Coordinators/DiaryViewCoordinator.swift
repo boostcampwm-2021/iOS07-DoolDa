@@ -16,7 +16,9 @@ class DiaryViewCoordinator: Coordinator {
     }
     
     override func start() {
-        let viewController = DiaryViewController()
-        self.presenter.setViewControllers([viewController], animated: false)
+        DispatchQueue.main.async {
+            let viewController = DiaryViewController()
+            self.presenter.setViewControllers([viewController], animated: false)
+        }
     }
 }

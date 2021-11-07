@@ -17,11 +17,11 @@ class PairingViewCoordinator: Coordinator {
     
     override func start() {
         let userDefaultsPersistenceService = UserDefaultsPersistenceService()
-        let firebaseNetworkService = FirebaseNetworkService()
+        let urlSessionNetworkService = URLSessionNetworkService()
         
         let userRepository = UserRepository(
             persistenceService: userDefaultsPersistenceService,
-            networkService: firebaseNetworkService
+            networkService: urlSessionNetworkService
         )
 
         let pairUserUseCase = PairUserUseCase(userRepository: userRepository)
@@ -33,9 +33,11 @@ class PairingViewCoordinator: Coordinator {
             pairUserUseCase: pairUserUseCase,
             refreshUserUseCase: refreshUserUseCase
         )
-        
-        let viewController = PairingViewController(viewModel: viewModel)
-        self.presenter.setViewControllers([viewController], animated: false)
+
+        DispatchQueue.main.async {
+            let viewController = PairingViewController(viewModel: viewModel)
+            self.presenter.setViewControllers([viewController], animated: false)
+        }
     }
 }
 
