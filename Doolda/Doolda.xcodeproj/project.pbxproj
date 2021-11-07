@@ -33,6 +33,10 @@
 		3101258F2737987B00E43160 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3101258E2737987B00E43160 /* GoogleService-Info.plist */; };
 		310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125912738325800E43160 /* UIAlertController+Extensions.swift */; };
 		3101259427383DED00E43160 /* PhotoComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259327383DED00E43160 /* PhotoComponentEntity.swift */; };
+		31012596273842B300E43160 /* StickerComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012595273842B300E43160 /* StickerComponentEntity.swift */; };
+		31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012597273842DA00E43160 /* TextComponentEntity.swift */; };
+		3101259A273842E900E43160 /* PhotoFrameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012599273842E900E43160 /* PhotoFrameEntity.swift */; };
+		3101259C2738430200E43160 /* StickerPackEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259B2738430200E43160 /* StickerPackEntity.swift */; };
 		310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */; };
 		310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */; };
 		310D81262733C7FC00F15F4F /* SplashViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81252733C7FC00F15F4F /* SplashViewModelTest.swift */; };
@@ -174,6 +178,10 @@
 		3101258E2737987B00E43160 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		310125912738325800E43160 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		3101259327383DED00E43160 /* PhotoComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoComponentEntity.swift; sourceTree = "<group>"; };
+		31012595273842B300E43160 /* StickerComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerComponentEntity.swift; sourceTree = "<group>"; };
+		31012597273842DA00E43160 /* TextComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextComponentEntity.swift; sourceTree = "<group>"; };
+		31012599273842E900E43160 /* PhotoFrameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameEntity.swift; sourceTree = "<group>"; };
+		3101259B2738430200E43160 /* StickerPackEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPackEntity.swift; sourceTree = "<group>"; };
 		310D80CE273106CA00F15F4F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParingViewCoordinator.swift; sourceTree = "<group>"; };
 		310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewCoordinator.swift; sourceTree = "<group>"; };
@@ -556,6 +564,10 @@
 				66F5D47D2733EE8F000FB471 /* RawPageEntity.swift */,
 				66F5D47B2733EA32000FB471 /* ComponentEntity.swift */,
 				3101259327383DED00E43160 /* PhotoComponentEntity.swift */,
+				31012595273842B300E43160 /* StickerComponentEntity.swift */,
+				31012597273842DA00E43160 /* TextComponentEntity.swift */,
+				31012599273842E900E43160 /* PhotoFrameEntity.swift */,
+				3101259B2738430200E43160 /* StickerPackEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1053,6 +1065,7 @@
 				1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */,
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
+				31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */,
 				66FE936B273564DB0036CED2 /* DDID.swift in Sources */,
 				310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */,
 				FC822FB22736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift in Sources */,
@@ -1075,6 +1088,7 @@
 				FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
 				3101259427383DED00E43160 /* PhotoComponentEntity.swift in Sources */,
+				3101259C2738430200E43160 /* StickerPackEntity.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
 				664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */,
 				66FE936F27356E160036CED2 /* User.swift in Sources */,
@@ -1085,7 +1099,9 @@
 				1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */,
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
-				1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift in Sources */,
+				1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */,
+				3101259A273842E900E43160 /* PhotoFrameEntity.swift in Sources */,
+				31012596273842B300E43160 /* StickerComponentEntity.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
 				FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */,
