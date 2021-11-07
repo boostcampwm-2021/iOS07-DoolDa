@@ -35,6 +35,30 @@ class UserRepository: UserRepositoryProtocol {
         self.urlSessionNetworkService = networkService
     }
     
+    func setMyId(_ id: DDID) -> AnyPublisher<DDID, Never> {
+        self.userDefaultsPersistenceService.set(key: UserDefaults.Keys.userId, value: id.ddidString)
+        return Just(id).eraseToAnyPublisher()
+    }
+    
+    func getMyId() -> AnyPublisher<DDID?, Never> {
+        guard let userIdString: String = self.userDefaultsPersistenceService.get(key: UserDefaults.Keys.userId) else {
+            return Just(nil).eraseToAnyPublisher()
+        }
+        return Just(DDID(from: userIdString)).eraseToAnyPublisher()
+    }
+    
+    func setUser(_ user: User) -> AnyPublisher<User, Error> {
+        <#code#>
+    }
+    
+    func fetchUser(_ id: DDID) -> AnyPublisher<User?, Error> {
+        <#code#>
+    }
+    
+    func fetchUser(_ user: User) -> AnyPublisher<User?, Error> {
+        <#code#>
+    }
+    
     func fetchMyId() -> AnyPublisher<String, Error> {
         if let userId: String = self.userDefaultsPersistenceService.get(key: UserDefaults.Keys.userId) {
             return Just(userId).setFailureType(to: Error.self).eraseToAnyPublisher()
