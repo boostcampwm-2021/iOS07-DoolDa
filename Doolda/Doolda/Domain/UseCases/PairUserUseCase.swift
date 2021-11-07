@@ -65,7 +65,7 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                       }
                 
                 if self.isItPossibleToPair(user: user, with: friend) {
-                    self.pairedUser = user
+                    self.setUserPairId(user: user, friend: friend)
                 }
             }
             .store(in: &cancellables)
@@ -87,5 +87,19 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
         default:
             return true
         }
+    }
+
+    private func setUserPairId(user: User, friend: User) {
+        let pairId = DDID()
+        let user = User(id: user.id, pairId: pairId)
+        let friend = User(id: friend.id, pairId: pairId)
+        Publishers.Zip(self.userRepository.setUser(user), self.userRepository.setUser(friend))
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                self.error = error
+            } receiveValue: { user, friend in
+                self.pairedUser = user
+            }
+            .store(in: &self.cancellables)
     }
 }
