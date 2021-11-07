@@ -9,5 +9,5 @@ import Combine
 import Foundation
 
 protocol URLSessionNetworkProtocol {
-    func request<T: Decodable>(_ urlRequest: URLRequestBuilder, model: T.Type) -> AnyPublisher<T, Error>
+    func request<T: Decodable>(_ urlRequest: URLRequestBuilder) -> AnyPublisher<T, Error>
 }

@@ -7,29 +7,12 @@
 
 import Foundation
 
-enum HttpMethod {
-    case get
-    case post
-    case put
-    case patch
-    case delete
-}
-
-extension HttpMethod {
-    var method: String {
-        switch self {
-        case .get:
-            return "GET"
-        case .post:
-            return "POST"
-        case .put:
-            return "PUT"
-        case .patch:
-            return "PATCH"
-        case .delete:
-            return "DELETE"
-        }
-    }
+enum HttpMethod: String {
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+    case patch = "PATCH"
+    case delete ="DELETE"
 }
 
 protocol URLRequestBuilder {
@@ -43,7 +26,6 @@ protocol URLRequestBuilder {
 }
 
 extension URLRequestBuilder {
-    
     var requestURL: URL? {
         return baseURL?.appendingPathComponent(path, isDirectory: false)
     }
@@ -79,7 +61,7 @@ extension URLRequestBuilder {
             return urlRequest
 
         case .post, .put, .delete, .patch:
-            urlRequest.httpMethod = method.method
+            urlRequest.httpMethod = method.rawValue
             
             if let httpbody = self.body {
                 urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: httpbody)
