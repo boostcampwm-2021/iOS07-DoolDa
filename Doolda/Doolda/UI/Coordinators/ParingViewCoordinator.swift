@@ -41,7 +41,7 @@ class PairingViewCoordinator: Coordinator {
 
 extension PairingViewCoordinator: PairingViewCoordinatorDelegate {
     func userDidPaired(user: User) {
-        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, user: User)
+        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, user: user)
         self.add(child: diaryViewCoordinator)
         diaryViewCoordinator.start()
     }
