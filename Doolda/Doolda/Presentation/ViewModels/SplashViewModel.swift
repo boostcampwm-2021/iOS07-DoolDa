@@ -13,21 +13,21 @@ final class SplashViewModel {
 
     private let coordinatorDelegate: SplashViewCoordinatorDelegate
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
-    private let getPairIdUseCase: GetPairIdUseCaseProtocol
-    private let generateMyIdUseCase: GenerateMyIdUseCaseProtocol
+    private let getUserUseCase: GetUserUseCaseProtocol
+    private let registerUserUseCase: RegisterUserUseCaseProtocol
 
     private var cancellables: Set<AnyCancellable> = []
     
     init(
         coordinatorDelegate: SplashViewCoordinatorDelegate,
-         getMyIdUseCase: GetMyIdUseCaseProtocol,
-         getPairIdUseCase: GetPairIdUseCaseProtocol,
-         generateMyIdUseCase: GenerateMyIdUseCaseProtocol
+        getMyIdUseCase: GetMyIdUseCaseProtocol,
+        getUserUseCase: GetUserUseCaseProtocol,
+        registerUserUseCase: RegisterUserUseCaseProtocol
     ) {
         self.coordinatorDelegate = coordinatorDelegate
         self.getMyIdUseCase = getMyIdUseCase
-        self.getPairIdUseCase = getPairIdUseCase
-        self.generateMyIdUseCase = generateMyIdUseCase
+        self.getUserUseCase = getUserUseCase
+        self.registerUserUseCase = registerUserUseCase
     }
 
     func prepareUserInfo() {
