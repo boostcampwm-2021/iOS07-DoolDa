@@ -15,5 +15,5 @@ protocol UserRepositoryProtocol {
     func setUser(_ user: User) -> AnyPublisher<User, Error>
     
     func fetchUser(_ id: DDID) -> AnyPublisher<User?, Error>
-    func fetchUser(_ user : User) -> AnyPublisher<User?, Error>
+    func fetchUser(_ user: User) -> AnyPublisher<User?, Error>
 }

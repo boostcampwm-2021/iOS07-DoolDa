@@ -55,7 +55,8 @@ class UserRepository: UserRepositoryProtocol {
                     throw UserRepositoryError.nilUserId
                 }
                 return newUser
-            }.eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
         }
         
         let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.patchUserDocuement(user.id.ddidString, pairId.ddidString))
@@ -64,20 +65,19 @@ class UserRepository: UserRepositoryProtocol {
                 throw UserRepositoryError.nilUserId
             }
             return newUser
-        }.eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
     }
     
     func fetchUser(_ id: DDID) -> AnyPublisher<User?, Error> {
         let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.getUserDocuement(id.ddidString))
         return publisher.tryMap { userDocument in
             return userDocument.toUser()
-        }.eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
     }
     
     func fetchUser(_ user: User) -> AnyPublisher<User?, Error> {
-        let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.getUserDocuement(user.id.ddidString))
-        return publisher.tryMap { userDocument in
-            return userDocument.toUser()
-        }.eraseToAnyPublisher()
+        return self.fetchUser(user.id)
     }
 }
