@@ -19,4 +19,12 @@ extension UIAlertController {
         alert.addAction(exitAlertAction)
         return alert
     }
+
+    static func defaultAlert(title: String?, message: String?, handler: @escaping (UIAlertAction) -> Void) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인", style: .default, handler: handler)
+
+        alert.addAction(action)
+        return alert
+    }
 }
