@@ -29,11 +29,11 @@ final class PairingViewModel: PairingViewModelProtocol {
     @Published var friendIdInput: String = ""
     
     lazy var myId: AnyPublisher<String, Never> = Just(user.id)
-        .map { $0.id }
+        .map { $0.ddidString }
         .eraseToAnyPublisher()
     
     lazy var isFriendIdValid: AnyPublisher<Bool, Never> = $friendIdInput
-        .compactMap { [weak self] in return DDID.isValid(id: $0) }
+        .compactMap { [weak self] in return DDID.isValid(ddidString: $0) }
         .eraseToAnyPublisher()
     
     var pairedUserPublisher: Published<User?>.Publisher { self.$pairedUser }
