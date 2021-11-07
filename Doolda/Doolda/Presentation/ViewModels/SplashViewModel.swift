@@ -17,7 +17,7 @@ final class SplashViewModel {
     private let registerUserUseCase: RegisterUserUseCaseProtocol
 
     private var cancellables: Set<AnyCancellable> = []
-    @Published var user: User?
+    @Published private var user: User?
     
     init(
         coordinatorDelegate: SplashViewCoordinatorDelegate,
@@ -32,6 +32,7 @@ final class SplashViewModel {
     }
 
     func prepareUserInfo() {
+        self.bind()
         self.getMyId()
     }
 
@@ -39,16 +40,26 @@ final class SplashViewModel {
         self.$user
             .sink(receiveValue: { [weak self] user in
                 guard let user = user else {
-                    self?.registerUserUseCase.register() //
+                    self?.registerUserUseCase.register() 
                     return
                 }
-                if user.pairId == nil || user.pairId.isEmpty {
-                    self?.coordinatorDelegate.userNotPaired(myId: user.id)
-                }
-                else {
+                if user.pairId?.ddidString.isEmpty == false {
                     self?.coordinatorDelegate.userAlreadyPaired(user: user)
                 }
+                else {
+                    self?.coordinatorDelegate.userNotPaired(myId: user.id)
+                }
             })
+            .store(in: &self.cancellables)
+
+        self.registerUserUseCase.registeredUserPublisher
+            .sink(receiveValue: { [weak self] user in
+                self?.user = user
+            })
+            .store(in: &self.cancellables)
+
+        self.registerUserUseCase.errorPublisher
+            .assign(to: \.error, on: self)
             .store(in: &self.cancellables)
     }
 
@@ -56,7 +67,7 @@ final class SplashViewModel {
         self.getMyIdUseCase.getMyId()
             .sink(receiveValue: { [weak self] myId in
                 guard let myId = myId else {
-                    self?.generateMyId()
+                    self?.registerUserUseCase.register()
                     return
                 }
                 self?.getUser(with: myId)
@@ -75,21 +86,4 @@ final class SplashViewModel {
             .store(in: &self.cancellables)
     }
 
-    private func generateMyId() {
-        self.generateMyIdUseCase.savedIdPublisher
-            .sink(receiveValue: { [weak self] myId in
-                guard let myId = myId else { return }
-                self?.coordinatorDelegate.userNotPaired(myId: myId)
-            })
-            .store(in: &self.cancellables)
-
-        self.generateMyIdUseCase.errorPublisher
-            .sink(receiveValue: { [weak self] error in
-                guard let error = error else { return }
-                self?.error = error
-            })
-            .store(in: &self.cancellables)
-
-        self.generateMyIdUseCase.generate()
-    }
 }
