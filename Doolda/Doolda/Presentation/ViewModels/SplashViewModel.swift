@@ -41,24 +41,31 @@ final class SplashViewModel {
                     self?.generateMyId()
                     return
                 }
-                self?.getPairId(with: myId)
+                self?.getUser(with: myId)
             })
             .store(in: &self.cancellables)
     }
 
-    private func getPairId(with myId: DDID) {
-        self.getPairIdUseCase.getPairId(for: myId)
+    private func getUser(with myId: DDID) {
+        self.getUserUseCase.getUser(for: myId)
             .sink { [weak self] result in
                 guard case .failure(let error) = result else { return }
                 self?.error = error
-            } receiveValue: { [weak self] pairId in
-                if pairId.isEmpty {
-                    self?.coordinatorDelegate.userNotPaired(myId: myId)
-                } else {
-                    self?.coordinatorDelegate.userAlreadyPaired(myId: myId, pairId: pairId)
-                }
+            } receiveValue: { [weak self] user in
+                
             }
-            .store(in: &self.cancellables)
+//        self.getPairIdUseCase.getPairId(for: myId)
+//            .sink { [weak self] result in
+//                guard case .failure(let error) = result else { return }
+//                self?.error = error
+//            } receiveValue: { [weak self] pairId in
+//                if pairId.isEmpty {
+//                    self?.coordinatorDelegate.userNotPaired(myId: myId)
+//                } else {
+//                    self?.coordinatorDelegate.userAlreadyPaired(myId: myId, pairId: pairId)
+//                }
+//            }
+//            .store(in: &self.cancellables)
     }
 
     private func generateMyId() {

@@ -18,14 +18,14 @@ class SplashViewCoordinator: Coordinator {
         )
         
         let getMyIdUseCase = GetMyIdUseCase(userRepository: userRespository)
-        let getPairIdUseCase = GetUserUseCase(userRepository: userRespository)
-        let generateMyIdUseCase = GenerateMyIdUseCase(userRepository: userRespository)
+        let getUserUseCase = GetUserUseCase(userRepository: userRespository)
+        let registerUserUseCase = RegisterUserUseCase(userRepository: userRespository)
         
         let viewModel = SplashViewModel(
             coordinatorDelegate: self,
             getMyIdUseCase: getMyIdUseCase,
-            getPairIdUseCase: getPairIdUseCase,
-            generateMyIdUseCase: generateMyIdUseCase
+            getUserUseCase: getUserUseCase,
+            registerUserUseCase: registerUserUseCase
         )
         
         let viewController = SplashViewController(viewModel: viewModel)
@@ -34,14 +34,14 @@ class SplashViewCoordinator: Coordinator {
 }
 
 extension SplashViewCoordinator: SplashViewCoordinatorDelegate {
-    func userNotPaired(myId: String) {
+    func userNotPaired(myId: DDID) {
         let paringViewCoordinator = PairingViewCoordinator(presenter: self.presenter, parent: self, myId: myId)
         self.add(child: paringViewCoordinator)
         paringViewCoordinator.start()
     }
 
-    func userAlreadyPaired(myId: String, pairId: String) {
-        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, myId: myId, pairId: pairId)
+    func userAlreadyPaired(user: User) {
+        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, user: user)
         self.add(child: diaryViewCoordinator)
         diaryViewCoordinator.start()
     }
