@@ -26,13 +26,13 @@ enum UserRepositoryError: LocalizedError {
 
 class UserRepository: UserRepositoryProtocol {
     private let userDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol
-    private let firebaseNetworkService: FirebaseNetworkServiceProtocol
+    private let urlSessionNetworkService: URLSessionNetworkServiceProtocol
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(persistenceService: UserDefaultsPersistenceServiceProtocol, networkService: FirebaseNetworkServiceProtocol) {
+    init(persistenceService: UserDefaultsPersistenceServiceProtocol, networkService: URLSessionNetworkServiceProtocol) {
         self.userDefaultsPersistenceService = persistenceService
-        self.firebaseNetworkService = networkService
+        self.urlSessionNetworkService = networkService
     }
     
     func fetchMyId() -> AnyPublisher<String, Error> {

@@ -8,6 +8,6 @@
 import Combine
 import Foundation
 
-protocol URLSessionNetworkProtocol {
+protocol URLSessionNetworkServiceProtocol {
     func request<T: Decodable>(_ urlRequest: URLRequestBuilder) -> AnyPublisher<T, Error>
 }
