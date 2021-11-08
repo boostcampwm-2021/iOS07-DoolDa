@@ -24,7 +24,22 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
     }
 
     private func crop(with image: CIImage, by frame: CIImage) -> CIImage {
-        return CIImage()
+        let imageRatio = image.extent.width / image.extent.height
+        let frameRatio = frame.extent.width / frame.extent.height
+        var rect: CGRect
+
+        if imageRatio < frameRatio {
+            let height = image.extent.height * frameRatio
+            let y = (image.extent.height - height) / 2
+            rect = CGRect(x: 0, y: y, width: image.extent.width, height: height)
+        } else {
+            let cropRatio = frame.extent.height / frame.extent.width
+            let width = image.extent.width * cropRatio
+            let x = (image.extent.width - width) / 2
+            rect = CGRect(x: x, y: 0, width: image.extent.width, height: 0)
+        }
+
+        return image.cropped(to: rect)
     }
 
     private func resize(with image: CIImage, to size: CGSize) -> CIImage {
