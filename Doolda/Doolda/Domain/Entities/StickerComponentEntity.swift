@@ -13,25 +13,15 @@ struct StickerComponentEntity: ComponentEntity {
 
     var origin: CGPoint
     var size: CGSize
-    @Angle var angle: CGFloat
-//    var angle: CGFloat {
-//        get { return wrappedAngle }
-//        set { self.wrappedAngle = newValue }
-//    }
     var name: String
-
-    @Angle private var wrappedAngle: CGFloat
+    @Angle var angle: CGFloat
 
     init(origin: CGPoint, size: CGSize, angle: CGFloat, aspectRatio: CGFloat, name: String) {
         self.origin = origin
         self.size = size
-        self.wrappedAngle = angle
+        self.angle = angle
         self.aspectRatio = aspectRatio
         self.name = name
-    }
-
-    func hitTest(at point: CGPoint) -> Bool {
-        return false
     }
 
 }
