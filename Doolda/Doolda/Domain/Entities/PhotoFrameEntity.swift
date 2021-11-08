@@ -8,8 +8,11 @@
 import Foundation
 import CoreGraphics
 
+// FIXME: Asset 이름을 String으로 갖고 있도록 구현
+enum PhotoFrameType {}
+
 struct PhotoFrameEntity {
-    var frameUrl: URL
+    var frameAsset: PhotoFrameType
     var requiredPhotoCount: Int { photoBounds.count }
     let photoBounds: [CGRect]
 }
