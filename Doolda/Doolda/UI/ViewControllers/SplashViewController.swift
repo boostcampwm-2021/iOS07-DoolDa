@@ -95,9 +95,9 @@ final class SplashViewController: UIViewController {
     private func bindUI() {
         self.viewModel?.$error
             .receive(on: DispatchQueue.main)
-            .sink { error in
-                guard let _ = error else { return }
-                self.presentNetworkAlert()
+            .sink { [weak self] error in
+                guard error != nil else { return }
+                self?.presentNetworkAlert()
             }
             .store(in: &cancellables)
     }
@@ -109,5 +109,4 @@ final class SplashViewController: UIViewController {
         }
         self.present(alert, animated: true)
     }
-
 }

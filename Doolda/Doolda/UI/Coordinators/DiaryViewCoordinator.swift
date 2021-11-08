@@ -7,15 +7,16 @@
 
 import UIKit
 
-class DiaryViewCoordinator: Coordinator {
+class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
+    var presenter: UINavigationController
     private let user: User
     
-    init(presenter: UINavigationController, parent: Coordinator? = nil, user: User) {
+    init(presenter: UINavigationController, user: User) {
+        self.presenter = presenter
         self.user = user
-        super.init(presenter: presenter, parent: parent)
     }
     
-    override func start() {
+    func start() {
         DispatchQueue.main.async {
             let viewController = DiaryViewController()
             self.presenter.setViewControllers([viewController], animated: false)
