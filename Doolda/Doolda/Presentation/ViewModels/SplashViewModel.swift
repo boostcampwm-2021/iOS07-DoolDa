@@ -56,8 +56,7 @@ final class SplashViewModel {
             .store(in: &self.cancellables)
 
         self.registerUserUseCase.errorPublisher
-            .assign(to: \.error, on: self)
-            .store(in: &self.cancellables)
+            .assign(to: &$error)
     }
 
     private func getMyId() {

@@ -64,12 +64,10 @@ final class PairingViewModel: PairingViewModelProtocol {
     
     private func bind() {
         self.pairUserUseCase.errorPublisher
-            .assign(to: \.error, on: self)
-            .store(in: &self.cancellables)
+            .assign(to: &$error)
         
         self.refreshUserUseCase.errorPublisher
-            .assign(to: \.error, on: self)
-            .store(in: &self.cancellables)
+            .assign(to: &$error)
         
         self.pairUserUseCase.pairedUserPublisher
             .compactMap { $0 }
