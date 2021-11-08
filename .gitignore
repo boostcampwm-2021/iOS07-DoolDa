@@ -143,4 +143,7 @@ iOSInjectionProject/
 # Firebase Property List
 GoogleService-Info.plist
 
+# SwiftPackageManager
+Package.resolved
+
 # End of https://www.toptal.com/developers/gitignore/api/swift,cocoapods,macos,xcode
