@@ -8,12 +8,15 @@
 import CoreGraphics
 import Foundation
 
-typealias BackgroundType = CGColor
-
 struct RawPageEntity {
     var components: [ComponentEntity]
-    var backgroundType: BackgroundType
-
+    var backgroundColor: BackgroundType
+    
+    init() {
+        self.components = []
+        self.backgroundColor = .plain(color: .dooldaBackground)
+    }
+    
     mutating func append(_ component: ComponentEntity) {
         components.append(component)
     }
