@@ -5,8 +5,8 @@
 //  Created by 정지승 on 2021/11/04.
 //
 
-import Foundation
 import CoreGraphics
+import Foundation
 
 typealias BackgroundType = CGColor
 

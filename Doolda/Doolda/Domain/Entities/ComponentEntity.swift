@@ -5,15 +5,19 @@
 //  Created by 정지승 on 2021/11/04.
 //
 
-import Foundation
 import CoreGraphics
+import Foundation
 
 protocol ComponentEntity {
     var origin: CGPoint { get set }
     var size: CGSize { get set }
     var angle: CGFloat { get set }
+}
 
-    func hitTest(at point: CGPoint) -> Bool
+extension ComponentEntity {
+    func hitTest(at point: CGPoint) -> Bool {
+        return false
+    }
 }
 
 @propertyWrapper

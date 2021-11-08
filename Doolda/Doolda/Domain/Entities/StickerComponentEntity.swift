@@ -5,18 +5,19 @@
 //  Created by Dozzing on 2021/11/07.
 //
 
-import Foundation
 import CoreGraphics
+import Foundation
 
 struct StickerComponentEntity: ComponentEntity {
     let aspectRatio: CGFloat
 
     var origin: CGPoint
     var size: CGSize
-    var angle: CGFloat {
-        get { return wrappedAngle }
-        set { self.wrappedAngle = newValue }
-    }
+    @Angle var angle: CGFloat
+//    var angle: CGFloat {
+//        get { return wrappedAngle }
+//        set { self.wrappedAngle = newValue }
+//    }
     var name: String
 
     @Angle private var wrappedAngle: CGFloat
