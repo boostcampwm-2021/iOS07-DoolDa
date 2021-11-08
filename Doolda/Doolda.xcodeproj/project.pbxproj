@@ -39,6 +39,7 @@
 		3101259C2738430200E43160 /* StickerPackEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259B2738430200E43160 /* StickerPackEntity.swift */; };
 		310125A027393D3B00E43160 /* ImageComposeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259F27393D3B00E43160 /* ImageComposeUseCase.swift */; };
 		310125CC2739A56600E43160 /* ImageComposeUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125CB2739A56600E43160 /* ImageComposeUseCaseTest.swift */; };
+		310125D22739A5D200E43160 /* ImageComposeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259F27393D3B00E43160 /* ImageComposeUseCase.swift */; };
 		310125C427398DF600E43160 /* ImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125C327398DF600E43160 /* ImageUseCase.swift */; };
 		310125D6273A6F3400E43160 /* FileManagerPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125D5273A6F3400E43160 /* FileManagerPersistenceService.swift */; };
 		310125D8273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125D7273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift */; };
@@ -1115,6 +1116,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				310125D22739A5D200E43160 /* ImageComposeUseCase.swift in Sources */,
 				310125CC2739A56600E43160 /* ImageComposeUseCaseTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
