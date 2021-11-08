@@ -8,15 +8,22 @@
 import Foundation
 
 struct PairDocument: Codable {
-    let recentlyEditedUser: String
+    var pairId: String? {
+        return name.components(separatedBy: "/").last
+    }
+    var recentlyEditedUser: String? {
+        return self.fields["recentlyEditedUser"]?["stringValue"]
+    }
     
-    init?(data: [String: Any]) {
-        if let key = data.keys.first,
-           key == "recentlyEditedUser",
-           let recentlyEditedUser = data[key] as? String {
-            self.recentlyEditedUser = recentlyEditedUser
-        } else {
-            return nil
-        }
+    let name: String
+    let fields: [String: [String: String]]
+    
+    init(pairId: String, recentlyEditedUser: String) {
+        self.name = pairId
+        self.fields = [
+            "recentlyEditedUser": [
+                "stringValue": recentlyEditedUser
+            ]
+        ]
     }
 }
