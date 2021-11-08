@@ -63,6 +63,18 @@ final class PairRepository: PairRepositoryProtocol{
     }
     
     func fetchRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
-        <#code#>
+        guard let pairId = user.pairId else {
+            return Fail(error: PairRepositoryError.nilUserPairId).eraseToAnyPublisher()
+        }
+        let publisher: AnyPublisher<PairDocument, Error> = self.urlSessionNetworkService
+            .request(FirebaseAPIs.getPairDocument(pairId.ddidString))
+        return publisher.tryMap { pairDocument in
+            guard let recentlyEditedUserIdString = pairDocument.recentlyEditedUser,
+                  let recentlyEditedUser = DDID(from: recentlyEditedUserIdString) else {
+                      throw PairRepositoryError.DTOInitError
+                  }
+            return recentlyEditedUser
+        }
+        .eraseToAnyPublisher()
     }
 }
