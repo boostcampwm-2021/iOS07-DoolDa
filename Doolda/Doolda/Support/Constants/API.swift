@@ -74,10 +74,10 @@ extension FirebaseAPIs {
             return [
                 "fields": userDocument.fields
             ]
-        case .patchUserDocuement(let userId, let pairId):
-            let userDocument = UserDocument(userId: userId, pairId: pairId)
+        case .patchUserDocuement(let pairId, let recentlyEditedUser):
+            let pairDocument = PairDocument(pairId: pairId, recentlyEditedUser: recentlyEditedUser)
             return [
-                "fields": userDocument.fields
+                "fields": pairDocument.fields
             ]
         case .createPairDocument(let pairId, let recentlyEditedUser), .patchPairDocument(let pairId, let recentlyEditedUser):
             let pairDocument = PairDocument(pairId: pairId, recentlyEditedUser: recentlyEditedUser)

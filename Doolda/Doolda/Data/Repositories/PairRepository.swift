@@ -21,7 +21,7 @@ enum PairRepositoryError: LocalizedError {
     }
 }
 
-final class PairRepository: PairRepositoryProtocol{
+final class PairRepository: PairRepositoryProtocol {
     private let urlSessionNetworkService: URLSessionNetworkServiceProtocol
     
     private var cancellables = Set<AnyCancellable>()
