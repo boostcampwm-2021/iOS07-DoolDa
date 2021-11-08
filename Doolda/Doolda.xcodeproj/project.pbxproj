@@ -104,6 +104,7 @@
 		FC9F108927315EEB0060FEB7 /* FirebaseNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F1077273139040060FEB7 /* FirebaseNetworkProtocol.swift */; };
 		FC9F108A27315EEB0060FEB7 /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */; };
 		FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
+		FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DD2738CFB50001F155 /* PairRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +230,7 @@
 		FC9F107F27315EB80060FEB7 /* FirebaseNetworkTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FirebaseNetworkTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkTest.swift; sourceTree = "<group>"; };
 		FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepositoryProtocol.swift; sourceTree = "<group>"; };
+		FCE9D3DD2738CFB50001F155 /* PairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,6 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				FC5FB792273260C3008AC3D2 /* UserRepository.swift */,
+				FCE9D3DD2738CFB50001F155 /* PairRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1056,6 +1059,7 @@
 				66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */,
 				310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
+				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
