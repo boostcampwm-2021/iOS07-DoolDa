@@ -40,13 +40,15 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
     private let userRepository: UserRepositoryProtocol
+    private let pairRepository: PairRepositoryProtocol
     
     private var cancellables: Set<AnyCancellable> = []
     @Published private var pairedUser: User?
     @Published private var error: Error?
     
-    init(userRepository: UserRepositoryProtocol) {
+    init(userRepository: UserRepositoryProtocol, pairRepository: PairRepositoryProtocol) {
         self.userRepository = userRepository
+        self.pairRepository = pairRepository
     }
     
     func pair(user: User, friendId: DDID) {
