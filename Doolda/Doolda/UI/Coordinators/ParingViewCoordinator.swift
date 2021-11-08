@@ -7,15 +7,16 @@
 
 import UIKit
 
-class PairingViewCoordinator: Coordinator {
+class PairingViewCoordinator: PairingViewCoordinatorProtocol {
+    var presenter: UINavigationController
     private let user: User
     
-    init(presenter: UINavigationController, parent: Coordinator? = nil, user: User) {
+    init(presenter: UINavigationController, user: User) {
+        self.presenter = presenter
         self.user = user
-        super.init(presenter: presenter, parent: parent)
     }
     
-    override func start() {
+    func start() {
         let userDefaultsPersistenceService = UserDefaultsPersistenceService()
         let urlSessionNetworkService = URLSessionNetworkService()
         
@@ -29,7 +30,7 @@ class PairingViewCoordinator: Coordinator {
 
         let viewModel = PairingViewModel(
             user: user,
-            coordinatorDelegate: self,
+            coordinator: self,
             pairUserUseCase: pairUserUseCase,
             refreshUserUseCase: refreshUserUseCase
         )
@@ -39,12 +40,9 @@ class PairingViewCoordinator: Coordinator {
             self.presenter.setViewControllers([viewController], animated: false)
         }
     }
-}
-
-extension PairingViewCoordinator: PairingViewCoordinatorDelegate {
+    
     func userDidPaired(user: User) {
-        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, user: user)
-        self.add(child: diaryViewCoordinator)
+        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, user: user)
         diaryViewCoordinator.start()
     }
 }

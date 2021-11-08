@@ -12,7 +12,7 @@
 		1D0C8BD02732B7780091ACC0 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		1D0C8BD12732B7BA0091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */; };
-		1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */; };
+		1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift */; };
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */; };
 		1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */; };
@@ -29,13 +29,14 @@
 		1DDAF04E2730CE14006CD027 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04D2730CE14006CD027 /* FirebaseMessaging */; };
 		1DDAF0502730CE14006CD027 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04F2730CE14006CD027 /* FirebaseStorage */; };
 		1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */; };
+		1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */; };
 		3101258F2737987B00E43160 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3101258E2737987B00E43160 /* GoogleService-Info.plist */; };
 		310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125912738325800E43160 /* UIAlertController+Extensions.swift */; };
 		310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */; };
 		310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */; };
 		310D81262733C7FC00F15F4F /* SplashViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81252733C7FC00F15F4F /* SplashViewModelTest.swift */; };
 		310D812C2733C83B00F15F4F /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FB27302947009F03E2 /* SplashViewModel.swift */; };
-		310D812D2733C84B00F15F4F /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
+		310D812D2733C84B00F15F4F /* SplashViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift */; };
 		310D812E2733C86000F15F4F /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		310D812F2733C86000F15F4F /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		310D81322733CC1900F15F4F /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */; };
@@ -51,7 +52,7 @@
 		664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F72730272B009F03E2 /* AppCoordinator.swift */; };
 		664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F927302905009F03E2 /* SplashViewCoordinator.swift */; };
 		664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FB27302947009F03E2 /* SplashViewModel.swift */; };
-		664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */; };
+		664893FE273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FD273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift */; };
 		664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664894172730F1B0009F03E2 /* PairingViewModel.swift */; };
 		669ADE3E2732E55F007B529B /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		669ADE3F2732E55F007B529B /* RefreshPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */; };
@@ -154,7 +155,7 @@
 		1D0C8BC92732B5F90091ACC0 /* GetPairIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetPairIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPairIdUseCaseTest.swift; sourceTree = "<group>"; };
 		1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
-		1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewController.swift; sourceTree = "<group>"; };
 		1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
@@ -166,6 +167,7 @@
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3101258E2737987B00E43160 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		310125912738325800E43160 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		310D80CE273106CA00F15F4F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -186,7 +188,7 @@
 		664893F72730272B009F03E2 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		664893F927302905009F03E2 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
 		664893FB27302947009F03E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
-		664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		664893FD273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		664894172730F1B0009F03E2 /* PairingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewModel.swift; sourceTree = "<group>"; };
 		6648941D27310165009F03E2 /* PairingViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PairingViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6648945C27327F1D009F03E2 /* GeneratePairIdUseCaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeneratePairIdUseCaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -452,7 +454,9 @@
 			isa = PBXGroup;
 			children = (
 				1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */,
-				1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */,
+				664893FD273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift */,
+				1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift */,
+				1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -1014,7 +1018,7 @@
 				310D81322733CC1900F15F4F /* RegisterUserUseCase.swift in Sources */,
 				310D812E2733C86000F15F4F /* GetMyIdUseCase.swift in Sources */,
 				310D812F2733C86000F15F4F /* GetUserUseCase.swift in Sources */,
-				310D812D2733C84B00F15F4F /* SplashViewCoordinatorDelegate.swift in Sources */,
+				310D812D2733C84B00F15F4F /* SplashViewCoordinatorProtocol.swift in Sources */,
 				310D812C2733C83B00F15F4F /* SplashViewModel.swift in Sources */,
 				310D81262733C7FC00F15F4F /* SplashViewModelTest.swift in Sources */,
 			);
@@ -1055,7 +1059,7 @@
 				66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */,
 				FC9F1078273139040060FEB7 /* FirebaseNetworkProtocol.swift in Sources */,
 				66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */,
-				664893FE273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift in Sources */,
+				664893FE273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift in Sources */,
 				66F5D47E2733EE8F000FB471 /* RawPageEntity.swift in Sources */,
 				FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
@@ -1066,9 +1070,10 @@
 				FC5FB7DC2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */,
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
+				1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */,
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
-				1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift in Sources */,
+				1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
 				FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */,

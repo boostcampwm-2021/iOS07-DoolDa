@@ -7,8 +7,14 @@
 
 import UIKit
 
-class SplashViewCoordinator: Coordinator {
-    override func start() {
+class SplashViewCoordinator: SplashViewCoordinatorProtocol {
+    var presenter: UINavigationController
+    
+    init(presenter: UINavigationController) {
+        self.presenter = presenter
+    }
+    
+    func start() {
         let userDefaultsPersistenceService = UserDefaultsPersistenceService()
         let urlSessionNetworkService = URLSessionNetworkService()
         
@@ -22,7 +28,7 @@ class SplashViewCoordinator: Coordinator {
         let registerUserUseCase = RegisterUserUseCase(userRepository: userRespository)
         
         let viewModel = SplashViewModel(
-            coordinatorDelegate: self,
+            coordinator: self,
             getMyIdUseCase: getMyIdUseCase,
             getUserUseCase: getUserUseCase,
             registerUserUseCase: registerUserUseCase
@@ -31,19 +37,15 @@ class SplashViewCoordinator: Coordinator {
         let viewController = SplashViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
     }
-}
-
-extension SplashViewCoordinator: SplashViewCoordinatorDelegate {
+    
     func userNotPaired(myId: DDID) {
         let user = User(id: myId)
-        let paringViewCoordinator = PairingViewCoordinator(presenter: self.presenter, parent: self, user: user)
-        self.add(child: paringViewCoordinator)
+        let paringViewCoordinator = PairingViewCoordinator(presenter: self.presenter, user: user)
         paringViewCoordinator.start()
     }
 
     func userAlreadyPaired(user: User) {
-        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, parent: self, user: user)
-        self.add(child: diaryViewCoordinator)
+        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, user: user)
         diaryViewCoordinator.start()
     }
 }

@@ -7,10 +7,15 @@
 
 import UIKit
 
-final class AppCoordinator: Coordinator {
-    override func start() {
-        let splashViewCoordinator = SplashViewCoordinator(presenter: self.presenter, parent: self)
-        self.add(child: splashViewCoordinator)
+final class AppCoordinator: CoordinatorProtocol {
+    var presenter: UINavigationController
+    
+    init(presenter: UINavigationController) {
+        self.presenter = presenter
+    }
+    
+    func start() {
+        let splashViewCoordinator = SplashViewCoordinator(presenter: self.presenter)
         splashViewCoordinator.start()
     }
 }
