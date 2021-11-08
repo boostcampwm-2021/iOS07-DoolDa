@@ -50,7 +50,8 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
     }
 
     private func translation(with image: CIImage, to point: CGPoint) -> CIImage {
-        return CIImage()
+        let affineTransform = CGAffineTransform(translationX: point.x, y: point.y)
+        return image.transformed(by: affineTransform)
     }
 
 }
