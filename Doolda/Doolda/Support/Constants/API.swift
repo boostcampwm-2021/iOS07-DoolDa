@@ -13,7 +13,8 @@ enum FirebaseAPIs: URLRequestBuilder {
     case patchUserDocuement(String, String)
     
     case getPairDocument(String)
-    case createPairDocument(String,String)
+    case createPairDocument(String, String)
+    case patchPairDocument(String, String)
 }
 
 extension FirebaseAPIs {
@@ -29,7 +30,7 @@ extension FirebaseAPIs {
             return "documents/user/\(userId)"
         case .createUserDocument:
             return "documents/user"
-        case .getPairDocument(let pairId):
+        case .getPairDocument(let pairId), .patchPairDocument(let pairId, _):
             return "documents/pair/\(pairId)"
         case .createPairDocument:
             return "documents/pair"
@@ -44,7 +45,7 @@ extension FirebaseAPIs {
             return nil
         case .createUserDocument(let id), .createPairDocument(let id, _):
             return ["documentId": id]
-        case .patchUserDocuement:
+        case .patchUserDocuement, .patchPairDocument:
             return ["currentDocument.exists": "true"]
         }
     }
@@ -57,7 +58,7 @@ extension FirebaseAPIs {
             return .get
         case .createUserDocument, .createPairDocument:
             return .post
-        case .patchUserDocuement:
+        case .patchUserDocuement, .patchPairDocument:
             return .patch
         }
     }
@@ -78,7 +79,7 @@ extension FirebaseAPIs {
             return [
                 "fields": userDocument.fields
             ]
-        case .createPairDocument(let pairId, let recentlyEditedUser):
+        case .createPairDocument(let pairId, let recentlyEditedUser), .patchPairDocument(let pairId, let recentlyEditedUser):
             let pairDocument = PairDocument(pairId: pairId, recentlyEditedUser: recentlyEditedUser)
             return [
                 "fields": pairDocument.fields
