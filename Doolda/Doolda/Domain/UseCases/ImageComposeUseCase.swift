@@ -43,7 +43,10 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
     }
 
     private func resize(with image: CIImage, to size: CGSize) -> CIImage {
-        return CIImage()
+        let widthRatio = size.width / image.extent.width
+        let heightRatio = size.height / image.extent.height
+        let affineTransform = CGAffineTransform(scaleX: widthRatio, y: heightRatio)
+        return image.transformed(by: affineTransform)
     }
 
     private func translation(with image: CIImage, to point: CGPoint) -> CIImage {
