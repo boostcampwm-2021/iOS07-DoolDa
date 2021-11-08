@@ -9,6 +9,10 @@ import Combine
 import CoreImage
 import Foundation
 
+enum ImageComposeUseCaseError: LocalizedError {
+    case numberOfImageMismatched
+}
+
 protocol ImageComposeUseCaseProtocol {
     func compose(photoFrame: PhotoFrameEntity, images: [CIImage]) -> AnyPublisher<CIImage, Error>
 }
