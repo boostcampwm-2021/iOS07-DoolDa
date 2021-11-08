@@ -10,7 +10,7 @@ import CoreGraphics
 
 protocol EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
-    var erorrPublisher: Published<Error?>.Publisher { get }
+    var errorPublisher: Published<Error?>.Publisher { get }
     
     func selectComponent(at point: CGPoint)
     func moveComponent(difference: CGPoint)
