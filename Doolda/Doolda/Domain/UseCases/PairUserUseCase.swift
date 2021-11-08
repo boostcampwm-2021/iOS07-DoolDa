@@ -93,15 +93,28 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
     }
 
     private func setUserPairId(user: User, friend: User) {
-        let pairId = DDID()
-        let user = User(id: user.id, pairId: pairId)
-        let friend = User(id: friend.id, pairId: pairId)
-        
-        Publishers.Zip(self.userRepository.setUser(user), self.userRepository.setUser(friend))
+        self.pairRepository.fetchRecentlyEditedUser(with: user)
             .sink { [weak self] completion in
-                guard case .failure(let error) = completion else { return }
-                self?.error = error
-            } receiveValue: { [weak self] user, friend in
+                guard let self = self,
+                      case .failure = completion else { return }
+                
+                let pairId = DDID()
+                let user = User(id: user.id, pairId: pairId)
+                let friend = User(id: friend.id, pairId: pairId)
+                
+                Publishers.Zip3(
+                    self.userRepository.setUser(user),
+                    self.userRepository.setUser(friend),
+                    self.pairRepository.setPairId(with: friend)
+                )
+                    .sink { completion in
+                        guard case .failure(let error) = completion else { return }
+                        self.error = error
+                    } receiveValue: { user, _, _ in
+                        self.pairedUser = user
+                    }
+                    .store(in: &self.cancellables)
+            } receiveValue: { [weak self] _ in
                 self?.pairedUser = user
             }
             .store(in: &self.cancellables)
