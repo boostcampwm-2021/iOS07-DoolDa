@@ -57,10 +57,11 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
         }
         
         Publishers.Zip(self.userRepository.fetchUser(user), self.userRepository.fetchUser(friendId))
-            .sink { completion in
+            .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
-                self.error = error
-            } receiveValue: { user, friend in
+                self?.error = error
+            } receiveValue: { [weak self] user, friend in
+                guard let self = self else { return }
                 guard let user = user,
                       let friend = friend else {
                           return self.error = PairUserUseCaseError.userNotExists
@@ -95,12 +96,13 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
         let pairId = DDID()
         let user = User(id: user.id, pairId: pairId)
         let friend = User(id: friend.id, pairId: pairId)
+        
         Publishers.Zip(self.userRepository.setUser(user), self.userRepository.setUser(friend))
-            .sink { completion in
+            .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
-                self.error = error
-            } receiveValue: { user, friend in
-                self.pairedUser = user
+                self?.error = error
+            } receiveValue: { [weak self] user, friend in
+                self?.pairedUser = user
             }
             .store(in: &self.cancellables)
     }
