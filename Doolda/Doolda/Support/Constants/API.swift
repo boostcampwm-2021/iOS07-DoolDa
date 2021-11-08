@@ -11,12 +11,14 @@ enum FirebaseAPIs: URLRequestBuilder {
     case getUserDocuement(String)
     case createUserDocument(String)
     case patchUserDocuement(String, String)
+    
+    case createPairDocument(String,String)
 }
 
 extension FirebaseAPIs {
     var baseURL: URL? {
         switch self {
-        case .getUserDocuement, .createUserDocument, .patchUserDocuement:
+        case .getUserDocuement, .createUserDocument, .patchUserDocuement, .createPairDocument:
             return URL(string: "https://firestore.googleapis.com/v1/projects/doolda/databases/(default)/")
         }
     }
@@ -29,6 +31,8 @@ extension FirebaseAPIs {
             return "documents/user/\(userId)"
         case .createUserDocument:
             return "documents/user"
+        case .createPairDocument:
+            return "documents/pair"
         }
     }
 }
@@ -38,8 +42,8 @@ extension FirebaseAPIs {
         switch self {
         case .getUserDocuement:
             return nil
-        case .createUserDocument(let userId):
-            return ["documentId": userId]
+        case .createUserDocument(let id), .createPairDocument(let id, _):
+            return ["documentId": id]
         case .patchUserDocuement:
             return ["currentDocument.exists": "true"]
         }
@@ -51,7 +55,7 @@ extension FirebaseAPIs {
         switch self {
         case .getUserDocuement:
             return .get
-        case .createUserDocument:
+        case .createUserDocument, .createPairDocument:
             return .post
         case .patchUserDocuement:
             return .patch
@@ -73,6 +77,11 @@ extension FirebaseAPIs {
             let userDocument = UserDocument(userId: userId, pairId: pairId)
             return [
                 "fields": userDocument.fields
+            ]
+        case .createPairDocument(let pairId, let recentlyEditedUser):
+            let pairDocument = PairDocument(pairId: pairId, recentlyEditedUser: recentlyEditedUser)
+            return [
+                "fields": pairDocument.fields
             ]
         }
     }
