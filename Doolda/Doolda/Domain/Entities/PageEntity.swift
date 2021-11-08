@@ -8,8 +8,7 @@
 import Foundation
 
 struct PageEntity {
-    let pairID: UUID
-    let authorID: UUID
+    let author: User
     let timeStamp: Date
     let jsonPath: String
 }
