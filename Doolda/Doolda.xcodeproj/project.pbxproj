@@ -28,6 +28,7 @@
 		1DDAF04C2730CE14006CD027 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04B2730CE14006CD027 /* FirebaseFirestore */; };
 		1DDAF04E2730CE14006CD027 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04D2730CE14006CD027 /* FirebaseMessaging */; };
 		1DDAF0502730CE14006CD027 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04F2730CE14006CD027 /* FirebaseStorage */; };
+		1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */; };
 		3101258F2737987B00E43160 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3101258E2737987B00E43160 /* GoogleService-Info.plist */; };
 		310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125912738325800E43160 /* UIAlertController+Extensions.swift */; };
 		310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */; };
@@ -47,7 +48,6 @@
 		664893ED27300D7D009F03E2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 664893EC27300D7D009F03E2 /* SnapKit */; };
 		664893F027300DB9009F03E2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 664893EF27300DB9009F03E2 /* Kingfisher */; };
 		664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F3273023D3009F03E2 /* SplashViewController.swift */; };
-		664893F62730242F009F03E2 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F52730242F009F03E2 /* Coordinator.swift */; };
 		664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F72730272B009F03E2 /* AppCoordinator.swift */; };
 		664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F927302905009F03E2 /* SplashViewCoordinator.swift */; };
 		664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FB27302947009F03E2 /* SplashViewModel.swift */; };
@@ -165,6 +165,7 @@
 		1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3101258E2737987B00E43160 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		310125912738325800E43160 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		310D80CE273106CA00F15F4F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -182,7 +183,6 @@
 		664893CC273007F1009F03E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		664893CE273007F1009F03E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		664893F3273023D3009F03E2 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		664893F52730242F009F03E2 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		664893F72730272B009F03E2 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		664893F927302905009F03E2 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
 		664893FB27302947009F03E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
@@ -431,7 +431,6 @@
 		664893D927300980009F03E2 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				664893F52730242F009F03E2 /* Coordinator.swift */,
 				664893F72730272B009F03E2 /* AppCoordinator.swift */,
 				664893F927302905009F03E2 /* SplashViewCoordinator.swift */,
 				310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */,
@@ -452,7 +451,7 @@
 		664893DB273009CD009F03E2 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				664893FD273029AC009F03E2 /* SplashViewCoordinatorDelegate.swift */,
+				1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */,
 				1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorDelegate.swift */,
 			);
 			path = Interfaces;
@@ -1032,6 +1031,7 @@
 				FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */,
 				66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */,
 				66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */,
+				1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */,
 				FC822FAA2736088100C918A0 /* URLSessionNetworkService.swift in Sources */,
 				FC5FB79827327861008AC3D2 /* FirebaseDocument.swift in Sources */,
 				FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */,
@@ -1042,7 +1042,6 @@
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
 				66FE936B273564DB0036CED2 /* DDID.swift in Sources */,
 				310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */,
-				664893F62730242F009F03E2 /* Coordinator.swift in Sources */,
 				FC822FB22736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift in Sources */,
 				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
 				FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
