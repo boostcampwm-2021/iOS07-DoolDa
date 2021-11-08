@@ -29,6 +29,7 @@ struct PhotoComponentEntity: ComponentEntity {
         self.imageUrl = imageUrl
     }
 
+    // FIXME: - 내부 구현 필요
     func hitTest(at point: CGPoint) -> Bool {
         return false
     }
