@@ -11,7 +11,7 @@ import Foundation
 final class SplashViewModel {
     @Published var error: Error?
 
-    private let coordinatorDelegate: SplashViewCoordinatorDelegate
+    private let coordinator: SplashViewCoordinatorProtocol
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
     private let getUserUseCase: GetUserUseCaseProtocol
     private let registerUserUseCase: RegisterUserUseCaseProtocol
@@ -20,12 +20,12 @@ final class SplashViewModel {
     @Published private var user: User?
     
     init(
-        coordinatorDelegate: SplashViewCoordinatorDelegate,
+        coordinator: SplashViewCoordinatorProtocol,
         getMyIdUseCase: GetMyIdUseCaseProtocol,
         getUserUseCase: GetUserUseCaseProtocol,
         registerUserUseCase: RegisterUserUseCaseProtocol
     ) {
-        self.coordinatorDelegate = coordinatorDelegate
+        self.coordinator = coordinator
         self.getMyIdUseCase = getMyIdUseCase
         self.getUserUseCase = getUserUseCase
         self.registerUserUseCase = registerUserUseCase
@@ -41,9 +41,9 @@ final class SplashViewModel {
             .compactMap { $0 }
             .sink(receiveValue: { [weak self] user in
                 if user.pairId?.ddidString.isEmpty == false {
-                    self?.coordinatorDelegate.userAlreadyPaired(user: user)
+                    self?.coordinator.userAlreadyPaired(user: user)
                 } else {
-                    self?.coordinatorDelegate.userNotPaired(myId: user.id)
+                    self?.coordinator.userNotPaired(myId: user.id)
                 }
             })
             .store(in: &self.cancellables)

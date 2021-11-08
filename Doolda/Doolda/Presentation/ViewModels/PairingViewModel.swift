@@ -41,7 +41,7 @@ final class PairingViewModel: PairingViewModelProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
 
     private let user: User
-    private let coordinatorDelegate: PairingViewCoordinatorDelegate
+    private let coordinator: PairingViewCoordinatorProtocol
     private let pairUserUseCase: PairUserUseCaseProtocol
     private let refreshUserUseCase: RefreshUserUseCaseProtocol
     private var cancellables: Set<AnyCancellable> = []
@@ -51,12 +51,12 @@ final class PairingViewModel: PairingViewModelProtocol {
     
     init(
         user: User,
-        coordinatorDelegate: PairingViewCoordinatorDelegate,
+        coordinator: PairingViewCoordinatorProtocol,
         pairUserUseCase: PairUserUseCaseProtocol,
         refreshUserUseCase: RefreshUserUseCaseProtocol
     ) {
         self.user = user
-        self.coordinatorDelegate = coordinatorDelegate
+        self.coordinator = coordinator
         self.pairUserUseCase = pairUserUseCase
         self.refreshUserUseCase = refreshUserUseCase
         bind()
@@ -74,7 +74,7 @@ final class PairingViewModel: PairingViewModelProtocol {
         self.pairUserUseCase.pairedUserPublisher
             .compactMap { $0 }
             .sink { [weak self] user in
-                self?.coordinatorDelegate.userDidPaired(user: user)
+                self?.coordinator.userDidPaired(user: user)
             }
             .store(in: &self.cancellables)
         
@@ -82,7 +82,7 @@ final class PairingViewModel: PairingViewModelProtocol {
             .compactMap { $0 }
             .sink { [weak self] user in
                 if user.pairId != nil {
-                    self?.coordinatorDelegate.userDidPaired(user: user)
+                    self?.coordinator.userDidPaired(user: user)
                 } else {
                     self?.isPairedByRefresh = false
                 }
