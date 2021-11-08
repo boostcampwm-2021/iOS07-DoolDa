@@ -32,6 +32,7 @@
 		1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */; };
 		1DE5E53E273929CE004F794F /* EditPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E53D273929CE004F794F /* EditPageUseCase.swift */; };
 		1DE5E540273932B0004F794F /* PageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */; };
+		1DE5E5422739352B004F794F /* RawPageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */; };
 		3101258F2737987B00E43160 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3101258E2737987B00E43160 /* GoogleService-Info.plist */; };
 		310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125912738325800E43160 /* UIAlertController+Extensions.swift */; };
 		3101259427383DED00E43160 /* PhotoComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259327383DED00E43160 /* PhotoComponentEntity.swift */; };
@@ -179,6 +180,7 @@
 		1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		1DE5E53D273929CE004F794F /* EditPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCase.swift; sourceTree = "<group>"; };
 		1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepositoryProtocol.swift; sourceTree = "<group>"; };
+		1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		3101258E2737987B00E43160 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		310125912738325800E43160 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		3101259327383DED00E43160 /* PhotoComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoComponentEntity.swift; sourceTree = "<group>"; };
@@ -583,6 +585,7 @@
 				FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */,
 				FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */,
 				1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */,
+				1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -1073,6 +1076,7 @@
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
 				31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */,
+				1DE5E5422739352B004F794F /* RawPageRepositoryProtocol.swift in Sources */,
 				66FE936B273564DB0036CED2 /* DDID.swift in Sources */,
 				310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */,
 				FC822FB22736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift in Sources */,
