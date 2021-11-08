@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */; };
 		1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		1D0C8BCC2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */; };
 		1D0C8BD02732B7780091ACC0 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
@@ -161,6 +162,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Extensions.swift"; sourceTree = "<group>"; };
 		1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCase.swift; sourceTree = "<group>"; };
 		1D0C8BC92732B5F90091ACC0 /* GetPairIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetPairIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPairIdUseCaseTest.swift; sourceTree = "<group>"; };
@@ -612,6 +614,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */,
+				1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */,
 				1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */,
 				1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */,
 				1D6232EE2731117100A9AD6B /* UIControl+Extensions.swift */,
@@ -1061,6 +1064,7 @@
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
 				FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
+				1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */,
 				1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */,
 				FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */,
 				66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */,
