@@ -113,6 +113,7 @@
 		FC9F108A27315EEB0060FEB7 /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F106F2731323C0060FEB7 /* FirebaseNetworkService.swift */; };
 		FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DD2738CFB50001F155 /* PairRepository.swift */; };
+		FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F327391F260001F155 /* EditPageViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,6 +248,7 @@
 		FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkTest.swift; sourceTree = "<group>"; };
 		FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCE9D3DD2738CFB50001F155 /* PairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepository.swift; sourceTree = "<group>"; };
+		FCE9D3F327391F260001F155 /* EditPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,6 +488,7 @@
 			children = (
 				664893FB27302947009F03E2 /* SplashViewModel.swift */,
 				664894172730F1B0009F03E2 /* PairingViewModel.swift */,
+				FCE9D3F327391F260001F155 /* EditPageViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1073,6 +1076,7 @@
 				1DE5E53E273929CE004F794F /* EditPageUseCase.swift in Sources */,
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
 				1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */,
+				FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */,
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
 				31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */,
