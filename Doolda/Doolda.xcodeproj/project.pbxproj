@@ -30,6 +30,7 @@
 		1DDAF0502730CE14006CD027 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDAF04F2730CE14006CD027 /* FirebaseStorage */; };
 		1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */; };
 		1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */; };
+		1DE5E53E273929CE004F794F /* EditPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E53D273929CE004F794F /* EditPageUseCase.swift */; };
 		3101258F2737987B00E43160 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3101258E2737987B00E43160 /* GoogleService-Info.plist */; };
 		310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125912738325800E43160 /* UIAlertController+Extensions.swift */; };
 		3101259427383DED00E43160 /* PhotoComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259327383DED00E43160 /* PhotoComponentEntity.swift */; };
@@ -175,6 +176,7 @@
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		1DE5E53D273929CE004F794F /* EditPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCase.swift; sourceTree = "<group>"; };
 		3101258E2737987B00E43160 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		310125912738325800E43160 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		3101259327383DED00E43160 /* PhotoComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoComponentEntity.swift; sourceTree = "<group>"; };
@@ -551,6 +553,7 @@
 				1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */,
 				66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */,
 				1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */,
+				1DE5E53D273929CE004F794F /* EditPageUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1061,6 +1064,7 @@
 				FC5FB79827327861008AC3D2 /* FirebaseDocument.swift in Sources */,
 				FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */,
 				310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */,
+				1DE5E53E273929CE004F794F /* EditPageUseCase.swift in Sources */,
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
 				1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */,
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
