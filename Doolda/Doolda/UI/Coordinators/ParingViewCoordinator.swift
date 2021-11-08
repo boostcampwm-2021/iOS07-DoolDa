@@ -25,7 +25,7 @@ class PairingViewCoordinator: PairingViewCoordinatorProtocol {
             networkService: urlSessionNetworkService
         )
         
-        let pairRepository = PairRepository()
+        let pairRepository = PairRepository(networkService: urlSessionNetworkService)
 
         let pairUserUseCase = PairUserUseCase(userRepository: userRepository, pairRepository: pairRepository)
         let refreshUserUseCase = RefreshUserUseCase(userRepository: userRepository)
