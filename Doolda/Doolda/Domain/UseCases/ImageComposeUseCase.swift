@@ -14,11 +14,12 @@ enum ImageComposeUseCaseError: LocalizedError {
 }
 
 protocol ImageComposeUseCaseProtocol {
-    func compose(photoFrame: PhotoFrameEntity, images: [CIImage]) -> AnyPublisher<CIImage, Error>
+    func compose(photoFrame: CIImage, photoBounds: [CGRect], images: [CIImage]) -> AnyPublisher<CIImage, Error>
 }
 
 class ImageComposeUseCase: ImageComposeUseCaseProtocol {
-    func compose(photoFrame: PhotoFrameEntity, images: [CIImage]) -> AnyPublisher<CIImage, Error> {
+    func compose(photoFrame: CIImage, photoBounds: [CGRect], images: [CIImage]) -> AnyPublisher<CIImage, Error> {
+        
         return Just(CIImage()).tryMap { $0 }.eraseToAnyPublisher()
     }
 
