@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */; };
+		1D04F41C273957E600CFCC3A /* BackgroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F41B273957E600CFCC3A /* BackgroundType.swift */; };
 		1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		1D0C8BCC2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */; };
 		1D0C8BD02732B7780091ACC0 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
@@ -163,6 +164,7 @@
 
 /* Begin PBXFileReference section */
 		1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Extensions.swift"; sourceTree = "<group>"; };
+		1D04F41B273957E600CFCC3A /* BackgroundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundType.swift; sourceTree = "<group>"; };
 		1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCase.swift; sourceTree = "<group>"; };
 		1D0C8BC92732B5F90091ACC0 /* GetPairIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetPairIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPairIdUseCaseTest.swift; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 				66FE936E27356E160036CED2 /* User.swift */,
 				66F5D4792733E88F000FB471 /* PageEntity.swift */,
 				66F5D47D2733EE8F000FB471 /* RawPageEntity.swift */,
+				1D04F41B273957E600CFCC3A /* BackgroundType.swift */,
 				66F5D47B2733EA32000FB471 /* ComponentEntity.swift */,
 				3101259327383DED00E43160 /* PhotoComponentEntity.swift */,
 				31012595273842B300E43160 /* StickerComponentEntity.swift */,
@@ -1106,6 +1109,7 @@
 				3101259427383DED00E43160 /* PhotoComponentEntity.swift in Sources */,
 				3101259C2738430200E43160 /* StickerPackEntity.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
+				1D04F41C273957E600CFCC3A /* BackgroundType.swift in Sources */,
 				664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */,
 				66FE936F27356E160036CED2 /* User.swift in Sources */,
 				FC9F10702731323C0060FEB7 /* FirebaseNetworkService.swift in Sources */,
