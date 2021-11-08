@@ -35,7 +35,7 @@ final class PairRepository: PairRepositoryProtocol{
             return Fail(error: PairRepositoryError.nilUserPairId).eraseToAnyPublisher()
         }
         let publisher: AnyPublisher<PairDocument, Error> = self.urlSessionNetworkService
-            .request(FirebaseAPIs.createPairDocument(user.id.ddidString, pairId.ddidString))
+            .request(FirebaseAPIs.createPairDocument(pairId.ddidString, user.id.ddidString))
         return publisher.tryMap { pairDocument in
             guard let pairIdString = pairDocument.pairId,
                   let pairId = DDID(from: pairIdString) else {
@@ -47,7 +47,19 @@ final class PairRepository: PairRepositoryProtocol{
     }
     
     func setRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
-        <#code#>
+        guard let pairId = user.pairId else {
+            return Fail(error: PairRepositoryError.nilUserPairId).eraseToAnyPublisher()
+        }
+        let publisher: AnyPublisher<PairDocument, Error> = self.urlSessionNetworkService
+            .request(FirebaseAPIs.patchPairDocument(pairId.ddidString, user.id.ddidString))
+        return publisher.tryMap { pairDocument in
+            guard let pairIdString = pairDocument.pairId,
+                  let pairId = DDID(from: pairIdString) else {
+                      throw PairRepositoryError.DTOInitError
+                  }
+            return pairId
+        }
+        .eraseToAnyPublisher()
     }
     
     func fetchRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
