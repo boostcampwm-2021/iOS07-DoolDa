@@ -84,7 +84,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     }
     
     func addComponent(_ component: ComponentEntity) {
-        self.rawPage.append(component)
+        self.rawPage?.append(component: component)
         self.selectedComponent = component
     }
 
