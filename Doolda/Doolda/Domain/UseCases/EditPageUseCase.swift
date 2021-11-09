@@ -50,6 +50,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     }
 
     func selectComponent(at point: CGPoint) {
+        guard let rawPage = self.rawPage else { return }
         for component in rawPage.components {
             if component.hitTest(at: point) {
                 return self.selectedComponent = component
