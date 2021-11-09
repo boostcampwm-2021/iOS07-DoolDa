@@ -77,5 +77,4 @@ final class SplashViewModel {
             }
             .store(in: &self.cancellables)
     }
-
 }
