@@ -86,7 +86,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func backgroundColorDidChange(_ backgroundColor: BackgroundType) {
-        <#code#>
+        self.editPageUseCase.changeBackgroundType(backgroundColor)
     }
     
     func saveEditingPageButtonDidTap() {
