@@ -66,7 +66,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func componentTransformControlDidPan(difference: CGPoint) {
-        <#code#>
+        self.editPageUseCase.transformComponent(difference: difference)
     }
     
     func componentBringForwardControlDidTap() {
