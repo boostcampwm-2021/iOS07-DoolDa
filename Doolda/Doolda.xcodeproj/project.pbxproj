@@ -65,6 +65,7 @@
 		664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664894172730F1B0009F03E2 /* PairingViewModel.swift */; };
 		669ADE3E2732E55F007B529B /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		669ADE3F2732E55F007B529B /* RefreshPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */; };
+		66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644D273A490800E55C03 /* BottomSheetViewController.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
 		66F5D47E2733EE8F000FB471 /* RawPageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47D2733EE8F000FB471 /* RawPageEntity.swift */; };
@@ -214,6 +215,7 @@
 		6648945E27327F1D009F03E2 /* GeneratePairIdUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratePairIdUseCaseTests.swift; sourceTree = "<group>"; };
 		669ADE322732E4A8007B529B /* RefreshPairIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefreshPairIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshPairIdUseCaseTest.swift; sourceTree = "<group>"; };
+		66CD644D273A490800E55C03 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
 		66F5D47D2733EE8F000FB471 /* RawPageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPageEntity.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 		664893D727300936009F03E2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				66CD644D273A490800E55C03 /* BottomSheetViewController.swift */,
 				664893F3273023D3009F03E2 /* SplashViewController.swift */,
 				1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */,
 				310D81472733F56700F15F4F /* DiaryViewController.swift */,
@@ -1103,6 +1106,7 @@
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
 				1D04F41C273957E600CFCC3A /* BackgroundType.swift in Sources */,
 				664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */,
+				66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */,
 				66FE936F27356E160036CED2 /* User.swift in Sources */,
 				FC5FB7DC2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */,
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
