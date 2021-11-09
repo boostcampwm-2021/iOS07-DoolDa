@@ -20,4 +20,8 @@ struct RawPageEntity {
     mutating func append(component: ComponentEntity) {
         self.components.append(component)
     }
+    
+    func indexOf(component: ComponentEntity) -> Int? {
+        return self.components.firstIndex(where: { $0 == component })
+    }
 }
