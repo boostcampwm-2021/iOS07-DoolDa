@@ -96,9 +96,9 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     }
 
     func changeBackgroundType(_ backgroundType: BackgroundType) {
-        <#code#>
+        self.rawPage?.backgroundType = backgroundType
     }
-    
+
     func savePage() {
         <#code#>
     }
