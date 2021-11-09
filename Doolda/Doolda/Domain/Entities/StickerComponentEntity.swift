@@ -8,20 +8,13 @@
 import CoreGraphics
 import Foundation
 
-struct StickerComponentEntity: ComponentEntity {
-    let aspectRatio: CGFloat
-
-    var origin: CGPoint
-    var size: CGSize
+class StickerComponentEntity: ComponentEntity {
     var name: String
     @Angle var angle: CGFloat
 
     init(origin: CGPoint, size: CGSize, angle: CGFloat, aspectRatio: CGFloat, name: String) {
-        self.origin = origin
-        self.size = size
-        self.angle = angle
-        self.aspectRatio = aspectRatio
         self.name = name
+        super.init(origin: origin, size: size, angle: angle, aspectRatio: aspectRatio)
     }
 
 }

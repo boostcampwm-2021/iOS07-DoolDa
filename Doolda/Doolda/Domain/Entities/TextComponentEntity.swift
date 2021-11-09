@@ -8,18 +8,16 @@
 import CoreGraphics
 import Foundation
 
-enum FontColorType { }
-
-struct TextComponentEntity: ComponentEntity {
-    var origin: CGPoint
-    var size: CGSize
-    var angle: CGFloat
-    var text: String
-    var fontSize: CGFloat
-    var fontColor: FontColorType
-
-    func hitTest(at point: CGPoint) -> Bool {
-        return false
+class TextComponentEntity: ComponentEntity {
+    @Published var text: String
+    @Published var fontSize: CGFloat
+    @Published var fontColor: FontColorType
+    
+    init(origin: CGPoint, size: CGSize, angle: CGFloat, aspectRatio: CGFloat, text: String, fontSize: CGFloat, fontColor: FontColorType) {
+        self.text = text
+        self.fontSize = fontSize
+        self.fontColor = fontColor
+        super.init(origin: origin, size: size, angle: angle, aspectRatio: aspectRatio)
     }
 
 }
