@@ -30,3 +30,71 @@ protocol EditPageViewModelOutput {
 }
 
 typealias EditPageViewModelProtocol = EditPageViewModelInput & EditPageViewModelOutput
+
+final class EditPageViewModel: EditPageViewModelProtocol {
+    
+    var selectedComponent: AnyPublisher<ComponentEntity?, Never>
+    var errorPublisher: Published<Error?>.Publisher
+    var isPageSaved: Published<Bool>.Publisher
+    
+    private let user: User
+    private let coordinator: EditPageViewCoordinatorProtocol
+    private let editPageUseCase: EditPageUseCaseProtocol
+    private var cancellables: Set<AnyCancellable> = []
+    
+    init(
+        user: User,
+        coordinator: EditPageViewCoordinatorProtocol,
+        editPageUseCase: EditPageUseCaseProtocol
+    ) {
+        self.user = user
+        self.coordinator = coordinator
+        self.editPageUseCase = editPageUseCase
+        self.bind()
+    }
+    
+    private func bind() {
+        
+    }
+    
+    func canvasDidTap(point: CGPoint) {
+        self.editPageUseCase.selectComponent(at: point)
+    }
+    
+    func componentDidDrag(difference: CGPoint) {
+        <#code#>
+    }
+    
+    func componentTransformControlDidPan(difference: CGPoint) {
+        <#code#>
+    }
+    
+    func componentBringForwardControlDidTap() {
+        <#code#>
+    }
+    
+    func componentSendBackwardControlDidTap() {
+        <#code#>
+    }
+    
+    func componentRemoveControlDidTap() {
+        <#code#>
+    }
+    
+    func componentEntityDidAdd(_ component: ComponentEntity) {
+        <#code#>
+    }
+    
+    func backgroundColorDidChange(_ backgroundColor: BackgroundType) {
+        <#code#>
+    }
+    
+    func saveEditingPageButtonDidTap() {
+        <#code#>
+    }
+    
+    func cancelEditingPageButtonDidTap() {
+        <#code#>
+    }
+}
+
