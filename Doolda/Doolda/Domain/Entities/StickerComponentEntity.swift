@@ -16,5 +16,4 @@ class StickerComponentEntity: ComponentEntity {
         self.name = name
         super.init(origin: origin, size: size, angle: angle, aspectRatio: aspectRatio)
     }
-
 }
