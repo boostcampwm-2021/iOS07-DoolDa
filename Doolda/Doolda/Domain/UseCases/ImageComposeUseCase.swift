@@ -21,7 +21,8 @@ protocol ImageComposeUseCaseProtocol {
 class ImageComposeUseCase: ImageComposeUseCaseProtocol {
     func compose(photoFrameType: PhotoFrameType, images: [CIImage]) -> AnyPublisher<CIImage, Error> {
 
-        guard let photoFrame = photoFrameType.rawValue else {
+        guard let photoFrame = photoFrameType.rawValue,
+              let filter = CIFilter(name: "CISourceOverCompositing") else {
             return Fail(error: ImageComposeUseCaseError.failComposing).eraseToAnyPublisher()
         }
 
@@ -29,15 +30,11 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
             return Fail(error: ImageComposeUseCaseError.numberOfImageMismatched).eraseToAnyPublisher()
         }
 
-        guard let filter = CIFilter(name: "CISourceOverCompositing") else {
-            return Fail(error: ImageComposeUseCaseError.failComposing).eraseToAnyPublisher()
-        }
-
         var outputImage = photoFrame.baseImage
         for index in 0..<photoFrame.requiredPhotoCount {
             let bound = photoFrame.photoBounds[index]
             let image = images[index]
-            let croppedImage = crop(with: image, by: photoFrame.baseImage)
+            let croppedImage = crop(with: image, by: bound.width / bound.height)
             let resizedImage = resize(with: croppedImage, to: bound.size)
             let translatedImaged = translation(with: resizedImage, to: bound.origin)
 
@@ -53,23 +50,21 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
         return Result<CIImage, Error>.Publisher(outputImage).eraseToAnyPublisher()
     }
 
-    private func crop(with image: CIImage, by frame: CIImage) -> CIImage {
+    private func crop(with image: CIImage, by ratio: CGFloat) -> CIImage {
         let imageRatio = image.extent.width / image.extent.height
-        let frameRatio = frame.extent.width / frame.extent.height
         var x: CGFloat = 0
         var y: CGFloat = 0
         var width: CGFloat = 0
         var height: CGFloat = 0
         let outputImage: CIImage = image
 
-        if imageRatio < frameRatio {
-            let cropRatio = frame.extent.height / frame.extent.width
-            height = image.extent.height * cropRatio
+        if imageRatio < ratio {
+            height = image.extent.height / ratio
             width = image.extent.width
             y = (image.extent.height - height) / 2
         } else {
             height = image.extent.height
-            width = image.extent.width * frameRatio
+            width = image.extent.width * ratio
             x = (image.extent.width - width) / 2
         }
 
