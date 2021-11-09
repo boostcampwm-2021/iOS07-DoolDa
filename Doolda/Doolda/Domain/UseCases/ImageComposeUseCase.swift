@@ -19,7 +19,18 @@ protocol ImageComposeUseCaseProtocol {
 
 class ImageComposeUseCase: ImageComposeUseCaseProtocol {
     func compose(photoFrame: CIImage, photoBounds: [CGRect], images: [CIImage]) -> AnyPublisher<CIImage, Error> {
-        
+        if photoBounds.count != images.count {
+            //ImageComposeUseCaseError.numberOfImageMismatched
+        }
+
+        for index in 0..<images.count {
+            let bound = photoBounds[index]
+            let image = images[index]
+            let croppedImage = crop(with: image, by: photoFrame)
+            let resizedImage = resize(with: croppedImage, to: bound.size)
+            let outputImage = translation(with: resizedImage, to: bound.origin)
+        }
+
         return Just(CIImage()).tryMap { $0 }.eraseToAnyPublisher()
     }
 
