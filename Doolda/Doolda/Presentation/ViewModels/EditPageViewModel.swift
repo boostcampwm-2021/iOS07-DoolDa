@@ -33,7 +33,8 @@ typealias EditPageViewModelProtocol = EditPageViewModelInput & EditPageViewModel
 
 final class EditPageViewModel: EditPageViewModelProtocol {
     
-    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent}
+    @Published var displayedComponents: [ComponentEntity] = []
+    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
     var isPageSavedPublisher: Published<Bool>.Publisher { self.$isPageSaved }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
 
@@ -76,11 +77,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func componentBringForwardControlDidTap() {
-        self.editPageUseCase.bringComponentForward()
+        self.displayedComponents = self.editPageUseCase.bringComponentForward()
     }
     
     func componentSendBackwardControlDidTap() {
-        self.editPageUseCase.sendComponentBackward()
+        self.displayedComponents = self.editPageUseCase.sendComponentBackward()
     }
     
     func componentRemoveControlDidTap() {
@@ -97,6 +98,13 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     
     func saveEditingPageButtonDidTap() {
         self.editPageUseCase.savePage()
+            .sink {[weak self] result in
+                guard case .failure(let error) = result else {
+                    self?.coordinator.editingPageSaved()
+                    return }
+                self?.error = error
+            } receiveValue: {}
+            .store(in: &self.cancellables)
     }
     
     func cancelEditingPageButtonDidTap() {
