@@ -9,13 +9,17 @@ import CoreGraphics
 import Foundation
 
 enum BackgroundType: CaseIterable {
-    static var allCases: [BackgroundType] = [
-        .plain(color: .dooldaBackground),
-        .grid(color: .dooldaBackground),
-        .lined(color: .dooldaBackground)
-    ]
+    typealias RawValue = CGColor
     
-    case plain(color: CGColor?)
-    case grid(color: CGColor?)
-    case lined(color: CGColor?)
+    case dooldaBackground
+    
+    init(rawValue: RawValue) {
+        self = .dooldaBackground
+    }
+    
+    var rawValue: RawValue {
+        switch self {
+        case .dooldaBackground: return #colorLiteral(red: 0.9607843137, green: 0.9411764706, blue: 0.9058823529, alpha: 1)
+        }
+    }
 }
