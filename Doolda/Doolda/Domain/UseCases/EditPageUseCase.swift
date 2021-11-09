@@ -10,17 +10,16 @@ import CoreGraphics
 
 protocol EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
     
     func selectComponent(at point: CGPoint)
     func moveComponent(difference: CGPoint)
     func transformComponent(difference: CGPoint)
-    func bringComponentForward()
-    func sendComponentBackward()
+    func bringComponentForward() -> [ComponentEntity]
+    func sendComponentBackward() -> [ComponentEntity]
     func removeComponent()
     func addComponent(_ component: ComponentEntity)
     func changeBackgroundType(_ backgroundType: BackgroundType)
-    func savePage()
+    func savePage() -> AnyPublisher<Void, Error>
 }
 
 class EditPageUseCase: EditPageUseCaseProtocol {
