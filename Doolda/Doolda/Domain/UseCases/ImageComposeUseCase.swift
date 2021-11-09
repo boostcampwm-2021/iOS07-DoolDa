@@ -26,19 +26,25 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
     private func crop(with image: CIImage, by frame: CIImage) -> CIImage {
         let imageRatio = image.extent.width / image.extent.height
         let frameRatio = frame.extent.width / frame.extent.height
-        var outputImage: CIImage
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        var width: CGFloat = 0
+        var height: CGFloat = 0
+        let outputImage: CIImage = image
 
         if imageRatio < frameRatio {
             let cropRatio = frame.extent.height / frame.extent.width
-            let height = image.extent.height * cropRatio
-            let y = (image.extent.height - height) / 2
-            let rect = CGRect(x: 0, y: y, width: image.extent.width, height: height)
+            height = image.extent.height * cropRatio
+            width = image.extent.width
+            y = (image.extent.height - height) / 2
         } else {
-            let width = image.extent.width * frameRatio
-            let x = (image.extent.width - width) / 2
-            let rect = CGRect(x: x, y: 0, width: image.extent.width, height: 0)
+            height = image.extent.height
+            width = image.extent.width * frameRatio
+            x = (image.extent.width - width) / 2
         }
 
+        outputImage.cropped(to: CGRect(x: x, y: y, width: width, height: height))
+        outputImage.transformed(by: CGAffineTransform(translationX: -x, y: -y))
         return outputImage
     }
 
