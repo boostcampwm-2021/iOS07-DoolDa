@@ -18,12 +18,22 @@ class EditPageViewController: UIViewController {
     private lazy var contentView: UIView = UIView()
     
     private lazy var cancelBarButtonItem: UIBarButtonItem = {
-        var barButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: nil, action: nil)
+        var barButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "xmark"),
+            style: .plain,
+            target: self,
+            action: #selector(cancelButtonDidTap)
+        )
         return barButtonItem
     }()
     
     private lazy var saveBarButtonItem: UIBarButtonItem = {
-        var barButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: nil, action: nil)
+        var barButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "checkmark"),
+            style: .plain,
+            target: self,
+            action: #selector(saveButtonDidTap)
+        )
         return barButtonItem
     }()
     
@@ -132,6 +142,20 @@ class EditPageViewController: UIViewController {
         
     private func bindUI() {
         guard let viewModel = self.viewModel else { return }
+
     }
     // MARK: - Private Methods
+    
+    @objc private func cancelButtonDidTap() {
+        let alert = UIAlertController.cancelEditPageAlert { _ in
+            self.viewModel?.cancelEditingPageButtonDidTap()
+        }
+        self.present(alert, animated: true)
+    }
+    
+    @objc private func saveButtonDidTap() {
+        guard let viewModel = self.viewModel else { return }
+
+    }
+
 }
