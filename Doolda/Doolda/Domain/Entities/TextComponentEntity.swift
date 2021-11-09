@@ -19,5 +19,4 @@ class TextComponentEntity: ComponentEntity {
         self.fontColor = fontColor
         super.init(origin: origin, size: size, angle: angle, aspectRatio: aspectRatio)
     }
-
 }

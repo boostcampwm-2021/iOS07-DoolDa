@@ -15,5 +15,4 @@ class PhotoComponentEntity: ComponentEntity {
         self.imageUrl = imageUrl
         super.init(origin: origin, size: size, angle: angle, aspectRatio: aspectRatio)
     }
-
 }
