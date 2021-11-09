@@ -16,7 +16,7 @@ protocol EditPageUseCaseProtocol {
     func moveComponent(to point: CGPoint)
     func transformComponent(difference: CGPoint)
     func bringComponentForward()
-    func sendComponentBackward() -> [ComponentEntity]
+    func sendComponentBackward()
     func removeComponent()
     func addComponent(_ component: ComponentEntity)
     func changeBackgroundType(_ backgroundType: BackgroundType)
@@ -74,11 +74,15 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         let targetIndex = indexOfSelectedComponent - 1 >= 0 ? indexOfSelectedComponent - 1 : 0
         self.rawPage?.swapAt(at: indexOfSelectedComponent, with: targetIndex)
     }
-    
+
     func sendComponentBackward() {
-        <#code#>
+        guard let rawPage = self.rawPage,
+              let selectedComponent = self.selectedComponent,
+              let indexOfSelectedComponent = rawPage.indexOf(component: selectedComponent) else { return }
+        let targetIndex = indexOfSelectedComponent + 1 < rawPage.numberOfComponents ? indexOfSelectedComponent + 1 : rawPage.numberOfComponents
+        self.rawPage?.swapAt(at: indexOfSelectedComponent, with: targetIndex)
     }
-    
+
     func removeComponent() {
         <#code#>
     }
