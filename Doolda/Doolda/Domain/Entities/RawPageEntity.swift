@@ -11,6 +11,9 @@ import Foundation
 struct RawPageEntity {
     var components: [ComponentEntity]
     var backgroundColor: BackgroundType
+    var numberOfComponents: Int {
+        self.components.count
+    }
     
     init() {
         self.components = []
