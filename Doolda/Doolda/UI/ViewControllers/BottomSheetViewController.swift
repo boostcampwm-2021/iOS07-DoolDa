@@ -5,6 +5,7 @@
 //  Created by 정지승 on 2021/11/09.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -56,6 +57,8 @@ class BottomSheetViewController: UIViewController {
     private let bottomSheetPanMinMoveConstant: CGFloat = 30.0
     private let bottomSheetPanMinCloseConstant: CGFloat = 150.0
 
+    private var cancellables = Set<AnyCancellable>()
+    
     // MARK: - Initializers
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -73,6 +76,7 @@ class BottomSheetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        bindUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -97,12 +101,6 @@ class BottomSheetViewController: UIViewController {
     }
     
     private func configureUI() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(viewDidPan(_:)))
-        panGestureRecognizer.delaysTouchesBegan = false
-        panGestureRecognizer.delaysTouchesEnded = false
-        self.view.addGestureRecognizer(panGestureRecognizer)
-        self.dimmedView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dimmedViewDidTap(_:))))
-        
         self.view.addSubview(dimmedView)
         self.dimmedView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -113,6 +111,28 @@ class BottomSheetViewController: UIViewController {
             make.leading.trailing.bottom.equalToSuperview()
             make.top.equalToSuperview().offset(self.view.frame.height)
         }
+    }
+    
+    private func bindUI() {
+        let panGestureRecognizer = UIPanGestureRecognizer()
+        panGestureRecognizer.delaysTouchesBegan = false
+        panGestureRecognizer.delaysTouchesEnded = false
+        
+        self.view.publisher(for: panGestureRecognizer)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] sender in
+                guard let sender = sender as? UIPanGestureRecognizer else { return }
+                self?.viewDidPan(sender)
+            }
+            .store(in: &cancellables)
+        
+        self.dimmedView.publisher(for: UITapGestureRecognizer())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] sender in
+                guard let sender = sender as? UITapGestureRecognizer else { return }
+                self?.dimmedViewDidTap(sender)
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Private Method
@@ -139,11 +159,11 @@ class BottomSheetViewController: UIViewController {
         }
     }
     
-    @objc private func dimmedViewDidTap(_ sender: UITapGestureRecognizer) {
+    private func dimmedViewDidTap(_ sender: UITapGestureRecognizer) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func viewDidPan(_ sender: UIPanGestureRecognizer) {
+    private func viewDidPan(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         let bottomSheetHeight = self.detent.calculateHeight(baseView: self.view)
         
