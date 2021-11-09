@@ -62,7 +62,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func componentDidDrag(difference: CGPoint) {
-        <#code#>
+        self.editPageUseCase.moveComponent(difference: difference)
     }
     
     func componentTransformControlDidPan(difference: CGPoint) {
