@@ -78,7 +78,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func componentRemoveControlDidTap() {
-        <#code#>
+        self.editPageUseCase.removeComponent()
     }
     
     func componentEntityDidAdd(_ component: ComponentEntity) {
