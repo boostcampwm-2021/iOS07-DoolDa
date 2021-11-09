@@ -70,11 +70,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func componentBringForwardControlDidTap() {
-        <#code#>
+        self.editPageUseCase.bringComponentForward()
     }
     
     func componentSendBackwardControlDidTap() {
-        <#code#>
+        self.editPageUseCase.sendComponentBackward()
     }
     
     func componentRemoveControlDidTap() {
