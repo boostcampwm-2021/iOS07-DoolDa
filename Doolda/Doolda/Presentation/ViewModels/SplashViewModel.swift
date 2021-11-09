@@ -41,8 +41,8 @@ final class SplashViewModel {
             .compactMap { $0 }
             .sink(receiveValue: { [weak self] user in
                 if user.pairId?.ddidString.isEmpty == false {
-                    self?.coordinatorDelegate.userAlreadyPaired(user: user)
-                } else { self?.coordinatorDelegate.userNotPaired(myId: user.id) }
+                    self?.coordinator.userAlreadyPaired(user: user)
+                } else { self?.coordinator.userNotPaired(myId: user.id) }
             })
             .store(in: &self.cancellables)
 
