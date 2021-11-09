@@ -106,7 +106,8 @@ class EditPageViewController: UIViewController {
     
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Dovemayo", size: 17) as Any]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:
+                                                                            UIFont(name: "Dovemayo", size: 17) as Any]
         self.title = "새 페이지"
         self.navigationItem.rightBarButtonItem = self.saveBarButtonItem
         self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem
@@ -139,11 +140,13 @@ class EditPageViewController: UIViewController {
             make.width.equalTo(135)
         }
     }
-        
+    
+    // FIXME : should bind to viewModel
     private func bindUI() {
         guard let viewModel = self.viewModel else { return }
 
     }
+    
     // MARK: - Private Methods
     
     @objc private func cancelButtonDidTap() {
@@ -154,8 +157,9 @@ class EditPageViewController: UIViewController {
     }
     
     @objc private func saveButtonDidTap() {
-        guard let viewModel = self.viewModel else { return }
-
+        let alert = UIAlertController.saveEditPageAlert { _ in
+            self.viewModel?.saveEditingPageButtonDidTap()
+        }
+        self.present(alert, animated: true)
     }
-
 }
