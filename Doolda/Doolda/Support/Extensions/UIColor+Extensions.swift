@@ -14,4 +14,5 @@ extension UIColor {
     static let dooldaBackground = UIColor(named: "dooldaBackground")
     static let dooldaPlaceholder = UIColor(named: "dooldaPlaceholder")
     static let dooldaHighlighted = UIColor(named: "dooldaHighlighted")
+    static let bottomSheetBackgroundColor = UIColor(named: "dooldaBottomSheetBackgroundColor")
 }
