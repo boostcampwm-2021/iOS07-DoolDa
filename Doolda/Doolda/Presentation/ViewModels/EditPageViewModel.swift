@@ -24,23 +24,26 @@ protocol EditPageViewModelInput {
 }
 
 protocol EditPageViewModelOutput {
+    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
+    var isPageSavedPublisher: Published<Bool>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
-    var selectedComponent: AnyPublisher<ComponentEntity?, Never> { get }
-    var isPageSaved: Published<Bool>.Publisher { get }
 }
 
 typealias EditPageViewModelProtocol = EditPageViewModelInput & EditPageViewModelOutput
 
 final class EditPageViewModel: EditPageViewModelProtocol {
     
-    var selectedComponent: AnyPublisher<ComponentEntity?, Never>
-    var errorPublisher: Published<Error?>.Publisher
-    var isPageSaved: Published<Bool>.Publisher
-    
+    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent}
+    var isPageSavedPublisher: Published<Bool>.Publisher { self.$isPageSaved }
+    var errorPublisher: Published<Error?>.Publisher { self.$error }
+
     private let user: User
     private let coordinator: EditPageViewCoordinatorProtocol
     private let editPageUseCase: EditPageUseCaseProtocol
     private var cancellables: Set<AnyCancellable> = []
+    @Published private var selectedComponent: ComponentEntity?
+    @Published private var isPageSaved: Bool = false
+    @Published private var error: Error?
     
     init(
         user: User,
@@ -50,11 +53,14 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         self.user = user
         self.coordinator = coordinator
         self.editPageUseCase = editPageUseCase
-        self.bind()
+        bind()
     }
     
     private func bind() {
-        
+        self.editPageUseCase.selectedComponentPublisher
+            .assign(to: &$selectedComponent)
+        self.editPageUseCase.errorPublisher
+            .assign(to: &$error)
     }
     
     func canvasDidTap(point: CGPoint) {
@@ -82,7 +88,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func componentEntityDidAdd(_ component: ComponentEntity) {
-        <#code#>
+        self.editPageUseCase.addComponent(component)
     }
     
     func backgroundColorDidChange(_ backgroundColor: BackgroundType) {
@@ -90,11 +96,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func saveEditingPageButtonDidTap() {
-        <#code#>
+        self.editPageUseCase.savePage()
     }
     
     func cancelEditingPageButtonDidTap() {
-        <#code#>
+        self.coordinator.editingPageCanceled()
     }
 }
 
