@@ -28,6 +28,10 @@ struct RawPageEntity {
         self.components.swapAt(index, anotherIndex)
     }
     
+    mutating func remove(at index: Int) {
+        self.components.remove(at: index)
+    }
+    
     func indexOf(component: ComponentEntity) -> Int? {
         return self.components.firstIndex(where: { $0 == component })
     }
