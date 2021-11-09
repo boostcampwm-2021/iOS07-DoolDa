@@ -8,6 +8,20 @@
 import CoreGraphics
 import Foundation
 
+@propertyWrapper
+struct Angle {
+    private var value: CGFloat = CGFloat.zero
+    
+    var wrappedValue: CGFloat {
+        get { self.value }
+        set { self.value = newValue.truncatingRemainder(dividingBy: 360) }
+    }
+    
+    init(wrappedValue initalValue: CGFloat) {
+        self.wrappedValue = initalValue
+    }
+}
+
 class ComponentEntity: ObservableObject {
     @Published var origin: CGPoint
     @Published var size: CGSize
@@ -27,16 +41,12 @@ class ComponentEntity: ObservableObject {
     }
 }
 
-@propertyWrapper
-struct Angle {
-    private var value: CGFloat = CGFloat.zero
-    
-    var wrappedValue: CGFloat {
-        get { self.value }
-        set { self.value = newValue.truncatingRemainder(dividingBy: 360) }
+extension ComponentEntity: Hashable {
+    static func == (lhs: ComponentEntity, rhs: ComponentEntity) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
     
-    init(wrappedValue initalValue: CGFloat) {
-        self.wrappedValue = initalValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
     }
 }
