@@ -11,6 +11,7 @@ import Foundation
 
 enum ImageComposeUseCaseError: LocalizedError {
     case numberOfImageMismatched
+    case failComposing
 }
 
 protocol ImageComposeUseCaseProtocol {
@@ -20,18 +21,31 @@ protocol ImageComposeUseCaseProtocol {
 class ImageComposeUseCase: ImageComposeUseCaseProtocol {
     func compose(photoFrame: CIImage, photoBounds: [CGRect], images: [CIImage]) -> AnyPublisher<CIImage, Error> {
         if photoBounds.count != images.count {
-            //ImageComposeUseCaseError.numberOfImageMismatched
+            return Fail(error: ImageComposeUseCaseError.numberOfImageMismatched).eraseToAnyPublisher()
         }
 
+        guard let filter = CIFilter(name: "CISourceOverCompositing") else {
+            return Fail(error: ImageComposeUseCaseError.failComposing).eraseToAnyPublisher()
+        }
+
+        var outputImage = photoFrame
         for index in 0..<images.count {
             let bound = photoBounds[index]
             let image = images[index]
             let croppedImage = crop(with: image, by: photoFrame)
             let resizedImage = resize(with: croppedImage, to: bound.size)
-            let outputImage = translation(with: resizedImage, to: bound.origin)
+            let translatedImaged = translation(with: resizedImage, to: bound.origin)
+
+            filter.setDefaults()
+            filter.setValue(translatedImaged, forKey: kCIInputImageKey)
+            filter.setValue(outputImage, forKey: kCIInputBackgroundImageKey)
+            guard let filterOuput = filter.outputImage else {
+                return Fail(error: ImageComposeUseCaseError.failComposing).eraseToAnyPublisher()
+            }
+            outputImage = filterOuput
         }
 
-        return Just(CIImage()).tryMap { $0 }.eraseToAnyPublisher()
+        return Result<CIImage, Error>.Publisher(outputImage).eraseToAnyPublisher()
     }
 
     private func crop(with image: CIImage, by frame: CIImage) -> CIImage {
