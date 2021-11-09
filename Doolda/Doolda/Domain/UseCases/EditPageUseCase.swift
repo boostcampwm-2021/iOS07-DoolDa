@@ -79,9 +79,10 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     }
     
     func addComponent(_ component: ComponentEntity) {
-        <#code#>
+        self.rawPage.append(component)
+        self.selectedComponent = component
     }
-    
+
     func changeBackgroundType(_ backgroundType: BackgroundType) {
         <#code#>
     }
