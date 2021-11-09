@@ -24,6 +24,7 @@
 		1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */; };
 		1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */; };
 		1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
+		1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */; };
 		1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DD6AD3F27321E5800592AC8 /* dovemayo.otf */; };
 		1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */; };
 		1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */; };
@@ -35,7 +36,6 @@
 		3101259427383DED00E43160 /* PhotoComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259327383DED00E43160 /* PhotoComponentEntity.swift */; };
 		31012596273842B300E43160 /* StickerComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012595273842B300E43160 /* StickerComponentEntity.swift */; };
 		31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012597273842DA00E43160 /* TextComponentEntity.swift */; };
-		3101259A273842E900E43160 /* PhotoFrameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012599273842E900E43160 /* PhotoFrameEntity.swift */; };
 		3101259C2738430200E43160 /* StickerPackEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259B2738430200E43160 /* StickerPackEntity.swift */; };
 		310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */; };
 		310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */; };
@@ -166,6 +166,7 @@
 		1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		1DBF5714273A2C5100D28F5E /* FontColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorType.swift; sourceTree = "<group>"; };
+		1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameType.swift; sourceTree = "<group>"; };
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
 		1DDAF0512730D267006CD027 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
@@ -178,7 +179,6 @@
 		3101259327383DED00E43160 /* PhotoComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoComponentEntity.swift; sourceTree = "<group>"; };
 		31012595273842B300E43160 /* StickerComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerComponentEntity.swift; sourceTree = "<group>"; };
 		31012597273842DA00E43160 /* TextComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextComponentEntity.swift; sourceTree = "<group>"; };
-		31012599273842E900E43160 /* PhotoFrameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameEntity.swift; sourceTree = "<group>"; };
 		3101259B2738430200E43160 /* StickerPackEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPackEntity.swift; sourceTree = "<group>"; };
 		310D80CE273106CA00F15F4F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParingViewCoordinator.swift; sourceTree = "<group>"; };
@@ -554,11 +554,11 @@
 				1D04F41B273957E600CFCC3A /* BackgroundType.swift */,
 				66F5D47D2733EE8F000FB471 /* RawPageEntity.swift */,
 				66F5D47B2733EA32000FB471 /* ComponentEntity.swift */,
+				1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */,
 				3101259327383DED00E43160 /* PhotoComponentEntity.swift */,
 				31012595273842B300E43160 /* StickerComponentEntity.swift */,
 				1DBF5714273A2C5100D28F5E /* FontColorType.swift */,
 				31012597273842DA00E43160 /* TextComponentEntity.swift */,
-				31012599273842E900E43160 /* PhotoFrameEntity.swift */,
 				3101259B2738430200E43160 /* StickerPackEntity.swift */,
 			);
 			path = Entities;
@@ -1067,6 +1067,7 @@
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
+				1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */,
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
@@ -1090,7 +1091,6 @@
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
 				1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift in Sources */,
-				3101259A273842E900E43160 /* PhotoFrameEntity.swift in Sources */,
 				31012596273842B300E43160 /* StickerComponentEntity.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
 				1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */,
