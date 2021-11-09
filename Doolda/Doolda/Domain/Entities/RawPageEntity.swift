@@ -21,6 +21,10 @@ struct RawPageEntity {
         self.components.append(component)
     }
     
+    mutating func swapAt(at index: Int, with anotherIndex: Int) {
+        self.components.swapAt(index, anotherIndex)
+    }
+    
     func indexOf(component: ComponentEntity) -> Int? {
         return self.components.firstIndex(where: { $0 == component })
     }
