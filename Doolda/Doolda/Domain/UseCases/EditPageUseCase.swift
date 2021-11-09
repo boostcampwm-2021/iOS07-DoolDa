@@ -84,9 +84,12 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     }
 
     func removeComponent() {
-        <#code#>
+        guard let selectedComponent = self.selectedComponent,
+              let indexOfSelectedComponent = self.rawPage?.indexOf(component: selectedComponent) else { return }
+        self.rawPage?.remove(at: indexOfSelectedComponent)
+        self.selectedComponent = nil
     }
-    
+
     func addComponent(_ component: ComponentEntity) {
         self.rawPage?.append(component: component)
         self.selectedComponent = component
