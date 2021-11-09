@@ -10,7 +10,7 @@ import Foundation
 
 struct RawPageEntity {
     var components: [ComponentEntity]
-    var backgroundColor: BackgroundType
+    var backgroundType: BackgroundType
     var numberOfComponents: Int {
         self.components.count
     }
