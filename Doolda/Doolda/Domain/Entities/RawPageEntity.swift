@@ -14,7 +14,7 @@ struct RawPageEntity {
     
     init() {
         self.components = []
-        self.backgroundColor = .plain(color: .dooldaBackground)
+        self.backgroundColor = .dooldaBackground
     }
     
     mutating func append(_ component: ComponentEntity) {
