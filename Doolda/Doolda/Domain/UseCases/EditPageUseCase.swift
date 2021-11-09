@@ -24,27 +24,38 @@ protocol EditPageUseCaseProtocol {
 
 class EditPageUseCase: EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
-    var errorPublisher: Published<Error?>.Publisher
-    
+
+    private var cancellables: Set<AnyCancellable> = []
     private var rawPage: RawPageEntity
+    @Published private var selectedComponent: ComponentEntity?
+
     private let pageRepository: PageRepositoryProtocol
     private let rawPageRepository: RawPageRepositoryProtocol
-    
-    @Published private var selectedComponent: ComponentEntity?
-    
+
+
     init(pageRepository: PageRepositoryProtocol, rawPageRepository: RawPageRepositoryProtocol) {
         self.rawPage = RawPageEntity()
         self.pageRepository = pageRepository
         self.rawPageRepository = rawPageRepository
+        bind()
     }
-    
+
+    private func bind() {
+        self.selectedComponent?.objectWillChange
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.selectedComponent = self.selectedComponent
+            }
+            .store(in: &cancellables)
+    }
+
     func selectComponent(at point: CGPoint) {
         for component in rawPage.components {
             if component.hitTest(at: point) {
-                self.selectedComponent = component
-                break
+                return self.selectedComponent = component
             }
         }
+        return self.selectedComponent = nil
     }
     
     func moveComponent(difference: CGPoint) {
