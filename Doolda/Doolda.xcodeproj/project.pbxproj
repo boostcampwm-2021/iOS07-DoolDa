@@ -106,6 +106,7 @@
 		FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DD2738CFB50001F155 /* PairRepository.swift */; };
 		FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F327391F260001F155 /* EditPageViewModel.swift */; };
+		FCE9D3F62739550C0001F155 /* EditPageViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F52739550C0001F155 /* EditPageViewCoordinatorProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,6 +246,7 @@
 		FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCE9D3DD2738CFB50001F155 /* PairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepository.swift; sourceTree = "<group>"; };
 		FCE9D3F327391F260001F155 /* EditPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewModel.swift; sourceTree = "<group>"; };
+		FCE9D3F52739550C0001F155 /* EditPageViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +471,7 @@
 				664893FD273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift */,
 				1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift */,
 				1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */,
+				FCE9D3F52739550C0001F155 /* EditPageViewCoordinatorProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -1088,6 +1091,7 @@
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
 				66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */,
+				FCE9D3F62739550C0001F155 /* EditPageViewCoordinatorProtocol.swift in Sources */,
 				66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */,
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift in Sources */,
 				66F5D47E2733EE8F000FB471 /* RawPageEntity.swift in Sources */,
