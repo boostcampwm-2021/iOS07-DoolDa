@@ -12,7 +12,7 @@ protocol EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
     
     func selectComponent(at point: CGPoint)
-    func moveComponent(difference: CGPoint)
+    func moveComponent(to point: CGPoint)
     func transformComponent(difference: CGPoint)
     func bringComponentForward() -> [ComponentEntity]
     func sendComponentBackward() -> [ComponentEntity]
@@ -58,8 +58,8 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         return self.selectedComponent = nil
     }
     
-    func moveComponent(difference: CGPoint) {
-        <#code#>
+    func moveComponent(to point: CGPoint) {
+        self.selectedComponent?.origin = point
     }
     
     func transformComponent(difference: CGPoint) {
