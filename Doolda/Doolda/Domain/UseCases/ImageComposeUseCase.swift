@@ -15,12 +15,17 @@ enum ImageComposeUseCaseError: LocalizedError {
 }
 
 protocol ImageComposeUseCaseProtocol {
-    func compose(photoFrame: CIImage, photoBounds: [CGRect], images: [CIImage]) -> AnyPublisher<CIImage, Error>
+    func compose(photoFrameType: PhotoFrameType, images: [CIImage]) -> AnyPublisher<CIImage, Error>
 }
 
 class ImageComposeUseCase: ImageComposeUseCaseProtocol {
-    func compose(photoFrame: CIImage, photoBounds: [CGRect], images: [CIImage]) -> AnyPublisher<CIImage, Error> {
-        if photoBounds.count != images.count {
+    func compose(photoFrameType: PhotoFrameType, images: [CIImage]) -> AnyPublisher<CIImage, Error> {
+
+        guard let photoFrame = photoFrameType.rawValue else {
+            return Fail(error: ImageComposeUseCaseError.failComposing).eraseToAnyPublisher()
+        }
+
+        if photoFrame.requiredPhotoCount != images.count {
             return Fail(error: ImageComposeUseCaseError.numberOfImageMismatched).eraseToAnyPublisher()
         }
 
@@ -28,11 +33,11 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
             return Fail(error: ImageComposeUseCaseError.failComposing).eraseToAnyPublisher()
         }
 
-        var outputImage = photoFrame
-        for index in 0..<images.count {
-            let bound = photoBounds[index]
+        var outputImage = photoFrame.baseImage
+        for index in 0..<photoFrame.requiredPhotoCount {
+            let bound = photoFrame.photoBounds[index]
             let image = images[index]
-            let croppedImage = crop(with: image, by: photoFrame)
+            let croppedImage = crop(with: image, by: photoFrame.baseImage)
             let resizedImage = resize(with: croppedImage, to: bound.size)
             let translatedImaged = translation(with: resizedImage, to: bound.origin)
 
