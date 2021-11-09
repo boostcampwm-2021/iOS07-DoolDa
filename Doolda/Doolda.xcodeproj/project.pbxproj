@@ -141,6 +141,8 @@
 		FC9F106B2731035E0060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F106C2731035E0060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F108227315EB80060FEB7 /* FirebaseNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */; };
+		FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF022E273A12B400EAB00B /* EditPageViewController.swift */; };
+		FCCF0231273A145400EAB00B /* EditPageViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */; };
 		FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DD2738CFB50001F155 /* PairRepository.swift */; };
 		FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F327391F260001F155 /* EditPageViewModel.swift */; };
@@ -323,6 +325,8 @@
 		FC9F1064273102E30060FEB7 /* GetMyIdUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseTests.swift; sourceTree = "<group>"; };
 		FC9F107F27315EB80060FEB7 /* FirebaseNetworkTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FirebaseNetworkTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkTest.swift; sourceTree = "<group>"; };
+		FCCF022E273A12B400EAB00B /* EditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewController.swift; sourceTree = "<group>"; };
+		FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewCoordinator.swift; sourceTree = "<group>"; };
 		FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCE9D3DD2738CFB50001F155 /* PairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepository.swift; sourceTree = "<group>"; };
 		FCE9D3F327391F260001F155 /* EditPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewModel.swift; sourceTree = "<group>"; };
@@ -564,6 +568,7 @@
 				664893F3273023D3009F03E2 /* SplashViewController.swift */,
 				1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */,
 				310D81472733F56700F15F4F /* DiaryViewController.swift */,
+				FCCF022E273A12B400EAB00B /* EditPageViewController.swift */,
 				66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */,
 				66CD6451273B549100E55C03 /* FramePickerViewController.swift */,
 				66CD6457273BCB1900E55C03 /* PhotoPickerViewController.swift */,
@@ -588,6 +593,7 @@
 				664893F927302905009F03E2 /* SplashViewCoordinator.swift */,
 				310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */,
 				310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */,
+				FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1352,6 +1358,7 @@
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
 				1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */,
 				FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */,
+				FCCF0231273A145400EAB00B /* EditPageViewCoordinator.swift in Sources */,
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
 				31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */,
@@ -1374,6 +1381,7 @@
 				1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */,
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
+				FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
 				1D3925D0273C1263003A0B70 /* CGFloat+Extensions.swift in Sources */,
 				66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */,
