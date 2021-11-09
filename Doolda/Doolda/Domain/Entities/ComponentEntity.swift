@@ -8,13 +8,20 @@
 import CoreGraphics
 import Foundation
 
-protocol ComponentEntity {
-    var origin: CGPoint { get set }
-    var size: CGSize { get set }
-    var angle: CGFloat { get set }
-}
-
-extension ComponentEntity {
+class ComponentEntity: ObservableObject {
+    @Published var origin: CGPoint
+    @Published var size: CGSize
+    @Published var angle: CGFloat
+    @Published var aspectRatio: CGFloat
+    
+    init(origin: CGPoint, size: CGSize, angle: CGFloat, aspectRatio: CGFloat) {
+        self.origin = origin
+        self.size = size
+        self.angle = angle
+        self.aspectRatio = aspectRatio
+    }
+    
+    // FIXME : 미구현상태
     func hitTest(at point: CGPoint) -> Bool {
         return false
     }
