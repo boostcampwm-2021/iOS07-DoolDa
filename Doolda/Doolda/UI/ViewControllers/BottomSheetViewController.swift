@@ -56,8 +56,6 @@ class BottomSheetViewController: UIViewController {
     private let bottomSheetPanMinMoveConstant: CGFloat = 30.0
     private let bottomSheetPanMinCloseConstant: CGFloat = 150.0
 
-    private lazy var bottomSheetTopConstraint = self.body.topAnchor.constraint(equalTo: self.view.topAnchor, constant: self.view.frame.height)
-    
     // MARK: - Initializers
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -107,22 +105,23 @@ class BottomSheetViewController: UIViewController {
         
         self.view.addSubview(dimmedView)
         self.dimmedView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view)
+            make.edges.equalToSuperview()
         }
         
         self.view.addSubview(body)
         self.body.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalTo(self.view)
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(self.view.frame.height)
         }
-        
-        self.bottomSheetTopConstraint.isActive = true
     }
     
     // MARK: - Private Method
     
     private func showBottomSheet(duration: CGFloat = 0.25, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: duration) {
-            self.bottomSheetTopConstraint.constant = self.detent.calculateHeight(baseView: self.view)
+            self.body.snp.updateConstraints { make in
+                make.top.equalToSuperview().offset(self.detent.calculateHeight(baseView: self.view))
+            }
             self.view.layoutIfNeeded()
         } completion: { _ in
             completion?()
@@ -131,7 +130,9 @@ class BottomSheetViewController: UIViewController {
     
     private func hideBottomSheet(duration: CGFloat = 0.25, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: duration) {
-            self.bottomSheetTopConstraint.constant = self.view.frame.height
+            self.body.snp.updateConstraints { make in
+                make.top.equalToSuperview().offset(self.view.frame.height)
+            }
             self.view.layoutIfNeeded()
         } completion: { _ in
             completion?()
@@ -150,7 +151,9 @@ class BottomSheetViewController: UIViewController {
         case .began: break
         case .changed:
             if translation.y > 0 && bottomSheetHeight + translation.y > bottomSheetPanMinMoveConstant {
-                self.bottomSheetTopConstraint.constant = bottomSheetHeight + translation.y
+                self.body.snp.updateConstraints { make in
+                    make.top.equalToSuperview().offset(bottomSheetHeight + translation.y)
+                }
             }
         case .ended:
             if translation.y > bottomSheetPanMinCloseConstant {
