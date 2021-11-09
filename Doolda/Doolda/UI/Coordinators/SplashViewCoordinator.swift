@@ -45,7 +45,7 @@ class SplashViewCoordinator: SplashViewCoordinatorProtocol {
     }
 
     func userAlreadyPaired(user: User) {
-        // MARK: - FIXME : should change to diaryViewController
+        // FIXME : should change to diaryViewController
 //        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, user: user)
 //        diaryViewCoordinator.start()
         let editPageViewCoordinator = EditPageViewCoordinator(presenter: self.presenter, user: user)

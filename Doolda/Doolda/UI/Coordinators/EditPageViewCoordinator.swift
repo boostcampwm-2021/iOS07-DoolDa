@@ -25,6 +25,5 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     }
     
     func editingPageSaved() {}
-    
     func editingPageCanceled() {}
 }

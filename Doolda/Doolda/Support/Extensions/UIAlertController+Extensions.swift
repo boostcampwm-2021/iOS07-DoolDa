@@ -41,4 +41,18 @@ extension UIAlertController {
         alert.addAction(exitAlertAction)
         return alert
     }
+    
+    static func saveEditPageAlert(saveAction: @escaping (UIAlertAction) -> Void) -> UIAlertController {
+        let alert = UIAlertController(
+            title: "편집 저장하기",
+            message: "페이지를 저장하시겠습니까?, 저장 후 더 이상 편집할 수 없습니다'",
+            preferredStyle: .alert
+        )
+        let refreshAlertAction = UIAlertAction(title: "취소", style: .default)
+        let exitAlertAction = UIAlertAction(title: "저장", style: .destructive, handler: saveAction)
+
+        alert.addAction(refreshAlertAction)
+        alert.addAction(exitAlertAction)
+        return alert
+    }
 }
