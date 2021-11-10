@@ -27,6 +27,7 @@ class EditPageViewController: UIViewController {
         return barButtonItem
     }()
     
+    // FIXME : bind with UIButton
     private lazy var saveBarButtonItem: UIBarButtonItem = {
         var barButtonItem = UIBarButtonItem(
             image: .checkmark,
@@ -130,8 +131,9 @@ class EditPageViewController: UIViewController {
             NSAttributedString.Key.font: UIFont(name: "Dovemayo", size: 17) as Any
         ]
         self.title = "새 페이지"
-        self.navigationItem.rightBarButtonItem = self.saveBarButtonItem
+        
         self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem
+        self.navigationItem.rightBarButtonItem = self.saveBarButtonItem
 
         self.view.addSubview(self.scrollView)
         self.scrollView.snp.makeConstraints { make in
