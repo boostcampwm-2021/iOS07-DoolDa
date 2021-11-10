@@ -11,5 +11,5 @@ import Foundation
 
 protocol ImageUseCaseProtocol {
     func saveLocal(image: CIImage) -> AnyPublisher<URL, Never>
-    func saveRemote(localUrl: URL) -> AnyPublisher<URL, Error>
+    func saveRemote(for user: User, localUrl: URL) -> AnyPublisher<URL, Error>
 }
