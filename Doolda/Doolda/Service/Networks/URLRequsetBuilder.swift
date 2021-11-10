@@ -22,6 +22,7 @@ protocol URLRequestBuilder {
     var parameters: [String:String]? { get }
     var method: HttpMethod { get }
     var body: [String: Any]? { get }
+    var binary: Data? { get }
     var urlRequest: URLRequest? { get }
 }
 
@@ -65,6 +66,9 @@ extension URLRequestBuilder {
             
             if let httpbody = self.body {
                 urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: httpbody)
+            }
+            else if let binaryData = self.binary {
+                urlRequest.httpBody = binaryData
             }
             urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
             urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
