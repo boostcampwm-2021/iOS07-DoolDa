@@ -18,7 +18,7 @@ enum HttpMethod: String {
 protocol URLRequestBuilder {
     var baseURL: URL? { get }
     var requestURL: URL? { get }
-    var path: String { get }
+    var path: String? { get }
     var parameters: [String:String]? { get }
     var method: HttpMethod { get }
     var headers: [String:String]? { get }
@@ -29,6 +29,7 @@ protocol URLRequestBuilder {
 
 extension URLRequestBuilder {
     var requestURL: URL? {
+        guard let path = path else { return baseURL }
         return baseURL?.appendingPathComponent(path, isDirectory: false)
     }
     
