@@ -14,7 +14,7 @@ protocol EditPageUseCaseProtocol {
     
     func selectComponent(at point: CGPoint)
     func moveComponent(to point: CGPoint)
-    func transformComponent(difference: CGPoint)
+    func rotateComponent(by angle: CGFloat)
     func scaleComponent(by scale: CGFloat)
     func bringComponentForward()
     func sendComponentBackward()
@@ -67,6 +67,10 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     
     func scaleComponent(by scale: CGFloat) {
         self.selectedComponent?.scale = scale
+    }
+
+    func rotateComponent(by angle: CGFloat) {
+        self.selectedComponent?.angle = angle
     }
 
     func bringComponentForward() {
