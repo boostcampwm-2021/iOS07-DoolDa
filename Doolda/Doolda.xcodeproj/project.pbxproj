@@ -38,6 +38,8 @@
 		31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012597273842DA00E43160 /* TextComponentEntity.swift */; };
 		3101259C2738430200E43160 /* StickerPackEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259B2738430200E43160 /* StickerPackEntity.swift */; };
 		310125C427398DF600E43160 /* ImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125C327398DF600E43160 /* ImageUseCase.swift */; };
+		310125D6273A6F3400E43160 /* FileManagerPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125D5273A6F3400E43160 /* FileManagerPersistenceService.swift */; };
+		310125D8273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125D7273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift */; };
 		310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */; };
 		310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */; };
 		310D81262733C7FC00F15F4F /* SplashViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81252733C7FC00F15F4F /* SplashViewModelTest.swift */; };
@@ -182,6 +184,8 @@
 		31012597273842DA00E43160 /* TextComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextComponentEntity.swift; sourceTree = "<group>"; };
 		3101259B2738430200E43160 /* StickerPackEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPackEntity.swift; sourceTree = "<group>"; };
 		310125C327398DF600E43160 /* ImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCase.swift; sourceTree = "<group>"; };
+		310125D5273A6F3400E43160 /* FileManagerPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPersistenceService.swift; sourceTree = "<group>"; };
+		310125D7273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		310D80CE273106CA00F15F4F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParingViewCoordinator.swift; sourceTree = "<group>"; };
 		310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewCoordinator.swift; sourceTree = "<group>"; };
@@ -511,6 +515,7 @@
 			children = (
 				FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */,
 				FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */,
+				310125D7273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -591,6 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				FC5FB799273284E2008AC3D2 /* UserDefaultsPersistenceService.swift */,
+				310125D5273A6F3400E43160 /* FileManagerPersistenceService.swift */,
 			);
 			path = Persistences;
 			sourceTree = "<group>";
@@ -1040,11 +1046,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
+				310125D6273A6F3400E43160 /* FileManagerPersistenceService.swift in Sources */,
 				FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
 				1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */,
 				1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */,
 				FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */,
+				310125D8273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift in Sources */,
 				66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */,
 				66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */,
 				1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */,
