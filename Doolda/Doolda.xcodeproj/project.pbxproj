@@ -73,6 +73,7 @@
 		310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81472733F56700F15F4F /* DiaryViewController.swift */; };
 		319C21CA273B9703009CE65C /* FileDocuments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21C9273B9703009CE65C /* FileDocuments.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
+		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
 		319C21DE273BD791009CE65C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAF27367AFD00C918A0 /* API.swift */; };
 		319C21DF273BD791009CE65C /* URLSessionNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FA92736088100C918A0 /* URLSessionNetworkService.swift */; };
@@ -245,6 +246,7 @@
 		310D81472733F56700F15F4F /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		319C21C9273B9703009CE65C /* FileDocuments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDocuments.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
+		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkServiceTest.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -614,6 +616,7 @@
 			children = (
 				FC5FB792273260C3008AC3D2 /* UserRepository.swift */,
 				FCE9D3DD2738CFB50001F155 /* PairRepository.swift */,
+				319C21CF273BA7D4009CE65C /* ImageRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1307,6 +1310,7 @@
 				1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */,
 				1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */,
 				FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */,
+				319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */,
 				310125D8273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift in Sources */,
 				66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */,
 				66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */,
