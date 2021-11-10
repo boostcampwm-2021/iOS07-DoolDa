@@ -31,7 +31,7 @@ final class FramePickerViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(
             PhotoFrameCollectionViewCell.self,
-            forCellWithReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellId
+            forCellWithReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellIdentifier
         )
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -135,7 +135,7 @@ extension FramePickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellId,
+            withReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellIdentifier,
             for: indexPath
         ) as? PhotoFrameCollectionViewCell {
             cell.fill(PhotoFrameType.allCases[indexPath.item])

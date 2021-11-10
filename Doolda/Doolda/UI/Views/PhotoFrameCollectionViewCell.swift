@@ -13,7 +13,7 @@ class PhotoFrameCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Static Properties
     
-    static let photoPickerFrameCellId = "photoPickerFrameCellId"
+    static let photoPickerFrameCellIdentifier = "photoPickerFrameCellIdentifier"
     
     // MARK: - Subviews
     
