@@ -40,9 +40,20 @@ class ComponentEntity: ObservableObject {
         self.aspectRatio = aspectRatio
     }
     
-    // FIXME : 미구현상태
     func hitTest(at point: CGPoint) -> Bool {
-        return false
+        let centerX = frame.origin.x + frame.size.width / 2
+        let centerY = frame.origin.y + frame.size.height / 2
+        
+        let zeroCentered = CGPoint(x: point.x - centerX, y: point.y - centerY)
+        var transform = CGAffineTransform.identity
+        transform = transform.rotated(by: self.angle)
+        transform = transform.scaledBy(x: scale, y: scale)
+        transform = transform.inverted()
+        
+        let reversed = zeroCentered.applying(transform)
+        let adjustedPoint = CGPoint(x: reversed.x + centerX, y: reversed.y + centerY)
+        
+        return self.frame.contains(adjustedPoint)
     }
 }
 
