@@ -28,7 +28,6 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         label.font = UIFont(name: "Dovemayo", size: 16)
         label.textColor = .dooldaLabel
         label.textAlignment = .center
-        label.text = "1"
         label.layer.borderWidth = 2
         label.layer.borderColor = UIColor.white.withAlphaComponent(0.4).cgColor
         label.backgroundColor = .white.withAlphaComponent(0.4)
@@ -48,6 +47,12 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         configureUI()
     }
     
+    // MARK: - Lifecycle Methods
+    
+    override func layoutSubviews() {
+        self.selectedOrderLabel.layer.cornerRadius = self.selectedOrderLabel.frame.width / 2
+    }
+    
     // MARK: - Helpers
     
     private func configureUI() {
@@ -62,6 +67,8 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(-15)
             make.top.equalToSuperview().offset(15)
         }
+        
+        self.layoutIfNeeded()
         
         self.imageView.backgroundColor = .red
     }
