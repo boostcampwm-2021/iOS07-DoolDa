@@ -72,6 +72,10 @@
 		310D81332733CD5400F15F4F /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81472733F56700F15F4F /* DiaryViewController.swift */; };
 		319C21CA273B9703009CE65C /* FileDocuments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21C9273B9703009CE65C /* FileDocuments.swift */; };
+		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
+		319C21DE273BD791009CE65C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAF27367AFD00C918A0 /* API.swift */; };
+		319C21DF273BD791009CE65C /* URLSessionNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FA92736088100C918A0 /* URLSessionNetworkService.swift */; };
+		319C21E0273BD791009CE65C /* URLRequsetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
 		664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C2273007ED009F03E2 /* SceneDelegate.swift */; };
 		664893CA273007F1009F03E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664893C9273007F1009F03E2 /* Assets.xcassets */; };
@@ -238,6 +242,8 @@
 		310D81252733C7FC00F15F4F /* SplashViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModelTest.swift; sourceTree = "<group>"; };
 		310D81472733F56700F15F4F /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		319C21C9273B9703009CE65C /* FileDocuments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDocuments.swift; sourceTree = "<group>"; };
+		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkServiceTest.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		664893C2273007ED009F03E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -319,6 +325,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		310D81202733C7FC00F15F4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		319C21D2273BD764009CE65C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -423,6 +436,14 @@
 			path = SplashViewModelTest;
 			sourceTree = "<group>";
 		};
+		319C21D6273BD764009CE65C /* URLSessionNetworkServiceTest */ = {
+			isa = PBXGroup;
+			children = (
+				319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */,
+			);
+			path = URLSessionNetworkServiceTest;
+			sourceTree = "<group>";
+		};
 		664893B4273007ED009F03E2 = {
 			isa = PBXGroup;
 			children = (
@@ -436,6 +457,7 @@
 				FC5FB7CA27339213008AC3D2 /* UserRepositoryTests */,
 				1D0C8BCA2732B5F90091ACC0 /* GetPairIdUseCaseTest */,
 				310D81242733C7FC00F15F4F /* SplashViewModelTest */,
+				319C21D6273BD764009CE65C /* URLSessionNetworkServiceTest */,
 				310125CA2739A56600E43160 /* ImageComposeUseCaseTest */,
 				1D3925BB273BB4BE003A0B70 /* EditPageUseCaseTest */,
 				664893BE273007ED009F03E2 /* Products */,
@@ -456,6 +478,7 @@
 				1D0C8BC92732B5F90091ACC0 /* GetPairIdUseCaseTest.xctest */,
 				FC5FB7C927339213008AC3D2 /* UserRepositoryTests.xctest */,
 				310D81232733C7FC00F15F4F /* SplashViewModelTest.xctest */,
+				319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */,
 				310125C92739A56600E43160 /* ImageComposeUseCaseTest.xctest */,
 				1D3925BA273BB4BE003A0B70 /* EditPageUseCaseTest.xctest */,
 			);
@@ -851,6 +874,24 @@
 			productReference = 310D81232733C7FC00F15F4F /* SplashViewModelTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		319C21D4273BD764009CE65C /* URLSessionNetworkServiceTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 319C21DD273BD764009CE65C /* Build configuration list for PBXNativeTarget "URLSessionNetworkServiceTest" */;
+			buildPhases = (
+				319C21D1273BD764009CE65C /* Sources */,
+				319C21D2273BD764009CE65C /* Frameworks */,
+				319C21D3273BD764009CE65C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				319C21DA273BD764009CE65C /* PBXTargetDependency */,
+			);
+			name = URLSessionNetworkServiceTest;
+			productName = URLSessionNetworkServiceTest;
+			productReference = 319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		664893BC273007ED009F03E2 /* Doolda */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 664893D1273007F1009F03E2 /* Build configuration list for PBXNativeTarget "Doolda" */;
@@ -1016,6 +1057,10 @@
 						CreatedOnToolsVersion = 13.1;
 						TestTargetID = 664893BC273007ED009F03E2;
 					};
+					319C21D4273BD764009CE65C = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 664893BC273007ED009F03E2;
+					};
 					664893BC273007ED009F03E2 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -1067,6 +1112,7 @@
 				1D0C8BC82732B5F90091ACC0 /* GetPairIdUseCaseTest */,
 				FC5FB7C827339213008AC3D2 /* UserRepositoryTests */,
 				310D81222733C7FC00F15F4F /* SplashViewModelTest */,
+				319C21D4273BD764009CE65C /* URLSessionNetworkServiceTest */,
 				310125C82739A56600E43160 /* ImageComposeUseCaseTest */,
 				1D3925B9273BB4BE003A0B70 /* EditPageUseCaseTest */,
 			);
@@ -1096,6 +1142,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		310D81212733C7FC00F15F4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		319C21D3273BD764009CE65C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1224,6 +1277,17 @@
 				310D812D2733C84B00F15F4F /* SplashViewCoordinatorProtocol.swift in Sources */,
 				310D812C2733C83B00F15F4F /* SplashViewModel.swift in Sources */,
 				310D81262733C7FC00F15F4F /* SplashViewModelTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		319C21D1273BD764009CE65C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				319C21DE273BD791009CE65C /* API.swift in Sources */,
+				319C21DF273BD791009CE65C /* URLSessionNetworkService.swift in Sources */,
+				319C21E0273BD791009CE65C /* URLRequsetBuilder.swift in Sources */,
+				319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1365,6 +1429,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		319C21DA273BD764009CE65C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 664893BC273007ED009F03E2 /* Doolda */;
+			targetProxy = 319C21D9273BD764009CE65C /* PBXContainerItemProxy */;
+		};
 		310125CE2739A56600E43160 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 664893BC273007ED009F03E2 /* Doolda */;
@@ -1631,6 +1700,52 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = GeneratePairIdUseCaseTests;
+			};
+			name = Release;
+		};
+		319C21DB273BD764009CE65C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Codesquad.URLSessionNetworkServiceTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Debug;
+		};
+		319C21DC273BD764009CE65C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Codesquad.URLSessionNetworkServiceTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
 			};
 			name = Release;
 		};
@@ -2079,6 +2194,15 @@
 			buildConfigurations = (
 				310D813B2733E47A00F15F4F /* Debug */,
 				310D813C2733E47A00F15F4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		319C21DD273BD764009CE65C /* Build configuration list for PBXNativeTarget "URLSessionNetworkServiceTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				319C21DB273BD764009CE65C /* Debug */,
+				319C21DC273BD764009CE65C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
