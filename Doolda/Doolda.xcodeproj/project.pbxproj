@@ -70,6 +70,7 @@
 		66CD6452273B549200E55C03 /* FramePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6451273B549100E55C03 /* FramePickerViewController.swift */; };
 		66CD6456273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */; };
 		66CD6458273BCB1900E55C03 /* PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6457273BCB1900E55C03 /* PhotoPickerViewController.swift */; };
+		66CD645A273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6459273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
 		66F5D47E2733EE8F000FB471 /* RawPageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47D2733EE8F000FB471 /* RawPageEntity.swift */; };
@@ -224,6 +225,7 @@
 		66CD6451273B549100E55C03 /* FramePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramePickerViewController.swift; sourceTree = "<group>"; };
 		66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameCollectionViewCell.swift; sourceTree = "<group>"; };
 		66CD6457273BCB1900E55C03 /* PhotoPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewController.swift; sourceTree = "<group>"; };
+		66CD6459273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
 		66F5D47D2733EE8F000FB471 /* RawPageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPageEntity.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 			children = (
 				1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */,
 				66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */,
+				66CD6459273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1077,6 +1080,7 @@
 				66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */,
 				66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */,
 				1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */,
+				66CD645A273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift in Sources */,
 				FC822FAA2736088100C918A0 /* URLSessionNetworkService.swift in Sources */,
 				FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */,
 				310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */,
