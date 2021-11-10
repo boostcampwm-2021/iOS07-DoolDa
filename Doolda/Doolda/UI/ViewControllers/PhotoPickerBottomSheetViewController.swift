@@ -144,6 +144,6 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
 
 extension PhotoPickerBottomSheetViewController: FramePickerViewControllerDelegate {
     func photoFrameDidChange(_ photoFrameType: PhotoFrameType) {
-        // FIXME : 
+        // FIXME : PhotoFrame을 ViewModel에게 전달.
     }
 }

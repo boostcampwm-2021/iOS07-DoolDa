@@ -60,6 +60,7 @@ extension PhotoPickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // FIXME : 실제 사진 데이터를 활용하도록 수정
         return 30
     }
     
