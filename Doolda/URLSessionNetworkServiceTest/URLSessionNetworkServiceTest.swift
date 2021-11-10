@@ -7,6 +7,7 @@
 
 import Combine
 import XCTest
+@testable import Doolda
 
 class URLSessionNetworkServiceTest: XCTestCase {
     private var networkService: URLSessionNetworkServiceProtocol?
