@@ -35,7 +35,8 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
             let image = images[index]
             let croppedImage = crop(with: image, by: bound.width / bound.height)
             let resizedImage = resize(with: croppedImage, to: bound.size)
-            let translatedImaged = translation(with: resizedImage, to: bound.origin)
+            let translatePoint = CGPoint(x: bound.origin.x, y: outputImage.extent.height - resizedImage.extent.height - bound.origin.y)
+            let translatedImaged = translation(with: resizedImage, to: translatePoint)
 
             filter.setDefaults()
             filter.setValue(translatedImaged, forKey: kCIInputImageKey)
@@ -55,20 +56,20 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
         var y: CGFloat = 0
         var width: CGFloat = 0
         var height: CGFloat = 0
-        let outputImage: CIImage = image
+        var outputImage: CIImage = image
 
         if imageRatio < ratio {
-            height = image.extent.height / ratio
+            height = image.extent.width / ratio
             width = image.extent.width
             y = (image.extent.height - height) / 2
         } else {
             height = image.extent.height
-            width = image.extent.width * ratio
+            width = image.extent.height * ratio
             x = (image.extent.width - width) / 2
         }
 
-        outputImage.cropped(to: CGRect(x: x, y: y, width: width, height: height))
-        outputImage.transformed(by: CGAffineTransform(translationX: -x, y: -y))
+        outputImage = outputImage.cropped(to: CGRect(x: x, y: y, width: width, height: height))
+        outputImage = outputImage.transformed(by: CGAffineTransform(translationX: -x, y: -y))
         return outputImage
     }
 
