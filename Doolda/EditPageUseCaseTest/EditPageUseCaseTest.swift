@@ -677,4 +677,124 @@ class EditPageUseCaseTest: XCTestCase {
         
         XCTAssertNil(result)
     }
+    
+    func testScaleSelectedComponentSuccess() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testScaleSelectedComponentSuccess")
+        
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 9.9, y: 9.9))
+        editPageUseCase.scaleComponent(by: 2)
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 14.9, y: 14.9))
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testScaleSelectedComponentFailure() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testScaleSelectedComponentFailure")
+        
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 9.9, y: 9.9))
+        editPageUseCase.scaleComponent(by: 2)
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 15, y: 15))
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testRotateSelectedComponentSuccess() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testRotateSelectedComponentSuccess")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 5, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 2.5, y: 5))
+        editPageUseCase.rotateComponent(by: CGFloat(90).degreeToRadian)
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 7.4, y: 7.4))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testRotateSelectedComponentFailure() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testRotateSelectedComponentFailure")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 5, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 2.5, y: 5))
+        editPageUseCase.rotateComponent(by: CGFloat(90).degreeToRadian)
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 7.5, y: 7.5))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertNil(result)
+    }
 }
