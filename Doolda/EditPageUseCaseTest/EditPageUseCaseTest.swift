@@ -797,4 +797,66 @@ class EditPageUseCaseTest: XCTestCase {
             
         XCTAssertNil(result)
     }
+    
+    func testSendBackward() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSendBackward")
+
+        let componentToBeBringForward = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(componentToBeBringForward)
+        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1))
+        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.sendComponentBackward()
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, componentToBeBringForward)
+    }
+    
+    func testBringForward() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testBringForward")
+        
+        let componentToBeBringForward = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(componentToBeBringForward)
+        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 1, y: 1, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1))
+        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.bringComponentForward()
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 1, y: 1))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, componentToBeBringForward)
+    }
 }
