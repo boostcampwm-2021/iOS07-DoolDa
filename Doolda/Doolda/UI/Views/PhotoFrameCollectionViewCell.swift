@@ -46,7 +46,11 @@ class PhotoFrameCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func fill(image url: URL?) {
-        self.frameImageView.image = .hedgehogs
+    func fill(_ photoFrame: PhotoFrameType) {
+        guard let photoFrame = photoFrame.rawValue else {
+            return self.frameImageView.image = nil
+        }
+
+        self.frameImageView.image = UIImage(ciImage: photoFrame.baseImage)
     }
 }
