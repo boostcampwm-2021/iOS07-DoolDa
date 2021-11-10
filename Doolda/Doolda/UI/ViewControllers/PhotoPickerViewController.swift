@@ -23,7 +23,7 @@ final class PhotoPickerViewController: BottomSheetViewController {
     
     private lazy var closeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage.init(systemName: "xmark"), for: .normal)
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
         return button
     }()
     
@@ -46,16 +46,26 @@ final class PhotoPickerViewController: BottomSheetViewController {
         return view
     }()
     
+    private lazy var framePickerViewController: FramePickerViewController = {
+        let viewController = FramePickerViewController(framePickerViewControllerDelegate: self)
+        return viewController
+    }()
+    
     private lazy var nextButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         configuration.cornerStyle = .capsule
         configuration.baseForegroundColor = .dooldaLabel
         configuration.baseBackgroundColor = .dooldaHighlighted
+        
         var container = AttributeContainer()
         container.font = UIFont(name: "Dovemayo", size: 16)
         configuration.attributedTitle = AttributedString("다음", attributes: container)
         return UIButton(configuration: configuration)
     }()
+    
+    // MARK: - Private Properties
+    
+    private var currentContentViewController: UIViewController?
     
     // MARK: - Lifecycle Methods
     
@@ -63,6 +73,8 @@ final class PhotoPickerViewController: BottomSheetViewController {
         super.viewDidLoad()
         
         configureUI()
+        
+        setChildViewController(child: self.framePickerViewController)
     }
     
     // MARK: - Helpers
@@ -92,5 +104,28 @@ final class PhotoPickerViewController: BottomSheetViewController {
             make.bottom.equalToSuperview().offset(-16)
             make.top.equalTo(self.contentFrame.snp.bottom).offset(10).priority(.low)
         }
+    }
+    
+    // MARK: - Private Method
+    
+    private func setChildViewController(child viewController: UIViewController) {
+        self.currentContentViewController?.didMove(toParent: nil)
+        self.currentContentViewController?.view.removeFromSuperview()
+        self.currentContentViewController?.view.snp.removeConstraints()
+        self.currentContentViewController?.removeFromParent()
+        
+        self.addChild(viewController)
+        self.contentFrame.addSubview(viewController.view)
+        viewController.view.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        viewController.didMove(toParent: self)
+        self.currentContentViewController = viewController
+    }
+}
+
+extension PhotoPickerViewController: FramePickerViewControllerDelegate {
+    func photoFrameDidChange(_ photoFrameType: PhotoFrameType) {
+        
     }
 }
