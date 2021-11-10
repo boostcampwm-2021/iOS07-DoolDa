@@ -76,6 +76,7 @@
 		319C21DE273BD791009CE65C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAF27367AFD00C918A0 /* API.swift */; };
 		319C21DF273BD791009CE65C /* URLSessionNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FA92736088100C918A0 /* URLSessionNetworkService.swift */; };
 		319C21E0273BD791009CE65C /* URLRequsetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */; };
+		319C21E1273BD805009CE65C /* URLSessionNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
 		664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C2273007ED009F03E2 /* SceneDelegate.swift */; };
 		664893CA273007F1009F03E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664893C9273007F1009F03E2 /* Assets.xcassets */; };
@@ -1284,6 +1285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				319C21E1273BD805009CE65C /* URLSessionNetworkServiceProtocol.swift in Sources */,
 				319C21DE273BD791009CE65C /* API.swift in Sources */,
 				319C21DF273BD791009CE65C /* URLSessionNetworkService.swift in Sources */,
 				319C21E0273BD791009CE65C /* URLRequsetBuilder.swift in Sources */,
