@@ -6,13 +6,13 @@
 //
 
 import Combine
+import CoreImage
 import Foundation
 
 protocol PhotoPickerViewModelInput {
-    func nextButtonDidTap(_ photoFrame: PhotoFrameType.PhotoFrame)
-    func photoDidSelected(_ photos: [URL])
+    func nextButtonDidTap(_ photoFrame: PhotoFrameType)
+    func photoDidSelected(_ photos: [CIImage])
     func completeButtonDidTap()
-    func cancelButtonDidTap()
 }
 
 protocol PhotoPickerViewModelOutput {
@@ -22,3 +22,49 @@ protocol PhotoPickerViewModelOutput {
 }
 
 typealias PhotoPickerViewModelProtocol = PhotoPickerViewModelInput & PhotoPickerViewModelOutput
+
+class PhotoPickerViewModel: PhotoPickerViewModelProtocol {
+    var isReadyToCompose: Published<Bool>.Publisher { self.$readyToComposeState }
+    var isCompleted: Published<URL?>.Publisher { self.$completeState }
+    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    
+    private let imageUseCase: ImageUseCaseProtocol
+    private let imageComposeUseCase: ImageComposeUseCaseProtocol
+    
+    private var cancellables = Set<AnyCancellable>()
+    private var selectedPhotoFrame: PhotoFrameType?
+    @Published private var selectedPhotos: [CIImage]?
+    @Published private var readyToComposeState: Bool = false
+    @Published private var completeState: URL?
+    @Published private var error: Error?
+    
+    init(imageUseCase: ImageUseCaseProtocol, imageComposeUseCase: ImageComposeUseCaseProtocol) {
+        self.imageUseCase = imageUseCase
+        self.imageComposeUseCase = imageComposeUseCase
+        bind()
+    }
+    
+    func nextButtonDidTap(_ photoFrame: PhotoFrameType) {
+        self.selectedPhotoFrame = photoFrame
+    }
+    
+    func photoDidSelected(_ photos: [CIImage]) {
+        self.selectedPhotos = photos
+    }
+    
+    func completeButtonDidTap() {
+        // FIXME :
+    }
+    
+    private func bind() {
+        self.$selectedPhotos
+            .sink { [weak self] images in
+                guard let self = self,
+                      let images = images,
+                      let requiredPhotoCount = self.selectedPhotoFrame?.rawValue?.requiredPhotoCount else { return }
+                
+                self.readyToComposeState = images.count == requiredPhotoCount
+            }
+            .store(in: &self.cancellables)
+    }
+}
