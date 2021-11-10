@@ -9,5 +9,5 @@ import Combine
 import Foundation
 
 protocol FileManagerPersistenceServiceProtocol {
-    func save(data: Data, at documentsUrl: URL, fileName: String) -> AnyPublisher<Data, Error>
+    func save(data: Data, at documents: FileDocuments, fileName: String) -> AnyPublisher<URL, Never>
 }
