@@ -10,9 +10,10 @@ import CoreGraphics
 import Foundation
 
 protocol EditPageViewModelInput {
-    func canvasDidTap(point: CGPoint)
-    func componentDidDrag(difference: CGPoint)
-    func componentTransformControlDidPan(difference: CGPoint)
+    func canvasDidTap(at point: CGPoint)
+    func componentDidDrag(at point: CGPoint)
+    func componentDidRotate(by angle: CGFloat)
+    func componentDidScale(by scale: CGFloat)
     func componentBringForwardControlDidTap()
     func componentSendBackwardControlDidTap()
     func componentRemoveControlDidTap()

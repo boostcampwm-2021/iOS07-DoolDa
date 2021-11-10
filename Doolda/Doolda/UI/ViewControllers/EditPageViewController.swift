@@ -150,6 +150,7 @@ class EditPageViewController: UIViewController {
         }
         
         self.contentView.addSubview(self.pageView)
+        self.pageView.isUserInteractionEnabled = true
         self.pageView.clipsToBounds = true
         self.pageView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview().inset(16)
@@ -165,9 +166,19 @@ class EditPageViewController: UIViewController {
         }
     }
     
-    // FIXME : should bind to viewModel
     private func bindUI() {
-        guard let viewModel = self.viewModel else { return }
+        self.pageView.publisher(for: UITapGestureRecognizer())
+            .sink { [weak self] gesture in
+                guard let self = self else { return }
+                let touchCGPoint = gesture.location(in: self.pageView)
+                self.viewModel?.canvasDidTap(at: self.computePoint(at: touchCGPoint))
+            }.store(in: &self.cancellables)
+        self.viewModel?.selectedComponent
+            .sink{ [weak self] compnentEntity in
+                guard let self = self else { return }
+                self.pageView.subviews.compactMap { $0 as? ComponentView }.forEach { $0.isSelected = false }
+                
+            }.store(in: &self.cancellables)
     }
     
     // MARK: - Private Methods
@@ -184,6 +195,12 @@ class EditPageViewController: UIViewController {
             self.viewModel?.saveEditingPageButtonDidTap()
         }
         self.present(alert, animated: true)
+    }
+    
+    private func computePoint(at point: CGPoint) -> CGPoint {
+        let computedX = (point.x / self.pageView.frame.width) * 1700
+        let computedY = (point.y / self.pageView.frame.height) * 3000
+        return CGPoint(x: computedX, y: computedY)
     }
 }
 
@@ -202,7 +219,6 @@ extension EditPageViewController: ComponentViewDelegate {
     }
     
     func rightBottomcontrolDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer) {
-        guard let contentView = componentView.contentView else { return }
         let touchLocation = gesture.location(in: self.view)
         let center = componentView.center
 
@@ -219,19 +235,24 @@ extension EditPageViewController: ComponentViewDelegate {
             let angleDiff = Float(self.deltaAngle) - angle
             scale = distance / self.initialDistance
             scale *= savedScale
-            
+            self.viewModel?.componentDidRotate(by: angle)
+            self.viewModel?.componentDidScale(by: scale)
+
             // viewModel.changeSelectedSclae(scale)
             // viewModel.changeSelectedRotation(angle) -> usecase에서 실제 컴포넌트에 적용 -> 타고타고내려와서 bind걸린곳에서 실제처리
             
+            // FIXME : should delete this part and bind with viewModel
             var transform = CGAffineTransform.identity
             transform = transform.rotated(by: CGFloat(-angleDiff))
             transform = transform.scaledBy(x: scale, y: scale)
             componentView.transform = transform
-            
+
             let controlTransform = CGAffineTransform.identity.scaledBy(x: 1/scale, y: 1/scale)
             componentView.controls.forEach { $0.transform  = controlTransform }
 
             contentView.layer.borderWidth = 1 / scale
+            
+            
         case .ended, .possible:
             savedScale = scale
         default:
@@ -240,9 +261,20 @@ extension EditPageViewController: ComponentViewDelegate {
     }
     
     func contentViewDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer) {
-        self.viewModel?.componentDidDrag(difference: CGPoint(x: 0, y: 0))
-        let translation = gesture.translation(in: self.view)
-        componentView.center = CGPoint(x: componentView.center.x + translation.x, y: componentView.center.y + translation.y)
-        gesture.setTranslation(.zero, in: componentView)
+        guard let contentView = componentView.contentView else { return }
+        switch gesture.state {
+        case .began:
+            let touchCGPoint = gesture.location(in: self.pageView)
+            self.viewModel?.canvasDidTap(at: self.computePoint(at: touchCGPoint))
+            
+        default:
+            let contentViewOriginFromPage = componentView.convert(contentView.layer.frame.origin, to: self.pageView)
+            let computedOrigin = self.computePoint(at: contentViewOriginFromPage)
+            self.viewModel?.componentDidDrag(at: computedOrigin)
+            // FIXME : should delete this part and bind with viewModel
+//            let translation = gesture.translation(in: self.pageView)
+//            componentView.center = CGPoint(x: componentView.center.x + translation.x, y: componentView.center.y + translation.y)
+//            gesture.setTranslation(.zero, in: componentView)
+        }
     }
 }
