@@ -8,20 +8,6 @@
 import CoreGraphics
 import Foundation
 
-@propertyWrapper
-struct Angle {
-    private var value: CGFloat = CGFloat.zero
-    
-    var wrappedValue: CGFloat {
-        get { self.value }
-        set { self.value = newValue.truncatingRemainder(dividingBy: 360) }
-    }
-    
-    init(wrappedValue initalValue: CGFloat) {
-        self.wrappedValue = initalValue
-    }
-}
-
 class ComponentEntity: ObservableObject {
     @Published var frame: CGRect
     @Published var scale: CGFloat
