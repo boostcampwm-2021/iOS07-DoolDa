@@ -11,7 +11,7 @@ import Foundation
 
 enum ImageComposeUseCaseError: LocalizedError {
     case numberOfImageMismatched
-    case failComposing
+    case composingImageFailed
 }
 
 protocol ImageComposeUseCaseProtocol {
@@ -20,10 +20,9 @@ protocol ImageComposeUseCaseProtocol {
 
 class ImageComposeUseCase: ImageComposeUseCaseProtocol {
     func compose(photoFrameType: PhotoFrameType, images: [CIImage]) -> AnyPublisher<CIImage, Error> {
-
         guard let photoFrame = photoFrameType.rawValue,
               let filter = CIFilter(name: "CISourceOverCompositing") else {
-            return Fail(error: ImageComposeUseCaseError.failComposing).eraseToAnyPublisher()
+            return Fail(error: ImageComposeUseCaseError.composingImageFailed).eraseToAnyPublisher()
         }
 
         if photoFrame.requiredPhotoCount != images.count {
@@ -42,7 +41,7 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
             filter.setValue(translatedImaged, forKey: kCIInputImageKey)
             filter.setValue(outputImage, forKey: kCIInputBackgroundImageKey)
             guard let filterOuput = filter.outputImage else {
-                return Fail(error: ImageComposeUseCaseError.failComposing).eraseToAnyPublisher()
+                return Fail(error: ImageComposeUseCaseError.composingImageFailed).eraseToAnyPublisher()
             }
             outputImage = filterOuput
         }
