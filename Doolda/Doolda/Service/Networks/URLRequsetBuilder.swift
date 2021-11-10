@@ -71,8 +71,10 @@ extension URLRequestBuilder {
             else if let binaryData = self.binary {
                 urlRequest.httpBody = binaryData
             }
-            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+
+            headers?.forEach { key, value in
+                urlRequest.addValue(value, forHTTPHeaderField: key)
+            }
             
             return urlRequest
         }
