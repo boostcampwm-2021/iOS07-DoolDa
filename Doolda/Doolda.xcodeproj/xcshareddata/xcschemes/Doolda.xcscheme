@@ -118,6 +118,16 @@
                ReferencedContainer = "container:Doolda.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "319C21D4273BD764009CE65C"
+               BuildableName = "URLSessionNetworkServiceTest.xctest"
+               BlueprintName = "URLSessionNetworkServiceTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
