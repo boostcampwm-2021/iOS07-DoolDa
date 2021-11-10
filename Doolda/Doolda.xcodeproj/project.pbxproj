@@ -66,7 +66,7 @@
 		669ADE3E2732E55F007B529B /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		669ADE3F2732E55F007B529B /* RefreshPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */; };
 		66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644D273A490800E55C03 /* BottomSheetViewController.swift */; };
-		66CD6450273A5C4700E55C03 /* PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644F273A5C4700E55C03 /* PhotoPickerViewController.swift */; };
+		66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */; };
 		66CD6452273B549200E55C03 /* FramePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6451273B549100E55C03 /* FramePickerViewController.swift */; };
 		66CD6456273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
@@ -219,7 +219,7 @@
 		669ADE322732E4A8007B529B /* RefreshPairIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefreshPairIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshPairIdUseCaseTest.swift; sourceTree = "<group>"; };
 		66CD644D273A490800E55C03 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
-		66CD644F273A5C4700E55C03 /* PhotoPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewController.swift; sourceTree = "<group>"; };
+		66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewController.swift; sourceTree = "<group>"; };
 		66CD6451273B549100E55C03 /* FramePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramePickerViewController.swift; sourceTree = "<group>"; };
 		66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameCollectionViewCell.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
@@ -441,7 +441,7 @@
 				664893F3273023D3009F03E2 /* SplashViewController.swift */,
 				1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */,
 				310D81472733F56700F15F4F /* DiaryViewController.swift */,
-				66CD644F273A5C4700E55C03 /* PhotoPickerViewController.swift */,
+				66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */,
 				66CD6451273B549100E55C03 /* FramePickerViewController.swift */,
 			);
 			path = ViewControllers;
@@ -1097,7 +1097,7 @@
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
 				66FE93CC27396B960036CED2 /* PhotoPickerViewModel.swift in Sources */,
 				310125C427398DF600E43160 /* ImageUseCase.swift in Sources */,
-				66CD6450273A5C4700E55C03 /* PhotoPickerViewController.swift in Sources */,
+				66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
 				319C21CA273B9703009CE65C /* FileDocuments.swift in Sources */,
 				1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */,
