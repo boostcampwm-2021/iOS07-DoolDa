@@ -15,6 +15,21 @@
 		1D0C8BD12732B7BA0091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */; };
 		1D3925B5273B9172003A0B70 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */; };
+		1D3925BD273BB4BE003A0B70 /* EditPageUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925BC273BB4BE003A0B70 /* EditPageUseCaseTest.swift */; };
+		1D3925C1273BB513003A0B70 /* EditPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E53D273929CE004F794F /* EditPageUseCase.swift */; };
+		1D3925C2273BD500003A0B70 /* ImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125C327398DF600E43160 /* ImageUseCase.swift */; };
+		1D3925C3273BD610003A0B70 /* PageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */; };
+		1D3925C4273BD613003A0B70 /* RawPageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */; };
+		1D3925C5273BD62B003A0B70 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936E27356E160036CED2 /* User.swift */; };
+		1D3925C6273BD6DB003A0B70 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
+		1D3925C7273BD6DD003A0B70 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
+		1D3925C8273BD6DF003A0B70 /* RawPageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47D2733EE8F000FB471 /* RawPageEntity.swift */; };
+		1D3925C9273BD6E2003A0B70 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
+		1D3925CA273BD8F6003A0B70 /* PhotoComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259327383DED00E43160 /* PhotoComponentEntity.swift */; };
+		1D3925CB273BDB15003A0B70 /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
+		1D3925CC273BDB1D003A0B70 /* BackgroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F41B273957E600CFCC3A /* BackgroundType.swift */; };
+		1D3925CD273BDB26003A0B70 /* CGColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */; };
+		1D3925CE273BDB37003A0B70 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */; };
 		1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift */; };
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */; };
@@ -179,6 +194,8 @@
 		1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPairIdUseCaseTest.swift; sourceTree = "<group>"; };
 		1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
 		1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
+		1D3925BA273BB4BE003A0B70 /* EditPageUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditPageUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D3925BC273BB4BE003A0B70 /* EditPageUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCaseTest.swift; sourceTree = "<group>"; };
 		1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewController.swift; sourceTree = "<group>"; };
 		1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -291,6 +308,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1D3925B7273BB4BE003A0B70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		310D81202733C7FC00F15F4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -353,6 +377,14 @@
 			path = GetPairIdUseCaseTest;
 			sourceTree = "<group>";
 		};
+		1D3925BB273BB4BE003A0B70 /* EditPageUseCaseTest */ = {
+			isa = PBXGroup;
+			children = (
+				1D3925BC273BB4BE003A0B70 /* EditPageUseCaseTest.swift */,
+			);
+			path = EditPageUseCaseTest;
+			sourceTree = "<group>";
+		};
 		1DD6AD3E27321E3700592AC8 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -402,6 +434,7 @@
 				1D0C8BCA2732B5F90091ACC0 /* GetPairIdUseCaseTest */,
 				310D81242733C7FC00F15F4F /* SplashViewModelTest */,
 				310125CA2739A56600E43160 /* ImageComposeUseCaseTest */,
+				1D3925BB273BB4BE003A0B70 /* EditPageUseCaseTest */,
 				664893BE273007ED009F03E2 /* Products */,
 				310D80E32732841500F15F4F /* Recovered References */,
 			);
@@ -421,6 +454,7 @@
 				FC5FB7C927339213008AC3D2 /* UserRepositoryTests.xctest */,
 				310D81232733C7FC00F15F4F /* SplashViewModelTest.xctest */,
 				310125C92739A56600E43160 /* ImageComposeUseCaseTest.xctest */,
+				1D3925BA273BB4BE003A0B70 /* EditPageUseCaseTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -779,6 +813,23 @@
 			productReference = 310125C92739A56600E43160 /* ImageComposeUseCaseTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		1D3925B9273BB4BE003A0B70 /* EditPageUseCaseTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D3925BE273BB4BE003A0B70 /* Build configuration list for PBXNativeTarget "EditPageUseCaseTest" */;
+			buildPhases = (
+				1D3925B6273BB4BE003A0B70 /* Sources */,
+				1D3925B7273BB4BE003A0B70 /* Frameworks */,
+				1D3925B8273BB4BE003A0B70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EditPageUseCaseTest;
+			productName = EditPageUseCaseTest;
+			productReference = 1D3925BA273BB4BE003A0B70 /* EditPageUseCaseTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		310D81222733C7FC00F15F4F /* SplashViewModelTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 310D812B2733C7FC00F15F4F /* Build configuration list for PBXNativeTarget "SplashViewModelTest" */;
@@ -944,7 +995,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					1D0C8BC82732B5F90091ACC0 = {
@@ -953,6 +1004,9 @@
 					310125C82739A56600E43160 = {
 						CreatedOnToolsVersion = 13.1;
 						TestTargetID = 664893BC273007ED009F03E2;
+					};
+					1D3925B9273BB4BE003A0B70 = {
+						CreatedOnToolsVersion = 13.0;
 					};
 					310D81222733C7FC00F15F4F = {
 						CreatedOnToolsVersion = 13.1;
@@ -1010,6 +1064,7 @@
 				FC5FB7C827339213008AC3D2 /* UserRepositoryTests */,
 				310D81222733C7FC00F15F4F /* SplashViewModelTest */,
 				310125C82739A56600E43160 /* ImageComposeUseCaseTest */,
+				1D3925B9273BB4BE003A0B70 /* EditPageUseCaseTest */,
 			);
 		};
 /* End PBXProject section */
@@ -1023,6 +1078,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		310125C72739A56600E43160 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D3925B8273BB4BE003A0B70 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1121,6 +1183,28 @@
 			files = (
 				310125D22739A5D200E43160 /* ImageComposeUseCase.swift in Sources */,
 				310125CC2739A56600E43160 /* ImageComposeUseCaseTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1D3925B6273BB4BE003A0B70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D3925C9273BD6E2003A0B70 /* ComponentEntity.swift in Sources */,
+				1D3925C2273BD500003A0B70 /* ImageUseCase.swift in Sources */,
+				1D3925CB273BDB15003A0B70 /* DDIDDataTransferObject.swift in Sources */,
+				1D3925CD273BDB26003A0B70 /* CGColor+Extensions.swift in Sources */,
+				1D3925C1273BB513003A0B70 /* EditPageUseCase.swift in Sources */,
+				1D3925CA273BD8F6003A0B70 /* PhotoComponentEntity.swift in Sources */,
+				1D3925C5273BD62B003A0B70 /* User.swift in Sources */,
+				1D3925CC273BDB1D003A0B70 /* BackgroundType.swift in Sources */,
+				1D3925C4273BD613003A0B70 /* RawPageRepositoryProtocol.swift in Sources */,
+				1D3925C8273BD6DF003A0B70 /* RawPageEntity.swift in Sources */,
+				1D3925C3273BD610003A0B70 /* PageRepositoryProtocol.swift in Sources */,
+				1D3925C7273BD6DD003A0B70 /* PageEntity.swift in Sources */,
+				1D3925BD273BB4BE003A0B70 /* EditPageUseCaseTest.swift in Sources */,
+				1D3925C6273BD6DB003A0B70 /* DDID.swift in Sources */,
+				1D3925CE273BDB37003A0B70 /* DateFormatter+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1413,6 +1497,52 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Release;
+		};
+		1D3925BF273BB4BE003A0B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Codesquad.EditPageUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1D3925C0273BB4BE003A0B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Codesquad.EditPageUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1907,6 +2037,15 @@
 			buildConfigurations = (
 				310125CF2739A56600E43160 /* Debug */,
 				310125D02739A56600E43160 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1D3925BE273BB4BE003A0B70 /* Build configuration list for PBXNativeTarget "EditPageUseCaseTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D3925BF273BB4BE003A0B70 /* Debug */,
+				1D3925C0273BB4BE003A0B70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
