@@ -859,4 +859,69 @@ class EditPageUseCaseTest: XCTestCase {
             
         XCTAssertEqual(result, componentToBeBringForward)
     }
+    
+    func testRemoveComponentSingle() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testRemoveComponentSingle")
+        
+        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1))
+        
+        var result: ComponentEntity?
+        var isEmpty: Bool? = false
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
+        Publishers.Zip(editPageUseCase.selectedComponentPublisher, editPageUseCase.rawPagePublisher)
+            .dropFirst()
+            .sink { (selectedComponent, rawPage) in
+                result = selectedComponent
+                isEmpty = rawPage?.components.isEmpty
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        editPageUseCase.removeComponent()
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertNil(result)
+        XCTAssertTrue(isEmpty ?? false)
+    }
+    
+    func testRemoveComponentDouble() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testRemoveComponentDouble")
+        
+        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1))
+        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1))
+        
+        var result: ComponentEntity?
+        var isEmpty: Bool? = false
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
+        Publishers.Zip(editPageUseCase.selectedComponentPublisher, editPageUseCase.rawPagePublisher)
+            .dropFirst()
+            .sink { (selectedComponent, rawPage) in
+                result = selectedComponent
+                isEmpty = rawPage?.components.isEmpty
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        editPageUseCase.removeComponent()
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertNil(result)
+        XCTAssertFalse(isEmpty ?? true)
+    }
 }
