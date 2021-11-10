@@ -30,6 +30,8 @@
 		1D3925CC273BDB1D003A0B70 /* BackgroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F41B273957E600CFCC3A /* BackgroundType.swift */; };
 		1D3925CD273BDB26003A0B70 /* CGColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */; };
 		1D3925CE273BDB37003A0B70 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */; };
+		1D3925D0273C1263003A0B70 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925CF273C1263003A0B70 /* CGFloat+Extensions.swift */; };
+		1D3925D1273C12A8003A0B70 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925CF273C1263003A0B70 /* CGFloat+Extensions.swift */; };
 		1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift */; };
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */; };
@@ -196,6 +198,7 @@
 		1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		1D3925BA273BB4BE003A0B70 /* EditPageUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditPageUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D3925BC273BB4BE003A0B70 /* EditPageUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCaseTest.swift; sourceTree = "<group>"; };
+		1D3925CF273C1263003A0B70 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		1D58277C2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewController.swift; sourceTree = "<group>"; };
 		1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -704,6 +707,7 @@
 				FC5FB7DB2733A4A9008AC3D2 /* UserDefaults+Extensions.swift */,
 				310125912738325800E43160 /* UIAlertController+Extensions.swift */,
 				1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */,
+				1D3925CF273C1263003A0B70 /* CGFloat+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1204,6 +1208,7 @@
 				1D3925C7273BD6DD003A0B70 /* PageEntity.swift in Sources */,
 				1D3925BD273BB4BE003A0B70 /* EditPageUseCaseTest.swift in Sources */,
 				1D3925C6273BD6DB003A0B70 /* DDID.swift in Sources */,
+				1D3925D1273C12A8003A0B70 /* CGFloat+Extensions.swift in Sources */,
 				1D3925CE273BDB37003A0B70 /* DateFormatter+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1269,6 +1274,7 @@
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
+				1D3925D0273C1263003A0B70 /* CGFloat+Extensions.swift in Sources */,
 				66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */,
 				66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */,
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift in Sources */,
