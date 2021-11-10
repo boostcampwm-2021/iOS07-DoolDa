@@ -54,6 +54,7 @@ class BottomSheetViewController: UIViewController {
     
     // MARK: - Private Properties
     
+    private let bottomSheetMinHeight: CGFloat = 150.0
     private let bottomSheetPanMinMoveConstant: CGFloat = 30.0
     private let bottomSheetPanMinCloseConstant: CGFloat = 150.0
 
@@ -170,13 +171,15 @@ class BottomSheetViewController: UIViewController {
         switch sender.state {
         case .began: break
         case .changed:
-            if translation.y > 0 && bottomSheetHeight + translation.y > bottomSheetPanMinMoveConstant {
+            if translation.y > 0 &&
+               self.body.frame.height > self.bottomSheetMinHeight &&
+               bottomSheetHeight + translation.y > self.bottomSheetPanMinMoveConstant {
                 self.body.snp.updateConstraints { make in
                     make.top.equalToSuperview().offset(bottomSheetHeight + translation.y)
                 }
             }
-        case .ended:
-            if translation.y > bottomSheetPanMinCloseConstant {
+        case .ended, .possible:
+            if translation.y > self.bottomSheetPanMinCloseConstant {
                 self.dismiss(animated: true, completion: nil)
             } else {
                 fallthrough
