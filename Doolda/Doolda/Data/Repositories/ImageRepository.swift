@@ -18,8 +18,7 @@ class ImageRepository: ImageRepositoryProtocol {
     }
 
     func saveLocal(imageData: Data, fileName: String) -> AnyPublisher<URL, Never> {
-        
-        return Just(URL(string: "")!).eraseToAnyPublisher()
+        return fileManagerPersistenceService.save(data: imageData, at: .temporary, fileName: fileName)
     }
 
     func saveRemote(user: User, imageData: Data, fileName: String) -> AnyPublisher<URL, Error> {
