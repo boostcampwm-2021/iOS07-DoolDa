@@ -125,7 +125,7 @@ class BottomSheetViewController: UIViewController {
                 guard let sender = sender as? UIPanGestureRecognizer else { return }
                 self?.viewDidPan(sender)
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         self.dimmedView.publisher(for: UITapGestureRecognizer())
             .receive(on: DispatchQueue.main)
@@ -133,7 +133,7 @@ class BottomSheetViewController: UIViewController {
                 guard let sender = sender as? UITapGestureRecognizer else { return }
                 self?.dimmedViewDidTap(sender)
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
     }
     
     // MARK: - Private Method
