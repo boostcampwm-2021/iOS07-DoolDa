@@ -25,25 +25,28 @@ protocol EditPageViewModelInput {
 
 protocol EditPageViewModelOutput {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
-    var isPageSavedPublisher: Published<Bool>.Publisher { get }
+    var componentsPublisher: Published<[ComponentEntity]>.Publisher { get }
+    var backgroundPublisher: Published<BackgroundType>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
 }
 
 typealias EditPageViewModelProtocol = EditPageViewModelInput & EditPageViewModelOutput
 
 final class EditPageViewModel: EditPageViewModelProtocol {
-    
-    @Published var displayedComponents: [ComponentEntity] = []
-    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
-    var isPageSavedPublisher: Published<Bool>.Publisher { self.$isPageSaved }
+    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher {
+        self.editPageUseCase.selectedComponentPublisher
+    }
+    var componentsPublisher: Published<[ComponentEntity]>.Publisher { self.$components }
+    var backgroundPublisher: Published<BackgroundType>.Publisher { self.$background }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
 
     private let user: User
     private let coordinator: EditPageViewCoordinatorProtocol
     private let editPageUseCase: EditPageUseCaseProtocol
     private var cancellables: Set<AnyCancellable> = []
-    @Published private var selectedComponent: ComponentEntity?
-    @Published private var isPageSaved: Bool = false
+    
+    @Published private var components: [ComponentEntity] = []
+    @Published private var background: BackgroundType = .dooldaBackground
     @Published private var error: Error?
     
     init(
@@ -58,30 +61,45 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     private func bind() {
-        self.editPageUseCase.selectedComponentPublisher
-            .assign(to: &$selectedComponent)
+        self.editPageUseCase.rawPagePublisher
+            .sink { [weak self] rawPageEntity in
+                guard let self = self,
+                      let rawPageEntity = rawPageEntity else { return }
+                self.components = rawPageEntity.components
+                self.background = rawPageEntity.backgroundColor
+            }.store(in : &cancellables)
+        
+        self.editPageUseCase.resultPublisher
+            .sink { () in
+                self.coordinator.editingPageSaved()
+            }.store(in: &cancellables)
+        
         self.editPageUseCase.errorPublisher
             .assign(to: &$error)
     }
     
-    func canvasDidTap(point: CGPoint) {
+    func canvasDidTap(at point: CGPoint) {
         self.editPageUseCase.selectComponent(at: point)
     }
     
-    func componentDidDrag(difference: CGPoint) {
-        self.editPageUseCase.moveComponent(difference: difference)
+    func componentDidDrag(at point: CGPoint) {
+        self.editPageUseCase.moveComponent(to: point)
     }
     
-    func componentTransformControlDidPan(difference: CGPoint) {
-        self.editPageUseCase.transformComponent(difference: difference)
+    func componentDidRotate(by angle: CGFloat) {
+        self.editPageUseCase.rotateComponent(by: angle)
+    }
+    
+    func componentDidScale(by scale: CGFloat) {
+        self.editPageUseCase.scaleComponent(by: scale)
     }
     
     func componentBringForwardControlDidTap() {
-        self.displayedComponents = self.editPageUseCase.bringComponentForward()
+        self.editPageUseCase.bringComponentForward()
     }
     
     func componentSendBackwardControlDidTap() {
-        self.displayedComponents = self.editPageUseCase.sendComponentBackward()
+        self.editPageUseCase.sendComponentBackward()
     }
     
     func componentRemoveControlDidTap() {
@@ -97,14 +115,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func saveEditingPageButtonDidTap() {
-        self.editPageUseCase.savePage()
-            .sink {[weak self] result in
-                guard case .failure(let error) = result else {
-                    self?.coordinator.editingPageSaved()
-                    return }
-                self?.error = error
-            } receiveValue: {}
-            .store(in: &self.cancellables)
+        self.editPageUseCase.savePage(author: self.user)
     }
     
     func cancelEditingPageButtonDidTap() {
