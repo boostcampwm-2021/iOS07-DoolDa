@@ -25,12 +25,14 @@ struct Angle {
 class ComponentEntity: ObservableObject {
     @Published var origin: CGPoint
     @Published var size: CGSize
+    @Published var scale: CGFloat
     @Published var angle: CGFloat
     @Published var aspectRatio: CGFloat
     
-    init(origin: CGPoint, size: CGSize, angle: CGFloat, aspectRatio: CGFloat) {
+    init(origin: CGPoint, size: CGSize, scale: CGFloat, angle: CGFloat, aspectRatio: CGFloat) {
         self.origin = origin
         self.size = size
+        self.scale = scale
         self.angle = angle
         self.aspectRatio = aspectRatio
     }

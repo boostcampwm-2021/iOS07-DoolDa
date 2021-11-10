@@ -13,10 +13,10 @@ class TextComponentEntity: ComponentEntity {
     @Published var fontSize: CGFloat
     @Published var fontColor: FontColorType
     
-    init(origin: CGPoint, size: CGSize, angle: CGFloat, aspectRatio: CGFloat, text: String, fontSize: CGFloat, fontColor: FontColorType) {
+    init(origin: CGPoint, size: CGSize, scale: CGFloat, angle: CGFloat, aspectRatio: CGFloat, text: String, fontSize: CGFloat, fontColor: FontColorType) {
         self.text = text
         self.fontSize = fontSize
         self.fontColor = fontColor
-        super.init(origin: origin, size: size, angle: angle, aspectRatio: aspectRatio)
+        super.init(origin: origin, size: size, scale: scale, angle: angle, aspectRatio: aspectRatio)
     }
 }
