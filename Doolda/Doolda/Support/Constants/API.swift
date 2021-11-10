@@ -31,7 +31,7 @@ extension FirebaseAPIs {
 }
 
 extension FirebaseAPIs {
-    var path: String {
+    var path: String? {
         switch self {
         case .getUserDocuement(let userId), .patchUserDocuement(let userId, _):
             return "documents/user/\(userId)"
@@ -41,7 +41,7 @@ extension FirebaseAPIs {
             return "documents/pair/\(pairId)"
         case .createPairDocument:
             return "documents/pair"
-        default: return ""
+        default: return nil
         }
     }
 }
