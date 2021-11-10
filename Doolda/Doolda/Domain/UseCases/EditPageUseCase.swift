@@ -96,7 +96,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         guard let rawPage = self.rawPage,
               let selectedComponent = self.selectedComponent,
               let indexOfSelectedComponent = rawPage.indexOf(component: selectedComponent) else { return }
-        let targetIndex = indexOfSelectedComponent + 1 < rawPage.numberOfComponents ? indexOfSelectedComponent + 1 : rawPage.numberOfComponents
+        let targetIndex = indexOfSelectedComponent + 1 < rawPage.numberOfComponents ? indexOfSelectedComponent + 1 : rawPage.numberOfComponents - 1
         self.rawPage?.swapAt(at: indexOfSelectedComponent, with: targetIndex)
     }
 
@@ -159,6 +159,5 @@ class EditPageUseCase: EditPageUseCaseProtocol {
                     .store(in: &self.cancellables)
             }
             .store(in: &self.cancellables)
-
     }
 }
