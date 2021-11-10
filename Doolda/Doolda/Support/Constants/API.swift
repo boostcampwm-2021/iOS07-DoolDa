@@ -28,6 +28,9 @@ extension FirebaseAPIs {
             return URL(string: "https://firestore.googleapis.com/v1/projects/doolda/databases/(default)/")
         }
     }
+    var storage: URL? {
+        return URL(string: "https://firebasestorage.googleapis.com/v0/b/doolda.appspot.com/o/")
+    }
 }
 
 extension FirebaseAPIs {
