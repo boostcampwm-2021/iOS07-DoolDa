@@ -140,6 +140,7 @@ class BottomSheetViewController: UIViewController {
     
     private func showBottomSheet(duration: CGFloat = 0.25, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: duration) {
+            self.body.frame.origin = CGPoint(x: self.body.frame.origin.x, y: self.detent.calculateHeight(baseView: self.view))
             self.body.snp.updateConstraints { make in
                 make.top.equalToSuperview().offset(self.detent.calculateHeight(baseView: self.view))
             }
@@ -174,9 +175,7 @@ class BottomSheetViewController: UIViewController {
             if translation.y > 0 &&
                self.body.frame.height > self.bottomSheetMinHeight &&
                bottomSheetHeight + translation.y > self.bottomSheetPanMinMoveConstant {
-                self.body.snp.updateConstraints { make in
-                    make.top.equalToSuperview().offset(bottomSheetHeight + translation.y)
-                }
+                self.body.frame.origin = CGPoint(x: self.body.frame.origin.x, y: bottomSheetHeight + translation.y)
             }
         case .ended, .possible:
             if translation.y > self.bottomSheetPanMinCloseConstant {
