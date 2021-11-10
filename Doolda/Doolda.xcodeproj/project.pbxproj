@@ -72,6 +72,7 @@
 		310D81332733CD5400F15F4F /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81472733F56700F15F4F /* DiaryViewController.swift */; };
 		319C21CA273B9703009CE65C /* FileDocuments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21C9273B9703009CE65C /* FileDocuments.swift */; };
+		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
 		319C21DE273BD791009CE65C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAF27367AFD00C918A0 /* API.swift */; };
 		319C21DF273BD791009CE65C /* URLSessionNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FA92736088100C918A0 /* URLSessionNetworkService.swift */; };
@@ -243,6 +244,7 @@
 		310D81252733C7FC00F15F4F /* SplashViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModelTest.swift; sourceTree = "<group>"; };
 		310D81472733F56700F15F4F /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		319C21C9273B9703009CE65C /* FileDocuments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDocuments.swift; sourceTree = "<group>"; };
+		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkServiceTest.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -696,6 +698,7 @@
 				FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */,
 				1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */,
 				1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */,
+				319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -1313,6 +1316,7 @@
 				FC822FAA2736088100C918A0 /* URLSessionNetworkService.swift in Sources */,
 				FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */,
 				310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */,
+				319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */,
 				1DE5E53E273929CE004F794F /* EditPageUseCase.swift in Sources */,
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
 				1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */,
