@@ -5,6 +5,7 @@
 //  Created by 정지승 on 2021/11/09.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -51,8 +52,8 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         return viewController
     }()
     
-    private lazy var photoPickerViewController: FramePickerViewController = {
-        let viewController = FramePickerViewController(framePickerViewControllerDelegate: self)
+    private lazy var photoPickerViewController: PhotoPickerViewController = {
+        let viewController = PhotoPickerViewController()
         return viewController
     }()
     
@@ -70,6 +71,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     // MARK: - Private Properties
     
+    private var cancellables = Set<AnyCancellable>()
     private var currentContentViewController: UIViewController?
     
     // MARK: - Lifecycle Methods
@@ -78,6 +80,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         super.viewDidLoad()
         
         configureUI()
+        bindUI()
         
         setChildViewController(child: self.framePickerViewController)
     }
@@ -111,6 +114,16 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         }
     }
     
+    private func bindUI() {
+        self.nextButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.setChildViewController(child: self.photoPickerViewController)
+            }
+            .store(in: &cancellables)
+    }
+    
     // MARK: - Private Method
     
     private func setChildViewController(child viewController: UIViewController) {
@@ -131,6 +144,6 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
 
 extension PhotoPickerBottomSheetViewController: FramePickerViewControllerDelegate {
     func photoFrameDidChange(_ photoFrameType: PhotoFrameType) {
-        
+        // FIXME : 
     }
 }
