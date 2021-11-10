@@ -23,7 +23,7 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    private lazy var orderLabel: UILabel = {
+    private lazy var selectedOrderLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Dovemayo", size: 16)
         label.textColor = .dooldaLabel
@@ -32,14 +32,9 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         label.layer.borderWidth = 2
         label.layer.borderColor = UIColor.white.withAlphaComponent(0.4).cgColor
         label.backgroundColor = .white.withAlphaComponent(0.4)
-        label.layer.cornerRadius = self.orderLabelSize / 2
         label.clipsToBounds = true
         return label
     }()
-    
-    // MARK: - Private Properties
-    
-    private let orderLabelSize = 28.0
     
     // MARK: - Initializer
     
@@ -61,9 +56,9 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
             make.edges.equalToSuperview()
         }
         
-        self.addSubview(self.orderLabel)
-        self.orderLabel.snp.makeConstraints { make in
-            make.width.height.equalTo(self.orderLabelSize)
+        self.addSubview(self.selectedOrderLabel)
+        self.selectedOrderLabel.snp.makeConstraints { make in
+            make.width.height.equalTo(28)
             make.trailing.equalToSuperview().offset(-15)
             make.top.equalToSuperview().offset(15)
         }
