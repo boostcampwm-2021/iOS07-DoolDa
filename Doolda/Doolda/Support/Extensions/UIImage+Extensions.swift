@@ -14,4 +14,10 @@ extension UIImage {
     static let controlForward = UIImage(named: "controlForward")
     static let controlDelete = UIImage(named: "controlDelete")
     static let controlTransfer = UIImage(named: "controlTransfer")
+    static let xmark = UIImage(systemName: "xmark")
+    static let checkmark = UIImage(systemName: "checkmark")
+    static let photo = UIImage(systemName: "photo")
+    static let textformat = UIImage(systemName: "textformat")
+    static let sticker = UIImage(systemName: "face.smiling")
+    static let background = UIImage(systemName: "doc")
 }
