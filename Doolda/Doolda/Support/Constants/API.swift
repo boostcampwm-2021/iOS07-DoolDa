@@ -78,9 +78,9 @@ extension FirebaseAPIs {
     var headers: [String : String]? {
         switch self {
         case .createStorageFile:
-            return ["application/octet-stream": "Content-Type"]
+            return ["Content-Type": "application/octet-stream"]
         default :
-            return ["application/json": "Content-Type", "application/json": "Accept"]
+            return ["Content-Type": "application/json", "Accept": "application/json"]
         }
     }
 }
