@@ -9,6 +9,6 @@ import Combine
 import Foundation
 
 protocol ImageRepositoryProtocol {
-    func saveLocal(imageData: Data) -> AnyPublisher<URL, Never>
-    func saveRemote(user: User, imageData: Data) -> AnyPublisher<URL, Error>
+    func saveLocal(imageData: Data, fileName: String) -> AnyPublisher<URL, Never>
+    func saveRemote(user: User, imageData: Data, fileName: String) -> AnyPublisher<URL, Error>
 }
