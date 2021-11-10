@@ -7,6 +7,17 @@
 
 import Combine
 import CoreGraphics
+import Foundation
+
+enum EditPageUseCaseError: LocalizedError {
+    case rawPageNotFound
+    
+    var errorDescription: String? {
+        switch self {
+        case .rawPageNotFound: return "편집중인 페이지를 찾을 수 없습니다."
+        }
+    }
+}
 
 protocol EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
@@ -21,13 +32,13 @@ protocol EditPageUseCaseProtocol {
     func removeComponent()
     func addComponent(_ component: ComponentEntity)
     func changeBackgroundType(_ backgroundType: BackgroundType)
-    func savePage() -> AnyPublisher<Void, Error>
+    func savePage(author: User) -> AnyPublisher<Void, Error>
 }
 
 class EditPageUseCase: EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
     var rawPagePublisher: Published<RawPageEntity?>.Publisher { self.$rawPage }
-
+    
     private var cancellables: Set<AnyCancellable> = []
     @Published private var selectedComponent: ComponentEntity?
     @Published private var rawPage: RawPageEntity?
@@ -48,7 +59,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
                 guard let self = self else { return }
                 self.selectedComponent = self.selectedComponent
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
     }
 
     func selectComponent(at point: CGPoint) {
@@ -104,9 +115,14 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         self.rawPage?.backgroundType = backgroundType
     }
 
-    func savePage() {
-        <#code#>
+    func savePage(author: User) -> AnyPublisher<Void, Error> {
+        guard let page = self.rawPage else { return Fail(error: EditPageUseCaseError.rawPageNotFound).eraseToAnyPublisher() }
+        let currentTime = Date()
+        let path = DateFormatter.jsonPathFormatter.string(from: currentTime)
+        let metaData = PageEntity(author: author, timeStamp: currentTime, jsonPath: path)
+        
+        return Publishers.Zip(pageRepository.savePage(metaData), rawPageRepository.saveRawPage(page))
+            .map { _ in return () }
+            .eraseToAnyPublisher()
     }
-    
-    
 }
