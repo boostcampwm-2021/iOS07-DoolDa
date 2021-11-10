@@ -19,7 +19,7 @@ final class PhotoPickerViewController: UIViewController {
         flowLayout.sectionInset = .zero
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.register(PhotoPickerCollectionViewCell.self, forCellWithReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellId)
+        collectionView.register(PhotoPickerCollectionViewCell.self, forCellWithReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -65,7 +65,7 @@ extension PhotoPickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier, for: indexPath)
         
         if let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell {
             return photoPickerCollectionViewCell
