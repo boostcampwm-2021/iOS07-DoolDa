@@ -34,10 +34,10 @@ extension UIAlertController {
             message: "페이지를 저장하지 않고 나갈 시, 작성한 내용은 저장되지 않습니다.",
             preferredStyle: .alert
         )
-        let refreshAlertAction = UIAlertAction(title: "취소", style: .default)
+        let cancelAlertAction = UIAlertAction(title: "취소", style: .default)
         let exitAlertAction = UIAlertAction(title: "나가기", style: .destructive, handler: cancelAction)
 
-        alert.addAction(refreshAlertAction)
+        alert.addAction(cancelAlertAction)
         alert.addAction(exitAlertAction)
         return alert
     }
@@ -48,11 +48,11 @@ extension UIAlertController {
             message: "페이지를 저장하시겠습니까?, 저장 후 더 이상 편집할 수 없습니다'",
             preferredStyle: .alert
         )
-        let refreshAlertAction = UIAlertAction(title: "취소", style: .default)
-        let exitAlertAction = UIAlertAction(title: "저장", style: .destructive, handler: saveAction)
+        let cancelAlertAction = UIAlertAction(title: "취소", style: .default)
+        let saveAlertAction = UIAlertAction(title: "저장", style: .destructive, handler: saveAction)
 
-        alert.addAction(refreshAlertAction)
-        alert.addAction(exitAlertAction)
+        alert.addAction(cancelAlertAction)
+        alert.addAction(saveAlertAction)
         return alert
     }
 }

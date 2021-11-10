@@ -19,7 +19,7 @@ class EditPageViewController: UIViewController {
     
     private lazy var cancelBarButtonItem: UIBarButtonItem = {
         var barButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "xmark"),
+            image: .xmark,
             style: .plain,
             target: self,
             action: #selector(cancelButtonDidTap)
@@ -29,7 +29,7 @@ class EditPageViewController: UIViewController {
     
     private lazy var saveBarButtonItem: UIBarButtonItem = {
         var barButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "checkmark"),
+            image: .checkmark,
             style: .plain,
             target: self,
             action: #selector(saveButtonDidTap)
@@ -46,25 +46,25 @@ class EditPageViewController: UIViewController {
     
     private lazy var addPhotoComponentButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
-        button.setImage(UIImage(systemName: "photo"), for: .normal)
+        button.setImage(.photo, for: .normal)
         return button
     }()
     
     private lazy var addTextComponentButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
-        button.setImage(UIImage(systemName: "textformat"), for: .normal)
+        button.setImage(.textformat, for: .normal)
         return button
     }()
     
     private lazy var addStickerComponentButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
-        button.setImage(UIImage(systemName: "face.smiling"), for: .normal)
+        button.setImage(.sticker, for: .normal)
         return button
     }()
     
     private lazy var changeBackgroundTypeButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
-        button.setImage(UIImage(systemName: "doc"), for: .normal)
+        button.setImage(.background, for: .normal)
         return button
     }()
     
@@ -126,8 +126,9 @@ class EditPageViewController: UIViewController {
     
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:
-                                                                            UIFont(name: "Dovemayo", size: 17) as Any]
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "Dovemayo", size: 17) as Any
+        ]
         self.title = "새 페이지"
         self.navigationItem.rightBarButtonItem = self.saveBarButtonItem
         self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem
@@ -229,9 +230,7 @@ extension EditPageViewController: ComponentViewDelegate {
             componentView.controls.forEach { $0.transform  = controlTransform }
 
             contentView.layer.borderWidth = 1 / scale
-        case .ended:
-            fallthrough
-        case .possible:
+        case .ended, .possible:
             savedScale = scale
         default:
             break

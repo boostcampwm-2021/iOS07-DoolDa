@@ -8,7 +8,6 @@
 import UIKit
 
 class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
-    
     var presenter: UINavigationController
     private let user: User
     
