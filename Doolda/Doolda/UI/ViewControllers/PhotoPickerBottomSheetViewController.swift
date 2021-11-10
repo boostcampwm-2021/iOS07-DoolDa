@@ -1,5 +1,5 @@
 //
-//  PhotoPickerViewController.swift
+//  PhotoPickerBottomSheetViewController.swift
 //  Doolda
 //
 //  Created by 정지승 on 2021/11/09.
@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class PhotoPickerViewController: BottomSheetViewController {
+final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     // MARK: - Subviews
     
@@ -47,6 +47,11 @@ final class PhotoPickerViewController: BottomSheetViewController {
     }()
     
     private lazy var framePickerViewController: FramePickerViewController = {
+        let viewController = FramePickerViewController(framePickerViewControllerDelegate: self)
+        return viewController
+    }()
+    
+    private lazy var photoPickerViewController: FramePickerViewController = {
         let viewController = FramePickerViewController(framePickerViewControllerDelegate: self)
         return viewController
     }()
@@ -124,7 +129,7 @@ final class PhotoPickerViewController: BottomSheetViewController {
     }
 }
 
-extension PhotoPickerViewController: FramePickerViewControllerDelegate {
+extension PhotoPickerBottomSheetViewController: FramePickerViewControllerDelegate {
     func photoFrameDidChange(_ photoFrameType: PhotoFrameType) {
         
     }
