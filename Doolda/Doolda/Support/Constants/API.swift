@@ -75,6 +75,17 @@ extension FirebaseAPIs {
 }
 
 extension FirebaseAPIs {
+    var headers: [String : String]? {
+        switch self {
+        case .createStorageFile:
+            return ["application/octet-stream": "Content-Type"]
+        default :
+            return ["application/json": "Content-Type", "application/json": "Accept"]
+        }
+    }
+}
+
+extension FirebaseAPIs {
     var body: [String: Any]? {
         switch self {
         case .getUserDocuement, .getPairDocument, .createStorageFile:
