@@ -11,8 +11,8 @@ import Foundation
 class StickerComponentEntity: ComponentEntity {
     var name: String
 
-    init(origin: CGPoint, size: CGSize, angle: CGFloat, aspectRatio: CGFloat, name: String) {
+    init(origin: CGPoint, size: CGSize, scale: CGFloat, angle: CGFloat, aspectRatio: CGFloat, name: String) {
         self.name = name
-        super.init(origin: origin, size: size, angle: angle, aspectRatio: aspectRatio)
+        super.init(origin: origin, size: size, scale: scale, angle: angle, aspectRatio: aspectRatio)
     }
 }
