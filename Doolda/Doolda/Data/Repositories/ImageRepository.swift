@@ -17,12 +17,12 @@ class ImageRepository: ImageRepositoryProtocol {
         self.urlSessionNetworkService = networkService
     }
 
-    func saveLocal(imageData: Data) -> AnyPublisher<URL, Never> {
+    func saveLocal(imageData: Data, fileName: String) -> AnyPublisher<URL, Never> {
         
         return Just(URL(string: "")!).eraseToAnyPublisher()
     }
 
-    func saveRemote(user: User, imageData: Data) -> AnyPublisher<URL, Error> {
+    func saveRemote(user: User, imageData: Data, fileName: String) -> AnyPublisher<URL, Error> {
         return Just(URL(string: "")!).tryMap{ $0 }.eraseToAnyPublisher()
     }
 
