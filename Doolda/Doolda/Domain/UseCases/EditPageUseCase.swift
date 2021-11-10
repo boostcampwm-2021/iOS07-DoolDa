@@ -23,7 +23,7 @@ protocol EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
     var rawPagePublisher: Published<RawPageEntity?>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
-    var resultPublisher: Published<Void>.Publisher { get }
+    var resultPublisher: Published<Void?>.Publisher { get }
     
     func selectComponent(at point: CGPoint)
     func moveComponent(to point: CGPoint)
@@ -41,13 +41,13 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
     var rawPagePublisher: Published<RawPageEntity?>.Publisher { self.$rawPage }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
-    var resultPublisher: Published<Void>.Publisher { self.$result }
+    var resultPublisher: Published<Void?>.Publisher { self.$result }
     
     private var cancellables: Set<AnyCancellable> = []
     @Published private var selectedComponent: ComponentEntity?
     @Published private var rawPage: RawPageEntity?
     @Published private var error: Error?
-    @Published private var result: Void = ()
+    @Published private var result: Void?
     
     private let imageUseCase: ImageUseCaseProtocol
     private let pageRepository: PageRepositoryProtocol
@@ -131,12 +131,12 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         
         let imageUploadPublishers = page.components
             .compactMap { $0 as? PhotoComponentEntity }
-            .map { [weak self] photoComponent -> AnyPublisher<Void, Error> in
+            .map { [weak self] photoComponent -> AnyPublisher<URL, Error> in
                 guard let self = self else { return Fail(error: EditPageUseCaseError.rawPageNotFound).eraseToAnyPublisher() }
                 return self.imageUseCase.saveRemote(for: author, localUrl: photoComponent.imageUrl)
-                    .map {
-                        photoComponent.imageUrl = $0
-                        return ()
+                    .map { remoteUrl in
+                        photoComponent.imageUrl = remoteUrl
+                        return remoteUrl
                     }
                     .eraseToAnyPublisher()
             }
