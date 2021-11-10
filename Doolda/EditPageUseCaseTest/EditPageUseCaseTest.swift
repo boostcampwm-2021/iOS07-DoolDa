@@ -250,176 +250,322 @@ class EditPageUseCaseTest: XCTestCase {
         XCTAssertNil(result)
     }
     
-    func testSelectComponentWithOrigin() {
+    func testSelectComponentWithOriginSuccess() {
         let editPageUseCase = EditPageUseCase(
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
         )
         
-        let expectation = self.expectation(description: "testSelectComponentWithOrigin")
+        let expectation = self.expectation(description: "testSelectComponentWithOriginSuccess")
 
         let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
         editPageUseCase.addComponent(targetComponent)
         
         var result: ComponentEntity?
         
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
         editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
-        editPageUseCase.selectedComponentPublisher
-            .sink { component in
-                result = component
-                expectation.fulfill()
-            }
-            .store(in: &self.cancellables)
         
         waitForExpectations(timeout: 5)
             
         XCTAssertEqual(result, targetComponent)
     }
     
-    func testSelectComponentWithRightTop() {
+    func testSelectComponentWithRightTopSuccess() {
         let editPageUseCase = EditPageUseCase(
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
         )
         
-        let expectation = self.expectation(description: "testSelectComponentWithRightTop")
+        let expectation = self.expectation(description: "testSelectComponentWithRightTopSuccess")
 
         let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
         editPageUseCase.addComponent(targetComponent)
         
         var result: ComponentEntity?
         
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
         editPageUseCase.selectComponent(at: CGPoint(x: 9.9, y: 0))
-        editPageUseCase.selectedComponentPublisher
-            .sink { component in
-                result = component
-                expectation.fulfill()
-            }
-            .store(in: &self.cancellables)
         
         waitForExpectations(timeout: 5)
             
         XCTAssertEqual(result, targetComponent)
     }
     
-    func testSelectComponentWithLeftBottom() {
+    func testSelectComponentWithRightTopFailure() {
         let editPageUseCase = EditPageUseCase(
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
         )
         
-        let expectation = self.expectation(description: "testSelectComponentWithLeftBottom")
+        let expectation = self.expectation(description: "testSelectComponentWithRightTopFailure")
 
         let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
         editPageUseCase.addComponent(targetComponent)
         
         var result: ComponentEntity?
         
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 10, y: 0))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertNil(result)
+    }
+    
+    func testSelectComponentWithLeftBottomSuccess() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectComponentWithLeftBottomSuccess")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
         editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 9.9))
-        editPageUseCase.selectedComponentPublisher
-            .sink { component in
-                result = component
-                expectation.fulfill()
-            }
-            .store(in: &self.cancellables)
         
         waitForExpectations(timeout: 5)
             
         XCTAssertEqual(result, targetComponent)
     }
     
-    func testSelectComponentWithRightBotom() {
+    func testSelectComponentWithLeftBottomFailure() {
         let editPageUseCase = EditPageUseCase(
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
         )
         
-        let expectation = self.expectation(description: "testSelectComponentWithRightBotom")
+        let expectation = self.expectation(description: "testSelectComponentWithLeftBottomFailure")
 
         let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
         editPageUseCase.addComponent(targetComponent)
         
         var result: ComponentEntity?
         
-        editPageUseCase.selectComponent(at: CGPoint(x: 9.9, y: 9.9))
         editPageUseCase.selectedComponentPublisher
+            .dropFirst()
             .sink { component in
                 result = component
                 expectation.fulfill()
             }
             .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 10))
         
         waitForExpectations(timeout: 5)
             
-        XCTAssertEqual(result, targetComponent)
+        XCTAssertNil(result)
     }
     
-    func testSelectScaledComponentWithRightBotom() {
+    func testSelectComponentWithRightBotomSuccess() {
         let editPageUseCase = EditPageUseCase(
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
         )
         
-        let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotom")
+        let expectation = self.expectation(description: "testSelectComponentWithRightBotomSuccess")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 9.9, y: 9.9))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testSelectComponentWithRightBotomFailure() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectComponentWithRightBotomFailure")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 10, y: 10))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertNil(result)
+    }
+    
+    func testSelectScaledComponentWithRightBotomSuccess() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotomSuccess")
 
         let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 2, angle: 0, aspectRatio: 1)
         editPageUseCase.addComponent(targetComponent)
         
         var result: ComponentEntity?
         
-        editPageUseCase.selectComponent(at: CGPoint(x: 14.9, y: 14.9))
         editPageUseCase.selectedComponentPublisher
+            .dropFirst()
             .sink { component in
                 result = component
                 expectation.fulfill()
             }
             .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 14.9, y: 14.9))
         
         waitForExpectations(timeout: 5)
             
         XCTAssertEqual(result, targetComponent)
     }
     
-    func testSelectRotatedComponentWithRightBotom() {
+    func testSelectScaledComponentWithRightBotomFailure() {
         let editPageUseCase = EditPageUseCase(
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
         )
         
-        let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotom")
+        let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotomFailure")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 2, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 15, y: 15))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertNil(result)
+    }
+    
+    func testSelectRotatedComponentWithRightBotomSuccess() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectRotatedComponentWithRightBotomSuccess")
 
         let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 5, height: 10), scale: 1, angle: CGFloat(90).degreeToRadian, aspectRatio: 1)
         editPageUseCase.addComponent(targetComponent)
         
         var result: ComponentEntity?
         
-        editPageUseCase.selectComponent(at: CGPoint(x: 7.5, y: 7.4))
         editPageUseCase.selectedComponentPublisher
+            .dropFirst()
             .sink { component in
                 result = component
                 expectation.fulfill()
             }
             .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 7.4, y: 7.4))
         
         waitForExpectations(timeout: 5)
             
         XCTAssertEqual(result, targetComponent)
     }
     
-    func testSelectOneAmongComponents() {
+    func testSelectRotatedComponentWithRightBotomFailure() {
         let editPageUseCase = EditPageUseCase(
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
         )
         
-        let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotom")
+        let expectation = self.expectation(description: "testSelectRotatedComponentWithRightBotomFailure")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 5, height: 10), scale: 1, angle: CGFloat(90).degreeToRadian, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 7.5, y: 7.5))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertNil(result)
+    }
+    
+    func testSelectOneAmongComponentsSuccess() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectOneAmongComponentsSuccess")
 
         let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 5, height: 10), scale: 1, angle: CGFloat(90).degreeToRadian, aspectRatio: 1)
         editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 2, angle: 0, aspectRatio: 1))
@@ -428,16 +574,107 @@ class EditPageUseCaseTest: XCTestCase {
         
         var result: ComponentEntity?
         
-        editPageUseCase.selectComponent(at: CGPoint(x: 7.5, y: 7.4))
         editPageUseCase.selectedComponentPublisher
+            .dropFirst()
             .sink { component in
                 result = component
                 expectation.fulfill()
             }
             .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 7.4, y: 7.4))
         
         waitForExpectations(timeout: 5)
             
         XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testSelectOneAmongComponentsFailure() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectOneAmongComponentsFailure")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 5, height: 10), scale: 1, angle: CGFloat(90).degreeToRadian, aspectRatio: 1)
+        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 2, angle: 0, aspectRatio: 1))
+        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1))
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 7.5, y: 7.5))
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertNotEqual(result, targetComponent)
+    }
+    
+    func testMoveSelectedComponentSuccess() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testMoveSelectedComponentSuccess")
+        
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 9.9, y: 9.9))
+        editPageUseCase.moveComponent(to: CGPoint(x: 10, y: 10))
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 10, y: 10))
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testMoveSelectedComponentFailure() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testMoveSelectedComponentFailure")
+        
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 9.9, y: 9.9))
+        editPageUseCase.moveComponent(to: CGPoint(x: 10, y: 10))
+        editPageUseCase.selectedComponentPublisher
+            .dropFirst()
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 20, y: 20))
+        
+        waitForExpectations(timeout: 5)
+        
+        XCTAssertNil(result)
     }
 }
