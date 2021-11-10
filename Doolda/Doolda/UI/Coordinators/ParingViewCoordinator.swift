@@ -44,7 +44,10 @@ class PairingViewCoordinator: PairingViewCoordinatorProtocol {
     }
     
     func userDidPaired(user: User) {
-        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, user: user)
-        diaryViewCoordinator.start()
+        // FIXME : should change to diaryViewController
+//        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, user: user)
+//        diaryViewCoordinator.start()
+        let editPageViewCoordinator = EditPageViewCoordinator(presenter: self.presenter, user: user)
+        editPageViewCoordinator.start()
     }
 }
