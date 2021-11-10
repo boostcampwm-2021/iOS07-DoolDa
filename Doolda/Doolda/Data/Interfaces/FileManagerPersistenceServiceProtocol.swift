@@ -11,14 +11,3 @@ import Foundation
 protocol FileManagerPersistenceServiceProtocol {
     func save(data: Data, at documentsUrl: URL, fileName: String) -> AnyPublisher<Data, Error>
 }
-
-//class temp {
-//    func test() {
-//        let data: Data = Data()
-//        let t = NSData(data: data)
-//        let object = NSObject()
-//        
-//        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        let url2 = FileManager.default.temporaryDirectory
-//    }
-//}
