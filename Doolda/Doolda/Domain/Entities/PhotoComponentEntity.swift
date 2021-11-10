@@ -11,8 +11,8 @@ import Foundation
 class PhotoComponentEntity: ComponentEntity {
     var imageUrl: URL
 
-    init(origin: CGPoint, size: CGSize, scale: CGFloat, angle: CGFloat, aspectRatio: CGFloat, imageUrl: URL) {
+    init(frame: CGRect, scale: CGFloat, angle: CGFloat, aspectRatio: CGFloat, imageUrl: URL) {
         self.imageUrl = imageUrl
-        super.init(origin: origin, size: size, scale: scale, angle: angle, aspectRatio: aspectRatio)
+        super.init(frame: frame, scale: scale, angle: angle, aspectRatio: aspectRatio)
     }
 }
