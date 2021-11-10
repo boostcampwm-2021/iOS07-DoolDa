@@ -112,7 +112,7 @@ class EditPageUseCaseTest: XCTestCase {
                 error = encounteredError
                 expectation.fulfill()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         editPageUseCase.resultPublisher
             .compactMap { $0 }
@@ -120,7 +120,7 @@ class EditPageUseCaseTest: XCTestCase {
                 result = encounteredResult
                 expectation.fulfill()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         waitForExpectations(timeout: 5)
         
@@ -153,14 +153,14 @@ class EditPageUseCaseTest: XCTestCase {
                 error = encounteredError
                 expectation.fulfill()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         editPageUseCase.resultPublisher
             .compactMap { $0 }
             .sink { encounteredResult in
                 result = encounteredResult
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         waitForExpectations(timeout: 5)
         
@@ -193,7 +193,7 @@ class EditPageUseCaseTest: XCTestCase {
                 error = encounteredError
                 expectation.fulfill()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         editPageUseCase.resultPublisher
             .compactMap { $0 }
@@ -201,7 +201,7 @@ class EditPageUseCaseTest: XCTestCase {
                 result = encounteredResult
                 expectation.fulfill()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         waitForExpectations(timeout: 5)
         
@@ -234,7 +234,7 @@ class EditPageUseCaseTest: XCTestCase {
                 error = encounteredError
                 expectation.fulfill()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         editPageUseCase.resultPublisher
             .compactMap { $0 }
@@ -242,11 +242,202 @@ class EditPageUseCaseTest: XCTestCase {
                 result = encounteredResult
                 expectation.fulfill()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         waitForExpectations(timeout: 5)
         
         XCTAssertNotNil(error)
         XCTAssertNil(result)
+    }
+    
+    func testSelectComponentWithOrigin() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectComponentWithOrigin")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
+        editPageUseCase.selectedComponentPublisher
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testSelectComponentWithRightTop() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectComponentWithRightTop")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 9.9, y: 0))
+        editPageUseCase.selectedComponentPublisher
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testSelectComponentWithLeftBottom() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectComponentWithLeftBottom")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 9.9))
+        editPageUseCase.selectedComponentPublisher
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testSelectComponentWithRightBotom() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectComponentWithRightBotom")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 9.9, y: 9.9))
+        editPageUseCase.selectedComponentPublisher
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testSelectScaledComponentWithRightBotom() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotom")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 2, angle: 0, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 14.9, y: 14.9))
+        editPageUseCase.selectedComponentPublisher
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testSelectRotatedComponentWithRightBotom() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotom")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 5, height: 10), scale: 1, angle: CGFloat(90).degreeToRadian, aspectRatio: 1)
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 7.5, y: 7.4))
+        editPageUseCase.selectedComponentPublisher
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, targetComponent)
+    }
+    
+    func testSelectOneAmongComponents() {
+        let editPageUseCase = EditPageUseCase(
+            imageUseCase: DummyImageUseCase(isSuccessMode: true),
+            pageRepository: DummyPageRepository(isSuccessMode: true),
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotom")
+
+        let targetComponent = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 5, height: 10), scale: 1, angle: CGFloat(90).degreeToRadian, aspectRatio: 1)
+        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 2, angle: 0, aspectRatio: 1))
+        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1.0, angle: 0, aspectRatio: 1))
+        editPageUseCase.addComponent(targetComponent)
+        
+        var result: ComponentEntity?
+        
+        editPageUseCase.selectComponent(at: CGPoint(x: 7.5, y: 7.4))
+        editPageUseCase.selectedComponentPublisher
+            .sink { component in
+                result = component
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 5)
+            
+        XCTAssertEqual(result, targetComponent)
     }
 }
