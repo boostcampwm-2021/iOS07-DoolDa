@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIAlertController {
+    // FIXME : alert 일반화 하기
     static func networkAlert(refreshAction: @escaping (UIAlertAction) -> Void) -> UIAlertController {
         let alert = UIAlertController(title: "네트워크 오류",
                                       message: "Wifi나 3G/LTE/5G를 연결 후 재시도 해주세요🙏",
