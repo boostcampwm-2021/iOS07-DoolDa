@@ -25,6 +25,8 @@ struct RawPageEntity {
     }
     
     mutating func swapAt(at index: Int, with anotherIndex: Int) {
+        guard (0..<self.numberOfComponents).contains(index),
+              (0..<self.numberOfComponents).contains(anotherIndex) else { return }
         self.components.swapAt(index, anotherIndex)
     }
     
