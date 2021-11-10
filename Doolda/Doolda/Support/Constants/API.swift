@@ -21,10 +21,12 @@ enum FirebaseAPIs: URLRequestBuilder {
 
 extension FirebaseAPIs {
     var baseURL: URL? {
-        return URL(string: "https://firestore.googleapis.com/v1/projects/doolda/databases/(default)/")
-    }
-    var storage: URL? {
-        return URL(string: "https://firebasestorage.googleapis.com/v0/b/doolda.appspot.com/o/")
+        switch self {
+        case .createStorageFile(let pairId, let fileName, _):
+            return URL(string: "https://firebasestorage.googleapis.com/v0/b/doolda.appspot.com/o/\(pairId)%2F\(fileName)")
+        default:
+            return URL(string: "https://firestore.googleapis.com/v1/projects/doolda/databases/(default)/")
+        }
     }
 }
 
@@ -39,8 +41,7 @@ extension FirebaseAPIs {
             return "documents/pair/\(pairId)"
         case .createPairDocument:
             return "documents/pair"
-        case .createStorageFile(let pairId, let fileName, _):
-            return "\(pairId)%2F\(fileName)?alt=media"
+        default: return ""
         }
     }
 }
@@ -55,7 +56,7 @@ extension FirebaseAPIs {
         case .patchUserDocuement, .patchPairDocument:
             return ["currentDocument.exists": "true"]
         case .createStorageFile:
-            return nil
+            return ["alt": "media"]
         }
     }
 }
