@@ -17,25 +17,16 @@ class EditPageViewController: UIViewController {
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var contentView: UIView = UIView()
     
-    private lazy var cancelBarButtonItem: UIBarButtonItem = {
-        var barButtonItem = UIBarButtonItem(
-            image: .xmark,
-            style: .plain,
-            target: self,
-            action: #selector(cancelButtonDidTap)
-        )
-        return barButtonItem
+    private lazy var cancelButton: UIButton = {
+        var button = UIButton()
+        button.setImage(.xmark, for: .normal)
+        return button
     }()
     
-    // FIXME : bind with UIButton
-    private lazy var saveBarButtonItem: UIBarButtonItem = {
-        var barButtonItem = UIBarButtonItem(
-            image: .checkmark,
-            style: .plain,
-            target: self,
-            action: #selector(saveButtonDidTap)
-        )
-        return barButtonItem
+    private lazy var saveButton: UIButton = {
+        var button = UIButton()
+        button.setImage(.checkmark, for: .normal)
+        return button
     }()
     
     private lazy var pageView: UIView = {
@@ -87,6 +78,15 @@ class EditPageViewController: UIViewController {
     
     private var cancellables: Set<AnyCancellable> = []
     private var viewModel: EditPageViewModelProtocol?
+    private var componentViewDictionary: [ComponentEntity: ComponentView] = [:]
+    
+    private var widthRatioFromAbsolute: CGFloat {
+        return self.pageView.frame.size.width / 1700.0
+    }
+    
+    private var heightRatioFromAbsolute: CGFloat {
+        return self.pageView.frame.size.height / 3000.0
+    }
     
     private var scale: CGFloat = 0
     private var savedScale: CGFloat = 1
@@ -107,33 +107,20 @@ class EditPageViewController: UIViewController {
         super.viewDidLoad()
         self.configureUI()
         self.bindUI()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // FIXME : delete tempView
-        let imageView = UIImageView(frame: CGRect(
-            x: 50,
-            y: 50,
-            width: 200,
-            height: 150))
-        imageView.image = UIImage(systemName: "heart.fill")
-        let tempView = ComponentView(component: imageView, delegate: self)
-        self.pageView.addSubview(tempView)
-        tempView.isSelected = true
+        self.bindViewModel()
     }
     
     // MARK: - Helpers
     
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
+        
         self.navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont(name: "Dovemayo", size: 17) as Any
         ]
         self.title = "새 페이지"
-        
-        self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem
-        self.navigationItem.rightBarButtonItem = self.saveBarButtonItem
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.cancelButton)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.saveButton)
 
         self.view.addSubview(self.scrollView)
         self.scrollView.snp.makeConstraints { make in
@@ -167,40 +154,92 @@ class EditPageViewController: UIViewController {
     }
     
     private func bindUI() {
+        self.cancelButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let alert = UIAlertController.cancelEditPageAlert { _ in
+                    self.viewModel?.cancelEditingPageButtonDidTap()
+                }
+                self.present(alert, animated: true)
+            }.store(in: &self.cancellables)
+        
+        self.saveButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let alert = UIAlertController.saveEditPageAlert { _ in
+                    self.viewModel?.saveEditingPageButtonDidTap()
+                }
+                self.present(alert, animated: true)
+            }.store(in: &self.cancellables)
+        
         self.pageView.publisher(for: UITapGestureRecognizer())
             .sink { [weak self] gesture in
                 guard let self = self else { return }
                 let touchCGPoint = gesture.location(in: self.pageView)
-                self.viewModel?.canvasDidTap(at: self.computePoint(at: touchCGPoint))
+                self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
             }.store(in: &self.cancellables)
-        self.viewModel?.selectedComponent
-            .sink{ [weak self] compnentEntity in
+    }
+    
+    private func bindViewModel() {
+        self.viewModel?.selectedComponentPublisher
+            .sink { [weak self] componentEntity in
                 guard let self = self else { return }
-                self.pageView.subviews.compactMap { $0 as? ComponentView }.forEach { $0.isSelected = false }
+                self.componentViewDictionary.values.forEach { $0.isSelected = false }
+                guard let componentEntity = componentEntity,
+                      let componentView = self.componentViewDictionary[componentEntity] else { return }
+                componentView.isSelected = true
+                let computedCGRect = CGRect(
+                    origin: self.computePointFromAbsolute(at: componentEntity.origin),
+                    size: self.computeSizeFromAbsolute(with: componentEntity.size)
+                )
+                componentView.layer.frame = computedCGRect
                 
+                var transform = CGAffineTransform.identity
+                transform = transform.rotated(by: CGFloat(-componentEntity.angle))
+                componentView.transform = transform
+            }.store(in: &self.cancellables)
+        
+        self.viewModel?.componentsPublisher
+            .sink { [weak self] componenets in
+                guard let self = self else { return }
+                self.componentViewDictionary.forEach { key, value in
+                    value.removeFromSuperview()
+                    self.componentViewDictionary[key] = nil
+                }
+                for componentEntity in componenets {
+                    let computedCGRect = CGRect(
+                        origin: self.computePointFromAbsolute(at: componentEntity.origin),
+                        size: self.computeSizeFromAbsolute(with: componentEntity.size)
+                    )
+                    let contentView = UIView(frame: computedCGRect)
+                    let componentView = ComponentView(component: contentView, delegate: self)
+                    self.componentViewDictionary[componentEntity] = componentView
+                }
+            }.store(in: &self.cancellables)
+        
+        self.viewModel?.backgroundPublisher
+            .sink { backgroundType in
+                self.pageView.backgroundColor = UIColor(cgColor: backgroundType.rawValue)
             }.store(in: &self.cancellables)
     }
     
     // MARK: - Private Methods
-    
-    @objc private func cancelButtonDidTap() {
-        let alert = UIAlertController.cancelEditPageAlert { _ in
-            self.viewModel?.cancelEditingPageButtonDidTap()
-        }
-        self.present(alert, animated: true)
-    }
-    
-    @objc private func saveButtonDidTap() {
-        let alert = UIAlertController.saveEditPageAlert { _ in
-            self.viewModel?.saveEditingPageButtonDidTap()
-        }
-        self.present(alert, animated: true)
-    }
-    
-    private func computePoint(at point: CGPoint) -> CGPoint {
-        let computedX = (point.x / self.pageView.frame.width) * 1700
-        let computedY = (point.y / self.pageView.frame.height) * 3000
+    private func computePointToAbsolute(at point: CGPoint) -> CGPoint {
+        let computedX = point.x / self.widthRatioFromAbsolute
+        let computedY = point.y / self.heightRatioFromAbsolute
         return CGPoint(x: computedX, y: computedY)
+    }
+    
+    private func computePointFromAbsolute(at point: CGPoint) -> CGPoint {
+        let computedX = point.x * self.widthRatioFromAbsolute
+        let computedY = point.y * self.heightRatioFromAbsolute
+        return CGPoint(x: computedX, y: computedY)
+    }
+    
+    private func computeSizeFromAbsolute(with size: CGSize) -> CGSize {
+        let computedWidth =  size.width  * self.widthRatioFromAbsolute
+        let computedHeight = size.height  * self.widthRatioFromAbsolute
+        return CGSize(width: computedWidth, height: computedHeight)
     }
 }
 
@@ -233,28 +272,14 @@ extension EditPageViewController: ComponentViewDelegate {
             self.initialDistance = distance
         case .changed:
             let angleDiff = Float(self.deltaAngle) - angle
-            scale = distance / self.initialDistance
-            scale *= savedScale
-            self.viewModel?.componentDidRotate(by: angle)
-            self.viewModel?.componentDidScale(by: scale)
-
-            // viewModel.changeSelectedSclae(scale)
-            // viewModel.changeSelectedRotation(angle) -> usecase에서 실제 컴포넌트에 적용 -> 타고타고내려와서 bind걸린곳에서 실제처리
+            self.scale = distance / self.initialDistance
+            self.scale *= self.savedScale
             
-            // FIXME : should delete this part and bind with viewModel
-            var transform = CGAffineTransform.identity
-            transform = transform.rotated(by: CGFloat(-angleDiff))
-            transform = transform.scaledBy(x: scale, y: scale)
-            componentView.transform = transform
+            self.viewModel?.componentDidRotate(by: CGFloat(angleDiff))
+            self.viewModel?.componentDidScale(by: self.scale)
 
-            let controlTransform = CGAffineTransform.identity.scaledBy(x: 1/scale, y: 1/scale)
-            componentView.controls.forEach { $0.transform  = controlTransform }
-
-            contentView.layer.borderWidth = 1 / scale
-            
-            
         case .ended, .possible:
-            savedScale = scale
+            self.savedScale = self.scale
         default:
             break
         }
@@ -265,16 +290,12 @@ extension EditPageViewController: ComponentViewDelegate {
         switch gesture.state {
         case .began:
             let touchCGPoint = gesture.location(in: self.pageView)
-            self.viewModel?.canvasDidTap(at: self.computePoint(at: touchCGPoint))
+            self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
             
         default:
             let contentViewOriginFromPage = componentView.convert(contentView.layer.frame.origin, to: self.pageView)
-            let computedOrigin = self.computePoint(at: contentViewOriginFromPage)
+            let computedOrigin = self.computePointToAbsolute(at: contentViewOriginFromPage)
             self.viewModel?.componentDidDrag(at: computedOrigin)
-            // FIXME : should delete this part and bind with viewModel
-//            let translation = gesture.translation(in: self.pageView)
-//            componentView.center = CGPoint(x: componentView.center.x + translation.x, y: componentView.center.y + translation.y)
-//            gesture.setTranslation(.zero, in: componentView)
         }
     }
 }
