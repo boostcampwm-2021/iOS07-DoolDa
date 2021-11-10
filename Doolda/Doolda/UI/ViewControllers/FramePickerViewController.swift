@@ -5,16 +5,17 @@
 //  Created by 정지승 on 2021/11/10.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
+protocol FramePickerViewControllerDelegate: AnyObject {
+    func photoFrameDidChange(_ photoFrameType: PhotoFrameType)
+}
+
 final class FramePickerViewController: UIViewController {
 
-    // MARK: - Static Properties
-    
-    static let photoPickerFrameCellId = "photoPickerFrameCellId"
-    
     // MARK: - Subviews
     
     private lazy var photoFrameCollecionView: UICollectionView = {
@@ -27,7 +28,10 @@ final class FramePickerViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: self.carouselInsetX / 2, bottom: 0, right: self.carouselInsetX / 2)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Self.photoPickerFrameCellId)
+        collectionView.register(
+            PhotoFrameCollectionViewCell.self,
+            forCellWithReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellId
+        )
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -35,7 +39,7 @@ final class FramePickerViewController: UIViewController {
     
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.numberOfPages = 5
+        pageControl.numberOfPages = PhotoFrameType.allCases.count
         return pageControl
     }()
     
@@ -43,13 +47,24 @@ final class FramePickerViewController: UIViewController {
     
     private let carouselInsetX: CGFloat = 50.0
     
-    private var currentItemIndex: Int = 0
+    private weak var delegate: FramePickerViewControllerDelegate?
+    private var cancellables = Set<AnyCancellable>()
+    
+    @Published private var currentItemIndex: Int = 0
+    
+    // MARK: - Initializers
+    
+    convenience init(framePickerViewControllerDelegate: FramePickerViewControllerDelegate) {
+        self.init(nibName: nil, bundle: nil)
+        self.delegate = framePickerViewControllerDelegate
+    }
     
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        bindUI()
     }
     
     // MARK: - Helpers
@@ -65,6 +80,16 @@ final class FramePickerViewController: UIViewController {
             make.centerX.bottom.equalToSuperview()
             make.height.equalTo(44)
         }
+    }
+    
+    func bindUI() {
+        self.$currentItemIndex
+            .sink { [weak self] index in
+                guard let self = self else { return }
+                self.pageControl.currentPage = index
+                self.delegate?.photoFrameDidChange(PhotoFrameType.allCases[self.currentItemIndex])
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -102,14 +127,18 @@ extension FramePickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return PhotoFrameType.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Self.photoPickerFrameCellId, for: indexPath)
-        
-        cell.backgroundColor = .orange
-        
-        return cell
+        if let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellId,
+            for: indexPath
+        ) as? PhotoFrameCollectionViewCell {
+            cell.fill(PhotoFrameType.allCases[indexPath.item])
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
     }
 }
