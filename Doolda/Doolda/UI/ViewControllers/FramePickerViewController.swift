@@ -25,7 +25,8 @@ final class FramePickerViewController: UIViewController {
         flowLayout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.decelerationRate = .fast
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: self.carouselInsetX / 2, bottom: 0, right: self.carouselInsetX / 2)
+        let carouselInsetX: CGFloat = 50.0
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: carouselInsetX / 2, bottom: 0, right: carouselInsetX / 2)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(
@@ -44,8 +45,6 @@ final class FramePickerViewController: UIViewController {
     }()
     
     // MARK: - Private Properties
-    
-    private let carouselInsetX: CGFloat = 50.0
     
     private weak var delegate: FramePickerViewControllerDelegate?
     private var cancellables = Set<AnyCancellable>()
@@ -100,7 +99,10 @@ extension FramePickerViewController: UICollectionViewDelegateFlowLayout, UIColle
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: collectionView.bounds.width - self.carouselInsetX, height: collectionView.bounds.height)
+        return CGSize(
+            width: collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right),
+            height: collectionView.bounds.height
+        )
     }
     
     func scrollViewWillEndDragging(
@@ -110,7 +112,8 @@ extension FramePickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     ) {
         guard let layout = self.photoFrameCollecionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         
-        let itemWidth = self.photoFrameCollecionView.bounds.width + layout.minimumLineSpacing - self.carouselInsetX
+        let insetX = (self.photoFrameCollecionView.contentInset.left + self.photoFrameCollecionView.contentInset.right)
+        let itemWidth = self.photoFrameCollecionView.bounds.width + layout.minimumLineSpacing - insetX
         var offset = targetContentOffset.pointee
         
         let index = Int(round((offset.x + self.photoFrameCollecionView.contentInset.left) / itemWidth))
