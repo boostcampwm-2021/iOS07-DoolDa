@@ -18,6 +18,7 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     
     func start() {
         DispatchQueue.main.async {
+            //todo - inject viewModel
             let viewController = EditPageViewController()
             self.presenter.setViewControllers([viewController], animated: false)
         }
