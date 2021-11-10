@@ -87,6 +87,12 @@ class EditPageViewController: UIViewController {
     private var cancellables: Set<AnyCancellable> = []
     private var viewModel: EditPageViewModelProtocol?
     
+    private var scale: CGFloat = 0
+    private var savedScale: CGFloat = 1
+    private var deltaAngle: Float = 0
+    private var initialDistance: CGFloat = 0
+    private var initialAngle: CGFloat = 0
+    
     // MARK: - Initializers
     
     convenience init(viewModel: EditPageViewModelProtocol) {
@@ -100,6 +106,20 @@ class EditPageViewController: UIViewController {
         super.viewDidLoad()
         self.configureUI()
         self.bindUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // FIXME : delete tempView
+        let imageView = UIImageView(frame: CGRect(
+            x: 50,
+            y: 50,
+            width: 200,
+            height: 150))
+        imageView.image = UIImage(systemName: "heart.fill")
+        let tempView = ComponentView(component: imageView, delegate: self)
+        self.pageView.addSubview(tempView)
+        tempView.isSelected = true
     }
     
     // MARK: - Helpers
@@ -127,6 +147,7 @@ class EditPageViewController: UIViewController {
         }
         
         self.contentView.addSubview(self.pageView)
+        self.pageView.clipsToBounds = true
         self.pageView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview().inset(16)
             make.height.equalTo(self.pageView.snp.width).multipliedBy(30.0/17.0)
@@ -144,7 +165,6 @@ class EditPageViewController: UIViewController {
     // FIXME : should bind to viewModel
     private func bindUI() {
         guard let viewModel = self.viewModel else { return }
-
     }
     
     // MARK: - Private Methods
@@ -161,5 +181,67 @@ class EditPageViewController: UIViewController {
             self.viewModel?.saveEditingPageButtonDidTap()
         }
         self.present(alert, animated: true)
+    }
+}
+
+extension EditPageViewController: ComponentViewDelegate {
+    
+    func leftTopControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer) {
+        self.viewModel?.componentBringForwardControlDidTap()
+    }
+    
+    func leftBottomControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer) {
+        self.viewModel?.componentSendBackwardControlDidTap()
+    }
+    
+    func rightTopControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer) {
+        self.viewModel?.componentRemoveControlDidTap()
+    }
+    
+    func rightBottomcontrolDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer) {
+        guard let contentView = componentView.contentView else { return }
+        let touchLocation = gesture.location(in: self.view)
+        let center = componentView.center
+
+        let xDifference = (center.x - touchLocation.x)
+        let yDifference = (center.y - touchLocation.y)
+        let distance = sqrt(xDifference * xDifference + yDifference * yDifference)
+        let angle = atan2f(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))
+
+        switch gesture.state {
+        case .began:
+            self.deltaAngle = angle - atan2f(Float(componentView.transform.b), Float(componentView.transform.a))
+            self.initialDistance = distance
+        case .changed:
+            let angleDiff = Float(self.deltaAngle) - angle
+            scale = distance / self.initialDistance
+            scale *= savedScale
+            
+            // viewModel.changeSelectedSclae(scale)
+            // viewModel.changeSelectedRotation(angle) -> usecase에서 실제 컴포넌트에 적용 -> 타고타고내려와서 bind걸린곳에서 실제처리
+            
+            var transform = CGAffineTransform.identity
+            transform = transform.rotated(by: CGFloat(-angleDiff))
+            transform = transform.scaledBy(x: scale, y: scale)
+            componentView.transform = transform
+            
+            let controlTransform = CGAffineTransform.identity.scaledBy(x: 1/scale, y: 1/scale)
+            componentView.controls.forEach { $0.transform  = controlTransform }
+
+            contentView.layer.borderWidth = 1 / scale
+        case .ended:
+            fallthrough
+        case .possible:
+            savedScale = scale
+        default:
+            break
+        }
+    }
+    
+    func contentViewDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer) {
+        self.viewModel?.componentDidDrag(difference: CGPoint(x: 0, y: 0))
+        let translation = gesture.translation(in: self.view)
+        componentView.center = CGPoint(x: componentView.center.x + translation.x, y: componentView.center.y + translation.y)
+        gesture.setTranslation(.zero, in: componentView)
     }
 }
