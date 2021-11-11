@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PhotoPickerViewControllerDelegate: AnyObject {
+    func selectedPhotoDidChange(_ images: [CIImage])
+}
+
 final class PhotoPickerViewController: UIViewController {
     
     // MARK: - Subviews
@@ -32,6 +36,17 @@ final class PhotoPickerViewController: UIViewController {
     // MARK: - Public Properties
     
     var selectablePhotoCount: Int = 1
+    
+    // MARK: - Private Properties
+    
+    private weak var delegate: PhotoPickerViewControllerDelegate?
+    
+    // MARK: - Initializers
+    
+    convenience init(photoPickerViewControllerDelegate: PhotoPickerViewControllerDelegate) {
+        self.init(nibName: nil, bundle: nil)
+        self.delegate = photoPickerViewControllerDelegate
+    }
     
     // MARK: - Lifecycle Methods
     
