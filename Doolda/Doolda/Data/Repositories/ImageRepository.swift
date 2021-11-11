@@ -10,11 +10,14 @@ import Foundation
 
 enum ImageRepositoryError: LocalizedError {
     case nilUserPairId
+    case nilRemoteUrl
 
     var errorDescription: String? {
         switch self {
-        case.nilUserPairId:
+        case .nilUserPairId:
             return "유저의 페어 아이디가 존재하지 않습니다."
+        case .nilRemoteUrl:
+            return "잘못된 remote url 입니다."
         }
     }
 }
@@ -41,7 +44,7 @@ class ImageRepository: ImageRepositoryProtocol {
 
         return publisher.tryMap { result -> URL in
             guard let remoteUrl = urlRequest.baseURL else {
-                throw ImageRepositoryError.nilUserPairId // FIXME: ?
+                throw ImageRepositoryError.nilRemoteUrl
             }
             return remoteUrl
         }
