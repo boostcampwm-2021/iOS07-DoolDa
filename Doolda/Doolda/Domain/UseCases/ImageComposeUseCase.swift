@@ -12,6 +12,15 @@ import Foundation
 enum ImageComposeUseCaseError: LocalizedError {
     case numberOfImageMismatched
     case composingImageFailed
+
+    var errorDescription: String? {
+        switch self {
+        case .numberOfImageMismatched:
+            return "선택한 사진의 개수가 올바르지 않습니다."
+        case .composingImageFailed:
+            return "이미지 합성에 실패했습니다."
+        }
+    }
 }
 
 protocol ImageComposeUseCaseProtocol {
