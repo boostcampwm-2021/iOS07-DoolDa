@@ -59,9 +59,15 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         self.orderedSelectionLabel.layer.cornerRadius = self.orderedSelectionLabel.frame.width / 2
     }
     
+    override func prepareForReuse() {
+        self.deselect()
+    }
+    
     // MARK: - Helpers
     
     private func configureUI() {
+        self.layer.borderColor = UIColor.dooldaBackground?.cgColor
+        
         self.addSubview(self.imageView)
         self.imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -96,10 +102,18 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
     }
     
     func select(order: Int) {
-        // FIXME : cell select animation
+        self.orderedSelectionLabel.text = "\(order)"
+        self.layer.borderWidth = 1
+        
+        self.orderedSelectionLabel.layer.borderColor = .dooldaBackground
+        self.orderedSelectionLabel.backgroundColor = .dooldaHighlighted
     }
     
     func deselect() {
-        // FIXME : cell deselect animation
+        self.orderedSelectionLabel.text = nil
+        self.layer.borderWidth = 0
+        
+        self.orderedSelectionLabel.layer.borderColor = UIColor.white.withAlphaComponent(0.4).cgColor
+        self.orderedSelectionLabel.backgroundColor = .white.withAlphaComponent(0.4)
     }
 }
