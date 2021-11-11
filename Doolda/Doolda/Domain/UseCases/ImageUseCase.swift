@@ -41,8 +41,8 @@ class ImageUseCase: ImageUseCaseProtocol {
         }
         let imageName = UUID().uuidString
         return imageRepository.saveLocal(imageData: imageData, fileName: imageName)
-                .tryMap{ $0 }
-                .eraseToAnyPublisher()
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
     }
 
     func saveRemote(for user: User, localUrl: URL) -> AnyPublisher<URL, Error> {
