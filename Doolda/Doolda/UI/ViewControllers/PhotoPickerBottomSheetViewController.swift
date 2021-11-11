@@ -47,7 +47,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     private lazy var contentFrame: UIView = {
         let view = UIView()
-        view.backgroundColor = .red
+        view.backgroundColor = .clear
         return view
     }()
     

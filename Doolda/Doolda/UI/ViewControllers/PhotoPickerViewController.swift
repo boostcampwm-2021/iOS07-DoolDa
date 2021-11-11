@@ -32,6 +32,7 @@ final class PhotoPickerViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     

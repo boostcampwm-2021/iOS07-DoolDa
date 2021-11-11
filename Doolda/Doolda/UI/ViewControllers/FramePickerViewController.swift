@@ -33,6 +33,7 @@ final class FramePickerViewController: UIViewController {
             PhotoFrameCollectionViewCell.self,
             forCellWithReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellIdentifier
         )
+        collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
