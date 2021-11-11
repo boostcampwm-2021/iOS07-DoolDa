@@ -798,66 +798,92 @@ class EditPageUseCaseTest: XCTestCase {
         XCTAssertNil(result)
     }
     
-    func testSendBackward() {
+    func testSendComponentBack() {
         let editPageUseCase = EditPageUseCase(
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
         )
         
-        let expectation = self.expectation(description: "testSendBackward")
-
-        let componentToBeBringForward = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
-        editPageUseCase.addComponent(componentToBeBringForward)
-        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1))
-        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
+        let a = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let b = ComponentEntity(frame: CGRect(x: 1, y: 1, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let c = ComponentEntity(frame: CGRect(x: 2, y: 2, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let d = ComponentEntity(frame: CGRect(x: 3, y: 3, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let e = ComponentEntity(frame: CGRect(x: 4, y: 4, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let f = ComponentEntity(frame: CGRect(x: 5, y: 5, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
         
-        var result: ComponentEntity?
+        editPageUseCase.addComponent(a)
+        editPageUseCase.addComponent(b)
+        editPageUseCase.addComponent(c)
+        editPageUseCase.addComponent(d)
+        editPageUseCase.addComponent(e)
+        editPageUseCase.addComponent(f)
         
-        editPageUseCase.sendComponentBackward()
-        editPageUseCase.selectedComponentPublisher
+        var result: [ComponentEntity]?
+        
+        let expectation = self.expectation(description: "testSendComponentBack")
+        expectation.expectedFulfillmentCount = 3
+        
+        editPageUseCase.rawPagePublisher
             .dropFirst()
-            .sink { component in
-                result = component
+            .sink { rawPage in
+                result = rawPage?.components
                 expectation.fulfill()
             }
             .store(in: &self.cancellables)
-        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
-        
+        editPageUseCase.selectComponent(at: CGPoint(x: 5, y: 5))
+        editPageUseCase.sendComponentBack()
+        editPageUseCase.selectComponent(at: CGPoint(x: 4, y: 4))
+        editPageUseCase.sendComponentBack()
+        editPageUseCase.selectComponent(at: CGPoint(x: 3, y: 3))
+        editPageUseCase.sendComponentBack()
         waitForExpectations(timeout: 5)
-            
-        XCTAssertEqual(result, componentToBeBringForward)
+        
+        XCTAssertEqual([d, e, f, a, b, c], result)
     }
     
-    func testBringForward() {
+    func testBringComponentFront() {
         let editPageUseCase = EditPageUseCase(
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
         )
         
-        let expectation = self.expectation(description: "testBringForward")
+        let a = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let b = ComponentEntity(frame: CGRect(x: 1, y: 1, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let c = ComponentEntity(frame: CGRect(x: 2, y: 2, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let d = ComponentEntity(frame: CGRect(x: 3, y: 3, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let e = ComponentEntity(frame: CGRect(x: 4, y: 4, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
+        let f = ComponentEntity(frame: CGRect(x: 5, y: 5, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
         
-        let componentToBeBringForward = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
-        editPageUseCase.addComponent(componentToBeBringForward)
-        editPageUseCase.addComponent(ComponentEntity(frame: CGRect(x: 1, y: 1, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1))
-        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
+        editPageUseCase.addComponent(a)
+        editPageUseCase.addComponent(b)
+        editPageUseCase.addComponent(c)
+        editPageUseCase.addComponent(d)
+        editPageUseCase.addComponent(e)
+        editPageUseCase.addComponent(f)
         
-        var result: ComponentEntity?
+        var result: [ComponentEntity]?
         
-        editPageUseCase.bringComponentForward()
-        editPageUseCase.selectedComponentPublisher
+        let expectation = self.expectation(description: "testBringComponentFront")
+        expectation.expectedFulfillmentCount = 3
+        
+        editPageUseCase.rawPagePublisher
             .dropFirst()
-            .sink { component in
-                result = component
+            .sink { rawPage in
+                result = rawPage?.components
                 expectation.fulfill()
             }
             .store(in: &self.cancellables)
+        editPageUseCase.selectComponent(at: CGPoint(x: 2, y: 2))
+        editPageUseCase.bringComponentFront()
         editPageUseCase.selectComponent(at: CGPoint(x: 1, y: 1))
-        
+        editPageUseCase.bringComponentFront()
+        editPageUseCase.selectComponent(at: CGPoint(x: 0, y: 0))
+        editPageUseCase.bringComponentFront()
         waitForExpectations(timeout: 5)
-            
-        XCTAssertEqual(result, componentToBeBringForward)
+        
+        XCTAssertEqual([d, e, f, c, b, a], result)
     }
     
     func testRemoveComponentSingle() {
