@@ -8,7 +8,7 @@
 import CoreGraphics
 import Foundation
 
-enum FontColorType: RawRepresentable, CaseIterable {
+enum FontColorType: RawRepresentable, CaseIterable, Codable {
     typealias RawValue = CGColor
     
     case black

@@ -8,12 +8,9 @@
 import CoreGraphics
 import Foundation
 
-struct RawPageEntity {
+struct RawPageEntity: Codable {
     var components: [ComponentEntity]
     var backgroundType: BackgroundType
-    var numberOfComponents: Int {
-        components.count
-    }
     
     init() {
         self.components = []

@@ -8,11 +8,15 @@
 import CoreGraphics
 import Foundation
 
-class ComponentEntity {
+class ComponentEntity: Codable {
     var frame: CGRect
     var scale: CGFloat
     var angle: CGFloat
     var aspectRatio: CGFloat
+    
+    enum CodingKeys: String, CodingKey {
+        case frame, scale, angle, aspectRatio
+    }
     
     var origin: CGPoint {
         get { self.frame.origin }
@@ -24,6 +28,22 @@ class ComponentEntity {
         self.scale = scale
         self.angle = angle
         self.aspectRatio = aspectRatio
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.frame = try container.decode(CGRect.self, forKey: .frame)
+        self.scale = try container.decode(CGFloat.self, forKey: .scale)
+        self.angle = try container.decode(CGFloat.self, forKey: .angle)
+        self.aspectRatio = try container.decode(CGFloat.self, forKey: .aspectRatio)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(frame, forKey: .frame)
+        try container.encode(scale, forKey: .scale)
+        try container.encode(angle, forKey: .angle)
+        try container.encode(aspectRatio, forKey: .aspectRatio)
     }
     
     func hitTest(at point: CGPoint) -> Bool {
