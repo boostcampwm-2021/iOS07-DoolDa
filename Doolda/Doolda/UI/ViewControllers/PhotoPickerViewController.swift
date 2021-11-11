@@ -19,7 +19,10 @@ final class PhotoPickerViewController: UIViewController {
         flowLayout.sectionInset = .zero
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.register(PhotoPickerCollectionViewCell.self, forCellWithReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier)
+        collectionView.register(
+            PhotoPickerCollectionViewCell.self,
+            forCellWithReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier
+        )
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -68,9 +71,9 @@ extension PhotoPickerViewController: UICollectionViewDelegateFlowLayout, UIColle
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier, for: indexPath)
         
         if let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell {
-            return photoPickerCollectionViewCell
-        } else {
-            return cell
+            // FIXME : 앨범 Photo를 전달
         }
+        
+        return cell
     }
 }
