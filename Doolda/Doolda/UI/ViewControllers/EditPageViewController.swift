@@ -202,9 +202,10 @@ class EditPageViewController: UIViewController {
                 componentView.isSelected = true
                 let computedCGRect = CGRect(
                     origin: self.computePointFromAbsolute(at: componentEntity.origin),
-                    size: self.computeSizeFromAbsolute(with: componentEntity.size)
+                    size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                 )
                 componentView.layer.frame = computedCGRect
+                self.savedScale = componentEntity.scale
                 
                 var transform = CGAffineTransform.identity
                 transform = transform.rotated(by: CGFloat(-componentEntity.angle))
@@ -221,7 +222,7 @@ class EditPageViewController: UIViewController {
                 for componentEntity in componenets {
                     let computedCGRect = CGRect(
                         origin: self.computePointFromAbsolute(at: componentEntity.origin),
-                        size: self.computeSizeFromAbsolute(with: componentEntity.size)
+                        size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                     )
                     let contentView = UIView(frame: computedCGRect)
                     let componentView = ComponentView(component: contentView, delegate: self)
@@ -288,10 +289,16 @@ extension EditPageViewController: ComponentViewDelegate {
             self.scale *= self.savedScale
             
             self.viewModel?.componentDidRotate(by: CGFloat(angleDiff))
-            self.viewModel?.componentDidScale(by: self.scale)
+            let tranform = CGAffineTransform.identity.scaledBy(x: self.scale, y: self.scale)
+            componentView.transform = tranform
+            
+            let controlTranform = CGAffineTransform.identity.scaledBy(x: 1/self.scale, y: 1/self.scale)
+            componentView.controls.forEach { $0.transform = controlTranform }
+//            self.viewModel?.componentDidScale(by: self.scale)
 
         case .ended, .possible:
-            self.savedScale = self.scale
+            self.viewModel?.componentDidScale(by: self.scale)
+//            self.savedScale = self.scale
         default:
             break
         }

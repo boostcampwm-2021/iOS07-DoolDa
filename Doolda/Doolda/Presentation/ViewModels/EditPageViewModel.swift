@@ -14,8 +14,8 @@ protocol EditPageViewModelInput {
     func componentDidDrag(at point: CGPoint)
     func componentDidRotate(by angle: CGFloat)
     func componentDidScale(by scale: CGFloat)
-    func componentBringForwardControlDidTap()
-    func componentSendBackwardControlDidTap()
+    func componentBringFrontControlDidTap()
+    func componentSendBackControlDidTap()
     func componentRemoveControlDidTap()
     
     func photoComponentAddButtonDidTap()
@@ -73,7 +73,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
             }.store(in : &cancellables)
         
         self.editPageUseCase.resultPublisher
-            .sink { () in
+            .sink { _ in
                 self.coordinator.editingPageSaved()
             }.store(in: &cancellables)
         
@@ -97,11 +97,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         self.editPageUseCase.scaleComponent(by: scale)
     }
     
-    func componentBringForwardControlDidTap() {
+    func componentBringFrontControlDidTap() {
         self.editPageUseCase.bringComponentForward()
     }
     
-    func componentSendBackwardControlDidTap() {
+    func componentSendBackControlDidTap() {
         self.editPageUseCase.sendComponentBackward()
     }
     
@@ -112,8 +112,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     func photoComponentAddButtonDidTap() {
         // FIXME : goto coordinator delete dummy component
         let dummyComponent = ComponentEntity(
-            origin: CGPoint(x: 850, y: 1500),
-            size: CGSize(width: 100, height: 100),
+            frame: CGRect(
+                origin: CGPoint(x: 850, y: 1500),
+                size: CGSize(width: 100, height: 100)
+            ),
+            scale: 1,
             angle: 0,
             aspectRatio: 1
         )
