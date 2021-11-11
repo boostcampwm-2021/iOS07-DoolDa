@@ -88,7 +88,7 @@ final class FramePickerViewController: UIViewController {
                 self.pageControl.currentPage = index
                 self.delegate?.photoFrameDidChange(PhotoFrameType.allCases[self.currentItemIndex])
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
     }
 }
 
@@ -124,7 +124,7 @@ extension FramePickerViewController: UICollectionViewDelegateFlowLayout, UIColle
             self.currentItemIndex += 1
         }
         
-        offset = CGPoint(x: CGFloat(currentItemIndex) * itemWidth - self.photoFrameCollecionView.contentInset.left, y: 0)
+        offset = CGPoint(x: CGFloat(self.currentItemIndex) * itemWidth - self.photoFrameCollecionView.contentInset.left, y: 0)
                     
         targetContentOffset.pointee = offset
     }
