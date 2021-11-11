@@ -9,6 +9,17 @@ import Combine
 import CoreImage
 import Foundation
 
+enum ImageUseCaseError: LocalizedError {
+    case nilImageData
+
+    var errorDescription: String? {
+        switch self {
+        case .nilImageData:
+            return "이미지 데이터 변환에 실패하였습니다."
+        }
+    }
+}
+
 protocol ImageUseCaseProtocol {
     func saveLocal(image: CIImage) -> AnyPublisher<URL, Never>
     func saveRemote(for user: User, localUrl: URL) -> AnyPublisher<URL, Error>
@@ -24,6 +35,10 @@ class ImageUseCase: ImageUseCaseProtocol {
     func saveLocal(image: CIImage) -> AnyPublisher<URL, Never> {
         // image를 data로 변환
         // fileName을 UUID로 생성
+//        guard let imageData = image.data else {
+//            return
+//        }
+        let imageName = UUID().uuidString
         return imageRepository.saveLocal(imageData: Data(), fileName: "")
     }
 
