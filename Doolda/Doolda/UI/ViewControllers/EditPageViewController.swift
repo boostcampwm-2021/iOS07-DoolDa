@@ -327,10 +327,10 @@ extension EditPageViewController: ComponentViewDelegate {
 //            transform = transform.scaledBy(x: scale, y: scale)
 //            componentView.transform = transform
             
-            let controlTransform = CGAffineTransform.identity.scaledBy(x: 1/scale, y: 1/scale)
-            componentView.controls.forEach { $0.transform  = controlTransform }
-
-            contentView.layer.borderWidth = 1 / scale
+//            let controlTransform = CGAffineTransform.identity.scaledBy(x: 1/scale, y: 1/scale)
+//            componentView.controls.forEach { $0.transform  = controlTransform }
+//
+//            contentView.layer.borderWidth = 1 / scale
         case .ended, .possible:
             savedScale = scale
         default:
