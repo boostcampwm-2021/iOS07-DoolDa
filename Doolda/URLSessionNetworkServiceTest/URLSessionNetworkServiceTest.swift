@@ -58,14 +58,3 @@ class URLSessionNetworkServiceTest: XCTestCase {
     }
 
 }
-
-
-//var baseURL: URL? { get }
-//var requestURL: URL? { get }
-//var path: String { get }
-//var parameters: [String:String]? { get }
-//var method: HttpMethod { get }
-//var headers: [String:String]? { get }
-//var body: [String: Any]? { get }
-//var binary: Data? { get }
-//var urlRequest: URLRequest? { get }
