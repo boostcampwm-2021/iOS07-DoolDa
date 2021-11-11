@@ -122,6 +122,13 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
                 self.setChildViewController(child: self.photoPickerViewController)
             }
             .store(in: &cancellables)
+        
+        self.closeButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Private Method
