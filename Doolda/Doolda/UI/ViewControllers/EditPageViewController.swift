@@ -162,7 +162,8 @@ class EditPageViewController: UIViewController {
                     message: "페이지를 저장하지 않고 나갈 시, 작성한 내용은 저장되지 않습니다.",
                     leftActionTitle: "취소",
                     rightActionTitle: "나가기",
-                    action: { [weak self] _ in                     self?.viewModel?.cancelEditingPageButtonDidTap()
+                    action: { [weak self] _ in
+                        self?.viewModel?.cancelEditingPageButtonDidTap()
                     })
                 self.present(alert, animated: true)
             }.store(in: &self.cancellables)
@@ -175,7 +176,8 @@ class EditPageViewController: UIViewController {
                     message: "페이지를 저장하시겠습니까?, 저장 후 더 이상 편집할 수 없습니다.",
                     leftActionTitle: "취소",
                     rightActionTitle: "저장",
-                    action: { [weak self] _ in                     self?.viewModel?.saveEditingPageButtonDidTap()
+                    action: { [weak self] _ in
+                        self?.viewModel?.saveEditingPageButtonDidTap()
                     })
                 self.present(alert, animated: true)
             }.store(in: &self.cancellables)
@@ -202,6 +204,7 @@ class EditPageViewController: UIViewController {
     
     private func bindViewModel() {
         self.viewModel?.selectedComponentPublisher
+            .print("ViewController내의 selected")
             .sink { [weak self] componentEntity in
                 guard let self = self else { return }
                 self.componentViewDictionary.values.forEach { $0.isSelected = false }
@@ -212,7 +215,8 @@ class EditPageViewController: UIViewController {
                     origin: self.computePointFromAbsolute(at: componentEntity.origin),
                     size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                 )
-                componentView.layer.frame = computedCGRect
+                componentView.frame = computedCGRect
+                print(computedCGRect)
                 self.savedScale = componentEntity.scale
                 
                 var transform = CGAffineTransform.identity
@@ -228,13 +232,16 @@ class EditPageViewController: UIViewController {
                     self.componentViewDictionary[key] = nil
                 }
                 for componentEntity in componenets {
+                    guard let componentEntity = componentEntity as? PhotoComponentEntity else { return }
                     let computedCGRect = CGRect(
                         origin: self.computePointFromAbsolute(at: componentEntity.origin),
                         size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                     )
-                    let contentView = UIView(frame: computedCGRect)
+                    let contentView = UIImageView(frame: computedCGRect)
+                    contentView.image = UIImage(data: try! Data(contentsOf: componentEntity.imageUrl))
                     let componentView = ComponentView(component: contentView, delegate: self)
                     self.componentViewDictionary[componentEntity] = componentView
+                    self.pageView.addSubview(componentView)
                 }
             }.store(in: &self.cancellables)
         
@@ -301,7 +308,9 @@ extension EditPageViewController: ComponentViewDelegate {
             componentView.transform = tranform
             
             let controlTranform = CGAffineTransform.identity.scaledBy(x: 1/self.scale, y: 1/self.scale)
+            contentView.layer.borderWidth = 1/self.scale
             componentView.controls.forEach { $0.transform = controlTranform }
+            componentView.contentView?.layer.borderWidth = 1 / self.scale
 //            self.viewModel?.componentDidScale(by: self.scale)
 
         case .ended, .possible:
