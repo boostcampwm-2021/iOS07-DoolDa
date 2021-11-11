@@ -35,7 +35,7 @@ class URLSessionNetworkServiceTest: XCTestCase {
         }
 
         let urlRequest = FirebaseAPIs.createStorageFile(pairId, fileName, fileData)
-        let publisher: AnyPublisher<Data, Error> = networkService.request(urlRequest)
+        let publisher: AnyPublisher<[String: String], Error> = networkService.request(urlRequest)
 
         publisher
             .compactMap { $0 }
@@ -44,13 +44,13 @@ class URLSessionNetworkServiceTest: XCTestCase {
                 guard case .failure(let error) = completion else { return }
                 XCTFail("\(error.localizedDescription)")
                 expectation.fulfill()
-            } receiveValue: { data in
-                guard let dataString = String(data: data, encoding: .utf8) else {
-                    XCTFail("encoding error")
+            } receiveValue: { result in
+                guard let fileName = result["name"] else {
+                    XCTFail("wrong file result")
                     expectation.fulfill()
                     return
                 }
-                XCTAssertEqual(fileContent, dataString)
+                XCTAssertEqual("testPairId/testFileName", fileName)
                 expectation.fulfill()
             }
             .store(in: &cancellableSet)
@@ -59,14 +59,3 @@ class URLSessionNetworkServiceTest: XCTestCase {
     }
 
 }
-
-
-//var baseURL: URL? { get }
-//var requestURL: URL? { get }
-//var path: String { get }
-//var parameters: [String:String]? { get }
-//var method: HttpMethod { get }
-//var headers: [String:String]? { get }
-//var body: [String: Any]? { get }
-//var binary: Data? { get }
-//var urlRequest: URLRequest? { get }
