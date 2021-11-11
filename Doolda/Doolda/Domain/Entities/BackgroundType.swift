@@ -8,7 +8,7 @@
 import CoreGraphics
 import Foundation
 
-enum BackgroundType: CaseIterable {
+enum BackgroundType: CaseIterable, Codable {
     typealias RawValue = CGColor
     
     case dooldaBackground
