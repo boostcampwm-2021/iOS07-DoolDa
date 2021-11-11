@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIAlertController {
-    // FIXME : alert 일반화 하기
     static func networkAlert(refreshAction: @escaping (UIAlertAction) -> Void) -> UIAlertController {
         let alert = UIAlertController(title: "네트워크 오류",
                                       message: "Wifi나 3G/LTE/5G를 연결 후 재시도 해주세요🙏",
@@ -29,28 +28,20 @@ extension UIAlertController {
         return alert
     }
     
-    static func cancelEditPageAlert(cancelAction: @escaping (UIAlertAction) -> Void) -> UIAlertController {
+    static func selectAlert(
+        title: String,
+        message: String,
+        leftActionTitle: String,
+        rightActionTitle: String,
+        action: @escaping (UIAlertAction) -> Void
+    ) -> UIAlertController {
         let alert = UIAlertController(
-            title: "편집 나가기",
-            message: "페이지를 저장하지 않고 나갈 시, 작성한 내용은 저장되지 않습니다.",
+            title: title,
+            message: message,
             preferredStyle: .alert
         )
-        let cancelAlertAction = UIAlertAction(title: "취소", style: .default)
-        let exitAlertAction = UIAlertAction(title: "나가기", style: .destructive, handler: cancelAction)
-
-        alert.addAction(cancelAlertAction)
-        alert.addAction(exitAlertAction)
-        return alert
-    }
-    
-    static func saveEditPageAlert(saveAction: @escaping (UIAlertAction) -> Void) -> UIAlertController {
-        let alert = UIAlertController(
-            title: "편집 저장하기",
-            message: "페이지를 저장하시겠습니까?, 저장 후 더 이상 편집할 수 없습니다'",
-            preferredStyle: .alert
-        )
-        let cancelAlertAction = UIAlertAction(title: "취소", style: .default)
-        let saveAlertAction = UIAlertAction(title: "저장", style: .destructive, handler: saveAction)
+        let cancelAlertAction = UIAlertAction(title: leftActionTitle, style: .default)
+        let saveAlertAction = UIAlertAction(title: rightActionTitle, style: .destructive, handler: action)
 
         alert.addAction(cancelAlertAction)
         alert.addAction(saveAlertAction)
