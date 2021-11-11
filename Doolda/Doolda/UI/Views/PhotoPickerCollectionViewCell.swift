@@ -23,7 +23,7 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    private lazy var selectedOrderLabel: UILabel = {
+    private lazy var orderedSelectionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Dovemayo", size: 16)
         label.textColor = .dooldaLabel
@@ -50,7 +50,7 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
     // MARK: - Lifecycle Methods
     
     override func layoutSubviews() {
-        self.selectedOrderLabel.layer.cornerRadius = self.selectedOrderLabel.frame.width / 2
+        self.orderedSelectionLabel.layer.cornerRadius = self.orderedSelectionLabel.frame.width / 2
     }
     
     // MARK: - Helpers
@@ -61,8 +61,8 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
             make.edges.equalToSuperview()
         }
         
-        self.addSubview(self.selectedOrderLabel)
-        self.selectedOrderLabel.snp.makeConstraints { make in
+        self.addSubview(self.orderedSelectionLabel)
+        self.orderedSelectionLabel.snp.makeConstraints { make in
             make.width.height.equalTo(28)
             make.trailing.equalToSuperview().offset(-15)
             make.top.equalToSuperview().offset(15)
