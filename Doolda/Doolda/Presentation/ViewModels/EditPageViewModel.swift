@@ -36,9 +36,7 @@ protocol EditPageViewModelOutput {
 typealias EditPageViewModelProtocol = EditPageViewModelInput & EditPageViewModelOutput
 
 final class EditPageViewModel: EditPageViewModelProtocol {
-    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher {
-        self.editPageUseCase.selectedComponentPublisher
-    }
+    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.editPageUseCase.selectedComponentPublisher }
     var componentsPublisher: Published<[ComponentEntity]>.Publisher { self.$components }
     var backgroundPublisher: Published<BackgroundType>.Publisher { self.$background }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
@@ -69,7 +67,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
                 guard let self = self,
                       let rawPageEntity = rawPageEntity else { return }
                 self.components = rawPageEntity.components
-                self.background = rawPageEntity.backgroundColor
+                self.background = rawPageEntity.backgroundType
             }.store(in : &cancellables)
         
         self.editPageUseCase.resultPublisher
@@ -98,11 +96,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func componentBringFrontControlDidTap() {
-        self.editPageUseCase.bringComponentForward()
+        self.editPageUseCase.bringComponentFront()
     }
     
     func componentSendBackControlDidTap() {
-        self.editPageUseCase.sendComponentBackward()
+        self.editPageUseCase.sendComponentBack()
     }
     
     func componentRemoveControlDidTap() {
@@ -111,14 +109,15 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     
     func photoComponentAddButtonDidTap() {
         // FIXME : goto coordinator delete dummy component
-        let dummyComponent = ComponentEntity(
+        let dummyComponent = PhotoComponentEntity(
             frame: CGRect(
                 origin: CGPoint(x: 850, y: 1500),
-                size: CGSize(width: 100, height: 100)
+                size: CGSize(width: 700, height: 700)
             ),
             scale: 1,
             angle: 0,
-            aspectRatio: 1
+            aspectRatio: 1,
+            imageUrl: URL(string: "https://item.kakaocdn.net/do/d0abc6fe74e616536cf07626699bbc707154249a3890514a43687a85e6b6cc82")!
         )
         self.editPageUseCase.addComponent(dummyComponent)
     }

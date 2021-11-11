@@ -59,12 +59,23 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         self.pageRepository = pageRepository
         self.rawPageRepository = rawPageRepository
     }
-    
+
+    private func bind() {
+        self.selectedComponent?.objectWillChange
+            .print("useCase 내의 selectedComponent bind부분")
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.selectedComponent = self.selectedComponent
+            }
+            .store(in: &self.cancellables)
+    }
+
     func selectComponent(at point: CGPoint) {
         guard let rawPage = self.rawPage else { return }
         for component in rawPage.components.reversed() {
             if component.hitTest(at: point) {
-                return self.selectedComponent = component
+                self.selectedComponent = component
+                print(self.selectedComponent)
             }
         }
         return self.selectedComponent = nil
