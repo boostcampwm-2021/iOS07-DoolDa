@@ -10,6 +10,10 @@ import UIKit
 
 import SnapKit
 
+protocol PhotoPickerBottomSheetViewControllerDelegate {
+    func composedPhotoDidMake(_ url: URL)
+}
+
 final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     // MARK: - Subviews
@@ -53,7 +57,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     }()
     
     private lazy var photoPickerViewController: PhotoPickerViewController = {
-        let viewController = PhotoPickerViewController()
+        let viewController = PhotoPickerViewController(photoPickerViewControllerDelegate: self)
         return viewController
     }()
     
@@ -71,8 +75,22 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     // MARK: - Private Properties
     
+    private var viewModel: PhotoPickerViewModelProtocol?
+    private var delegate: PhotoPickerBottomSheetViewControllerDelegate?
+
     private var cancellables = Set<AnyCancellable>()
     private var currentContentViewController: UIViewController?
+    
+    // MARK: - Initializers
+    
+    convenience init(
+        photoPickerViewModel: PhotoPickerViewModelProtocol,
+        photoPickerBottomSheetViewControllerDelegate: PhotoPickerBottomSheetViewControllerDelegate?
+    ) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel = photoPickerViewModel
+        self.delegate = photoPickerBottomSheetViewControllerDelegate
+    }
     
     // MARK: - Lifecycle Methods
     
@@ -151,6 +169,12 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
 
 extension PhotoPickerBottomSheetViewController: FramePickerViewControllerDelegate {
     func photoFrameDidChange(_ photoFrameType: PhotoFrameType) {
-        // FIXME : PhotoFrame을 ViewModel에게 전달.
+        self.viewModel?.nextButtonDidTap(photoFrameType)
+    }
+}
+
+extension PhotoPickerBottomSheetViewController: PhotoPickerViewControllerDelegate {
+    func selectedPhotoDidChange(_ images: [CIImage]) {
+        self.viewModel?.photoDidSelected(images)
     }
 }
