@@ -17,6 +17,8 @@ protocol EditPageViewModelInput {
     func componentBringForwardControlDidTap()
     func componentSendBackwardControlDidTap()
     func componentRemoveControlDidTap()
+    
+    func photoComponentAddButtonDidTap()
     func componentEntityDidAdd(_ component: ComponentEntity)
     func backgroundColorDidChange(_ backgroundColor: BackgroundType)
     func saveEditingPageButtonDidTap()
@@ -104,6 +106,17 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     
     func componentRemoveControlDidTap() {
         self.editPageUseCase.removeComponent()
+    }
+    
+    func photoComponentAddButtonDidTap() {
+        // FIXME : goto coordinator delete dummy component
+        let dummyComponent = ComponentEntity(
+            origin: CGPoint(x: 850, y: 1500),
+            size: CGSize(width: 100, height: 100),
+            angle: 0,
+            aspectRatio: 1
+        )
+        self.editPageUseCase.addComponent(dummyComponent)
     }
     
     func componentEntityDidAdd(_ component: ComponentEntity) {
