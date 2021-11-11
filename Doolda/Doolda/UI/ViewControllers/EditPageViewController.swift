@@ -157,18 +157,26 @@ class EditPageViewController: UIViewController {
         self.cancelButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                let alert = UIAlertController.cancelEditPageAlert { _ in
-                    self.viewModel?.cancelEditingPageButtonDidTap()
-                }
+                let alert = UIAlertController.selectAlert(
+                    title: "편집 나가기",
+                    message: "페이지를 저장하지 않고 나갈 시, 작성한 내용은 저장되지 않습니다.",
+                    leftActionTitle: "취소",
+                    rightActionTitle: "나가기",
+                    action: { [weak self] _ in                     self?.viewModel?.cancelEditingPageButtonDidTap()
+                    })
                 self.present(alert, animated: true)
             }.store(in: &self.cancellables)
         
         self.saveButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                let alert = UIAlertController.saveEditPageAlert { _ in
-                    self.viewModel?.saveEditingPageButtonDidTap()
-                }
+                let alert = UIAlertController.selectAlert(
+                    title: "편집 저장하기",
+                    message: "페이지를 저장하시겠습니까?, 저장 후 더 이상 편집할 수 없습니다.",
+                    leftActionTitle: "취소",
+                    rightActionTitle: "저장",
+                    action: { [weak self] _ in                     self?.viewModel?.saveEditingPageButtonDidTap()
+                    })
                 self.present(alert, animated: true)
             }.store(in: &self.cancellables)
         
