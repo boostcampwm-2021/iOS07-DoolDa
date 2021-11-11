@@ -8,11 +8,11 @@
 import CoreGraphics
 import Foundation
 
-class ComponentEntity: ObservableObject {
-    @Published var frame: CGRect
-    @Published var scale: CGFloat
-    @Published var angle: CGFloat
-    @Published var aspectRatio: CGFloat
+class ComponentEntity {
+    var frame: CGRect
+    var scale: CGFloat
+    var angle: CGFloat
+    var aspectRatio: CGFloat
     
     var origin: CGPoint {
         get { self.frame.origin }

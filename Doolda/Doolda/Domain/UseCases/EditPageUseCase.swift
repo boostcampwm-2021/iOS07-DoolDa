@@ -58,18 +58,8 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         self.rawPage = RawPageEntity()
         self.pageRepository = pageRepository
         self.rawPageRepository = rawPageRepository
-        bind()
     }
-
-    private func bind() {
-        self.selectedComponent?.objectWillChange
-            .sink { [weak self] in
-                guard let self = self else { return }
-                self.selectedComponent = self.selectedComponent
-            }
-            .store(in: &self.cancellables)
-    }
-
+    
     func selectComponent(at point: CGPoint) {
         guard let rawPage = self.rawPage else { return }
         for component in rawPage.components.reversed() {
@@ -82,14 +72,17 @@ class EditPageUseCase: EditPageUseCaseProtocol {
 
     func moveComponent(to point: CGPoint) {
         self.selectedComponent?.origin = point
+        self.selectedComponent = self.selectedComponent
     }
     
     func scaleComponent(by scale: CGFloat) {
         self.selectedComponent?.scale = scale
+        self.selectedComponent = self.selectedComponent
     }
 
     func rotateComponent(by angle: CGFloat) {
         self.selectedComponent?.angle = angle
+        self.selectedComponent = self.selectedComponent
     }
 
     func bringComponentFront() {
