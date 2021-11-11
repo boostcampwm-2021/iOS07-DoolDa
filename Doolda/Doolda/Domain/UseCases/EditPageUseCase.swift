@@ -29,8 +29,8 @@ protocol EditPageUseCaseProtocol {
     func moveComponent(to point: CGPoint)
     func rotateComponent(by angle: CGFloat)
     func scaleComponent(by scale: CGFloat)
-    func bringComponentForward()
-    func sendComponentBackward()
+    func bringComponentFront()
+    func sendComponentBack()
     func removeComponent()
     func addComponent(_ component: ComponentEntity)
     func changeBackgroundType(_ backgroundType: BackgroundType)
@@ -92,19 +92,25 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         self.selectedComponent?.angle = angle
     }
 
-    func bringComponentForward() {
+    func bringComponentFront() {
         guard let rawPage = self.rawPage,
               let selectedComponent = self.selectedComponent,
               let indexOfSelectedComponent = rawPage.indexOf(component: selectedComponent) else { return }
-        let targetIndex = indexOfSelectedComponent + 1 < rawPage.numberOfComponents ? indexOfSelectedComponent + 1 : rawPage.numberOfComponents - 1
-        self.rawPage?.swapAt(at: indexOfSelectedComponent, with: targetIndex)
+        self.changeOrderOfComponents(from: indexOfSelectedComponent, to: rawPage.count)
     }
 
-    func sendComponentBackward() {
-        guard let selectedComponent = self.selectedComponent,
-              let indexOfSelectedComponent = self.rawPage?.indexOf(component: selectedComponent) else { return }
-        let targetIndex = indexOfSelectedComponent - 1 >= 0 ? indexOfSelectedComponent - 1 : 0
-        self.rawPage?.swapAt(at: indexOfSelectedComponent, with: targetIndex)
+    func sendComponentBack() {
+        guard let rawPage = self.rawPage,
+              let selectedComponent = self.selectedComponent,
+              let indexOfSelectedComponent = rawPage.indexOf(component: selectedComponent) else { return }
+        self.changeOrderOfComponents(from: indexOfSelectedComponent, to: 0)
+    }
+    
+    private func changeOrderOfComponents(from: Int, to: Int) {
+        guard var components = self.rawPage?.components else { return }
+        let target = components.remove(at: from)
+        components.insert(target, at: min(max(to, 0), components.count))
+        self.rawPage?.components = components
     }
 
     func removeComponent() {
