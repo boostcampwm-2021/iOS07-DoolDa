@@ -6,6 +6,7 @@
 //
 
 import CoreImage
+import CoreGraphics
 import Foundation
 
 enum PhotoFrameType: RawRepresentable, CaseIterable {
@@ -14,14 +15,14 @@ enum PhotoFrameType: RawRepresentable, CaseIterable {
         let photoBounds: [CGRect]
         var requiredPhotoCount: Int { photoBounds.count }
         
-        init?(baseImage: CIImage?, photoBounds: [CGRect]) {
-            guard let baseImage = baseImage else { return nil }
-            self.baseImage = baseImage
+        init?(baseImage: CGImage?, photoBounds: [CGRect]) {
+            guard let cgBaseImage = baseImage else { return nil }
+            self.baseImage = CIImage(cgImage: cgBaseImage)
             self.photoBounds = photoBounds
         }
         
         // FIXME: 프레임들을 여기에 static let으로 선언
-        static let lifeFourCuts = PhotoFrame(baseImage: nil, photoBounds: [.zero])
+        static let lifeFourCuts = PhotoFrame(baseImage: .hedgehogs, photoBounds: [.zero, .zero, .zero])
     }
     
     typealias RawValue = PhotoFrame?
