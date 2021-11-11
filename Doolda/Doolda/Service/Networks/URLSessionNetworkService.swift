@@ -37,6 +37,7 @@ class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
         }
         return self.session.dataTaskPublisher(for: urlRequset)
             .tryMap { data, response in
+                print("URLSessionService: \(response)")
                 guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
                     switch (response as? HTTPURLResponse)?.statusCode {
                     case .some(404):
