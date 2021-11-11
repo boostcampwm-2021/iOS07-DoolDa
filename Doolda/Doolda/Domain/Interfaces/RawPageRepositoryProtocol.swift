@@ -9,6 +9,6 @@ import Combine
 import Foundation
 
 protocol RawPageRepositoryProtocol {
-    func saveRawPage(_ rawPage: RawPageEntity) -> AnyPublisher<RawPageEntity, Error>
-    func fetchRawPage(for path: String) -> AnyPublisher<RawPageEntity, Error>
+    func save(rawPage: RawPageEntity, at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error>
+    func fetch(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error>
 }
