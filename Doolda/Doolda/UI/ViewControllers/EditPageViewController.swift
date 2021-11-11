@@ -258,11 +258,11 @@ class EditPageViewController: UIViewController {
 extension EditPageViewController: ComponentViewDelegate {
     
     func leftTopControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer) {
-        self.viewModel?.componentBringForwardControlDidTap()
+        self.viewModel?.componentBringFrontControlDidTap()
     }
     
     func leftBottomControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer) {
-        self.viewModel?.componentSendBackwardControlDidTap()
+        self.viewModel?.componentSendBackControlDidTap()
     }
     
     func rightTopControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer) {
