@@ -112,7 +112,7 @@ extension FramePickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     ) {
         guard let layout = self.photoFrameCollecionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         
-        let insetX = (self.photoFrameCollecionView.contentInset.left + self.photoFrameCollecionView.contentInset.right)
+        let insetX = self.photoFrameCollecionView.contentInset.left + self.photoFrameCollecionView.contentInset.right
         let itemWidth = self.photoFrameCollecionView.bounds.width + layout.minimumLineSpacing - insetX
         var offset = targetContentOffset.pointee
         
