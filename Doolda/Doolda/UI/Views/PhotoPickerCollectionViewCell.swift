@@ -5,6 +5,7 @@
 //  Created by 정지승 on 2021/11/10.
 //
 
+import Photos
 import UIKit
 
 import SnapKit
@@ -20,6 +21,7 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         return image
     }()
     
@@ -34,6 +36,10 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         label.clipsToBounds = true
         return label
     }()
+    
+    // MARK: - Private Properties
+    
+    private var requestImageId: PHImageRequestID?
     
     // MARK: - Initializer
     
@@ -69,11 +75,25 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         }
         
         self.layoutIfNeeded()
-        
-        self.imageView.backgroundColor = .red
     }
     
     // MARK: - Public Methods
+    
+    func fill(_ asset: PHAsset) {
+        if let requestImageId = requestImageId {
+            PHImageManager.default().cancelImageRequest(requestImageId)
+        }
+        
+        self.requestImageId = PHImageManager.default().requestImage(
+            for: asset,
+            targetSize: self.bounds.size,
+            contentMode: .aspectFill,
+            options: nil
+        ) { image, _ in
+            guard let image = image else { return }
+            self.imageView.image = image
+        }
+    }
     
     func select(order: Int) {
         // FIXME : cell select animation
