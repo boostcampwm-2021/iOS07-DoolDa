@@ -33,7 +33,7 @@ class URLSessionNetworkServiceTest: XCTestCase {
             return
         }
 
-        let urlRequest = FirebaseAPIs.createStorageFile(pairId, fileName, fileData)
+        let urlRequest = FirebaseAPIs.uploadDataFile(pairId, fileName, fileData)
         let publisher: AnyPublisher<[String: String], Error> = networkService.request(urlRequest)
 
         publisher
