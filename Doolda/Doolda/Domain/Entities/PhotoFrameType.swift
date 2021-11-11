@@ -22,12 +22,16 @@ enum PhotoFrameType: RawRepresentable, CaseIterable {
         }
         
         // FIXME: 프레임들을 여기에 static let으로 선언
-        static let lifeFourCuts = PhotoFrame(baseImage: .hedgehogs, photoBounds: [.zero, .zero, .zero])
+        static let polaroid = PhotoFrame(baseImage: .polaroid, photoBounds: [.zero])
+        static let lifeFourCuts = PhotoFrame(baseImage: .lifeFourCuts, photoBounds: [.zero, .zero, .zero, .zero])
+        static let hedgehogs = PhotoFrame(baseImage: .hedgehogs, photoBounds: [.zero])
     }
     
     typealias RawValue = PhotoFrame?
     
+    case polaroid
     case lifeFourCuts
+    case hedgehogs
     
     init?(rawValue: RawValue) {
         self = .lifeFourCuts
@@ -36,7 +40,9 @@ enum PhotoFrameType: RawRepresentable, CaseIterable {
     // FIXME: PhotoFrame내에 선언된 static let인스턴스를 rawValue로 제공
     var rawValue: PhotoFrame? {
         switch self {
+        case .polaroid: return PhotoFrame.polaroid
         case .lifeFourCuts: return PhotoFrame.lifeFourCuts
+        case .hedgehogs: return PhotoFrame.hedgehogs
         }
     }
 }

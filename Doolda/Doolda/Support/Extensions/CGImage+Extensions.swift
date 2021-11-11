@@ -9,6 +9,7 @@ import CoreGraphics
 import UIKit
 
 extension CGImage {
-    static let refresh = #imageLiteral(resourceName: "hedgehogs").cgImage
+    static let polaroid = #imageLiteral(resourceName: "polaroid").cgImage
+    static let lifeFourCuts = #imageLiteral(resourceName: "lifefourcuts").cgImage
     static let hedgehogs = #imageLiteral(resourceName: "hedgehogs").cgImage
 }
