@@ -33,13 +33,13 @@ class ImageUseCase: ImageUseCaseProtocol {
     }
 
     func saveLocal(image: CIImage) -> AnyPublisher<URL, Error> {
-        // image를 data로 변환
-        // fileName을 UUID로 생성
-//        guard let imageData = image.data else {
-//            return Fail(error: ImageUseCaseError.nilImageData).eraseToAnyPublisher()
-//        }
+        guard let imageData = image.data else {
+            return Fail(error: ImageUseCaseError.nilImageData).eraseToAnyPublisher()
+        }
         let imageName = UUID().uuidString
-        return imageRepository.saveLocal(imageData: Data(), fileName: "")
+        return imageRepository.saveLocal(imageData: imageData, fileName: imageName)
+                .tryMap{ $0 }
+                .eraseToAnyPublisher()
     }
 
     func saveRemote(for user: User, localUrl: URL) -> AnyPublisher<URL, Error> {
