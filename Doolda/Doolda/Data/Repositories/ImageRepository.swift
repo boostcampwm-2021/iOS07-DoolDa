@@ -39,10 +39,10 @@ class ImageRepository: ImageRepositoryProtocol {
         guard let pairId = user.pairId else {
             return Fail(error: ImageRepositoryError.nilUserPairId).eraseToAnyPublisher()
         }
-        let urlRequest = FirebaseAPIs.createStorageFile(pairId.ddidString, fileName, imageData)
+        let urlRequest = FirebaseAPIs.uploadDataFile(pairId.ddidString, fileName, imageData)
         let publisher: AnyPublisher<[String:String], Error> = self.urlSessionNetworkService.request(urlRequest)
 
-        return publisher.tryMap { result -> URL in
+        return publisher.tryMap { _ -> URL in
             guard let remoteUrl = urlRequest.baseURL else {
                 throw ImageRepositoryError.nilRemoteUrl
             }
