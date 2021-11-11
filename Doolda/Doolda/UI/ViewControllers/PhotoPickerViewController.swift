@@ -5,6 +5,7 @@
 //  Created by 정지승 on 2021/11/10.
 //
 
+import Combine
 import Photos
 import UIKit
 
@@ -19,8 +20,8 @@ final class PhotoPickerViewController: UIViewController {
     private lazy var photoPickerCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 2
-        flowLayout.minimumInteritemSpacing = 2
+        flowLayout.minimumLineSpacing = 0.5
+        flowLayout.minimumInteritemSpacing = 0.5
         flowLayout.sectionInset = .zero
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -41,6 +42,9 @@ final class PhotoPickerViewController: UIViewController {
     // MARK: - Private Properties
     
     private weak var delegate: PhotoPickerViewControllerDelegate?
+    
+    private var cancellables = Set<AnyCancellable>()
+    @Published private var selectedItems: [Int] = []
     @Published private var photos: PHFetchResult<PHAsset>?
     
     // MARK: - Initializers
@@ -93,8 +97,27 @@ extension PhotoPickerViewController: UICollectionViewDelegateFlowLayout, UIColle
         if let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
            let imageAsset = self.photos?.object(at: indexPath.item) {
             photoPickerCollectionViewCell.fill(imageAsset)
+            
+            if self.selectedItems.contains(indexPath.item),
+               let target = self.selectedItems.enumerated().first(where: { $0.element == indexPath.item }) {
+                photoPickerCollectionViewCell.select(order: target.offset + 1)
+            }
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoPickerCollectionViewCell else { return }
+        
+        if self.selectedItems.contains(indexPath.item),
+           let target = self.selectedItems.enumerated().first(where: { $0.element == indexPath.item }) {
+            self.selectedItems.remove(at: target.offset)
+            cell.deselect()
+            collectionView.reloadData()
+        } else {
+            cell.select(order: self.selectedItems.count + 1)
+            self.selectedItems.append(indexPath.item)
+        }
     }
 }
