@@ -16,6 +16,7 @@ protocol PhotoPickerBottomSheetViewModelInput {
 }
 
 protocol PhotoPickerBottomSheetViewModelOutput {
+    var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { get }
     var isReadyToCompose: Published<Bool>.Publisher { get }
     var composedResultPublisher: Published<URL?>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
@@ -24,6 +25,7 @@ protocol PhotoPickerBottomSheetViewModelOutput {
 typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewModelInput & PhotoPickerBottomSheetViewModelOutput
 
 class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
+    var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { self.$selectedPhotoFrame }
     var isReadyToCompose: Published<Bool>.Publisher { self.$readyToComposeState }
     var composedResultPublisher: Published<URL?>.Publisher { self.$composedResult }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
@@ -32,7 +34,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     private let imageComposeUseCase: ImageComposeUseCaseProtocol
     
     private var cancellables = Set<AnyCancellable>()
-    private var selectedPhotoFrame: PhotoFrameType?
+    @Published private var selectedPhotoFrame: PhotoFrameType?
     @Published private var selectedPhotos: [CIImage]?
     @Published private var readyToComposeState: Bool = false
     @Published private var composedResult: URL?
