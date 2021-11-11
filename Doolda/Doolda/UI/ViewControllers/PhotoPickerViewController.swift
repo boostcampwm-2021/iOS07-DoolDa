@@ -85,7 +85,10 @@ extension PhotoPickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier,
+            for: indexPath
+        )
         
         if let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
            let imageAsset = self.photos?.object(at: indexPath.item) {
