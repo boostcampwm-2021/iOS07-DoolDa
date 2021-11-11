@@ -48,7 +48,9 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     private let rawPageRepository: RawPageRepositoryProtocol
     
     private var cancellables: Set<AnyCancellable> = []
-    @Published private var selectedComponent: ComponentEntity?
+    @Published private var selectedComponent: ComponentEntity? {
+        didSet { print(" 변경 감지 ")}
+    }
     @Published private var rawPage: RawPageEntity?
     @Published private var error: Error?
     @Published private var result: Void?
@@ -70,12 +72,12 @@ class EditPageUseCase: EditPageUseCaseProtocol {
             .store(in: &self.cancellables)
     }
 
+    
     func selectComponent(at point: CGPoint) {
         guard let rawPage = self.rawPage else { return }
         for component in rawPage.components.reversed() {
             if component.hitTest(at: point) {
                 self.selectedComponent = component
-                print(self.selectedComponent)
             }
         }
         return self.selectedComponent = nil
@@ -122,11 +124,13 @@ class EditPageUseCase: EditPageUseCaseProtocol {
               let indexOfSelectedComponent = self.rawPage?.indexOf(component: selectedComponent) else { return }
         self.rawPage?.remove(at: indexOfSelectedComponent)
         self.selectedComponent = nil
+        self.selectedComponent = self.selectedComponent
     }
 
     func addComponent(_ component: ComponentEntity) {
         self.rawPage?.append(component: component)
         self.selectedComponent = component
+        self.selectedComponent = self.selectedComponent
     }
 
     func changeBackgroundType(_ backgroundType: BackgroundType) {
