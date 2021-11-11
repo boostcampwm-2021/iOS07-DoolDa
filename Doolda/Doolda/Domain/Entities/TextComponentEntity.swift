@@ -9,9 +9,9 @@ import CoreGraphics
 import Foundation
 
 class TextComponentEntity: ComponentEntity {
-    @Published var text: String
-    @Published var fontSize: CGFloat
-    @Published var fontColor: FontColorType
+    var text: String
+    var fontSize: CGFloat
+    var fontColor: FontColorType
     
     init(frame: CGRect, scale: CGFloat, angle: CGFloat, aspectRatio: CGFloat, text: String, fontSize: CGFloat, fontColor: FontColorType) {
         self.text = text
