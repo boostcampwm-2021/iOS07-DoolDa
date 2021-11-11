@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol PhotoPickerViewModelInput {
-    func nextButtonDidTap(_ photoFrame: PhotoFrameEntity)
+    func nextButtonDidTap(_ photoFrame: PhotoFrameType.PhotoFrame)
     func photoDidSelected(_ photos: [URL])
     func completeButtonDidTap()
     func cancelButtonDidTap()

@@ -106,10 +106,10 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         self.changeOrderOfComponents(from: indexOfSelectedComponent, to: 0)
     }
     
-    private func changeOrderOfComponents(from: Int, to: Int) {
+    private func changeOrderOfComponents(from index: Int, to another: Int) {
         guard var components = self.rawPage?.components else { return }
-        let target = components.remove(at: from)
-        components.insert(target, at: min(max(to, 0), components.count))
+        let target = components.remove(at: index)
+        components.insert(target, at: min(max(another, 0), components.count))
         self.rawPage?.components = components
     }
 

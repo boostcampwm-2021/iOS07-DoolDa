@@ -61,8 +61,8 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
 
     private func crop(with image: CIImage, by ratio: CGFloat) -> CIImage {
         let imageRatio = image.extent.width / image.extent.height
-        var x: CGFloat = 0
-        var y: CGFloat = 0
+        var xPosition: CGFloat = 0
+        var yPosition: CGFloat = 0
         var width: CGFloat = 0
         var height: CGFloat = 0
         var outputImage: CIImage = image
@@ -70,15 +70,15 @@ class ImageComposeUseCase: ImageComposeUseCaseProtocol {
         if imageRatio < ratio {
             height = image.extent.width / ratio
             width = image.extent.width
-            y = (image.extent.height - height) / 2
+            yPosition = (image.extent.height - height) / 2
         } else {
             height = image.extent.height
             width = image.extent.height * ratio
-            x = (image.extent.width - width) / 2
+            xPosition = (image.extent.width - width) / 2
         }
 
-        outputImage = outputImage.cropped(to: CGRect(x: x, y: y, width: width, height: height))
-        outputImage = outputImage.transformed(by: CGAffineTransform(translationX: -x, y: -y))
+        outputImage = outputImage.cropped(to: CGRect(x: xPosition, y: yPosition, width: width, height: height))
+        outputImage = outputImage.transformed(by: CGAffineTransform(translationX: -xPosition, y: -yPosition))
         return outputImage
     }
 
