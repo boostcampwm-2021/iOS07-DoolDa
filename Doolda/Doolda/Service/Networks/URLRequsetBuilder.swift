@@ -68,8 +68,7 @@ extension URLRequestBuilder {
             
             if let httpbody = self.body {
                 urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: httpbody)
-            }
-            else if let binaryData = self.binary {
+            } else if let binaryData = self.binary {
                 urlRequest.httpBody = binaryData
             }
 
