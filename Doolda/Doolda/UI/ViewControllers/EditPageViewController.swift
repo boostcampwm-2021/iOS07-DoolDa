@@ -178,6 +178,12 @@ class EditPageViewController: UIViewController {
                 let touchCGPoint = gesture.location(in: self.pageView)
                 self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
             }.store(in: &self.cancellables)
+        
+        self.addPhotoComponentButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel?.photoComponentAddButtonDidTap()
+            }.store(in: &self.cancellables)
     }
     
     private func bindViewModel() {
