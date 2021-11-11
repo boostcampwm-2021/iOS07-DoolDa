@@ -228,20 +228,29 @@ class PairingViewController: UIViewController {
             }
             .store(in: &cancellables)
 
-        viewModel.myId
+        self.viewModel?.myId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] myId in
                 self?.myIdLabel.text = myId
             }
             .store(in: &self.cancellables)
         
-        viewModel.isFriendIdValid
+        self.viewModel?.isFriendIdValid
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isValid in
                 self?.pairButton.isEnabled = isValid
             }
             .store(in: &cancellables)
-        
+
+        self.viewModel?.errorPublisher
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] error in
+                guard let error = error as? LocalizedError else { return }
+                self?.presentAlert(message: error.localizedDescription)
+            }
+            .store(in: &cancellables)
+
         self.view.publisher(for: UITapGestureRecognizer())
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -266,4 +275,14 @@ class PairingViewController: UIViewController {
             self.scrollView.contentOffset = CGPoint(x: 0, y: (keyboardHeight + self.contentView.frame.height) - self.view.frame.height + 30)
         }
     }
+
+    private func presentAlert(message: String) {
+        let alert = UIAlertController.defaultAlert(
+            title: "연결 오류",
+            message: message,
+            handler: { _ in }
+        )
+        self.present(alert, animated: true)
+    }
+
 }
