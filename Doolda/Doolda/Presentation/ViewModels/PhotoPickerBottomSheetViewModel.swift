@@ -1,5 +1,5 @@
 //
-//  PhotoPickerViewModel.swift
+//  PhotoPickerBottomSheetViewModel.swift
 //  Doolda
 //
 //  Created by 정지승 on 2021/11/08.
@@ -9,21 +9,21 @@ import Combine
 import CoreImage
 import Foundation
 
-protocol PhotoPickerViewModelInput {
+protocol PhotoPickerBottomSheetViewModelInput {
     func nextButtonDidTap(_ photoFrame: PhotoFrameType)
     func photoDidSelected(_ photos: [CIImage])
     func completeButtonDidTap()
 }
 
-protocol PhotoPickerViewModelOutput {
+protocol PhotoPickerBottomSheetViewModelOutput {
     var isReadyToCompose: Published<Bool>.Publisher { get }
     var isCompleted: Published<URL?>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
 }
 
-typealias PhotoPickerViewModelProtocol = PhotoPickerViewModelInput & PhotoPickerViewModelOutput
+typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewModelInput & PhotoPickerBottomSheetViewModelOutput
 
-class PhotoPickerViewModel: PhotoPickerViewModelProtocol {
+class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     var isReadyToCompose: Published<Bool>.Publisher { self.$readyToComposeState }
     var isCompleted: Published<URL?>.Publisher { self.$completeState }
     var errorPublisher: Published<Error?>.Publisher { self.$error }

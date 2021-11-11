@@ -56,9 +56,9 @@
 		31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012597273842DA00E43160 /* TextComponentEntity.swift */; };
 		3101259C2738430200E43160 /* StickerPackEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259B2738430200E43160 /* StickerPackEntity.swift */; };
 		310125A027393D3B00E43160 /* ImageComposeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259F27393D3B00E43160 /* ImageComposeUseCase.swift */; };
+		310125C427398DF600E43160 /* ImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125C327398DF600E43160 /* ImageUseCase.swift */; };
 		310125CC2739A56600E43160 /* ImageComposeUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125CB2739A56600E43160 /* ImageComposeUseCaseTest.swift */; };
 		310125D22739A5D200E43160 /* ImageComposeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101259F27393D3B00E43160 /* ImageComposeUseCase.swift */; };
-		310125C427398DF600E43160 /* ImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125C327398DF600E43160 /* ImageUseCase.swift */; };
 		310125D6273A6F3400E43160 /* FileManagerPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125D5273A6F3400E43160 /* FileManagerPersistenceService.swift */; };
 		310125D8273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310125D7273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift */; };
 		310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D80D22731402F00F15F4F /* ParingViewCoordinator.swift */; };
@@ -105,7 +105,7 @@
 		66FE936F27356E160036CED2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936E27356E160036CED2 /* User.swift */; };
 		66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9370273671910036CED2 /* PairUserUseCase.swift */; };
 		66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */; };
-		66FE93CC27396B960036CED2 /* PhotoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE93CB27396B950036CED2 /* PhotoPickerViewModel.swift */; };
+		66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */; };
 		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB79127325D2C008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
@@ -229,9 +229,9 @@
 		31012597273842DA00E43160 /* TextComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextComponentEntity.swift; sourceTree = "<group>"; };
 		3101259B2738430200E43160 /* StickerPackEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPackEntity.swift; sourceTree = "<group>"; };
 		3101259F27393D3B00E43160 /* ImageComposeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComposeUseCase.swift; sourceTree = "<group>"; };
+		310125C327398DF600E43160 /* ImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCase.swift; sourceTree = "<group>"; };
 		310125C92739A56600E43160 /* ImageComposeUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageComposeUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		310125CB2739A56600E43160 /* ImageComposeUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComposeUseCaseTest.swift; sourceTree = "<group>"; };
-		310125C327398DF600E43160 /* ImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCase.swift; sourceTree = "<group>"; };
 		310125D5273A6F3400E43160 /* FileManagerPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPersistenceService.swift; sourceTree = "<group>"; };
 		310125D7273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		310D80CE273106CA00F15F4F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -276,7 +276,7 @@
 		66FE936E27356E160036CED2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		66FE9370273671910036CED2 /* PairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCase.swift; sourceTree = "<group>"; };
 		66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserUseCase.swift; sourceTree = "<group>"; };
-		66FE93CB27396B950036CED2 /* PhotoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewModel.swift; sourceTree = "<group>"; };
+		66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* PairDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDocument.swift; sourceTree = "<group>"; };
@@ -592,7 +592,7 @@
 				664893FB27302947009F03E2 /* SplashViewModel.swift */,
 				664894172730F1B0009F03E2 /* PairingViewModel.swift */,
 				FCE9D3F327391F260001F155 /* EditPageViewModel.swift */,
-				66FE93CB27396B950036CED2 /* PhotoPickerViewModel.swift */,
+				66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1331,7 +1331,7 @@
 				310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
-				66FE93CC27396B960036CED2 /* PhotoPickerViewModel.swift in Sources */,
+				66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */,
 				310125C427398DF600E43160 /* ImageUseCase.swift in Sources */,
 				66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
