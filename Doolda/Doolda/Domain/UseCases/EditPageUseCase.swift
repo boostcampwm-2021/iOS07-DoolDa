@@ -43,15 +43,15 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     var resultPublisher: Published<Void?>.Publisher { self.$result }
     
+    private let imageUseCase: ImageUseCaseProtocol
+    private let pageRepository: PageRepositoryProtocol
+    private let rawPageRepository: RawPageRepositoryProtocol
+    
     private var cancellables: Set<AnyCancellable> = []
     @Published private var selectedComponent: ComponentEntity?
     @Published private var rawPage: RawPageEntity?
     @Published private var error: Error?
     @Published private var result: Void?
-    
-    private let imageUseCase: ImageUseCaseProtocol
-    private let pageRepository: PageRepositoryProtocol
-    private let rawPageRepository: RawPageRepositoryProtocol
 
     init(imageUseCase: ImageUseCaseProtocol, pageRepository: PageRepositoryProtocol, rawPageRepository: RawPageRepositoryProtocol) {
         self.imageUseCase = imageUseCase
@@ -96,7 +96,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         guard let rawPage = self.rawPage,
               let selectedComponent = self.selectedComponent,
               let indexOfSelectedComponent = rawPage.indexOf(component: selectedComponent) else { return }
-        self.changeOrderOfComponents(from: indexOfSelectedComponent, to: rawPage.count)
+        self.changeOrderOfComponents(from: indexOfSelectedComponent, to: rawPage.numberOfComponents)
     }
 
     func sendComponentBack() {
