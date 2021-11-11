@@ -184,6 +184,12 @@ class EditPageViewController: UIViewController {
                 guard let self = self else { return }
                 self.viewModel?.photoComponentAddButtonDidTap()
             }.store(in: &self.cancellables)
+        
+        self.changeBackgroundTypeButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel?.backgroundTypeButtonDidTap()
+            }.store(in: &self.cancellables)
     }
     
     private func bindViewModel() {
