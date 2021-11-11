@@ -34,10 +34,18 @@ class ImageRepository: ImageRepositoryProtocol {
 
     func saveRemote(user: User, imageData: Data, fileName: String) -> AnyPublisher<URL, Error> {
         guard let pairId = user.pairId else {
-            return Fail(error: ).eraseToAnyPublisher()
+            return Fail(error: ImageRepositoryError.nilUserPairId).eraseToAnyPublisher()
         }
-        let urlRequest = FirebaseAPIs.createStorageFile(<#T##String#>, <#T##String#>, <#T##Data#>)
-        return Just(URL(string: "")!).tryMap{ $0 }.eraseToAnyPublisher()
+        let urlRequest = FirebaseAPIs.createStorageFile(pairId.ddidString, fileName, imageData)
+        let publisher: AnyPublisher<[String:String], Error> = self.urlSessionNetworkService.request(urlRequest)
+
+        return publisher.tryMap { result -> URL in
+            guard let remoteUrl = urlRequest.baseURL else {
+                throw ImageRepositoryError.nilUserPairId // FIXME: ?
+            }
+            return remoteUrl
+        }
+        .eraseToAnyPublisher()
     }
 
 }
