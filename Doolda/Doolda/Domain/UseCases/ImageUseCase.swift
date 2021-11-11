@@ -21,7 +21,7 @@ enum ImageUseCaseError: LocalizedError {
 }
 
 protocol ImageUseCaseProtocol {
-    func saveLocal(image: CIImage) -> AnyPublisher<URL, Never>
+    func saveLocal(image: CIImage) -> AnyPublisher<URL, Error>
     func saveRemote(for user: User, localUrl: URL) -> AnyPublisher<URL, Error>
 }
 
@@ -32,11 +32,11 @@ class ImageUseCase: ImageUseCaseProtocol {
         self.imageRepository = imageRepository
     }
 
-    func saveLocal(image: CIImage) -> AnyPublisher<URL, Never> {
+    func saveLocal(image: CIImage) -> AnyPublisher<URL, Error> {
         // image를 data로 변환
         // fileName을 UUID로 생성
 //        guard let imageData = image.data else {
-//            return
+//            return Fail(error: ImageUseCaseError.nilImageData).eraseToAnyPublisher()
 //        }
         let imageName = UUID().uuidString
         return imageRepository.saveLocal(imageData: Data(), fileName: "")
