@@ -33,6 +33,22 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     
     func editingPageSaved() {}
     func editingPageCanceled() {}
+    
+    func addPhotoComponent() {
+        let fileManagerPersistenceService = FileManagerPersistenceService()
+        let urlSessionNetworkService = URLSessionNetworkService()
+        
+        let imageRepository = ImageRepository(fileManagerService: fileManagerPersistenceService, networkService: urlSessionNetworkService)
+        
+        let imageUseCase = ImageUseCase(imageRepository: imageRepository)
+        let imageComposeUseCaes = ImageComposeUseCase()
+        
+        let photoPickerBottomSheetViewModel = PhotoPickerBottomSheetViewModel(imageUseCase: imageUseCase, imageComposeUseCase: imageComposeUseCaes)
+        
+        let viewController = PhotoPickerBottomSheetViewController(photoPickerViewModel: photoPickerBottomSheetViewModel, photoPickerBottomSheetViewControllerDelegate: nil)
+        
+        self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
+    }
 }
 
 enum TestError: Error {
@@ -102,21 +118,3 @@ class DummyRawPageRepository: RawPageRepositoryProtocol {
         return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

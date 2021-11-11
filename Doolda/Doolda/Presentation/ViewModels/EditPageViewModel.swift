@@ -108,6 +108,10 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func photoComponentAddButtonDidTap() {
+        self.coordinator.addPhotoComponent()
+    }
+    
+    func backgroundTypeButtonDidTap() {
         // FIXME : goto coordinator delete dummy component
         let dummyComponent = PhotoComponentEntity(
             frame: CGRect(
@@ -120,10 +124,6 @@ final class EditPageViewModel: EditPageViewModelProtocol {
             imageUrl: URL(string: "https://item.kakaocdn.net/do/d0abc6fe74e616536cf07626699bbc707154249a3890514a43687a85e6b6cc82")!
         )
         self.editPageUseCase.addComponent(dummyComponent)
-    }
-    
-    func backgroundTypeButtonDidTap() {
-        // FIXME : goto coordinator delete dummy component
     }
     
     func componentEntityDidAdd(_ component: ComponentEntity) {
