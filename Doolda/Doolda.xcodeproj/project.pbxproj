@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */; };
 		1D04F41C273957E600CFCC3A /* BackgroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F41B273957E600CFCC3A /* BackgroundType.swift */; };
+		1D097E97273CFA5900A4810B /* RawPageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D097E96273CFA5900A4810B /* RawPageRepository.swift */; };
 		1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		1D0C8BCC2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */; };
 		1D0C8BD02732B7780091ACC0 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
@@ -145,6 +146,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1D097E94273CFA1200A4810B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 664893BC273007ED009F03E2;
+			remoteInfo = Doolda;
+		};
 		310125CD2739A56600E43160 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
@@ -206,6 +214,7 @@
 /* Begin PBXFileReference section */
 		1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Extensions.swift"; sourceTree = "<group>"; };
 		1D04F41B273957E600CFCC3A /* BackgroundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundType.swift; sourceTree = "<group>"; };
+		1D097E96273CFA5900A4810B /* RawPageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPageRepository.swift; sourceTree = "<group>"; };
 		1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCase.swift; sourceTree = "<group>"; };
 		1D0C8BC92732B5F90091ACC0 /* GetPairIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetPairIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0C8BCB2732B5F90091ACC0 /* GetPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPairIdUseCaseTest.swift; sourceTree = "<group>"; };
@@ -626,6 +635,7 @@
 				FC5FB792273260C3008AC3D2 /* UserRepository.swift */,
 				FCE9D3DD2738CFB50001F155 /* PairRepository.swift */,
 				319C21CF273BA7D4009CE65C /* ImageRepository.swift */,
+				1D097E96273CFA5900A4810B /* RawPageRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1379,6 +1389,7 @@
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				66CD6452273B549200E55C03 /* FramePickerViewController.swift in Sources */,
 				1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */,
+				1D097E97273CFA5900A4810B /* RawPageRepository.swift in Sources */,
 				310125A027393D3B00E43160 /* ImageComposeUseCase.swift in Sources */,
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
@@ -1459,6 +1470,7 @@
 			isa = PBXTargetDependency;
 			target = 664893BC273007ED009F03E2 /* Doolda */;
 			targetProxy = 319C222B273CEC4D009CE65C /* PBXContainerItemProxy */;
+			targetProxy = 1D097E94273CFA1200A4810B /* PBXContainerItemProxy */;
 		};
 		6648946127327F1D009F03E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
