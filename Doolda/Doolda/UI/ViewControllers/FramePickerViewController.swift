@@ -134,14 +134,17 @@ extension FramePickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(
+        let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellIdentifier,
             for: indexPath
-        ) as? PhotoFrameCollectionViewCell {
-            cell.fill(PhotoFrameType.allCases[indexPath.item])
-            return cell
-        } else {
-            return UICollectionViewCell()
+        )
+        
+        if let photoFrameCollectionViewCell = cell as? PhotoFrameCollectionViewCell,
+           let baseImage = PhotoFrameType.allCases[indexPath.item].rawValue?.baseImage {
+             
+            photoFrameCollectionViewCell.fill(baseImage)
         }
+        
+        return cell
     }
 }

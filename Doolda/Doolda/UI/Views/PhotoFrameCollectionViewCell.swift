@@ -46,11 +46,7 @@ class PhotoFrameCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func fill(_ photoFrame: PhotoFrameType) {
-        guard let photoFrame = photoFrame.rawValue else {
-            return self.frameImageView.image = nil
-        }
-
-        self.frameImageView.image = UIImage(ciImage: photoFrame.baseImage)
+    func fill(_ photo: CIImage) {
+        self.frameImageView.image = UIImage(ciImage: photo)
     }
 }
