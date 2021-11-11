@@ -89,7 +89,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         guard let rawPage = self.rawPage,
               let selectedComponent = self.selectedComponent,
               let indexOfSelectedComponent = rawPage.indexOf(component: selectedComponent) else { return }
-        self.changeOrderOfComponents(from: indexOfSelectedComponent, to: rawPage.numberOfComponents)
+        self.changeOrderOfComponents(from: indexOfSelectedComponent, to: rawPage.components.count)
     }
 
     func sendComponentBack() {
@@ -124,6 +124,8 @@ class EditPageUseCase: EditPageUseCaseProtocol {
 
     func savePage(author: User) {
         guard let page = self.rawPage else { return self.error = EditPageUseCaseError.rawPageNotFound }
+        guard let pairId = author.pairId?.ddidString else { return }
+        
         let currentTime = Date()
         let path = DateFormatter.jsonPathFormatter.string(from: currentTime)
         let metaData = PageEntity(author: author, timeStamp: currentTime, jsonPath: path)
@@ -148,7 +150,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
                 self?.error = error
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                Publishers.Zip(self.pageRepository.savePage(metaData), self.rawPageRepository.saveRawPage(page))
+                Publishers.Zip(self.pageRepository.savePage(metaData), self.rawPageRepository.save(rawPage: page, at: pairId, with: path))
                     .sink { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
                         self?.error = error
