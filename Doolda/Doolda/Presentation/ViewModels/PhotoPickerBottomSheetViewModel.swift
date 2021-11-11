@@ -17,7 +17,7 @@ protocol PhotoPickerBottomSheetViewModelInput {
 
 protocol PhotoPickerBottomSheetViewModelOutput {
     var isReadyToCompose: Published<Bool>.Publisher { get }
-    var isCompleted: Published<URL?>.Publisher { get }
+    var composedResultPublisher: Published<URL?>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
 }
 
@@ -25,7 +25,7 @@ typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewMo
 
 class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     var isReadyToCompose: Published<Bool>.Publisher { self.$readyToComposeState }
-    var isCompleted: Published<URL?>.Publisher { self.$completeState }
+    var composedResultPublisher: Published<URL?>.Publisher { self.$composedResult }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
     private let imageUseCase: ImageUseCaseProtocol
@@ -35,7 +35,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     private var selectedPhotoFrame: PhotoFrameType?
     @Published private var selectedPhotos: [CIImage]?
     @Published private var readyToComposeState: Bool = false
-    @Published private var completeState: URL?
+    @Published private var composedResult: URL?
     @Published private var error: Error?
     
     init(imageUseCase: ImageUseCaseProtocol, imageComposeUseCase: ImageComposeUseCaseProtocol) {
@@ -65,7 +65,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
                 guard let self = self else { return }
                 self.imageUseCase.saveLocal(image: composedImage)
                     .sink(receiveValue: { localUrl in
-                        self.completeState = localUrl
+                        self.composedResult = localUrl
                     })
                     .store(in: &self.cancellables)
             }
