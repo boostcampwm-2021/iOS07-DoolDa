@@ -57,19 +57,22 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
               let selectedPhotoFrame = selectedPhotoFrame,
               let selectedPhotos = selectedPhotos else { return }
         
-//        self.imageComposeUseCase.compose(photoFrameType: selectedPhotoFrame, images: selectedPhotos)
-//            .sink { [weak self] completion in
-//                guard case .failure(let error) = completion else { return }
-//                self?.error = error
-//            } receiveValue: { [weak self] composedImage in
-//                guard let self = self else { return }
-//                self.imageUseCase.saveLocal(image: composedImage)
-//                    .sink(receiveValue: { localUrl in
-//                        self.composedResult = localUrl
-//                    })
-//                    .store(in: &self.cancellables)
-//            }
-//            .store(in: &self.cancellables)
+        self.imageComposeUseCase.compose(photoFrameType: selectedPhotoFrame, images: selectedPhotos)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] composedImage in
+                guard let self = self else { return }
+                self.imageUseCase.saveLocal(image: composedImage)
+                    .sink(receiveCompletion: { completion in
+                        guard case .failure(let error) = completion else { return }
+                        self.error = error
+                    }, receiveValue: { localUrl in
+                        self.composedResult = localUrl
+                    })
+                    .store(in: &self.cancellables)
+            }
+            .store(in: &self.cancellables)
     }
     
     private func bind() {
