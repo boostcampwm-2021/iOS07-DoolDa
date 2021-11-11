@@ -16,13 +16,13 @@ enum FirebaseAPIs: URLRequestBuilder {
     case createPairDocument(String, String)
     case patchPairDocument(String, String)
 
-    case createStorageFile(String, String, Data)
+    case uploadDataFile(String, String, Data)
 }
 
 extension FirebaseAPIs {
     var baseURL: URL? {
         switch self {
-        case .createStorageFile(let pairId, let fileName, _):
+        case .uploadDataFile(let pairId, let fileName, _):
             return URL(string: "https://firebasestorage.googleapis.com/v0/b/doolda.appspot.com/o/\(pairId)%2F\(fileName)")
         default:
             return URL(string: "https://firestore.googleapis.com/v1/projects/doolda/databases/(default)/")
@@ -55,7 +55,7 @@ extension FirebaseAPIs {
             return ["documentId": id]
         case .patchUserDocuement, .patchPairDocument:
             return ["currentDocument.exists": "true"]
-        case .createStorageFile:
+        case .uploadDataFile:
             return ["alt": "media"]
         }
     }
@@ -66,7 +66,7 @@ extension FirebaseAPIs {
         switch self {
         case .getUserDocuement, .getPairDocument:
             return .get
-        case .createUserDocument, .createPairDocument, .createStorageFile:
+        case .createUserDocument, .createPairDocument, .uploadDataFile:
             return .post
         case .patchUserDocuement, .patchPairDocument:
             return .patch
@@ -77,7 +77,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var headers: [String : String]? {
         switch self {
-        case .createStorageFile:
+        case .uploadDataFile:
             return ["Content-Type": "application/octet-stream"]
         default :
             return ["Content-Type": "application/json", "Accept": "application/json"]
@@ -88,7 +88,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var body: [String: Any]? {
         switch self {
-        case .getUserDocuement, .getPairDocument, .createStorageFile:
+        case .getUserDocuement, .getPairDocument, .uploadDataFile:
             return nil
         case .createUserDocument(let userId):
             let userDocument = UserDocument(userId: userId, pairId: "")
@@ -112,7 +112,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var binary: Data? {
         switch self {
-        case .createStorageFile(_, _, let data):
+        case .uploadDataFile(_, _, let data):
             return data
         default:
             return nil
