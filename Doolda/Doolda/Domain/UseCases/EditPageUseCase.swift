@@ -77,7 +77,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         guard let rawPage = self.rawPage else { return }
         for component in rawPage.components.reversed() {
             if component.hitTest(at: point) {
-                self.selectedComponent = component
+                return self.selectedComponent = component
             }
         }
         return self.selectedComponent = nil

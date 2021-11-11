@@ -88,6 +88,9 @@ class EditPageViewController: UIViewController {
         return self.pageView.frame.size.height / 3000.0
     }
     
+    private var initialOrigin: CGPoint = .zero
+    private var center: CGPoint = .zero
+    
     private var scale: CGFloat = 0
     private var savedScale: CGFloat = 1
     private var deltaAngle: Float = 0
@@ -204,7 +207,6 @@ class EditPageViewController: UIViewController {
     
     private func bindViewModel() {
         self.viewModel?.selectedComponentPublisher
-            .print("ViewController내의 selected")
             .sink { [weak self] componentEntity in
                 guard let self = self else { return }
                 self.componentViewDictionary.values.forEach { $0.isSelected = false }
@@ -216,12 +218,16 @@ class EditPageViewController: UIViewController {
                     size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                 )
                 componentView.frame = computedCGRect
-                print(computedCGRect)
-                self.savedScale = componentEntity.scale
                 
                 var transform = CGAffineTransform.identity
-                transform = transform.rotated(by: CGFloat(-componentEntity.angle))
+                transform = transform.rotated(by: componentEntity.angle)
                 componentView.transform = transform
+                
+//
+//                var transform = CGAffineTransform.identity.rotated(by: componentEntity.angle)
+//                componentView.transform = transform
+                print("transform",componentView.transform)
+                
             }.store(in: &self.cancellables)
         
         self.viewModel?.componentsPublisher
@@ -233,13 +239,18 @@ class EditPageViewController: UIViewController {
                 }
                 for componentEntity in componenets {
                     guard let componentEntity = componentEntity as? PhotoComponentEntity else { return }
+                    // fixme
                     let computedCGRect = CGRect(
                         origin: self.computePointFromAbsolute(at: componentEntity.origin),
                         size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                     )
+                    
                     let contentView = UIImageView(frame: computedCGRect)
                     contentView.image = UIImage(data: try! Data(contentsOf: componentEntity.imageUrl))
                     let componentView = ComponentView(component: contentView, delegate: self)
+                    
+                    
+
                     self.componentViewDictionary[componentEntity] = componentView
                     self.pageView.addSubview(componentView)
                 }
@@ -286,6 +297,7 @@ extension EditPageViewController: ComponentViewDelegate {
     }
     
     func rightBottomcontrolDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer) {
+        guard let contentView = componentView.contentView else { return }
         let touchLocation = gesture.location(in: self.view)
         let center = componentView.center
 
@@ -297,28 +309,69 @@ extension EditPageViewController: ComponentViewDelegate {
         switch gesture.state {
         case .began:
             self.deltaAngle = angle - atan2f(Float(componentView.transform.b), Float(componentView.transform.a))
+            print(componentView.transform)
             self.initialDistance = distance
         case .changed:
             let angleDiff = Float(self.deltaAngle) - angle
-            self.scale = distance / self.initialDistance
-            self.scale *= self.savedScale
+            scale = distance / self.initialDistance
+            scale *= savedScale
             
-            self.viewModel?.componentDidRotate(by: CGFloat(angleDiff))
-            let tranform = CGAffineTransform.identity.scaledBy(x: self.scale, y: self.scale)
-            componentView.transform = tranform
-            
-            let controlTranform = CGAffineTransform.identity.scaledBy(x: 1/self.scale, y: 1/self.scale)
-            contentView.layer.borderWidth = 1/self.scale
-            componentView.controls.forEach { $0.transform = controlTranform }
-            componentView.contentView?.layer.borderWidth = 1 / self.scale
-//            self.viewModel?.componentDidScale(by: self.scale)
+            self.viewModel?.componentDidRotate(by: CGFloat(-angleDiff))
 
+            
+            // viewModel.changeSelectedSclae(scale)
+            // viewModel.changeSelectedRotation(angle) -> usecase에서 실제 컴포넌트에 적용 -> 타고타고내려와서 bind걸린곳에서 실제처리
+            
+//            var transform = CGAffineTransform.identity
+//            transform = transform.rotated(by: CGFloat(-angleDiff))
+//            transform = transform.scaledBy(x: scale, y: scale)
+//            componentView.transform = transform
+            
+            let controlTransform = CGAffineTransform.identity.scaledBy(x: 1/scale, y: 1/scale)
+            componentView.controls.forEach { $0.transform  = controlTransform }
+
+            contentView.layer.borderWidth = 1 / scale
         case .ended, .possible:
-            self.viewModel?.componentDidScale(by: self.scale)
-//            self.savedScale = self.scale
+            savedScale = scale
         default:
             break
         }
+    
+//        let touchLocation = gesture.location(in: self.view)
+//        let center = componentView.center
+//
+//        let xDifference = (center.x - touchLocation.x)
+//        let yDifference = (center.y - touchLocation.y)
+//        let distance = sqrt(xDifference * xDifference + yDifference * yDifference)
+//        let angle = atan2f(Float(touchLocation.y - center.y), Float(touchLocation.x - center.x))
+//
+//        switch gesture.state {
+//        case .began:
+//            self.deltaAngle = angle - atan2f(Float(componentView.transform.b), Float(componentView.transform.a))
+//            self.initialDistance = distance
+//
+//        case .changed:
+//            let angleDiff = Float(self.deltaAngle) - angle
+//            self.scale = distance / self.initialDistance
+//            self.scale *= self.savedScale
+//
+//            self.viewModel?.componentDidRotate(by: CGFloat(angleDiff))
+//            var transform = CGAffineTransform.identity
+//            transform = transform.rotated(by: CGFloat(-angleDiff))
+//            transform = transform.scaledBy(x: scale, y: scale)
+//            componentView.transform = transform
+//
+//            let controlTranform = CGAffineTransform.identity.scaledBy(x: 1/self.scale, y: 1/self.scale)
+//            componentView.controls.forEach { $0.transform = controlTranform }
+//            componentView.contentView?.layer.borderWidth = 1 / self.scale
+////            self.viewModel?.componentDidScale(by: self.scale)
+//
+//        case .ended, .possible:
+//            self.viewModel?.componentDidScale(by: self.scale)
+////            self.savedScale = self.scale
+//        default:
+//            break
+//        }
     }
     
     func contentViewDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer) {
@@ -327,11 +380,15 @@ extension EditPageViewController: ComponentViewDelegate {
         case .began:
             let touchCGPoint = gesture.location(in: self.pageView)
             self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
+            self.initialOrigin = componentView.frame.origin
             
         default:
             let translation = gesture.translation(in: self.view)
             var contentViewOriginFromPage = componentView.convert(contentView.layer.frame.origin, to: self.pageView)
-            contentViewOriginFromPage = CGPoint(x: contentViewOriginFromPage.x + translation.x, y: contentViewOriginFromPage.y + translation.y)
+            contentViewOriginFromPage = CGPoint(
+                x: self.initialOrigin.x + translation.x,
+                y: self.initialOrigin.y + translation.y
+            )
             let computedOrigin = self.computePointToAbsolute(at: contentViewOriginFromPage)
             self.viewModel?.componentDidDrag(at: computedOrigin)
         }
