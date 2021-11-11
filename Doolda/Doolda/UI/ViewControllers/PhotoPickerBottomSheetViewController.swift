@@ -171,6 +171,13 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
                 self?.delegate?.composedPhotoDidMake(url)
             }
             .store(in: &self.cancellables)
+        
+        viewModel.selectedPhotoFramePublisher
+            .compactMap { $0 }
+            .sink { [weak self] photoFrameType in
+                self?.photoPickerViewController.selectablePhotoCount = photoFrameType.rawValue?.requiredPhotoCount ?? 0
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Private Method
