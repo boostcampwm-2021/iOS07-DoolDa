@@ -159,7 +159,8 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         viewModel.isReadyToCompose
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
-                self?.nextButton.isEnabled = self?.currentContentViewController == self?.photoPickerViewController && result
+                self?.nextButton.isEnabled = self?.currentContentViewController == self?.framePickerViewController ||
+                (self?.currentContentViewController == self?.photoPickerViewController && result)
             }
             .store(in: &self.cancellables)
         
