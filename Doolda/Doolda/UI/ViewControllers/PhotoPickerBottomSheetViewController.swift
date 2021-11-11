@@ -75,7 +75,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     // MARK: - Private Properties
     
-    private var viewModel: PhotoPickerViewModelProtocol?
+    private var viewModel: PhotoPickerBottomSheetViewModel?
     private var delegate: PhotoPickerBottomSheetViewControllerDelegate?
 
     private var cancellables = Set<AnyCancellable>()
@@ -84,7 +84,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     // MARK: - Initializers
     
     convenience init(
-        photoPickerViewModel: PhotoPickerViewModelProtocol,
+        photoPickerViewModel: PhotoPickerBottomSheetViewModel,
         photoPickerBottomSheetViewControllerDelegate: PhotoPickerBottomSheetViewControllerDelegate?
     ) {
         self.init(nibName: nil, bundle: nil)
@@ -133,20 +133,43 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     }
     
     private func bindUI() {
+        guard let viewModel = viewModel else { return }
+        
         self.nextButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.setChildViewController(child: self.photoPickerViewController)
+                if self.currentContentViewController == self.framePickerViewController {
+                    self.setChildViewController(child: self.photoPickerViewController)
+                    self.nextButton.setTitle("완료", for: .normal)
+                    self.nextButton.isEnabled = false
+                } else if self.currentContentViewController == self.photoPickerViewController {
+                    self.viewModel?.completeButtonDidTap()
+                }
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         self.closeButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.dismiss(animated: true, completion: nil)
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
+        
+        viewModel.isReadyToCompose
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] result in
+                self?.nextButton.isEnabled = self?.currentContentViewController == self?.photoPickerViewController && result
+            }
+            .store(in: &self.cancellables)
+        
+        viewModel.composedResultPublisher
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] url in
+                self?.delegate?.composedPhotoDidMake(url)
+            }
+            .store(in: &self.cancellables)
     }
     
     // MARK: - Private Method
