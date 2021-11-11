@@ -305,7 +305,9 @@ extension EditPageViewController: ComponentViewDelegate {
             self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
             
         default:
-            let contentViewOriginFromPage = componentView.convert(contentView.layer.frame.origin, to: self.pageView)
+            let translation = gesture.translation(in: self.view)
+            var contentViewOriginFromPage = componentView.convert(contentView.layer.frame.origin, to: self.pageView)
+            contentViewOriginFromPage = CGPoint(x: contentViewOriginFromPage.x + translation.x, y: contentViewOriginFromPage.y + translation.y)
             let computedOrigin = self.computePointToAbsolute(at: contentViewOriginFromPage)
             self.viewModel?.componentDidDrag(at: computedOrigin)
         }
