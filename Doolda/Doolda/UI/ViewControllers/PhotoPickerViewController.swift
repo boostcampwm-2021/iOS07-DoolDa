@@ -5,6 +5,7 @@
 //  Created by 정지승 on 2021/11/10.
 //
 
+import Photos
 import UIKit
 
 protocol PhotoPickerViewControllerDelegate: AnyObject {
@@ -40,6 +41,7 @@ final class PhotoPickerViewController: UIViewController {
     // MARK: - Private Properties
     
     private weak var delegate: PhotoPickerViewControllerDelegate?
+    @Published private var photos: PHFetchResult<PHAsset>?
     
     // MARK: - Initializers
     
@@ -52,6 +54,7 @@ final class PhotoPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
         configureUI()
     }
     
@@ -78,15 +81,15 @@ extension PhotoPickerViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // FIXME : 실제 사진 데이터를 활용하도록 수정
-        return 30
+        return self.photos?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier, for: indexPath)
         
-        if let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell {
-            // FIXME : 앨범 Photo를 전달
+        if let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
+           let imageAsset = self.photos?.object(at: indexPath.item) {
+            photoPickerCollectionViewCell.fill(imageAsset)
         }
         
         return cell
