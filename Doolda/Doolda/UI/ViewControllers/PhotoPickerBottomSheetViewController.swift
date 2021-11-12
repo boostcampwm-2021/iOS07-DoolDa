@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Photos
 import UIKit
 
 import SnapKit
@@ -51,14 +52,30 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         return view
     }()
     
-    private lazy var framePickerViewController: FramePickerViewController = {
-        let viewController = FramePickerViewController(framePickerViewControllerDelegate: self)
-        return viewController
+    private lazy var framePicker: CarouselView = {
+        let carousel = CarouselView(carouselDataSource: self, carouselDelegate: self)
+        carousel.internalSpace = 50.0
+        carousel.delegate = self
+        return carousel
     }()
     
-    private lazy var photoPickerViewController: PhotoPickerViewController = {
-        let viewController = PhotoPickerViewController(photoPickerViewControllerDelegate: self)
-        return viewController
+    private lazy var photoPickerCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.minimumLineSpacing = 0.5
+        flowLayout.minimumInteritemSpacing = 0.5
+        flowLayout.sectionInset = .zero
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(
+            PhotoPickerCollectionViewCell.self,
+            forCellWithReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier
+        )
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .clear
+        return collectionView
     }()
     
     private lazy var nextButton: UIButton = {
@@ -66,20 +83,26 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         configuration.cornerStyle = .capsule
         configuration.baseForegroundColor = .dooldaLabel
         configuration.baseBackgroundColor = .dooldaHighlighted
-        
-        var container = AttributeContainer()
-        container.font = UIFont(name: "Dovemayo", size: 16)
-        configuration.attributedTitle = AttributedString("다음", attributes: container)
+        configuration.attributedTitle = AttributedString("다음", attributes: self.fontContainer)
         return UIButton(configuration: configuration)
     }()
     
     // MARK: - Private Properties
     
+    private var fontContainer: AttributeContainer {
+        var container = AttributeContainer()
+        container.font = UIFont(name: "Dovemayo", size: 16)
+        return container
+    }
+    
     private var viewModel: PhotoPickerBottomSheetViewModel?
     private weak var delegate: PhotoPickerBottomSheetViewControllerDelegate?
 
+    @Published private var selectedItems: [Int] = []
+    @Published private var photos: PHFetchResult<PHAsset>?
+    
     private var cancellables = Set<AnyCancellable>()
-    private var currentContentViewController: UIViewController?
+    private var currentContentView: UIView?
     
     // MARK: - Initializers
     
@@ -100,7 +123,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         configureUI()
         bindUI()
         
-        setChildViewController(child: self.framePickerViewController)
+        setContentView(self.framePicker)
     }
     
     // MARK: - Helpers
@@ -139,11 +162,12 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                if self.currentContentViewController == self.framePickerViewController {
-                    self.setChildViewController(child: self.photoPickerViewController)
-                    self.nextButton.setTitle("완료", for: .normal)
+                if self.currentContentView == self.framePicker {
+                    self.fetchPhotos()
+                    self.setContentView(self.photoPickerCollectionView)
+                    self.nextButton.configuration?.attributedTitle = AttributedString("완료", attributes: self.fontContainer)
                     self.nextButton.isEnabled = false
-                } else if self.currentContentViewController == self.photoPickerViewController {
+                } else if self.currentContentView == self.photoPickerCollectionView {
                     self.viewModel?.completeButtonDidTap()
                 }
             }
@@ -159,8 +183,8 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         viewModel.isReadyToCompose
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
-                self?.nextButton.isEnabled = self?.currentContentViewController == self?.framePickerViewController ||
-                (self?.currentContentViewController == self?.photoPickerViewController && result)
+                self?.nextButton.isEnabled = self?.currentContentView == self?.framePicker ||
+                (self?.currentContentView == self?.photoPickerCollectionView && result)
             }
             .store(in: &self.cancellables)
         
@@ -171,41 +195,119 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
                 self?.delegate?.composedPhotoDidMake(url)
             }
             .store(in: &self.cancellables)
-        
-        viewModel.selectedPhotoFramePublisher
-            .compactMap { $0 }
-            .sink { [weak self] photoFrameType in
-                self?.photoPickerViewController.selectablePhotoCount = photoFrameType.rawValue?.requiredPhotoCount ?? 0
-            }
-            .store(in: &cancellables)
     }
     
     // MARK: - Private Method
     
-    private func setChildViewController(child viewController: UIViewController) {
-        self.currentContentViewController?.didMove(toParent: nil)
-        self.currentContentViewController?.view.removeFromSuperview()
-        self.currentContentViewController?.view.snp.removeConstraints()
-        self.currentContentViewController?.removeFromParent()
+    private func setContentView(_ content: UIView) {
+        self.currentContentView?.snp.removeConstraints()
+        self.currentContentView?.removeFromSuperview()
+        self.currentContentView = content
         
-        self.addChild(viewController)
-        self.contentFrame.addSubview(viewController.view)
-        viewController.view.snp.makeConstraints { make in
+        self.contentFrame.addSubview(content)
+        content.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        viewController.didMove(toParent: self)
-        self.currentContentViewController = viewController
+    }
+    
+    private func fetchPhotos() {
+        self.checkPhotoAccessPermission { result in
+            guard result else { return }
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [.init(key: "creationDate", ascending: false)]
+            self.photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+        }
+    }
+    
+    private func checkPhotoAccessPermission(completionHandler: @escaping (Bool) -> Void) {
+        guard PHPhotoLibrary.authorizationStatus(for: .readWrite) != .authorized else {
+            return completionHandler(true)
+        }
+        
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
+            completionHandler(status == .authorized)
+        }
     }
 }
 
-extension PhotoPickerBottomSheetViewController: FramePickerViewControllerDelegate {
-    func photoFrameDidChange(_ photoFrameType: PhotoFrameType) {
-        self.viewModel?.nextButtonDidTap(photoFrameType)
+extension PhotoPickerBottomSheetViewController: CarouselViewDelegate {
+    func selectedItemDidChange(_ index: Int) {
+        print(#function, index)
     }
 }
 
-extension PhotoPickerBottomSheetViewController: PhotoPickerViewControllerDelegate {
-    func selectedPhotoDidChange(_ images: [CIImage]) {
-        self.viewModel?.photoDidSelected(images)
+extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        if collectionView === self.photoPickerCollectionView {
+            guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
+            let cellSize = collectionView.bounds.width / 3 - layout.minimumInteritemSpacing
+            return CGSize(width: cellSize, height: cellSize)
+        } else {
+            return CGSize(
+                width: collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right),
+                height: collectionView.bounds.height
+            )
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView === self.photoPickerCollectionView {
+            return self.photos?.count ?? 0
+        } else {
+            return PhotoFrameType.allCases.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: UICollectionViewCell
+        
+        if collectionView === self.photoPickerCollectionView {
+            cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier,
+                for: indexPath
+            )
+            
+            if let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
+               let imageAsset = self.photos?.object(at: indexPath.item) {
+                photoPickerCollectionViewCell.fill(imageAsset)
+                
+                if self.selectedItems.contains(indexPath.item),
+                   let target = self.selectedItems.enumerated().first(where: { $0.element == indexPath.item }) {
+                    photoPickerCollectionViewCell.select(order: target.offset + 1)
+                }
+            }
+        } else {
+            cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellIdentifier,
+                for: indexPath
+            )
+            
+            if let photoFrameCollectionViewCell = cell as? PhotoFrameCollectionViewCell,
+               let baseImage = PhotoFrameType.allCases[indexPath.item].rawValue?.baseImage {
+                photoFrameCollectionViewCell.fill(baseImage)
+            }
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView === self.photoPickerCollectionView {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoPickerCollectionViewCell else { return }
+            
+            if self.selectedItems.contains(indexPath.item),
+               let target = self.selectedItems.enumerated().first(where: { $0.element == indexPath.item }) {
+                self.selectedItems.remove(at: target.offset)
+                cell.deselect()
+                collectionView.reloadData()
+            } else {
+                cell.select(order: self.selectedItems.count + 1)
+                self.selectedItems.append(indexPath.item)
+            }
+        }
     }
 }
