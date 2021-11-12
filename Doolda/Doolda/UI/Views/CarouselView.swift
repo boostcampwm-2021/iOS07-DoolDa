@@ -43,7 +43,6 @@ class CarouselView: UIView {
     
     // MARK: - Public Properties
     
-    weak var delegate: CarouselViewDelegate?
     @Published var internalSpace: CGFloat = .zero
     @Published var currentItemIndex: Int = .zero
     @Published var isPageControlHidden: Bool = false
@@ -51,15 +50,21 @@ class CarouselView: UIView {
     // MARK: - Private Properties
     
     private var cancellables = Set<AnyCancellable>()
-    private weak var carouselDataSource: UICollectionViewDataSource?
-    private weak var carouselDelegate: UICollectionViewDelegateFlowLayout?
+    private weak var carouselDelegate: CarouselViewDelegate?
+    private weak var carouselCollectionViewDataSource: UICollectionViewDataSource?
+    private weak var carouselCollectionViewDelegate: UICollectionViewDelegateFlowLayout?
     
     // MARK: - Initializers
     
-    convenience init(carouselDataSource: UICollectionViewDataSource? = nil, carouselDelegate: UICollectionViewDelegateFlowLayout? = nil) {
+    convenience init(
+        carouselDelegate: CarouselViewDelegate? = nil,
+        carouselCollectionViewDataSource: UICollectionViewDataSource? = nil,
+        carouselCollectionViewDelegate: UICollectionViewDelegateFlowLayout? = nil
+    ) {
         self.init(frame: .zero)
-        self.carouselDataSource = carouselDataSource
         self.carouselDelegate = carouselDelegate
+        self.carouselCollectionViewDataSource = carouselCollectionViewDataSource
+        self.carouselCollectionViewDelegate = carouselCollectionViewDelegate
         self.photoFrameCollectionView.delegate = self
         self.photoFrameCollectionView.dataSource = self
         configureUI()
@@ -94,7 +99,7 @@ class CarouselView: UIView {
             .sink { [weak self] index in
                 guard let self = self else { return }
                 self.pageControl.currentPage = index
-                self.delegate?.selectedItemDidChange(index)
+                self.carouselDelegate?.selectedItemDidChange(index)
             }
             .store(in: &self.cancellables)
         
@@ -114,7 +119,7 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         guard collectionView === self.photoFrameCollectionView else { return .zero }
-        return self.carouselDelegate?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+        return self.carouselCollectionViewDelegate?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
     }
     
     func scrollViewWillEndDragging(
@@ -143,13 +148,13 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard collectionView === self.photoFrameCollectionView else { return .zero }
-        let itemCount = self.carouselDataSource?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
+        let itemCount = self.carouselCollectionViewDataSource?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
         self.pageControl.numberOfPages = itemCount
         return itemCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard collectionView === self.photoFrameCollectionView else { return UICollectionViewCell() }
-        return self.carouselDataSource?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
+        return self.carouselCollectionViewDataSource?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
     }
 }
