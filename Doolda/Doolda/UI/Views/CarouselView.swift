@@ -1,0 +1,155 @@
+//
+//  CarouselView.swift
+//  Doolda
+//
+//  Created by 정지승 on 2021/11/12.
+//
+
+import Combine
+import UIKit
+
+protocol CarouselViewDelegate: AnyObject {
+    func selectedItemDidChange(_ index: Int)
+}
+
+class CarouselView: UIView {
+
+    // MARK: - Subviews
+    
+    private lazy var photoFrameCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 10
+        flowLayout.minimumInteritemSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.decelerationRate = .fast
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: self.internalSpace / 2, bottom: 0, right: self.internalSpace / 2)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.register(
+            PhotoFrameCollectionViewCell.self,
+            forCellWithReuseIdentifier: PhotoFrameCollectionViewCell.photoPickerFrameCellIdentifier
+        )
+        collectionView.backgroundColor = .clear
+        return collectionView
+    }()
+    
+    private lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.currentPageIndicatorTintColor = .dooldaLabel
+        pageControl.pageIndicatorTintColor = .dooldaHighlighted
+        return pageControl
+    }()
+    
+    // MARK: - Public Properties
+    
+    weak var delegate: CarouselViewDelegate?
+    @Published var internalSpace: CGFloat = .zero
+    @Published var currentItemIndex: Int = .zero
+    @Published var isPageControlHidden: Bool = false
+    
+    // MARK: - Private Properties
+    
+    private var cancellables = Set<AnyCancellable>()
+    private weak var carouselDataSource: UICollectionViewDataSource?
+    private weak var carouselDelegate: UICollectionViewDelegateFlowLayout?
+    
+    // MARK: - Initializers
+    
+    convenience init(carouselDataSource: UICollectionViewDataSource? = nil, carouselDelegate: UICollectionViewDelegateFlowLayout? = nil) {
+        self.init(frame: .zero)
+        self.carouselDataSource = carouselDataSource
+        self.carouselDelegate = carouselDelegate
+        self.photoFrameCollectionView.delegate = self
+        self.photoFrameCollectionView.dataSource = self
+        configureUI()
+        bindUI()
+    }
+    
+    // MARK: - Helpers
+    
+    func configureUI() {
+        self.addSubview(self.photoFrameCollectionView)
+        self.photoFrameCollectionView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+        }
+        
+        self.addSubview(self.pageControl)
+        self.pageControl.snp.makeConstraints { make in
+            make.top.equalTo(self.photoFrameCollectionView.snp.bottom)
+            make.centerX.bottom.equalToSuperview()
+            make.height.equalTo(20)
+        }
+    }
+    
+    func bindUI() {
+        self.$isPageControlHidden
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isHidden in
+                self?.pageControl.isHidden = isHidden
+            }
+            .store(in: &self.cancellables)
+        
+        self.$currentItemIndex
+            .sink { [weak self] index in
+                guard let self = self else { return }
+                self.pageControl.currentPage = index
+                self.delegate?.selectedItemDidChange(index)
+            }
+            .store(in: &self.cancellables)
+        
+        self.$internalSpace
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] insetX in
+                self?.photoFrameCollectionView.contentInset = UIEdgeInsets(top: 0, left: insetX / 2, bottom: 0, right: insetX / 2)
+            }
+            .store(in: &self.cancellables)
+    }
+}
+
+extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        guard collectionView === self.photoFrameCollectionView else { return .zero }
+        return self.carouselDelegate?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+    }
+    
+    func scrollViewWillEndDragging(
+        _ scrollView: UIScrollView,
+        withVelocity velocity: CGPoint,
+        targetContentOffset: UnsafeMutablePointer<CGPoint>
+    ) {
+        guard self.photoFrameCollectionView === scrollView as? UICollectionView,
+              let layout = self.photoFrameCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+
+        let itemWidth = self.photoFrameCollectionView.bounds.width + layout.minimumLineSpacing - self.internalSpace
+        var offset = targetContentOffset.pointee
+
+        let index = Int(round((offset.x + self.photoFrameCollectionView.contentInset.left) / itemWidth))
+
+        if self.currentItemIndex > index {
+            self.currentItemIndex = max(self.currentItemIndex - 1, 0)
+        } else if self.currentItemIndex < index {
+            self.currentItemIndex += 1
+        }
+
+        offset = CGPoint(x: CGFloat(self.currentItemIndex) * itemWidth - self.photoFrameCollectionView.contentInset.left, y: 0)
+
+        targetContentOffset.pointee = offset
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard collectionView === self.photoFrameCollectionView else { return .zero }
+        let itemCount = self.carouselDataSource?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
+        self.pageControl.numberOfPages = itemCount
+        return itemCount
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard collectionView === self.photoFrameCollectionView else { return UICollectionViewCell() }
+        return self.carouselDataSource?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
+    }
+}
