@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-protocol PhotoPickerBottomSheetViewControllerDelegate {
+protocol PhotoPickerBottomSheetViewControllerDelegate: AnyObject {
     func composedPhotoDidMake(_ url: URL)
 }
 
@@ -76,7 +76,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     // MARK: - Private Properties
     
     private var viewModel: PhotoPickerBottomSheetViewModel?
-    private var delegate: PhotoPickerBottomSheetViewControllerDelegate?
+    private weak var delegate: PhotoPickerBottomSheetViewControllerDelegate?
 
     private var cancellables = Set<AnyCancellable>()
     private var currentContentViewController: UIViewController?
@@ -85,11 +85,11 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     convenience init(
         photoPickerViewModel: PhotoPickerBottomSheetViewModel,
-        photoPickerBottomSheetViewControllerDelegate: PhotoPickerBottomSheetViewControllerDelegate?
+        delegate: PhotoPickerBottomSheetViewControllerDelegate?
     ) {
         self.init(nibName: nil, bundle: nil)
         self.viewModel = photoPickerViewModel
-        self.delegate = photoPickerBottomSheetViewControllerDelegate
+        self.delegate = delegate
     }
     
     // MARK: - Lifecycle Methods
