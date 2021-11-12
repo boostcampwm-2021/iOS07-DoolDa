@@ -72,13 +72,14 @@ final class FramePickerViewController: UIViewController {
     func configureUI() {
         self.view.addSubview(self.photoFrameCollecionView)
         self.photoFrameCollecionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
         }
         
         self.view.addSubview(self.pageControl)
         self.pageControl.snp.makeConstraints { make in
+            make.top.equalTo(self.photoFrameCollecionView.snp.bottom)
             make.centerX.bottom.equalToSuperview()
-            make.height.equalTo(44)
+            make.height.equalTo(20)
         }
     }
     
