@@ -48,9 +48,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     private let rawPageRepository: RawPageRepositoryProtocol
     
     private var cancellables: Set<AnyCancellable> = []
-    @Published private var selectedComponent: ComponentEntity? {
-        didSet { print(" 변경 감지 ")}
-    }
+    @Published private var selectedComponent: ComponentEntity?    
     @Published private var rawPage: RawPageEntity?
     @Published private var error: Error?
     @Published private var result: Void?
