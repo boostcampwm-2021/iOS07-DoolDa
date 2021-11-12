@@ -59,8 +59,8 @@ final class PhotoPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
         configureUI()
+        fetchPhotos()
     }
     
     // MARK: - Helpers
@@ -70,6 +70,14 @@ final class PhotoPickerViewController: UIViewController {
         self.photoPickerCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    // MARK: - Private Photos
+    
+    private func fetchPhotos() {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [.init(key: "creationDate", ascending: false)]
+        self.photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
     }
 }
 
