@@ -60,6 +60,7 @@ final class PhotoPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        bind()
         fetchPhotos()
     }
     
@@ -72,12 +73,35 @@ final class PhotoPickerViewController: UIViewController {
         }
     }
     
+    private func bind() {
+        self.$photos
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.photoPickerCollectionView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+    
     // MARK: - Private Photos
     
     private func fetchPhotos() {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [.init(key: "creationDate", ascending: false)]
-        self.photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+        self.checkPhotoAccessPermission { result in
+            guard result else { return }
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [.init(key: "creationDate", ascending: false)]
+            self.photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+        }
+    }
+    
+    private func checkPhotoAccessPermission(completionHandler: @escaping (Bool) -> Void) {
+        guard PHPhotoLibrary.authorizationStatus(for: .readWrite) != .authorized else {
+            return completionHandler(true)
+        }
+        
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
+            completionHandler(status == .authorized)
+        }
     }
 }
 
