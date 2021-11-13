@@ -10,9 +10,9 @@ import CoreImage
 import Foundation
 
 protocol PhotoPickerBottomSheetViewModelInput {
-    func nextButtonDidTap(_ photoFrame: PhotoFrameType)
-    func photoDidSelected(_ photos: [CIImage])
-    func completeButtonDidTap()
+    func photoFrameDidSelect(_ index: Int)
+    func photoDidSelected(_ items: [Int])
+    func completeButtonDidTap(_ photos: [CIImage])
 }
 
 protocol PhotoPickerBottomSheetViewModelOutput {
@@ -30,36 +30,41 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     var composedResultPublisher: Published<URL?>.Publisher { self.$composedResult }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
+    private(set) var photoFrames: [PhotoFrameType]
     private let imageUseCase: ImageUseCaseProtocol
     private let imageComposeUseCase: ImageComposeUseCaseProtocol
     
     private var cancellables = Set<AnyCancellable>()
+    
+    @Published private(set) var selectedPhotos: [Int] = []
     @Published private var selectedPhotoFrame: PhotoFrameType?
-    @Published private var selectedPhotos: [CIImage]?
     @Published private var readyToComposeState: Bool = false
     @Published private var composedResult: URL?
     @Published private var error: Error?
     
     init(imageUseCase: ImageUseCaseProtocol, imageComposeUseCase: ImageComposeUseCaseProtocol) {
+        self.photoFrames = PhotoFrameType.allCases
         self.imageUseCase = imageUseCase
         self.imageComposeUseCase = imageComposeUseCase
         bind()
     }
     
-    func nextButtonDidTap(_ photoFrame: PhotoFrameType) {
-        self.selectedPhotoFrame = photoFrame
+    func photoFrameDidSelect(_ index: Int) {
+        // FIXME : PhotoFrameType 변경에 따라 수정필요
+        self.selectedPhotoFrame = PhotoFrameType.allCases[index]
     }
     
-    func photoDidSelected(_ photos: [CIImage]) {
-        self.selectedPhotos = photos
+    func photoDidSelected(_ items: [Int]) {
+        guard let requiredPhotoCount = self.selectedPhotoFrame?.rawValue?.requiredPhotoCount,
+              items.count <= requiredPhotoCount else { return }
+        self.selectedPhotos = items
     }
     
-    func completeButtonDidTap() {
+    func completeButtonDidTap(_ photos: [CIImage]) {
         guard self.readyToComposeState,
-              let selectedPhotoFrame = selectedPhotoFrame,
-              let selectedPhotos = selectedPhotos else { return }
+              let selectedPhotoFrame = selectedPhotoFrame else { return }
         
-        self.imageComposeUseCase.compose(photoFrameType: selectedPhotoFrame, images: selectedPhotos)
+        self.imageComposeUseCase.compose(photoFrameType: selectedPhotoFrame, images: photos)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
