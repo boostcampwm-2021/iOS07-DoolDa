@@ -144,7 +144,7 @@
 		FC9F108227315EB80060FEB7 /* FirebaseNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */; };
 		FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF022E273A12B400EAB00B /* EditPageViewController.swift */; };
 		FCCF0231273A145400EAB00B /* EditPageViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */; };
-		FCCF0233273A719600EAB00B /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF0232273A719600EAB00B /* ComponentView.swift */; };
+		FCCF0233273A719600EAB00B /* PageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF0232273A719600EAB00B /* PageControlView.swift */; };
 		FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DD2738CFB50001F155 /* PairRepository.swift */; };
 		FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F327391F260001F155 /* EditPageViewModel.swift */; };
@@ -160,13 +160,6 @@
 			remoteInfo = Doolda;
 		};
 		310125CD2739A56600E43160 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 664893BC273007ED009F03E2;
-			remoteInfo = Doolda;
-		};
-		319C222B273CEC4D009CE65C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
 			proxyType = 1;
@@ -330,7 +323,7 @@
 		FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkTest.swift; sourceTree = "<group>"; };
 		FCCF022E273A12B400EAB00B /* EditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewController.swift; sourceTree = "<group>"; };
 		FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewCoordinator.swift; sourceTree = "<group>"; };
-		FCCF0232273A719600EAB00B /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
+		FCCF0232273A719600EAB00B /* PageControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlView.swift; sourceTree = "<group>"; };
 		FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCE9D3DD2738CFB50001F155 /* PairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepository.swift; sourceTree = "<group>"; };
 		FCE9D3F327391F260001F155 /* EditPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewModel.swift; sourceTree = "<group>"; };
@@ -584,7 +577,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */,
-				FCCF0232273A719600EAB00B /* ComponentView.swift */,
+				FCCF0232273A719600EAB00B /* PageControlView.swift */,
 				66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */,
 				66CD6459273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift */,
 			);
@@ -1400,7 +1393,7 @@
 				1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */,
 				FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
-				FCCF0233273A719600EAB00B /* ComponentView.swift in Sources */,
+				FCCF0233273A719600EAB00B /* PageControlView.swift in Sources */,
 				3101259427383DED00E43160 /* PhotoComponentEntity.swift in Sources */,
 				3101259C2738430200E43160 /* StickerPackEntity.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
@@ -1493,7 +1486,6 @@
 		319C21DA273BD764009CE65C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 664893BC273007ED009F03E2 /* Doolda */;
-			targetProxy = 319C222B273CEC4D009CE65C /* PBXContainerItemProxy */;
 			targetProxy = 1D097E94273CFA1200A4810B /* PBXContainerItemProxy */;
 		};
 		6648946127327F1D009F03E2 /* PBXTargetDependency */ = {

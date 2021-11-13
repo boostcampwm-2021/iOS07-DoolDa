@@ -10,17 +10,20 @@ import UIKit
 
 import SnapKit
 
-protocol ComponentViewDelegate: AnyObject {
-    func leftTopControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer)
-    func leftBottomControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer)
-    func rightTopControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer)
-    func rightBottomcontrolDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer)
-    func contentViewDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer)
+protocol ControlViewDelegate: AnyObject {
+    func controlViewDidPan(_ componentView: PageControlView, with gesture: UIPanGestureRecognizer)
+    func leftTopControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer)
+    func leftBottomControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer)
+    func rightTopControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer)
+    func rightBottomcontrolDidPan(_ componentView: PageControlView, with gesture: UIPanGestureRecognizer)
 }
 
-class ComponentView: UIView {
+class PageControlView: UIView {
     
     // MARK: - Subviews
+    lazy var controlsView: UIView = {
+        return UIView()
+    }()
     
     private lazy var leftTopControl: UIControl = {
         return self.makeControl()
@@ -38,6 +41,10 @@ class ComponentView: UIView {
         return self.makeControl()
     }()
     
+    lazy var componentSpaceView: UIView = {
+        return UIView()
+    }()
+    
     // MARK: - Public Properties
     
     var controls: [UIControl] = []
@@ -47,22 +54,14 @@ class ComponentView: UIView {
     
     // MARK: - Private Properties
     
-    private(set) var contentView: UIView?
-    private weak var delegate: ComponentViewDelegate?
+    private weak var delegate: ControlViewDelegate?
     private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - Initializers
     
-    convenience init(component: UIView, delegate: ComponentViewDelegate) {
-        self.init(frame: CGRect(
-            x: component.frame.minX-15,
-            y: component.frame.minY-15,
-            width: component.frame.width+30,
-            height: component.frame.height+30))
-        self.contentView = component
+    convenience init(frame: CGRect, delegate: ControlViewDelegate) {
+        self.init(frame: frame)
         self.delegate = delegate
-        self.configureUI()
-        self.bindUI()
     }
     
     override init(frame: CGRect) {
@@ -80,19 +79,20 @@ class ComponentView: UIView {
     // MARK: - Helpers
     
     private func configureUI() {
-        guard let contentView = contentView else { return }
-        contentView.isUserInteractionEnabled = true
-        self.addSubview(contentView)
-        contentView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(15)
+        self.addSubview(componentSpaceView)
+        
+        self.controlsView.isUserInteractionEnabled = true
+        self.addSubview(self.controlsView)
+        self.controlsView.snp.makeConstraints { make in
+            make.edges.equalTo(componentSpaceView).inset(-15)
         }
         
-        self.addSubview(self.leftTopControl)
+        self.controlsView.addSubview(self.leftTopControl)
         self.controls.append(self.leftTopControl)
         self.leftTopControl.snp.makeConstraints { make in
             make.width.height.equalTo(30)
-            make.centerX.equalTo(contentView.snp.leading)
-            make.centerY.equalTo(contentView.snp.top)
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview()
         }
         
         let controlForwardImageView = UIImageView(image: .controlForward)
@@ -101,12 +101,12 @@ class ComponentView: UIView {
             make.center.equalToSuperview()
         }
         
-        self.addSubview(self.leftBottomControl)
+        self.controlsView.addSubview(self.leftBottomControl)
         self.controls.append(self.leftBottomControl)
         self.leftBottomControl.snp.makeConstraints { make in
             make.width.height.equalTo(30)
-            make.centerX.equalTo(contentView.snp.leading)
-            make.centerY.equalTo(contentView.snp.bottom)
+            make.leading.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         let controlBackwardImageView = UIImageView(image: .controlBackward)
@@ -115,12 +115,12 @@ class ComponentView: UIView {
             make.center.equalToSuperview()
         }
         
-        self.addSubview(self.rightTopControl)
+        self.controlsView.addSubview(self.rightTopControl)
         self.controls.append(self.rightTopControl)
         self.rightTopControl.snp.makeConstraints { make in
             make.width.height.equalTo(30)
-            make.centerX.equalTo(contentView.snp.trailing)
-            make.centerY.equalTo(contentView.snp.top)
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
         }
         
         let controlDeleteImageView = UIImageView(image: .controlDelete)
@@ -129,12 +129,13 @@ class ComponentView: UIView {
             make.center.equalToSuperview()
         }
         
-        self.addSubview(self.rightBottomcontrol)
+        self.controlsView.addSubview(self.rightBottomcontrol)
         self.controls.append(self.rightBottomcontrol)
         self.rightBottomcontrol.snp.makeConstraints { make in
             make.width.height.equalTo(30)
-            make.centerX.equalTo(contentView.snp.trailing)
-            make.centerY.equalTo(contentView.snp.bottom)
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+
         }
         
         let controlTransferImageView = UIImageView(image: .controlTransfer)
@@ -145,12 +146,12 @@ class ComponentView: UIView {
     }
     
     private func bindUI() {
-        self.contentView?.publisher(for: UIPanGestureRecognizer())
+        self.controlsView.publisher(for: UIPanGestureRecognizer())
             .receive(on: DispatchQueue.main)
             .sink { [weak self] gesture in
                 guard let self = self,
                       let panGesture = gesture as? UIPanGestureRecognizer else { return }
-                self.delegate?.contentViewDidPan(self, with: panGesture)
+                self.delegate?.controlViewDidPan(self, with: panGesture)
             }
             .store(in: &cancellables)
         
@@ -203,10 +204,10 @@ class ComponentView: UIView {
     
     private func changeView(as selectedState: Bool) {
         if selectedState {
-            self.contentView?.layer.borderWidth = 1
-            self.contentView?.layer.borderColor = UIColor.systemBlue.cgColor
+            self.componentSpaceView.layer.borderWidth = 1
+            self.componentSpaceView.layer.borderColor = UIColor.systemBlue.cgColor
         } else {
-            self.contentView?.layer.borderWidth = 0
+            self.componentSpaceView.layer.borderWidth = 0
         }
         self.leftTopControl.isHidden = !selectedState
         self.leftBottomControl.isHidden = !selectedState
