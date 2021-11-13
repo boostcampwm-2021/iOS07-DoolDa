@@ -59,6 +59,11 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         return carousel
     }()
     
+    private lazy var activityIndicator: CustomActivityIndicator = {
+        let customActivityIndicator = CustomActivityIndicator(subTitle: "이미지 합성중이에요!🦔🦔")
+        customActivityIndicator.isHidden = true
+        return customActivityIndicator
+    }()
     private lazy var photoPickerCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -153,6 +158,11 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             make.bottom.equalToSuperview().offset(-32)
             make.top.equalTo(self.contentFrame.snp.bottom).offset(10).priority(.low)
         }
+        
+        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     private func bindUI() {
@@ -168,7 +178,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
                     self.nextButton.configuration?.attributedTitle = AttributedString("완료", attributes: self.fontContainer)
                     self.nextButton.isEnabled = false
                 } else if self.currentContentView == self.photoPickerCollectionView {
-                    self.viewModel?.completeButtonDidTap()
+                    self.activityIndicator.startAnimating()
                 }
             }
             .store(in: &self.cancellables)
@@ -193,6 +203,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .compactMap { $0 }
             .sink { [weak self] url in
                 self?.delegate?.composedPhotoDidMake(url)
+                self?.activityIndicator.stopAnimating()
             }
             .store(in: &self.cancellables)
     }
