@@ -103,7 +103,6 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     private var viewModel: PhotoPickerBottomSheetViewModel?
     private weak var delegate: PhotoPickerBottomSheetViewControllerDelegate?
 
-    @Published private var selectedItems: [Int] = []
     @Published private var photos: PHFetchResult<PHAsset>?
     
     private var cancellables = Set<AnyCancellable>()
@@ -179,6 +178,14 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
                     self.nextButton.isEnabled = false
                 } else if self.currentContentView == self.photoPickerCollectionView {
                     self.activityIndicator.startAnimating()
+                    
+                    let assets = viewModel.selectedPhotos.compactMap { self.photos?.object(at: $0) }
+                    
+                    self.convertAssetToImage(assets: assets)
+                        .sink { ciImages in
+                            self.viewModel?.completeButtonDidTap(ciImages)
+                        }
+                        .store(in: &self.cancellables)
                 }
             }
             .store(in: &self.cancellables)
@@ -204,6 +211,33 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .sink { [weak self] url in
                 self?.delegate?.composedPhotoDidMake(url)
                 self?.activityIndicator.stopAnimating()
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .store(in: &self.cancellables)
+        
+        viewModel.$selectedPhotos
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] _ in
+                self?.photoPickerCollectionView.reloadData()
+            }
+            .store(in: &self.cancellables)
+        
+        viewModel.selectedPhotoFramePublisher
+            .compactMap { $0 }
+            .sink { [weak self] _ in
+                self?.nextButton.isEnabled = true
+            }
+            .store(in: &cancellables)
+        
+        viewModel.errorPublisher
+            .compactMap { $0 }
+            .sink { [weak self] error in
+                let alert = UIAlertController.defaultAlert(title: "알림", message: error.localizedDescription) { _ in
+                    self?.dismiss(animated: true, completion: nil)
+                }
+                
+                self?.present(alert, animated: true, completion: nil)
             }
             .store(in: &self.cancellables)
     }
@@ -276,7 +310,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
 
 extension PhotoPickerBottomSheetViewController: CarouselViewDelegate {
     func selectedItemDidChange(_ index: Int) {
-        print(#function, index)
+        self.viewModel?.photoFrameDidSelect(index)
     }
 }
 
@@ -302,7 +336,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
         if collectionView === self.photoPickerCollectionView {
             return self.photos?.count ?? 0
         } else {
-            return PhotoFrameType.allCases.count
+            return self.viewModel?.photoFrames.count ?? 0
         }
     }
     
@@ -315,12 +349,13 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
                 for: indexPath
             )
             
-            if let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
+            if let selectedPhotos = self.viewModel?.selectedPhotos,
+               let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
                let imageAsset = self.photos?.object(at: indexPath.item) {
                 photoPickerCollectionViewCell.fill(imageAsset)
                 
-                if self.selectedItems.contains(indexPath.item),
-                   let target = self.selectedItems.enumerated().first(where: { $0.element == indexPath.item }) {
+                if selectedPhotos.contains(indexPath.item),
+                   let target = selectedPhotos.enumerated().first(where: { $0.element == indexPath.item }) {
                     photoPickerCollectionViewCell.select(order: target.offset + 1)
                 }
             }
@@ -331,7 +366,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
             )
             
             if let photoFrameCollectionViewCell = cell as? PhotoFrameCollectionViewCell,
-               let baseImage = PhotoFrameType.allCases[indexPath.item].rawValue?.baseImage {
+               let baseImage = self.viewModel?.photoFrames[indexPath.item].rawValue?.baseImage {
                 photoFrameCollectionViewCell.fill(baseImage)
             }
         }
@@ -341,16 +376,14 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView === self.photoPickerCollectionView {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoPickerCollectionViewCell else { return }
+            guard var selectedPhotos = self.viewModel?.selectedPhotos else { return }
             
-            if self.selectedItems.contains(indexPath.item),
-               let target = self.selectedItems.enumerated().first(where: { $0.element == indexPath.item }) {
-                self.selectedItems.remove(at: target.offset)
-                cell.deselect()
-                collectionView.reloadData()
+            if selectedPhotos.contains(indexPath.item),
+               let target = selectedPhotos.enumerated().first(where: { $0.element == indexPath.item }) {
+                self.viewModel?.photoDidSelected(selectedPhotos.filter({ $0 != target.element }))
             } else {
-                cell.select(order: self.selectedItems.count + 1)
-                self.selectedItems.append(indexPath.item)
+                selectedPhotos.append(indexPath.item)
+                self.viewModel?.photoDidSelected(selectedPhotos)
             }
         }
     }
