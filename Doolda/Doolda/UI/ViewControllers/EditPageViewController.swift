@@ -9,6 +9,7 @@ import Combine
 import UIKit
 
 import SnapKit
+import Kingfisher
 
 class EditPageViewController: UIViewController {
     
@@ -34,6 +35,11 @@ class EditPageViewController: UIViewController {
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1
         return view
+    }()
+        
+    private lazy var pageControlView: PageControlView = {
+        var controlView = PageControlView(frame: .zero, delegate: self)
+        return controlView
     }()
     
     private lazy var addPhotoComponentButton: UIButton = {
@@ -78,7 +84,7 @@ class EditPageViewController: UIViewController {
     
     private var cancellables: Set<AnyCancellable> = []
     private var viewModel: EditPageViewModelProtocol?
-    private var componentViewDictionary: [ComponentEntity: ComponentView] = [:]
+    private var componentViewDictionary: [ComponentEntity: UIView] = [:]
     
     private var widthRatioFromAbsolute: CGFloat {
         return self.pageView.frame.size.width / 1700.0
@@ -147,6 +153,12 @@ class EditPageViewController: UIViewController {
             make.height.equalTo(self.pageView.snp.width).multipliedBy(30.0/17.0)
         }
         
+        self.contentView.addSubview(self.pageControlView)
+        self.pageControlView.isUserInteractionEnabled = true
+        self.pageControlView.snp.makeConstraints { make in
+            make.edges.equalTo(self.pageView)
+        }
+        
         self.contentView.addSubview(self.componentsStackView)
         self.componentsStackView.snp.makeConstraints { make in
             make.leading.equalTo(self.pageView)
@@ -185,7 +197,7 @@ class EditPageViewController: UIViewController {
                 self.present(alert, animated: true)
             }.store(in: &self.cancellables)
         
-        self.pageView.publisher(for: UITapGestureRecognizer())
+        self.pageControlView.publisher(for: UITapGestureRecognizer())
             .sink { [weak self] gesture in
                 guard let self = self else { return }
                 let touchCGPoint = gesture.location(in: self.pageView)
@@ -221,26 +233,38 @@ class EditPageViewController: UIViewController {
         self.viewModel?.selectedComponentPublisher
             .sink { [weak self] componentEntity in
                 guard let self = self else { return }
-                self.componentViewDictionary.values.forEach { $0.isSelected = false }
+                self.pageControlView.isSelected = false
                 guard let componentEntity = componentEntity,
                       let componentView = self.componentViewDictionary[componentEntity] else { return }
-                componentView.isSelected = true
+                
+                self.pageControlView.isSelected = true
+                
                 componentView.transform = CGAffineTransform.identity
+                self.pageControlView.componentSpaceView.transform = CGAffineTransform.identity
+
                 let computedCGRect = CGRect(
                     origin: self.computePointFromAbsolute(at: componentEntity.origin),
                     size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                 )
-                let center = CGPoint(x: computedCGRect.midX, y: computedCGRect.midY)
-                
-                var rectTransform: CGAffineTransform = .identity
-//                rectTransform = rectTransform.translatedBy(x: center.x, y: center.y)
-//                rectTransform = rectTransform.rotated(by: componentEntity.angle)
-//                rectTransform = rectTransform.translatedBy(x: -center.x, y: -center.y)
+                componentView.layer.frame = computedCGRect
+                self.pageControlView.componentSpaceView.frame = computedCGRect
 
-                computedCGRect.applying(rectTransform)
-                componentView.frame = computedCGRect
-                let transform = CGAffineTransform.identity.rotated(by: componentEntity.angle).scaledBy(x: componentEntity.scale, y: componentEntity.scale)
+                let transform = CGAffineTransform.identity.rotated(
+                    by: componentEntity.angle
+                ).scaledBy(
+                    x: componentEntity.scale,
+                    y: componentEntity.scale
+                )
                 componentView.transform = transform
+                self.pageControlView.componentSpaceView.transform = transform
+                self.pageControlView.controlsView.transform = transform
+                
+                self.pageControlView.componentSpaceView.layer.borderWidth = 1/componentEntity.scale
+                self.pageControlView.controls.forEach { control in
+                    control.transform = CGAffineTransform.identity.scaledBy(x: 1/componentEntity.scale, y: 1/componentEntity.scale)
+                }
+                
+                
             }.store(in: &self.cancellables)
         
         self.viewModel?.componentsPublisher
@@ -250,21 +274,27 @@ class EditPageViewController: UIViewController {
                     value.removeFromSuperview()
                     self.componentViewDictionary[key] = nil
                 }
+                //MARK: fixme: 다른 컴포넌트들에 알맞게
                 for componentEntity in componenets {
-                    guard let componentEntity = componentEntity as? PhotoComponentEntity else { return }
-                    // fixme
                     let computedCGRect = CGRect(
                         origin: self.computePointFromAbsolute(at: componentEntity.origin),
                         size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                     )
                     
-                    let contentView = UIImageView(frame: computedCGRect)
-                    contentView.image = UIImage(data: try! Data(contentsOf: componentEntity.imageUrl))
-                    let componentView = ComponentView(component: contentView, delegate: self)
-                    self.componentViewDictionary[componentEntity] = componentView
-                    self.pageView.addSubview(componentView)
-                    let transform = CGAffineTransform.identity.rotated(by: componentEntity.angle).scaledBy(x: componentEntity.scale, y: componentEntity.scale)
-                    componentView.transform = transform
+                    switch componentEntity {
+                    case let photoComponentEtitiy as PhotoComponentEntity:
+                        let photoComponentView = UIImageView(frame: computedCGRect)
+                        photoComponentView.kf.setImage(with: photoComponentEtitiy.imageUrl)
+                        self.componentViewDictionary[photoComponentEtitiy] = photoComponentView
+                        self.pageView.addSubview(photoComponentView)
+                        let transform = CGAffineTransform.identity
+                            .rotated(by: componentEntity.angle)
+                            .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
+                        photoComponentView.transform = transform
+
+                    default:
+                        break
+                    }
                 }
             }.store(in: &self.cancellables)
         
@@ -295,21 +325,21 @@ class EditPageViewController: UIViewController {
     }
 }
 
-extension EditPageViewController: ComponentViewDelegate {
+extension EditPageViewController: ControlViewDelegate {
     
-    func leftTopControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer) {
+    func leftTopControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentBringFrontControlDidTap()
     }
     
-    func leftBottomControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer) {
+    func leftBottomControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentSendBackControlDidTap()
     }
     
-    func rightTopControlDidTap(_ componentView: ComponentView, with gesture: UITapGestureRecognizer) {
+    func rightTopControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentRemoveControlDidTap()
     }
     
-    func rightBottomcontrolDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer) {
+    func rightBottomcontrolDidPan(_ componentView: PageControlView, with gesture: UIPanGestureRecognizer) {
         let touchLocation = gesture.location(in: self.view)
         let center = componentView.center
         let xDifference = (center.x - touchLocation.x)
@@ -319,7 +349,10 @@ extension EditPageViewController: ComponentViewDelegate {
 
         switch gesture.state {
         case .began:
-            self.deltaAngle = angle - atan2f(Float(componentView.transform.b), Float(componentView.transform.a))
+            self.deltaAngle = angle - atan2f(
+                Float(componentView.componentSpaceView.transform.b),
+                Float(componentView.componentSpaceView.transform.a)
+            )
             self.initialDistance = distance
         case .changed:
             scale = distance / self.initialDistance
@@ -328,29 +361,35 @@ extension EditPageViewController: ComponentViewDelegate {
             let radian = CGFloat(-(Float(self.deltaAngle) - angle))
             self.viewModel?.componentDidRotate(by: radian)
             self.viewModel?.componentDidScale(by: scale)
+            print(componentView.componentSpaceView.frame.origin)
+
         case .ended, .possible:
             savedScale = scale
+
         default:
             break
         }
     }
     
-    func contentViewDidPan(_ componentView: ComponentView, with gesture: UIPanGestureRecognizer) {
-        guard let contentView = componentView.contentView else { return }
+    func controlViewDidPan(_ componentView: PageControlView, with gesture: UIPanGestureRecognizer) {
         switch gesture.state {
         case .began:
-            let touchCGPoint = gesture.location(in: self.pageView)
+            let touchCGPoint = gesture.location(in: self.pageControlView)
+
             self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
-            self.initialOrigin = componentView.frame.origin
-        default:
-            let translation = gesture.translation(in: self.view)
-            var contentViewOriginFromPage = componentView.convert(contentView.layer.frame.origin, to: self.pageView)
-            contentViewOriginFromPage = CGPoint(
+            self.initialOrigin = componentView.componentSpaceView.frame.origin
+            print("처음 오리진값:", self.initialOrigin)
+            fallthrough
+        case .changed:
+            let translation = gesture.translation(in: self.pageControlView)
+            let contentViewOriginFromPage = CGPoint(
                 x: self.initialOrigin.x + translation.x,
                 y: self.initialOrigin.y + translation.y
             )
             let computedOrigin = self.computePointToAbsolute(at: contentViewOriginFromPage)
             self.viewModel?.componentDidDrag(at: computedOrigin)
+        default:
+            break
         }
     }
 }
