@@ -90,11 +90,14 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
             PHImageManager.default().cancelImageRequest(requestImageId)
         }
         
+        let imageRequestOptions = PHImageRequestOptions()
+        imageRequestOptions.deliveryMode = .opportunistic
+        
         self.requestImageId = PHImageManager.default().requestImage(
             for: asset,
             targetSize: self.bounds.size,
             contentMode: .aspectFill,
-            options: nil
+            options: imageRequestOptions
         ) { image, _ in
             guard let image = image else { return }
             self.imageView.image = image
