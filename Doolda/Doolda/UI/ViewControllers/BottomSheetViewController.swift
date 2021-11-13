@@ -44,7 +44,7 @@ class BottomSheetViewController: UIViewController {
     
     private lazy var dimmedView: UIView = {
         let view = UIView()
-        view.backgroundColor = .bottomSheetBackgroundColor
+        view.backgroundColor = .dooldaBottomSheetBackgroundColor
         return view
     }()
 
