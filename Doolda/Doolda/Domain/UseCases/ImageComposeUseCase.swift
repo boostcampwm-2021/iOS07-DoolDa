@@ -24,17 +24,24 @@ enum ImageComposeUseCaseError: LocalizedError {
 }
 
 protocol ImageComposeUseCaseProtocol {
+    func isComposable(photoFrameType: PhotoFrameType?, numberOfPhotos: Int) -> Bool
     func compose(photoFrameType: PhotoFrameType, images: [CIImage]) -> AnyPublisher<CIImage, Error>
 }
 
 class ImageComposeUseCase: ImageComposeUseCaseProtocol {
+    func isComposable(photoFrameType: PhotoFrameType?, numberOfPhotos: Int) -> Bool {
+        guard let photoFrame = photoFrameType?.rawValue else { return false }
+
+        return photoFrame.requiredPhotoCount == numberOfPhotos
+    }
+    
     func compose(photoFrameType: PhotoFrameType, images: [CIImage]) -> AnyPublisher<CIImage, Error> {
         guard let photoFrame = photoFrameType.rawValue,
               let filter = CIFilter(name: "CISourceOverCompositing") else {
             return Fail(error: ImageComposeUseCaseError.composingImageFailed).eraseToAnyPublisher()
         }
 
-        if photoFrame.requiredPhotoCount != images.count {
+        if !self.isComposable(photoFrameType: photoFrameType, numberOfPhotos: images.count) {
             return Fail(error: ImageComposeUseCaseError.numberOfImageMismatched).eraseToAnyPublisher()
         }
 
