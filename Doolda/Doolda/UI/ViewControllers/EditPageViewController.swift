@@ -204,6 +204,31 @@ class EditPageViewController: UIViewController {
                 self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
             }.store(in: &self.cancellables)
         
+        self.pageControlView.publisher(for: UIPanGestureRecognizer())
+            .sink { [weak self] gesture in
+                guard let self = self,
+                    let panGestrue = gesture as? UIPanGestureRecognizer else { return }
+                switch gesture.state {
+                case .began:
+                    let touchCGPoint = panGestrue.location(in: self.pageControlView)
+                    self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
+                    self.initialOrigin = self.pageControlView.componentSpaceView.frame.origin
+                    fallthrough
+                case .changed:
+                    let translation = panGestrue.translation(in: self.pageControlView)
+                    print(translation)
+                    let contentViewOriginFromPage = CGPoint(
+                        x: self.initialOrigin.x + translation.x,
+                        y: self.initialOrigin.y + translation.y
+                    )
+                    let computedOrigin = self.computePointToAbsolute(at: contentViewOriginFromPage)
+                    self.viewModel?.componentDidDrag(at: computedOrigin)
+                default:
+                    break
+                }
+                
+            }.store(in: &self.cancellables)
+        
         self.addPhotoComponentButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -263,8 +288,6 @@ class EditPageViewController: UIViewController {
                 self.pageControlView.controls.forEach { control in
                     control.transform = CGAffineTransform.identity.scaledBy(x: 1/componentEntity.scale, y: 1/componentEntity.scale)
                 }
-                
-                
             }.store(in: &self.cancellables)
         
         self.viewModel?.componentsPublisher
@@ -375,13 +398,12 @@ extension EditPageViewController: ControlViewDelegate {
         switch gesture.state {
         case .began:
             let touchCGPoint = gesture.location(in: self.pageControlView)
-
             self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
             self.initialOrigin = componentView.componentSpaceView.frame.origin
-            print("처음 오리진값:", self.initialOrigin)
             fallthrough
         case .changed:
             let translation = gesture.translation(in: self.pageControlView)
+            print(translation)
             let contentViewOriginFromPage = CGPoint(
                 x: self.initialOrigin.x + translation.x,
                 y: self.initialOrigin.y + translation.y
