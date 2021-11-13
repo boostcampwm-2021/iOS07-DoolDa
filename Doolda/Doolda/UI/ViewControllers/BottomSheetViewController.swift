@@ -20,13 +20,13 @@ class BottomSheetViewController: UIViewController {
         func calculateHeight(baseView: UIView) -> CGFloat {
             switch self {
             case .large:
-                return baseView.frame.size.height * 0.1
+                return baseView.frame.size.height * 0.9
             case .smallLarge:
-                return baseView.frame.size.height * 0.3
+                return baseView.frame.size.height * 0.7
             case .medium:
                 return baseView.frame.size.height * 0.5
             case .zero:
-                return baseView.frame.size.height * 1.0
+                return .zero
             }
         }
     }
@@ -50,7 +50,7 @@ class BottomSheetViewController: UIViewController {
 
     // MARK: - Public Properties
     
-    var detent: BottomSheetDetent = .medium
+    @Published var detent: BottomSheetDetent = .zero
     
     // MARK: - Private Properties
     
@@ -108,10 +108,8 @@ class BottomSheetViewController: UIViewController {
         }
         
         self.view.addSubview(body)
-        self.body.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalToSuperview().offset(self.view.frame.height)
-        }
+        self.body.frame.origin = CGPoint(x: 0, y: self.view.frame.height)
+        self.body.frame.size = CGSize(width: self.view.frame.width, height: self.detent.calculateHeight(baseView: self.view))
     }
     
     private func bindUI() {
@@ -134,17 +132,21 @@ class BottomSheetViewController: UIViewController {
                 self?.dimmedViewDidTap(sender)
             }
             .store(in: &self.cancellables)
+        
+        self.$detent
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] detent in
+                guard let self = self else { return }
+                self.body.frame.size = CGSize(width: self.view.frame.width, height: self.detent.calculateHeight(baseView: self.view))
+            }
+            .store(in: &self.cancellables)
     }
     
     // MARK: - Private Method
     
     private func showBottomSheet(duration: CGFloat = 0.25, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: duration) {
-            self.body.frame.origin = CGPoint(x: self.body.frame.origin.x, y: self.detent.calculateHeight(baseView: self.view))
-            self.body.snp.updateConstraints { make in
-                make.top.equalToSuperview().offset(self.detent.calculateHeight(baseView: self.view))
-            }
-            self.view.layoutIfNeeded()
+            self.body.frame.origin = CGPoint(x: 0, y: self.view.frame.height - self.detent.calculateHeight(baseView: self.view))
         } completion: { _ in
             completion?()
         }
@@ -152,10 +154,7 @@ class BottomSheetViewController: UIViewController {
     
     private func hideBottomSheet(duration: CGFloat = 0.25, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: duration) {
-            self.body.snp.updateConstraints { make in
-                make.top.equalToSuperview().offset(self.view.frame.height)
-            }
-            self.view.layoutIfNeeded()
+            self.body.frame.origin = CGPoint(x: 0, y: self.view.frame.height)
         } completion: { _ in
             completion?()
         }
@@ -167,15 +166,15 @@ class BottomSheetViewController: UIViewController {
     
     private func viewDidPan(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
-        let bottomSheetHeight = self.detent.calculateHeight(baseView: self.view)
+        let dimmedViewHeight = self.view.frame.height - self.detent.calculateHeight(baseView: self.view)
         
         switch sender.state {
         case .began: break
         case .changed:
             if translation.y > 0 &&
                self.body.frame.height > self.bottomSheetMinHeight &&
-               bottomSheetHeight + translation.y > self.bottomSheetPanMinMoveConstant {
-                self.body.frame.origin = CGPoint(x: self.body.frame.origin.x, y: bottomSheetHeight + translation.y)
+                dimmedViewHeight + translation.y > self.bottomSheetPanMinMoveConstant {
+                self.body.frame.origin = CGPoint(x: self.body.frame.origin.x, y: dimmedViewHeight + translation.y)
             }
         case .ended, .possible:
             if translation.y > self.bottomSheetPanMinCloseConstant {
