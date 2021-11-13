@@ -129,21 +129,20 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
     ) {
         guard self.photoFrameCollectionView === scrollView as? UICollectionView,
               let layout = self.photoFrameCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-
+        
         let itemWidth = self.photoFrameCollectionView.bounds.width + layout.minimumLineSpacing - self.internalSpace
-        var offset = targetContentOffset.pointee
-
-        let index = Int(round((offset.x + self.photoFrameCollectionView.contentInset.left) / itemWidth))
-
-        if self.currentItemIndex > index {
-            self.currentItemIndex = max(self.currentItemIndex - 1, 0)
-        } else if self.currentItemIndex < index {
-            self.currentItemIndex += 1
+        
+        let estimatedIndex = scrollView.contentOffset.x / itemWidth
+        
+        if velocity.x > 0 {
+            self.currentItemIndex = min(Int(ceil(estimatedIndex)), self.photoFrameCollectionView.numberOfItems(inSection: 0) - 1)
+        } else if velocity.x < 0 {
+            self.currentItemIndex = max(Int(floor(estimatedIndex)), 0)
+        } else {
+            self.currentItemIndex = Int(round(estimatedIndex))
         }
-
-        offset = CGPoint(x: CGFloat(self.currentItemIndex) * itemWidth - self.photoFrameCollectionView.contentInset.left, y: 0)
-
-        targetContentOffset.pointee = offset
+        
+        targetContentOffset.pointee = CGPoint(x: CGFloat(self.currentItemIndex) * itemWidth - self.photoFrameCollectionView.contentInset.left, y: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
