@@ -53,9 +53,12 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     }()
     
     private lazy var framePicker: CarouselView = {
-        let carousel = CarouselView(carouselDataSource: self, carouselDelegate: self)
-        carousel.internalSpace = 50.0
-        carousel.delegate = self
+        let carousel = CarouselView(
+            carouselDelegate: self,
+            carouselCollectionViewDataSource: self,
+            carouselCollectionViewDelegate: self
+        )
+        carousel.itemInterval = 50.0
         return carousel
     }()
     
@@ -64,6 +67,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         customActivityIndicator.isHidden = true
         return customActivityIndicator
     }()
+    
     private lazy var photoPickerCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -89,7 +93,9 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         configuration.baseForegroundColor = .dooldaLabel
         configuration.baseBackgroundColor = .dooldaHighlighted
         configuration.attributedTitle = AttributedString("다음", attributes: self.fontContainer)
-        return UIButton(configuration: configuration)
+        let button = UIButton(configuration: configuration)
+        button.isEnabled = false
+        return button
     }()
     
     // MARK: - Private Properties
