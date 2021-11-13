@@ -10,17 +10,21 @@ import Foundation
 
 class RawPageRepository: RawPageRepositoryProtocol {
     private let networkService: URLSessionNetworkServiceProtocol
+    private let encoder: JSONEncoder
+    private let decoder: JSONDecoder
     
-    init(networkService: URLSessionNetworkServiceProtocol) {
+    init(networkService: URLSessionNetworkServiceProtocol, encoder: JSONEncoder, decoder: JSONDecoder) {
         self.networkService = networkService
+        self.encoder = encoder
+        self.decoder = decoder
     }
     
     func save(rawPage: RawPageEntity, at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
-        let encoder = JSONEncoder()
         do {
-            let data = try encoder.encode(rawPage)
+            let data = try self.encoder.encode(rawPage)
             let request = FirebaseAPIs.uploadDataFile(folder, name, data)
             let publisher: AnyPublisher<[String:String], Error> = self.networkService.request(request)
+            
             return publisher
                 .map { _ in rawPage }
                 .eraseToAnyPublisher()
