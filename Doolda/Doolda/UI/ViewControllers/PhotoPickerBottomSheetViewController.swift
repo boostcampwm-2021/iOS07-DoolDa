@@ -228,6 +228,39 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             completionHandler(status == .authorized)
         }
     }
+    
+    private func convertAssetToImage(assets: [PHAsset]) -> AnyPublisher<[CIImage], Never> {
+        let imageRequestOptions = PHImageRequestOptions()
+        imageRequestOptions.deliveryMode = .highQualityFormat
+        
+        let imageRequestPublishers = assets.map { asset in
+            Future<CIImage?, Never> { promise in
+                PHImageManager.default().requestImage(
+                    for: asset,
+                    targetSize: PHImageManagerMaximumSize,
+                    contentMode: .aspectFill,
+                    options: imageRequestOptions
+                ) { image, _ in
+                    guard let cgImage = image?.cgImage else { return promise(.success(nil)) }
+                    promise(.success(CIImage(cgImage: cgImage)))
+                }
+            }
+            .eraseToAnyPublisher()
+        }
+        
+        return Future<[CIImage], Never> { promise in
+            Publishers.MergeMany(imageRequestPublishers)
+                .collect()
+                .map { images in
+                    images.compactMap { $0 }
+                }
+                .sink { images in
+                    promise(.success(images))
+                }
+                .store(in: &self.cancellables)
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 extension PhotoPickerBottomSheetViewController: CarouselViewDelegate {
