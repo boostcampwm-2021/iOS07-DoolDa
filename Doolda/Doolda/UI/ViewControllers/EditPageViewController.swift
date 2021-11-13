@@ -154,6 +154,7 @@ class EditPageViewController: UIViewController {
         }
         
         self.contentView.addSubview(self.pageControlView)
+        self.pageControlView.clipsToBounds = true
         self.pageControlView.isUserInteractionEnabled = true
         self.pageControlView.snp.makeConstraints { make in
             make.edges.equalTo(self.pageView)
@@ -350,21 +351,21 @@ class EditPageViewController: UIViewController {
 
 extension EditPageViewController: ControlViewDelegate {
     
-    func leftTopControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer) {
+    func leftTopControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentBringFrontControlDidTap()
     }
     
-    func leftBottomControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer) {
+    func leftBottomControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentSendBackControlDidTap()
     }
     
-    func rightTopControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer) {
+    func rightTopControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentRemoveControlDidTap()
     }
     
-    func rightBottomcontrolDidPan(_ componentView: PageControlView, with gesture: UIPanGestureRecognizer) {
+    func rightBottomcontrolDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer) {
         let touchLocation = gesture.location(in: self.view)
-        let center = componentView.center
+        let center = pageControlView.center
         let xDifference = (center.x - touchLocation.x)
         let yDifference = (center.y - touchLocation.y)
         let distance = sqrt(xDifference * xDifference + yDifference * yDifference)
@@ -373,8 +374,8 @@ extension EditPageViewController: ControlViewDelegate {
         switch gesture.state {
         case .began:
             self.deltaAngle = angle - atan2f(
-                Float(componentView.componentSpaceView.transform.b),
-                Float(componentView.componentSpaceView.transform.a)
+                Float(pageControlView.componentSpaceView.transform.b),
+                Float(pageControlView.componentSpaceView.transform.a)
             )
             self.initialDistance = distance
         case .changed:
@@ -384,8 +385,6 @@ extension EditPageViewController: ControlViewDelegate {
             let radian = CGFloat(-(Float(self.deltaAngle) - angle))
             self.viewModel?.componentDidRotate(by: radian)
             self.viewModel?.componentDidScale(by: scale)
-            print(componentView.componentSpaceView.frame.origin)
-
         case .ended, .possible:
             savedScale = scale
 
@@ -394,16 +393,15 @@ extension EditPageViewController: ControlViewDelegate {
         }
     }
     
-    func controlViewDidPan(_ componentView: PageControlView, with gesture: UIPanGestureRecognizer) {
+    func controlViewDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer) {
         switch gesture.state {
         case .began:
             let touchCGPoint = gesture.location(in: self.pageControlView)
             self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
-            self.initialOrigin = componentView.componentSpaceView.frame.origin
+            self.initialOrigin = pageControlView.componentSpaceView.frame.origin
             fallthrough
         case .changed:
-            let translation = gesture.translation(in: self.pageControlView)
-            print(translation)
+            let translation = gesture.translation(in: self.pageView)
             let contentViewOriginFromPage = CGPoint(
                 x: self.initialOrigin.x + translation.x,
                 y: self.initialOrigin.y + translation.y

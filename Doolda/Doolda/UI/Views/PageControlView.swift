@@ -11,11 +11,11 @@ import UIKit
 import SnapKit
 
 protocol ControlViewDelegate: AnyObject {
-    func controlViewDidPan(_ componentView: PageControlView, with gesture: UIPanGestureRecognizer)
-    func leftTopControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer)
-    func leftBottomControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer)
-    func rightTopControlDidTap(_ componentView: PageControlView, with gesture: UITapGestureRecognizer)
-    func rightBottomcontrolDidPan(_ componentView: PageControlView, with gesture: UIPanGestureRecognizer)
+    func controlViewDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer)
+    func leftTopControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer)
+    func leftBottomControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer)
+    func rightTopControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer)
+    func rightBottomcontrolDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer)
 }
 
 class PageControlView: UIView {
