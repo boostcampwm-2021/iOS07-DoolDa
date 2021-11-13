@@ -26,4 +26,11 @@ class PhotoComponentEntity: ComponentEntity {
         self.imageUrl = try container.decode(URL.self, forKey: .imageUrl)
         try super.init(from: superdecoder)
     }
+    
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(imageUrl, forKey: .imageUrl)
+        let superEncoder = container.superEncoder()
+        try super.encode(to: superEncoder)
+    }
 }

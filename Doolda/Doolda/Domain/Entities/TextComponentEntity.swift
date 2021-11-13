@@ -32,4 +32,13 @@ class TextComponentEntity: ComponentEntity {
         self.fontColor = try container.decode(FontColorType.self, forKey: .fontColor)
         try super.init(from: superdecoder)
     }
+    
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(text, forKey: .text)
+        try container.encode(fontSize, forKey: .fontSize)
+        try container.encode(fontColor, forKey: .fontColor)
+        let superEncoder = container.superEncoder()
+        try super.encode(to: superEncoder)
+    }
 }
