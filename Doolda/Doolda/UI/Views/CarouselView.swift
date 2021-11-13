@@ -23,7 +23,7 @@ class CarouselView: UIView {
         flowLayout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.decelerationRate = .fast
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: self.internalSpace / 2, bottom: 0, right: self.internalSpace / 2)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: self.itemInterval / 2, bottom: 0, right: self.itemInterval / 2)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(
@@ -43,7 +43,7 @@ class CarouselView: UIView {
     
     // MARK: - Public Properties
     
-    @Published var internalSpace: CGFloat = .zero
+    @Published var itemInterval: CGFloat = .zero
     @Published var currentItemIndex: Int = .zero
     @Published var isPageControlHidden: Bool = false
     
@@ -103,7 +103,7 @@ class CarouselView: UIView {
             }
             .store(in: &self.cancellables)
         
-        self.$internalSpace
+        self.$itemInterval
             .receive(on: DispatchQueue.main)
             .sink { [weak self] insetX in
                 self?.photoFrameCollectionView.contentInset = UIEdgeInsets(top: 0, left: insetX / 2, bottom: 0, right: insetX / 2)
@@ -130,7 +130,7 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
         guard self.photoFrameCollectionView === scrollView as? UICollectionView,
               let layout = self.photoFrameCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         
-        let itemWidth = self.photoFrameCollectionView.bounds.width + layout.minimumLineSpacing - self.internalSpace
+        let itemWidth = self.photoFrameCollectionView.bounds.width + layout.minimumLineSpacing - self.itemInterval
         
         let estimatedIndex = scrollView.contentOffset.x / itemWidth
         
