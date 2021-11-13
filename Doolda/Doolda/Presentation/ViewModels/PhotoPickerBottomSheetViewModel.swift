@@ -84,12 +84,9 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     
     private func bind() {
         self.$selectedPhotos
-            .sink { [weak self] images in
-                guard let self = self,
-                      let images = images,
-                      let requiredPhotoCount = self.selectedPhotoFrame?.rawValue?.requiredPhotoCount else { return }
-                
-                self.readyToComposeState = images.count == requiredPhotoCount
+            .sink { [weak self] photos in
+                guard let self = self else { return }
+                self.readyToComposeState = self.imageComposeUseCase.isComposable(photoFrameType: self.selectedPhotoFrame, numberOfPhotos: photos.count)
             }
             .store(in: &self.cancellables)
     }
