@@ -118,17 +118,17 @@ class BottomSheetViewController: UIViewController {
         panGestureRecognizer.delaysTouchesEnded = false
         
         self.view.publisher(for: panGestureRecognizer)
+            .compactMap { $0 as? UIPanGestureRecognizer }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] sender in
-                guard let sender = sender as? UIPanGestureRecognizer else { return }
                 self?.viewDidPan(sender)
             }
             .store(in: &self.cancellables)
         
         self.dimmedView.publisher(for: UITapGestureRecognizer())
+            .compactMap { $0 as? UITapGestureRecognizer }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] sender in
-                guard let sender = sender as? UITapGestureRecognizer else { return }
                 self?.dimmedViewDidTap(sender)
             }
             .store(in: &self.cancellables)
