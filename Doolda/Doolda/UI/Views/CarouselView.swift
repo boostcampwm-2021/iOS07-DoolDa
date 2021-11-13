@@ -118,7 +118,7 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        guard collectionView === self.photoFrameCollectionView else { return .zero }
+        guard collectionView == self.photoFrameCollectionView else { return .zero }
         return self.carouselCollectionViewDelegate?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
     }
     
@@ -127,7 +127,7 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
         withVelocity velocity: CGPoint,
         targetContentOffset: UnsafeMutablePointer<CGPoint>
     ) {
-        guard self.photoFrameCollectionView === scrollView as? UICollectionView,
+        guard self.photoFrameCollectionView == scrollView as? UICollectionView,
               let layout = self.photoFrameCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         
         let itemWidth = self.photoFrameCollectionView.bounds.width + layout.minimumLineSpacing - self.itemInterval
@@ -146,14 +146,14 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard collectionView === self.photoFrameCollectionView else { return .zero }
+        guard collectionView == self.photoFrameCollectionView else { return .zero }
         let itemCount = self.carouselCollectionViewDataSource?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
         self.pageControl.numberOfPages = itemCount
         return itemCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard collectionView === self.photoFrameCollectionView else { return UICollectionViewCell() }
+        guard collectionView == self.photoFrameCollectionView else { return UICollectionViewCell() }
         return self.carouselCollectionViewDataSource?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
     }
 }

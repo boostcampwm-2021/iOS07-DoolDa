@@ -326,7 +326,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        if collectionView === self.photoPickerCollectionView {
+        if collectionView == self.photoPickerCollectionView {
             guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
             let cellSize = collectionView.bounds.width / 3 - layout.minimumInteritemSpacing
             return CGSize(width: cellSize, height: cellSize)
@@ -339,7 +339,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView === self.photoPickerCollectionView {
+        if collectionView == self.photoPickerCollectionView {
             return self.photos?.count ?? 0
         } else {
             return self.viewModel?.photoFrames.count ?? 0
@@ -349,7 +349,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell
         
-        if collectionView === self.photoPickerCollectionView {
+        if collectionView == self.photoPickerCollectionView {
             cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: PhotoPickerCollectionViewCell.photoPickerCellIdentifier,
                 for: indexPath
@@ -381,7 +381,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView === self.photoPickerCollectionView {
+        if collectionView == self.photoPickerCollectionView {
             guard var selectedPhotos = self.viewModel?.selectedPhotos else { return }
             
             if selectedPhotos.contains(indexPath.item),
