@@ -49,6 +49,10 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         
         self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
+    
+    func addTextComponent() {}
+    
+    func addStickerComponent() {}
 }
 
 enum TestError: Error {

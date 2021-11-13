@@ -198,6 +198,18 @@ class EditPageViewController: UIViewController {
                 self.viewModel?.photoComponentAddButtonDidTap()
             }.store(in: &self.cancellables)
         
+        self.addTextComponentButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel?.photoComponentAddButtonDidTap()
+            }.store(in: &self.cancellables)
+        
+        self.addStickerComponentButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel?.photoComponentAddButtonDidTap()
+            }.store(in: &self.cancellables)
+        
         self.changeBackgroundTypeButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -218,6 +230,14 @@ class EditPageViewController: UIViewController {
                     origin: self.computePointFromAbsolute(at: componentEntity.origin),
                     size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                 )
+                let center = CGPoint(x: computedCGRect.midX, y: computedCGRect.midY)
+                
+                var rectTransform: CGAffineTransform = .identity
+//                rectTransform = rectTransform.translatedBy(x: center.x, y: center.y)
+//                rectTransform = rectTransform.rotated(by: componentEntity.angle)
+//                rectTransform = rectTransform.translatedBy(x: -center.x, y: -center.y)
+
+                computedCGRect.applying(rectTransform)
                 componentView.frame = computedCGRect
                 let transform = CGAffineTransform.identity.rotated(by: componentEntity.angle).scaledBy(x: componentEntity.scale, y: componentEntity.scale)
                 componentView.transform = transform

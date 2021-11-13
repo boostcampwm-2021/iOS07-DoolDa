@@ -19,7 +19,10 @@ protocol EditPageViewModelInput {
     func componentRemoveControlDidTap()
     
     func photoComponentAddButtonDidTap()
+    func textComponentAddButtonDidTap()
+    func stickerComponentAddButtonDidTap()
     func backgroundTypeButtonDidTap()
+    
     func componentEntityDidAdd(_ component: ComponentEntity)
     func backgroundColorDidChange(_ backgroundColor: BackgroundType)
     func saveEditingPageButtonDidTap()
@@ -109,6 +112,14 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     
     func photoComponentAddButtonDidTap() {
         self.coordinator.addPhotoComponent()
+    }
+    
+    func textComponentAddButtonDidTap() {
+        self.coordinator.addTextComponent()
+    }
+    
+    func stickerComponentAddButtonDidTap() {
+        self.coordinator.addStickerComponent()
     }
     
     func backgroundTypeButtonDidTap() {
