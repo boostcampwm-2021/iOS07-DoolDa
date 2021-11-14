@@ -14,6 +14,10 @@ protocol BackgroundTypePickerViewControllerDelegate: AnyObject {
 
 final class BackgroundTypePickerViewController: BottomSheetViewController {
     
+    // MARK: - Static Properties
+    
+    static let backgroundTypeCellIdentifier = "backgroundTypeCellIdentifier"
+    
     // MARK: - Subviews
     
     private lazy var bottomSheetTitle: UILabel = {
@@ -50,7 +54,7 @@ final class BackgroundTypePickerViewController: BottomSheetViewController {
         layout.sectionInset = .zero
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Self.backgroundTypeCellIdentifier)
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -121,14 +125,14 @@ extension BackgroundTypePickerViewController: UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return BackgroundType.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Self.backgroundTypeCellIdentifier, for: indexPath)
         
         cell.layer.cornerRadius = 10
-        cell.backgroundColor = .red
+        cell.backgroundColor = UIColor(cgColor: BackgroundType.allCases[indexPath.item].rawValue)
         
         return cell
     }
