@@ -20,19 +20,17 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     func start() {
         DispatchQueue.main.async {
             // FIXME : inject useCase and viewModel
-            let encoder = JSONEncoder()
-            let decoder = JSONDecoder()
             let urlSessionNetworkService = URLSessionNetworkService()
             
             let dummyImageUseCase = DummyImageUseCase()
             let pageRepository = PageRepository(urlSessionNetworkService: urlSessionNetworkService)
-            let dummyRawPageRepository = RawPageRepository(
-                networkService: urlSessionNetworkService,
-                encoder: encoder,
-                decoder: decoder
-            )
+            let rawPageRepository = RawPageRepository(networkService: urlSessionNetworkService)
             
-            let editPageUseCase = EditPageUseCase(imageUseCase: dummyImageUseCase, pageRepository: pageRepository, rawPageRepository: dummyRawPageRepository)
+            let editPageUseCase = EditPageUseCase(
+                imageUseCase: dummyImageUseCase,
+                pageRepository: pageRepository,
+                rawPageRepository: rawPageRepository
+            )
             let editPageViewModel = EditPageViewModel(user: self.user, coordinator: self, editPageUseCase: editPageUseCase)
             let viewController = EditPageViewController(viewModel: editPageViewModel)
             self.presenter.setViewControllers([viewController], animated: false)
