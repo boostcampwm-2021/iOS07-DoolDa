@@ -235,27 +235,27 @@ class PairingViewController: UIViewController {
             .sink { _ in
                 viewModel.refreshButtonDidTap()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         self.friendIdTextField.publisher(for: .editingChanged)
             .receive(on: DispatchQueue.main)
             .compactMap { ($0 as? UITextField)?.text }
             .assign(to: \.friendIdInput, on: viewModel)
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         self.pairButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 viewModel.pairButtonDidTap()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
 
         self.pairSkipButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 self.viewModel?.pairSkipButtonDidTap()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
 
         self.viewModel?.myId
             .receive(on: DispatchQueue.main)
@@ -269,7 +269,7 @@ class PairingViewController: UIViewController {
             .sink { [weak self] isValid in
                 self?.pairButton.isEnabled = isValid
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
 
         self.viewModel?.errorPublisher
             .receive(on: DispatchQueue.main)
@@ -278,21 +278,21 @@ class PairingViewController: UIViewController {
                 guard let error = error as? LocalizedError else { return }
                 self?.presentAlert(message: error.localizedDescription)
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
 
         self.view.publisher(for: UITapGestureRecognizer())
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.friendIdTextField.resignFirstResponder()
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         UIResponder.keyboardHeightPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] keyboardHeight in
                 self?.updateScrollView(with: keyboardHeight)
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
     }
     
     // MARK: - Private Methods
