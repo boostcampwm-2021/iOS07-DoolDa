@@ -31,12 +31,10 @@ class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
         self.decoder = JSONDecoder()
     }
     
-    func request<T: Decodable>(_ urlRequest: URLRequestBuilder) -> AnyPublisher<T, Error> {
-        guard let urlRequset = urlRequest.urlRequest else {
-            return Fail(error: Errors.invalidUrl).eraseToAnyPublisher()
-        }
-        return self.session.dataTaskPublisher(for: urlRequset)
-            .tryMap { data, response in
+    func request(_ urlRequest: URLRequestBuilder) -> AnyPublisher<Data, Error> {
+        guard let urlRequest = urlRequest.urlRequest else { return Fail(error: Errors.invalidUrl).eraseToAnyPublisher() }
+        return self.session.dataTaskPublisher(for: urlRequest)
+            .tryMap { data, response -> Data in
                 guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
                     switch (response as? HTTPURLResponse)?.statusCode {
                     case .some(404):
@@ -47,7 +45,18 @@ class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
                 }
                 return data
             }
+            .eraseToAnyPublisher()
+    }
+    
+    func request<T: Decodable>(_ urlRequest: URLRequestBuilder) -> AnyPublisher<T, Error> {
+        return request(urlRequest)
             .decode(type: T.self, decoder: decoder)
+            .eraseToAnyPublisher()
+    }
+    
+    func request(_ urlRequest: URLRequestBuilder) -> AnyPublisher<[[String: Any]], Error> {
+        return request(urlRequest)
+            .tryCompactMap { return try JSONSerialization.jsonObject(with: $0, options: []) as? [[String: Any]] }
             .eraseToAnyPublisher()
     }
 }
