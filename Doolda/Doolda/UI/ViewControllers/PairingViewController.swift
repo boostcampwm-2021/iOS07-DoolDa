@@ -95,6 +95,20 @@ class PairingViewController: UIViewController {
         button.isEnabled = false
         return button
     }()
+
+    private lazy var pairSkipButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.cornerStyle = .capsule
+        var container = AttributeContainer()
+        // FIXME : change font to global font
+        container.font = UIFont(name: "Dovemayo", size: 16)
+        configuration.attributedTitle = AttributedString("혼자 쓰러가기", attributes: container)
+        configuration.baseBackgroundColor = .dooldaHighlighted
+        configuration.baseForegroundColor = .dooldaLabel
+        let button = UIButton(configuration: configuration)
+        button.isEnabled = true
+        return button
+    }()
     
     private lazy var divider: UIView = {
         let view = UIView()
@@ -199,6 +213,15 @@ class PairingViewController: UIViewController {
             make.height.equalTo(44)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
+            //make.bottom.equalToSuperview()
+        }
+
+        self.contentView.addSubview(self.pairSkipButton)
+        self.pairSkipButton.snp.makeConstraints { make in
+            make.top.equalTo(self.pairButton.snp.bottom).offset(20)
+            make.height.equalTo(self.pairButton)
+            make.leading.equalTo(self.pairButton)
+            make.trailing.equalTo(self.pairButton)
             make.bottom.equalToSuperview()
         }
     }
@@ -225,6 +248,13 @@ class PairingViewController: UIViewController {
             .sink { _ in
                 print("pair button did tap")
                 viewModel.pairButtonDidTap()
+            }
+            .store(in: &cancellables)
+
+        self.pairSkipButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                print("pair Skip button did tap")
             }
             .store(in: &cancellables)
 
