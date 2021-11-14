@@ -15,7 +15,8 @@ enum FirebaseAPIs: URLRequestBuilder {
     case getPairDocument(String)
     case createPairDocument(String, String)
     case patchPairDocument(String, String)
-
+    
+    case createPageDocument(String, Date, String, String)
     case uploadDataFile(String, String, Data)
 }
 
@@ -41,6 +42,8 @@ extension FirebaseAPIs {
             return "documents/pair/\(pairId)"
         case .createPairDocument:
             return "documents/pair"
+        case .createPageDocument:
+            return "documents/page"
         default: return nil
         }
     }
@@ -49,10 +52,12 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var parameters: [String : String]? {
         switch self {
-        case .getUserDocuement, .getPairDocument:
+        case .getUserDocuement, .getPairDocument, .getPageDocuments:
             return nil
         case .createUserDocument(let id), .createPairDocument(let id, _):
             return ["documentId": id]
+        case .createPageDocument(_, _, let jsonPath, let pairId):
+            return ["documentId": pairId + jsonPath]
         case .patchUserDocuement, .patchPairDocument:
             return ["currentDocument.exists": "true"]
         case .uploadDataFile:
@@ -104,6 +109,11 @@ extension FirebaseAPIs {
             let pairDocument = PairDocument(pairId: pairId, recentlyEditedUser: recentlyEditedUser)
             return [
                 "fields": pairDocument.fields
+            ]
+        case .createPageDocument(let authorId, let createdTime, let jsonPath, let pairId):
+            let pageDocument = PageDocument(author: authorId, createdTime: createdTime, jsonPath: jsonPath, pairId: pairId)
+            return [
+                "fields": pageDocument.fields
             ]
         }
     }
