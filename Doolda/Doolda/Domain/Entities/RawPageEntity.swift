@@ -26,6 +26,13 @@ struct RawPageEntity: Codable {
     
     enum Errors: LocalizedError {
         case encounteredUnknonwnComponent
+        
+        var errorDescription: String? {
+            switch self {
+            case .encounteredUnknonwnComponent:
+                return "알 수 없는 컴포넌트 타입이 포함되어있습니다."
+            }
+        }
     }
     
     init() {
