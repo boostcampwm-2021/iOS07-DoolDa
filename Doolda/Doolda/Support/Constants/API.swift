@@ -20,12 +20,13 @@ enum FirebaseAPIs: URLRequestBuilder {
     case getPageDocuments(String)
 
     case uploadDataFile(String, String, Data)
+    case downloadDataFile(String, String)
 }
 
 extension FirebaseAPIs {
     var baseURL: URL? {
         switch self {
-        case .uploadDataFile(let pairId, let fileName, _):
+        case .uploadDataFile(let pairId, let fileName, _), .downloadDataFile(let pairId, let fileName):
             return URL(string: "https://firebasestorage.googleapis.com/v0/b/doolda.appspot.com/o/\(pairId)%2F\(fileName)")
         default:
             return URL(string: "https://firestore.googleapis.com/v1/projects/doolda/databases/(default)/")
@@ -66,6 +67,9 @@ extension FirebaseAPIs {
             return ["currentDocument.exists": "true"]
         case .uploadDataFile:
             return ["alt": "media"]
+        case .downloadDataFile:
+            return ["alt": "media",
+                    "token": "16856712-8a4b-488e-84f7-213d2e1ab89b"]
         }
     }
 }
@@ -73,7 +77,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var method: HttpMethod {
         switch self {
-        case .getUserDocuement, .getPairDocument:
+        case .getUserDocuement, .getPairDocument, .downloadDataFile:
             return .get
         case .createUserDocument, .createPairDocument, .createPageDocument, .uploadDataFile, .getPageDocuments:
             return .post
@@ -97,7 +101,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var body: [String: Any]? {
         switch self {
-        case .getUserDocuement, .getPairDocument, .uploadDataFile:
+        case .getUserDocuement, .getPairDocument, .uploadDataFile, .downloadDataFile:
             return nil
         case .getPageDocuments(let pairId):
             return [
