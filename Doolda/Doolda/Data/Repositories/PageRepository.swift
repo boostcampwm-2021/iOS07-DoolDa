@@ -9,9 +9,19 @@ import Combine
 import Foundation
 
 class PageRepository: PageRepositoryProtocol {
-    // FIXME: not implemented
+    let urlSessionNetworkService: URLSessionNetworkServiceProtocol
+    
+    init(urlSessionNetworkService: URLSessionNetworkServiceProtocol) {
+        self.urlSessionNetworkService = urlSessionNetworkService
+    }
+    
     func savePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
-        return Just(page).setFailureType(to: Error.self).eraseToAnyPublisher()
+        let request = FirebaseAPIs.createPageDocument(page.author.id.ddidString, page.timeStamp, page.jsonPath, page.author.pairId!.ddidString)
+        let publisher: AnyPublisher<[String: String], Error> = self.urlSessionNetworkService.request(request)
+        
+        return publisher
+            .map { _ in page }
+            .eraseToAnyPublisher()
     }
     
     // FIXME: not implemented
