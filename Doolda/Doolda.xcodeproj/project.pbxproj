@@ -42,6 +42,7 @@
 		1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */; };
 		1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */; };
 		1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */; };
+		1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
 		1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D992B41273D0EAB00B63954 /* PageRepository.swift */; };
 		1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
 		1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */; };
@@ -231,6 +232,7 @@
 		1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
+		1D8BE0782740FE5E00201E3E /* PageDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDocument.swift; sourceTree = "<group>"; };
 		1D992B41273D0EAB00B63954 /* PageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepository.swift; sourceTree = "<group>"; };
 		1DBF5714273A2C5100D28F5E /* FontColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorType.swift; sourceTree = "<group>"; };
 		1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameType.swift; sourceTree = "<group>"; };
@@ -656,6 +658,7 @@
 				FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */,
 				FC5FB7942732627C008AC3D2 /* PairDocument.swift */,
 				66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */,
+				1D8BE0782740FE5E00201E3E /* PageDocument.swift */,
 			);
 			path = DataTransferObjects;
 			sourceTree = "<group>";
@@ -1346,6 +1349,7 @@
 				319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */,
 				310125D8273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift in Sources */,
 				66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */,
+				1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */,
 				66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */,
 				1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */,
 				66CD645A273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift in Sources */,
