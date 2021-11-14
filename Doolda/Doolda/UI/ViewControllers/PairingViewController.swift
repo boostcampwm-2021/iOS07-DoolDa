@@ -255,6 +255,7 @@ class PairingViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 print("pair Skip button did tap")
+                self.viewModel?.pairSkipButtonDidTap()
             }
             .store(in: &cancellables)
 

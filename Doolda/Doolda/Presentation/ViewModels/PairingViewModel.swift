@@ -95,7 +95,7 @@ final class PairingViewModel: PairingViewModelProtocol {
     }
 
     func pairSkipButtonDidTap() {
-        
+        self.pairUserUseCase.pair(user: self.user)
     }
     
     func refreshButtonDidTap() {
