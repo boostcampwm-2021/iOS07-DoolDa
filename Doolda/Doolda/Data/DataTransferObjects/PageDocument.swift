@@ -64,7 +64,3 @@ struct PageDocument: Codable {
         return PageEntity(author: User(id: authorDDID, pairId: pairDDID), timeStamp: formattedDate, jsonPath: jsonPath)
     }
 }
-
-struct QueryDocument: Codable {
-    let document: [String: [String: [String: String]]]
-}
