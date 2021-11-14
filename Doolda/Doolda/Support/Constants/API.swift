@@ -17,6 +17,8 @@ enum FirebaseAPIs: URLRequestBuilder {
     case patchPairDocument(String, String)
     
     case createPageDocument(String, Date, String, String)
+    case getPageDocuments(String)
+
     case uploadDataFile(String, String, Data)
 }
 
@@ -42,6 +44,8 @@ extension FirebaseAPIs {
             return "documents/pair/\(pairId)"
         case .createPairDocument:
             return "documents/pair"
+        case .getPageDocuments:
+            return "documents:runQuery"
         case .createPageDocument:
             return "documents/page"
         default: return nil
@@ -71,7 +75,7 @@ extension FirebaseAPIs {
         switch self {
         case .getUserDocuement, .getPairDocument:
             return .get
-        case .createUserDocument, .createPairDocument, .uploadDataFile:
+        case .createUserDocument, .createPairDocument, .createPageDocument, .uploadDataFile, .getPageDocuments:
             return .post
         case .patchUserDocuement, .patchPairDocument:
             return .patch
@@ -95,6 +99,34 @@ extension FirebaseAPIs {
         switch self {
         case .getUserDocuement, .getPairDocument, .uploadDataFile:
             return nil
+        case .getPageDocuments(let pairId):
+            return [
+                "structuredQuery": [
+                    "from": [
+                        [
+                            "collectionId": "page",
+                            "allDescendants": true
+                        ]
+                    ],
+                    "where": [
+                        "fieldFilter": [
+                            "field": [
+                                "fieldPath": "pairId"
+                            ],
+                            "op": "EQUAL",
+                            "value": [
+                                "stringValue": pairId
+                            ]
+                        ]
+                    ],
+                    "orderBy": [
+                        "field": [
+                            "fieldPath": "createdTime"
+                        ],
+                        "direction": "DESCENDING"
+                    ]
+                ]
+            ]
         case .createUserDocument(let userId):
             let userDocument = UserDocument(userId: userId, pairId: "")
             return [
