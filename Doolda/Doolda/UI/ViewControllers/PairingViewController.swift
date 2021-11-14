@@ -246,7 +246,6 @@ class PairingViewController: UIViewController {
         self.pairButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { _ in
-                print("pair button did tap")
                 viewModel.pairButtonDidTap()
             }
             .store(in: &cancellables)
@@ -254,7 +253,6 @@ class PairingViewController: UIViewController {
         self.pairSkipButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { _ in
-                print("pair Skip button did tap")
                 self.viewModel?.pairSkipButtonDidTap()
             }
             .store(in: &cancellables)
