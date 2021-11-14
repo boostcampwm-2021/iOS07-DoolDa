@@ -24,8 +24,21 @@ class PageRepository: PageRepositoryProtocol {
             .eraseToAnyPublisher()
     }
     
-    // FIXME: not implemented
     func fetchPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error> {
-        return Just([PageEntity(author: User(id: DDID(), pairId: nil), timeStamp: Date(), jsonPath: "")]).setFailureType(to: Error.self).eraseToAnyPublisher()
+        let request = FirebaseAPIs.getPageDocuments(pair.ddidString)
+        let publisher: AnyPublisher<[[String: Any]], Error> = self.urlSessionNetworkService.request(request)
+        return publisher
+            .map({ dictionaries in
+                var documents: [PageEntity] = []
+                dictionaries.forEach { dictionary in
+                    guard let something = dictionary["document"] as? [String: Any],
+                          let somethingElse = something["fields"] as? [String: [String: String]],
+                          let document = PageDocument(document: somethingElse),
+                          let entity = document.toPageEntity() else { return }
+                    documents.append(entity)
+                }
+                return documents
+            })
+            .eraseToAnyPublisher()
     }
 }
