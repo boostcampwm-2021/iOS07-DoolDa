@@ -26,7 +26,7 @@ class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
     
     // MARK: - Initializers
     
-    init() {
+    init(session: URLSession = .shared, decoder: JSONDecoder = JSONDecoder()) {
         self.session = .shared
         self.decoder = JSONDecoder()
     }
