@@ -27,8 +27,8 @@ class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
     // MARK: - Initializers
     
     init(session: URLSession = .shared, decoder: JSONDecoder = JSONDecoder()) {
-        self.session = .shared
-        self.decoder = JSONDecoder()
+        self.session = session
+        self.decoder = decoder
     }
     
     func request(_ urlRequest: URLRequestBuilder) -> AnyPublisher<Data, Error> {
