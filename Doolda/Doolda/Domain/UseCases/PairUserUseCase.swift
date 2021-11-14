@@ -33,6 +33,7 @@ protocol PairUserUseCaseProtocol {
     var errorPublisher: Published<Error?>.Publisher { get }
     
     func pair(user: User, friendId: DDID)
+    func pair(user: User)
 }
 
 final class PairUserUseCase: PairUserUseCaseProtocol {
@@ -72,6 +73,23 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                 }
             }
             .store(in: &cancellables)
+    }
+
+    func pair(user: User) {
+        let pairId = user.id
+        let user = User(id: user.id, pairId: pairId)
+
+        Publishers.Zip(
+            self.userRepository.setUser(user),
+            self.pairRepository.setPairId(with: user)
+        )
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                self.error = error
+            } receiveValue: { user, _ in
+                self.pairedUser = user
+            }
+            .store(in: &self.cancellables)
     }
     
     private func isItPossibleToPair(user: User, with another: User) -> Bool {

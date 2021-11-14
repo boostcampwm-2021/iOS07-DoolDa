@@ -213,7 +213,7 @@ class PairingViewController: UIViewController {
             make.height.equalTo(44)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            //make.bottom.equalToSuperview()
+
         }
 
         self.contentView.addSubview(self.pairSkipButton)

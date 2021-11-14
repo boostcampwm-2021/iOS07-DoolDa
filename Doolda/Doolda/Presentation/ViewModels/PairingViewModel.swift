@@ -11,6 +11,7 @@ import Foundation
 protocol PairingViewModelInput {
     var friendIdInput: String { get set }
     func pairButtonDidTap()
+    func pairSkipButtonDidTap()
     func refreshButtonDidTap()
 }
 
@@ -91,6 +92,10 @@ final class PairingViewModel: PairingViewModelProtocol {
     func pairButtonDidTap() {
         guard let friendId = DDID(from: self.friendIdInput) else { return }
         self.pairUserUseCase.pair(user: self.user, friendId: friendId)
+    }
+
+    func pairSkipButtonDidTap() {
+        
     }
     
     func refreshButtonDidTap() {
