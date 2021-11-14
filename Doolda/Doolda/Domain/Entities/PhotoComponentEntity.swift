@@ -12,7 +12,7 @@ class PhotoComponentEntity: ComponentEntity {
     var imageUrl: URL
 
     private enum CodingKeys: String, CodingKey {
-        case imageUrl
+        case imageUrl, type
     }
     
     init(frame: CGRect, scale: CGFloat, angle: CGFloat, aspectRatio: CGFloat, imageUrl: URL) {
@@ -22,15 +22,14 @@ class PhotoComponentEntity: ComponentEntity {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let superdecoder = try container.superDecoder()
         self.imageUrl = try container.decode(URL.self, forKey: .imageUrl)
-        try super.init(from: superdecoder)
+        try super.init(from: decoder)
     }
     
     override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(imageUrl, forKey: .imageUrl)
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try container.encode(ComponentType.photo, forKey:.type)
     }
 }

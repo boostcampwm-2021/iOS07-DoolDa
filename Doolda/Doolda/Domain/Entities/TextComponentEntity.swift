@@ -14,7 +14,7 @@ class TextComponentEntity: ComponentEntity {
     var fontColor: FontColorType
     
     private enum CodingKeys: String, CodingKey {
-        case text, fontSize, fontColor
+        case text, fontSize, fontColor, type
     }
     
     init(frame: CGRect, scale: CGFloat, angle: CGFloat, aspectRatio: CGFloat, text: String, fontSize: CGFloat, fontColor: FontColorType) {
@@ -26,19 +26,18 @@ class TextComponentEntity: ComponentEntity {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let superdecoder = try container.superDecoder()
         self.text = try container.decode(String.self, forKey: .text)
         self.fontSize = try container.decode(CGFloat.self, forKey: .fontSize)
         self.fontColor = try container.decode(FontColorType.self, forKey: .fontColor)
-        try super.init(from: superdecoder)
+        try super.init(from: decoder)
     }
     
     override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(text, forKey: .text)
         try container.encode(fontSize, forKey: .fontSize)
         try container.encode(fontColor, forKey: .fontColor)
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try container.encode(ComponentType.text, forKey: .type)
     }
 }
