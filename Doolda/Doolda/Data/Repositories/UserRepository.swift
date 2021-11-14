@@ -49,7 +49,8 @@ class UserRepository: UserRepositoryProtocol {
     
     func setUser(_ user: User) -> AnyPublisher<User, Error> {
         guard let pairId = user.pairId else {
-            let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.createUserDocument(user.id.ddidString))
+            let publisher: AnyPublisher<UserDocument, Error> =
+            self.urlSessionNetworkService.request(FirebaseAPIs.createUserDocument(user.id.ddidString))
             return publisher.tryMap { userDocument in
                 guard let newUser = userDocument.toUser() else {
                     throw UserRepositoryError.nilUserId
@@ -59,7 +60,8 @@ class UserRepository: UserRepositoryProtocol {
             .eraseToAnyPublisher()
         }
         
-        let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.patchUserDocuement(user.id.ddidString, pairId.ddidString))
+        let publisher: AnyPublisher<UserDocument, Error> =
+        self.urlSessionNetworkService.request(FirebaseAPIs.patchUserDocuement(user.id.ddidString, pairId.ddidString))
         return publisher.tryMap { userDocument in
             guard let newUser = userDocument.toUser() else {
                 throw UserRepositoryError.nilUserId
