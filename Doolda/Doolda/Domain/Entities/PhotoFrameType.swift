@@ -15,23 +15,24 @@ enum PhotoFrameType: RawRepresentable, CaseIterable {
         let photoBounds: [CGRect]
         var requiredPhotoCount: Int { photoBounds.count }
         
-        init?(baseImage: CGImage?, photoBounds: [CGRect]) {
-            guard let cgBaseImage = baseImage else { return nil }
-            self.baseImage = CIImage(cgImage: cgBaseImage)
+        init?(baseImageName: String?, photoBounds: [CGRect]) {
+            guard let baseImageUrl = Bundle.main.url(forResource: baseImageName, withExtension: "png"),
+                  let baseCIImage = CIImage(contentsOf: baseImageUrl) else { return nil }
+            self.baseImage = baseCIImage
             self.photoBounds = photoBounds
         }
         
         // FIXME: 프레임들을 여기에 static let으로 선언
-        static let polaroid = PhotoFrame(baseImage: .polaroid, photoBounds: [.zero])
-        static let lifeFourCuts = PhotoFrame(baseImage: .lifeFourCuts, photoBounds: [.zero, .zero, .zero, .zero])
-        static let hedgehogs = PhotoFrame(baseImage: .hedgehogs, photoBounds: [.zero])
+        static let normal = PhotoFrame(baseImageName: "Normal", photoBounds: [.zero])
+        static let polaroid = PhotoFrame(baseImageName: "Polaroid", photoBounds: [.zero])
+        static let lifeFourCuts = PhotoFrame(baseImageName: "LifeFourCuts", photoBounds: [.zero, .zero, .zero, .zero])
     }
     
     typealias RawValue = PhotoFrame?
     
+    case normal
     case polaroid
     case lifeFourCuts
-    case hedgehogs
     
     init?(rawValue: RawValue) {
         self = .lifeFourCuts
@@ -40,9 +41,9 @@ enum PhotoFrameType: RawRepresentable, CaseIterable {
     // FIXME: PhotoFrame내에 선언된 static let인스턴스를 rawValue로 제공
     var rawValue: PhotoFrame? {
         switch self {
+        case .normal: return PhotoFrame.normal
         case .polaroid: return PhotoFrame.polaroid
         case .lifeFourCuts: return PhotoFrame.lifeFourCuts
-        case .hedgehogs: return PhotoFrame.hedgehogs
         }
     }
 }
