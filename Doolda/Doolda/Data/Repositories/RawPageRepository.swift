@@ -11,12 +11,10 @@ import Foundation
 class RawPageRepository: RawPageRepositoryProtocol {
     private let networkService: URLSessionNetworkServiceProtocol
     private let encoder: JSONEncoder
-    private let decoder: JSONDecoder
     
-    init(networkService: URLSessionNetworkServiceProtocol, encoder: JSONEncoder, decoder: JSONDecoder) {
+    init(networkService: URLSessionNetworkServiceProtocol, encoder: JSONEncoder = JSONEncoder()) {
         self.networkService = networkService
         self.encoder = encoder
-        self.decoder = decoder
     }
     
     func save(rawPage: RawPageEntity, at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
@@ -33,8 +31,9 @@ class RawPageRepository: RawPageRepositoryProtocol {
         }
     }
     
-    // FIXME: fetching api is not implemented
     func fetch(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
-        return Just(RawPageEntity()).setFailureType(to: Error.self).eraseToAnyPublisher()
+        let request = FirebaseAPIs.downloadDataFile(folder, name)
+        return self.networkService.request(request)
+            .eraseToAnyPublisher()
     }
 }
