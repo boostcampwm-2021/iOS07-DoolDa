@@ -136,4 +136,9 @@ extension BackgroundTypePickerViewController: UICollectionViewDelegateFlowLayout
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate?.backgroundTypeDidSelect(BackgroundType.allCases[indexPath.item])
+        self.dismiss(animated: true, completion: nil)
+    }
 }
