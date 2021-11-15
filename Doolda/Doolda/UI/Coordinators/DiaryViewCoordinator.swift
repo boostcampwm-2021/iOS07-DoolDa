@@ -32,3 +32,41 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
         // FIXME: not implemented
     }
 }
+
+protocol DiaryViewModelInput {
+  func addPageButtonDidTap()
+  func lastPageDidDisplay()
+}
+
+protocol DiaryViewModelOutput {
+  var isMyTurn: Published<Bool>.Publisher { get }
+  var filteredPageEntities: Published<[PageEntity]>.Publisher { get }
+}
+
+typealias DiaryViewModelProtocol = DiaryViewModelInput & DiaryViewModelOutput
+
+class DummyDiaryViewModel: DiaryViewModelProtocol {
+    func addPageButtonDidTap() {
+        print("ADD")
+        self.filteredEntities.append(PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""))
+    }
+    
+    func lastPageDidDisplay() {
+        print("LAST")
+    }
+    
+    var isMyTurn: Published<Bool>.Publisher { self.$turn }
+    var filteredPageEntities: Published<[PageEntity]>.Publisher { self.$filteredEntities }
+    
+    @Published private var turn: Bool = false
+    @Published private var filteredEntities: [PageEntity] = [
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "")
+    ]
+}
