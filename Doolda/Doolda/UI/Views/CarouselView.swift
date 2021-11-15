@@ -8,19 +8,18 @@
 import Combine
 import UIKit
 
-protocol CarouselViewDelegate: AnyObject {
+@objc protocol CarouselViewDelegate: AnyObject {
     func selectedItemDidChange(_ index: Int)
+    @objc optional func carouselViewLastItemDidDisplay()
 }
 
 class CarouselView: UIView {
 
     // MARK: - Subviews
     
-    private lazy var photoFrameCollectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 10
-        flowLayout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.decelerationRate = .fast
         collectionView.contentInset = UIEdgeInsets(top: 0, left: self.insetX / 2, bottom: 0, right: self.insetX / 2)
@@ -66,8 +65,8 @@ class CarouselView: UIView {
         self.carouselDelegate = carouselDelegate
         self.carouselCollectionViewDataSource = carouselCollectionViewDataSource
         self.carouselCollectionViewDelegate = carouselCollectionViewDelegate
-        self.photoFrameCollectionView.delegate = self
-        self.photoFrameCollectionView.dataSource = self
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         configureUI()
         bindUI()
     }
@@ -75,14 +74,14 @@ class CarouselView: UIView {
     // MARK: - Helpers
     
     func configureUI() {
-        self.addSubview(self.photoFrameCollectionView)
-        self.photoFrameCollectionView.snp.makeConstraints { make in
+        self.addSubview(self.collectionView)
+        self.collectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
         
         self.addSubview(self.pageControl)
         self.pageControl.snp.makeConstraints { make in
-            make.top.equalTo(self.photoFrameCollectionView.snp.bottom)
+            make.top.equalTo(self.collectionView.snp.bottom)
             make.centerX.bottom.equalToSuperview()
             make.height.equalTo(20)
         }
@@ -107,7 +106,7 @@ class CarouselView: UIView {
         self.$itemInterval
             .receive(on: DispatchQueue.main)
             .sink { [weak self] interval in
-                guard let layout = self?.photoFrameCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+                guard let layout = self?.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
                 layout.minimumLineSpacing = interval
             }
             .store(in: &self.cancellables)
@@ -115,7 +114,7 @@ class CarouselView: UIView {
         self.$insetX
             .receive(on: DispatchQueue.main)
             .sink { [weak self] insetX in
-                self?.photoFrameCollectionView.contentInset = UIEdgeInsets(top: 0, left: insetX / 2, bottom: 0, right: insetX / 2)
+                self?.collectionView.contentInset = UIEdgeInsets(top: 0, left: insetX / 2, bottom: 0, right: insetX / 2)
             }
             .store(in: &self.cancellables)
     }
@@ -127,8 +126,12 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        guard collectionView == self.photoFrameCollectionView else { return .zero }
-        return self.carouselCollectionViewDelegate?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+        guard collectionView == self.collectionView else { return .zero }
+        return self.carouselCollectionViewDelegate?.collectionView?(
+            collectionView,
+            layout: collectionViewLayout,
+            sizeForItemAt: indexPath
+        ) ?? .zero
     }
     
     func scrollViewWillEndDragging(
@@ -136,32 +139,39 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
         withVelocity velocity: CGPoint,
         targetContentOffset: UnsafeMutablePointer<CGPoint>
     ) {
-        guard self.photoFrameCollectionView == scrollView as? UICollectionView else { return }
+        guard self.collectionView == scrollView as? UICollectionView else { return }
         
-        let itemWidth = self.photoFrameCollectionView.bounds.width + self.itemInterval - self.insetX
+        let itemWidth = self.collectionView.bounds.width + self.itemInterval - self.insetX
         
         let estimatedIndex = scrollView.contentOffset.x / itemWidth
         
         if velocity.x > 0 {
-            self.currentItemIndex = min(Int(ceil(estimatedIndex)), self.photoFrameCollectionView.numberOfItems(inSection: 0) - 1)
+            self.currentItemIndex = min(Int(ceil(estimatedIndex)), self.collectionView.numberOfItems(inSection: 0) - 1)
         } else if velocity.x < 0 {
             self.currentItemIndex = max(Int(floor(estimatedIndex)), 0)
         } else {
             self.currentItemIndex = Int(round(estimatedIndex))
         }
         
-        targetContentOffset.pointee = CGPoint(x: CGFloat(self.currentItemIndex) * itemWidth - self.photoFrameCollectionView.contentInset.left, y: 0)
+        if self.currentItemIndex == max(self.collectionView.numberOfItems(inSection: 0) - 1, 0) {
+            self.carouselDelegate?.carouselViewLastItemDidDisplay?()
+        }
+        
+        targetContentOffset.pointee = CGPoint(
+            x: CGFloat(self.currentItemIndex) * itemWidth - self.collectionView.contentInset.left,
+            y: 0
+        )
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard collectionView == self.photoFrameCollectionView else { return .zero }
+        guard collectionView == self.collectionView else { return .zero }
         let itemCount = self.carouselCollectionViewDataSource?.collectionView(collectionView, numberOfItemsInSection: section) ?? 0
         self.pageControl.numberOfPages = itemCount
         return itemCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard collectionView == self.photoFrameCollectionView else { return UICollectionViewCell() }
+        guard collectionView == self.collectionView else { return UICollectionViewCell() }
         return self.carouselCollectionViewDataSource?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
     }
 }
