@@ -108,12 +108,9 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     }
     
     private var viewModel: PhotoPickerBottomSheetViewModel?
-    private weak var delegate: PhotoPickerBottomSheetViewControllerDelegate?
-
-    @Published private var photos: PHFetchResult<PHAsset>?
-    
     private var cancellables = Set<AnyCancellable>()
     private var currentContentView: UIView?
+    private weak var delegate: PhotoPickerBottomSheetViewControllerDelegate?
     
     // MARK: - Initializers
     
@@ -179,20 +176,17 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if self.currentContentView == self.framePicker {
-                    self.fetchPhotos()
-                    self.setContentView(self.photoPickerCollectionView)
-                    self.nextButton.configuration?.attributedTitle = AttributedString("완료", attributes: self.fontContainer)
-                    self.nextButton.isEnabled = false
+                    self.checkPhotoAccessPermission { result in
+                        guard result else { return }
+                        self.viewModel?.fetchPhotoAssets()
+                        self.setContentView(self.photoPickerCollectionView)
+                        self.nextButton.configuration?.attributedTitle = AttributedString("완료", attributes: self.fontContainer)
+                        self.nextButton.isEnabled = false
+                    }
                 } else if self.currentContentView == self.photoPickerCollectionView {
                     self.activityIndicator.startAnimating()
                     
-                    let assets = viewModel.selectedPhotos.compactMap { self.photos?.object(at: $0) }
-                    
-                    self.convertAssetToImage(assets: assets)
-                        .sink { ciImages in
-                            self.viewModel?.completeButtonDidTap(ciImages)
-                        }
-                        .store(in: &self.cancellables)
+                    self.viewModel?.completeButtonDidTap()
                 }
             }
             .store(in: &self.cancellables)
@@ -271,15 +265,6 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         }
     }
     
-    private func fetchPhotos() {
-        self.checkPhotoAccessPermission { result in
-            guard result else { return }
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.sortDescriptors = [.init(key: "creationDate", ascending: false)]
-            self.photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
-        }
-    }
-    
     private func checkPhotoAccessPermission(completionHandler: @escaping (Bool) -> Void) {
         guard PHPhotoLibrary.authorizationStatus(for: .readWrite) != .authorized else {
             return completionHandler(true)
@@ -288,39 +273,6 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             completionHandler(status == .authorized)
         }
-    }
-    
-    private func convertAssetToImage(assets: [PHAsset]) -> AnyPublisher<[CIImage], Never> {
-        let imageRequestOptions = PHImageRequestOptions()
-        imageRequestOptions.deliveryMode = .highQualityFormat
-        
-        let imageRequestPublishers = assets.map { asset in
-            Future<CIImage?, Never> { promise in
-                PHImageManager.default().requestImage(
-                    for: asset,
-                    targetSize: PHImageManagerMaximumSize,
-                    contentMode: .aspectFill,
-                    options: imageRequestOptions
-                ) { image, _ in
-                    guard let cgImage = image?.cgImage else { return promise(.success(nil)) }
-                    promise(.success(CIImage(cgImage: cgImage)))
-                }
-            }
-            .eraseToAnyPublisher()
-        }
-        
-        return Future<[CIImage], Never> { promise in
-            Publishers.MergeMany(imageRequestPublishers)
-                .collect()
-                .map { images in
-                    images.compactMap { $0 }
-                }
-                .sink { images in
-                    promise(.success(images))
-                }
-                .store(in: &self.cancellables)
-        }
-        .eraseToAnyPublisher()
     }
 }
 
@@ -350,7 +302,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.photoPickerCollectionView {
-            return self.photos?.count ?? 0
+            return self.viewModel?.phFetchResult?.count ?? 0
         } else {
             return self.viewModel?.photoFrames.count ?? 0
         }
@@ -367,7 +319,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
             
             if let selectedPhotos = self.viewModel?.selectedPhotos,
                let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
-               let imageAsset = self.photos?.object(at: indexPath.item) {
+               let imageAsset = self.viewModel?.phFetchResult?.object(at: indexPath.item) {
                 photoPickerCollectionViewCell.fill(imageAsset)
                 
                 if selectedPhotos.contains(indexPath.item),
