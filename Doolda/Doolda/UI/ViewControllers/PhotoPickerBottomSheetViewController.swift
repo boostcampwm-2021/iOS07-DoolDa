@@ -58,7 +58,8 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             carouselCollectionViewDataSource: self,
             carouselCollectionViewDelegate: self
         )
-        carousel.itemInterval = 50.0
+        carousel.itemInterval = 25
+        carousel.insetX = 100
         return carousel
     }()
     
