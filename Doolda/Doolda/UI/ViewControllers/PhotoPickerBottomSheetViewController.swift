@@ -29,7 +29,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     private lazy var closeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.setImage(.xmark, for: .normal)
         return button
     }()
     
