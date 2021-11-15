@@ -263,7 +263,7 @@ class EditPageViewController: UIViewController {
         self.addStickerComponentButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel?.photoComponentAddButtonDidTap()
+                self.viewModel?.stickerComponentAddButtonDidTap()
             }.store(in: &self.cancellables)
         
         self.changeBackgroundTypeButton.publisher(for: .touchUpInside)
