@@ -42,11 +42,11 @@ class PageRepository: PageRepositoryProtocol {
             .map({ dictionaries in
                 var documents: [PageEntity] = []
                 dictionaries.forEach { dictionary in
-                    guard let something = dictionary["document"] as? [String: Any],
-                          let somethingElse = something["fields"] as? [String: [String: String]],
-                          let document = PageDocument(document: somethingElse),
-                          let entity = document.toPageEntity() else { return }
-                    documents.append(entity)
+                    guard let documentDictionary = dictionary["document"] as? [String: Any],
+                          let fieldsDictionary = documentDictionary["fields"] as? [String: [String: String]],
+                          let pageDocument = PageDocument(document: fieldsDictionary),
+                          let pageEntity = pageDocument.toPageEntity() else { return }
+                    documents.append(pageEntity)
                 }
                 return documents
             })
