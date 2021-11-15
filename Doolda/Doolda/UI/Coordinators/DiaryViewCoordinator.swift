@@ -18,8 +18,10 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     }
     
     func start() {
+        let viewModel = DummyDiaryViewModel()
+        
         DispatchQueue.main.async {
-            let viewController = DiaryViewController()
+            let viewController = DiaryViewController(viewModel: viewModel)
             self.presenter.setViewControllers([viewController], animated: false)
         }
     }
