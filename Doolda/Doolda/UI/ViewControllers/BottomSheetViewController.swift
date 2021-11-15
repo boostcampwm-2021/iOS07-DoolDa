@@ -15,6 +15,7 @@ class BottomSheetViewController: UIViewController {
         case large
         case smallLarge
         case medium
+        case small
         case zero
         
         func calculateHeight(baseView: UIView) -> CGFloat {
@@ -25,6 +26,8 @@ class BottomSheetViewController: UIViewController {
                 return baseView.frame.size.height * 0.7
             case .medium:
                 return baseView.frame.size.height * 0.5
+            case .small:
+                return baseView.frame.size.height * 0.25
             case .zero:
                 return .zero
             }
