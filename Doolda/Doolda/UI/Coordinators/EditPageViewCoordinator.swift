@@ -65,4 +65,11 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     func addTextComponent() {}
     
     func addStickerComponent() {}
+    
+    func changeBackgroundComponent() {
+        let delegatedViewController = self.presenter.topViewController as? EditPageViewController
+        let viewController = BackgroundTypePickerViewController(delegate: delegatedViewController)
+        
+        delegatedViewController?.present(viewController, animated: false, completion: nil)
+    }
 }
