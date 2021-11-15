@@ -12,7 +12,7 @@ import UIKit
 import SnapKit
 
 protocol PhotoPickerBottomSheetViewControllerDelegate: AnyObject {
-    func composedPhotoDidMake(_ url: URL)
+    func composedPhotoDidMake(_ photoComponentEntity: PhotoComponentEntity)
 }
 
 final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
@@ -215,7 +215,16 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] url in
-                self?.delegate?.composedPhotoDidMake(url)
+                let photoComponentEntity = PhotoComponentEntity(
+                    // FIXME: 사진 크기에 맞게 변경
+                    frame: CGRect(x: 100, y: 100, width: 300, height: 300),
+                    scale: 1,
+                    angle: 0,
+                    aspectRatio: 1,
+                    imageUrl: url
+                )
+                
+                self?.delegate?.composedPhotoDidMake(photoComponentEntity)
                 self?.activityIndicator.stopAnimating()
                 self?.dismiss(animated: true, completion: nil)
             }
