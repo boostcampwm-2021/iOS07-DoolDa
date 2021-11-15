@@ -135,7 +135,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func backgroundTypeButtonDidTap() {
-        self.coordinator.changeBackgroundComponent()
+        self.coordinator.changeBackgroundType()
     }
     
     func componentEntityDidAdd(_ component: ComponentEntity) {
