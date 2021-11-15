@@ -8,11 +8,13 @@
 import Combine
 import CoreImage
 import Foundation
+import Photos
 
 protocol PhotoPickerBottomSheetViewModelInput {
+    func fetchPhotoAssets()
     func photoFrameDidSelect(_ index: Int)
     func photoDidSelected(_ items: [Int])
-    func completeButtonDidTap(_ photos: [CIImage])
+    func completeButtonDidTap()
 }
 
 protocol PhotoPickerBottomSheetViewModelOutput {
@@ -25,12 +27,24 @@ protocol PhotoPickerBottomSheetViewModelOutput {
 typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewModelInput & PhotoPickerBottomSheetViewModelOutput
 
 class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
+    enum Errors: LocalizedError {
+        case imageComposeError
+        
+        var errorDescription: String? {
+            switch self {
+            case .imageComposeError:
+                return "이미지 합성에 실패했습니다."
+            }
+        }
+    }
+    
     var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { self.$selectedPhotoFrame }
     var isReadyToCompose: Published<Bool>.Publisher { self.$readyToComposeState }
     var composedResultPublisher: Published<URL?>.Publisher { self.$composedResult }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
     private(set) var photoFrames: [PhotoFrameType]
+    private(set) var phFetchResult: PHFetchResult<PHAsset>?
     private let imageUseCase: ImageUseCaseProtocol
     private let imageComposeUseCase: ImageComposeUseCaseProtocol
     
@@ -49,8 +63,13 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
         bind()
     }
     
+    func fetchPhotoAssets() {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [.init(key: "creationDate", ascending: false)]
+        self.phFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+    }
+    
     func photoFrameDidSelect(_ index: Int) {
-        // FIXME : PhotoFrameType 변경에 따라 수정필요
         self.selectedPhotoFrame = PhotoFrameType.allCases[index]
     }
     
@@ -60,11 +79,21 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
         self.selectedPhotos = items
     }
     
-    func completeButtonDidTap(_ photos: [CIImage]) {
+    func completeButtonDidTap() {
         guard self.readyToComposeState,
-              let selectedPhotoFrame = selectedPhotoFrame else { return }
+              let photoFrame = self.selectedPhotoFrame else { return }
         
-        self.imageComposeUseCase.compose(photoFrameType: selectedPhotoFrame, images: photos)
+        let assets = self.selectedPhotos.compactMap { self.phFetchResult?.object(at: $0) }
+        
+        let convertImagePublishers = assets.map { self.convertAssetToCIImage(asset: $0) }
+        
+        Publishers.MergeMany(convertImagePublishers)
+            .collect()
+            .map { $0.compactMap { $0 } }
+            .flatMap { [weak self] images -> AnyPublisher<CIImage, Error> in
+                guard let self = self else { return Fail(error: Errors.imageComposeError).eraseToAnyPublisher() }
+                return self.imageComposeUseCase.compose(photoFrameType: photoFrame, images: images)
+            }
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
@@ -86,8 +115,29 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
         self.$selectedPhotos
             .sink { [weak self] photos in
                 guard let self = self else { return }
-                self.readyToComposeState = self.imageComposeUseCase.isComposable(photoFrameType: self.selectedPhotoFrame, numberOfPhotos: photos.count)
+                self.readyToComposeState = self.imageComposeUseCase.isComposable(
+                    photoFrameType: self.selectedPhotoFrame,
+                    numberOfPhotos: photos.count
+                )
             }
             .store(in: &self.cancellables)
+    }
+    
+    private func convertAssetToCIImage(asset: PHAsset) -> AnyPublisher<CIImage?, Never> {
+        let imageRequestOptions = PHImageRequestOptions()
+        imageRequestOptions.deliveryMode = .highQualityFormat
+        
+        return Future<CIImage?, Never> { promise in
+            PHImageManager.default().requestImage(
+                for: asset,
+                targetSize: PHImageManagerMaximumSize,
+                contentMode: .aspectFill,
+                options: imageRequestOptions
+            ) { image, _ in
+                guard let cgImage = image?.cgImage else { return promise(.success(nil)) }
+                promise(.success(CIImage(cgImage: cgImage)))
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }
