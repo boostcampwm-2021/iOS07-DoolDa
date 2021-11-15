@@ -7,12 +7,17 @@
 
 import Foundation
 
-struct User: Equatable {
+struct User: Hashable {
     let id: DDID
     var pairId: DDID?
     
     init(id: DDID, pairId: DDID? = nil) {
         self.id = id
         self.pairId = pairId
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(pairId)
     }
 }
