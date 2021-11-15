@@ -65,11 +65,8 @@ extension FirebaseAPIs {
             return ["documentId": pairId + jsonPath]
         case .patchUserDocuement, .patchPairDocument:
             return ["currentDocument.exists": "true"]
-        case .uploadDataFile:
+        case .uploadDataFile, .downloadDataFile:
             return ["alt": "media"]
-        case .downloadDataFile:
-            return ["alt": "media",
-                    "token": "16856712-8a4b-488e-84f7-213d2e1ab89b"]
         }
     }
 }
