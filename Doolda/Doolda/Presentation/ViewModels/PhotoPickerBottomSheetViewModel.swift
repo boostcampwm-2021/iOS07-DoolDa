@@ -20,7 +20,7 @@ protocol PhotoPickerBottomSheetViewModelInput {
 protocol PhotoPickerBottomSheetViewModelOutput {
     var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { get }
     var isReadyToCompose: Published<Bool>.Publisher { get }
-    var composedResultPublisher: Published<URL?>.Publisher { get }
+    var composedResultPublisher: Published<PhotoComponentEntity?>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
 }
 
@@ -40,7 +40,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     
     var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { self.$selectedPhotoFrame }
     var isReadyToCompose: Published<Bool>.Publisher { self.$readyToComposeState }
-    var composedResultPublisher: Published<URL?>.Publisher { self.$composedResult }
+    var composedResultPublisher: Published<PhotoComponentEntity?>.Publisher { self.$composedResult }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
     private(set) var photoFrames: [PhotoFrameType]
@@ -53,7 +53,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     @Published private(set) var selectedPhotos: [Int] = []
     @Published private var selectedPhotoFrame: PhotoFrameType?
     @Published private var readyToComposeState: Bool = false
-    @Published private var composedResult: URL?
+    @Published private var composedResult: PhotoComponentEntity?
     @Published private var error: Error?
     
     init(imageUseCase: ImageUseCaseProtocol, imageComposeUseCase: ImageComposeUseCaseProtocol) {
@@ -104,7 +104,14 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
                         guard case .failure(let error) = completion else { return }
                         self.error = error
                     }, receiveValue: { localUrl in
-                        self.composedResult = localUrl
+                        let photoComponentEntity = PhotoComponentEntity(
+                            frame: photoFrame.rawValue?.baseImage.extent ?? .zero,
+                            scale: 1,
+                            angle: 0,
+                            aspectRatio: 1,
+                            imageUrl: localUrl)
+                        
+                        self.composedResult = photoComponentEntity
                     })
                     .store(in: &self.cancellables)
             }
