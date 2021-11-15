@@ -41,5 +41,4 @@ struct StickerPackEntity {
     
     static let colorStickerPack = StickerPackEntity(name: "colorSticker")
     static let buddyStickerPack = StickerPackEntity(name: "buddySticker")
-    
 }

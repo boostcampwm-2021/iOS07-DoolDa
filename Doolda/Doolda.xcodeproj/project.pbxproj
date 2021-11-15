@@ -120,6 +120,7 @@
 		66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9370273671910036CED2 /* PairUserUseCase.swift */; };
 		66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */; };
 		66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */; };
+		FC19598A274284E200AB6059 /* StickerPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC195989274284E200AB6059 /* StickerPickerViewModel.swift */; };
 		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB79127325D2C008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
@@ -316,6 +317,7 @@
 		66FE9370273671910036CED2 /* PairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCase.swift; sourceTree = "<group>"; };
 		66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserUseCase.swift; sourceTree = "<group>"; };
 		66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
+		FC195989274284E200AB6059 /* StickerPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerViewModel.swift; sourceTree = "<group>"; };
 		FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* PairDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDocument.swift; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 				FCE9D3F327391F260001F155 /* EditPageViewModel.swift */,
 				66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */,
 				1D8BE07C2743437600201E3E /* DiaryViewModel.swift */,
+				FC195989274284E200AB6059 /* StickerPickerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1411,6 +1414,7 @@
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
 				66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */,
 				310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */,
+				FC19598A274284E200AB6059 /* StickerPickerViewModel.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
 				66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */,
