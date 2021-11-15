@@ -132,6 +132,8 @@ extension BackgroundTypePickerViewController: UICollectionViewDelegateFlowLayout
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Self.backgroundTypeCellIdentifier, for: indexPath)
         
         cell.layer.cornerRadius = 10
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = UIColor.black.cgColor
         cell.backgroundColor = UIColor(cgColor: BackgroundType.allCases[indexPath.item].rawValue)
         
         return cell
