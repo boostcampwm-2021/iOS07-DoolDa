@@ -17,10 +17,29 @@ class PhotoFrameCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Subviews
     
-    let frameImageView: UIImageView = {
+    private lazy var frameImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
+    }()
+    
+    private lazy var displayName: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont(name: "Dovemayo", size: 22)
+        label.textColor = .dooldaLabel
+        return label
+    }()
+    
+    private lazy var cellStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            self.frameImageView,
+            self.displayName
+        ])
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.distribution = .equalSpacing
+        return stackView
     }()
     
     // MARK: - Initializers
@@ -38,15 +57,26 @@ class PhotoFrameCollectionViewCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func configureUI() {
-        self.addSubview(self.frameImageView)
-        self.frameImageView.snp.makeConstraints { make in
+        self.addSubview(self.cellStackView)
+        self.cellStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        self.frameImageView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+        }
+        
+        self.displayName.snp.makeConstraints { make in
+            make.top.equalTo(self.frameImageView.snp.bottom).priority(.low)
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(30)
         }
     }
     
     // MARK: - Public Methods
     
-    func fill(_ photo: CIImage) {
+    func fill(_ photo: CIImage, _ displayName: String) {
         self.frameImageView.image = UIImage(ciImage: photo)
+        self.displayName.text = displayName
     }
 }

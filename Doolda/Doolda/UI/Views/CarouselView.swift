@@ -81,7 +81,7 @@ class CarouselView: UIView {
         
         self.addSubview(self.pageControl)
         self.pageControl.snp.makeConstraints { make in
-            make.top.equalTo(self.collectionView.snp.bottom)
+            make.top.equalTo(self.collectionView.snp.bottom).offset(10)
             make.centerX.bottom.equalToSuperview()
             make.height.equalTo(20)
         }
