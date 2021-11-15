@@ -43,7 +43,7 @@ class ImageRepository: ImageRepositoryProtocol {
         let publisher: AnyPublisher<[String:String], Error> = self.urlSessionNetworkService.request(urlRequest)
 
         return publisher.tryMap { _ -> URL in
-            guard let remoteUrl = urlRequest.baseURL else {
+            guard let remoteUrl = FirebaseAPIs.downloadDataFile(pairId.ddidString, fileName).urlRequest?.url else {
                 throw ImageRepositoryError.nilRemoteUrl
             }
             return remoteUrl
