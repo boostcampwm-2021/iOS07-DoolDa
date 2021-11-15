@@ -419,3 +419,9 @@ extension EditPageViewController: PhotoPickerBottomSheetViewControllerDelegate {
         self.viewModel?.componentEntityDidAdd(photoComponentEntity)
     }
 }
+
+extension EditPageViewController: BackgroundTypePickerViewControllerDelegate {
+    func backgroundTypeDidSelect(_ backgroundType: BackgroundType) {
+        self.viewModel?.backgroundColorDidChange(backgroundType)
+    }
+}
