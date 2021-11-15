@@ -413,3 +413,9 @@ extension EditPageViewController: ControlViewDelegate {
         }
     }
 }
+
+extension EditPageViewController: PhotoPickerBottomSheetViewControllerDelegate {
+    func composedPhotoDidMake(_ photoComponentEntity: PhotoComponentEntity) {
+        self.viewModel?.componentEntityDidAdd(photoComponentEntity)
+    }
+}

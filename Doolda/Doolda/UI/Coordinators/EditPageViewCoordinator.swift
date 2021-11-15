@@ -56,7 +56,8 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
             imageComposeUseCase: imageComposeUseCaes
         )
         
-        let viewController = PhotoPickerBottomSheetViewController(photoPickerViewModel: photoPickerBottomSheetViewModel, delegate: nil)
+        let delegatedViewController = self.presenter.topViewController as? EditPageViewController
+        let viewController = PhotoPickerBottomSheetViewController(photoPickerViewModel: photoPickerBottomSheetViewModel, delegate: delegatedViewController)
         
         self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
