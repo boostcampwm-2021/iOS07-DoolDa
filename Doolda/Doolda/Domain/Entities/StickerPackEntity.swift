@@ -7,6 +7,24 @@
 
 import Foundation
 
+enum StickerPackType: RawRepresentable, CaseIterable {
+    typealias RawValue = StickerPackEntity?
+
+    case color
+    case buddy
+    
+    init?(rawValue: RawValue) {
+        self = .color
+    }
+    
+    var rawValue: RawValue {
+        switch self {
+        case .color: return StickerPackEntity.colorStickerPack
+        case .buddy: return StickerPackEntity.buddyStickerPack
+        }
+    }
+}
+
 struct StickerPackEntity {
     let name: String
     var stickersUrl: [URL]
