@@ -19,19 +19,22 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     
     func start() {
         DispatchQueue.main.async {
-            // FIXME : inject useCase and viewModel
+            let fileManagerPersistenceService = FileManagerPersistenceService()
             let urlSessionNetworkService = URLSessionNetworkService()
             
-            let dummyImageUseCase = DummyImageUseCase()
+            let imageRepository = ImageRepository(fileManagerService: fileManagerPersistenceService, networkService: urlSessionNetworkService)
             let pageRepository = PageRepository(urlSessionNetworkService: urlSessionNetworkService)
             let rawPageRepository = RawPageRepository(networkService: urlSessionNetworkService)
             
+            let imageUseCase = ImageUseCase(imageRepository: imageRepository)
             let editPageUseCase = EditPageUseCase(
-                imageUseCase: dummyImageUseCase,
+                imageUseCase: imageUseCase,
                 pageRepository: pageRepository,
                 rawPageRepository: rawPageRepository
             )
+            
             let editPageViewModel = EditPageViewModel(user: self.user, coordinator: self, editPageUseCase: editPageUseCase)
+            
             let viewController = EditPageViewController(viewModel: editPageViewModel)
             self.presenter.setViewControllers([viewController], animated: false)
         }
@@ -45,11 +48,13 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         let urlSessionNetworkService = URLSessionNetworkService()
         
         let imageRepository = ImageRepository(fileManagerService: fileManagerPersistenceService, networkService: urlSessionNetworkService)
-        
         let imageUseCase = ImageUseCase(imageRepository: imageRepository)
         let imageComposeUseCaes = ImageComposeUseCase()
         
-        let photoPickerBottomSheetViewModel = PhotoPickerBottomSheetViewModel(imageUseCase: imageUseCase, imageComposeUseCase: imageComposeUseCaes)
+        let photoPickerBottomSheetViewModel = PhotoPickerBottomSheetViewModel(
+            imageUseCase: imageUseCase,
+            imageComposeUseCase: imageComposeUseCaes
+        )
         
         let viewController = PhotoPickerBottomSheetViewController(photoPickerViewModel: photoPickerBottomSheetViewModel, delegate: nil)
         
@@ -59,72 +64,4 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     func addTextComponent() {}
     
     func addStickerComponent() {}
-}
-
-enum TestError: Error {
-    case notImplemented
-    case failed
-}
-
-class DummyImageUseCase: ImageUseCaseProtocol {
-    var isSuccessMode: Bool = true
-
-    func saveLocal(image: CIImage) -> AnyPublisher<URL, Error> {
-        return Just(URL(string: "https://naver.com")!).setFailureType(to: Error.self).eraseToAnyPublisher()
-    }
-    
-    func saveRemote(for user: User, localUrl: URL) -> AnyPublisher<URL, Error> {
-        if isSuccessMode {
-            return Just(URL(string: "https://youtube.com")!).setFailureType(to: Error.self)
-                .delay(for: .seconds(1), tolerance: nil, scheduler: RunLoop.main, options: nil)
-                .eraseToAnyPublisher()
-        } else {
-            return Fail(error: TestError.failed).eraseToAnyPublisher()
-        }
-    }
-}
-
-class DummyPageRepository: PageRepositoryProtocol {
-    var isSuccessMode: Bool = true
-    
-    init(isSuccessMode: Bool) {
-        self.isSuccessMode = isSuccessMode
-    }
-    
-    func savePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
-        if isSuccessMode {
-            return Just(page)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-        } else {
-            return Fail(error: TestError.failed).eraseToAnyPublisher()
-        }
-    }
-    
-    func fetchPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error> {
-        return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
-    }
-}
-
-class DummyRawPageRepository: RawPageRepositoryProtocol {
-    
-    var isSuccessMode: Bool = true
-    
-    init(isSuccessMode: Bool) {
-        self.isSuccessMode = isSuccessMode
-    }
-    
-    func save(rawPage: RawPageEntity, at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error>  {
-        if isSuccessMode {
-            return Just(rawPage)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-        } else {
-            return Fail(error: TestError.failed).eraseToAnyPublisher()
-        }
-    }
-    
-    func fetch(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
-        return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
-    }
 }
