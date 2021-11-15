@@ -325,8 +325,9 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
             )
             
             if let photoFrameCollectionViewCell = cell as? PhotoFrameCollectionViewCell,
-               let baseImage = self.viewModel?.photoFrames[indexPath.item].rawValue?.baseImage {
-                photoFrameCollectionViewCell.fill(baseImage)
+               let baseImage = self.viewModel?.photoFrames[indexPath.item].rawValue?.baseImage,
+               let displayName = self.viewModel?.photoFrames[indexPath.item].rawValue?.displayName {
+                photoFrameCollectionViewCell.fill(baseImage, displayName)
             }
         }
         
