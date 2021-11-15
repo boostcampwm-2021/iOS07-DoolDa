@@ -23,7 +23,7 @@ class CarouselView: UIView {
         flowLayout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.decelerationRate = .fast
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: self.itemInterval / 2, bottom: 0, right: self.itemInterval / 2)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: self.insetX / 2, bottom: 0, right: self.insetX / 2)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(
@@ -44,6 +44,7 @@ class CarouselView: UIView {
     // MARK: - Public Properties
     
     @Published var itemInterval: CGFloat = .zero
+    @Published var insetX: CGFloat = .zero
     @Published var currentItemIndex: Int = .zero
     @Published var isPageControlHidden: Bool = false
     
@@ -105,6 +106,14 @@ class CarouselView: UIView {
         
         self.$itemInterval
             .receive(on: DispatchQueue.main)
+            .sink { [weak self] interval in
+                guard let layout = self?.photoFrameCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+                layout.minimumLineSpacing = interval
+            }
+            .store(in: &self.cancellables)
+        
+        self.$insetX
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] insetX in
                 self?.photoFrameCollectionView.contentInset = UIEdgeInsets(top: 0, left: insetX / 2, bottom: 0, right: insetX / 2)
             }
@@ -127,10 +136,9 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
         withVelocity velocity: CGPoint,
         targetContentOffset: UnsafeMutablePointer<CGPoint>
     ) {
-        guard self.photoFrameCollectionView == scrollView as? UICollectionView,
-              let layout = self.photoFrameCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        guard self.photoFrameCollectionView == scrollView as? UICollectionView else { return }
         
-        let itemWidth = self.photoFrameCollectionView.bounds.width + layout.minimumLineSpacing - self.itemInterval
+        let itemWidth = self.photoFrameCollectionView.bounds.width + self.itemInterval - self.insetX
         
         let estimatedIndex = scrollView.contentOffset.x / itemWidth
         
