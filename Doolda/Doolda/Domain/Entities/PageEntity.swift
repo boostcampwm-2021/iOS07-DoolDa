@@ -7,8 +7,14 @@
 
 import Foundation
 
-struct PageEntity {
+struct PageEntity: Hashable {
     let author: User
     let timeStamp: Date
     let jsonPath: String
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(author)
+        hasher.combine(timeStamp)
+        hasher.combine(jsonPath)
+    }
 }

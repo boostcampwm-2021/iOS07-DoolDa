@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DDID: Equatable {
+struct DDID: Hashable {
     let ddidString: String
     
     init() {
