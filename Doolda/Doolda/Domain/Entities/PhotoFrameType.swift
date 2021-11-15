@@ -43,7 +43,28 @@ struct PhotoFrame {
         self.photoBounds = photoBounds
     }
     
-    static let normal = PhotoFrame(displayName: "일반 사진", baseImageName: "Normal", photoBounds: [.zero])
-    static let polaroid = PhotoFrame(displayName: "폴라로이드", baseImageName: "Polaroid", photoBounds: [.zero])
-    static let lifeFourCuts = PhotoFrame(displayName: "인생 네컷", baseImageName: "LifeFourCuts", photoBounds: [.zero, .zero, .zero, .zero])
+    static let normal = PhotoFrame(
+        displayName: "일반 사진",
+        baseImageName: "Normal",
+        photoBounds: [
+            CGRect(x: 0, y: 0, width: 858, height: 803)
+        ]
+    )
+    static let polaroid = PhotoFrame(
+        displayName: "폴라로이드",
+        baseImageName: "Polaroid",
+        photoBounds: [
+            CGRect(x: 54, y: 60, width: 856, height: 804)
+        ]
+    )
+    static let lifeFourCuts = PhotoFrame(
+        displayName: "인생 네컷",
+        baseImageName: "LifeFourCuts",
+        photoBounds: [
+            CGRect(x: 26, y: 25, width: 576, height: 342),
+            CGRect(x: 26, y: 387, width: 576, height: 342),
+            CGRect(x: 26, y: 749, width: 576, height: 342),
+            CGRect(x: 26, y: 1111, width: 576, height: 342)
+        ]
+    )
 }
