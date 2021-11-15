@@ -21,23 +21,43 @@ class DiaryViewController: UIViewController {
     // MARK: - Subviews
     
     private lazy var pageCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 10
-        flowLayout.minimumInteritemSpacing = 0
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.horizontalFlowLayout)
         collectionView.decelerationRate = .fast
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(DiaryPageViewCell.self, forCellWithReuseIdentifier: DiaryPageViewCell.cellIdentifier)
         collectionView.backgroundColor = .clear
+        collectionView.delegate = self
         return collectionView
     }()
     
-    private lazy var testButton: UIButton = {
+    private let horizontalFlowLayout: UICollectionViewFlowLayout = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 10
+        flowLayout.minimumInteritemSpacing = 10
+        return flowLayout
+    }()
+    
+    private let verticalFlowLayout: UICollectionViewFlowLayout = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.minimumLineSpacing = 10
+        flowLayout.minimumInteritemSpacing = 10
+        return flowLayout
+    }()
+    
+    private lazy var addButton: UIButton = {
         let button = UIButton()
-        button.setTitle("TOUCH ME", for: .normal)
+        button.setTitle("ADD PAGE", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
+    private lazy var toggleButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("TOGGLE MODE", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
@@ -58,6 +78,8 @@ class DiaryViewController: UIViewController {
         self.bindUI()
         self.configureCollectionViewDataSource()
     }
+    
+    override var prefersStatusBarHidden: Bool { return true }
 
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
@@ -67,26 +89,49 @@ class DiaryViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        self.view.addSubview(self.testButton)
-        self.testButton.snp.makeConstraints { make in
+        self.view.addSubview(self.addButton)
+        self.addButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottomMargin.equalToSuperview().offset(-30)
+        }
+        
+        self.view.addSubview(self.toggleButton)
+        self.toggleButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottomMargin.equalTo(self.addButton).offset(-30)
         }
     }
     
     private func bindUI() {
         guard let viewModel = self.viewModel else { return }
         
-        viewModel.filteredPageEntities
+        viewModel.filteredPageEntitiesPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] entities in
                 self?.applySnapshot(pageEntities: entities)
             }
             .store(in: &self.cancellables)
         
-        self.testButton.publisher(for: .touchUpInside)
+        viewModel.displayModePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] displayMode in
+                guard let self = self else { return }
+                switch displayMode {
+                case .carousel: self.pageCollectionView.collectionViewLayout = self.horizontalFlowLayout
+                case .list: self.pageCollectionView.collectionViewLayout = self.verticalFlowLayout
+                }
+            }
+            .store(in: &self.cancellables)
+        
+        self.addButton.publisher(for: .touchUpInside)
             .sink { _ in
                 viewModel.addPageButtonDidTap()
+            }
+            .store(in: &self.cancellables)
+        
+        self.toggleButton.publisher(for: .touchUpInside)
+            .sink { _ in
+                viewModel.displayModeChangeButtonDidTap()
             }
             .store(in: &self.cancellables)
     }
@@ -110,5 +155,28 @@ class DiaryViewController: UIViewController {
         self.dataSourceSnapshot.appendSections([Section.pages])
         self.dataSourceSnapshot.appendItems(pageEntities)
         self.dataSource?.apply(self.dataSourceSnapshot, animatingDifferences: true)
+    }
+}
+
+extension DiaryViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        if let displayMode = self.viewModel?.displayMode {
+            switch displayMode {
+            case .carousel:
+                let width = self.view.frame.width - 32
+                let height = width * 30.0 / 17.0
+                return CGSize(width: width, height: height)
+            case .list:
+                let width = (self.view.frame.width - 42) / 2
+                let height = width * 30.0 / 17.0
+                return CGSize(width: width, height: height)
+            }
+        } else {
+            return .zero
+        }
     }
 }
