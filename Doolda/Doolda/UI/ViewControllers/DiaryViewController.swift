@@ -48,17 +48,21 @@ class DiaryViewController: UIViewController {
         return flowLayout
     }()
     
-    private lazy var addButton: UIButton = {
+    private lazy var displayModeToggleButton: UIButton = {
         let button = UIButton()
-        button.setTitle("ADD PAGE", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setImage(.square, for: .normal)
         return button
     }()
     
-    private lazy var toggleButton: UIButton = {
+    private lazy var filterButton: UIButton = {
         let button = UIButton()
-        button.setTitle("TOGGLE MODE", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setImage(.line3HorizontalDecrease, for: .normal)
+        return button
+    }()
+    
+    private lazy var settingsButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.gearshape, for: .normal)
         return button
     }()
     
@@ -69,16 +73,26 @@ class DiaryViewController: UIViewController {
         return appearance
     }()
     
+    // MARK: - Override Properties
+    
+    override var prefersStatusBarHidden: Bool { return true }
+    
+    // MARK: - Private Properties
+    
     private var dataSource: DataSource?
     private var dataSourceSnapshot = DataSourceSnapshot()
     private var viewModel: DiaryViewModelProtocol?
     private var cancellables: Set<AnyCancellable> = []
+    
+    // MARK: - Initializers
     
     convenience init(viewModel: DiaryViewModelProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
     }
 
+    // MARK: - Lifecycle Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
@@ -90,27 +104,21 @@ class DiaryViewController: UIViewController {
         super.viewWillAppear(animated)
         self.configureNavigationBar()
     }
-    
-    override var prefersStatusBarHidden: Bool { return true }
 
+    // MARK: - Helpers
+    
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
+        self.title = "둘다"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.settingsButton)
+        self.navigationItem.leftBarButtonItems = [
+            UIBarButtonItem(customView: self.displayModeToggleButton),
+            UIBarButtonItem(customView: self.filterButton)
+        ]
         
         self.view.addSubview(self.pageCollectionView)
         self.pageCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-        }
-        
-        self.view.addSubview(self.addButton)
-        self.addButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottomMargin.equalToSuperview().offset(-30)
-        }
-        
-        self.view.addSubview(self.toggleButton)
-        self.toggleButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottomMargin.equalTo(self.addButton).offset(-30)
         }
     }
     
@@ -129,19 +137,17 @@ class DiaryViewController: UIViewController {
             .sink { [weak self] displayMode in
                 guard let self = self else { return }
                 switch displayMode {
-                case .carousel: self.pageCollectionView.collectionViewLayout = self.horizontalFlowLayout
-                case .list: self.pageCollectionView.collectionViewLayout = self.verticalFlowLayout
+                case .carousel:
+                    self.pageCollectionView.collectionViewLayout = self.horizontalFlowLayout
+                    self.displayModeToggleButton.setImage(.squareGrid2x2, for: .normal)
+                case .list:
+                    self.pageCollectionView.collectionViewLayout = self.verticalFlowLayout
+                    self.displayModeToggleButton.setImage(.square, for: .normal)
                 }
             }
             .store(in: &self.cancellables)
         
-        self.addButton.publisher(for: .touchUpInside)
-            .sink { _ in
-                viewModel.addPageButtonDidTap()
-            }
-            .store(in: &self.cancellables)
-        
-        self.toggleButton.publisher(for: .touchUpInside)
+        self.displayModeToggleButton.publisher(for: .touchUpInside)
             .sink { _ in
                 viewModel.displayModeToggleButtonDidTap()
             }
@@ -167,6 +173,8 @@ class DiaryViewController: UIViewController {
         self.navigationController?.navigationBar.scrollEdgeAppearance = transparentNavigationBarAppearance
     }
     
+    // MARK: - Private Methods
+    
     private func applySnapshot(pageEntities: [PageEntity]) {
         self.dataSourceSnapshot = DataSourceSnapshot()
         self.dataSourceSnapshot.appendSections([Section.pages])
@@ -174,6 +182,8 @@ class DiaryViewController: UIViewController {
         self.dataSource?.apply(self.dataSourceSnapshot, animatingDifferences: true)
     }
 }
+
+// MARK: - UICOllectionViewDelegateFlowLayout
 
 extension DiaryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
