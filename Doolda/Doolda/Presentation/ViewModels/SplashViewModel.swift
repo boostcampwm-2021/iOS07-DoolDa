@@ -15,6 +15,7 @@ final class SplashViewModel {
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
     private let getUserUseCase: GetUserUseCaseProtocol
     private let registerUserUseCase: RegisterUserUseCaseProtocol
+    private let globalFontUseCase: GlobalFontUseCaseProtocol
 
     private var cancellables: Set<AnyCancellable> = []
     @Published private var user: User?
@@ -23,12 +24,19 @@ final class SplashViewModel {
         coordinator: SplashViewCoordinatorProtocol,
         getMyIdUseCase: GetMyIdUseCaseProtocol,
         getUserUseCase: GetUserUseCaseProtocol,
-        registerUserUseCase: RegisterUserUseCaseProtocol
+        registerUserUseCase: RegisterUserUseCaseProtocol,
+        globalFontUseCase: GlobalFontUseCaseProtocol
     ) {
         self.coordinator = coordinator
         self.getMyIdUseCase = getMyIdUseCase
         self.getUserUseCase = getUserUseCase
         self.registerUserUseCase = registerUserUseCase
+        self.globalFontUseCase = globalFontUseCase
+    }
+    
+    func applyGlobalFont() {
+        guard let globalFontName = self.globalFontUseCase.getGlobalFont() else { return }
+        self.globalFontUseCase.setGlobalFont(with: globalFontName)
     }
 
     func prepareUserInfo() {

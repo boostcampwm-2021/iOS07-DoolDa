@@ -54,9 +54,14 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
-        self.configureFont()
         self.bindUI()
+        self.viewModel?.applyGlobalFont()
         self.viewModel?.prepareUserInfo()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureFont()
     }
 
     // MARK: - Helpers
@@ -88,8 +93,8 @@ final class SplashViewController: UIViewController {
     }
 
     private func configureFont() {
-        self.titleLabel.font = UIFont(name: "Dovemayo", size: 72)
-        self.subtitleLabel.font = UIFont(name: "Dovemayo", size: 18)
+        self.titleLabel.font = .systemFont(ofSize: 72)
+        self.subtitleLabel.font = .systemFont(ofSize: 18)
     }
 
     private func bindUI() {
