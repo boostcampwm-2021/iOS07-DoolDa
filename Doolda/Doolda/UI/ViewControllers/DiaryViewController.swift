@@ -136,7 +136,9 @@ class DiaryViewController: UIViewController {
         viewModel.filteredPageEntitiesPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] entities in
-                self?.applySnapshot(pageEntities: entities)
+                guard let self = self else { return }
+                self.applySnapshot(pageEntities: entities)
+                self.scrollToMostRecentPage()
             }
             .store(in: &self.cancellables)
         
@@ -227,11 +229,11 @@ class DiaryViewController: UIViewController {
     
     // MARK: - Private Methods
     
-    private func applySnapshot(pageEntities: [PageEntity]) {
+    private func applySnapshot(pageEntities: [PageEntity], withAnimation: Bool = true) {
         self.dataSourceSnapshot = DataSourceSnapshot()
         self.dataSourceSnapshot.appendSections([Section.pages])
         self.dataSourceSnapshot.appendItems(pageEntities)
-        self.dataSource?.apply(self.dataSourceSnapshot, animatingDifferences: true)
+        self.dataSource?.apply(self.dataSourceSnapshot, animatingDifferences: withAnimation)
     }
 }
 
@@ -282,6 +284,17 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
         }
         
         targetContentOffset.pointee = CGPoint(x: CGFloat(actualIndex) * pageOffset - 16, y: 0)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard scrollView == self.pageCollectionView,
+              let displayMode = self.viewModel?.displayMode,
+              displayMode == .carousel else { return }
+        
+        let offset = scrollView.contentOffset
+        if offset.x < -125 {
+            self.viewModel?.lastPageDidPull()
+        }
     }
     
     func collectionView(
