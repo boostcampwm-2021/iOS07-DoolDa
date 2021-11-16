@@ -10,6 +10,7 @@ import Foundation
 protocol DiaryViewModelInput {
     func filterButtonDidTap()
     func displayModeToggleButtonDidTap()
+    func settingsButtonDidTap()
     func addPageButtonDidTap()
     func lastPageDidDisplay()
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
@@ -41,4 +42,56 @@ enum DiaryAuthorFilter {
 
 enum DiaryOrderFilter {
     case ascending, descending
+}
+
+class DiaryViewModel: DiaryViewModelProtocol {
+    var displayModePublisher: Published<DiaryDisplayMode>.Publisher { self.$displayMode }
+    var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }
+    var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { self.$filteredPageEntities }
+    
+    @Published var displayMode: DiaryDisplayMode = .carousel
+    
+    @Published private var isMyTurn: Bool = false
+    @Published private var filteredPageEntities: [PageEntity] = [
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "")
+    ]
+    
+    private let coordinator: DiaryViewCoordinatorProtocol
+    
+    init(coordinator: DiaryViewCoordinatorProtocol) {
+        self.coordinator = coordinator
+    }
+
+    func displayModeToggleButtonDidTap() {
+        self.displayMode.toggle()
+    }
+    
+    func addPageButtonDidTap() {
+        print(#function)
+        self.filteredPageEntities.append(PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""))
+    }
+    
+    func lastPageDidDisplay() {
+        print(#function)
+    }
+    
+    func settingsButtonDidTap() {
+        print(#function)
+        self.coordinator.settingsPageRequested()
+    }
+    
+    func filterButtonDidTap() {
+        print(#function)
+        self.coordinator.filteringSheetRequested()
+    }
+    
+    func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {
+    }
 }
