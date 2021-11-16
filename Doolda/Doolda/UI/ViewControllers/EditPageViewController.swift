@@ -315,7 +315,13 @@ class EditPageViewController: UIViewController {
                             .rotated(by: componentEntity.angle)
                             .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
                         photoComponentView.transform = transform
-
+                        photoComponentView.layer.shadowColor = UIColor.lightGray.cgColor
+                        photoComponentView.layer.shadowOpacity = 0.3
+                        photoComponentView.layer.shadowRadius = 10
+                        photoComponentView.layer.shadowOffset = CGSize(width: -5, height: -5)
+                        photoComponentView.layer.shadowPath = UIBezierPath(
+                            rect: CGRect(x: 0, y: 0, width: photoComponentView.frame.width + 10, height: photoComponentView.frame.height + 10)
+                        ).cgPath
                     default:
                         break
                     }
