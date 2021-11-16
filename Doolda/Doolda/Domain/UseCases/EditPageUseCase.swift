@@ -136,7 +136,9 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     }
     
     func changeTextComponentContent(into content: String) {
-        // FIXME: not implemented
+        guard let selectedComponent = self.selectedComponent as? TextComponentEntity else { return }
+        selectedComponent.text = content
+        self.selectedComponent = selectedComponent
     }
     
     func changeBackgroundType(_ backgroundType: BackgroundType) {
