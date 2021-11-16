@@ -21,4 +21,8 @@ extension UIImage {
     static let sticker = UIImage(systemName: "face.smiling")
     static let background = UIImage(systemName: "doc")
     static let scissors = UIImage(named: "scissors")
+    static let gearshape = UIImage(systemName: "gearshape")
+    static let squareGrid2x2 = UIImage(systemName: "square.grid.2x2")
+    static let square = UIImage(systemName: "square")
+    static let line3HorizontalDecrease = UIImage(systemName: "line.3.horizontal.decrease")
 }
