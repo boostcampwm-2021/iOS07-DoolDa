@@ -23,7 +23,7 @@ class DiaryViewController: UIViewController {
     private lazy var pageCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.horizontalFlowLayout)
         collectionView.decelerationRate = .fast
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(DiaryPageViewCell.self, forCellWithReuseIdentifier: DiaryPageViewCell.cellIdentifier)
@@ -62,6 +62,13 @@ class DiaryViewController: UIViewController {
         return button
     }()
     
+    private let transparentNavigationBarAppearance: UINavigationBarAppearance = {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .clear
+        appearance.configureWithTransparentBackground()
+        return appearance
+    }()
+    
     private var dataSource: DataSource?
     private var dataSourceSnapshot = DataSourceSnapshot()
     private var viewModel: DiaryViewModelProtocol?
@@ -77,6 +84,11 @@ class DiaryViewController: UIViewController {
         self.configureUI()
         self.bindUI()
         self.configureCollectionViewDataSource()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureNavigationBar()
     }
     
     override var prefersStatusBarHidden: Bool { return true }
@@ -148,6 +160,11 @@ class DiaryViewController: UIViewController {
                 print(pageEntity.timeStamp)
                 return cell
         })
+    }
+    
+    private func configureNavigationBar() {
+        self.navigationController?.navigationBar.standardAppearance = transparentNavigationBarAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = transparentNavigationBarAppearance
     }
     
     private func applySnapshot(pageEntities: [PageEntity]) {
