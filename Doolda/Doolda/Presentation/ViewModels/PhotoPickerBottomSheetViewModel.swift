@@ -10,6 +10,17 @@ import CoreImage
 import Foundation
 import Photos
 
+enum PhotoPickerBottomSheetViewModelError: LocalizedError {
+    case imageComposeError
+    
+    var errorDescription: String? {
+        switch self {
+        case .imageComposeError:
+            return "이미지 합성에 실패했습니다."
+        }
+    }
+}
+
 protocol PhotoPickerBottomSheetViewModelInput {
     func fetchPhotoAssets()
     func photoFrameDidSelect(_ index: Int)
@@ -26,18 +37,7 @@ protocol PhotoPickerBottomSheetViewModelOutput {
 
 typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewModelInput & PhotoPickerBottomSheetViewModelOutput
 
-class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
-    enum Errors: LocalizedError {
-        case imageComposeError
-        
-        var errorDescription: String? {
-            switch self {
-            case .imageComposeError:
-                return "이미지 합성에 실패했습니다."
-            }
-        }
-    }
-    
+class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {    
     var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { self.$selectedPhotoFrame }
     var isReadyToCompose: Published<Bool>.Publisher { self.$readyToComposeState }
     var composedResultPublisher: Published<PhotoComponentEntity?>.Publisher { self.$composedResult }
@@ -91,7 +91,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
             .collect()
             .map { $0.compactMap { $0 } }
             .flatMap { [weak self] images -> AnyPublisher<CIImage, Error> in
-                guard let self = self else { return Fail(error: Errors.imageComposeError).eraseToAnyPublisher() }
+                guard let self = self else { return Fail(error: PhotoPickerBottomSheetViewModelError.imageComposeError).eraseToAnyPublisher() }
                 return self.imageComposeUseCase.compose(photoFrameType: photoFrame, images: images)
             }
             .sink { [weak self] completion in
@@ -109,7 +109,8 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
                             scale: 1,
                             angle: 0,
                             aspectRatio: 1,
-                            imageUrl: localUrl)
+                            imageUrl: localUrl
+                        )
                         
                         self.composedResult = photoComponentEntity
                     })
