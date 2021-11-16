@@ -119,14 +119,15 @@ class EditPageViewController: UIViewController {
         self.bindViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureFont()
+    }
+    
     // MARK: - Helpers
     
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont(name: "Dovemayo", size: 17) as Any
-        ]
         self.title = "새 페이지"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.cancelButton)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.saveButton)
@@ -167,6 +168,12 @@ class EditPageViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-28)
             make.width.equalTo(135)
         }
+    }
+    
+    private func configureFont() {
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17) as Any
+        ]
     }
     
     private func bindUI() {

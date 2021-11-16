@@ -33,18 +33,18 @@ extension UIFont {
     }
     
     @objc fileprivate class func mySystemFont(ofSize fontSize: CGFloat) -> UIFont {
-        return myDefaultFont(ofSize: fontSize)
+        return self.myDefaultFont(ofSize: fontSize)
     }
     
-    @objc fileprivate class func myBoldSystemFont(ofSize fontSize: CGFloat) -> UIFont {
-        return myDefaultFont(ofSize: fontSize, withTraits: .traitBold)
+    @objc private class func myBoldSystemFont(ofSize fontSize: CGFloat) -> UIFont {
+        return self.myDefaultFont(ofSize: fontSize, withTraits: .traitBold)
     }
     
-    @objc fileprivate class func myItalicSystemFont(ofSize fontSize: CGFloat) -> UIFont {
-        return myDefaultFont(ofSize: fontSize, withTraits: .traitItalic)
+    @objc private class func myItalicSystemFont(ofSize fontSize: CGFloat) -> UIFont {
+        return self.myDefaultFont(ofSize: fontSize, withTraits: .traitItalic)
     }
     
-    fileprivate class func myDefaultFont(ofSize fontSize: CGFloat, withTraits traits: UIFontDescriptor.SymbolicTraits = []) -> UIFont {
+    private class func myDefaultFont(ofSize fontSize: CGFloat, withTraits traits: UIFontDescriptor.SymbolicTraits = []) -> UIFont {
         guard let descriptor = UIFontDescriptor(name: self.globalFontFamily, size: fontSize).withSymbolicTraits(traits) else {
             return UIFont.systemFont(ofSize: fontSize)
         }

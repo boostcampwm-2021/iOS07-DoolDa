@@ -25,8 +25,6 @@ class PairingViewController: UIViewController {
     
     private lazy var logoLabel: UILabel = {
         let label = UILabel()
-        // FIXME : change font to dovemayo
-        label.font = UIFont(name: "Dovemayo", size: 72)
         label.textColor = .dooldaLabel
         label.text = "둘다"
         return label
@@ -34,8 +32,6 @@ class PairingViewController: UIViewController {
     
     private lazy var instructionLabel: UILabel = {
         let label = UILabel()
-        // FIXME : change font to global font
-        label.font = UIFont(name: "Dovemayo", size: 18)
         label.textColor = .dooldaLabel
         label.text = "서로의 초대코드를 입력하여 연결해 주세요"
         return label
@@ -43,8 +39,6 @@ class PairingViewController: UIViewController {
     
     private lazy var myIdTitleLabel: UILabel = {
         let label = UILabel()
-        // FIXME : change font to global font
-        label.font = UIFont(name: "Dovemayo", size: 14)
         label.textColor = .dooldaSubLabel
         label.text = "내 초대코드"
         return label
@@ -52,8 +46,6 @@ class PairingViewController: UIViewController {
     
     private lazy var myIdLabel: CopyableLabel = {
         let label = CopyableLabel()
-        // FIXME : change font to global font
-        label.font = UIFont(name: "Dovemayo", size: 16)
         label.textColor = .dooldaLabel
         label.textAlignment = .center
         label.text = "12345678–1234–1234–1234–1234567890ab"
@@ -62,8 +54,6 @@ class PairingViewController: UIViewController {
     
     private lazy var friendIdTitleLabel: UILabel = {
         let label = UILabel()
-        // FIXME : change font to global font
-        label.font = UIFont(name: "Dovemayo", size: 14)
         label.textColor = .dooldaSubLabel
         label.text = "상대방 초대코드를 전달 받으셨나요?"
         return label
@@ -71,8 +61,6 @@ class PairingViewController: UIViewController {
     
     private lazy var friendIdTextField: UITextField = {
         let textField = UITextField()
-        // FIXME : change font to global font
-        textField.font = UIFont(name: "Dovemayo", size: 16)
         textField.attributedPlaceholder = NSAttributedString(
             string: "전달 받은 초대코드 입력",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.dooldaPlaceholder as Any]
@@ -86,8 +74,6 @@ class PairingViewController: UIViewController {
         var configuration = UIButton.Configuration.filled()
         configuration.cornerStyle = .capsule
         var container = AttributeContainer()
-        // FIXME : change font to global font
-        container.font = UIFont(name: "Dovemayo", size: 16)
         configuration.attributedTitle = AttributedString("연결하기", attributes: container)
         configuration.baseBackgroundColor = .dooldaHighlighted
         configuration.baseForegroundColor = .dooldaLabel
@@ -100,8 +86,6 @@ class PairingViewController: UIViewController {
         var configuration = UIButton.Configuration.filled()
         configuration.cornerStyle = .capsule
         var container = AttributeContainer()
-        // FIXME : change font to global font
-        container.font = UIFont(name: "Dovemayo", size: 16)
         configuration.attributedTitle = AttributedString("혼자 쓰러가기", attributes: container)
         configuration.baseBackgroundColor = .dooldaHighlighted
         configuration.baseForegroundColor = .dooldaLabel
@@ -163,6 +147,7 @@ class PairingViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.standardAppearance = transparentNavigationBarAppearance
         self.navigationController?.navigationBar.scrollEdgeAppearance = transparentNavigationBarAppearance
+        self.configureFont()
     }
     
     // MARK: - Helpers
@@ -224,6 +209,17 @@ class PairingViewController: UIViewController {
             make.trailing.equalTo(self.pairButton)
             make.bottom.equalToSuperview()
         }
+    }
+    
+    private func configureFont() {
+        self.logoLabel.font = .systemFont(ofSize: 72)
+        self.instructionLabel.font = .systemFont(ofSize: 18)
+        self.myIdTitleLabel.font = .systemFont(ofSize: 14)
+        self.myIdLabel.font = .systemFont(ofSize: 16)
+        self.friendIdTitleLabel.font = .systemFont(ofSize: 14)
+        self.friendIdTextField.font = .systemFont(ofSize: 16)
+        self.pairButton.titleLabel?.font = .systemFont(ofSize: 16)
+        self.pairSkipButton.titleLabel?.font = .systemFont(ofSize: 16)
     }
     
     // MARK: - FIXME : should bind to viewModel
