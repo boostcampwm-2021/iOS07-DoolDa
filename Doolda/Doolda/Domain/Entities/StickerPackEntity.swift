@@ -41,7 +41,7 @@ struct StickerPackEntity {
             guard let stickerUrl = Bundle.main.url(forResource: name + "_\(index)", withExtension: "png") else { break }
             self.stickersUrl.append(stickerUrl)
         }
-        if self.stickersUrl.count == 0 { return nil }
+        if self.stickersUrl.isEmpty { return nil }
     }
 
     static let dummyStickerPack = StickerPackEntity(name: "dummySticker")
