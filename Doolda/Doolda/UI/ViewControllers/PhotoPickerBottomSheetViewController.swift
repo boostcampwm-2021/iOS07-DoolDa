@@ -321,7 +321,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
             if let selectedPhotos = self.viewModel?.selectedPhotos,
                let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
                let imageAsset = self.viewModel?.photoFetchResult?.object(at: indexPath.item) {
-                photoPickerCollectionViewCell.fill(imageAsset)
+                photoPickerCollectionViewCell.display(imageAsset)
                 
                 if selectedPhotos.contains(indexPath.item),
                    let target = selectedPhotos.enumerated().first(where: { $0.element == indexPath.item }) {
@@ -337,7 +337,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
             if let photoFrameCollectionViewCell = cell as? PhotoFrameCollectionViewCell,
                let baseImage = self.viewModel?.photoFrames[indexPath.item].rawValue?.baseImage,
                let displayName = self.viewModel?.photoFrames[indexPath.item].rawValue?.displayName {
-                photoFrameCollectionViewCell.fill(baseImage, displayName)
+                photoFrameCollectionViewCell.display(baseImage, displayName)
             }
         }
         

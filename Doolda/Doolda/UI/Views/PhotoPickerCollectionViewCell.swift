@@ -85,7 +85,7 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func fill(_ asset: PHAsset) {
+    func display(_ asset: PHAsset) {
         if let requestImageId = requestImageId {
             PHImageManager.default().cancelImageRequest(requestImageId)
         }

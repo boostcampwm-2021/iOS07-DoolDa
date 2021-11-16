@@ -79,8 +79,8 @@ class PhotoFrameCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func fill(_ photo: CIImage, _ displayName: String) {
+    func display(_ photo: CIImage, _ name: String) {
         self.frameImageView.image = UIImage(ciImage: photo)
-        self.displayName.text = displayName
+        self.displayName.text = name
     }
 }
