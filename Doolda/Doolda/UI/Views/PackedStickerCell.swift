@@ -19,8 +19,8 @@ class PackedStickerCell: UICollectionViewCell {
 
     private lazy var bodyView: UIView = {
         let bodyView = UIView()
-        bodyView.backgroundColor = UIColor(cgColor: CGColor(red: 235, green: 235, blue: 235, alpha: 70))
-        return UIView()
+        bodyView.backgroundColor = UIColor(cgColor: CGColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 0.7))
+        return bodyView
     }()
 
     // MARK: - Initializers
@@ -54,6 +54,7 @@ class PackedStickerCell: UICollectionViewCell {
             self.bodyView.addSubview(imageView)
             imageView.snp.makeConstraints { make in
                 make.width.equalToSuperview().multipliedBy(0.25)
+                make.height.equalTo(imageView.snp.width)
             }
         }
 
