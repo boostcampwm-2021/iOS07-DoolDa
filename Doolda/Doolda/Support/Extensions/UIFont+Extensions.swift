@@ -9,12 +9,12 @@ import UIKit
 
 extension UIFont {
     static var isOverrided: Bool = false
-    static var defaultFontFamily: String = "dovemayo"
+    static var globalFontFamily: String = "dovemayo"
     
     class func overrideInitialize() {
-        guard self == UIFont.self , !isOverrided else { return }
+        guard self == UIFont.self , !self.isOverrided else { return }
 
-        isOverrided = true
+        self.isOverrided = true
 
         if let systemFontMethod = class_getClassMethod(self, #selector(systemFont(ofSize:))),
             let mySystemFontMethod = class_getClassMethod(self, #selector(mySystemFont(ofSize:))) {
