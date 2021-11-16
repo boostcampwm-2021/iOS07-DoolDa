@@ -132,7 +132,9 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     }
     
     func changeTextCompnentFontSize(into size: CGFloat) {
-        // FIXME: not implemented
+        guard let selectedComponent = self.selectedComponent as? TextComponentEntity else { return }
+        selectedComponent.fontSize = size
+        self.selectedComponent = selectedComponent
     }
     
     func changeTextComponentContent(into content: String) {
