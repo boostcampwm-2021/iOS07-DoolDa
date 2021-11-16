@@ -84,8 +84,8 @@
 		319C21E0273BD791009CE65C /* URLRequsetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */; };
 		319C21E1273BD805009CE65C /* URLSessionNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */; };
 		319C222D273CEFBB009CE65C /* CIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C222C273CEFBB009CE65C /* CIImage+Extension.swift */; };
-		661A8406274351230077E0E3 /* CheckTurnUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A8405274351230077E0E3 /* CheckTurnUseCase.swift */; };
 		661A840427434FE10077E0E3 /* GetPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A840327434FE10077E0E3 /* GetPageUseCase.swift */; };
+		661A8406274351230077E0E3 /* CheckTurnUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A8405274351230077E0E3 /* CheckTurnUseCase.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
 		664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C2273007ED009F03E2 /* SceneDelegate.swift */; };
 		664893CA273007F1009F03E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664893C9273007F1009F03E2 /* Assets.xcassets */; };
@@ -155,6 +155,7 @@
 		FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF022E273A12B400EAB00B /* EditPageViewController.swift */; };
 		FCCF0231273A145400EAB00B /* EditPageViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */; };
 		FCCF0233273A719600EAB00B /* PageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF0232273A719600EAB00B /* PageControlView.swift */; };
+		FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7027437F31000203F7 /* UIFont+Extensions.swift */; };
 		FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DD2738CFB50001F155 /* PairRepository.swift */; };
 		FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F327391F260001F155 /* EditPageViewModel.swift */; };
@@ -279,8 +280,8 @@
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkServiceTest.swift; sourceTree = "<group>"; };
 		319C222C273CEFBB009CE65C /* CIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Extension.swift"; sourceTree = "<group>"; };
-		661A8405274351230077E0E3 /* CheckTurnUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckTurnUseCase.swift; sourceTree = "<group>"; };
 		661A840327434FE10077E0E3 /* GetPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPageUseCase.swift; sourceTree = "<group>"; };
+		661A8405274351230077E0E3 /* CheckTurnUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckTurnUseCase.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		664893C2273007ED009F03E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -344,6 +345,7 @@
 		FCCF022E273A12B400EAB00B /* EditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewController.swift; sourceTree = "<group>"; };
 		FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewCoordinator.swift; sourceTree = "<group>"; };
 		FCCF0232273A719600EAB00B /* PageControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlView.swift; sourceTree = "<group>"; };
+		FCD24D7027437F31000203F7 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCE9D3DD2738CFB50001F155 /* PairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepository.swift; sourceTree = "<group>"; };
 		FCE9D3F327391F260001F155 /* EditPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewModel.swift; sourceTree = "<group>"; };
@@ -786,6 +788,7 @@
 			children = (
 				1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */,
 				1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */,
+				FCD24D7027437F31000203F7 /* UIFont+Extensions.swift */,
 				1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */,
 				1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */,
 				1D6232EE2731117100A9AD6B /* UIControl+Extensions.swift */,
@@ -1453,6 +1456,7 @@
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */,
+				FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */,
 				1D097E97273CFA5900A4810B /* RawPageRepository.swift in Sources */,
 				310125A027393D3B00E43160 /* ImageComposeUseCase.swift in Sources */,
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
