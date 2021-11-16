@@ -104,11 +104,39 @@ extension StickerPickerViewController: UICollectionViewDataSource {
             for: indexPath
         )
         guard let cell = cell as? PackedStickerCell,
-              let operationQueue = OperationQueue.current,
-              let stickerPack = StickerPackEntity.dummyStickerPack else { return UICollectionViewCell() }
+              let operationQueue = OperationQueue.current else { return UICollectionViewCell() }
+
+        // FIXME: 임시 데이터
+        let stickers = [
+            [UIImage(named: "dummySticker_0")!,
+             UIImage(named: "dummySticker_0")!,
+             UIImage(named: "dummySticker_0")!,
+             UIImage(named: "dummySticker_0")!],
+
+            [UIImage(named: "dummySticker_1")!,
+             UIImage(named: "dummySticker_1")!,
+             UIImage(named: "dummySticker_1")!,
+             UIImage(named: "dummySticker_1")!],
+
+            [UIImage(named: "dummySticker_2")!,
+             UIImage(named: "dummySticker_2")!,
+             UIImage(named: "dummySticker_2")!,
+             UIImage(named: "dummySticker_2")!],
+
+            [UIImage(named: "dummySticker_3")!,
+             UIImage(named: "dummySticker_3")!,
+             UIImage(named: "dummySticker_3")!,
+             UIImage(named: "dummySticker_3")!],
+
+            [UIImage(named: "dummySticker_0")!,
+             UIImage(named: "dummySticker_1")!,
+             UIImage(named: "dummySticker_2")!,
+             UIImage(named: "dummySticker_3")!]
+        ]
 
         cell.animating = false
-        cell.configure(with: stickerPack.stickersUrl)
+        motionManger.stopDeviceMotionUpdates()
+        cell.configure(with: stickers[indexPath.section])
         motionManger.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
         cell.animating = true
 

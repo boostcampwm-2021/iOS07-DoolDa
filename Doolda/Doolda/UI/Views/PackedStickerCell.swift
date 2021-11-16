@@ -65,6 +65,9 @@ class PackedStickerCell: UICollectionViewCell {
     func configure(with stickers: [URL]) {
         self.bodyView.subviews.forEach { subview in
             subview.removeFromSuperview()
+            self.gravity.removeItem(subview)
+            self.collider.removeItem(subview)
+            self.itemBehavior.removeItem(subview)
         }
 
         var leadingOffset = 0
@@ -75,12 +78,43 @@ class PackedStickerCell: UICollectionViewCell {
 
             self.bodyView.addSubview(stickerView)
             stickerView.snp.makeConstraints { make in
-                make.top.equalToSuperview()
-                make.leading.equalToSuperview().offset(leadingOffset)
+                make.top.leading.equalToSuperview().offset(leadingOffset)
                 make.width.equalToSuperview().multipliedBy(0.2)
                 make.height.equalTo(stickerView.snp.width).multipliedBy(ratio)
             }
 
+            self.gravity.addItem(stickerView)
+            self.collider.addItem(stickerView)
+            self.itemBehavior.addItem(stickerView)
+
+            leadingOffset += 20
+        }
+    }
+
+    // FIXME: StickerEntity 오류 수정되면 없어질 메소드
+    func configure(with stickers: [UIImage]) {
+        self.bodyView.subviews.forEach { subview in
+            subview.removeFromSuperview()
+            self.gravity.removeItem(subview)
+            self.collider.removeItem(subview)
+            self.itemBehavior.removeItem(subview)
+        }
+
+        var leadingOffset: CGFloat = 10
+        for stickerImage in stickers {
+            let stickerView = UIImageView(image: stickerImage)
+            let ratio = stickerImage.size.height / stickerImage.size.width
+            let width = self.bodyView.frame.width * 0.2
+
+            stickerView.frame = CGRect(x: leadingOffset, y: leadingOffset, width: width , height: width * ratio)
+
+            self.bodyView.addSubview(stickerView)
+            stickerView.snp.makeConstraints { make in
+                make.top.leading.equalToSuperview().offset(leadingOffset)
+                make.width.equalToSuperview().multipliedBy(0.2)
+                make.height.equalTo(stickerView.snp.width).multipliedBy(ratio)
+            }
+     
             self.gravity.addItem(stickerView)
             self.collider.addItem(stickerView)
             self.itemBehavior.addItem(stickerView)
