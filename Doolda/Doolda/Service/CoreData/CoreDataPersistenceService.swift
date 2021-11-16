@@ -23,6 +23,19 @@ enum CoreDataPersistenceServiceError: LocalizedError {
     }
 }
 
+enum CoreDataPersistenceServiceObjectFactory: String {
+    case pageEntity = "CoreDataPageEntity"
+    
+    var createObject: NSManagedObject? {
+        let coreDataPersistenceService = CoreDataPersistenceService.shared
+
+        switch self {
+        case .pageEntity:
+            return CoreDataPageEntity(context: coreDataPersistenceService.persistentContainer.viewContext)
+        }
+    }
+}
+
 final class CoreDataPersistenceService: CoreDataPersistenceServiceProtocol {
     static let shared = CoreDataPersistenceService()
     
