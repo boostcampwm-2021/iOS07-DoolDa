@@ -16,6 +16,10 @@ class StickerPickerView: UIView {
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero)
         collectionView.backgroundColor = .clear
+        collectionView.register(
+            PackedStickerCell.self,
+            forCellWithReuseIdentifier: PackedStickerCell.identifier
+        )
         return collectionView
     }()
 
