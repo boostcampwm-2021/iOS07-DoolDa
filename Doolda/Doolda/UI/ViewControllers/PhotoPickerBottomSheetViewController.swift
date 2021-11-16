@@ -231,7 +231,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.$phFetchResult
+        viewModel.$photoFetchResult
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] _ in
@@ -303,7 +303,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.photoPickerCollectionView {
-            return self.viewModel?.phFetchResult?.count ?? 0
+            return self.viewModel?.photoFetchResult?.count ?? 0
         } else {
             return self.viewModel?.photoFrames.count ?? 0
         }
@@ -320,7 +320,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
             
             if let selectedPhotos = self.viewModel?.selectedPhotos,
                let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
-               let imageAsset = self.viewModel?.phFetchResult?.object(at: indexPath.item) {
+               let imageAsset = self.viewModel?.photoFetchResult?.object(at: indexPath.item) {
                 photoPickerCollectionViewCell.fill(imageAsset)
                 
                 if selectedPhotos.contains(indexPath.item),
