@@ -33,6 +33,11 @@ protocol EditPageUseCaseProtocol {
     func sendComponentBack()
     func removeComponent()
     func addComponent(_ component: ComponentEntity)
+    
+    func changeTextComponentColor(into color: FontColorType)
+    func changeTextCompnentFontSize(into size: CGFloat)
+    func changeTextComponentContent(into content: String)
+    
     func changeBackgroundType(_ backgroundType: BackgroundType)
     func savePage(author: User)
 }
@@ -120,6 +125,18 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         self.selectedComponent = self.selectedComponent
     }
 
+    func changeTextComponentColor(into color: FontColorType) {
+        // FIXME: not implemented
+    }
+    
+    func changeTextCompnentFontSize(into size: CGFloat) {
+        // FIXME: not implemented
+    }
+    
+    func changeTextComponentContent(into content: String) {
+        // FIXME: not implemented
+    }
+    
     func changeBackgroundType(_ backgroundType: BackgroundType) {
         self.rawPage?.backgroundType = backgroundType
     }
