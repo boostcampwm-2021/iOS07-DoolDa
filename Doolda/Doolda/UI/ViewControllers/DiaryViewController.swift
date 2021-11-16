@@ -152,6 +152,18 @@ class DiaryViewController: UIViewController {
                 viewModel.displayModeToggleButtonDidTap()
             }
             .store(in: &self.cancellables)
+        
+        self.filterButton.publisher(for: .touchUpInside)
+            .sink { _ in
+                viewModel.filterButtonDidTap()
+            }
+            .store(in: &self.cancellables)
+        
+        self.settingsButton.publisher(for: .touchUpInside)
+            .sink { _ in
+                viewModel.settingsButtonDidTap()
+            }
+            .store(in: &self.cancellables)
     }
     
     private func configureCollectionViewDataSource() {
@@ -162,8 +174,7 @@ class DiaryViewController: UIViewController {
                     withReuseIdentifier: DiaryPageViewCell.cellIdentifier,
                     for: indexPath
                 ) as? DiaryPageViewCell else { return nil }
-                cell.backgroundColor = .yellow
-                print(pageEntity.timeStamp)
+                cell.backgroundColor = .red
                 return cell
         })
     }
