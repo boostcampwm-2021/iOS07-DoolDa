@@ -12,6 +12,7 @@ protocol DiaryViewModelInput {
     func displayModeToggleButtonDidTap()
     func addPageButtonDidTap()
     func lastPageDidDisplay()
+    func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
 }
 
 protocol DiaryViewModelOutput {
@@ -25,4 +26,12 @@ typealias DiaryViewModelProtocol = DiaryViewModelInput & DiaryViewModelOutput
 
 enum DiaryDisplayMode {
     case carousel, list
+}
+
+enum DiaryAuthorFilter {
+    case user, friend, both
+}
+
+enum DiaryOrderFilter {
+    case ascending, descending
 }
