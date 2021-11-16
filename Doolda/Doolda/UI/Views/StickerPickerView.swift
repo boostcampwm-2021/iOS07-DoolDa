@@ -14,7 +14,12 @@ class StickerPickerView: UIView {
     // MARK: - Subviews
 
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero)
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 10
+        flowLayout.minimumInteritemSpacing = 0
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundColor = .clear
         collectionView.register(
             PackedStickerCell.self,
@@ -42,7 +47,17 @@ class StickerPickerView: UIView {
     }
 
     private func configureUI() {
-        
+        self.addSubview(self.collectionView)
+        self.collectionView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+        }
+
+        self.addSubview(self.pageControl)
+        self.pageControl.snp.makeConstraints { make in
+            make.top.equalTo(self.collectionView.snp.bottom)
+            make.centerX.bottom.equalToSuperview()
+            make.height.equalTo(20)
+        }
     }
 
 }
