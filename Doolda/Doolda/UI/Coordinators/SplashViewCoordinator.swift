@@ -22,16 +22,21 @@ class SplashViewCoordinator: SplashViewCoordinatorProtocol {
             persistenceService: userDefaultsPersistenceService,
             networkService: urlSessionNetworkService
         )
+        let globalFontRepository = GlobalFontRepository(
+            persistenceService: userDefaultsPersistenceService
+        )
         
         let getMyIdUseCase = GetMyIdUseCase(userRepository: userRespository)
         let getUserUseCase = GetUserUseCase(userRepository: userRespository)
         let registerUserUseCase = RegisterUserUseCase(userRepository: userRespository)
+        let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)
         
         let viewModel = SplashViewModel(
             coordinator: self,
             getMyIdUseCase: getMyIdUseCase,
             getUserUseCase: getUserUseCase,
-            registerUserUseCase: registerUserUseCase
+            registerUserUseCase: registerUserUseCase,
+            globalFontUseCase: globalFontUseCase
         )
         
         let viewController = SplashViewController(viewModel: viewModel)

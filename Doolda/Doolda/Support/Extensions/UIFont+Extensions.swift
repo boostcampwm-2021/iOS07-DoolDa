@@ -45,7 +45,7 @@ extension UIFont {
     }
     
     fileprivate class func myDefaultFont(ofSize fontSize: CGFloat, withTraits traits: UIFontDescriptor.SymbolicTraits = []) -> UIFont {
-        guard let descriptor = UIFontDescriptor(name: defaultFontFamily, size: fontSize).withSymbolicTraits(traits) else {
+        guard let descriptor = UIFontDescriptor(name: self.globalFontFamily, size: fontSize).withSymbolicTraits(traits) else {
             return UIFont.systemFont(ofSize: fontSize)
         }
         return UIFont(descriptor: descriptor, size: fontSize)
