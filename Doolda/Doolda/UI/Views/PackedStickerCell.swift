@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreMotion
 import UIKit
 
 import SnapKit
@@ -87,7 +88,16 @@ class PackedStickerCell: UICollectionViewCell {
             leadingOffset += 20
         }
     }
-    
+
+    func configureGravity(motion: CMDeviceMotion?, error: Error?) {
+        guard let motion = motion,
+              let _ = error else { return }
+        let gravity: CMAcceleration = motion.gravity
+        let gravityX = CGFloat(gravity.x)
+        let gravityY = CGFloat(-gravity.y)
+
+        self.gravity.gravityDirection = CGVector(dx: gravityX*2.5, dy: gravityY*2.5)
+    }
 
     private func configureUI() {
         self.addSubview(self.bodyView)
