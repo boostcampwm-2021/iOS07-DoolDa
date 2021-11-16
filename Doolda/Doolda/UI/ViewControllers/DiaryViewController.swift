@@ -83,6 +83,9 @@ class DiaryViewController: UIViewController {
         return appearance
     }()
     
+    private var headerView: UICollectionReusableView?
+    private var footerView: UICollectionReusableView?
+    
     // MARK: - Override Properties
     
     override var prefersStatusBarHidden: Bool { return true }
@@ -106,8 +109,8 @@ class DiaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureDataSource()
         self.bindUI()
-        self.configureCollectionViewDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -157,6 +160,14 @@ class DiaryViewController: UIViewController {
             }
             .store(in: &self.cancellables)
         
+        viewModel.isMyTurnPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isMyTurn in
+                self?.headerView?.backgroundColor = isMyTurn ? .blue : .red
+                self?.footerView?.backgroundColor = isMyTurn ? .cyan : .red
+            }
+            .store(in: &self.cancellables)
+        
         self.displayModeToggleButton.publisher(for: .touchUpInside)
             .sink { _ in
                 viewModel.displayModeToggleButtonDidTap()
@@ -176,7 +187,7 @@ class DiaryViewController: UIViewController {
             .store(in: &self.cancellables)
     }
     
-    private func configureCollectionViewDataSource() {
+    private func configureDataSource() {
         self.dataSource = DataSource(
             collectionView: self.pageCollectionView,
             cellProvider: { (collectionView, indexPath, pageEntity) -> DiaryPageViewCell? in
@@ -195,8 +206,7 @@ class DiaryViewController: UIViewController {
                     withReuseIdentifier: DiaryCollectionViewHeader.reusableViewIdentifier,
                     for: indexPath
                 ) as? DiaryCollectionViewHeader
-                
-                view?.backgroundColor = .blue
+                self.headerView = view
                 return view
             } else if kind == UICollectionView.elementKindSectionFooter {
                 let view = collectionView.dequeueReusableSupplementaryView(
@@ -204,8 +214,7 @@ class DiaryViewController: UIViewController {
                     withReuseIdentifier: DiaryCollectionViewFooter.reusableViewIdentifier,
                     for: indexPath
                 ) as? DiaryCollectionViewFooter
-                
-                view?.backgroundColor = .cyan
+                self.footerView = view
                 return view
             } else {
                 return nil
