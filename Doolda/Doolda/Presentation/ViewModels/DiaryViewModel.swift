@@ -12,7 +12,7 @@ protocol DiaryViewModelInput {
     func displayModeToggleButtonDidTap()
     func settingsButtonDidTap()
     func addPageButtonDidTap()
-    func lastPageDidDisplay()
+    func lastPageDidPull()
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
 }
 
@@ -54,12 +54,6 @@ class DiaryViewModel: DiaryViewModelProtocol {
     @Published private var isMyTurn: Bool = false
     @Published private var filteredPageEntities: [PageEntity] = [
         PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
         PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "")
     ]
     
@@ -75,15 +69,16 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     func addPageButtonDidTap() {
         print(#function)
-        self.filteredPageEntities.append(PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""))
     }
     
-    func lastPageDidDisplay() {
+    func lastPageDidPull() {
         print(#function)
+        self.filteredPageEntities.insert(PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""), at: 0)
     }
     
     func settingsButtonDidTap() {
         print(#function)
+        self.isMyTurn.toggle()
         self.coordinator.settingsPageRequested()
     }
     
