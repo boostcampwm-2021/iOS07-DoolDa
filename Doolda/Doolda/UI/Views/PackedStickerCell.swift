@@ -30,12 +30,18 @@ class PackedStickerCell: UICollectionViewCell {
 
     // MARK: - Private Properties
 
-    private let gravity = UIGravityBehavior()
+    private let gravity: UIGravityBehavior = UIGravityBehavior()
     private let collider: UICollisionBehavior = {
         let collider = UICollisionBehavior()
         collider.translatesReferenceBoundsIntoBoundary = true
         return collider
     }()
+    private let itemBehavior: UIDynamicItemBehavior = {
+        let behavior = UIDynamicItemBehavior()
+        behavior.elasticity = 0.4
+        return behavior
+    }()
+
     private lazy var animator: UIDynamicAnimator = UIDynamicAnimator(referenceView: self.bodyView)
     private var cancellables = Set<AnyCancellable>()
 
@@ -55,25 +61,39 @@ class PackedStickerCell: UICollectionViewCell {
 
     // MARK: - Helpers
 
+    func configure(with stickers: [URL]) {
+        self.bodyView.subviews.forEach { subview in
+            subview.removeFromSuperview()
+        }
+
+        var leadingOffset = 0
+        for url in stickers {
+            guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
+            let stickerView = UIImageView(image: stickerImage)
+            let ratio = stickerImage.size.height / stickerImage.size.width
+
+            self.bodyView.addSubview(stickerView)
+            stickerView.snp.makeConstraints { make in
+                make.top.equalToSuperview()
+                make.leading.equalToSuperview().offset(leadingOffset)
+                make.width.equalToSuperview().multipliedBy(0.2)
+                make.height.equalTo(stickerView.snp.width).multipliedBy(ratio)
+            }
+
+            self.gravity.addItem(stickerView)
+            self.collider.addItem(stickerView)
+            self.itemBehavior.addItem(stickerView)
+
+            leadingOffset += 20
+        }
+    }
+    
+
     private func configureUI() {
         self.addSubview(self.bodyView)
         self.bodyView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.bottom.equalToSuperview()
-        }
-
-        let dummyStickers = [
-            UIImage(named: "dochi_0"),
-            UIImage(named: "dochi_1")
-        ]
-        dummyStickers.forEach { stickers in
-            let imageView = UIImageView()
-            imageView.image = stickers
-            self.bodyView.addSubview(imageView)
-            imageView.snp.makeConstraints { make in
-                make.width.equalToSuperview().multipliedBy(0.25)
-                make.height.equalTo(imageView.snp.width)
-            }
         }
     }
 
@@ -82,14 +102,17 @@ class PackedStickerCell: UICollectionViewCell {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] value in
                 guard let gravity = self?.gravity,
-                      let collider = self?.collider else { return }
+                      let collider = self?.collider,
+                      let itemBehavior = self?.itemBehavior else { return }
 
                 if value == true {
                     self?.animator.addBehavior(gravity)
                     self?.animator.addBehavior(collider)
+                    self?.animator.addBehavior(itemBehavior)
                 } else {
                     self?.animator.removeBehavior(gravity)
                     self?.animator.removeBehavior(collider)
+                    self?.animator.removeBehavior(itemBehavior)
                 }
             }
             .store(in: &self.cancellables)
