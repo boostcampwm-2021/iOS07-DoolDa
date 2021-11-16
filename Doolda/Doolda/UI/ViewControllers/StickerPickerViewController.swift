@@ -5,6 +5,7 @@
 //  Created by Dozzing on 2021/11/15.
 //
 
+import CoreMotion
 import UIKit
 
 import SnapKit
@@ -48,6 +49,10 @@ class StickerPickerViewController: BottomSheetViewController {
         )
         return stickerPicker
     }()
+
+    // MARK: - Private Properties
+
+    private let motionManger = CMMotionManager()
 
     // MARK: - LifeCycle Methods
 
@@ -98,6 +103,15 @@ extension StickerPickerViewController: UICollectionViewDataSource {
             withReuseIdentifier: PackedStickerCell.identifier,
             for: indexPath
         )
+        guard let cell = cell as? PackedStickerCell,
+              let operationQueue = OperationQueue.current,
+              let stickerPack = StickerPackEntity.dummyStickerPack else { return UICollectionViewCell() }
+
+        cell.animating = false
+        cell.configure(with: stickerPack.stickersUrl)
+        motionManger.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
+        cell.animating = true
+
         return cell
     }
 }
