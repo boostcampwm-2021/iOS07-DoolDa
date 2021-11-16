@@ -41,6 +41,14 @@ class StickerPickerViewController: BottomSheetViewController {
         return stackView
     }()
 
+    private lazy var stickerPickerView: StickerPickerView = {
+        let stickerPicker = StickerPickerView(
+            collectionViewDelegate: self,
+            collectionViewDataSource: self
+        )
+        return stickerPicker
+    }()
+
     // MARK: - LifeCycle Methods
 
     override func viewDidLoad() {
@@ -61,6 +69,28 @@ class StickerPickerViewController: BottomSheetViewController {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         }
+
+        self.body.addSubview(self.stickerPickerView)
+        self.stickerPickerView.snp.makeConstraints { make in
+            make.top.equalTo(topStack).offset(10)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
     }
 
+}
+
+extension StickerPickerViewController: UICollectionViewDelegate {
+
+}
+
+extension StickerPickerViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
+        cell.backgroundColor = .red
+        return cell
+    }
 }
