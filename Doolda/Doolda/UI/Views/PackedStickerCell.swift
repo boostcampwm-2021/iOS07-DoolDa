@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 class PackedStickerCell: UICollectionViewCell {
 
     // MARK: - Static Properties
@@ -14,5 +16,33 @@ class PackedStickerCell: UICollectionViewCell {
     static let identifier = "PackedStickerCell"
 
     // MARK: - Subviews
+
+    private lazy var bodyView: UIView = {
+        let bodyView = UIView()
+        bodyView.backgroundColor = UIColor(cgColor: CGColor(red: 235, green: 235, blue: 235, alpha: 70))
+        return UIView()
+    }()
+
+    // MARK: - Initializers
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureUI()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configureUI()
+    }
+
+    // MARK: - Helpers
+
+    private func configureUI() {
+        self.addSubview(self.bodyView)
+        self.bodyView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+    }
 
 }
