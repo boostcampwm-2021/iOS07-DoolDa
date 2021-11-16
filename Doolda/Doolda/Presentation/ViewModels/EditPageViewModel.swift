@@ -120,18 +120,6 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     
     func stickerComponentAddButtonDidTap() {
         self.coordinator.addStickerComponent()
-        // FIXME : goto coordinator delete dummy component
-        let dummyComponent = PhotoComponentEntity(
-            frame: CGRect(
-                origin: CGPoint(x: 850, y: 1500),
-                size: CGSize(width: 700, height: 700)
-            ),
-            scale: 1,
-            angle: 0,
-            aspectRatio: 1,
-            imageUrl: URL(string: "https://item.kakaocdn.net/do/d0abc6fe74e616536cf07626699bbc707154249a3890514a43687a85e6b6cc82")!
-        )
-        self.editPageUseCase.addComponent(dummyComponent)
     }
     
     func backgroundTypeButtonDidTap() {
