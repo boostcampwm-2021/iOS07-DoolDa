@@ -43,6 +43,20 @@ class PackedStickerCell: UICollectionViewCell {
             make.top.equalToSuperview()
             make.leading.trailing.bottom.equalToSuperview()
         }
+
+        let dummyStickers = [
+            UIImage(named: "dochi_0"),
+            UIImage(named: "dochi_1")
+        ]
+        dummyStickers.forEach { stickers in
+            let imageView = UIImageView()
+            imageView.image = stickers
+            self.bodyView.addSubview(imageView)
+            imageView.snp.makeConstraints { make in
+                make.width.equalToSuperview().multipliedBy(0.25)
+            }
+        }
+
     }
 
 }
