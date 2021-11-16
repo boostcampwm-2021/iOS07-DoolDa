@@ -158,6 +158,7 @@
 		FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7027437F31000203F7 /* UIFont+Extensions.swift */; };
 		FCD24D7327439268000203F7 /* GlobalFontRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7227439268000203F7 /* GlobalFontRepository.swift */; };
 		FCD24D75274392AB000203F7 /* GlobalFontRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */; };
+		FCD24D7827439717000203F7 /* GlobalFontUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */; };
 		FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DD2738CFB50001F155 /* PairRepository.swift */; };
 		FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F327391F260001F155 /* EditPageViewModel.swift */; };
@@ -350,6 +351,7 @@
 		FCD24D7027437F31000203F7 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		FCD24D7227439268000203F7 /* GlobalFontRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontRepository.swift; sourceTree = "<group>"; };
 		FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontRepositoryProtocol.swift; sourceTree = "<group>"; };
+		FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontUseCase.swift; sourceTree = "<group>"; };
 		FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCE9D3DD2738CFB50001F155 /* PairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepository.swift; sourceTree = "<group>"; };
 		FCE9D3F327391F260001F155 /* EditPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewModel.swift; sourceTree = "<group>"; };
@@ -735,6 +737,7 @@
 				661A8405274351230077E0E3 /* CheckTurnUseCase.swift */,
 				661A840327434FE10077E0E3 /* GetPageUseCase.swift */,
 				FC7AA338274345280059D0CD /* StickerUseCase.swift */,
+				FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1387,6 +1390,7 @@
 				319C222D273CEFBB009CE65C /* CIImage+Extension.swift in Sources */,
 				661A8406274351230077E0E3 /* CheckTurnUseCase.swift in Sources */,
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
+				FCD24D7827439717000203F7 /* GlobalFontUseCase.swift in Sources */,
 				310125D6273A6F3400E43160 /* FileManagerPersistenceService.swift in Sources */,
 				FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
