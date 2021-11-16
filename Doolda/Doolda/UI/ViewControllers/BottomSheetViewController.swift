@@ -38,7 +38,10 @@ class BottomSheetViewController: UIViewController {
         view.backgroundColor = .white
         view.layer.cornerRadius = 10
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        view.clipsToBounds = true
+        view.layer.shadowColor = UIColor.lightGray.cgColor
+        view.layer.shadowRadius = 10
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowOffset = CGSize(width: 0, height: -10)
         return view
     }()
     
