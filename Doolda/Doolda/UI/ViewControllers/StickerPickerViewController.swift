@@ -84,6 +84,11 @@ extension StickerPickerViewController: UICollectionViewDelegate {
 }
 
 extension StickerPickerViewController: UICollectionViewDataSource {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 5
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }

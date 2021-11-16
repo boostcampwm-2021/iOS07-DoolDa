@@ -19,7 +19,10 @@ class StickerPickerView: UIView {
         flowLayout.minimumLineSpacing = 10
         flowLayout.minimumInteritemSpacing = 0
 
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        let layout = self.createLayout()
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isPagingEnabled = true
         collectionView.backgroundColor = .clear
         collectionView.register(
             PackedStickerCell.self,
@@ -35,6 +38,8 @@ class StickerPickerView: UIView {
         return pageControl
     }()
 
+    // MARK: - Initialiazers
+
     convenience init(
         collectionViewDelegate: UICollectionViewDelegate? = nil,
         collectionViewDataSource: UICollectionViewDataSource? = nil
@@ -45,6 +50,8 @@ class StickerPickerView: UIView {
 
         configureUI()
     }
+
+    // MARK: - Helpers
 
     private func configureUI() {
         self.addSubview(self.collectionView)
@@ -58,6 +65,33 @@ class StickerPickerView: UIView {
             make.centerX.bottom.equalToSuperview()
             make.height.equalTo(20)
         }
+    }
+
+    // MARK: - Private Methods
+
+    private func createLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, env) -> NSCollectionLayoutSection? in
+            let item = NSCollectionLayoutItem(
+                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            )
+            item.contentInsets = .init(top: 30, leading: 100, bottom: 30, trailing: 100)
+
+            let group = NSCollectionLayoutGroup.vertical(
+                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)),
+                subitems: [item]
+            )
+            //group.contentInsets = .init(top: 30, leading: 30, bottom: 30, trailing: 30)
+
+            let section = NSCollectionLayoutSection(group: group)
+            //section.contentInsets = .init(top: 30, leading: 30, bottom: 30, trailing: 30)
+
+            return section
+        }
+
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.scrollDirection = .horizontal
+        layout.configuration = config
+        return layout
     }
 
 }
