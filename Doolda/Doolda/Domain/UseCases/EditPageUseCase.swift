@@ -126,7 +126,9 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     }
 
     func changeTextComponentColor(into color: FontColorType) {
-        // FIXME: not implemented
+        guard let selectedComponent = self.selectedComponent as? TextComponentEntity else { return }
+        selectedComponent.fontColor = color
+        self.selectedComponent = selectedComponent
     }
     
     func changeTextCompnentFontSize(into size: CGFloat) {
