@@ -10,5 +10,6 @@ import Foundation
 extension UserDefaults {
     enum Keys {
         static let userId = "userId"
+        static let globalFont = "globalFont"
     }
 }

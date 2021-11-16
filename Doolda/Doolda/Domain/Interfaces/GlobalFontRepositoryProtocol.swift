@@ -8,6 +8,6 @@
 import Foundation
 
 protocol GlobalFontRepositoryProtocol {
-    func setGlobalFont(_ fontName: String)
+    func saveGlobalFont(as fontName: String)
     func getGlobalFont() -> String?
 }
