@@ -217,4 +217,29 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
             return .zero
         }
     }
+    
+    func scrollViewWillEndDragging(
+        _ scrollView: UIScrollView,
+        withVelocity velocity: CGPoint,
+        targetContentOffset: UnsafeMutablePointer<CGPoint>
+    ) {
+        guard scrollView == self.pageCollectionView,
+              let displayMode = self.viewModel?.displayMode,
+              displayMode == .carousel else { return }
+        
+        let pageWidth = self.view.frame.width - 32
+        let pageOffset = pageWidth + 10
+        let estimatedIndex = scrollView.contentOffset.x / pageOffset
+        
+        var actualIndex = 0
+        if velocity.x > 0 {
+            actualIndex = min(Int(ceil(estimatedIndex)), self.pageCollectionView.numberOfItems(inSection: 0))
+        } else if velocity.x < 0 {
+            actualIndex = max(Int(floor(estimatedIndex)), 0)
+        } else {
+            actualIndex = Int(round(estimatedIndex))
+        }
+        
+        targetContentOffset.pointee = CGPoint(x: CGFloat(actualIndex) * pageOffset - 16, y: 0)
+    }
 }
