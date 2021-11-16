@@ -27,6 +27,18 @@ class DiaryViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(DiaryPageViewCell.self, forCellWithReuseIdentifier: DiaryPageViewCell.cellIdentifier)
+        collectionView.register(
+            DiaryCollectionViewHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: DiaryCollectionViewHeader.reusableViewIdentifier
+        )
+        
+        collectionView.register(
+            DiaryCollectionViewFooter.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: DiaryCollectionViewFooter.reusableViewIdentifier
+        )
+        
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         return collectionView
@@ -35,16 +47,14 @@ class DiaryViewController: UIViewController {
     private let horizontalFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 10
-        flowLayout.minimumInteritemSpacing = 10
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
         return flowLayout
     }()
     
     private let verticalFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 10
-        flowLayout.minimumInteritemSpacing = 10
+        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         return flowLayout
     }()
     
@@ -177,6 +187,30 @@ class DiaryViewController: UIViewController {
                 cell.backgroundColor = .red
                 return cell
         })
+        
+        self.dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            if kind == UICollectionView.elementKindSectionHeader {
+                let view = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: DiaryCollectionViewHeader.reusableViewIdentifier,
+                    for: indexPath
+                ) as? DiaryCollectionViewHeader
+                
+                view?.backgroundColor = .blue
+                return view
+            } else if kind == UICollectionView.elementKindSectionFooter {
+                let view = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: DiaryCollectionViewFooter.reusableViewIdentifier,
+                    for: indexPath
+                ) as? DiaryCollectionViewFooter
+                
+                view?.backgroundColor = .cyan
+                return view
+            } else {
+                return nil
+            }
+        }
     }
     
     private func configureNavigationBar() {
@@ -241,5 +275,45 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
         }
         
         targetContentOffset.pointee = CGPoint(x: CGFloat(actualIndex) * pageOffset - 16, y: 0)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
+        guard let displayMode = self.viewModel?.displayMode,
+              displayMode == .list else { return .zero }
+        let width = self.view.frame.width - 32
+        return CGSize(width: width, height: 100)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForFooterInSection section: Int
+    ) -> CGSize {
+        guard let displayMode = self.viewModel?.displayMode,
+              displayMode == .carousel else { return .zero }
+        let width = self.view.frame.width - 32
+        let height = width * 30.0 / 17.0
+        print(width, height)
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return 10.0
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return 10.0
     }
 }
