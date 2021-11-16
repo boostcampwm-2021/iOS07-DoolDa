@@ -72,7 +72,7 @@ class StickerPickerViewController: BottomSheetViewController {
 
         self.body.addSubview(self.stickerPickerView)
         self.stickerPickerView.snp.makeConstraints { make in
-            make.top.equalTo(topStack).offset(10)
+            make.top.equalTo(topStack.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -85,11 +85,14 @@ extension StickerPickerViewController: UICollectionViewDelegate {
 
 extension StickerPickerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: PackedStickerCell.identifier,
+            for: indexPath
+        )
         cell.backgroundColor = .red
         return cell
     }
