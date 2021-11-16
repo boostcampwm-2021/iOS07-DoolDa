@@ -77,6 +77,8 @@
 		310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310D81472733F56700F15F4F /* DiaryViewController.swift */; };
 		3161EE942742A44100B922DD /* StickerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3161EE932742A44100B922DD /* StickerPickerViewController.swift */; };
 		3161EE9827436EC600B922DD /* StickerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3161EE9727436EC600B922DD /* StickerPickerView.swift */; };
+		3161EE9A274377E300B922DD /* PackedStickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3161EE99274377E300B922DD /* PackedStickerCell.swift */; };
+		3161EE9C274377F400B922DD /* UnpackedStickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3161EE9B274377F400B922DD /* UnpackedStickerCell.swift */; };
 		319C21CA273B9703009CE65C /* FileDocuments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21C9273B9703009CE65C /* FileDocuments.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
@@ -294,6 +296,8 @@
 		310D81472733F56700F15F4F /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		3161EE932742A44100B922DD /* StickerPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerViewController.swift; sourceTree = "<group>"; };
 		3161EE9727436EC600B922DD /* StickerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerView.swift; sourceTree = "<group>"; };
+		3161EE99274377E300B922DD /* PackedStickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackedStickerCell.swift; sourceTree = "<group>"; };
+		3161EE9B274377F400B922DD /* UnpackedStickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpackedStickerCell.swift; sourceTree = "<group>"; };
 		319C21C9273B9703009CE65C /* FileDocuments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDocuments.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
@@ -643,6 +647,8 @@
 				66CD6459273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift */,
 				66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */,
 				3161EE9727436EC600B922DD /* StickerPickerView.swift */,
+				3161EE99274377E300B922DD /* PackedStickerCell.swift */,
+				3161EE9B274377F400B922DD /* UnpackedStickerCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1481,6 +1487,7 @@
 				1DE5E5422739352B004F794F /* RawPageRepositoryProtocol.swift in Sources */,
 				66ECCD3C273F7C9F003990EE /* CustomActivityIndicator.swift in Sources */,
 				66FE936B273564DB0036CED2 /* DDID.swift in Sources */,
+				3161EE9C274377F400B922DD /* UnpackedStickerCell.swift in Sources */,
 				310D80D32731402F00F15F4F /* ParingViewCoordinator.swift in Sources */,
 				FC822FB22736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift in Sources */,
 				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
@@ -1500,6 +1507,7 @@
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
 				319C21CA273B9703009CE65C /* FileDocuments.swift in Sources */,
 				1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */,
+				3161EE9A274377E300B922DD /* PackedStickerCell.swift in Sources */,
 				3161EE942742A44100B922DD /* StickerPickerViewController.swift in Sources */,
 				FCC803F62744C22F00FFE4DC /* DoolDaFont.swift in Sources */,
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
