@@ -32,13 +32,6 @@ class DiaryViewController: UIViewController {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: DiaryCollectionViewHeader.reusableViewIdentifier
         )
-        
-        collectionView.register(
-            DiaryCollectionViewFooter.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-            withReuseIdentifier: DiaryCollectionViewFooter.reusableViewIdentifier
-        )
-        
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         return collectionView
@@ -47,7 +40,7 @@ class DiaryViewController: UIViewController {
     private let horizontalFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         return flowLayout
     }()
     
@@ -84,7 +77,6 @@ class DiaryViewController: UIViewController {
     }()
     
     private var headerView: UICollectionReusableView?
-    private var footerView: UICollectionReusableView?
     
     // MARK: - Override Properties
     
@@ -153,9 +145,11 @@ class DiaryViewController: UIViewController {
                 case .carousel:
                     self.pageCollectionView.collectionViewLayout = self.horizontalFlowLayout
                     self.displayModeToggleButton.setImage(.squareGrid2x2, for: .normal)
+                    self.pageCollectionView.semanticContentAttribute = .forceRightToLeft
                 case .list:
                     self.pageCollectionView.collectionViewLayout = self.verticalFlowLayout
                     self.displayModeToggleButton.setImage(.square, for: .normal)
+                    self.pageCollectionView.semanticContentAttribute = .forceLeftToRight
                 }
             }
             .store(in: &self.cancellables)
@@ -164,7 +158,6 @@ class DiaryViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isMyTurn in
                 self?.headerView?.backgroundColor = isMyTurn ? .blue : .red
-                self?.footerView?.backgroundColor = isMyTurn ? .cyan : .red
             }
             .store(in: &self.cancellables)
         
@@ -200,25 +193,13 @@ class DiaryViewController: UIViewController {
         })
         
         self.dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            if kind == UICollectionView.elementKindSectionHeader {
-                let view = collectionView.dequeueReusableSupplementaryView(
-                    ofKind: kind,
-                    withReuseIdentifier: DiaryCollectionViewHeader.reusableViewIdentifier,
-                    for: indexPath
-                ) as? DiaryCollectionViewHeader
-                self.headerView = view
-                return view
-            } else if kind == UICollectionView.elementKindSectionFooter {
-                let view = collectionView.dequeueReusableSupplementaryView(
-                    ofKind: kind,
-                    withReuseIdentifier: DiaryCollectionViewFooter.reusableViewIdentifier,
-                    for: indexPath
-                ) as? DiaryCollectionViewFooter
-                self.footerView = view
-                return view
-            } else {
-                return nil
-            }
+            let view = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: DiaryCollectionViewHeader.reusableViewIdentifier,
+                for: indexPath
+            ) as? DiaryCollectionViewHeader
+            self.headerView = view
+            return view
         }
     }
     
@@ -291,23 +272,8 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForHeaderInSection section: Int
     ) -> CGSize {
-        guard let displayMode = self.viewModel?.displayMode,
-              displayMode == .list else { return .zero }
         let width = self.view.frame.width - 32
         return CGSize(width: width, height: 100)
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        referenceSizeForFooterInSection section: Int
-    ) -> CGSize {
-        guard let displayMode = self.viewModel?.displayMode,
-              displayMode == .carousel else { return .zero }
-        let width = self.view.frame.width - 32
-        let height = width * 30.0 / 17.0
-        print(width, height)
-        return CGSize(width: width, height: height)
     }
     
     func collectionView(
