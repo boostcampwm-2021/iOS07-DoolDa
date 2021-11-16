@@ -34,6 +34,7 @@ class DiaryViewController: UIViewController {
         )
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
+        collectionView.refreshControl = self.refreshControl
         return collectionView
     }()
     
@@ -50,6 +51,8 @@ class DiaryViewController: UIViewController {
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         return flowLayout
     }()
+    
+    private lazy var refreshControl: UIRefreshControl = UIRefreshControl()
     
     private lazy var displayModeToggleButton: UIButton = {
         let button = UIButton()
@@ -109,7 +112,7 @@ class DiaryViewController: UIViewController {
         super.viewWillAppear(animated)
         self.configureNavigationBar()
     }
-
+    
     // MARK: - Helpers
     
     private func configureUI() {
@@ -142,14 +145,21 @@ class DiaryViewController: UIViewController {
             .sink { [weak self] displayMode in
                 guard let self = self else { return }
                 switch displayMode {
-                case .carousel:
-                    self.pageCollectionView.collectionViewLayout = self.horizontalFlowLayout
-                    self.displayModeToggleButton.setImage(.squareGrid2x2, for: .normal)
-                    self.pageCollectionView.semanticContentAttribute = .forceRightToLeft
                 case .list:
                     self.pageCollectionView.collectionViewLayout = self.verticalFlowLayout
                     self.displayModeToggleButton.setImage(.square, for: .normal)
-                    self.pageCollectionView.semanticContentAttribute = .forceLeftToRight
+                    self.pageCollectionView.refreshControl = self.refreshControl
+                    self.pageCollectionView.alwaysBounceHorizontal = false
+                    self.pageCollectionView.alwaysBounceVertical = true
+                    self.pageCollectionView.showsVerticalScrollIndicator = true
+                case .carousel:
+                    self.pageCollectionView.collectionViewLayout = self.horizontalFlowLayout
+                    self.displayModeToggleButton.setImage(.squareGrid2x2, for: .normal)
+                    self.pageCollectionView.refreshControl = nil
+                    self.pageCollectionView.alwaysBounceHorizontal = true
+                    self.pageCollectionView.alwaysBounceVertical = false
+                    self.pageCollectionView.showsVerticalScrollIndicator = false
+                    let pageWidth = self.view.frame.width - 32
                 }
             }
             .store(in: &self.cancellables)
@@ -176,6 +186,13 @@ class DiaryViewController: UIViewController {
         self.settingsButton.publisher(for: .touchUpInside)
             .sink { _ in
                 viewModel.settingsButtonDidTap()
+            }
+            .store(in: &self.cancellables)
+        
+        self.refreshControl.publisher(for: .valueChanged)
+            .sink { [weak self] _ in
+                self?.viewModel?.lastPageDidPull()
+                self?.refreshControl.endRefreshing()
             }
             .store(in: &self.cancellables)
     }
