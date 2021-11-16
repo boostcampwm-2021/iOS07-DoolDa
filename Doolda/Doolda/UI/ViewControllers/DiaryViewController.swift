@@ -162,6 +162,11 @@ class DiaryViewController: UIViewController {
                     self.pageCollectionView.alwaysBounceVertical = false
                     self.pageCollectionView.showsVerticalScrollIndicator = false
                     let pageWidth = self.view.frame.width - 32
+                    let pageOffset = pageWidth + 10
+                    let yOffset = self.pageCollectionView.contentOffset.y
+                    let currentIndex = Int(self.pageCollectionView.contentOffset.x / pageOffset)
+                    let xOffset = CGFloat(currentIndex + 1) * pageOffset - 16
+                    self.pageCollectionView.setContentOffset(CGPoint(x: xOffset, y: yOffset), animated: false)
                 }
             }
             .store(in: &self.cancellables)
@@ -208,6 +213,7 @@ class DiaryViewController: UIViewController {
                     for: indexPath
                 ) as? DiaryPageViewCell else { return nil }
                 cell.backgroundColor = .red
+                cell.number = pageEntity.jsonPath
                 return cell
         })
         
@@ -234,6 +240,14 @@ class DiaryViewController: UIViewController {
         self.dataSourceSnapshot.appendSections([Section.pages])
         self.dataSourceSnapshot.appendItems(pageEntities)
         self.dataSource?.apply(self.dataSourceSnapshot, animatingDifferences: withAnimation)
+    }
+    
+    private func scrollToMostRecentPage() {
+        guard  self.viewModel?.displayMode == .carousel else { return }
+        let yOffset: CGFloat = self.pageCollectionView.contentOffset.y
+        let pageWidth = self.view.frame.width - 32
+        let pageOffset = pageWidth + 10 - 16
+        self.pageCollectionView.setContentOffset(CGPoint(x: pageOffset, y: yOffset), animated: true)
     }
 }
 
