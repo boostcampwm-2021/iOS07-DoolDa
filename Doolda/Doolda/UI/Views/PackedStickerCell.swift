@@ -43,12 +43,14 @@ class PackedStickerCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureUI()
+        self.configureUI()
+        self.bindUI()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureUI()
+        self.configureUI()
+        self.bindUI()
     }
 
     // MARK: - Helpers
