@@ -93,7 +93,6 @@ extension StickerPickerViewController: UICollectionViewDataSource {
             withReuseIdentifier: PackedStickerCell.identifier,
             for: indexPath
         )
-        cell.backgroundColor = .red
         return cell
     }
 }
