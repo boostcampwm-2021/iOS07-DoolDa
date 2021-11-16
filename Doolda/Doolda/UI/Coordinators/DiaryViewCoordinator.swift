@@ -36,22 +36,51 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
 }
 
 protocol DiaryViewModelInput {
-    func displayModeChangeButtonDidTap()
+    func filterButtonDidTap()
+    func displayModeToggleButtonDidTap()
     func addPageButtonDidTap()
     func lastPageDidDisplay()
+    func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
 }
 
 protocol DiaryViewModelOutput {
-    var displayModePublisher: Published<DisplayMode>.Publisher { get } // zㅔ
+    var displayModePublisher: Published<DiaryDisplayMode>.Publisher { get }
     var isMyTurnPublisher: Published<Bool>.Publisher { get }
     var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { get }
-    var displayMode: DisplayMode { get }
+    var displayMode: DiaryDisplayMode { get }
 }
 
 typealias DiaryViewModelProtocol = DiaryViewModelInput & DiaryViewModelOutput
 
+enum DiaryDisplayMode {
+    case carousel, list
+
+    mutating func toggle() {
+        switch self {
+        case .carousel: self = .list
+        case .list: self = .carousel
+        }
+    }
+}
+
+enum DiaryAuthorFilter {
+    case user, friend, both
+}
+
+enum DiaryOrderFilter {
+    case ascending, descending
+}
+
 class DummyDiaryViewModel: DiaryViewModelProtocol {
-    func displayModeChangeButtonDidTap() {
+    func filterButtonDidTap() {
+        
+    }
+    
+    func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {
+        
+    }
+
+    func displayModeToggleButtonDidTap() {
         self.displayMode.toggle()
     }
     
@@ -64,11 +93,11 @@ class DummyDiaryViewModel: DiaryViewModelProtocol {
         print("LAST")
     }
     
-    var displayModePublisher: Published<DisplayMode>.Publisher { self.$displayMode }
+    var displayModePublisher: Published<DiaryDisplayMode>.Publisher { self.$displayMode }
     var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }
     var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { self.$filteredPageEntities }
     
-    @Published var displayMode: DisplayMode = .carousel
+    @Published var displayMode: DiaryDisplayMode = .carousel
     @Published private var isMyTurn: Bool = false
     @Published private var filteredPageEntities: [PageEntity] = [
         PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
@@ -80,16 +109,4 @@ class DummyDiaryViewModel: DiaryViewModelProtocol {
         PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
         PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "")
     ]
-}
-
-enum DisplayMode {
-    case carousel
-    case list
-    
-    mutating func toggle() {
-        switch self {
-        case .carousel: self = .list
-        case .list: self = .carousel
-        }
-    }
 }

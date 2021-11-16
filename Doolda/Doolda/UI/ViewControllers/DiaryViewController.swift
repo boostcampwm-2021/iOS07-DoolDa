@@ -131,7 +131,7 @@ class DiaryViewController: UIViewController {
         
         self.toggleButton.publisher(for: .touchUpInside)
             .sink { _ in
-                viewModel.displayModeChangeButtonDidTap()
+                viewModel.displayModeToggleButtonDidTap()
             }
             .store(in: &self.cancellables)
     }
