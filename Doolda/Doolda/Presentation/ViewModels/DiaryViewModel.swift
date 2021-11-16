@@ -26,6 +26,13 @@ typealias DiaryViewModelProtocol = DiaryViewModelInput & DiaryViewModelOutput
 
 enum DiaryDisplayMode {
     case carousel, list
+    
+    mutating func toggle() {
+        switch self {
+        case .carousel: self = .list
+        case .list: self = .carousel
+        }
+    }
 }
 
 enum DiaryAuthorFilter {
