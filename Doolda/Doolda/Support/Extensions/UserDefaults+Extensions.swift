@@ -10,6 +10,7 @@ import Foundation
 extension UserDefaults {
     enum Keys {
         static let userId = "userId"
+        static let pushNotificationState = "pushNotificationState"
         static let globalFont = "globalFont"
     }
 }
