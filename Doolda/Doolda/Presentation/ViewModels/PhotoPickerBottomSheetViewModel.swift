@@ -44,12 +44,12 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
     private(set) var photoFrames: [PhotoFrameType]
-    private(set) var phFetchResult: PHFetchResult<PHAsset>?
     private let imageUseCase: ImageUseCaseProtocol
     private let imageComposeUseCase: ImageComposeUseCaseProtocol
     
     private var cancellables = Set<AnyCancellable>()
     
+    @Published private(set) var phFetchResult: PHFetchResult<PHAsset>?
     @Published private(set) var selectedPhotos: [Int] = []
     @Published private var selectedPhotoFrame: PhotoFrameType?
     @Published private var readyToComposeState: Bool = false
