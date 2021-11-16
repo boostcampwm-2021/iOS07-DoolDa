@@ -141,6 +141,7 @@
 		FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */; };
 		FC5FB7E12733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */; };
 		FC5FB7E22733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */; };
+		FC7AA339274345280059D0CD /* StickerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7AA338274345280059D0CD /* StickerUseCase.swift */; };
 		FC822FAA2736088100C918A0 /* URLSessionNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FA92736088100C918A0 /* URLSessionNetworkService.swift */; };
 		FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */; };
 		FC822FB027367AFD00C918A0 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAF27367AFD00C918A0 /* API.swift */; };
@@ -329,6 +330,7 @@
 		FC5FB7CB27339213008AC3D2 /* UserRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryTests.swift; sourceTree = "<group>"; };
 		FC5FB7DB2733A4A9008AC3D2 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollection.swift; sourceTree = "<group>"; };
+		FC7AA338274345280059D0CD /* StickerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerUseCase.swift; sourceTree = "<group>"; };
 		FC822FA92736088100C918A0 /* URLSessionNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkService.swift; sourceTree = "<group>"; };
 		FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequsetBuilder.swift; sourceTree = "<group>"; };
 		FC822FAF27367AFD00C918A0 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -725,6 +727,7 @@
 				310125C327398DF600E43160 /* ImageUseCase.swift */,
 				661A8405274351230077E0E3 /* CheckTurnUseCase.swift */,
 				661A840327434FE10077E0E3 /* GetPageUseCase.swift */,
+				FC7AA338274345280059D0CD /* StickerUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1394,6 +1397,7 @@
 				FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */,
 				310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */,
 				319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */,
+				FC7AA339274345280059D0CD /* StickerUseCase.swift in Sources */,
 				661A840427434FE10077E0E3 /* GetPageUseCase.swift in Sources */,
 				1DE5E53E273929CE004F794F /* EditPageUseCase.swift in Sources */,
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
