@@ -49,7 +49,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     
     private var cancellables = Set<AnyCancellable>()
     
-    @Published private(set) var phFetchResult: PHFetchResult<PHAsset>?
+    @Published private(set) var photoFetchResult: PHFetchResult<PHAsset>?
     @Published private(set) var selectedPhotos: [Int] = []
     @Published private var selectedPhotoFrame: PhotoFrameType?
     @Published private var readyToComposeState: Bool = false
@@ -66,7 +66,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     func fetchPhotoAssets() {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [.init(key: "creationDate", ascending: false)]
-        self.phFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+        self.photoFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
     }
     
     func photoFrameDidSelect(_ index: Int) {
@@ -83,7 +83,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
         guard self.readyToComposeState,
               let photoFrame = self.selectedPhotoFrame else { return }
         
-        let assets = self.selectedPhotos.compactMap { self.phFetchResult?.object(at: $0) }
+        let assets = self.selectedPhotos.compactMap { self.photoFetchResult?.object(at: $0) }
         
         let convertImagePublishers = assets.map { self.convertAssetToCIImage(asset: $0) }
         
