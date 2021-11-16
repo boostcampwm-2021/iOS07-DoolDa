@@ -231,6 +231,14 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &cancellables)
         
+        viewModel.$phFetchResult
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] _ in
+                self?.photoPickerCollectionView.reloadData()
+            }
+            .store(in: &cancellables)
+        
         viewModel.errorPublisher
             .compactMap { $0 }
             .sink { [weak self] error in
@@ -262,7 +270,9 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         }
         
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
-            completionHandler(status == .authorized)
+            DispatchQueue.main.async {
+                completionHandler(status == .authorized)
+            }
         }
     }
 }
