@@ -143,6 +143,7 @@ class DiaryViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displayMode in
                 guard let self = self else { return }
+                self.headerView?.displayMode = displayMode
                 switch displayMode {
                 case .list:
                     self.pageCollectionView.collectionViewLayout = self.listFlowLayout
