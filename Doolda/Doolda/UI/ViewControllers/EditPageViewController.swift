@@ -257,7 +257,7 @@ class EditPageViewController: UIViewController {
         self.addTextComponentButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel?.photoComponentAddButtonDidTap()
+                self.viewModel?.textComponentAddButtonDidTap()
             }.store(in: &self.cancellables)
         
         self.addStickerComponentButton.publisher(for: .touchUpInside)
@@ -446,5 +446,11 @@ extension EditPageViewController: PhotoPickerBottomSheetViewControllerDelegate {
 extension EditPageViewController: BackgroundTypePickerViewControllerDelegate {
     func backgroundTypeDidSelect(_ backgroundType: BackgroundType) {
         self.viewModel?.backgroundColorDidChange(backgroundType)
+    }
+}
+
+extension EditPageViewController: TextInputViewControllerDelegate {
+    func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity) {
+        self.viewModel?.componentEntityDidAdd(textComponentEntity)
     }
 }
