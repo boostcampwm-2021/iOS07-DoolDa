@@ -10,4 +10,5 @@ import Foundation
 
 protocol CoreDataPersistenceServiceProtocol {
     var context: NSManagedObjectContext? { get }
+    var backgroundContext: NSManagedObjectContext? { get }
 }
