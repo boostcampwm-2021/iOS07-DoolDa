@@ -21,7 +21,7 @@ class DiaryViewController: UIViewController {
     // MARK: - Subviews
     
     private lazy var pageCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.horizontalFlowLayout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.carouselFlowLayout)
         collectionView.decelerationRate = .fast
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         collectionView.showsHorizontalScrollIndicator = false
@@ -34,25 +34,22 @@ class DiaryViewController: UIViewController {
         )
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
-        collectionView.refreshControl = self.refreshControl
         return collectionView
     }()
     
-    private let horizontalFlowLayout: UICollectionViewFlowLayout = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        return flowLayout
-    }()
-    
-    private let verticalFlowLayout: UICollectionViewFlowLayout = {
+    private let listFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         return flowLayout
     }()
     
-    private lazy var refreshControl: UIRefreshControl = UIRefreshControl()
+    private let carouselFlowLayout: UICollectionViewFlowLayout = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        return flowLayout
+    }()
     
     private lazy var displayModeToggleButton: UIButton = {
         let button = UIButton()
@@ -126,7 +123,7 @@ class DiaryViewController: UIViewController {
         
         self.view.addSubview(self.pageCollectionView)
         self.pageCollectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.topMargin.bottomMargin.leading.trailing.equalToSuperview()
         }
     }
     
@@ -148,16 +145,14 @@ class DiaryViewController: UIViewController {
                 guard let self = self else { return }
                 switch displayMode {
                 case .list:
-                    self.pageCollectionView.collectionViewLayout = self.verticalFlowLayout
+                    self.pageCollectionView.collectionViewLayout = self.listFlowLayout
                     self.displayModeToggleButton.setImage(.square, for: .normal)
-                    self.pageCollectionView.refreshControl = self.refreshControl
                     self.pageCollectionView.alwaysBounceHorizontal = false
                     self.pageCollectionView.alwaysBounceVertical = true
                     self.pageCollectionView.showsVerticalScrollIndicator = true
                 case .carousel:
-                    self.pageCollectionView.collectionViewLayout = self.horizontalFlowLayout
+                    self.pageCollectionView.collectionViewLayout = self.carouselFlowLayout
                     self.displayModeToggleButton.setImage(.squareGrid2x2, for: .normal)
-                    self.pageCollectionView.refreshControl = nil
                     self.pageCollectionView.alwaysBounceHorizontal = true
                     self.pageCollectionView.alwaysBounceVertical = false
                     self.pageCollectionView.showsVerticalScrollIndicator = false
@@ -178,6 +173,13 @@ class DiaryViewController: UIViewController {
             }
             .store(in: &self.cancellables)
         
+        viewModel.lastUpdatedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                print("UPDATE COMPLETE")
+            }
+            .store(in: &self.cancellables)
+        
         self.displayModeToggleButton.publisher(for: .touchUpInside)
             .sink { _ in
                 viewModel.displayModeToggleButtonDidTap()
@@ -193,13 +195,6 @@ class DiaryViewController: UIViewController {
         self.settingsButton.publisher(for: .touchUpInside)
             .sink { _ in
                 viewModel.settingsButtonDidTap()
-            }
-            .store(in: &self.cancellables)
-        
-        self.refreshControl.publisher(for: .valueChanged)
-            .sink { [weak self] _ in
-                self?.viewModel?.lastPageDidPull()
-                self?.refreshControl.endRefreshing()
             }
             .store(in: &self.cancellables)
     }
@@ -298,17 +293,6 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
         }
         
         targetContentOffset.pointee = CGPoint(x: CGFloat(actualIndex) * pageOffset - 16, y: 0)
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard scrollView == self.pageCollectionView,
-              let displayMode = self.viewModel?.displayMode,
-              displayMode == .carousel else { return }
-        
-        let offset = scrollView.contentOffset
-        if offset.x < -125 {
-            self.viewModel?.lastPageDidPull()
-        }
     }
     
     func collectionView(
