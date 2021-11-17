@@ -11,5 +11,5 @@ import CoreData
 
 @objc(CoreDataPageEntity)
 public class CoreDataPageEntity: NSManagedObject {
-
+    static let coreDataPageEntityName = "CoreDataPageEntity"
 }
