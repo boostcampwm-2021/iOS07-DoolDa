@@ -94,27 +94,22 @@ class PackedStickerCell: UICollectionViewCell {
         }
 
         let stickers = stickerPack.stickersUrl
-        var leadingOffset: CGFloat = 10
+        var offset: CGFloat = 10
         for url in stickers {
             guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
             let stickerView = UIImageView(image: stickerImage)
             let ratio = stickerImage.size.height / stickerImage.size.width
-            let width: CGFloat = 50
-
-            stickerView.frame = CGRect(x: leadingOffset, y: leadingOffset, width: width , height: width * ratio)
+            var width: CGFloat = self.frame.width * 0.2
+            if width == 0 { width = 50 }
 
             self.bodyView.addSubview(stickerView)
-            stickerView.snp.makeConstraints { make in
-                make.top.leading.equalToSuperview().offset(leadingOffset)
-                make.width.equalToSuperview().multipliedBy(0.2)
-                make.height.equalTo(stickerView.snp.width).multipliedBy(ratio)
-            }
+            stickerView.frame = CGRect(x: offset, y: offset, width: width , height: width * ratio)
 
             self.gravity.addItem(stickerView)
             self.collider.addItem(stickerView)
             self.itemBehavior.addItem(stickerView)
 
-            leadingOffset += 20
+            offset += 20
         }
 
         guard let coverImage = try? UIImage(data: Data(contentsOf: stickerPack.coverUrl)) else { return }
