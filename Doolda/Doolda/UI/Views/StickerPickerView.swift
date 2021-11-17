@@ -24,6 +24,7 @@ class StickerPickerView: UIView {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         collectionView.register(
             PackedStickerCell.self,
@@ -39,6 +40,14 @@ class StickerPickerView: UIView {
         return pageControl
     }()
 
+    // MARK: - Public Properties
+
+    @Published var currentPack: Int = .zero
+
+    // MARK: - Private Properties
+
+    private var cancellables = Set<AnyCancellable>()
+
     // MARK: - Initialiazers
 
     convenience init(
@@ -49,7 +58,8 @@ class StickerPickerView: UIView {
         self.collectionView.delegate = collectionViewDelegate
         self.collectionView.dataSource = collectionViewDataSource
 
-        configureUI()
+        self.configureUI()
+        self.bindUI()
     }
 
     // MARK: - Helpers
@@ -66,6 +76,19 @@ class StickerPickerView: UIView {
             make.centerX.bottom.equalToSuperview()
             make.height.equalTo(20)
         }
+
+        self.pageControl.numberOfPages = self.collectionView.dataSource?.numberOfSections?(in: self.collectionView) ?? 0
+        self.pageControl.currentPage = 0
+
+    }
+
+    private func bindUI() {
+        self.$currentPack
+            .sink { [weak self] index in
+                guard let self = self else { return }
+                self.pageControl.currentPage = index
+            }
+            .store(in: &self.cancellables)
     }
 
     // MARK: - Private Methods
@@ -81,11 +104,8 @@ class StickerPickerView: UIView {
                 layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)),
                 subitems: [item]
             )
-            //group.contentInsets = .init(top: 30, leading: 30, bottom: 30, trailing: 30)
 
             let section = NSCollectionLayoutSection(group: group)
-            //section.contentInsets = .init(top: 30, leading: 30, bottom: 30, trailing: 30)
-
             return section
         }
 

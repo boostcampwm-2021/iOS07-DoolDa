@@ -79,7 +79,8 @@ class StickerPickerViewController: BottomSheetViewController {
         self.body.addSubview(self.stickerPickerView)
         self.stickerPickerView.snp.makeConstraints { make in
             make.top.equalTo(topStack.snp.bottom).offset(10)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
     }
 
@@ -124,6 +125,7 @@ extension StickerPickerViewController: UICollectionViewDataSource {
                   return UICollectionViewCell()
               }
 
+        self.stickerPickerView.currentPack = indexPath.section
         self.bindCellUI(cell)
         cell.animating = false
         cell.motionManager.stopDeviceMotionUpdates()
