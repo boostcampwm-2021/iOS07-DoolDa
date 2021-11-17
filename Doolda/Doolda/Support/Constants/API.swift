@@ -101,7 +101,7 @@ extension FirebaseAPIs {
         case .getUserDocuement, .getPairDocument, .uploadDataFile, .downloadDataFile:
             return nil
         case .getPageDocuments(let pairId, let lastFetchedDate):
-            var filters = [[String: Any?]]()
+            var filters = [[String: Any]]()
             filters.append(
                 generateFieldFilter(
                     field: "pairId",
@@ -114,8 +114,8 @@ extension FirebaseAPIs {
                 filters.append(
                     generateFieldFilter(
                         field: "createdTime",
-                        operation: "GREATER_THAN_OR_EQUAL",
-                        filter: ["timestampValue": lastFetchedDate]
+                        operation: "GREATER_THAN",
+                        filter: ["timestampValue": DateFormatter.firestoreFormatter.string(from: lastFetchedDate)]
                     )
                 )
             }
@@ -129,11 +129,9 @@ extension FirebaseAPIs {
                         ]
                     ],
                     "where": [
-                        [
-                            "compositeFilter": [
-                                "op": "AND",
-                                "filters": filters
-                            ]
+                        "compositeFilter": [
+                            "op": "AND",
+                            "filters": filters
                         ]
                     ],
                     "orderBy": [
@@ -167,16 +165,14 @@ extension FirebaseAPIs {
         }
     }
     
-    func generateFieldFilter(field: String, operation: String, filter: [String: Any?]) -> [String: Any?] {
+    func generateFieldFilter(field: String, operation: String, filter: [String: Any]) -> [String: Any] {
         return [
             "fieldFilter": [
                 "field": [
                     "fieldPath": field
                 ],
                 "op": operation,
-                "value": [
-                    filter
-                ]
+                "value": filter
             ]
         ]
     }
