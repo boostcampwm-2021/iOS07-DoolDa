@@ -31,7 +31,7 @@ class ImageRepository: ImageRepositoryProtocol {
         self.urlSessionNetworkService = networkService
     }
 
-    func saveLocal(imageData: Data, fileName: String) -> AnyPublisher<URL, Never> {
+    func saveLocal(imageData: Data, fileName: String) -> AnyPublisher<URL, Error> {
         return fileManagerPersistenceService.save(data: imageData, at: .temporary, fileName: fileName)
     }
 
