@@ -8,11 +8,25 @@
 import Combine
 import UIKit
 
+import SnapKit
+
 protocol TextInputViewControllerDelegate: AnyObject {
     func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity)
 }
 
 class TextInputViewController: UIViewController {
+    
+    // MARK: - Subviews
+    
+    private lazy var inputTextView: UITextView = {
+        var textView = UITextView()
+        textView.font = .systemFont(ofSize: 16)
+        textView.autocapitalizationType = .words
+        textView.isScrollEnabled = false
+        textView.backgroundColor = .clear
+        textView.delegate = self
+        return textView
+    }()
     
     // MARK: - Private Properties
     
@@ -65,7 +79,33 @@ class TextInputViewController: UIViewController {
     }
     
     private func configureUI() {
-        self.view.backgroundColor = .black
-        self.view.alpha = 0.3
+        self.view.backgroundColor = .black.withAlphaComponent(0.3)
+        
+        self.view.addSubview(self.inputTextView)
+        self.inputTextView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(self.view.snp.centerY)
+        }
+        self.inputTextView.becomeFirstResponder()
+        
     }
+}
+
+extension TextInputViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = "내용을 입력하세요"
+        textView.textColor = .darkGray
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.textColor == .darkGray,
+        let input = textView.text.last {
+            textView.textColor = .black
+            textView.text = String(input)
+        } else if textView.textColor == .black, textView.text.isEmpty {
+            textView.textColor = .darkGray
+            textView.text = "내용을 입력하세요"
+        }
+    }
+    
 }
