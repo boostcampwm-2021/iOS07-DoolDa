@@ -104,8 +104,10 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
                         guard case .failure(let error) = completion else { return }
                         self.error = error
                     }, receiveValue: { localUrl in
+                        guard let imageSize = photoFrame.rawValue?.baseImage.extent.size else { return }
+                        let componentOrigin = CGPoint(x: 850 - imageSize.width/2, y: 1500 - imageSize.height/2)
                         let photoComponentEntity = PhotoComponentEntity(
-                            frame: photoFrame.rawValue?.baseImage.extent ?? .zero,
+                            frame: CGRect(origin: componentOrigin, size: imageSize),
                             scale: 1,
                             angle: 0,
                             aspectRatio: 1,
