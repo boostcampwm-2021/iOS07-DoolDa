@@ -21,6 +21,7 @@ protocol DiaryViewModelOutput {
     var isMyTurnPublisher: Published<Bool>.Publisher { get }
     var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { get }
     var displayMode: DiaryDisplayMode { get }
+    var lastUpdatedPublisher: Published<Date>.Publisher { get }
 }
 
 typealias DiaryViewModelProtocol = DiaryViewModelInput & DiaryViewModelOutput
@@ -48,14 +49,19 @@ class DiaryViewModel: DiaryViewModelProtocol {
     var displayModePublisher: Published<DiaryDisplayMode>.Publisher { self.$displayMode }
     var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }
     var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { self.$filteredPageEntities }
+    var lastUpdatedPublisher: Published<Date>.Publisher { self.$lastUpdated }
+    
+    var number = 2
     
     @Published var displayMode: DiaryDisplayMode = .carousel
     
     @Published private var isMyTurn: Bool = false
     @Published private var filteredPageEntities: [PageEntity] = [
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "")
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "0")
     ]
+    
+    @Published private var lastUpdated: Date = Date()
     
     private let coordinator: DiaryViewCoordinatorProtocol
     
@@ -73,7 +79,12 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     func lastPageDidPull() {
         print(#function)
-        self.filteredPageEntities.insert(PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""), at: 0)
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self = self else { return }
+            self.filteredPageEntities.insert(PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "\(self.number)"), at: 0)
+            self.number += 1
+            self.lastUpdated = Date()
+        }
     }
     
     func settingsButtonDidTap() {
