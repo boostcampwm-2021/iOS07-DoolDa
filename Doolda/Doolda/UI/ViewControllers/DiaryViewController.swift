@@ -325,4 +325,8 @@ extension DiaryViewController: DiaryCollectionViewHeaderDelegate {
     func refreshButtonDidTap(_ diaryCollectionViewHeader: DiaryCollectionViewHeader) {
         self.viewModel?.lastPageDidPull()
     }
+    
+    func addPageButtonDidTap(_ diaryCollectionViewHeader: DiaryCollectionViewHeader) {
+        self.viewModel?.addPageButtonDidTap()
+    }
 }
