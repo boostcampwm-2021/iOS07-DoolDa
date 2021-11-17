@@ -98,6 +98,9 @@ class StickerPickerViewController: BottomSheetViewController {
 }
 
 extension StickerPickerViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        self.stickerPickerView.currentPack = indexPath.section
+    }
 
 }
 
@@ -125,7 +128,6 @@ extension StickerPickerViewController: UICollectionViewDataSource {
                   return UICollectionViewCell()
               }
 
-        self.stickerPickerView.currentPack = indexPath.section
         self.bindCellUI(cell)
         cell.animating = false
         cell.motionManager.stopDeviceMotionUpdates()
@@ -135,4 +137,5 @@ extension StickerPickerViewController: UICollectionViewDataSource {
 
         return cell
     }
+
 }
