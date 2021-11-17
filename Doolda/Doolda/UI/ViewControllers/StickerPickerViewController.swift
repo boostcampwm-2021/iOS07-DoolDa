@@ -121,10 +121,6 @@ extension StickerPickerViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(
-            withReuseIdentifier: PackedStickerCell.identifier,
-            for: indexPath
-        )
+        return collectionView.dequeueReusableCell(withReuseIdentifier: PackedStickerCell.identifier, for: indexPath)
     }
-
 }

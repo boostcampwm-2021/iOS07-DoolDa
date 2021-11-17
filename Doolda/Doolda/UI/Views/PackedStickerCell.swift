@@ -108,8 +108,7 @@ class PackedStickerCell: UICollectionViewCell {
             guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
             let stickerView = UIImageView(image: stickerImage)
             let ratio = stickerImage.size.height / stickerImage.size.width
-            var width: CGFloat = self.frame.width * 0.2
-            if width == 0 { width = 50 }
+            let width: CGFloat = max(self.frame.width * 0.2, 50)
 
             self.stickerPackBody.addSubview(stickerView)
             stickerView.frame = CGRect(x: offset, y: offset, width: width , height: width * ratio)
