@@ -103,6 +103,7 @@
 		665303A02743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6653039E2743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift */; };
 		665303A12743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6653039F2743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift */; };
 		665303A62743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */; };
+		665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A72744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift */; };
 		665303AA2744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */; };
 		669ADE3E2732E55F007B529B /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		669ADE3F2732E55F007B529B /* RefreshPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */; };
@@ -317,6 +318,7 @@
 		6653039E2743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataPageEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6653039F2743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataPageEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
+		665303A72744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceService.swift; sourceTree = "<group>"; };
 		665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		669ADE322732E4A8007B529B /* RefreshPairIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefreshPairIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshPairIdUseCaseTest.swift; sourceTree = "<group>"; };
@@ -878,6 +880,7 @@
 			isa = PBXGroup;
 			children = (
 				6653039C2743B49E00E3075C /* CoreDataPersistenceService.swift */,
+				665303A72744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift */,
 				6653039E2743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift */,
 				6653039F2743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift */,
 			);
@@ -1480,6 +1483,7 @@
 				66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */,
 				310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */,
 				FC19598A274284E200AB6059 /* StickerPickerViewModel.swift in Sources */,
+				665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
 				66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */,
