@@ -131,7 +131,7 @@ extension StickerPickerViewController: UICollectionViewDataSource {
         self.bindCellUI(cell)
         cell.animating = false
         cell.motionManager.stopDeviceMotionUpdates()
-        cell.configure(with: stickerPack.stickersUrl)
+        cell.configure(with: stickerPack)
         cell.motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
         cell.animating = true
 
