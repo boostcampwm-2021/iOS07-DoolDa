@@ -21,13 +21,13 @@ class PackedStickerCell: UICollectionViewCell {
 
     private lazy var stickerPackBody: UIView = {
         let bodyView = UIView()
-        bodyView.backgroundColor = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
+        bodyView.backgroundColor = UIColor.dooldaStickerPackBody
         return bodyView
     }()
 
     private lazy var stickerPackCover: UIView = {
         let coverView = UIView()
-        coverView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7)
+        coverView.backgroundColor = UIColor.dooldaStickerPackCover
         return coverView
     }()
 
@@ -41,9 +41,9 @@ class PackedStickerCell: UICollectionViewCell {
         let slider = UISlider()
         slider.maximumValue = 100
         slider.minimumValue = 0
-        slider.maximumTrackTintColor = .systemGray5
-        slider.minimumTrackTintColor = .systemGray4
-        slider.setThumbImage(UIImage(systemName: "scissors"), for: .normal)
+        slider.maximumTrackTintColor = UIColor.dooldaMaximumTrackTintColor
+        slider.minimumTrackTintColor = UIColor.dooldaMinimumTrackTintColor
+        slider.setThumbImage(UIImage.scissors, for: .normal)
         return slider
     }()
 
@@ -138,7 +138,7 @@ class PackedStickerCell: UICollectionViewCell {
     }
 
     private func configureUI() {
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor.dooldaStickerPackBackground
 
         self.addSubview(self.stickerPackBody)
         self.stickerPackBody.snp.makeConstraints { make in

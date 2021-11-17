@@ -16,4 +16,9 @@ extension UIColor {
     static let dooldaHighlighted = UIColor(named: "dooldaHighlighted")
     static let dooldaBottomSheetBackgroundColor = UIColor(named: "dooldaBottomSheetBackgroundColor")
     static let dooldaActivityIndicatorBackground = UIColor(named: "dooldaActivityIndicatorBackground")
+    static let dooldaStickerPackBody = UIColor(named: "dooldaStickerPackBody")
+    static let dooldaStickerPackCover = UIColor(named: "dooldaStickerPackCover")
+    static let dooldaStickerPackBackground = UIColor(named: "dooldaStickerPackBackground")
+    static let dooldaMaximumTrackTintColor = UIColor(named: "dooldaMaximumTrackTintColor")
+    static let dooldaMinimumTrackTintColor = UIColor(named: "dooldaMinimumTrackTintColor")
 }
