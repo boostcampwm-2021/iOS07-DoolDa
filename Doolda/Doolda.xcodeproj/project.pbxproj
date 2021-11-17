@@ -186,6 +186,7 @@
 		FC9F106C2731035E0060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FC9F108227315EB80060FEB7 /* FirebaseNetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */; };
 		FCC803F62744C22F00FFE4DC /* DoolDaFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F52744C22F00FFE4DC /* DoolDaFont.swift */; };
+		FCC803F82744FEF800FFE4DC /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F72744FEF800FFE4DC /* SettingViewModel.swift */; };
 		FCC803FA27451A8000FFE4DC /* TextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F927451A8000FFE4DC /* TextInputViewController.swift */; };
 		FCC803FC27451C9600FFE4DC /* TextInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803FB27451C9600FFE4DC /* TextInputViewModel.swift */; };
 		FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF022E273A12B400EAB00B /* EditPageViewController.swift */; };
@@ -418,6 +419,7 @@
 		FC9F107F27315EB80060FEB7 /* FirebaseNetworkTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FirebaseNetworkTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC9F108127315EB80060FEB7 /* FirebaseNetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkTest.swift; sourceTree = "<group>"; };
 		FCC803F52744C22F00FFE4DC /* DoolDaFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoolDaFont.swift; sourceTree = "<group>"; };
+		FCC803F72744FEF800FFE4DC /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		FCC803F927451A8000FFE4DC /* TextInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputViewController.swift; sourceTree = "<group>"; };
 		FCC803FB27451C9600FFE4DC /* TextInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputViewModel.swift; sourceTree = "<group>"; };
 		FCCF022E273A12B400EAB00B /* EditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewController.swift; sourceTree = "<group>"; };
@@ -791,6 +793,7 @@
 				66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */,
 				1D8BE07C2743437600201E3E /* DiaryViewModel.swift */,
 				FC195989274284E200AB6059 /* StickerPickerViewModel.swift */,
+				FCC803F72744FEF800FFE4DC /* SettingViewModel.swift */,
 				FCC803FB27451C9600FFE4DC /* TextInputViewModel.swift */,
 				1DD9DCDF2744EF40002E5D2A /* DiaryPageViewModel.swift */,
 			);
@@ -1627,6 +1630,7 @@
 				FCD24D7C2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
 				319C21CA273B9703009CE65C /* FileDocuments.swift in Sources */,
+				FCC803F82744FEF800FFE4DC /* SettingViewModel.swift in Sources */,
 				1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */,
 				3161EE9A274377E300B922DD /* PackedStickerCell.swift in Sources */,
 				3161EE942742A44100B922DD /* StickerPickerViewController.swift in Sources */,
