@@ -17,7 +17,7 @@ enum FirebaseAPIs: URLRequestBuilder {
     case patchPairDocument(String, String)
     
     case createPageDocument(String, Date, String, String)
-    case getPageDocuments(String)
+    case getPageDocuments(String, Date?)
 
     case uploadDataFile(String, String, Data)
     case downloadDataFile(String, String)
@@ -100,7 +100,26 @@ extension FirebaseAPIs {
         switch self {
         case .getUserDocuement, .getPairDocument, .uploadDataFile, .downloadDataFile:
             return nil
-        case .getPageDocuments(let pairId):
+        case .getPageDocuments(let pairId, let lastFetchedDate):
+            var filters = [[String: Any?]]()
+            filters.append(
+                generateFieldFilter(
+                    field: "pairId",
+                    operation: "EQUAL",
+                    filter: ["stringValue": pairId]
+                )
+            )
+            
+            if let lastFetchedDate = lastFetchedDate {
+                filters.append(
+                    generateFieldFilter(
+                        field: "createdTime",
+                        operation: "GREATER_THAN_OR_EQUAL",
+                        filter: ["timestampValue": lastFetchedDate]
+                    )
+                )
+            }
+            
             return [
                 "structuredQuery": [
                     "from": [
@@ -110,13 +129,10 @@ extension FirebaseAPIs {
                         ]
                     ],
                     "where": [
-                        "fieldFilter": [
-                            "field": [
-                                "fieldPath": "pairId"
-                            ],
-                            "op": "EQUAL",
-                            "value": [
-                                "stringValue": pairId
+                        [
+                            "compositeFilter": [
+                                "op": "AND",
+                                "filters": filters
                             ]
                         ]
                     ],
@@ -149,6 +165,20 @@ extension FirebaseAPIs {
                 "fields": pageDocument.fields
             ]
         }
+    }
+    
+    func generateFieldFilter(field: String, operation: String, filter: [String: Any?]) -> [String: Any?] {
+        return [
+            "fieldFilter": [
+                "field": [
+                    "fieldPath": field
+                ],
+                "op": operation,
+                "value": [
+                    filter
+                ]
+            ]
+        ]
     }
 }
 
