@@ -47,6 +47,16 @@ class DiaryPageViewCell: UICollectionViewCell {
         return activityIndicator
     }()
     
+    // MARK: - Public Properties
+    
+    var timestamp: Date? {
+        didSet {
+            guard let timestamp = timestamp else { return }
+            self.dayLabel.text = DateFormatter.dayFormatter.string(from: timestamp)
+            self.monthLabel.text = DateFormatter.monthNameFormatter.string(from: timestamp)
+        }
+    }
+    
     // MARK: - Private Properties
     
     private var cancellables: Set<AnyCancellable> = []
@@ -60,10 +70,6 @@ class DiaryPageViewCell: UICollectionViewCell {
     
     private var rawPageEntity: RawPageEntity? {
         didSet { self.drawPage() }
-    }
-    
-    private var timestamp: Date? {
-        didSet { }
     }
     
     // MARK: - Initializers
