@@ -85,7 +85,9 @@ class PackedStickerCell: UICollectionViewCell {
 
     // MARK: - Helpers
 
-    func configure(with stickerPack: StickerPackEntity) {
+    func clear() {
+        self.slider.value = 0
+
         self.bodyView.subviews.forEach { subview in
             subview.removeFromSuperview()
             self.gravity.removeItem(subview)
@@ -93,6 +95,11 @@ class PackedStickerCell: UICollectionViewCell {
             self.itemBehavior.removeItem(subview)
         }
 
+        self.animating = false
+        self.motionManager.stopDeviceMotionUpdates()
+    }
+
+    func configure(with stickerPack: StickerPackEntity) {
         let stickers = stickerPack.stickersUrl
         var offset: CGFloat = 10
         for url in stickers {
