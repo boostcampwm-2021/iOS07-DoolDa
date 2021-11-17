@@ -40,6 +40,15 @@ final class CoreDataPersistenceService: CoreDataPersistenceServiceProtocol {
     
     var context: NSManagedObjectContext? {
         guard self.isPersistentStoreLoaded else { return nil }
-        return self.persistentContainer.viewContext
+        let context = self.persistentContainer.viewContext
+        context.automaticallyMergesChangesFromParent = true
+        return context
+    }
+    
+    var backgroundContext: NSManagedObjectContext? {
+        guard self.isPersistentStoreLoaded else { return nil }
+        let context = self.persistentContainer.newBackgroundContext()
+        context.automaticallyMergesChangesFromParent = true
+        return context
     }
 }
