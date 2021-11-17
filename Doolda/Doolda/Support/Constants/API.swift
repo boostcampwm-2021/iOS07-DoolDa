@@ -100,7 +100,7 @@ extension FirebaseAPIs {
         switch self {
         case .getUserDocuement, .getPairDocument, .uploadDataFile, .downloadDataFile:
             return nil
-        case .getPageDocuments(let pairId, let lastFetchedDate):
+        case .getPageDocuments(let pairId, let date):
             var filters = [[String: Any]]()
             filters.append(
                 generateFieldFilter(
@@ -110,12 +110,12 @@ extension FirebaseAPIs {
                 )
             )
             
-            if let lastFetchedDate = lastFetchedDate {
+            if let date = date {
                 filters.append(
                     generateFieldFilter(
                         field: "createdTime",
                         operation: "GREATER_THAN",
-                        filter: ["timestampValue": DateFormatter.firestoreFormatter.string(from: lastFetchedDate)]
+                        filter: ["timestampValue": DateFormatter.firestoreFormatter.string(from: date)]
                     )
                 )
             }
