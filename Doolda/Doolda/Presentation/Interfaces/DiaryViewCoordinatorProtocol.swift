@@ -8,6 +8,7 @@
 import Foundation
 
 protocol DiaryViewCoordinatorProtocol: CoordinatorProtocol {
+    func editPageRequested()
     func settingsPageRequested()
     func filteringSheetRequested()
 }
