@@ -27,7 +27,7 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
         self.coreDataPersistenceService = coreDataPersistenceService
     }
     
-    func fetchPageEntities(for pairId: DDID) -> AnyPublisher<[PageEntity], Error> {
+    func fetchPageEntities() -> AnyPublisher<[PageEntity], Error> {
         guard let context = coreDataPersistenceService.context else {
             return Fail(error: CoreDataPageEntityPersistenceServiceError.failedToInitializeCoreDataContainer).eraseToAnyPublisher()
         }
