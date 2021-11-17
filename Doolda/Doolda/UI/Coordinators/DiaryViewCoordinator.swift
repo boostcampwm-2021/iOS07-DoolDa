@@ -8,6 +8,7 @@
 import UIKit
 
 class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
+    
     var presenter: UINavigationController
     private let user: User
     
@@ -21,5 +22,13 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
             let viewController = DiaryViewController()
             self.presenter.setViewControllers([viewController], animated: false)
         }
+    }
+    
+    func settingsPageRequested() {
+        
+    }
+    
+    func filteringSheetRequested() {
+        
     }
 }

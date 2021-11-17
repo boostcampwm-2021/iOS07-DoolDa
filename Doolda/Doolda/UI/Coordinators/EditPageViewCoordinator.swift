@@ -62,7 +62,12 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
     
-    func addTextComponent() {}
+    func addTextComponent() {
+        let delegatedViewController = self.presenter.topViewController as? EditPageViewController
+        let viewController = TextInputViewController(textInputViewModel: TextInputViewModel(), delegate: delegatedViewController)
+        
+        self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
+    }
     
     func addStickerComponent() {
         let viewController = StickerPickerViewController()
