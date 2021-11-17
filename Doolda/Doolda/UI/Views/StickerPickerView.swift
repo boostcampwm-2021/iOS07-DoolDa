@@ -15,21 +15,14 @@ class StickerPickerView: UIView {
     // MARK: - Subviews
 
     private lazy var collectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 10
-        flowLayout.minimumInteritemSpacing = 0
-
         let layout = self.createLayout()
-
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
-        collectionView.register(
-            PackedStickerCell.self,
-            forCellWithReuseIdentifier: PackedStickerCell.identifier
-        )
+        collectionView.register(PackedStickerCell.self, forCellWithReuseIdentifier: PackedStickerCell.identifier)
+        collectionView.register(UnpackedStickerCell.self, forCellWithReuseIdentifier: UnpackedStickerCell.identifier)
         return collectionView
     }()
 
