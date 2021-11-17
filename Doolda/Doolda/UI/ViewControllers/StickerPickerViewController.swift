@@ -86,8 +86,9 @@ class StickerPickerViewController: BottomSheetViewController {
                 if cell.slider.value >= cell.slider.maximumValue * 0.95 {
                     // FIXME: PackedStickerCell이 구현되면 수정할 예정
                     print("\(indexPath.section) 완료")
+
                     //guard let stickerPack = self?.stickerPackMapper(at: indexPath.section) else { return }
-                    //stickerPack.isUnpacked = false
+                    //stickerPack.setIsUnpacked(true)
                 }
             }
         self.cancellables[indexPath.section] = publisher
@@ -135,16 +136,17 @@ class StickerPickerViewController: BottomSheetViewController {
 
     private func createUnPackedStickerLayoutSection(in environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
-            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            layoutSize: .init(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1))
         )
-        item.contentInsets = .init(top: 30, leading: 100, bottom: 30, trailing: 100)
+        item.contentInsets = .init(top: 12, leading: 12, bottom: 12, trailing: 12)
 
-        let group = NSCollectionLayoutGroup.vertical(
-            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)),
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.25)),
             subitems: [item]
         )
 
         let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
         return section
     }
 
@@ -163,13 +165,13 @@ class StickerPickerViewController: BottomSheetViewController {
 
 extension StickerPickerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        self.stickerPickerView.currentPack = indexPath.section
+
         guard let cell = cell as? PackedStickerCell,
               let operationQueue = OperationQueue.current,
               let stickerPack = self.stickerPackMapper(at: indexPath.section) else { return }
 
-        self.stickerPickerView.currentPack = indexPath.section
         self.bindCellUI(cell, at: indexPath)
-
         cell.clear()
         cell.configure(with: stickerPack)
         cell.motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
