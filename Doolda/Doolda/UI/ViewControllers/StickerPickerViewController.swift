@@ -5,6 +5,7 @@
 //  Created by Dozzing on 2021/11/15.
 //
 
+import Combine
 import CoreMotion
 import UIKit
 
@@ -50,6 +51,10 @@ class StickerPickerViewController: BottomSheetViewController {
         return stickerPicker
     }()
 
+    // MARK: - Private Properties
+
+    private var cancellables: Set<AnyCancellable> = []
+
     // MARK: - LifeCycle Methods
 
     override func viewDidLoad() {
@@ -78,6 +83,17 @@ class StickerPickerViewController: BottomSheetViewController {
         }
     }
 
+    private func bindCellUI(_ cell: PackedStickerCell) {
+        cell.slider.publisher(for: .valueChanged)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                if cell.slider.value >= cell.slider.maximumValue * 0.95 {
+                    print("\(cell) 완료")
+                }
+            }
+            .store(in: &self.cancellables)
+    }
+
 }
 
 extension StickerPickerViewController: UICollectionViewDelegate {
@@ -94,27 +110,6 @@ extension StickerPickerViewController: UICollectionViewDataSource {
         return 1
     }
 
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard let operationQueue = OperationQueue.current,
-//              let cell = cell as? PackedStickerCell else { return }
-//        print(indexPath.section)
-//        //cell.animating = false
-//        //motionManger.stopDeviceMotionUpdates()
-//        //cell.configure(with: stickerPack.stickersUrl)
-//        motionManger.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
-//        cell.animating = true
-//    }
-
-
-//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//        guard let collectionView = scrollView as? UICollectionView,
-//              let cell = collectionView.visibleCells.first as? PackedStickerCell,
-//              let operationQueue = OperationQueue.current else { return }
-//        print("scroll \(cell)")
-//        motionManger.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
-//        cell.animating = true
-//    }
-
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PackedStickerCell.identifier,
@@ -129,6 +124,7 @@ extension StickerPickerViewController: UICollectionViewDataSource {
                   return UICollectionViewCell()
               }
 
+        self.bindCellUI(cell)
         cell.animating = false
         cell.motionManager.stopDeviceMotionUpdates()
         cell.configure(with: stickerPack.stickersUrl)
