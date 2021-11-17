@@ -26,4 +26,6 @@ extension UIImage {
     static let square = UIImage(systemName: "square")
     static let line3HorizontalDecrease = UIImage(systemName: "line.3.horizontal.decrease")
     static let plus = UIImage(systemName: "plus")
+    static let hedgehog = UIImage(named: "hedgehog")
+    static let hedgehogWriting = UIImage(named: "hedgehogWriting")
 }
