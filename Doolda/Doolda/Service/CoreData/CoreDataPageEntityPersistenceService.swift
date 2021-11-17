@@ -44,19 +44,18 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
         }
     }
     
-    func savePageEntity(_ pageEntity: PageEntity) -> AnyPublisher<PageEntity, Error> {
-        guard let context = coreDataPersistenceService.context else {
-            return Fail(error: CoreDataPageEntityPersistenceServiceError.failedToInitializeCoreDataContainer).eraseToAnyPublisher()
-        }
+    func savePageEntity(_ pageEntity: PageEntity) {
+        guard let context = coreDataPersistenceService.context else { return }
         
-        let entity = CoreDataPageEntity(context: context)
-        entity.update(pageEntity)
+        DispatchQueue.main.async {
+            let entity = CoreDataPageEntity(context: context)
+            entity.update(pageEntity)
         
-        do {
-            try context.save()
-            return Just(pageEntity).setFailureType(to: Error.self).eraseToAnyPublisher()
-        } catch {
-            return Fail(error: error).eraseToAnyPublisher()
+            do {
+                try context.save()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     

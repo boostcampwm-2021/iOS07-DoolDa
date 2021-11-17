@@ -10,6 +10,6 @@ import Foundation
 
 protocol CoreDataPageEntityPersistenceServiceProtocol {
     func fetchPageEntities() -> AnyPublisher<[PageEntity], Error>
-    func savePageEntity(_ pageEntity: PageEntity) -> AnyPublisher<PageEntity, Error>
+    func savePageEntity(_ pageEntity: PageEntity)
     func removeAllPageEntity() -> AnyPublisher<Void, Error>
 }

@@ -28,14 +28,15 @@ final class CoreDataPersistenceService: CoreDataPersistenceServiceProtocol {
     
     private var isPersistentStoreLoaded = false
     
-    private lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: Self.coreDataModelName)
-        container.loadPersistentStores { _, error in
+    private let persistentContainer: NSPersistentContainer
+    
+    init() {
+        self.persistentContainer = NSPersistentContainer(name: Self.coreDataModelName)
+        self.persistentContainer.loadPersistentStores { _, error in
             guard error == nil else { return }
             self.isPersistentStoreLoaded = true
         }
-        return container
-    }()
+    }
     
     var context: NSManagedObjectContext? {
         guard self.isPersistentStoreLoaded else { return nil }
