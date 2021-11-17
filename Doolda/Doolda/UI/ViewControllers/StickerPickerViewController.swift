@@ -94,8 +94,12 @@ class StickerPickerViewController: BottomSheetViewController {
     // MARK: - Private Methods
 
     private func createStickerPickerCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
-            
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, environment) -> NSCollectionLayoutSection? in
+            let stickerPackIndex = min(sectionIndex, StickerPackType.allCases.count - 1)
+            guard let stickerPack = StickerPackType.allCases[stickerPackIndex].rawValue else { return nil }
+
+            if stickerPack.isUnpacked { return self.createUnPackedStickerLayoutSection(in: environment) }
+            else { return self.createPackedStickerLayoutSection(in: environment) }
         }
 
         let config = UICollectionViewCompositionalLayoutConfiguration()
@@ -104,12 +108,43 @@ class StickerPickerViewController: BottomSheetViewController {
         return layout
     }
 
-    private func createPackedStickerCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout()
+    private func createPackedStickerLayoutSection(in environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        let width = environment.container.contentSize.width * 0.45
+        let height = width * 1.25
+        let widthInset = (environment.container.contentSize.width - width) / 2
+        let heightInset = (environment.container.contentSize.height - height) / 2
+
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        )
+        item.contentInsets = .init(top: heightInset, leading: widthInset, bottom: heightInset, trailing: widthInset)
+
+        let group = NSCollectionLayoutGroup.vertical(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)),
+            subitems: [item]
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+        let footerItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1))
+        let footerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerItemSize, elementKind: "footer", alignment: .bottom)
+        section.boundarySupplementaryItems = [footerItem]
+
+        return section
     }
 
-    private func createUnpackedStickerCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout()
+    private func createUnPackedStickerLayoutSection(in environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        )
+        item.contentInsets = .init(top: 30, leading: 100, bottom: 30, trailing: 100)
+
+        let group = NSCollectionLayoutGroup.vertical(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)),
+            subitems: [item]
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+        return section
     }
 
 }

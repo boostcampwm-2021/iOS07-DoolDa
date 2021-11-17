@@ -94,11 +94,16 @@ class StickerPickerView: UIView {
     // MARK: - Private Methods
 
     private func createLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, environment) -> NSCollectionLayoutSection? in
+            let width = environment.container.contentSize.width * 0.45
+            let height = width * 1.25
+            let widthInset = (environment.container.contentSize.width - width) / 2
+            let heightInset = (environment.container.contentSize.height - height) / 2
+
             let item = NSCollectionLayoutItem(
                 layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
             )
-            item.contentInsets = .init(top: 30, leading: 100, bottom: 30, trailing: 100)
+            item.contentInsets = .init(top: heightInset, leading: widthInset, bottom: heightInset, trailing: widthInset)
 
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)),
@@ -106,6 +111,11 @@ class StickerPickerView: UIView {
             )
 
             let section = NSCollectionLayoutSection(group: group)
+
+            let footerItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1))
+            let footerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerItemSize, elementKind: "footer", alignment: .bottom)
+            section.boundarySupplementaryItems = [footerItem]
+
             return section
         }
 
