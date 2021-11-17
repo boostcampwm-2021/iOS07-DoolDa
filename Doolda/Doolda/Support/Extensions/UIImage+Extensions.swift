@@ -25,4 +25,5 @@ extension UIImage {
     static let squareGrid2x2 = UIImage(systemName: "square.grid.2x2")
     static let square = UIImage(systemName: "square")
     static let line3HorizontalDecrease = UIImage(systemName: "line.3.horizontal.decrease")
+    static let plus = UIImage(systemName: "plus")
 }

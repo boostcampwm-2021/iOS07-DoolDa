@@ -73,7 +73,7 @@ class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func addPageButtonDidTap() {
-        print(#function)
+        self.coordinator.editPageRequested()
     }
     
     func lastPageDidPull() {
