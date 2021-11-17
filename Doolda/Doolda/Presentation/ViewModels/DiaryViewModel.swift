@@ -63,33 +63,30 @@ class DiaryViewModel: DiaryViewModelProtocol {
     var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }
     var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { self.$filteredPageEntities }
     var isRefreshingPublisher: Published<Bool>.Publisher { self.$isRefreshing }
-    
-    var number = 2
-    
     @Published var displayMode: DiaryDisplayMode = .carousel
-    
+
+    @Published private var isRefreshing: Bool = false
     @Published private var isMyTurn: Bool = false
     @Published private var filteredPageEntities: [PageEntity] = [
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "0"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1")
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "")
     ]
-    @Published private var isRefreshing: Bool = false
     
     private let user: User
     private let coordinator: DiaryViewCoordinatorProtocol
