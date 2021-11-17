@@ -98,8 +98,6 @@ class EditPageViewController: UIViewController {
         return self.pageView.frame.size.height / 3000.0
     }
     
-    override var prefersStatusBarHidden: Bool { return true }
-    
     private var selectedComponentInitialRect: CGRect = .zero
     private var selectedComponentInitialScale: CGFloat = 0
 

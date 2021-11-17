@@ -203,12 +203,14 @@ class DiaryViewController: UIViewController {
     private func configureDataSource() {
         self.dataSource = DataSource(
             collectionView: self.pageCollectionView,
-            cellProvider: { (collectionView, indexPath, pageEntity) -> DiaryPageViewCell? in
+            cellProvider: { [weak self] (collectionView, indexPath, pageEntity) -> DiaryPageViewCell? in
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: DiaryPageViewCell.cellIdentifier,
                     for: indexPath
                 ) as? DiaryPageViewCell else { return nil }
-                cell.backgroundColor = .red
+                
+                guard let viewModel = self?.viewModel else { return nil }
+                cell.displayRawPage(with: viewModel.pageDidDisplay(jsonPath: pageEntity.jsonPath))
                 return cell
         })
         
@@ -324,7 +326,7 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
 
 extension DiaryViewController: DiaryCollectionViewHeaderDelegate {
     func refreshButtonDidTap(_ diaryCollectionViewHeader: DiaryCollectionViewHeader) {
-        self.viewModel?.lastPageDidPull()
+        self.viewModel?.refreshButtonDidTap()
     }
     
     func addPageButtonDidTap(_ diaryCollectionViewHeader: DiaryCollectionViewHeader) {
