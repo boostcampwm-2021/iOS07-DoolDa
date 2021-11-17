@@ -96,14 +96,15 @@ class EditPageViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool { return true }
     
+    private var selectedComponentInitialRect: CGRect = .zero
+    private var selectedComponentInitialScale: CGFloat = 0
+
     private var initialOrigin: CGPoint = .zero
-    private var center: CGPoint = .zero
     
     private var scale: CGFloat = 0
     private var savedScale: CGFloat = 1
+    private var savedDistance: CGFloat = 0
     private var deltaAngle: Float = 0
-    private var initialDistance: CGFloat = 0
-    private var initialAngle: CGFloat = 0
     
     // MARK: - Initializers
     
@@ -151,6 +152,7 @@ class EditPageViewController: UIViewController {
         self.contentView.addSubview(self.pageView)
         self.pageView.isUserInteractionEnabled = true
         self.pageView.clipsToBounds = true
+        self.pageView.layer.cornerRadius = 4
         self.pageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(self.scrollView.snp.top).offset(12)
@@ -233,7 +235,6 @@ class EditPageViewController: UIViewController {
                     fallthrough
                 case .changed:
                     let translation = panGestrue.translation(in: self.pageControlView)
-                    print(translation)
                     let contentViewOriginFromPage = CGPoint(
                         x: self.initialOrigin.x + translation.x,
                         y: self.initialOrigin.y + translation.y
@@ -278,7 +279,6 @@ class EditPageViewController: UIViewController {
                 self.pageControlView.isSelected = false
                 guard let componentEntity = componentEntity,
                       let componentView = self.componentViewDictionary[componentEntity] else { return }
-                
                 self.pageControlView.isSelected = true
                 
                 componentView.transform = CGAffineTransform.identity
@@ -288,9 +288,12 @@ class EditPageViewController: UIViewController {
                     origin: self.computePointFromAbsolute(at: componentEntity.origin),
                     size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
                 )
+                
+                self.selectedComponentInitialRect = computedCGRect
+                self.selectedComponentInitialScale = componentEntity.scale
+                
                 componentView.layer.frame = computedCGRect
                 self.pageControlView.componentSpaceView.frame = computedCGRect
-
                 let transform = CGAffineTransform.identity.rotated(
                     by: componentEntity.angle
                 ).scaledBy(
@@ -301,8 +304,6 @@ class EditPageViewController: UIViewController {
                 self.pageControlView.componentSpaceView.transform = transform
                 self.pageControlView.controlsView.transform = transform
                 
-//                print(componentView.layer.frame.origin)
-//                print(self.pageControlView.componentSpaceView.layer.frame.origin)
                 self.pageControlView.componentSpaceView.layer.borderWidth = 1/componentEntity.scale
                 self.pageControlView.controls.forEach { control in
                     control.transform = CGAffineTransform.identity.scaledBy(x: 1/componentEntity.scale, y: 1/componentEntity.scale)
@@ -337,9 +338,6 @@ class EditPageViewController: UIViewController {
                         photoComponentView.layer.shadowOpacity = 0.3
                         photoComponentView.layer.shadowRadius = 10
                         photoComponentView.layer.shadowOffset = CGSize(width: -5, height: -5)
-                        photoComponentView.layer.shadowPath = UIBezierPath(
-                            rect: CGRect(x: 0, y: 0, width: photoComponentView.frame.width + 10, height: photoComponentView.frame.height + 10)
-                        ).cgPath
                     default:
                         break
                     }
@@ -389,7 +387,7 @@ extension EditPageViewController: ControlViewDelegate {
     
     func rightBottomcontrolDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer) {
         let touchLocation = gesture.location(in: self.view)
-        let center = CGPoint(x: pageControlView.layer.frame.midX, y: pageControlView.layer.frame.midY)
+        let center = CGPoint(x: self.selectedComponentInitialRect.midX, y: self.selectedComponentInitialRect.midY)
         let xDifference = (center.x - touchLocation.x)
         let yDifference = (center.y - touchLocation.y)
         let distance = sqrt(xDifference * xDifference + yDifference * yDifference)
@@ -401,9 +399,10 @@ extension EditPageViewController: ControlViewDelegate {
                 Float(pageControlView.componentSpaceView.transform.b),
                 Float(pageControlView.componentSpaceView.transform.a)
             )
-            self.initialDistance = distance
+            self.savedDistance = distance
+            self.savedScale = self.selectedComponentInitialScale
         case .changed:
-            scale = distance / self.initialDistance
+            scale = distance / self.savedDistance
             scale *= savedScale
             
             let radian = CGFloat(-(Float(self.deltaAngle) - angle))
@@ -411,7 +410,6 @@ extension EditPageViewController: ControlViewDelegate {
             self.viewModel?.componentDidScale(by: scale)
         case .ended, .possible:
             savedScale = scale
-
         default:
             break
         }
@@ -422,7 +420,7 @@ extension EditPageViewController: ControlViewDelegate {
         case .began:
             let touchCGPoint = gesture.location(in: self.pageControlView)
             self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
-            self.initialOrigin = pageControlView.componentSpaceView.layer.frame.origin
+            self.initialOrigin = self.selectedComponentInitialRect.origin
             fallthrough
         case .changed:
             let translation = gesture.translation(in: self.pageView)
@@ -431,8 +429,6 @@ extension EditPageViewController: ControlViewDelegate {
                 y: self.initialOrigin.y + translation.y
             )
             let computedOrigin = self.computePointToAbsolute(at: contentViewOriginFromPage)
-//            print("translation", translation)
-//            print(computedOrigin)
             self.viewModel?.componentDidDrag(at: computedOrigin)
         default:
             break
