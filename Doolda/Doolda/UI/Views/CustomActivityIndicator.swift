@@ -30,7 +30,7 @@ final class CustomActivityIndicator: UIView {
     
     private lazy var subTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Dovemayo", size: 14)
+        label.font = .systemFont(ofSize: 14)
         label.textAlignment = .center
         label.textColor = .dooldaSubLabel
         return label

@@ -22,7 +22,7 @@ final class BackgroundTypePickerViewController: BottomSheetViewController {
     
     private lazy var bottomSheetTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Dovemayo", size: 16)
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .dooldaLabel
         label.text = "배경지"
         return label
