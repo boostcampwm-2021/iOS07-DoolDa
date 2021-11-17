@@ -5,6 +5,7 @@
 //  Created by Seunghun Yang on 2021/11/16.
 //
 
+import Combine
 import Foundation
 
 protocol DiaryViewModelInput {
@@ -12,8 +13,9 @@ protocol DiaryViewModelInput {
     func displayModeToggleButtonDidTap()
     func settingsButtonDidTap()
     func addPageButtonDidTap()
-    func lastPageDidPull()
+    func refreshButtonDidTap()
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
+    func pageDidDisplay(jsonPath: String) -> AnyPublisher<RawPageEntity, Error>
 }
 
 protocol DiaryViewModelOutput {
@@ -45,6 +47,17 @@ enum DiaryOrderFilter {
     case ascending, descending
 }
 
+enum DiaryViewModelError: LocalizedError {
+    case userNotPaired
+    
+    var errorDescription: String? {
+        switch self {
+        case .userNotPaired:
+            return "연결된 짝이 없습니다."
+        }
+    }
+}
+
 class DiaryViewModel: DiaryViewModelProtocol {
     var displayModePublisher: Published<DiaryDisplayMode>.Publisher { self.$displayMode }
     var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }
@@ -58,14 +71,39 @@ class DiaryViewModel: DiaryViewModelProtocol {
     @Published private var isMyTurn: Bool = false
     @Published private var filteredPageEntities: [PageEntity] = [
         PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "0")
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "0"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1"),
+        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "1")
     ]
     @Published private var isRefreshing: Bool = false
     
+    private let user: User
     private let coordinator: DiaryViewCoordinatorProtocol
+    private let displayPageUseCase: DisplayPageUseCaseProtocol
     
-    init(coordinator: DiaryViewCoordinatorProtocol) {
+    init(user: User, coordinator: DiaryViewCoordinatorProtocol, displayPageUseCase: DisplayPageUseCaseProtocol) {
+        self.user = user
         self.coordinator = coordinator
+        self.displayPageUseCase = displayPageUseCase
+    }
+    
+    func pageDidDisplay(jsonPath: String) -> AnyPublisher<RawPageEntity, Error> {
+        guard let pairId = self.user.pairId else { return Fail(error: DiaryViewModelError.userNotPaired).eraseToAnyPublisher() }
+        return self.displayPageUseCase.getRawPageEntity(for: pairId, jsonPath: jsonPath)
     }
 
     func displayModeToggleButtonDidTap() {
@@ -76,14 +114,11 @@ class DiaryViewModel: DiaryViewModelProtocol {
         self.coordinator.editPageRequested()
     }
     
-    func lastPageDidPull() {
+    func refreshButtonDidTap() {
         print(#function)
         self.isRefreshing = true
         DispatchQueue.global().asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let self = self else { return }
-            self.filteredPageEntities.insert(PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "\(self.number)"), at: 0)
-            self.number += 1
-            self.isRefreshing = false
+            self?.isRefreshing = false
         }
     }
     
