@@ -102,6 +102,8 @@
 		6653039D2743B49E00E3075C /* CoreDataPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6653039C2743B49E00E3075C /* CoreDataPersistenceService.swift */; };
 		665303A02743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6653039E2743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift */; };
 		665303A12743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6653039F2743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift */; };
+		665303A62743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */; };
+		665303AA2744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */; };
 		669ADE3E2732E55F007B529B /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		669ADE3F2732E55F007B529B /* RefreshPairIdUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */; };
 		66B4ADFF2742BEFC0021EA27 /* Normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFC2742BEFC0021EA27 /* Normal.jpg */; };
@@ -314,6 +316,8 @@
 		6653039C2743B49E00E3075C /* CoreDataPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceService.swift; sourceTree = "<group>"; };
 		6653039E2743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataPageEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6653039F2743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataPageEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
+		665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		669ADE322732E4A8007B529B /* RefreshPairIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefreshPairIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		669ADE342732E4A8007B529B /* RefreshPairIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshPairIdUseCaseTest.swift; sourceTree = "<group>"; };
 		66B4ADFC2742BEFC0021EA27 /* Normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Normal.jpg; sourceTree = "<group>"; };
@@ -723,6 +727,8 @@
 				FC5FB79B27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift */,
 				FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */,
 				310125D7273A6F6B00E43160 /* FileManagerPersistenceServiceProtocol.swift */,
+				665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */,
+				665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -1434,6 +1440,7 @@
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
 				66CD6464273D125F00E55C03 /* CGImage+Extensions.swift in Sources */,
 				1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */,
+				665303AA2744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift in Sources */,
 				6653039D2743B49E00E3075C /* CoreDataPersistenceService.swift in Sources */,
 				1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */,
 				FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */,
@@ -1497,6 +1504,7 @@
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift in Sources */,
 				66F5D47E2733EE8F000FB471 /* RawPageEntity.swift in Sources */,
 				1DE5E540273932B0004F794F /* PageRepositoryProtocol.swift in Sources */,
+				665303A62743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift in Sources */,
 				1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */,
 				FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
