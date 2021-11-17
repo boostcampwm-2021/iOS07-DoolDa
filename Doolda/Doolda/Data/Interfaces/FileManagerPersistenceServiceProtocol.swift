@@ -10,4 +10,5 @@ import Foundation
 
 protocol FileManagerPersistenceServiceProtocol {
     func save(data: Data, at documents: FileDocuments, fileName: String) -> AnyPublisher<URL, Never>
+    func fetch(at documents: FileDocuments, fileName: String) -> AnyPublisher<Data, Error>
 }
