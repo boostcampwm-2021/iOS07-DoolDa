@@ -16,6 +16,14 @@ class DiaryPageViewCell: UICollectionViewCell {
     
     static let cellIdentifier: String = "DiaryPageViewCell"
     
+    // MARK: - Subviews
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .large
+        return activityIndicator
+    }()
+    
     // MARK: - Private Properties
     
     private var cancellables: Set<AnyCancellable> = []
@@ -31,7 +39,7 @@ class DiaryPageViewCell: UICollectionViewCell {
         didSet { self.drawPage() }
     }
     
-    // MARK: - Subviews
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,6 +63,11 @@ class DiaryPageViewCell: UICollectionViewCell {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 4
         self.layer.borderColor = UIColor.black.cgColor
+        
+        self.addSubview(self.activityIndicator)
+        self.activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
     
     private func computePointFromAbsolute(at point: CGPoint) -> CGPoint {
@@ -72,8 +85,8 @@ class DiaryPageViewCell: UICollectionViewCell {
     private func drawPage() {
         guard let rawPage = self.rawPageEntity else { return }
         self.subviews.forEach { $0.removeFromSuperview() }
-        let backgroundColor = rawPage.backgroundType.rawValue
-        self.backgroundColor = UIColor(cgColor: backgroundColor)
+        
+        self.backgroundColor = UIColor(cgColor: rawPage.backgroundType.rawValue)
         for componentEntity in rawPage.components {
             let computedCGRect = CGRect(
                 origin: self.computePointFromAbsolute(at: componentEntity.origin),
@@ -97,9 +110,11 @@ class DiaryPageViewCell: UICollectionViewCell {
                 break
             }
         }
+        self.activityIndicator.stopAnimating()
     }
     
     func displayRawPage(with rawPageEntityPublisher: AnyPublisher<RawPageEntity, Error>) {
+        self.activityIndicator.startAnimating()
         self.cancellables = []
         rawPageEntityPublisher
             .receive(on: DispatchQueue.main)
