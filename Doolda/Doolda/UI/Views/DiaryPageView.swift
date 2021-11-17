@@ -18,6 +18,29 @@ class DiaryPageViewCell: UICollectionViewCell {
     
     // MARK: - Subviews
     
+    private lazy var pageView: UIView = UIView()
+    private lazy var layeredView: UIView = UIView()
+    
+    private lazy var dayLabel: UILabel = {
+        let label = UILabel()
+        label.text = "25"
+        label.font = .systemFont(ofSize: 35)
+        return label
+    }()
+    
+    private lazy var monthLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Oct"
+        label.font = .systemFont(ofSize: 20)
+        return label
+    }()
+    
+    private lazy var dayLabelUnderBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = .label
+        return view
+    }()
+    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .large
@@ -37,6 +60,10 @@ class DiaryPageViewCell: UICollectionViewCell {
     
     private var rawPageEntity: RawPageEntity? {
         didSet { self.drawPage() }
+    }
+    
+    private var timestamp: Date? {
+        didSet { }
     }
     
     // MARK: - Initializers
@@ -64,9 +91,39 @@ class DiaryPageViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 4
         self.layer.borderColor = UIColor.black.cgColor
         
-        self.addSubview(self.activityIndicator)
+        self.addSubview(self.pageView)
+        self.pageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        self.addSubview(self.layeredView)
+        self.layeredView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        self.layeredView.addSubview(self.activityIndicator)
         self.activityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
+        }
+        
+        self.layeredView.addSubview(self.dayLabel)
+        self.dayLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
+        }
+        
+        self.layeredView.addSubview(self.dayLabelUnderBar)
+        self.dayLabelUnderBar.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.width.equalTo(self.dayLabel.snp.width)
+            make.top.equalTo(self.dayLabel.snp.bottom)
+            make.centerX.equalTo(self.dayLabel.snp.centerX)
+        }
+        
+        self.layeredView.addSubview(self.monthLabel)
+        self.monthLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(self.dayLabel.snp.bottom)
+            make.leading.equalTo(self.dayLabel.snp.trailing).offset(4)
         }
     }
     
@@ -84,7 +141,7 @@ class DiaryPageViewCell: UICollectionViewCell {
     
     private func drawPage() {
         guard let rawPage = self.rawPageEntity else { return }
-        self.subviews.forEach { $0.removeFromSuperview() }
+        self.pageView.subviews.forEach { $0.removeFromSuperview() }
         
         self.backgroundColor = UIColor(cgColor: rawPage.backgroundType.rawValue)
         for componentEntity in rawPage.components {
@@ -97,7 +154,7 @@ class DiaryPageViewCell: UICollectionViewCell {
             case let photoComponentEtitiy as PhotoComponentEntity:
                 let photoComponentView = UIImageView(frame: computedCGRect)
                 photoComponentView.kf.setImage(with: photoComponentEtitiy.imageUrl)
-                self.addSubview(photoComponentView)
+                self.pageView.addSubview(photoComponentView)
                 let transform = CGAffineTransform.identity
                     .rotated(by: componentEntity.angle)
                     .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
