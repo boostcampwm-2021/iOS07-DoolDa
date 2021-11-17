@@ -8,33 +8,6 @@
 import Combine
 import Foundation
 
-// FIXME : CoreDataPersistence 브랜치 합쳐지면 제거
-import CoreData
-protocol CoreDataPageEntityPersistenceServiceProtocol {
-    func fetchPageEntities() -> AnyPublisher<[PageEntity], Error>
-    func savePageEntity(_ pageEntity: PageEntity)
-    func removeAllPageEntity() -> AnyPublisher<Void, Error>
-}
-
-protocol CoreDataPersistenceServiceProtocol {
-    var context: NSManagedObjectContext? { get }
-}
-
-class DummyCoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol {
-    func fetchPageEntities() -> AnyPublisher<[PageEntity], Error> {
-        Fail(error: PageRepositoryError.failedToFetchPages).eraseToAnyPublisher()
-    }
-    
-    func savePageEntity(_ pageEntity: PageEntity) {
-        
-    }
-    
-    func removeAllPageEntity() -> AnyPublisher<Void, Error> {
-        Fail(error: PageRepositoryError.failedToFetchPages).eraseToAnyPublisher()
-    }
-}
-// -----
-
 enum PageRepositoryError: LocalizedError {
     case userNotPaired
     case failedToFetchPages
@@ -49,13 +22,14 @@ enum PageRepositoryError: LocalizedError {
 
 class PageRepository: PageRepositoryProtocol {
     private let urlSessionNetworkService: URLSessionNetworkServiceProtocol
-    // FIXME : 브랜치 합친후 옵셔널 제거할것
-    private let pageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol!
+    private let pageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(urlSessionNetworkService: URLSessionNetworkServiceProtocol, pageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol?) {
-        // FIXME : pageEntityPersistenceService 옵셔널 제거할것
+    init(
+        urlSessionNetworkService: URLSessionNetworkServiceProtocol,
+        pageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol
+    ) {
         self.urlSessionNetworkService = urlSessionNetworkService
         self.pageEntityPersistenceService = pageEntityPersistenceService
     }
@@ -81,9 +55,9 @@ class PageRepository: PageRepositoryProtocol {
                     guard case .failure(let error) = completion else { return }
                     promise(.failure(error))
                 } receiveValue: { cachedPages in
-                    let lastPageEntity = cachedPages.last
+                    let latestPageEntity = cachedPages.first
                     
-                    self.fetchPageFromServer(pairId: pair, after: lastPageEntity?.timeStamp)
+                    self.fetchPageFromServer(pairId: pair, after: latestPageEntity?.timeStamp)
                         .sink { completion in
                             guard case .failure(let error) = completion else { return }
                             promise(.failure(error))
