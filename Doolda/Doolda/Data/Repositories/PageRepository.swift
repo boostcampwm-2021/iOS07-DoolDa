@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import OSLog
 
 enum PageRepositoryError: LocalizedError {
     case userNotPaired
@@ -63,7 +64,7 @@ class PageRepository: PageRepositoryProtocol {
                             promise(.failure(error))
                         } receiveValue: { pages in
                             self.savePageToCache(pages: pages)
-                            promise(.success(cachedPages + pages))
+                            promise(.success(pages + cachedPages))
                         }
                         .store(in: &self.cancellables)
                 }
@@ -91,8 +92,14 @@ class PageRepository: PageRepositoryProtocol {
     }
     
     private func savePageToCache(pages: [PageEntity]) {
-        pages.forEach {
-            self.pageEntityPersistenceService.savePageEntity($0)
-        }
+        let savePublishers = pages.map { self.pageEntityPersistenceService.savePageEntity($0) }
+        
+        Publishers.MergeMany(savePublishers)
+            .collect()
+            .sink { completion in
+                guard case .failure = completion else { return }
+                os_log("PageEntity caching failure", type: .fault)
+            } receiveValue: { _ in }
+            .store(in: &self.cancellables)
     }
 }
