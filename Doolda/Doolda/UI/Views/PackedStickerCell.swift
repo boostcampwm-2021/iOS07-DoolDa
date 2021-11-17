@@ -37,7 +37,7 @@ class PackedStickerCell: UICollectionViewCell {
         slider.minimumValue = 0
         slider.maximumTrackTintColor = .lightGray
         slider.minimumTrackTintColor = .darkGray
-        slider.setThumbImage(UIImage(named: "scissors"), for: .normal)
+        slider.setThumbImage(UIImage(systemName: "scissors"), for: .normal)
         return slider
     }()
 
@@ -86,11 +86,14 @@ class PackedStickerCell: UICollectionViewCell {
             self.itemBehavior.removeItem(subview)
         }
 
-        var leadingOffset = 0
+        var leadingOffset: CGFloat = 10
         for url in stickers {
             guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
             let stickerView = UIImageView(image: stickerImage)
             let ratio = stickerImage.size.height / stickerImage.size.width
+            let width = self.bodyView.frame.width * 0.2
+
+            stickerView.frame = CGRect(x: leadingOffset, y: leadingOffset, width: width , height: width * ratio)
 
             self.bodyView.addSubview(stickerView)
             stickerView.snp.makeConstraints { make in
@@ -167,7 +170,9 @@ class PackedStickerCell: UICollectionViewCell {
 
         self.coverView.addSubview(self.slider)
         self.slider.snp.makeConstraints { make in
-            
+            make.top.equalToSuperview().multipliedBy(0.5)
+            make.leading.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(-5)
         }
     }
 

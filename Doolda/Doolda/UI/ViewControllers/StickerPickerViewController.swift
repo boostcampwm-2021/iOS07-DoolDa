@@ -91,7 +91,7 @@ extension StickerPickerViewController: UICollectionViewDelegate {
 extension StickerPickerViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 5
+        return StickerPackType.allCases.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -103,40 +103,18 @@ extension StickerPickerViewController: UICollectionViewDataSource {
             withReuseIdentifier: PackedStickerCell.identifier,
             for: indexPath
         )
+
+        if StickerPackType.allCases.count <= indexPath.section { return UICollectionViewCell() }
+
         guard let cell = cell as? PackedStickerCell,
-              let operationQueue = OperationQueue.current else { return UICollectionViewCell() }
-
-        // FIXME: 임시 데이터
-        let stickers = [
-            [UIImage(named: "dummySticker_0")!,
-             UIImage(named: "dummySticker_0")!,
-             UIImage(named: "dummySticker_0")!,
-             UIImage(named: "dummySticker_0")!],
-
-            [UIImage(named: "dummySticker_1")!,
-             UIImage(named: "dummySticker_1")!,
-             UIImage(named: "dummySticker_1")!,
-             UIImage(named: "dummySticker_1")!],
-
-            [UIImage(named: "dummySticker_2")!,
-             UIImage(named: "dummySticker_2")!,
-             UIImage(named: "dummySticker_2")!,
-             UIImage(named: "dummySticker_2")!],
-
-            [UIImage(named: "dummySticker_3")!,
-             UIImage(named: "dummySticker_3")!,
-             UIImage(named: "dummySticker_3")!,
-             UIImage(named: "dummySticker_3")!],
-
-            [UIImage(named: "dummySticker_0")!,
-             UIImage(named: "dummySticker_1")!,
-             UIImage(named: "dummySticker_2")!,
-             UIImage(named: "dummySticker_3")!]
-        ]
+              let operationQueue = OperationQueue.current,
+              let stickerPack = StickerPackType.allCases[indexPath.section].rawValue else {
+                  return UICollectionViewCell()
+              }
 
         cell.animating = false
         motionManger.stopDeviceMotionUpdates()
-        cell.configure(with: stickers[indexPath.section])
+        cell.configure(with: stickerPack.stickersUrl)
         motionManger.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
         cell.animating = true
 
