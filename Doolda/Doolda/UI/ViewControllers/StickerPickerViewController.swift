@@ -50,10 +50,6 @@ class StickerPickerViewController: BottomSheetViewController {
         return stickerPicker
     }()
 
-    // MARK: - Private Properties
-
-    private let motionManger = CMMotionManager()
-
     // MARK: - LifeCycle Methods
 
     override func viewDidLoad() {
@@ -98,6 +94,27 @@ extension StickerPickerViewController: UICollectionViewDataSource {
         return 1
     }
 
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let operationQueue = OperationQueue.current,
+//              let cell = cell as? PackedStickerCell else { return }
+//        print(indexPath.section)
+//        //cell.animating = false
+//        //motionManger.stopDeviceMotionUpdates()
+//        //cell.configure(with: stickerPack.stickersUrl)
+//        motionManger.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
+//        cell.animating = true
+//    }
+
+
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//        guard let collectionView = scrollView as? UICollectionView,
+//              let cell = collectionView.visibleCells.first as? PackedStickerCell,
+//              let operationQueue = OperationQueue.current else { return }
+//        print("scroll \(cell)")
+//        motionManger.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
+//        cell.animating = true
+//    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PackedStickerCell.identifier,
@@ -113,9 +130,9 @@ extension StickerPickerViewController: UICollectionViewDataSource {
               }
 
         cell.animating = false
-        motionManger.stopDeviceMotionUpdates()
+        cell.motionManager.stopDeviceMotionUpdates()
         cell.configure(with: stickerPack.stickersUrl)
-        motionManger.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
+        cell.motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
         cell.animating = true
 
         return cell
