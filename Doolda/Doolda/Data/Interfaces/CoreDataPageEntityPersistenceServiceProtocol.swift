@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol CoreDataPageEntityPersistenceServiceProtocol {
-    func fetchPageEntities(for pairId: DDID) -> AnyPublisher<[PageEntity], Error>
+    func fetchPageEntities() -> AnyPublisher<[PageEntity], Error>
     func savePageEntity(_ pageEntity: PageEntity) -> AnyPublisher<PageEntity, Error>
     func removeAllPageEntity() -> AnyPublisher<Void, Error>
 }
