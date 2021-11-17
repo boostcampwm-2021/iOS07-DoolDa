@@ -55,7 +55,6 @@ class StickerPickerViewController: BottomSheetViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.configureUI()
     }
 
@@ -91,6 +90,28 @@ class StickerPickerViewController: BottomSheetViewController {
             }
         self.cancellables[indexPath.section] = publisher
     }
+
+    // MARK: - Private Methods
+
+    private func createStickerPickerCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, _) -> NSCollectionLayoutSection? in
+            
+        }
+
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.scrollDirection = .horizontal
+        layout.configuration = config
+        return layout
+    }
+
+    private func createPackedStickerCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout()
+    }
+
+    private func createUnpackedStickerCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout()
+    }
+
 }
 
 extension StickerPickerViewController: UICollectionViewDelegate {
