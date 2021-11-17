@@ -29,6 +29,7 @@ enum StickerPackType: RawRepresentable, CaseIterable {
 
 struct StickerPackEntity {
     let name: String
+    var coverUrl: URL
     var stickersUrl: [URL]
     var isUnpacked: Bool = false
 
@@ -36,6 +37,8 @@ struct StickerPackEntity {
     
     init?(name: String) {
         self.name = name
+        guard let coverUrl = Bundle.main.url(forResource: name + "_cover", withExtension: "png") else { return nil }
+        self.coverUrl = coverUrl
         self.stickersUrl = []
         for index in 0 ..< self.maximumStickerCount {
             guard let stickerUrl = Bundle.main.url(forResource: name + "_\(index)", withExtension: "png") else { break }
