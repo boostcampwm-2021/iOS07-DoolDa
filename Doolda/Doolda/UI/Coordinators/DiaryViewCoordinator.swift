@@ -26,11 +26,15 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
         }
     }
     
+    func editPageRequested() {
+        let coordinator = EditPageViewCoordinator(presenter: self.presenter, user: self.user)
+        coordinator.start()
+    }
+    
     func settingsPageRequested() {
-        // FIXME: not implemented
     }
     
     func filteringSheetRequested() {
-        // FIXME: not implemented
     }
+    
 }
