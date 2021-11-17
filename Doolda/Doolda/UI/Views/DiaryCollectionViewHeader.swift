@@ -8,6 +8,8 @@
 import Combine
 import UIKit
 
+import SnapKit
+
 class DiaryCollectionViewHeader: UICollectionReusableView {
     
     // MARK: - Static Properties
@@ -29,6 +31,15 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
         button.tintColor = .dooldaLabel
         return button
     }()
+    
+    private lazy var headerCardView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    var displayMode: DiaryDisplayMode? {
+        didSet { self.updateLayout() }
+    }
     
     var isMyTurn: Bool = false {
         didSet { self.updateMode() }
@@ -53,13 +64,25 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
     private var cancellables: Set<AnyCancellable> = []
     weak var delegate: DiaryCollectionViewHeaderDelegate?
     
+    private var listConstraint: Constraint?
+    private var carouselConstraint: Constraint?
+    
     private func configureUI() {
-        self.addSubview(self.refreshButton)
+        self.addSubview(self.headerCardView)
+        
+        self.headerCardView.backgroundColor = .yellow
+        self.headerCardView.snp.makeConstraints { make in
+            make.center.leading.trailing.equalToSuperview()
+            self.listConstraint = make.height.equalToSuperview().priority(.medium).constraint
+            self.carouselConstraint = make.height.equalTo(self.headerCardView.snp.width).multipliedBy(30.0 / 17.0).priority(.required).constraint
+        }
+        
+        self.headerCardView.addSubview(self.refreshButton)
         self.refreshButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
         
-        self.addSubview(self.addPageButton)
+        self.headerCardView.addSubview(self.addPageButton)
         self.addPageButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
@@ -85,19 +108,29 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
         let state = (self.isMyTurn, self.isRefreshing)
         switch state {
         case let(isMyTurn, isRefreshing) where !isMyTurn && isRefreshing:
-            self.backgroundColor = .yellow
             self.refreshButton.isHidden = true
             self.addPageButton.isHidden = true
         case let(isMyTurn, isRefreshing) where !isMyTurn && !isRefreshing:
-            self.backgroundColor = .red
             self.refreshButton.isHidden = false
             self.addPageButton.isHidden = true
         case let(isMyTurn, isRefreshing) where isMyTurn && !isRefreshing:
-            self.backgroundColor = .blue
             self.refreshButton.isHidden = true
             self.addPageButton.isHidden = false
         default:
             return
+        }
+    }
+    
+    private func updateLayout() {
+        guard let displayMode = displayMode else { return }
+        
+        switch displayMode {
+        case .list:
+            self.carouselConstraint?.deactivate()
+            self.listConstraint?.activate()
+        case .carousel:
+            self.carouselConstraint?.activate()
+            self.listConstraint?.deactivate()
         }
     }
 }
