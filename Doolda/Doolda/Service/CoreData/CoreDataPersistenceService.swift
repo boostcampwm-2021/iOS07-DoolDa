@@ -23,77 +23,20 @@ enum CoreDataPersistenceServiceError: LocalizedError {
     }
 }
 
-enum CoreDataPersistenceServiceObjectFactory: String {
-    case pageEntity = "CoreDataPageEntity"
-    
-    var createObject: NSManagedObject? {
-        let coreDataPersistenceService = CoreDataPersistenceService.shared
-
-        switch self {
-        case .pageEntity:
-            return CoreDataPageEntity(context: coreDataPersistenceService.persistentContainer.viewContext)
-        }
-    }
-}
-
 final class CoreDataPersistenceService: CoreDataPersistenceServiceProtocol {
-    static let shared = CoreDataPersistenceService()
+    private var isPersistentStoreLoaded = false
     
-    fileprivate var persistentContainer: NSPersistentContainer
-    
-    private var isPersistentStoresLoaded: Bool = true
-    
-    private init() {
-        self.persistentContainer = NSPersistentContainer(name: "CoreDataModel")
-        self.persistentContainer.loadPersistentStores { _, error in
-            if error != nil {
-                self.isPersistentStoresLoaded = false
-            }
+    lazy private var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "CoreDataModel")
+        container.loadPersistentStores { _, error in
+            guard error == nil else { return }
+            self.isPersistentStoreLoaded = true
         }
-    }
+        return container
+    }()
     
-    func save() -> AnyPublisher<Void, Error> {
-        guard self.isPersistentStoresLoaded else {
-            return Fail(error: CoreDataPersistenceServiceError.failedToloadPersistentStores).eraseToAnyPublisher()
-        }
-        
-        let context = self.persistentContainer.viewContext
-
-        do {
-            try context.save()
-            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
-        } catch {
-            return Fail(error: error).eraseToAnyPublisher()
-        }
-    }
-    
-    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> AnyPublisher<[T], Error> {
-        guard self.isPersistentStoresLoaded else {
-            return Fail(error: CoreDataPersistenceServiceError.failedToloadPersistentStores).eraseToAnyPublisher()
-        }
-        
-        let context = self.persistentContainer.viewContext
-
-        do {
-            let fetchResult = try context.fetch(request)
-            return Just(fetchResult).setFailureType(to: Error.self).eraseToAnyPublisher()
-        } catch {
-            return Fail(error: error).eraseToAnyPublisher()
-        }
-    }
-    
-    func delete(objects: [NSManagedObject]) -> AnyPublisher<Void, Error> {
-        guard self.isPersistentStoresLoaded else {
-            return Fail(error: CoreDataPersistenceServiceError.failedToloadPersistentStores).eraseToAnyPublisher()
-        }
-        
-        let context = self.persistentContainer.viewContext
-
-        objects.forEach { context.delete($0) }
-        return self.save()
-    }
-    
-    fileprivate func entityDescription(name: String) -> NSEntityDescription? {
-        return NSEntityDescription.entity(forEntityName: name, in: self.persistentContainer.viewContext)
+    var context: NSManagedObjectContext? {
+        guard self.isPersistentStoreLoaded else { return nil }
+        return self.persistentContainer.viewContext
     }
 }
