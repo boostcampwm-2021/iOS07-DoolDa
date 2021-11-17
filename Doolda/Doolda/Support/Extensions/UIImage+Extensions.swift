@@ -20,4 +20,5 @@ extension UIImage {
     static let textformat = UIImage(systemName: "textformat")
     static let sticker = UIImage(systemName: "face.smiling")
     static let background = UIImage(systemName: "doc")
+    static let scissors = UIImage(named: "scissors")
 }
