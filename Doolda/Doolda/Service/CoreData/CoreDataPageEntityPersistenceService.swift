@@ -28,51 +28,67 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
     }
     
     func fetchPageEntities() -> AnyPublisher<[PageEntity], Error> {
-        guard let context = coreDataPersistenceService.context else {
+        guard let context = coreDataPersistenceService.backgroundContext else {
             return Fail(error: CoreDataPageEntityPersistenceServiceError.failedToInitializeCoreDataContainer).eraseToAnyPublisher()
         }
-
-        do {
-            let fetchRequest = CoreDataPageEntity.fetchRequest()
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timeStamp", ascending: false)]
-            let fetchResult = try context.fetch(fetchRequest)
-            let pageEntities = fetchResult.compactMap { $0.toPageEntity() }
-            
-            return Just(pageEntities).setFailureType(to: Error.self).eraseToAnyPublisher()
-        } catch {
-            return Fail(error: error).eraseToAnyPublisher()
-        }
-    }
-    
-    func savePageEntity(_ pageEntity: PageEntity) {
-        guard let context = coreDataPersistenceService.context else { return }
         
-        DispatchQueue.main.async {
-            let entity = CoreDataPageEntity(context: context)
-            entity.update(pageEntity)
-        
-            do {
-                try context.save()
-            } catch {
-                print(error.localizedDescription)
+        return Future { promise in
+            context.perform {
+                do {
+                    let fetchRequest = CoreDataPageEntity.fetchRequest()
+                    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timeStamp", ascending: false)]
+                    let fetchResult = try context.fetch(fetchRequest)
+                    let pageEntities = fetchResult.compactMap { $0.toPageEntity() }
+                    
+                    promise(.success(pageEntities))
+                } catch {
+                    promise(.failure(error))
+                }
             }
         }
+        .eraseToAnyPublisher()
+    }
+    
+    func savePageEntity(_ pageEntity: PageEntity) -> AnyPublisher<Void, Error> {
+        guard let context = coreDataPersistenceService.backgroundContext else {
+            return Fail(error: CoreDataPageEntityPersistenceServiceError.failedToInitializeCoreDataContainer).eraseToAnyPublisher()
+        }
+        
+        return Future { promise in
+            context.perform {
+                let entity = CoreDataPageEntity(context: context)
+                entity.update(pageEntity)
+            
+                do {
+                    try context.save()
+                    promise(.success(()))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
     }
     
     func removeAllPageEntity() -> AnyPublisher<Void, Error> {
-        guard let context = coreDataPersistenceService.context else {
+        guard let context = coreDataPersistenceService.backgroundContext else {
             return Fail(error: CoreDataPageEntityPersistenceServiceError.failedToInitializeCoreDataContainer).eraseToAnyPublisher()
         }
         
-        do {
-            let fetchRequest = CoreDataPageEntity.fetchRequest()
-            let fetchResult = try context.fetch(fetchRequest)
-            
-            fetchResult.forEach { context.delete($0) }
-            try context.save()
-            return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
-        } catch {
-            return Fail(error: error).eraseToAnyPublisher()
+        return Future { promise in
+            context.perform {
+                do {
+                    let fetchRequest = CoreDataPageEntity.fetchRequest()
+                    let fetchResult = try context.fetch(fetchRequest)
+                    
+                    fetchResult.forEach { context.delete($0) }
+                    try context.save()
+                    return promise(.success(()))
+                } catch {
+                    return promise(.failure(error))
+                }
+            }
         }
+        .eraseToAnyPublisher()
     }
 }
