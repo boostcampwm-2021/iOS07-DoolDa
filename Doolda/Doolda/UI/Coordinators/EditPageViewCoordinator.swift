@@ -49,12 +49,15 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
             let editPageViewModel = EditPageViewModel(user: self.user, coordinator: self, editPageUseCase: editPageUseCase)
             
             let viewController = EditPageViewController(viewModel: editPageViewModel)
-            self.presenter.setViewControllers([viewController], animated: false)
+            self.presenter.pushViewController(viewController, animated: true)
         }
     }
     
     func editingPageSaved() {}
-    func editingPageCanceled() {}
+    
+    func editingPageCanceled() {
+        self.presenter.popViewController(animated: true)
+    }
     
     func addPhotoComponent() {
         let fileManagerPersistenceService = FileManagerPersistenceService()
