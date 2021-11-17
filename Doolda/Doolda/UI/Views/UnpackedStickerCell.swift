@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 class UnpackedStickerCell: UICollectionViewCell {
 
     // MARK: - Static Properties
@@ -14,5 +16,32 @@ class UnpackedStickerCell: UICollectionViewCell {
     static let identifier = "UnpackedStickerCell"
 
     // MARK: - Subviews
+
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    // MARK: - Initializers
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.configureUI()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.configureUI()
+    }
+
+    // MARK: - Helpers
+
+    private func configureUI() {
+        self.addSubview(self.imageView)
+        self.imageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
 
 }
