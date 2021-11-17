@@ -53,7 +53,7 @@ class StickerPickerViewController: BottomSheetViewController {
 
     // MARK: - Private Properties
 
-    private var cancellables: Set<AnyCancellable> = []
+    private var cancellables = [Int: AnyCancellable]()
 
     // MARK: - LifeCycle Methods
 
@@ -84,22 +84,33 @@ class StickerPickerViewController: BottomSheetViewController {
         }
     }
 
-    private func bindCellUI(_ cell: PackedStickerCell) {
-        cell.slider.publisher(for: .valueChanged)
+    private func bindCellUI(_ cell: PackedStickerCell, at indexPath: IndexPath) {
+        let publisher = cell.slider.publisher(for: .valueChanged)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 if cell.slider.value >= cell.slider.maximumValue * 0.95 {
-                    print("\(cell) 완료")
+                    print("\(indexPath.section) 완료")
                 }
             }
-            .store(in: &self.cancellables)
+        self.cancellables[indexPath.section] = publisher
     }
 
 }
 
 extension StickerPickerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if StickerPackType.allCases.count <= indexPath.section { return }
+        guard let cell = cell as? PackedStickerCell,
+              let operationQueue = OperationQueue.current,
+              let stickerPack = StickerPackType.allCases[indexPath.section].rawValue else { return }
+
         self.stickerPickerView.currentPack = indexPath.section
+        self.bindCellUI(cell, at: indexPath)
+
+        cell.clear()
+        cell.configure(with: stickerPack)
+        cell.motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
+        cell.animating = true
     }
 
 }
@@ -120,21 +131,7 @@ extension StickerPickerViewController: UICollectionViewDataSource {
             for: indexPath
         )
 
-        if StickerPackType.allCases.count <= indexPath.section { return UICollectionViewCell() }
-
-        guard let cell = cell as? PackedStickerCell,
-              let operationQueue = OperationQueue.current,
-              let stickerPack = StickerPackType.allCases[indexPath.section].rawValue else {
-                  return UICollectionViewCell()
-              }
-
-        self.bindCellUI(cell)
-        cell.animating = false
-        cell.motionManager.stopDeviceMotionUpdates()
-        cell.configure(with: stickerPack)
-        cell.motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
-        cell.animating = true
-
+        guard let cell = cell as? PackedStickerCell else { return UICollectionViewCell() }
         return cell
     }
 

@@ -92,6 +92,7 @@ class StickerPickerView: UIView {
     }
 
     // MARK: - Private Methods
+    // 뷰가 compositional layout을 생성하는게 맞는가? delegate를 통해 받아야할까?
 
     private func createLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, env) -> NSCollectionLayoutSection? in
