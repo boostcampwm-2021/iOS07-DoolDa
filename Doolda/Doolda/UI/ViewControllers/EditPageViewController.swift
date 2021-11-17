@@ -80,6 +80,10 @@ class EditPageViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Override Properties
+    
+    override var prefersStatusBarHidden: Bool { return true }
+    
     // MARK: - Private Properties
     
     private var cancellables: Set<AnyCancellable> = []
