@@ -31,7 +31,7 @@ class PackedStickerCell: UICollectionViewCell {
         return coverView
     }()
 
-    private lazy var slider: UISlider = {
+    lazy var slider: UISlider = {
         let slider = UISlider()
         slider.maximumValue = 100
         slider.minimumValue = 0
