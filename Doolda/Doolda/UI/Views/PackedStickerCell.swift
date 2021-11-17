@@ -19,19 +19,19 @@ class PackedStickerCell: UICollectionViewCell {
 
     // MARK: - Subviews
 
-    private lazy var bodyView: UIView = {
+    private lazy var stickerPackBody: UIView = {
         let bodyView = UIView()
         bodyView.backgroundColor = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
         return bodyView
     }()
 
-    private lazy var coverView: UIView = {
+    private lazy var stickerPackCover: UIView = {
         let coverView = UIView()
         coverView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7)
         return coverView
     }()
 
-    private lazy var coverSticker: UIImageView = {
+    private lazy var coverSealingSticker: UIImageView = {
         let coverSticker = UIImageView()
         coverSticker.contentMode = .scaleAspectFit
         return coverSticker
@@ -55,18 +55,20 @@ class PackedStickerCell: UICollectionViewCell {
     // MARK: - Private Properties
 
     private let gravity: UIGravityBehavior = UIGravityBehavior()
+
     private let collider: UICollisionBehavior = {
         let collider = UICollisionBehavior()
         collider.translatesReferenceBoundsIntoBoundary = true
         return collider
     }()
+
     private let itemBehavior: UIDynamicItemBehavior = {
         let behavior = UIDynamicItemBehavior()
         behavior.elasticity = 0.4
         return behavior
     }()
 
-    private lazy var animator: UIDynamicAnimator = UIDynamicAnimator(referenceView: self.bodyView)
+    private lazy var animator: UIDynamicAnimator = UIDynamicAnimator(referenceView: self.stickerPackBody)
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Initializers
@@ -88,7 +90,7 @@ class PackedStickerCell: UICollectionViewCell {
     func clear() {
         self.slider.value = 0
 
-        self.bodyView.subviews.forEach { subview in
+        self.stickerPackBody.subviews.forEach { subview in
             subview.removeFromSuperview()
             self.gravity.removeItem(subview)
             self.collider.removeItem(subview)
@@ -109,7 +111,7 @@ class PackedStickerCell: UICollectionViewCell {
             var width: CGFloat = self.frame.width * 0.2
             if width == 0 { width = 50 }
 
-            self.bodyView.addSubview(stickerView)
+            self.stickerPackBody.addSubview(stickerView)
             stickerView.frame = CGRect(x: offset, y: offset, width: width , height: width * ratio)
 
             self.gravity.addItem(stickerView)
@@ -119,8 +121,8 @@ class PackedStickerCell: UICollectionViewCell {
             offset += 20
         }
 
-        guard let coverImage = try? UIImage(data: Data(contentsOf: stickerPack.coverUrl)) else { return }
-        self.coverSticker.image = coverImage
+        guard let coverImage = try? UIImage(data: Data(contentsOf: stickerPack.sealingImageUrl)) else { return }
+        self.coverSealingSticker.image = coverImage
     }
 
     // MARK: - Public Methods
@@ -133,50 +135,50 @@ class PackedStickerCell: UICollectionViewCell {
         let gravityX = CGFloat(gravity.x)
         let gravityY = CGFloat(-gravity.y)
 
-        self.gravity.gravityDirection = CGVector(dx: gravityX*2.5, dy: gravityY*2.5)
+        self.gravity.gravityDirection = CGVector(dx: gravityX * 2.5, dy: gravityY * 2.5)
     }
 
     private func configureUI() {
         self.backgroundColor = .white
 
-        self.addSubview(self.bodyView)
-        self.bodyView.snp.makeConstraints { make in
+        self.addSubview(self.stickerPackBody)
+        self.stickerPackBody.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-8)
         }
 
-        self.addSubview(self.coverView)
-        self.coverView.snp.makeConstraints { make in
+        self.addSubview(self.stickerPackCover)
+        self.stickerPackCover.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(self.bodyView).multipliedBy(0.2)
+            make.height.equalTo(self.stickerPackBody).multipliedBy(0.2)
         }
 
-        self.coverView.addSubview(self.slider)
+        self.stickerPackCover.addSubview(self.slider)
         self.slider.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(-5)
         }
 
-        self.coverView.addSubview(self.coverSticker)
-        self.coverSticker.snp.makeConstraints { make in
+        self.stickerPackCover.addSubview(self.coverSealingSticker)
+        self.coverSealingSticker.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.centerY.equalTo(self.coverView.snp.bottom)
+            make.centerY.equalTo(self.stickerPackCover.snp.bottom)
             make.width.equalToSuperview().multipliedBy(0.25)
-            make.height.equalTo(self.coverView.snp.width)
+            make.height.equalTo(self.stickerPackCover.snp.width)
         }
     }
 
     private func bindUI() {
         self.$animating
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] value in
+            .sink { [weak self] isAnimating in
                 guard let gravity = self?.gravity,
                       let collider = self?.collider,
                       let itemBehavior = self?.itemBehavior else { return }
 
-                if value == true {
+                if isAnimating {
                     self?.animator.addBehavior(gravity)
                     self?.animator.addBehavior(collider)
                     self?.animator.addBehavior(itemBehavior)

@@ -44,11 +44,7 @@ class StickerPickerViewController: BottomSheetViewController {
     }()
 
     private lazy var stickerPickerView: StickerPickerView = {
-        let stickerPicker = StickerPickerView(
-            collectionViewDelegate: self,
-            collectionViewDataSource: self
-        )
-        return stickerPicker
+        return StickerPickerView(collectionViewDelegate: self, collectionViewDataSource: self)
     }()
 
     // MARK: - Private Properties
@@ -89,12 +85,12 @@ class StickerPickerViewController: BottomSheetViewController {
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 if cell.slider.value >= cell.slider.maximumValue * 0.95 {
+                    // FIXME: PackedStickerCell이 구현되면 수정할 예정
                     print("\(indexPath.section) 완료")
                 }
             }
         self.cancellables[indexPath.section] = publisher
     }
-
 }
 
 extension StickerPickerViewController: UICollectionViewDelegate {
@@ -116,7 +112,6 @@ extension StickerPickerViewController: UICollectionViewDelegate {
 }
 
 extension StickerPickerViewController: UICollectionViewDataSource {
-
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return StickerPackType.allCases.count
     }
@@ -126,13 +121,10 @@ extension StickerPickerViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
+        return collectionView.dequeueReusableCell(
             withReuseIdentifier: PackedStickerCell.identifier,
             for: indexPath
         )
-
-        guard let cell = cell as? PackedStickerCell else { return UICollectionViewCell() }
-        return cell
     }
 
 }
