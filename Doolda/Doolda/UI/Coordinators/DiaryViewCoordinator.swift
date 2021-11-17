@@ -18,7 +18,7 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     }
     
     func start() {
-        let viewModel = DiaryViewModel(coordinator: self)
+        let viewModel = DiaryViewModel(user: self.user, coordinator: self, displayPageUseCase: DisplayPageUseCase())
         
         DispatchQueue.main.async {
             let viewController = DiaryViewController(viewModel: viewModel)
