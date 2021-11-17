@@ -23,6 +23,13 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
         return button
     }()
     
+    private lazy var addPageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.plus, for: .normal)
+        button.tintColor = .dooldaLabel
+        return button
+    }()
+    
     var isMyTurn: Bool = false {
         didSet { self.updateMode() }
     }
@@ -51,6 +58,11 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
         self.refreshButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+        
+        self.addSubview(self.addPageButton)
+        self.addPageButton.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
     
     private func bindUI() {
@@ -58,6 +70,13 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.delegate?.refreshButtonDidTap(self)
+            }
+            .store(in: &self.cancellables)
+        
+        self.addPageButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.delegate?.addPageButtonDidTap(self)
             }
             .store(in: &self.cancellables)
     }
@@ -68,12 +87,15 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
         case let(isMyTurn, isRefreshing) where !isMyTurn && isRefreshing:
             self.backgroundColor = .yellow
             self.refreshButton.isHidden = true
+            self.addPageButton.isHidden = true
         case let(isMyTurn, isRefreshing) where !isMyTurn && !isRefreshing:
             self.backgroundColor = .red
             self.refreshButton.isHidden = false
+            self.addPageButton.isHidden = true
         case let(isMyTurn, isRefreshing) where isMyTurn && !isRefreshing:
             self.backgroundColor = .blue
             self.refreshButton.isHidden = true
+            self.addPageButton.isHidden = false
         default:
             return
         }
@@ -82,4 +104,5 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
 
 protocol DiaryCollectionViewHeaderDelegate: AnyObject {
     func refreshButtonDidTap(_ diaryCollectionViewHeader: DiaryCollectionViewHeader)
+    func addPageButtonDidTap(_ diaryCollectionViewHeader: DiaryCollectionViewHeader)
 }
