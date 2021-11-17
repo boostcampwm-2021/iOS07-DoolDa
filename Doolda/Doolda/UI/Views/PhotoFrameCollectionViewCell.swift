@@ -30,7 +30,7 @@ class PhotoFrameCollectionViewCell: UICollectionViewCell {
     private lazy var displayName: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Dovemayo", size: 22)
+        label.font = .systemFont(ofSize: 22)
         label.textColor = .dooldaLabel
         return label
     }()

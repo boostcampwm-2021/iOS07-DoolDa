@@ -27,7 +27,7 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
     
     private lazy var orderedSelectionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Dovemayo", size: 16)
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .dooldaLabel
         label.textAlignment = .center
         label.layer.borderWidth = 2

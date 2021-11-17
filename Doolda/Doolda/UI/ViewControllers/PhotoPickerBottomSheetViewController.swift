@@ -21,7 +21,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     private lazy var bottomSheetTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Dovemayo", size: 16)
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .dooldaLabel
         label.text = "사진 추가"
         return label
@@ -103,7 +103,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     private var fontContainer: AttributeContainer {
         var container = AttributeContainer()
-        container.font = UIFont(name: "Dovemayo", size: 16)
+        container.font = .systemFont(ofSize: 16)
         return container
     }
     
