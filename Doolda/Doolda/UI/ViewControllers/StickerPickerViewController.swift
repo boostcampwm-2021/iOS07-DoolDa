@@ -95,8 +95,7 @@ class StickerPickerViewController: BottomSheetViewController {
 
     private func createStickerPickerCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, environment) -> NSCollectionLayoutSection? in
-            let stickerPackIndex = min(sectionIndex, StickerPackType.allCases.count - 1)
-            guard let stickerPack = StickerPackType.allCases[stickerPackIndex].rawValue else { return nil }
+            guard let stickerPack = self.stickerPackMapper(at: sectionIndex) else { return nil }
 
             if stickerPack.isUnpacked { return self.createUnPackedStickerLayoutSection(in: environment) }
             else { return self.createPackedStickerLayoutSection(in: environment) }
@@ -125,9 +124,9 @@ class StickerPickerViewController: BottomSheetViewController {
         )
 
         let section = NSCollectionLayoutSection(group: group)
-        let footerItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1))
-        let footerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerItemSize, elementKind: "footer", alignment: .bottom)
-        section.boundarySupplementaryItems = [footerItem]
+//        let footerItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1))
+//        let footerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerItemSize, elementKind: "footer", alignment: .bottom)
+//        section.boundarySupplementaryItems = [footerItem]
 
         return section
     }
@@ -147,14 +146,18 @@ class StickerPickerViewController: BottomSheetViewController {
         return section
     }
 
+    private func stickerPackMapper(at section: Int) -> StickerPackEntity? {
+        if StickerPackType.allCases.count <= section { return nil }
+        return StickerPackType.allCases[section].rawValue
+    }
+
 }
 
 extension StickerPickerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if StickerPackType.allCases.count <= indexPath.section { return }
         guard let cell = cell as? PackedStickerCell,
               let operationQueue = OperationQueue.current,
-              let stickerPack = StickerPackType.allCases[indexPath.section].rawValue else { return }
+              let stickerPack = self.stickerPackMapper(at: indexPath.section) else { return }
 
         self.stickerPickerView.currentPack = indexPath.section
         self.bindCellUI(cell, at: indexPath)
@@ -173,10 +176,18 @@ extension StickerPickerViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let stickerPackIndex = min(section, StickerPackType.allCases.count - 1)
+        guard let stickerPack = StickerPackType.allCases[stickerPackIndex].rawValue else { return 0 }
         return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: PackedStickerCell.identifier, for: indexPath)
     }
+
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        if kind != UICollectionView.elementKindSectionFooter { return UICollectionReusableView() }
+//        
+//        return UICollectionReusableView()
+//    }
 }
