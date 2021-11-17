@@ -11,7 +11,7 @@ import CoreData
 
 extension CoreDataPageEntity {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CoreDataPageEntity> {
-        return NSFetchRequest<CoreDataPageEntity>(entityName: "CoreDataPageEntity")
+        return NSFetchRequest<CoreDataPageEntity>(entityName: Self.coreDataPageEntityName)
     }
 
     @NSManaged public var id: String?

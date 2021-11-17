@@ -24,10 +24,12 @@ enum CoreDataPersistenceServiceError: LocalizedError {
 }
 
 final class CoreDataPersistenceService: CoreDataPersistenceServiceProtocol {
+    static let coreDataModelName = "CoreDataModel"
+    
     private var isPersistentStoreLoaded = false
     
-    lazy private var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "CoreDataModel")
+    private lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: Self.coreDataModelName)
         container.loadPersistentStores { _, error in
             guard error == nil else { return }
             self.isPersistentStoreLoaded = true
