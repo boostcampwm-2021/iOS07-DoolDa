@@ -76,7 +76,7 @@ class DiaryViewController: UIViewController {
         return appearance
     }()
     
-    private var headerView: UICollectionReusableView?
+    private var headerView: DiaryCollectionViewHeader?
     
     // MARK: - Override Properties
     
@@ -169,14 +169,14 @@ class DiaryViewController: UIViewController {
         viewModel.isMyTurnPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isMyTurn in
-                self?.headerView?.backgroundColor = isMyTurn ? .blue : .red
+                self?.headerView?.isMyTurn = isMyTurn
             }
             .store(in: &self.cancellables)
-        
-        viewModel.lastUpdatedPublisher
+
+        viewModel.isRefreshingPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                print("UPDATE COMPLETE")
+            .sink { [weak self] isRefreshing in
+                self?.headerView?.isRefreshing = isRefreshing
             }
             .store(in: &self.cancellables)
         
@@ -208,7 +208,6 @@ class DiaryViewController: UIViewController {
                     for: indexPath
                 ) as? DiaryPageViewCell else { return nil }
                 cell.backgroundColor = .red
-                cell.number = pageEntity.jsonPath
                 return cell
         })
         
@@ -218,6 +217,7 @@ class DiaryViewController: UIViewController {
                 withReuseIdentifier: DiaryCollectionViewHeader.reusableViewIdentifier,
                 for: indexPath
             ) as? DiaryCollectionViewHeader
+            view?.delegate = self
             self.headerView = view
             return view
         }
@@ -318,5 +318,11 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
         minimumInteritemSpacingForSectionAt section: Int
     ) -> CGFloat {
         return 10.0
+    }
+}
+
+extension DiaryViewController: DiaryCollectionViewHeaderDelegate {
+    func refreshButtonDidTap(_ diaryCollectionViewHeader: DiaryCollectionViewHeader) {
+        self.viewModel?.lastPageDidPull()
     }
 }
