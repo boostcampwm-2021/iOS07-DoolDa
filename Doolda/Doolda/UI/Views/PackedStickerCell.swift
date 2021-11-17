@@ -31,6 +31,16 @@ class PackedStickerCell: UICollectionViewCell {
         return coverView
     }()
 
+    private lazy var slider: UISlider = {
+        let slider = UISlider()
+        slider.maximumValue = 100
+        slider.minimumValue = 0
+        slider.maximumTrackTintColor = .lightGray
+        slider.minimumTrackTintColor = .darkGray
+        slider.setThumbImage(UIImage(named: "scissors"), for: .normal)
+        return slider
+    }()
+
     // MARK: - Public Properties
 
     @Published var animating: Bool = false
@@ -153,6 +163,11 @@ class PackedStickerCell: UICollectionViewCell {
         self.coverView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(self.bodyView).multipliedBy(0.2)
+        }
+
+        self.coverView.addSubview(self.slider)
+        self.slider.snp.makeConstraints { make in
+            
         }
     }
 
