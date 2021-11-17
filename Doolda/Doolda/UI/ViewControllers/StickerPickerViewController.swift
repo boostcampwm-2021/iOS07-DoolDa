@@ -17,7 +17,7 @@ class StickerPickerViewController: BottomSheetViewController {
 
     private lazy var bottomSheetTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Dovemayo", size: 16)
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .dooldaLabel
         label.text = "스티커 추가"
         return label
@@ -25,7 +25,7 @@ class StickerPickerViewController: BottomSheetViewController {
 
     private lazy var closeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.setImage(UIImage.xmark, for: .normal)
         button.sizeToFit()
         return button
     }()
