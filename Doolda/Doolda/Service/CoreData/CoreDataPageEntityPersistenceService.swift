@@ -70,7 +70,7 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
             let fetchResult = try context.fetch(fetchRequest)
             
             fetchResult.forEach { context.delete($0) }
-            
+            try context.save()
             return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
         } catch {
             return Fail(error: error).eraseToAnyPublisher()
