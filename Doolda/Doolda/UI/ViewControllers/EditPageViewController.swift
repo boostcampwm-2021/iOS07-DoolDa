@@ -94,6 +94,8 @@ class EditPageViewController: UIViewController {
         return self.pageView.frame.size.height / 3000.0
     }
     
+    override var prefersStatusBarHidden: Bool { return true }
+    
     private var initialOrigin: CGPoint = .zero
     private var center: CGPoint = .zero
     
@@ -125,7 +127,7 @@ class EditPageViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    
+        
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
         self.title = "새 페이지"
@@ -150,8 +152,15 @@ class EditPageViewController: UIViewController {
         self.pageView.isUserInteractionEnabled = true
         self.pageView.clipsToBounds = true
         self.pageView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview().inset(16)
-            make.height.equalTo(self.pageView.snp.width).multipliedBy(30.0/17.0)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.scrollView.snp.top).offset(12)
+            make.width.equalTo(self.pageView.snp.height).multipliedBy(17.0 / 30.0)
+            let screenHeight = UIScreen.main.bounds.size.height
+            if screenHeight > 700 {
+                make.height.equalTo(self.scrollView.snp.height).offset(-100)
+            } else {
+                make.height.equalTo(self.scrollView.snp.height).offset(-45)
+            }
         }
         
         self.contentView.addSubview(self.pageControlView)
@@ -164,8 +173,8 @@ class EditPageViewController: UIViewController {
         self.contentView.addSubview(self.componentsStackView)
         self.componentsStackView.snp.makeConstraints { make in
             make.leading.equalTo(self.pageView)
-            make.top.equalTo(self.pageView.snp.bottom).offset(14)
-            make.bottom.equalToSuperview().offset(-28)
+            make.top.equalTo(self.pageView.snp.bottom).offset(5)
+            make.bottom.equalToSuperview().offset(-5)
             make.width.equalTo(135)
         }
     }
@@ -292,6 +301,8 @@ class EditPageViewController: UIViewController {
                 self.pageControlView.componentSpaceView.transform = transform
                 self.pageControlView.controlsView.transform = transform
                 
+//                print(componentView.layer.frame.origin)
+//                print(self.pageControlView.componentSpaceView.layer.frame.origin)
                 self.pageControlView.componentSpaceView.layer.borderWidth = 1/componentEntity.scale
                 self.pageControlView.controls.forEach { control in
                     control.transform = CGAffineTransform.identity.scaledBy(x: 1/componentEntity.scale, y: 1/componentEntity.scale)
@@ -378,7 +389,7 @@ extension EditPageViewController: ControlViewDelegate {
     
     func rightBottomcontrolDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer) {
         let touchLocation = gesture.location(in: self.view)
-        let center = pageControlView.center
+        let center = CGPoint(x: pageControlView.layer.frame.midX, y: pageControlView.layer.frame.midY)
         let xDifference = (center.x - touchLocation.x)
         let yDifference = (center.y - touchLocation.y)
         let distance = sqrt(xDifference * xDifference + yDifference * yDifference)
@@ -411,7 +422,7 @@ extension EditPageViewController: ControlViewDelegate {
         case .began:
             let touchCGPoint = gesture.location(in: self.pageControlView)
             self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
-            self.initialOrigin = pageControlView.componentSpaceView.frame.origin
+            self.initialOrigin = pageControlView.componentSpaceView.layer.frame.origin
             fallthrough
         case .changed:
             let translation = gesture.translation(in: self.pageView)
@@ -420,6 +431,8 @@ extension EditPageViewController: ControlViewDelegate {
                 y: self.initialOrigin.y + translation.y
             )
             let computedOrigin = self.computePointToAbsolute(at: contentViewOriginFromPage)
+//            print("translation", translation)
+//            print(computedOrigin)
             self.viewModel?.componentDidDrag(at: computedOrigin)
         default:
             break

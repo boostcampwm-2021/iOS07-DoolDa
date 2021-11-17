@@ -9,7 +9,7 @@ import Foundation
 
 protocol PushNotificationStateUseCaseProtocol {
     func getPushNotificationState() -> Bool?
-    func setPushNotificationState(as State: Bool)
+    func setPushNotificationState(as state: Bool)
 }
 
 final class PushNotificationStateUseCase: PushNotificationStateUseCaseProtocol {
