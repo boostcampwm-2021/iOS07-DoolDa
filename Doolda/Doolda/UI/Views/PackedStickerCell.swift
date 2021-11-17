@@ -31,6 +31,12 @@ class PackedStickerCell: UICollectionViewCell {
         return coverView
     }()
 
+    private lazy var coverSticker: UIImageView = {
+        let coverSticker = UIImageView()
+        coverSticker.contentMode = .scaleAspectFit
+        return coverSticker
+    }()
+
     lazy var slider: UISlider = {
         let slider = UISlider()
         slider.maximumValue = 100
@@ -79,7 +85,7 @@ class PackedStickerCell: UICollectionViewCell {
 
     // MARK: - Helpers
 
-    func configure(with stickers: [URL]) {
+    func configure(with stickerPack: StickerPackEntity) {
         self.bodyView.subviews.forEach { subview in
             subview.removeFromSuperview()
             self.gravity.removeItem(subview)
@@ -87,6 +93,7 @@ class PackedStickerCell: UICollectionViewCell {
             self.itemBehavior.removeItem(subview)
         }
 
+        let stickers = stickerPack.stickersUrl
         var leadingOffset: CGFloat = 10
         for url in stickers {
             guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
@@ -109,6 +116,9 @@ class PackedStickerCell: UICollectionViewCell {
 
             leadingOffset += 20
         }
+
+        guard let coverImage = try? UIImage(data: Data(contentsOf: stickerPack.coverUrl)) else { return }
+        self.coverSticker.image = coverImage
     }
 
     // MARK: - Public Methods
@@ -145,6 +155,14 @@ class PackedStickerCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(8)
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(-5)
+        }
+
+        self.coverView.addSubview(self.coverSticker)
+        self.coverSticker.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalTo(self.coverView.snp.bottom)
+            make.width.equalToSuperview().multipliedBy(0.25)
+            make.height.equalTo(self.coverView.snp.width)
         }
     }
 
