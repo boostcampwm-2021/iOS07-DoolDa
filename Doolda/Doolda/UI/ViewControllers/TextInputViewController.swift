@@ -22,8 +22,11 @@ class TextInputViewController: UIViewController {
         var textView = UITextView()
         textView.font = .systemFont(ofSize: 16)
         textView.autocapitalizationType = .words
-        textView.isScrollEnabled = false
+        textView.isScrollEnabled = true
         textView.backgroundColor = .clear
+        textView.textAlignment = .center
+//        textView.layoutManager.allowsNonContiguousLayout = false
+//        textView.translatesAutoresizingMaskIntoConstraints = true
         textView.delegate = self
         return textView
     }()
@@ -95,16 +98,28 @@ extension TextInputViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         textView.text = "내용을 입력하세요"
         textView.textColor = .darkGray
+        textView.sizeToFit()
+        textView.snp.makeConstraints { make in
+            make.width.equalTo(textView.contentSize.width)
+            make.height.equalTo(textView.contentSize.height)
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
         if textView.textColor == .darkGray,
-        let input = textView.text.last {
+           let input = textView.text.last {
             textView.textColor = .black
             textView.text = String(input)
         } else if textView.textColor == .black, textView.text.isEmpty {
             textView.textColor = .darkGray
             textView.text = "내용을 입력하세요"
+        }
+        let maximumWidth: CGFloat = self.view.frame.width - 40
+        let newSize = textView.sizeThatFits(CGSize(width: maximumWidth, height: CGFloat.greatestFiniteMagnitude))
+        
+        textView.snp.updateConstraints { make in
+            make.width.equalTo(newSize.width)
+            make.height.equalTo(newSize.height)
         }
     }
     
