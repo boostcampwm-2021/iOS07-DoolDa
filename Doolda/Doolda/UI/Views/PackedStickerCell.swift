@@ -35,8 +35,8 @@ class PackedStickerCell: UICollectionViewCell {
         let slider = UISlider()
         slider.maximumValue = 100
         slider.minimumValue = 0
-        slider.maximumTrackTintColor = .lightGray
-        slider.minimumTrackTintColor = .darkGray
+        slider.maximumTrackTintColor = .systemGray5
+        slider.minimumTrackTintColor = .systemGray4
         slider.setThumbImage(UIImage(systemName: "scissors"), for: .normal)
         return slider
     }()
@@ -44,6 +44,7 @@ class PackedStickerCell: UICollectionViewCell {
     // MARK: - Public Properties
 
     @Published var animating: Bool = false
+    lazy var motionManager: CMMotionManager = CMMotionManager()
 
     // MARK: - Private Properties
 
@@ -91,7 +92,7 @@ class PackedStickerCell: UICollectionViewCell {
             guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
             let stickerView = UIImageView(image: stickerImage)
             let ratio = stickerImage.size.height / stickerImage.size.width
-            let width = self.bodyView.frame.width * 0.2
+            let width: CGFloat = 50
 
             stickerView.frame = CGRect(x: leadingOffset, y: leadingOffset, width: width , height: width * ratio)
 
@@ -143,8 +144,9 @@ class PackedStickerCell: UICollectionViewCell {
     }
 
     func configureGravity(motion: CMDeviceMotion?, error: Error?) {
-        guard let motion = motion,
-              let _ = error else { return }
+        guard let motion = motion else { return }
+        if error != nil { print(error.debugDescription); return }
+
         let gravity: CMAcceleration = motion.gravity
         let gravityX = CGFloat(gravity.x)
         let gravityY = CGFloat(-gravity.y)
@@ -170,7 +172,7 @@ class PackedStickerCell: UICollectionViewCell {
 
         self.coverView.addSubview(self.slider)
         self.slider.snp.makeConstraints { make in
-            make.top.equalToSuperview().multipliedBy(0.5)
+            make.top.equalToSuperview().offset(8)
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(-5)
         }
