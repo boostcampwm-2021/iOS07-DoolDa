@@ -82,10 +82,12 @@ class StickerPickerViewController: BottomSheetViewController {
     private func bindCellUI(_ cell: PackedStickerCell, at indexPath: IndexPath) {
         let publisher = cell.slider.publisher(for: .valueChanged)
             .receive(on: DispatchQueue.main)
-            .sink { _ in
+            .sink { [weak self] _ in
                 if cell.slider.value >= cell.slider.maximumValue * 0.95 {
                     // FIXME: PackedStickerCell이 구현되면 수정할 예정
                     print("\(indexPath.section) 완료")
+                    //guard let stickerPack = self?.stickerPackMapper(at: indexPath.section) else { return }
+                    //stickerPack.isUnpacked = false
                 }
             }
         self.cancellables[indexPath.section] = publisher
@@ -98,7 +100,7 @@ class StickerPickerViewController: BottomSheetViewController {
             guard let stickerPack = self.stickerPackMapper(at: sectionIndex) else { return nil }
 
             if stickerPack.isUnpacked { return self.createUnPackedStickerLayoutSection(in: environment) }
-            else { return self.createPackedStickerLayoutSection(in: environment) }
+            return self.createPackedStickerLayoutSection(in: environment)
         }
 
         let config = UICollectionViewCompositionalLayoutConfiguration()
@@ -151,6 +153,12 @@ class StickerPickerViewController: BottomSheetViewController {
         return StickerPackType.allCases[section].rawValue
     }
 
+    private func stickerUrlMapper(at indexPath: IndexPath) -> URL? {
+        guard let stickerPack = self.stickerPackMapper(at: indexPath.section) else { return nil }
+        if stickerPack.stickersUrl.count <= indexPath.item { return nil }
+        return stickerPack.stickersUrl[indexPath.item]
+    }
+
 }
 
 extension StickerPickerViewController: UICollectionViewDelegate {
@@ -176,13 +184,23 @@ extension StickerPickerViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let stickerPackIndex = min(section, StickerPackType.allCases.count - 1)
-        guard let stickerPack = StickerPackType.allCases[stickerPackIndex].rawValue else { return 0 }
+        guard let stickerPack = self.stickerPackMapper(at: section) else { return 0 }
+        if stickerPack.isUnpacked { return stickerPack.stickersUrl.count }
         return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: PackedStickerCell.identifier, for: indexPath)
+        guard let stickerPack = self.stickerPackMapper(at: indexPath.section) else { return UICollectionViewCell() }
+
+        if !stickerPack.isUnpacked {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: PackedStickerCell.identifier, for: indexPath)
+        }
+
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnpackedStickerCell.identifier, for: indexPath) as? UnpackedStickerCell,
+              let stickerUrl = self.stickerUrlMapper(at: indexPath) else { return UICollectionViewCell() }
+
+        cell.configure(with: stickerUrl)
+        return cell
     }
 
 //    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
