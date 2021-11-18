@@ -468,6 +468,12 @@ extension EditPageViewController: BackgroundTypePickerViewControllerDelegate {
     }
 }
 
+extension EditPageViewController: StickerPickerViewControllerDelegate {
+    func stickerDidSelected(_ stickerComponentEntity: StickerComponentEntity) {
+        self.viewModel?.componentEntityDidAdd(stickerComponentEntity)
+    }
+}
+
 extension EditPageViewController: TextInputViewControllerDelegate {
     func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity) {
         self.viewModel?.componentEntityDidAdd(textComponentEntity)
