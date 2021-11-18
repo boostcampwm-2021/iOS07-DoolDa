@@ -131,7 +131,7 @@
 		66B4ADFF2742BEFC0021EA27 /* Normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFC2742BEFC0021EA27 /* Normal.jpg */; };
 		66B4AE002742BEFC0021EA27 /* Polaroid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFD2742BEFC0021EA27 /* Polaroid.jpg */; };
 		66B4AE012742BEFC0021EA27 /* LifeFourCuts.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFE2742BEFC0021EA27 /* LifeFourCuts.jpg */; };
-		66C482DB2746135500823151 /* DisplayPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C482DA2746135500823151 /* DisplayPageUseCase.swift */; };
+		66C482DB2746135500823151 /* GetRawPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C482DA2746135500823151 /* GetRawPageUseCase.swift */; };
 		66CAFF242740F63A00A48DCF /* BackgroundTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */; };
 		66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644D273A490800E55C03 /* BottomSheetViewController.swift */; };
 		66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */; };
@@ -366,7 +366,7 @@
 		66B4ADFC2742BEFC0021EA27 /* Normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Normal.jpg; sourceTree = "<group>"; };
 		66B4ADFD2742BEFC0021EA27 /* Polaroid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Polaroid.jpg; sourceTree = "<group>"; };
 		66B4ADFE2742BEFC0021EA27 /* LifeFourCuts.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = LifeFourCuts.jpg; sourceTree = "<group>"; };
-		66C482DA2746135500823151 /* DisplayPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPageUseCase.swift; sourceTree = "<group>"; };
+		66C482DA2746135500823151 /* GetRawPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCase.swift; sourceTree = "<group>"; };
 		66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTypePickerViewController.swift; sourceTree = "<group>"; };
 		66CD644D273A490800E55C03 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -863,7 +863,7 @@
 				FC7AA338274345280059D0CD /* StickerUseCase.swift */,
 				FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */,
 				FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */,
-				66C482DA2746135500823151 /* DisplayPageUseCase.swift */,
+				66C482DA2746135500823151 /* GetRawPageUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1580,7 +1580,7 @@
 				FCCF0231273A145400EAB00B /* EditPageViewCoordinator.swift in Sources */,
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
-				66C482DB2746135500823151 /* DisplayPageUseCase.swift in Sources */,
+				66C482DB2746135500823151 /* GetRawPageUseCase.swift in Sources */,
 				31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */,
 				1DE5E5422739352B004F794F /* RawPageRepositoryProtocol.swift in Sources */,
 				66ECCD3C273F7C9F003990EE /* CustomActivityIndicator.swift in Sources */,
