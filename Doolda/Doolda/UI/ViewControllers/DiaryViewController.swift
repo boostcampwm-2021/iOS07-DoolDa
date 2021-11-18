@@ -108,6 +108,11 @@ class DiaryViewController: UIViewController {
         self.bindUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.diaryViewWillAppear()
+    }
+    
     // MARK: - Helpers
     
     private func configureUI() {
@@ -134,7 +139,6 @@ class DiaryViewController: UIViewController {
             .sink { [weak self] entities in
                 guard let self = self else { return }
                 self.applySnapshot(pageEntities: entities)
-                self.scrollToPage(of: 0)
             }
             .store(in: &self.cancellables)
         

@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 protocol DiaryViewModelInput {
+    func diaryViewWillAppear()
     func filterButtonDidTap()
     func displayModeToggleButtonDidTap()
     func settingsButtonDidTap()
@@ -100,6 +101,9 @@ class DiaryViewModel: DiaryViewModelProtocol {
         self.checkMyTurnUseCase = checkMyTurnUseCase
         self.getPageUseCase = getPageUseCase
         self.getRawPageUseCase = getRawPageUseCase
+    }
+    
+    func diaryViewWillAppear() {
         self.fetchPages()
     }
     
@@ -117,7 +121,6 @@ class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func refreshButtonDidTap() {
-        self.isRefreshing = true
         self.fetchPages()
     }
     
@@ -136,21 +139,15 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     private func fetchPages() {
         guard let pairId = self.user.pairId else { return }
+        self.isRefreshing = true
         
-        self.checkMyTurnUseCase.checkTurn(for: self.user)
+        Publishers.Zip(self.checkMyTurnUseCase.checkTurn(for: self.user), self.getPageUseCase.getPages(for: pairId))
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
-            } receiveValue: { [weak self] isMyTurn in
+                self?.isRefreshing = false
+            } receiveValue: { [weak self] isMyTurn, pages in
                 self?.isMyTurn = isMyTurn
-            }
-            .store(in: &self.cancellables)
-
-        self.getPageUseCase.getPages(for: pairId)
-            .sink { [weak self] completion in
-                guard case .failure(let error) = completion else { return }
-                self?.error = error
-            } receiveValue: { [weak self] pages in
                 self?.pageEntities = pages
                 self?.isRefreshing = false
             }
