@@ -43,7 +43,7 @@ class FileManagerPersistenceService: FileManagerPersistenceServiceProtocol {
         return Just(data).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
     
-    func fileExist(at documents: FileDocuments, fileName: String) -> Bool {
+    func isFileExists(at documents: FileDocuments, fileName: String) -> Bool {
         guard let fileUrl = documents.rawValue?.appendingPathComponent(fileName) else {
             return false
         }
