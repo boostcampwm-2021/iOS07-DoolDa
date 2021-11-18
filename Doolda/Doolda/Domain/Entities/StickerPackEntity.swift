@@ -9,19 +9,19 @@ import Foundation
 
 enum StickerPackType: RawRepresentable, CaseIterable {
     typealias RawValue = StickerPackEntity?
-    // FIXME: 나중에 삭제할 더미 데이터
-    case dummy
-    case color
+
+    case htmlCoder
+    case boolbada
     case buddy
     
     init?(rawValue: RawValue) {
-        self = .color
+        self = .boolbada
     }
     
     var rawValue: RawValue {
         switch self {
-        case .dummy: return StickerPackEntity.dummyStickerPack
-        case .color: return StickerPackEntity.colorStickerPack
+        case .htmlCoder: return StickerPackEntity.htmlCoderStickerPack
+        case .boolbada: return StickerPackEntity.boolbadaStickerPack
         case .buddy: return StickerPackEntity.buddyStickerPack
         }
     }
@@ -47,7 +47,7 @@ class StickerPackEntity {
         if self.stickersUrl.isEmpty { return nil }
     }
 
-    static let dummyStickerPack = StickerPackEntity(name: "dummySticker")
-    static let colorStickerPack = StickerPackEntity(name: "colorSticker")
+    static let htmlCoderStickerPack = StickerPackEntity(name: "htmlCoder")
+    static let boolbadaStickerPack = StickerPackEntity(name: "boolbadaSticker")
     static let buddyStickerPack = StickerPackEntity(name: "buddySticker")
 }
