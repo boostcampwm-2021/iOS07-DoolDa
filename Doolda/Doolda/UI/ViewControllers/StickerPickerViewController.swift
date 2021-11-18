@@ -108,10 +108,11 @@ class StickerPickerViewController: BottomSheetViewController {
                     guard let stickerPack = self?.viewModel.getStickerPackEntity(at: indexPath.section) else { return }
 
                     stickerPack.isUnpacked = true
-                    UIView.animate(withDuration: 1.0, animations: { cell.unpackCell() }) { _ in
-                        UIView.animate(withDuration: 0.5, animations: { cell.alpha = 0 }) { _ in
+                    UIView.animate(withDuration: 1.0, animations: { cell.unpackCell() }) { [weak self] _ in
+                        UIView.animate(withDuration: 0.5, animations: { cell.alpha = 0 }) { [weak self] _ in
                             self?.stickerPickerView.collectionView.collectionViewLayout.invalidateLayout()
-                            UIView.animate(withDuration: 0.5, animations: { self?.stickerPickerView.collectionView.reloadData() })
+                            UIView.animate(withDuration: 0.5, animations: { self?.stickerPickerView.collectionView.reloadData()
+                            })
                         }
                     }
                     self?.cancellables[indexPath.section]?.cancel()
@@ -153,10 +154,6 @@ class StickerPickerViewController: BottomSheetViewController {
         )
 
         let section = NSCollectionLayoutSection(group: group)
-//        let footerItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1))
-//        let footerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerItemSize, elementKind: "footer", alignment: .bottom)
-//        section.boundarySupplementaryItems = [footerItem]
-
         return section
     }
 
@@ -164,12 +161,13 @@ class StickerPickerViewController: BottomSheetViewController {
         let item = NSCollectionLayoutItem(
             layoutSize: .init(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1))
         )
-        item.contentInsets = .init(top: 12, leading: 12, bottom: 12, trailing: 12)
+        item.contentInsets = .init(top: 0, leading: 3, bottom: 0, trailing: 3)
 
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.25)),
             subitems: [item]
         )
+        group.contentInsets = .init(top: 12, leading: 12, bottom: 12, trailing: 12)
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
@@ -227,10 +225,4 @@ extension StickerPickerViewController: UICollectionViewDataSource {
         cell.configure(with: stickerUrl)
         return cell
     }
-
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        if kind != UICollectionView.elementKindSectionFooter { return UICollectionReusableView() }
-//        
-//        return UICollectionReusableView()
-//    }
 }
