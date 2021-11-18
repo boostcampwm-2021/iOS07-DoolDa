@@ -93,7 +93,10 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     }
     
     func addStickerComponent() {
-        let viewController = StickerPickerViewController()
+        let stickerUseCase = StickerUseCase()
+        let stickerPickerViewModel = StickerPickerViewModel(stickerUseCase: stickerUseCase)
+        let delegatedViewController = self.presenter.topViewController as? EditPageViewController
+        let viewController = StickerPickerViewController(stickerPickerViewModel: stickerPickerViewModel, delegate: delegatedViewController)
         self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
     
