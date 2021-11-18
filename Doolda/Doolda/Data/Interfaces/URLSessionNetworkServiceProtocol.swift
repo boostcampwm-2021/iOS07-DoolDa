@@ -12,4 +12,5 @@ protocol URLSessionNetworkServiceProtocol {
     func request(_ urlRequest: URLRequestBuilder) -> AnyPublisher<Data, Error>
     func request<T: Decodable>(_ urlRequest: URLRequestBuilder) -> AnyPublisher<T, Error>
     func request(_ urlRequest: URLRequestBuilder) -> AnyPublisher<[[String: Any]], Error>
+    func request(_ urlRequest: URLRequestBuilder) -> AnyPublisher<[String: Any], Error>
 }

@@ -59,4 +59,10 @@ class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
             .tryCompactMap { return try JSONSerialization.jsonObject(with: $0, options: []) as? [[String: Any]] }
             .eraseToAnyPublisher()
     }
+    
+    func request(_ urlRequest: URLRequestBuilder) -> AnyPublisher<[String: Any], Error> {
+        return request(urlRequest)
+            .tryCompactMap { return try JSONSerialization.jsonObject(with: $0, options: []) as? [String: Any] }
+            .eraseToAnyPublisher()
+    }
 }
