@@ -87,8 +87,9 @@ class StickerPickerViewController: BottomSheetViewController {
                     // FIXME: PackedStickerCell이 구현되면 수정할 예정
                     print("\(indexPath.section) 완료")
 
-                    //guard let stickerPack = self?.stickerPackMapper(at: indexPath.section) else { return }
+                    guard let stickerPack = self?.stickerPackMapper(at: indexPath.section) else { return }
                     //stickerPack.setIsUnpacked(true)
+
                 }
             }
         self.cancellables[indexPath.section] = publisher

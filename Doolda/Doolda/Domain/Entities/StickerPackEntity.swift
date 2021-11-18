@@ -27,7 +27,7 @@ enum StickerPackType: RawRepresentable, CaseIterable {
     }
 }
 
-struct StickerPackEntity {
+class StickerPackEntity {
     let name: String
     var sealingImageUrl: URL
     var stickersUrl: [URL]
