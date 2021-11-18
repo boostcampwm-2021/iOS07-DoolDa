@@ -87,71 +87,6 @@ class PackedStickerCell: UICollectionViewCell {
 
     // MARK: - Helpers
 
-    func clear() {
-        self.stickerPackCover.alpha = 1
-        self.slider.value = 0
-
-        self.stickerPackBody.subviews.forEach { subview in
-            subview.removeFromSuperview()
-            self.gravity.removeItem(subview)
-            self.collider.removeItem(subview)
-            self.itemBehavior.removeItem(subview)
-        }
-
-        self.animating = false
-        self.motionManager.stopDeviceMotionUpdates()
-    }
-
-    func configure(with stickerPack: StickerPackEntity) {
-        let stickers = stickerPack.stickersUrl
-        var widthOffset: CGFloat = 10
-        var heightOffset: CGFloat = 10
-
-        for url in stickers {
-            guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
-            let stickerView = UIImageView(image: stickerImage)
-            let ratio = stickerImage.size.height / stickerImage.size.width
-            let width: CGFloat = max(self.frame.width * 0.2, 50)
-
-            self.stickerPackBody.addSubview(stickerView)
-            stickerView.frame = CGRect(x: widthOffset, y: heightOffset, width: width , height: width * ratio)
-
-            self.gravity.addItem(stickerView)
-            self.collider.addItem(stickerView)
-            self.itemBehavior.addItem(stickerView)
-
-            // FIXME: 스티커 최대 개수 제한하도록 임시 구현
-            if widthOffset < 100 {
-                widthOffset += 30
-            } else {
-                widthOffset = 10
-                heightOffset += 50
-            }
-
-            if self.stickerPackBody.subviews.count >= 8 { break }
-        }
-
-        guard let coverImage = try? UIImage(data: Data(contentsOf: stickerPack.sealingImageUrl)) else { return }
-        self.coverSealingSticker.image = coverImage
-    }
-
-    // MARK: - Public Methods
-
-    func configureGravity(motion: CMDeviceMotion?, error: Error?) {
-        guard let motion = motion else { return }
-        if error != nil { print(error.debugDescription); return }
-
-        let gravity: CMAcceleration = motion.gravity
-        let gravityX = CGFloat(gravity.x)
-        let gravityY = CGFloat(-gravity.y)
-
-        self.gravity.gravityDirection = CGVector(dx: gravityX * 2.5, dy: gravityY * 2.5)
-    }
-
-    func unpackCell() {
-        self.stickerPackCover.alpha = 0
-    }
-
     private func configureUI() {
         self.backgroundColor = UIColor.dooldaStickerPackBackground
 
@@ -203,6 +138,71 @@ class PackedStickerCell: UICollectionViewCell {
                 }
             }
             .store(in: &self.cancellables)
+    }
+
+    // MARK: - Public Methods
+
+    func configure(with stickerPack: StickerPackEntity) {
+        let stickers = stickerPack.stickersUrl
+        var widthOffset: CGFloat = 10
+        var heightOffset: CGFloat = 10
+
+        for url in stickers {
+            guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
+            let stickerView = UIImageView(image: stickerImage)
+            let ratio = stickerImage.size.height / stickerImage.size.width
+            let width: CGFloat = max(self.frame.width * 0.2, 50)
+
+            self.stickerPackBody.addSubview(stickerView)
+            stickerView.frame = CGRect(x: widthOffset, y: heightOffset, width: width , height: width * ratio)
+
+            self.gravity.addItem(stickerView)
+            self.collider.addItem(stickerView)
+            self.itemBehavior.addItem(stickerView)
+
+            // FIXME: 스티커 최대 개수 제한하도록 임시 구현
+            if widthOffset < 100 {
+                widthOffset += 30
+            } else {
+                widthOffset = 10
+                heightOffset += 50
+            }
+
+            if self.stickerPackBody.subviews.count >= 8 { break }
+        }
+
+        guard let coverImage = try? UIImage(data: Data(contentsOf: stickerPack.sealingImageUrl)) else { return }
+        self.coverSealingSticker.image = coverImage
+    }
+
+    func configureGravity(motion: CMDeviceMotion?, error: Error?) {
+        guard let motion = motion else { return }
+        if error != nil { print(error.debugDescription); return }
+
+        let gravity: CMAcceleration = motion.gravity
+        let gravityX = CGFloat(gravity.x)
+        let gravityY = CGFloat(-gravity.y)
+
+        self.gravity.gravityDirection = CGVector(dx: gravityX * 2.5, dy: gravityY * 2.5)
+    }
+
+    func clear() {
+        self.stickerPackCover.alpha = 1
+        self.slider.value = 0
+
+        self.stickerPackBody.subviews.forEach { subview in
+            subview.removeFromSuperview()
+            self.gravity.removeItem(subview)
+            self.collider.removeItem(subview)
+            self.itemBehavior.removeItem(subview)
+        }
+
+        self.animating = false
+        self.motionManager.stopDeviceMotionUpdates()
+    }
+
+    func unpackCell() {
+        self.stickerPackCover.alpha = 0
     }
 
 }
