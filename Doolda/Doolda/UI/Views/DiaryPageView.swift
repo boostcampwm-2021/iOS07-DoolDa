@@ -20,18 +20,17 @@ class DiaryPageViewCell: UICollectionViewCell {
     
     private lazy var pageView: UIView = UIView()
     private lazy var layeredView: UIView = UIView()
-    
     private lazy var dayLabel: UILabel = {
         let label = UILabel()
-        label.text = "25"
-        label.font = .systemFont(ofSize: 35)
+        label.font = .systemFont(ofSize: 100)
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
     private lazy var monthLabel: UILabel = {
         let label = UILabel()
-        label.text = "Oct"
-        label.font = .systemFont(ofSize: 20)
+        label.font = .systemFont(ofSize: 100)
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -53,7 +52,7 @@ class DiaryPageViewCell: UICollectionViewCell {
         didSet {
             guard let timestamp = timestamp else { return }
             self.dayLabel.text = DateFormatter.dayFormatter.string(from: timestamp)
-            self.monthLabel.text = DateFormatter.monthNameFormatter.string(from: timestamp)
+            self.monthLabel.text = DateFormatter.monthNameFormatter.string(from: timestamp).uppercased()
         }
     }
     
@@ -116,6 +115,8 @@ class DiaryPageViewCell: UICollectionViewCell {
         self.dayLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.leading.equalToSuperview().offset(16)
+            make.width.equalTo(self.snp.width).dividedBy(7.0)
+            make.height.equalTo(self.dayLabel.snp.width)
         }
         
         self.layeredView.addSubview(self.dayLabelUnderBar)
@@ -128,8 +129,10 @@ class DiaryPageViewCell: UICollectionViewCell {
         
         self.layeredView.addSubview(self.monthLabel)
         self.monthLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(self.dayLabel.snp.bottom)
-            make.leading.equalTo(self.dayLabel.snp.trailing).offset(4)
+            make.centerY.equalTo(self.dayLabel.snp.centerY)
+            make.leading.equalTo(self.dayLabel.snp.trailing).offset(5)
+            make.width.equalTo(self.snp.width).dividedBy(7.0)
+            make.height.equalTo(self.monthLabel.snp.width)
         }
     }
     
@@ -174,6 +177,7 @@ class DiaryPageViewCell: UICollectionViewCell {
             }
         }
         self.activityIndicator.stopAnimating()
+        self.monthLabel.sizeToFit()
     }
     
     func displayRawPage(with rawPageEntityPublisher: AnyPublisher<RawPageEntity, Error>) {
