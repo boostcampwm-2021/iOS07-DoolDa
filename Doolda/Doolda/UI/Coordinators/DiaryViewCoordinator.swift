@@ -18,7 +18,33 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     }
     
     func start() {
-        let viewModel = DiaryViewModel(user: self.user, coordinator: self, displayPageUseCase: DisplayPageUseCase())
+        let urlSessionNetworkService = URLSessionNetworkService()
+        let coreDataPersistenceService = CoreDataPersistenceService()
+        let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(coreDataPersistenceService: coreDataPersistenceService)
+        let fileManagerPersistenceService = FileManagerPersistenceService()
+        
+        let pairRepository = PairRepository(networkService: urlSessionNetworkService)
+        let pageRepository = PageRepository(
+            urlSessionNetworkService: urlSessionNetworkService,
+            pageEntityPersistenceService: coreDataPageEntityPersistenceService
+        )
+        
+        let rawPageRepository = RawPageRepository(
+            networkService: urlSessionNetworkService,
+            fileManagerPersistenceService: fileManagerPersistenceService
+        )
+        
+        let checkMyTurnUseCase = CheckMyTurnUseCase(pairRepository: pairRepository)
+        let getPageUseCase = GetPageUseCase(pageRepository: pageRepository)
+        let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: rawPageRepository)
+        
+        let viewModel = DiaryViewModel(
+            user: self.user,
+            coordinator: self,
+            checkMyTurnUseCase: checkMyTurnUseCase,
+            getPageUseCase: getPageUseCase,
+            getRawPageUseCase: getRawPageUseCase
+        )
         
         DispatchQueue.main.async {
             let viewController = DiaryViewController(viewModel: viewModel)
