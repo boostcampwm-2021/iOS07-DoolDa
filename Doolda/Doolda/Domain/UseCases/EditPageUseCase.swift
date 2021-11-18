@@ -23,7 +23,7 @@ protocol EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
     var rawPagePublisher: Published<RawPageEntity?>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
-    var resultPublisher: Published<Void?>.Publisher { get }
+    var resultPublisher: Published<Bool?>.Publisher { get }
     
     func selectComponent(at point: CGPoint)
     func moveComponent(to point: CGPoint)
@@ -46,23 +46,33 @@ class EditPageUseCase: EditPageUseCaseProtocol {
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
     var rawPagePublisher: Published<RawPageEntity?>.Publisher { self.$rawPage }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
-    var resultPublisher: Published<Void?>.Publisher { self.$result }
+    var resultPublisher: Published<Bool?>.Publisher { self.$result }
     
+    private let user: User
     private let imageUseCase: ImageUseCaseProtocol
     private let pageRepository: PageRepositoryProtocol
     private let rawPageRepository: RawPageRepositoryProtocol
+    private let pairRepository: PairRepositoryProtocol
     
     private var cancellables: Set<AnyCancellable> = []
     @Published private var selectedComponent: ComponentEntity?    
     @Published private var rawPage: RawPageEntity?
     @Published private var error: Error?
-    @Published private var result: Void?
+    @Published private var result: Bool?
 
-    init(imageUseCase: ImageUseCaseProtocol, pageRepository: PageRepositoryProtocol, rawPageRepository: RawPageRepositoryProtocol) {
+    init(
+        user: User,
+        imageUseCase: ImageUseCaseProtocol,
+        pageRepository: PageRepositoryProtocol,
+        rawPageRepository: RawPageRepositoryProtocol,
+        pairRepository: PairRepositoryProtocol
+    ) {
+        self.user = user
         self.imageUseCase = imageUseCase
         self.rawPage = RawPageEntity()
         self.pageRepository = pageRepository
         self.rawPageRepository = rawPageRepository
+        self.pairRepository = pairRepository
     }
     
     func selectComponent(at point: CGPoint) {
@@ -175,12 +185,17 @@ class EditPageUseCase: EditPageUseCaseProtocol {
                 self?.error = error
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                Publishers.Zip(self.pageRepository.savePage(metaData), self.rawPageRepository.save(rawPage: page, at: pairId, with: path))
+                Publishers.Zip3(
+                    self.pageRepository.savePage(metaData),
+                    self.rawPageRepository.save(rawPage: page, at: pairId, with: path),
+                    self.pairRepository.setRecentlyEditedUser(with: self.user)
+                )
                     .sink { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
                         self?.error = error
+                        print(String(describing: error.localizedDescription))
                     } receiveValue: { [weak self] _ in
-                        self?.result = ()
+                        self?.result = true
                     }
                     .store(in: &self.cancellables)
             }
