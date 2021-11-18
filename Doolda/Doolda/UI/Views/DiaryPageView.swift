@@ -24,6 +24,7 @@ class DiaryPageViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 100)
         label.adjustsFontSizeToFitWidth = true
+        label.textColor = .black
         return label
     }()
     
@@ -31,12 +32,13 @@ class DiaryPageViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 100)
         label.adjustsFontSizeToFitWidth = true
+        label.textColor = .black
         return label
     }()
     
     private lazy var dayLabelUnderBar: UIView = {
         let view = UIView()
-        view.backgroundColor = .label
+        view.backgroundColor = .black
         return view
     }()
     
@@ -92,6 +94,7 @@ class DiaryPageViewCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func configureUI() {
+        self.clipsToBounds = true
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 4
         self.layer.borderColor = UIColor.black.cgColor
