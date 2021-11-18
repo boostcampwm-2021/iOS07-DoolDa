@@ -150,6 +150,7 @@
 		66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */; };
 		66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */; };
 		FC19598A274284E200AB6059 /* StickerPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC195989274284E200AB6059 /* StickerPickerViewModel.swift */; };
+		FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
 		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB79127325D2C008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
@@ -387,6 +388,7 @@
 		66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserUseCase.swift; sourceTree = "<group>"; };
 		66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		FC195989274284E200AB6059 /* StickerPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerViewModel.swift; sourceTree = "<group>"; };
+		FC28CB31274609F300BA47BB /* TextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCase.swift; sourceTree = "<group>"; };
 		FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* PairDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDocument.swift; sourceTree = "<group>"; };
@@ -867,6 +869,7 @@
 				661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */,
 				661A840327434FE10077E0E3 /* GetPageUseCase.swift */,
 				FC7AA338274345280059D0CD /* StickerUseCase.swift */,
+				FC28CB31274609F300BA47BB /* TextUseCase.swift */,
 				FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */,
 				FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */,
 				66C482DA2746135500823151 /* GetRawPageUseCase.swift */,
@@ -1549,6 +1552,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */,
 				319C222D273CEFBB009CE65C /* CIImage+Extension.swift in Sources */,
 				661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */,
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
