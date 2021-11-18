@@ -19,9 +19,10 @@ protocol DiaryViewModelInput {
 }
 
 protocol DiaryViewModelOutput {
+    var errorPublisher: Published<Error?>.Publisher { get }
     var displayModePublisher: Published<DiaryDisplayMode>.Publisher { get }
     var isMyTurnPublisher: Published<Bool>.Publisher { get }
-    var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { get }
+    var filteredPageEntitiesPublisher: AnyPublisher<[PageEntity], Never> { get }
     var isRefreshingPublisher: Published<Bool>.Publisher { get }
     var displayMode: DiaryDisplayMode { get }
 }
@@ -59,48 +60,52 @@ enum DiaryViewModelError: LocalizedError {
 }
 
 class DiaryViewModel: DiaryViewModelProtocol {
+    var errorPublisher: Published<Error?>.Publisher { self.$error }
     var displayModePublisher: Published<DiaryDisplayMode>.Publisher { self.$displayMode }
     var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }
-    var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { self.$filteredPageEntities }
     var isRefreshingPublisher: Published<Bool>.Publisher { self.$isRefreshing }
+  
     @Published var displayMode: DiaryDisplayMode = .carousel
-
+    
+    lazy var filteredPageEntitiesPublisher: AnyPublisher<[PageEntity], Never> = Publishers
+        .CombineLatest3(self.$pageEntities, self.$authorFilter, self.$orderFilter)
+        .map { $0.0 }
+        .eraseToAnyPublisher()
+    
+    @Published private var error: Error?
     @Published private var isRefreshing: Bool = false
     @Published private var isMyTurn: Bool = false
-    @Published private var filteredPageEntities: [PageEntity] = [
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: ""),
-        PageEntity(author: User(id: DDID(), pairId: DDID()), timeStamp: Date(), jsonPath: "")
-    ]
+    @Published private var filteredPageEntities: [PageEntity] = []
+    @Published private var pageEntities: [PageEntity] = []
+    @Published private var authorFilter: DiaryAuthorFilter = .user
+    @Published private var orderFilter: DiaryOrderFilter = .descending
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     private let user: User
     private let coordinator: DiaryViewCoordinatorProtocol
-    private let displayPageUseCase: DisplayPageUseCaseProtocol
+    private let checkMyTurnUseCase: CheckMyTurnUseCaseProtocol
+    private let getPageUseCase: GetPageUseCaseProtocol
+    private let getRawPageUseCase: GetRawPageUseCaseProtocol
     
-    init(user: User, coordinator: DiaryViewCoordinatorProtocol, displayPageUseCase: DisplayPageUseCaseProtocol) {
+    init(
+        user: User,
+        coordinator: DiaryViewCoordinatorProtocol,
+        checkMyTurnUseCase: CheckMyTurnUseCaseProtocol,
+        getPageUseCase: GetPageUseCaseProtocol,
+        getRawPageUseCase: GetRawPageUseCaseProtocol
+    ) {
         self.user = user
         self.coordinator = coordinator
-        self.displayPageUseCase = displayPageUseCase
+        self.checkMyTurnUseCase = checkMyTurnUseCase
+        self.getPageUseCase = getPageUseCase
+        self.getRawPageUseCase = getRawPageUseCase
+        self.fetchPages()
     }
     
     func pageDidDisplay(jsonPath: String) -> AnyPublisher<RawPageEntity, Error> {
         guard let pairId = self.user.pairId else { return Fail(error: DiaryViewModelError.userNotPaired).eraseToAnyPublisher() }
-        return self.displayPageUseCase.getRawPageEntity(for: pairId, jsonPath: jsonPath)
+        return self.getRawPageUseCase.getRawPageEntity(for: pairId, jsonPath: jsonPath)
     }
 
     func displayModeToggleButtonDidTap() {
@@ -112,24 +117,43 @@ class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func refreshButtonDidTap() {
-        print(#function)
         self.isRefreshing = true
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.isRefreshing = false
-        }
+        self.fetchPages()
     }
     
     func settingsButtonDidTap() {
-        print(#function)
-        self.isMyTurn.toggle()
         self.coordinator.settingsPageRequested()
     }
     
     func filterButtonDidTap() {
-        print(#function)
         self.coordinator.filteringSheetRequested()
     }
     
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {
+        self.authorFilter = author
+        self.orderFilter = orderBy
+    }
+    
+    private func fetchPages() {
+        guard let pairId = self.user.pairId else { return }
+        
+        self.checkMyTurnUseCase.checkTurn(for: self.user)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] isMyTurn in
+                self?.isMyTurn = isMyTurn
+            }
+            .store(in: &self.cancellables)
+
+        self.getPageUseCase.getPages(for: pairId)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] pages in
+                self?.pageEntities = pages
+                self?.isRefreshing = false
+            }
+            .store(in: &self.cancellables)
     }
 }
