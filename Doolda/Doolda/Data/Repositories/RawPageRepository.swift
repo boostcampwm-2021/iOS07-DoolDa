@@ -54,7 +54,7 @@ class RawPageRepository: RawPageRepositoryProtocol {
     func fetch(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
         let fileName = "\(folder)\(name)"
         
-        if self.fileManagerPersistenceService.fileExist(at: .cache, fileName: fileName) {
+        if self.fileManagerPersistenceService.isFileExists(at: .cache, fileName: fileName) {
             return self.fileManagerPersistenceService.fetch(at: .cache, fileName: fileName)
                        .decode(type: RawPageEntity.self, decoder: JSONDecoder())
                        .eraseToAnyPublisher()
