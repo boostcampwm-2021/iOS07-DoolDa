@@ -176,13 +176,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if self.currentContentView == self.framePicker {
-                    self.checkPhotoAccessPermission { result in
-                        guard result else { return }
-                        self.viewModel?.fetchPhotoAssets()
-                        self.setContentView(self.photoPickerCollectionView)
-                        self.nextButton.configuration?.attributedTitle = AttributedString("완료", attributes: self.fontContainer)
-                        self.nextButton.isEnabled = false
-                    }
+                    self.selectPhotoFrame()
                 } else if self.currentContentView == self.photoPickerCollectionView {
                     self.activityIndicator.startAnimating()
                     
@@ -275,6 +269,16 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
         }
     }
+    
+    private func selectPhotoFrame() {
+        self.checkPhotoAccessPermission { result in
+            guard result else { return }
+            self.viewModel?.fetchPhotoAssets()
+            self.setContentView(self.photoPickerCollectionView)
+            self.nextButton.configuration?.attributedTitle = AttributedString("완료", attributes: self.fontContainer)
+            self.nextButton.isEnabled = false
+        }
+    }
 }
 
 extension PhotoPickerBottomSheetViewController: CarouselViewDelegate {
@@ -355,6 +359,8 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
                 selectedPhotos.append(indexPath.item)
                 self.viewModel?.photoDidSelected(selectedPhotos)
             }
+        } else {
+            self.selectPhotoFrame()
         }
     }
 }
