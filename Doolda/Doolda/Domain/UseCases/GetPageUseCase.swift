@@ -13,8 +13,13 @@ protocol GetPageUseCaseProtocol {
 }
 
 class GetPageUseCase: GetPageUseCaseProtocol {
+    private let pageRepository: PageRepositoryProtocol
+    
+    init(pageRepository: PageRepositoryProtocol) {
+        self.pageRepository = pageRepository
+    }
+    
     func getPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error> {
-        // FIXME : 페이지 정보를 가져올 수 있도록 구현
-        return Just([]).setFailureType(to: Error.self).eraseToAnyPublisher()
+        return self.pageRepository.fetchPages(for: pair)
     }
 }
