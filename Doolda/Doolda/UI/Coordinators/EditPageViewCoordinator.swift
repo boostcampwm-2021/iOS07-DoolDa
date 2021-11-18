@@ -21,10 +21,23 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         DispatchQueue.main.async {
             let fileManagerPersistenceService = FileManagerPersistenceService()
             let urlSessionNetworkService = URLSessionNetworkService()
+            let coreDataPersistenceService = CoreDataPersistenceService()
+            let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(
+                coreDataPersistenceService: coreDataPersistenceService
+            )
             
-            let imageRepository = ImageRepository(fileManagerService: fileManagerPersistenceService, networkService: urlSessionNetworkService)
-            let pageRepository = PageRepository(urlSessionNetworkService: urlSessionNetworkService)
-            let rawPageRepository = RawPageRepository(networkService: urlSessionNetworkService)
+            let imageRepository = ImageRepository(
+                fileManagerService: fileManagerPersistenceService,
+                networkService: urlSessionNetworkService
+            )
+            let pageRepository = PageRepository(
+                urlSessionNetworkService: urlSessionNetworkService,
+                pageEntityPersistenceService: coreDataPageEntityPersistenceService
+            )
+            let rawPageRepository = RawPageRepository(
+                networkService: urlSessionNetworkService,
+                fileManagerPersistenceService: fileManagerPersistenceService
+            )
             
             let imageUseCase = ImageUseCase(imageRepository: imageRepository)
             let editPageUseCase = EditPageUseCase(
