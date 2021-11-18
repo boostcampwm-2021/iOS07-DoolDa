@@ -70,7 +70,13 @@ class TextInputViewController: UIViewController {
     private func bindUI() {
         self.view.publisher(for: UITapGestureRecognizer())
             .sink { [weak self] _ in
-                guard let self = self else { return }
+                guard let self = self,
+                      let textComponenetEntity = self.viewModel?.inputViewEditingDidEnd(
+                        input: self.inputTextView.attributedText,
+                        size: 16,
+                        color: .black
+                      ) else { return }
+                self.delegate?.textInputDidEndEditing(textComponenetEntity)
                 self.dismiss(animated: false)
             }.store(in: &self.cancellables)
     }
