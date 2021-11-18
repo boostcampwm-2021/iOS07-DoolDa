@@ -33,6 +33,9 @@ class TextInputViewController: UIViewController {
     
     // MARK: - Private Properties
     
+    private var widthRatioFromAbsolute: CGFloat?
+    private var heightRatioFromAbsolute: CGFloat?
+    
     private var cancellables: Set<AnyCancellable> = []
     private var viewModel: TextInputViewModel?
     private weak var delegate: TextInputViewControllerDelegate?
@@ -41,11 +44,15 @@ class TextInputViewController: UIViewController {
     
     convenience init(
         textInputViewModel: TextInputViewModel,
-        delegate: TextInputViewControllerDelegate?
+        delegate: TextInputViewControllerDelegate?,
+        widthRatioFromAbsolute: CGFloat?,
+        heightRatioFromAbsolute: CGFloat?
     ) {
         self.init(nibName: nil, bundle: nil)
         self.viewModel = textInputViewModel
         self.delegate = delegate
+        self.widthRatioFromAbsolute = widthRatioFromAbsolute
+        self.heightRatioFromAbsolute = heightRatioFromAbsolute
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -98,6 +105,14 @@ class TextInputViewController: UIViewController {
         }
         self.inputTextView.becomeFirstResponder()
         
+    }
+    
+    // MARK: - Private Methods
+
+    private func computeSizeToAbsolute(with size: CGSize) -> CGSize {
+        let computedWidth =  size.width / ( self.widthRatioFromAbsolute ?? 0.0 )
+        let computedHeight = size.height / ( self.heightRatioFromAbsolute ?? 0.0 )
+        return CGSize(width: computedWidth, height: computedHeight)
     }
 }
 
