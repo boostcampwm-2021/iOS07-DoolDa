@@ -339,6 +339,22 @@ class EditPageViewController: UIViewController {
                         photoComponentView.layer.shadowOpacity = 0.3
                         photoComponentView.layer.shadowRadius = 10
                         photoComponentView.layer.shadowOffset = CGSize(width: -5, height: -5)
+                    case let textComponentEntity as TextComponentEntity:
+                        let textComponentView = UITextView(frame: computedCGRect)
+                        textComponentView.backgroundColor = .clear
+                        textComponentView.text = textComponentEntity.text
+                        textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
+                        textComponentView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
+                        textComponentView.isScrollEnabled = false
+                        textComponentView.textAlignment = .center
+
+                        self.componentViewDictionary[textComponentEntity] = textComponentView
+                        self.pageView.addSubview(textComponentView)
+                        let transform = CGAffineTransform.identity
+                            .rotated(by: componentEntity.angle)
+                            .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
+                        textComponentView.transform = transform
+                        
                     default:
                         break
                     }
@@ -367,9 +383,10 @@ class EditPageViewController: UIViewController {
     
     private func computeSizeFromAbsolute(with size: CGSize) -> CGSize {
         let computedWidth =  size.width  * self.widthRatioFromAbsolute
-        let computedHeight = size.height  * self.widthRatioFromAbsolute
+        let computedHeight = size.height  * self.heightRatioFromAbsolute
         return CGSize(width: computedWidth, height: computedHeight)
     }
+    
 }
 
 extension EditPageViewController: ControlViewDelegate {
