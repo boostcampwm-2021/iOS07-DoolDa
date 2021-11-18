@@ -86,11 +86,11 @@ class EditPageViewController: UIViewController {
     private var viewModel: EditPageViewModelProtocol?
     private var componentViewDictionary: [ComponentEntity: UIView] = [:]
     
-    private var widthRatioFromAbsolute: CGFloat {
+    var widthRatioFromAbsolute: CGFloat {
         return self.pageView.frame.size.width / 1700.0
     }
     
-    private var heightRatioFromAbsolute: CGFloat {
+    var heightRatioFromAbsolute: CGFloat {
         return self.pageView.frame.size.height / 3000.0
     }
     
