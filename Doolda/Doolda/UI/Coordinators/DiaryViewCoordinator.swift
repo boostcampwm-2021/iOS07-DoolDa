@@ -25,10 +25,10 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     }
     
     func settingsPageRequested() {
-        
+        // FIXME: not implemented
     }
     
     func filteringSheetRequested() {
-        
+        // FIXME: not implemented
     }
 }

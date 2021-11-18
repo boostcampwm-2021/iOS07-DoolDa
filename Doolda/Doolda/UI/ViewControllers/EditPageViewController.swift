@@ -382,8 +382,8 @@ class EditPageViewController: UIViewController {
     }
     
     private func computeSizeFromAbsolute(with size: CGSize) -> CGSize {
-        let computedWidth =  size.width  * self.widthRatioFromAbsolute
-        let computedHeight = size.height  * self.heightRatioFromAbsolute
+        let computedWidth =  size.width * self.widthRatioFromAbsolute
+        let computedHeight = size.height * self.heightRatioFromAbsolute
         return CGSize(width: computedWidth, height: computedHeight)
     }
     
