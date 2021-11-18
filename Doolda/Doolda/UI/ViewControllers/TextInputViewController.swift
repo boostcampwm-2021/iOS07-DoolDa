@@ -72,8 +72,9 @@ class TextInputViewController: UIViewController {
             .sink { [weak self] _ in
                 guard let self = self,
                       let textComponenetEntity = self.viewModel?.inputViewEditingDidEnd(
-                        input: self.inputTextView.attributedText,
-                        size: 16,
+                        input: self.inputTextView.text,
+                        contentSize: self.computeSizeToAbsolute(with: self.inputTextView.contentSize),
+                        fontSize: 16,
                         color: .black
                       ) else { return }
                 self.delegate?.textInputDidEndEditing(textComponenetEntity)
