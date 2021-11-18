@@ -86,8 +86,11 @@ class DiaryViewController: UIViewController {
     
     private var dataSource: DataSource?
     private var dataSourceSnapshot = DataSourceSnapshot()
-    private var viewModel: DiaryViewModelProtocol?
+    private var viewModel: DiaryViewModelProtocol!
     private var cancellables: Set<AnyCancellable> = []
+    private var pageWidth: CGFloat { self.viewModel.displayMode == .carousel ? self.view.frame.width - 32.0 : (self.view.frame.width - 42) / 2}
+    private var pageHeight: CGFloat { self.pageWidth * 30.0 / 17.0 }
+    private var pageOffset: CGFloat { self.pageWidth + 10 }
     
     // MARK: - Initializers
     
@@ -126,55 +129,30 @@ class DiaryViewController: UIViewController {
     }
     
     private func bindUI() {
-        guard let viewModel = self.viewModel else { return }
-        
-        viewModel.filteredPageEntitiesPublisher
+        self.viewModel.filteredPageEntitiesPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] entities in
                 guard let self = self else { return }
                 self.applySnapshot(pageEntities: entities)
-                self.scrollToMostRecentPage()
+                self.scrollToPage(of: 0)
             }
             .store(in: &self.cancellables)
         
-        viewModel.displayModePublisher
+        self.viewModel.displayModePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displayMode in
-                guard let self = self else { return }
-                self.headerView?.displayMode = displayMode
-                switch displayMode {
-                case .list:
-                    self.pageCollectionView.collectionViewLayout = self.listFlowLayout
-                    self.displayModeToggleButton.setImage(.square, for: .normal)
-                    self.pageCollectionView.alwaysBounceHorizontal = false
-                    self.pageCollectionView.alwaysBounceVertical = true
-                    self.pageCollectionView.showsVerticalScrollIndicator = true
-                    self.navigationController?.hidesBarsOnSwipe = true
-                case .carousel:
-                    self.pageCollectionView.collectionViewLayout = self.carouselFlowLayout
-                    self.displayModeToggleButton.setImage(.squareGrid2x2, for: .normal)
-                    self.pageCollectionView.alwaysBounceHorizontal = true
-                    self.pageCollectionView.alwaysBounceVertical = false
-                    self.pageCollectionView.showsVerticalScrollIndicator = false
-                    self.navigationController?.hidesBarsOnSwipe = false
-                    let pageWidth = self.view.frame.width - 32
-                    let pageOffset = pageWidth + 10
-                    let yOffset = self.pageCollectionView.contentOffset.y
-                    let currentIndex = Int(self.pageCollectionView.contentOffset.x / pageOffset)
-                    let xOffset = CGFloat(currentIndex + 1) * pageOffset - 16
-                    self.pageCollectionView.setContentOffset(CGPoint(x: xOffset, y: yOffset), animated: false)
-                }
+                self?.updateView(with: displayMode)
             }
             .store(in: &self.cancellables)
         
-        viewModel.isMyTurnPublisher
+        self.viewModel.isMyTurnPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isMyTurn in
                 self?.headerView?.isMyTurn = isMyTurn
             }
             .store(in: &self.cancellables)
 
-        viewModel.isRefreshingPublisher
+        self.viewModel.isRefreshingPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isRefreshing in
                 self?.headerView?.isRefreshing = isRefreshing
@@ -182,20 +160,20 @@ class DiaryViewController: UIViewController {
             .store(in: &self.cancellables)
         
         self.displayModeToggleButton.publisher(for: .touchUpInside)
-            .sink { _ in
-                viewModel.displayModeToggleButtonDidTap()
+            .sink { [weak self] _ in
+                self?.viewModel.displayModeToggleButtonDidTap()
             }
             .store(in: &self.cancellables)
         
         self.filterButton.publisher(for: .touchUpInside)
-            .sink { _ in
-                viewModel.filterButtonDidTap()
+            .sink { [weak self] _ in
+                self?.viewModel.filterButtonDidTap()
             }
             .store(in: &self.cancellables)
         
         self.settingsButton.publisher(for: .touchUpInside)
-            .sink { _ in
-                viewModel.settingsButtonDidTap()
+            .sink { [weak self] _ in
+                self?.viewModel.settingsButtonDidTap()
             }
             .store(in: &self.cancellables)
     }
@@ -236,12 +214,32 @@ class DiaryViewController: UIViewController {
         self.dataSource?.apply(self.dataSourceSnapshot, animatingDifferences: withAnimation)
     }
     
-    private func scrollToMostRecentPage() {
-        guard  self.viewModel?.displayMode == .carousel else { return }
-        let yOffset: CGFloat = self.pageCollectionView.contentOffset.y
-        let pageWidth = self.view.frame.width - 32
-        let pageOffset = pageWidth + 10 - 16
-        self.pageCollectionView.setContentOffset(CGPoint(x: pageOffset, y: yOffset), animated: true)
+    private func updateView(with displayMode: DiaryDisplayMode) {
+        self.headerView?.displayMode = displayMode
+        switch displayMode {
+        case .list:
+            self.pageCollectionView.collectionViewLayout = self.listFlowLayout
+            self.displayModeToggleButton.setImage(.square, for: .normal)
+            self.pageCollectionView.alwaysBounceHorizontal = false
+            self.pageCollectionView.alwaysBounceVertical = true
+            self.pageCollectionView.showsVerticalScrollIndicator = true
+            self.navigationController?.hidesBarsOnSwipe = true
+        case .carousel:
+            self.pageCollectionView.collectionViewLayout = self.carouselFlowLayout
+            self.displayModeToggleButton.setImage(.squareGrid2x2, for: .normal)
+            self.pageCollectionView.alwaysBounceHorizontal = true
+            self.pageCollectionView.alwaysBounceVertical = false
+            self.pageCollectionView.showsVerticalScrollIndicator = false
+            self.navigationController?.hidesBarsOnSwipe = false
+            self.scrollToPage(of: Int(self.pageCollectionView.contentOffset.x / self.pageOffset))
+        }
+    }
+    
+    private func scrollToPage(of index: Int) {
+        guard self.viewModel.displayMode == .carousel else { return }
+        let xOffset = CGFloat(index + 1) * self.pageOffset - 16
+        let yOffset = self.pageCollectionView.contentOffset.y
+        self.pageCollectionView.setContentOffset(CGPoint(x: xOffset, y: yOffset), animated: false)
     }
 }
 
@@ -253,20 +251,7 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        if let displayMode = self.viewModel?.displayMode {
-            switch displayMode {
-            case .carousel:
-                let width = self.view.frame.width - 32
-                let height = width * 30.0 / 17.0
-                return CGSize(width: width, height: height)
-            case .list:
-                let width = (self.view.frame.width - 42) / 2
-                let height = width * 30.0 / 17.0
-                return CGSize(width: width, height: height)
-            }
-        } else {
-            return .zero
-        }
+        return CGSize(width: self.pageWidth, height: self.pageHeight)
     }
     
     func scrollViewWillEndDragging(
@@ -278,9 +263,7 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
               let displayMode = self.viewModel?.displayMode,
               displayMode == .carousel else { return }
         
-        let pageWidth = self.view.frame.width - 32
-        let pageOffset = pageWidth + 10
-        let estimatedIndex = scrollView.contentOffset.x / pageOffset
+        let estimatedIndex = scrollView.contentOffset.x / self.pageOffset
         
         var actualIndex = 0
         if velocity.x > 0 {
@@ -299,8 +282,7 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForHeaderInSection section: Int
     ) -> CGSize {
-        let width = self.view.frame.width - 32
-        return CGSize(width: width, height: 100)
+        return CGSize(width: self.pageWidth, height: 100)
     }
     
     func collectionView(
