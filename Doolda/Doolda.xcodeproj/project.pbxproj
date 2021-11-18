@@ -131,6 +131,7 @@
 		66B4ADFF2742BEFC0021EA27 /* Normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFC2742BEFC0021EA27 /* Normal.jpg */; };
 		66B4AE002742BEFC0021EA27 /* Polaroid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFD2742BEFC0021EA27 /* Polaroid.jpg */; };
 		66B4AE012742BEFC0021EA27 /* LifeFourCuts.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFE2742BEFC0021EA27 /* LifeFourCuts.jpg */; };
+		66C482DB2746135500823151 /* DisplayPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C482DA2746135500823151 /* DisplayPageUseCase.swift */; };
 		66CAFF242740F63A00A48DCF /* BackgroundTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */; };
 		66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644D273A490800E55C03 /* BottomSheetViewController.swift */; };
 		66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */; };
@@ -184,15 +185,13 @@
 		FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF022E273A12B400EAB00B /* EditPageViewController.swift */; };
 		FCCF0231273A145400EAB00B /* EditPageViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */; };
 		FCCF0233273A719600EAB00B /* PageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF0232273A719600EAB00B /* PageControlView.swift */; };
-		FCD24D7A2743AACE000203F7 /* PushNotificationStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */; };
-		FCD24D7C2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */; };
-		FCD24D7E2743ADC1000203F7 /* PushNotificationStateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */; };
 		FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7027437F31000203F7 /* UIFont+Extensions.swift */; };
 		FCD24D7327439268000203F7 /* GlobalFontRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7227439268000203F7 /* GlobalFontRepository.swift */; };
 		FCD24D75274392AB000203F7 /* GlobalFontRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */; };
 		FCD24D7827439717000203F7 /* GlobalFontUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */; };
 		FCD24D7A2743AACE000203F7 /* PushNotificationStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */; };
 		FCD24D7C2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */; };
+		FCD24D7E2743ADC1000203F7 /* PushNotificationStateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */; };
 		FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DD2738CFB50001F155 /* PairRepository.swift */; };
 		FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F327391F260001F155 /* EditPageViewModel.swift */; };
@@ -367,6 +366,7 @@
 		66B4ADFC2742BEFC0021EA27 /* Normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Normal.jpg; sourceTree = "<group>"; };
 		66B4ADFD2742BEFC0021EA27 /* Polaroid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Polaroid.jpg; sourceTree = "<group>"; };
 		66B4ADFE2742BEFC0021EA27 /* LifeFourCuts.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = LifeFourCuts.jpg; sourceTree = "<group>"; };
+		66C482DA2746135500823151 /* DisplayPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPageUseCase.swift; sourceTree = "<group>"; };
 		66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTypePickerViewController.swift; sourceTree = "<group>"; };
 		66CD644D273A490800E55C03 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -411,15 +411,13 @@
 		FCCF022E273A12B400EAB00B /* EditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewController.swift; sourceTree = "<group>"; };
 		FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewCoordinator.swift; sourceTree = "<group>"; };
 		FCCF0232273A719600EAB00B /* PageControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlView.swift; sourceTree = "<group>"; };
-		FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateRepository.swift; sourceTree = "<group>"; };
-		FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateRepositoryProtocol.swift; sourceTree = "<group>"; };
-		FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateUseCase.swift; sourceTree = "<group>"; };
-		FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateRepository.swift; sourceTree = "<group>"; };
-		FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCD24D7027437F31000203F7 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		FCD24D7227439268000203F7 /* GlobalFontRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontRepository.swift; sourceTree = "<group>"; };
 		FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontUseCase.swift; sourceTree = "<group>"; };
+		FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateRepository.swift; sourceTree = "<group>"; };
+		FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateRepositoryProtocol.swift; sourceTree = "<group>"; };
+		FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateUseCase.swift; sourceTree = "<group>"; };
 		FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCE9D3DD2738CFB50001F155 /* PairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepository.swift; sourceTree = "<group>"; };
 		FCE9D3F327391F260001F155 /* EditPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewModel.swift; sourceTree = "<group>"; };
@@ -801,7 +799,6 @@
 				1D097E96273CFA5900A4810B /* RawPageRepository.swift */,
 				1D992B41273D0EAB00B63954 /* PageRepository.swift */,
 				FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */,
-				FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */,
 				FCD24D7227439268000203F7 /* GlobalFontRepository.swift */,
 			);
 			path = Repositories;
@@ -866,6 +863,7 @@
 				FC7AA338274345280059D0CD /* StickerUseCase.swift */,
 				FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */,
 				FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */,
+				66C482DA2746135500823151 /* DisplayPageUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -897,7 +895,6 @@
 				1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */,
 				1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */,
 				319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */,
-				FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */,
 				FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */,
 				FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */,
 			);
@@ -1583,6 +1580,7 @@
 				FCCF0231273A145400EAB00B /* EditPageViewCoordinator.swift in Sources */,
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
+				66C482DB2746135500823151 /* DisplayPageUseCase.swift in Sources */,
 				31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */,
 				1DE5E5422739352B004F794F /* RawPageRepositoryProtocol.swift in Sources */,
 				66ECCD3C273F7C9F003990EE /* CustomActivityIndicator.swift in Sources */,
