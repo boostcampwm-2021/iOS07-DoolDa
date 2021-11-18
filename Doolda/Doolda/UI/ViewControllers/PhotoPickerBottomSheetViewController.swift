@@ -176,7 +176,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if self.currentContentView == self.framePicker {
-                    self.selectPhotoFrame()
+                    self.photoFrameDidSelect()
                 } else if self.currentContentView == self.photoPickerCollectionView {
                     self.activityIndicator.startAnimating()
                     
@@ -270,7 +270,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         }
     }
     
-    private func selectPhotoFrame() {
+    private func photoFrameDidSelect() {
         self.checkPhotoAccessPermission { result in
             guard result else { return }
             self.viewModel?.fetchPhotoAssets()
@@ -360,7 +360,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
                 self.viewModel?.photoDidSelected(selectedPhotos)
             }
         } else {
-            self.selectPhotoFrame()
+            self.photoFrameDidSelect()
         }
     }
 }
