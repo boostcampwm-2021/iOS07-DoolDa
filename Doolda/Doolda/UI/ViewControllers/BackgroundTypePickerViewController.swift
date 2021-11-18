@@ -133,7 +133,7 @@ extension BackgroundTypePickerViewController: UICollectionViewDelegateFlowLayout
         
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 1
-        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderColor = UIColor.lightGray.cgColor
         cell.backgroundColor = UIColor(cgColor: BackgroundType.allCases[indexPath.item].rawValue)
         
         return cell
