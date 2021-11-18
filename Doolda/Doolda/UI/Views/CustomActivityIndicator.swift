@@ -17,7 +17,7 @@ final class CustomActivityIndicator: UIView {
     private lazy var activityIndicatorImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = .hedgehogs
+        imageView.image = .hedgehog
         return imageView
     }()
     
