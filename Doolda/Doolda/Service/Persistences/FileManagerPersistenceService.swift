@@ -48,6 +48,6 @@ class FileManagerPersistenceService: FileManagerPersistenceServiceProtocol {
             return false
         }
         
-        return FileManager.default.fileExists(atPath: fileUrl.absoluteString)
+        return FileManager.default.fileExists(atPath: fileUrl.path)
     }
 }
