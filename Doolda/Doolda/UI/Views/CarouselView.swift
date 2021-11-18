@@ -174,4 +174,9 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
         guard collectionView == self.collectionView else { return UICollectionViewCell() }
         return self.carouselCollectionViewDataSource?.collectionView(collectionView, cellForItemAt: indexPath) ?? UICollectionViewCell()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard collectionView == self.collectionView else { return  }
+        self.carouselCollectionViewDelegate?.collectionView?(collectionView, didSelectItemAt: indexPath)
+    }
 }
