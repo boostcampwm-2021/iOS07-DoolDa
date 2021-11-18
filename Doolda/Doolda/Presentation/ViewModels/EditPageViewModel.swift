@@ -74,9 +74,10 @@ final class EditPageViewModel: EditPageViewModelProtocol {
             }.store(in : &cancellables)
         
         self.editPageUseCase.resultPublisher
-            .sink { _ in
-                self.coordinator.editingPageSaved()
-            }.store(in: &cancellables)
+            .dropFirst()
+            .sink { [weak self] _ in
+                self?.coordinator.editingPageSaved()
+            }.store(in: &self.cancellables)
         
         self.editPageUseCase.errorPublisher
             .assign(to: &$error)
