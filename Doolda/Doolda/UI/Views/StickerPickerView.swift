@@ -14,9 +14,9 @@ class StickerPickerView: UIView {
 
     // MARK: - Subviews
 
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = self.createLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -45,11 +45,13 @@ class StickerPickerView: UIView {
 
     convenience init(
         collectionViewDelegate: UICollectionViewDelegate? = nil,
-        collectionViewDataSource: UICollectionViewDataSource? = nil
+        collectionViewDataSource: UICollectionViewDataSource? = nil,
+        collectionViewLayout: UICollectionViewCompositionalLayout
     ) {
         self.init(frame: .zero)
         self.collectionView.delegate = collectionViewDelegate
         self.collectionView.dataSource = collectionViewDataSource
+        self.collectionView.collectionViewLayout = collectionViewLayout
 
         self.configureUI()
         self.bindUI()
@@ -84,7 +86,12 @@ class StickerPickerView: UIView {
             .store(in: &self.cancellables)
     }
 
-    // MARK: - Private Methods
+    // MARK: - Public Methods
+
+    func invalidateLayout() {
+        self.collectionView.collectionViewLayout.invalidateLayout()
+        self.collectionView.reloadData()
+    }
 
     private func createLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, environment) -> NSCollectionLayoutSection? in

@@ -44,7 +44,11 @@ class StickerPickerViewController: BottomSheetViewController {
     }()
 
     private lazy var stickerPickerView: StickerPickerView = {
-        return StickerPickerView(collectionViewDelegate: self, collectionViewDataSource: self)
+        return StickerPickerView(
+            collectionViewDelegate: self,
+            collectionViewDataSource: self,
+            collectionViewLayout: self.createStickerPickerCompositionalLayout()
+        )
     }()
 
     // MARK: - Private Properties
@@ -84,12 +88,16 @@ class StickerPickerViewController: BottomSheetViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 if cell.slider.value >= cell.slider.maximumValue * 0.95 {
-                    // FIXME: PackedStickerCell이 구현되면 수정할 예정
-                    print("\(indexPath.section) 완료")
-
                     guard let stickerPack = self?.stickerPackMapper(at: indexPath.section) else { return }
-                    //stickerPack.setIsUnpacked(true)
 
+                    stickerPack.isUnpacked = true
+                    UIView.animate(withDuration: 1.0, animations: { cell.unpackCell() }) { _ in
+                        UIView.animate(withDuration: 0.5, animations: { cell.alpha = 0 }) { _ in
+                            self?.stickerPickerView.collectionView.collectionViewLayout.invalidateLayout()
+                            UIView.animate(withDuration: 0.5, animations: { self?.stickerPickerView.collectionView.reloadData() })
+                        }
+                    }
+                    self?.cancellables[indexPath.section]?.cancel()
                 }
             }
         self.cancellables[indexPath.section] = publisher
@@ -178,7 +186,6 @@ extension StickerPickerViewController: UICollectionViewDelegate {
         cell.motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
         cell.animating = true
     }
-
 }
 
 extension StickerPickerViewController: UICollectionViewDataSource {

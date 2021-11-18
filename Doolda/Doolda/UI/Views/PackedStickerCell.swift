@@ -88,6 +88,7 @@ class PackedStickerCell: UICollectionViewCell {
     // MARK: - Helpers
 
     func clear() {
+        self.stickerPackCover.alpha = 1
         self.slider.value = 0
 
         self.stickerPackBody.subviews.forEach { subview in
@@ -135,6 +136,10 @@ class PackedStickerCell: UICollectionViewCell {
         let gravityY = CGFloat(-gravity.y)
 
         self.gravity.gravityDirection = CGVector(dx: gravityX * 2.5, dy: gravityY * 2.5)
+    }
+
+    func unpackCell() {
+        self.stickerPackCover.alpha = 0
     }
 
     private func configureUI() {
