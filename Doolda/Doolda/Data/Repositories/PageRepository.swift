@@ -38,7 +38,7 @@ class PageRepository: PageRepositoryProtocol {
     func savePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
         guard let pairId = page.author.pairId?.ddidString else { return Fail(error: PageRepositoryError.userNotPaired).eraseToAnyPublisher() }
         let request = FirebaseAPIs.createPageDocument(page.author.id.ddidString, page.timeStamp, page.jsonPath, pairId)
-        let publisher: AnyPublisher<[String: String], Error> = self.urlSessionNetworkService.request(request)
+        let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService.request(request)
         
         return publisher
             .map { _ in page }
