@@ -9,7 +9,7 @@ import CoreGraphics
 import Foundation
 
 protocol TextInputViewModelProtocol {
-    func inputViewEditingDidEnd(with input: NSAttributedString, size:CGFloat, color: FontColorType) -> TextComponentEntity
+    func inputViewEditingDidEnd(input: NSAttributedString, size:CGFloat, color: FontColorType) -> TextComponentEntity
 }
 
 class TextInputViewModel {
@@ -19,7 +19,7 @@ class TextInputViewModel {
         self.textUseCase = textUseCase
     }
 
-    func inputViewEditingDidEnd(with input: NSAttributedString, size:CGFloat, color: FontColorType) -> TextComponentEntity {
-        return self.textUseCase.getTextComponent()
+    func inputViewEditingDidEnd(input: NSAttributedString, size:CGFloat, color: FontColorType) -> TextComponentEntity {
+        return self.textUseCase.getTextComponent(with: input, size: size, color: color)
     }
 }
