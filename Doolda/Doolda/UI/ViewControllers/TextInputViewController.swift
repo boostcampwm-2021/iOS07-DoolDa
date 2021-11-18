@@ -25,8 +25,6 @@ class TextInputViewController: UIViewController {
         textView.isScrollEnabled = true
         textView.backgroundColor = .clear
         textView.textAlignment = .center
-//        textView.layoutManager.allowsNonContiguousLayout = false
-//        textView.translatesAutoresizingMaskIntoConstraints = true
         textView.delegate = self
         return textView
     }()
@@ -53,18 +51,9 @@ class TextInputViewController: UIViewController {
         self.delegate = delegate
         self.widthRatioFromAbsolute = widthRatioFromAbsolute
         self.heightRatioFromAbsolute = heightRatioFromAbsolute
+        self.modalPresentationStyle = .overFullScreen
     }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.configureCommon()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.configureCommon()
-    }
-    
+
     // MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
@@ -91,10 +80,6 @@ class TextInputViewController: UIViewController {
     
     // MARK: - Helpers
     
-    private func configureCommon() {
-        self.modalPresentationStyle = .overFullScreen
-    }
-    
     private func configureUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.3)
         
@@ -104,7 +89,6 @@ class TextInputViewController: UIViewController {
             make.bottom.equalTo(self.view.snp.centerY)
         }
         self.inputTextView.becomeFirstResponder()
-        
     }
     
     // MARK: - Private Methods
@@ -144,5 +128,4 @@ extension TextInputViewController: UITextViewDelegate {
             make.height.equalTo(newSize.height)
         }
     }
-    
 }
