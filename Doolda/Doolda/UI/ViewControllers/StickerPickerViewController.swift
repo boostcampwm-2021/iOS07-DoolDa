@@ -217,7 +217,9 @@ extension StickerPickerViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let stickerPack = self.stickerPackMapper(at: indexPath.section) else { return UICollectionViewCell() }
+        guard let stickerPack = self.stickerPackMapper(at: indexPath.section) else {
+            return UICollectionViewCell()
+        }
 
         if !stickerPack.isUnpacked {
             return collectionView.dequeueReusableCell(withReuseIdentifier: PackedStickerCell.identifier, for: indexPath)
