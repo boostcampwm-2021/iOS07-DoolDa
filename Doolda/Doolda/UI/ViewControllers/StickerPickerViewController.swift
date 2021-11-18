@@ -105,7 +105,7 @@ class StickerPickerViewController: BottomSheetViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 if cell.slider.value >= cell.slider.maximumValue * 0.95 {
-                    guard let stickerPack = self?.stickerPackMapper(at: indexPath.section) else { return }
+                    guard let stickerPack = self?.viewModel.getStickerPackEntity(at: indexPath.section) else { return }
 
                     stickerPack.isUnpacked = true
                     UIView.animate(withDuration: 1.0, animations: { cell.unpackCell() }) { _ in
@@ -124,7 +124,7 @@ class StickerPickerViewController: BottomSheetViewController {
 
     private func createStickerPickerCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, environment) -> NSCollectionLayoutSection? in
-            guard let stickerPack = self.stickerPackMapper(at: sectionIndex) else { return nil }
+            guard let stickerPack = self.viewModel.getStickerPackEntity(at: sectionIndex) else { return nil }
 
             if stickerPack.isUnpacked { return self.createUnPackedStickerLayoutSection(in: environment) }
             return self.createPackedStickerLayoutSection(in: environment)
@@ -176,17 +176,6 @@ class StickerPickerViewController: BottomSheetViewController {
         return section
     }
 
-    private func stickerPackMapper(at section: Int) -> StickerPackEntity? {
-        if StickerPackType.allCases.count <= section { return nil }
-        return StickerPackType.allCases[section].rawValue
-    }
-
-    private func stickerUrlMapper(at indexPath: IndexPath) -> URL? {
-        guard let stickerPack = self.stickerPackMapper(at: indexPath.section) else { return nil }
-        if stickerPack.stickersUrl.count <= indexPath.item { return nil }
-        return stickerPack.stickersUrl[indexPath.item]
-    }
-
 }
 
 extension StickerPickerViewController: UICollectionViewDelegate {
@@ -195,7 +184,7 @@ extension StickerPickerViewController: UICollectionViewDelegate {
 
         guard let cell = cell as? PackedStickerCell,
               let operationQueue = OperationQueue.current,
-              let stickerPack = self.stickerPackMapper(at: indexPath.section) else { return }
+              let stickerPack = self.viewModel.getStickerPackEntity(at: indexPath.section) else { return }
 
         self.bindCellUI(cell, at: indexPath)
         cell.clear()
@@ -207,17 +196,17 @@ extension StickerPickerViewController: UICollectionViewDelegate {
 
 extension StickerPickerViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return StickerPackType.allCases.count
+        return self.viewModel.getStickerPacks().count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let stickerPack = self.stickerPackMapper(at: section) else { return 0 }
+        guard let stickerPack = self.viewModel.getStickerPackEntity(at: section) else { return 0 }
         if stickerPack.isUnpacked { return stickerPack.stickersUrl.count }
         return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let stickerPack = self.stickerPackMapper(at: indexPath.section) else {
+        guard let stickerPack = self.viewModel.getStickerPackEntity(at: indexPath.section) else {
             return UICollectionViewCell()
         }
 
@@ -226,7 +215,7 @@ extension StickerPickerViewController: UICollectionViewDataSource {
         }
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnpackedStickerCell.identifier, for: indexPath) as? UnpackedStickerCell,
-              let stickerUrl = self.stickerUrlMapper(at: indexPath) else { return UICollectionViewCell() }
+              let stickerUrl = self.viewModel.getStickerUrl(at: indexPath) else { return UICollectionViewCell() }
 
         cell.configure(with: stickerUrl)
         return cell
