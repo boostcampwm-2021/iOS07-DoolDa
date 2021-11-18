@@ -341,6 +341,15 @@ class EditPageViewController: UIViewController {
                         photoComponentView.layer.shadowOpacity = 0.3
                         photoComponentView.layer.shadowRadius = 10
                         photoComponentView.layer.shadowOffset = CGSize(width: -5, height: -5)
+                    case let stickerComponentEntity as StickerComponentEntity:
+                        let stickerComponentView = UIImageView(frame: computedCGRect)
+                        stickerComponentView.kf.setImage(with: stickerComponentEntity.stickerUrl)
+                        self.componentViewDictionary[stickerComponentEntity] = stickerComponentView
+                        self.pageView.addSubview(stickerComponentView)
+                        let transform = CGAffineTransform.identity
+                            .rotated(by: componentEntity.angle)
+                            .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
+                        stickerComponentView.transform = transform
                     case let textComponentEntity as TextComponentEntity:
                         let textComponentView = UITextView(frame: computedCGRect)
                         textComponentView.backgroundColor = .clear

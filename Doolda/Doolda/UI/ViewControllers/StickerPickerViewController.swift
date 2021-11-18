@@ -192,6 +192,13 @@ extension StickerPickerViewController: UICollectionViewDelegate {
         cell.motionManager.startDeviceMotionUpdates(to: operationQueue, withHandler: cell.configureGravity)
         cell.animating = true
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? UnpackedStickerCell,
+              let stickerComponentEntity = self.viewModel.stickerDidSelect(at: indexPath) else { return }
+        self.delegate?.stickerDidSelected(stickerComponentEntity)
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension StickerPickerViewController: UICollectionViewDataSource {
