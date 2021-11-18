@@ -80,6 +80,12 @@ class EditPageViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var activityIndicator: CustomActivityIndicator = {
+        let customActivityIndicator = CustomActivityIndicator(subTitle: "페이지 저장중이에요!!🦔🦔")
+        customActivityIndicator.isHidden = true
+        return customActivityIndicator
+    }()
+    
     // MARK: - Override Properties
     
     override var prefersStatusBarHidden: Bool { return true }
@@ -182,6 +188,11 @@ class EditPageViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-5)
             make.width.equalTo(135)
         }
+        
+        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     private func configureFont() {
@@ -214,6 +225,7 @@ class EditPageViewController: UIViewController {
                     leftActionTitle: "취소",
                     rightActionTitle: "저장",
                     action: { [weak self] _ in
+                        self?.activityIndicator.startAnimating()
                         self?.viewModel?.saveEditingPageButtonDidTap()
                     })
                 self.present(alert, animated: true)
