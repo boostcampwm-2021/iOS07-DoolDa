@@ -26,7 +26,7 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
         let view = UIView()
         view.backgroundColor = .dooldaHighlighted
         view.clipsToBounds = true
-        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.cornerRadius = 20
         return view
     }()
     
@@ -193,15 +193,11 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
     private func updateView(with displayMode: DiaryDisplayMode) {
         switch displayMode {
         case .list:
-            self.headerCardView.layer.cornerRadius = 20
-            self.headerCardView.layer.borderWidth = 0
             self.titleLabel.font = .systemFont(ofSize: 20)
             self.subtitleLabel.font = .systemFont(ofSize: 15)
             self.listCardConstraint?.activate()
             self.carouselCardConstraint?.deactivate()
         case .carousel:
-            self.headerCardView.layer.cornerRadius = 4
-            self.headerCardView.layer.borderWidth = 1
             self.titleLabel.font = .systemFont(ofSize: 30)
             self.subtitleLabel.font = .systemFont(ofSize: 20)
             self.listCardConstraint?.deactivate()
