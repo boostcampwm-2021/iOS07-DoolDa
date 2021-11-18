@@ -37,7 +37,7 @@ class StickerUseCase: StickerUseCaseProtocol {
         guard let selectedStickerPack = self.stickerPacks[indexPath.section].rawValue else { return nil }
         
         let stickerComponentEntity = StickerComponentEntity(
-            frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 300, height: 300)),
+            frame: CGRect(origin: CGPoint(x: 700, y: 1350), size: CGSize(width: 300, height: 300)),
             scale: 1.0,
             angle: 0,
             aspectRatio: 1,
