@@ -104,7 +104,9 @@ class PackedStickerCell: UICollectionViewCell {
 
     func configure(with stickerPack: StickerPackEntity) {
         let stickers = stickerPack.stickersUrl
-        var offset: CGFloat = 10
+        var widthOffset: CGFloat = 10
+        var heightOffset: CGFloat = 10
+
         for url in stickers {
             guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
             let stickerView = UIImageView(image: stickerImage)
@@ -112,13 +114,21 @@ class PackedStickerCell: UICollectionViewCell {
             let width: CGFloat = max(self.frame.width * 0.2, 50)
 
             self.stickerPackBody.addSubview(stickerView)
-            stickerView.frame = CGRect(x: offset, y: offset, width: width , height: width * ratio)
+            stickerView.frame = CGRect(x: widthOffset, y: heightOffset, width: width , height: width * ratio)
 
             self.gravity.addItem(stickerView)
             self.collider.addItem(stickerView)
             self.itemBehavior.addItem(stickerView)
 
-            offset += 20
+            // FIXME: 스티커 최대 개수 제한하도록 임시 구현
+            if widthOffset < 100 {
+                widthOffset += 30
+            } else {
+                widthOffset = 10
+                heightOffset += 50
+            }
+
+            if self.stickerPackBody.subviews.count >= 8 { break }
         }
 
         guard let coverImage = try? UIImage(data: Data(contentsOf: stickerPack.sealingImageUrl)) else { return }
