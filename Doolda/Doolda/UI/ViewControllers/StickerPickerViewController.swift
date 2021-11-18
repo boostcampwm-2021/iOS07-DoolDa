@@ -11,6 +11,10 @@ import UIKit
 
 import SnapKit
 
+protocol StickerPickerViewControllerDelegate: AnyObject {
+    func stickerDidSelected(_ stickerComponentEntity: StickerComponentEntity)
+}
+
 class StickerPickerViewController: BottomSheetViewController {
 
     // MARK: - Subviews
@@ -53,7 +57,20 @@ class StickerPickerViewController: BottomSheetViewController {
 
     // MARK: - Private Properties
 
+    private var viewModel: StickerPickerViewModel!
+    private weak var delegate: StickerPickerViewControllerDelegate?
     private var cancellables = [Int: AnyCancellable]()
+
+    // MARK: - Initializers
+
+    convenience init(
+        stickerPickerViewModel: StickerPickerViewModel,
+        delegate: StickerPickerViewControllerDelegate?
+    ) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel = stickerPickerViewModel
+        self.delegate = delegate
+    }
 
     // MARK: - LifeCycle Methods
 
