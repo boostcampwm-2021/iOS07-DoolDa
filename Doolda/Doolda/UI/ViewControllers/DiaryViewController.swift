@@ -105,16 +105,14 @@ class DiaryViewController: UIViewController {
         self.bindUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.configureNavigationBar()
-    }
-    
     // MARK: - Helpers
     
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
+        
         self.title = "둘다"
+        
+        self.navigationController?.navigationBar.barTintColor = .dooldaBackground
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.settingsButton)
         self.navigationItem.leftBarButtonItems = [
             UIBarButtonItem(customView: self.displayModeToggleButton),
@@ -151,12 +149,14 @@ class DiaryViewController: UIViewController {
                     self.pageCollectionView.alwaysBounceHorizontal = false
                     self.pageCollectionView.alwaysBounceVertical = true
                     self.pageCollectionView.showsVerticalScrollIndicator = true
+                    self.navigationController?.hidesBarsOnSwipe = true
                 case .carousel:
                     self.pageCollectionView.collectionViewLayout = self.carouselFlowLayout
                     self.displayModeToggleButton.setImage(.squareGrid2x2, for: .normal)
                     self.pageCollectionView.alwaysBounceHorizontal = true
                     self.pageCollectionView.alwaysBounceVertical = false
                     self.pageCollectionView.showsVerticalScrollIndicator = false
+                    self.navigationController?.hidesBarsOnSwipe = false
                     let pageWidth = self.view.frame.width - 32
                     let pageOffset = pageWidth + 10
                     let yOffset = self.pageCollectionView.contentOffset.y
@@ -225,11 +225,6 @@ class DiaryViewController: UIViewController {
             self.headerView = view
             return view
         }
-    }
-    
-    private func configureNavigationBar() {
-        self.navigationController?.navigationBar.standardAppearance = transparentNavigationBarAppearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = transparentNavigationBarAppearance
     }
     
     // MARK: - Private Methods
