@@ -1,5 +1,5 @@
 //
-//  DiaryPageView.swift
+//  DiaryCollectionViewCell.swift
 //  Doolda
 //
 //  Created by Seunghun Yang on 2021/11/15.
@@ -10,11 +10,11 @@ import UIKit
 
 import SnapKit
 
-class DiaryPageViewCell: UICollectionViewCell {
+class DiaryCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Static Properties
     
-    static let cellIdentifier: String = "DiaryPageViewCell"
+    static let identifier: String = "DiaryCollectionViewCell"
     
     // MARK: - Subviews
     

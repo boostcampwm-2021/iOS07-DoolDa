@@ -18,7 +18,7 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
     
     // MARK: - Static Properties
     
-    static let reusableViewIdentifier = "DiaryCollectionViewHeader"
+    static let identifier = "DiaryCollectionViewHeader"
     
     // MARK: - Subviews
     

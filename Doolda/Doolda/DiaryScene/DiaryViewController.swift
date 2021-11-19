@@ -26,11 +26,11 @@ class DiaryViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(DiaryPageViewCell.self, forCellWithReuseIdentifier: DiaryPageViewCell.cellIdentifier)
+        collectionView.register(DiaryCollectionViewCell.self, forCellWithReuseIdentifier: DiaryCollectionViewCell.identifier)
         collectionView.register(
             DiaryCollectionViewHeader.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: DiaryCollectionViewHeader.reusableViewIdentifier
+            withReuseIdentifier: DiaryCollectionViewHeader.identifier
         )
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
@@ -185,11 +185,11 @@ class DiaryViewController: UIViewController {
     private func configureDataSource() {
         self.dataSource = DataSource(
             collectionView: self.pageCollectionView,
-            cellProvider: { [weak self] (collectionView, indexPath, pageEntity) -> DiaryPageViewCell? in
+            cellProvider: { [weak self] (collectionView, indexPath, pageEntity) -> DiaryCollectionViewCell? in
                 guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: DiaryPageViewCell.cellIdentifier,
+                    withReuseIdentifier: DiaryCollectionViewCell.identifier,
                     for: indexPath
-                ) as? DiaryPageViewCell else { return nil }
+                ) as? DiaryCollectionViewCell else { return nil }
                 
                 guard let viewModel = self?.viewModel else { return nil }
                 cell.displayRawPage(with: viewModel.pageDidDisplay(jsonPath: pageEntity.jsonPath))
@@ -200,7 +200,7 @@ class DiaryViewController: UIViewController {
         self.dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
             let view = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: DiaryCollectionViewHeader.reusableViewIdentifier,
+                withReuseIdentifier: DiaryCollectionViewHeader.identifier,
                 for: indexPath
             ) as? DiaryCollectionViewHeader
             view?.delegate = self

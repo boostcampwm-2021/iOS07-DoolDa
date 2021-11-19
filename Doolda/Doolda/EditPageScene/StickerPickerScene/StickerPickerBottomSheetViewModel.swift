@@ -8,14 +8,14 @@
 import CoreGraphics
 import Foundation
 
-protocol StickerPickerViewModelProtocol {
+protocol StickerPickerBottomSheetViewModelProtocol {
     func getStickerPacks() -> [StickerPackType]
     func getStickerPackEntity(at index: Int) -> StickerPackEntity?
     func getStickerUrl(at indexPath: IndexPath) -> URL?
     func stickerDidSelect(at indexPath: IndexPath) -> StickerComponentEntity?
 }
 
-class StickerPickerViewModel: StickerPickerViewModelProtocol {
+class StickerPickerBottomSheetViewModel: StickerPickerBottomSheetViewModelProtocol {
     private let stickerUseCase: StickerUseCase
     
     init(stickerUseCase: StickerUseCase) {

@@ -1,5 +1,5 @@
 //
-//  TextInputViewController.swift
+//  TextEditViewController.swift
 //  Doolda
 //
 //  Created by 김민주 on 2021/11/17.
@@ -10,11 +10,11 @@ import UIKit
 
 import SnapKit
 
-protocol TextInputViewControllerDelegate: AnyObject {
+protocol TextEditViewControllerDelegate: AnyObject {
     func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity)
 }
 
-class TextInputViewController: UIViewController {
+class TextEditViewController: UIViewController {
     
     // MARK: - Subviews
     
@@ -35,19 +35,19 @@ class TextInputViewController: UIViewController {
     private var heightRatioFromAbsolute: CGFloat?
     
     private var cancellables: Set<AnyCancellable> = []
-    private var viewModel: TextInputViewModel?
-    private weak var delegate: TextInputViewControllerDelegate?
+    private var viewModel: TextEditViewModelProtocol?
+    private weak var delegate: TextEditViewControllerDelegate?
     
     // MARK: - Initializers
     
     convenience init(
-        textInputViewModel: TextInputViewModel,
-        delegate: TextInputViewControllerDelegate?,
+        textEditViewModel: TextEditViewModelProtocol,
+        delegate: TextEditViewControllerDelegate?,
         widthRatioFromAbsolute: CGFloat?,
         heightRatioFromAbsolute: CGFloat?
     ) {
         self.init(nibName: nil, bundle: nil)
-        self.viewModel = textInputViewModel
+        self.viewModel = textEditViewModel
         self.delegate = delegate
         self.widthRatioFromAbsolute = widthRatioFromAbsolute
         self.heightRatioFromAbsolute = heightRatioFromAbsolute
@@ -100,7 +100,7 @@ class TextInputViewController: UIViewController {
     }
 }
 
-extension TextInputViewController: UITextViewDelegate {
+extension TextEditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         textView.text = "내용을 입력하세요"
         textView.textColor = .darkGray

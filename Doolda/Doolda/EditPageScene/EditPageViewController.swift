@@ -37,8 +37,8 @@ class EditPageViewController: UIViewController {
         return view
     }()
         
-    private lazy var pageControlView: PageControlView = {
-        var controlView = PageControlView(frame: .zero, delegate: self)
+    private lazy var pageControlView: PageComponentControlView = {
+        var controlView = PageComponentControlView(frame: .zero, delegate: self)
         return controlView
     }()
     
@@ -412,21 +412,21 @@ class EditPageViewController: UIViewController {
     
 }
 
-extension EditPageViewController: ControlViewDelegate {
+extension EditPageViewController: PageComponentControlViewDelegate {
     
-    func leftTopControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer) {
+    func leftTopControlDidTap(_ pageControlView: PageComponentControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentBringFrontControlDidTap()
     }
     
-    func leftBottomControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer) {
+    func leftBottomControlDidTap(_ pageControlView: PageComponentControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentSendBackControlDidTap()
     }
     
-    func rightTopControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer) {
+    func rightTopControlDidTap(_ pageControlView: PageComponentControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentRemoveControlDidTap()
     }
     
-    func rightBottomcontrolDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer) {
+    func rightBottomcontrolDidPan(_ pageControlView: PageComponentControlView, with gesture: UIPanGestureRecognizer) {
         let touchLocation = gesture.location(in: self.view)
         let center = CGPoint(x: self.selectedComponentInitialRect.midX, y: self.selectedComponentInitialRect.midY)
         let xDifference = (center.x - touchLocation.x)
@@ -456,7 +456,7 @@ extension EditPageViewController: ControlViewDelegate {
         }
     }
     
-    func controlViewDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer) {
+    func controlViewDidPan(_ pageControlView: PageComponentControlView, with gesture: UIPanGestureRecognizer) {
         switch gesture.state {
         case .began:
             let touchCGPoint = gesture.location(in: self.pageControlView)
@@ -489,13 +489,13 @@ extension EditPageViewController: BackgroundTypePickerViewControllerDelegate {
     }
 }
 
-extension EditPageViewController: StickerPickerViewControllerDelegate {
+extension EditPageViewController: StickerPickerBottomSheetViewControllerDelegate {
     func stickerDidSelected(_ stickerComponentEntity: StickerComponentEntity) {
         self.viewModel?.componentEntityDidAdd(stickerComponentEntity)
     }
 }
 
-extension EditPageViewController: TextInputViewControllerDelegate {
+extension EditPageViewController: TextEditViewControllerDelegate {
     func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity) {
         self.viewModel?.componentEntityDidAdd(textComponentEntity)
     }

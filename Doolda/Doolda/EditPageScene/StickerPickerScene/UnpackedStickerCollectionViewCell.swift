@@ -1,5 +1,5 @@
 //
-//  UnpackedStickerCell.swift
+//  UnpackedStickerCollectionViewCell.swift
 //  Doolda
 //
 //  Created by Dozzing on 2021/11/16.
@@ -9,11 +9,11 @@ import UIKit
 
 import SnapKit
 
-class UnpackedStickerCell: UICollectionViewCell {
+class UnpackedStickerCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Static Properties
 
-    static let identifier = "UnpackedStickerCell"
+    static let identifier = "UnpackedStickerCollectionViewCell"
 
     // MARK: - Subviews
 

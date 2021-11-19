@@ -10,15 +10,15 @@ import UIKit
 
 import SnapKit
 
-protocol ControlViewDelegate: AnyObject {
-    func controlViewDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer)
-    func leftTopControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer)
-    func leftBottomControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer)
-    func rightTopControlDidTap(_ pageControlView: PageControlView, with gesture: UITapGestureRecognizer)
-    func rightBottomcontrolDidPan(_ pageControlView: PageControlView, with gesture: UIPanGestureRecognizer)
+protocol PageComponentControlViewDelegate: AnyObject {
+    func controlViewDidPan(_ pageComponentControlView: PageComponentControlView, with gesture: UIPanGestureRecognizer)
+    func leftTopControlDidTap(_ pageComponentControlView: PageComponentControlView, with gesture: UITapGestureRecognizer)
+    func leftBottomControlDidTap(_ pageComponentControlView: PageComponentControlView, with gesture: UITapGestureRecognizer)
+    func rightTopControlDidTap(_ pageComponentControlView: PageComponentControlView, with gesture: UITapGestureRecognizer)
+    func rightBottomcontrolDidPan(_ pageComponentControlView: PageComponentControlView, with gesture: UIPanGestureRecognizer)
 }
 
-class PageControlView: UIView {
+class PageComponentControlView: UIView {
     
     // MARK: - Subviews
     lazy var controlsView: UIView = {
@@ -54,12 +54,12 @@ class PageControlView: UIView {
     
     // MARK: - Private Properties
     
-    private weak var delegate: ControlViewDelegate?
+    private weak var delegate: PageComponentControlViewDelegate?
     private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - Initializers
     
-    convenience init(frame: CGRect, delegate: ControlViewDelegate) {
+    convenience init(frame: CGRect, delegate: PageComponentControlViewDelegate) {
         self.init(frame: frame)
         self.delegate = delegate
     }

@@ -93,9 +93,9 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     func addTextComponent() {
         let delegatedViewController = self.presenter.topViewController as? EditPageViewController
         
-        let textInputViewModel = TextInputViewModel(textUseCase: TextUseCase())
-        let viewController = TextInputViewController(
-            textInputViewModel: textInputViewModel,
+        let textEditViewModel = TextEditViewModel(textUseCase: TextUseCase())
+        let viewController = TextEditViewController(
+            textEditViewModel: textEditViewModel,
             delegate: delegatedViewController,
             widthRatioFromAbsolute: delegatedViewController?.widthRatioFromAbsolute,
             heightRatioFromAbsolute: delegatedViewController?.heightRatioFromAbsolute
@@ -106,9 +106,12 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     
     func addStickerComponent() {
         let stickerUseCase = StickerUseCase()
-        let stickerPickerViewModel = StickerPickerViewModel(stickerUseCase: stickerUseCase)
+        let stickerPickerBottomSheetViewModel = StickerPickerBottomSheetViewModel(stickerUseCase: stickerUseCase)
         let delegatedViewController = self.presenter.topViewController as? EditPageViewController
-        let viewController = StickerPickerViewController(stickerPickerViewModel: stickerPickerViewModel, delegate: delegatedViewController)
+        let viewController = StickerPickerBottomSheetViewController(
+            stickerPickerBottomSheetViewModel: stickerPickerBottomSheetViewModel,
+            delegate: delegatedViewController
+        )
         self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
     

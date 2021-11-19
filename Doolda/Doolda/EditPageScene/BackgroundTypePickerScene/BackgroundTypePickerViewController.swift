@@ -16,7 +16,7 @@ final class BackgroundTypePickerViewController: BottomSheetViewController {
     
     // MARK: - Static Properties
     
-    static let backgroundTypeCellIdentifier = "backgroundTypeCellIdentifier"
+    static let identifier = "backgroundTypeCellIdentifier"
     
     // MARK: - Subviews
     
@@ -54,7 +54,7 @@ final class BackgroundTypePickerViewController: BottomSheetViewController {
         layout.sectionInset = .zero
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Self.backgroundTypeCellIdentifier)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Self.identifier)
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -129,7 +129,7 @@ extension BackgroundTypePickerViewController: UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Self.backgroundTypeCellIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Self.identifier, for: indexPath)
         
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 1

@@ -1,5 +1,5 @@
 //
-//  StickerPickerViewController.swift
+//  StickerPickerBottomSheetViewController.swift
 //  Doolda
 //
 //  Created by Dozzing on 2021/11/15.
@@ -11,11 +11,11 @@ import UIKit
 
 import SnapKit
 
-protocol StickerPickerViewControllerDelegate: AnyObject {
+protocol StickerPickerBottomSheetViewControllerDelegate: AnyObject {
     func stickerDidSelected(_ stickerComponentEntity: StickerComponentEntity)
 }
 
-class StickerPickerViewController: BottomSheetViewController {
+class StickerPickerBottomSheetViewController: BottomSheetViewController {
 
     // MARK: - Subviews
 
@@ -57,18 +57,18 @@ class StickerPickerViewController: BottomSheetViewController {
 
     // MARK: - Private Properties
 
-    private var viewModel: StickerPickerViewModel!
-    private weak var delegate: StickerPickerViewControllerDelegate?
+    private var viewModel: StickerPickerBottomSheetViewModelProtocol!
+    private weak var delegate: StickerPickerBottomSheetViewControllerDelegate?
     private var cancellables = [Int: AnyCancellable]()
 
     // MARK: - Initializers
 
     convenience init(
-        stickerPickerViewModel: StickerPickerViewModel,
-        delegate: StickerPickerViewControllerDelegate?
+        stickerPickerBottomSheetViewModel: StickerPickerBottomSheetViewModelProtocol,
+        delegate: StickerPickerBottomSheetViewControllerDelegate?
     ) {
         self.init(nibName: nil, bundle: nil)
-        self.viewModel = stickerPickerViewModel
+        self.viewModel = stickerPickerBottomSheetViewModel
         self.delegate = delegate
     }
 
@@ -100,7 +100,7 @@ class StickerPickerViewController: BottomSheetViewController {
         }
     }
 
-    private func bindCellUI(_ cell: PackedStickerCell, at indexPath: IndexPath) {
+    private func bindCellUI(_ cell: PackedStickerCollectionViewCell, at indexPath: IndexPath) {
         let publisher = cell.slider.publisher(for: .valueChanged)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -176,11 +176,11 @@ class StickerPickerViewController: BottomSheetViewController {
 
 }
 
-extension StickerPickerViewController: UICollectionViewDelegate {
+extension StickerPickerBottomSheetViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         self.stickerPickerView.currentPack = indexPath.section
 
-        guard let cell = cell as? PackedStickerCell,
+        guard let cell = cell as? PackedStickerCollectionViewCell,
               let operationQueue = OperationQueue.current,
               let stickerPack = self.viewModel.getStickerPackEntity(at: indexPath.section) else { return }
 
@@ -192,14 +192,14 @@ extension StickerPickerViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? UnpackedStickerCell,
+        guard let cell = collectionView.cellForItem(at: indexPath) as? UnpackedStickerCollectionViewCell,
               let stickerComponentEntity = self.viewModel.stickerDidSelect(at: indexPath) else { return }
         self.delegate?.stickerDidSelected(stickerComponentEntity)
         self.dismiss(animated: true, completion: nil)
     }
 }
 
-extension StickerPickerViewController: UICollectionViewDataSource {
+extension StickerPickerBottomSheetViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.viewModel.getStickerPacks().count
     }
@@ -216,10 +216,10 @@ extension StickerPickerViewController: UICollectionViewDataSource {
         }
 
         if !stickerPack.isUnpacked {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: PackedStickerCell.identifier, for: indexPath)
+            return collectionView.dequeueReusableCell(withReuseIdentifier: PackedStickerCollectionViewCell.identifier, for: indexPath)
         }
 
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnpackedStickerCell.identifier, for: indexPath) as? UnpackedStickerCell,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnpackedStickerCollectionViewCell.identifier, for: indexPath) as? UnpackedStickerCollectionViewCell,
               let stickerUrl = self.viewModel.getStickerUrl(at: indexPath) else { return UICollectionViewCell() }
 
         cell.configure(with: stickerUrl)

@@ -8,11 +8,11 @@
 import CoreGraphics
 import Foundation
 
-protocol TextInputViewModelProtocol {
+protocol TextEditViewModelProtocol {
     func inputViewEditingDidEnd(input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity
 }
 
-class TextInputViewModel {
+class TextEditViewModel: TextEditViewModelProtocol {
     private let textUseCase: TextUseCaseProtocol
     
     init(textUseCase: TextUseCaseProtocol) {

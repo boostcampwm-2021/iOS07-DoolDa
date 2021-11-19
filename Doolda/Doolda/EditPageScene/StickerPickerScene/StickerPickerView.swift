@@ -20,8 +20,8 @@ class StickerPickerView: UIView {
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
-        collectionView.register(PackedStickerCell.self, forCellWithReuseIdentifier: PackedStickerCell.identifier)
-        collectionView.register(UnpackedStickerCell.self, forCellWithReuseIdentifier: UnpackedStickerCell.identifier)
+        collectionView.register(PackedStickerCollectionViewCell.self, forCellWithReuseIdentifier: PackedStickerCollectionViewCell.identifier)
+        collectionView.register(UnpackedStickerCollectionViewCell.self, forCellWithReuseIdentifier: UnpackedStickerCollectionViewCell.identifier)
         return collectionView
     }()
 
