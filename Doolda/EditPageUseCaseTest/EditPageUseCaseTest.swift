@@ -27,8 +27,8 @@ class EditPageUseCaseTest: XCTestCase {
             self.isSuccessMode = isSuccessMode
         }
         
-        func saveLocal(image: CIImage) -> AnyPublisher<URL, Never> {
-            return Just(URL(string: "https://naver.com")!).eraseToAnyPublisher()
+        func saveLocal(image: CIImage) -> AnyPublisher<URL, Error> {
+            return Just(URL(string: "https://naver.com")!).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
         
         func saveRemote(for user: User, localUrl: URL) -> AnyPublisher<URL, Error> {
@@ -71,8 +71,7 @@ class EditPageUseCaseTest: XCTestCase {
             self.isSuccessMode = isSuccessMode
         }
         
-        
-        func saveRawPage(_ rawPage: RawPageEntity) -> AnyPublisher<RawPageEntity, Error> {
+        func save(rawPage: RawPageEntity, at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
             if isSuccessMode {
                 return Just(rawPage)
                     .setFailureType(to: Error.self)
@@ -82,7 +81,7 @@ class EditPageUseCaseTest: XCTestCase {
             }
         }
         
-        func fetchRawPage(for path: String) -> AnyPublisher<RawPageEntity, Error> {
+        func fetch(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
             return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
         }
     }
@@ -130,9 +129,10 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSavingFailureDueToImageUseCase() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: DDID()),
             imageUseCase: DummyImageUseCase(isSuccessMode: false),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
         )
         
         let expectation = self.expectation(description: "testSavingFailureDueToImageUseCase")
