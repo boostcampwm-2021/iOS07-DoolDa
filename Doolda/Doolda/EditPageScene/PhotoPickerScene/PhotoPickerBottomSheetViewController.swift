@@ -130,6 +130,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         
         configureUI()
         bindUI()
+        bindViewModel()
         
         setContentView(self.framePicker)
     }
@@ -169,8 +170,6 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     }
     
     private func bindUI() {
-        guard let viewModel = viewModel else { return }
-        
         self.nextButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -191,8 +190,10 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
                 self?.dismiss(animated: true, completion: nil)
             }
             .store(in: &self.cancellables)
-        
-        viewModel.isReadyToCompose
+    }
+    
+    private func bindViewModel() {
+        self.viewModel?.isReadyToCompose
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
                 self?.nextButton.isEnabled = self?.currentContentView == self?.framePicker ||
@@ -200,7 +201,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
         
-        viewModel.composedResultPublisher
+        self.viewModel?.composedResultPublisher
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] photoComponentEntity in
@@ -210,7 +211,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
         
-        viewModel.$selectedPhotos
+        self.viewModel?.$selectedPhotos
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] _ in
@@ -218,14 +219,14 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
         
-        viewModel.selectedPhotoFramePublisher
+        self.viewModel?.selectedPhotoFramePublisher
             .compactMap { $0 }
             .sink { [weak self] _ in
                 self?.nextButton.isEnabled = true
             }
             .store(in: &cancellables)
         
-        viewModel.$photoFetchResult
+        self.viewModel?.$photoFetchResult
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] _ in
@@ -233,7 +234,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.errorPublisher
+        self.viewModel?.errorPublisher
             .compactMap { $0 }
             .sink { [weak self] error in
                 let alert = UIAlertController.defaultAlert(title: "알림", message: error.localizedDescription) { _ in
@@ -275,7 +276,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             guard result else { return }
             self.viewModel?.fetchPhotoAssets()
             self.setContentView(self.photoPickerCollectionView)
-            self.nextButton.configuration?.attributedTitle = AttributedString("완료", attributes: self.fontContainer)
+            self.nextButton.setTitle("완료", for: .normal)
             self.nextButton.isEnabled = false
         }
     }
