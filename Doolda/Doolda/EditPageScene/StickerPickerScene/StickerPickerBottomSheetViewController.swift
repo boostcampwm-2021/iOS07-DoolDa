@@ -206,7 +206,7 @@ extension StickerPickerBottomSheetViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let stickerPack = self.viewModel.getStickerPackEntity(at: section) else { return 0 }
-        if stickerPack.isUnpacked { return stickerPack.stickersUrl.count }
+        if stickerPack.isUnpacked { return stickerPack.stickerCount }
         return 1
     }
 
