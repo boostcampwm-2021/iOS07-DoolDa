@@ -33,11 +33,10 @@ class StickerPackEntity {
     let stickerCount: Int
 
     var isUnpacked: Bool = false
-
-    var coverSticker: String { familyName + "_cover" }
+    var coverSticker: String { self.familyName + "_cover" }
     var stickers: [String] {
-        (0..<stickerCount).map { number in
-            familyName + "_\(number)"
+        (0..<self.stickerCount).map { number in
+            self.familyName + "_\(number)"
         }
     }
 
