@@ -29,8 +29,9 @@ class StickerUseCase: StickerUseCaseProtocol {
 
     func getStickerUrl(at indexPath: IndexPath) -> URL? {
         guard let stickerPack = self.getStickerPackEntity(at: indexPath.section) else { return nil }
-        if stickerPack.stickersUrl.count <= indexPath.item { return nil }
-        return stickerPack.stickersUrl[indexPath.item]
+        if stickerPack.stickerCount <= indexPath.item { return nil }
+        let stickerName = stickerPack.stickersName[indexPath.item]
+        return StickerPackEntity.getStickerUrl(for: stickerName)
     }
     
     func selectSticker(at indexPath: IndexPath) -> StickerComponentEntity? {
@@ -41,7 +42,7 @@ class StickerUseCase: StickerUseCaseProtocol {
             scale: 1.0,
             angle: 0,
             aspectRatio: 1,
-            stickerUrl: selectedStickerPack.stickersUrl[indexPath.item]
+            name: selectedStickerPack.stickersName[indexPath.item]
         )
         return stickerComponentEntity
     }
