@@ -9,6 +9,7 @@ import Combine
 import UIKit
 
 import SnapKit
+import Kingfisher
 
 class DiaryCollectionViewCell: UICollectionViewCell {
     
@@ -177,9 +178,8 @@ class DiaryCollectionViewCell: UICollectionViewCell {
                 photoComponentView.layer.shadowOffset = CGSize(width: -5, height: -5)
             case let stickerComponentEntity as StickerComponentEntity:
                 let stickerComponentView = UIImageView(frame: computedCGRect)
-                // FIXME: - Hotfix로 기존 코드 주석 처리
-                //stickerComponentView.kf.setImage(with: stickerComponentEntity.stickerUrl)
-                stickerComponentView.kf.setImage(with: self.getStickerUrl(with: stickerComponentEntity.stickerUrl))
+                let stickerUrl = StickerPackEntity.getStickerUrl(for: stickerComponentEntity.name)
+                stickerComponentView.kf.setImage(with: stickerUrl)
                 self.pageView.addSubview(stickerComponentView)
                 let transform = CGAffineTransform.identity
                     .rotated(by: componentEntity.angle)
@@ -219,10 +219,4 @@ class DiaryCollectionViewCell: UICollectionViewCell {
             .store(in: &self.cancellables)
     }
 
-    // FIXME: - Hotfix에서 임시 구현한 함수
-    private func getStickerUrl(with url: URL) -> URL? {
-        guard var stickerName = url.absoluteString.split(separator: "/").last else { return nil }
-        let name = String(stickerName.replacingOccurrences(of: ".png", with: ""))
-        return Bundle.main.url(forResource: name, withExtension: "png")
-    }
 }
