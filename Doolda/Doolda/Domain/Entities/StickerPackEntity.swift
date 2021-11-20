@@ -28,26 +28,38 @@ enum StickerPackType: RawRepresentable, CaseIterable {
 }
 
 class StickerPackEntity {
-    let name: String
-    var sealingImageUrl: URL
-    var stickersUrl: [URL]
+    let displayName: String
+    let familyName: String
+    let stickerCount: Int
+
     var isUnpacked: Bool = false
 
-    private let maximumStickerCount = 16
-    
-    init?(name: String) {
-        self.name = name
-        guard let coverUrl = Bundle.main.url(forResource: name + "_cover", withExtension: "png") else { return nil }
-        self.sealingImageUrl = coverUrl
-        self.stickersUrl = []
-        for index in 0 ..< self.maximumStickerCount {
-            guard let stickerUrl = Bundle.main.url(forResource: name + "_\(index)", withExtension: "png") else { break }
-            self.stickersUrl.append(stickerUrl)
+    var coverSticker: String { familyName + "_cover" }
+    var stickers: [String] {
+        (0..<stickerCount).map { number in
+            familyName + "_\(number)"
         }
-        if self.stickersUrl.isEmpty { return nil }
     }
 
-    static let htmlCoderStickerPack = StickerPackEntity(name: "htmlCoder")
-    static let boolbadaStickerPack = StickerPackEntity(name: "boolbadaSticker")
-    static let buddyStickerPack = StickerPackEntity(name: "buddySticker")
+    init(displayName: String, familyName: String, stickerCount: Int) {
+        self.displayName = displayName
+        self.familyName = familyName
+        self.stickerCount = stickerCount
+    }
+
+    static let htmlCoderStickerPack = StickerPackEntity(
+        displayName: "저는 HTML로 코딩해요",
+        familyName: "htmlCoder",
+        stickerCount: 11
+    )
+    static let boolbadaStickerPack = StickerPackEntity(
+        displayName: "불바다 팩",
+        familyName: "boolbadaSticker",
+        stickerCount: 5
+    )
+    static let buddyStickerPack = StickerPackEntity(
+        displayName: "동글이 팩",
+        familyName: "buddySticker",
+        stickerCount: 5
+    )
 }
