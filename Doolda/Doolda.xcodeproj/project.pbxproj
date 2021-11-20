@@ -113,9 +113,9 @@
 		665303A62743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */; };
 		665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A72744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift */; };
 		665303AA2744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */; };
-		66B4ADFF2742BEFC0021EA27 /* Normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFC2742BEFC0021EA27 /* Normal.jpg */; };
-		66B4AE002742BEFC0021EA27 /* Polaroid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFD2742BEFC0021EA27 /* Polaroid.jpg */; };
-		66B4AE012742BEFC0021EA27 /* LifeFourCuts.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFE2742BEFC0021EA27 /* LifeFourCuts.jpg */; };
+		66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFC2742BEFC0021EA27 /* normal.jpg */; };
+		66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */; };
+		66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */; };
 		66C482DB2746135500823151 /* GetRawPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C482DA2746135500823151 /* GetRawPageUseCase.swift */; };
 		66CAFF242740F63A00A48DCF /* BackgroundTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */; };
 		66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644D273A490800E55C03 /* BottomSheetViewController.swift */; };
@@ -258,9 +258,9 @@
 		665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		665303A72744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceService.swift; sourceTree = "<group>"; };
 		665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
-		66B4ADFC2742BEFC0021EA27 /* Normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Normal.jpg; sourceTree = "<group>"; };
-		66B4ADFD2742BEFC0021EA27 /* Polaroid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Polaroid.jpg; sourceTree = "<group>"; };
-		66B4ADFE2742BEFC0021EA27 /* LifeFourCuts.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = LifeFourCuts.jpg; sourceTree = "<group>"; };
+		66B4ADFC2742BEFC0021EA27 /* normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = normal.jpg; sourceTree = "<group>"; };
+		66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = polaroid.jpg; sourceTree = "<group>"; };
+		66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lifeFourCuts.jpg; sourceTree = "<group>"; };
 		66C482DA2746135500823151 /* GetRawPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCase.swift; sourceTree = "<group>"; };
 		66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTypePickerViewController.swift; sourceTree = "<group>"; };
 		66CD644D273A490800E55C03 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -753,9 +753,9 @@
 		66CAFF38274136FE00A48DCF /* PhotoFrames */ = {
 			isa = PBXGroup;
 			children = (
-				66B4ADFE2742BEFC0021EA27 /* LifeFourCuts.jpg */,
-				66B4ADFC2742BEFC0021EA27 /* Normal.jpg */,
-				66B4ADFD2742BEFC0021EA27 /* Polaroid.jpg */,
+				66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */,
+				66B4ADFC2742BEFC0021EA27 /* normal.jpg */,
+				66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */,
 			);
 			path = PhotoFrames;
 			sourceTree = "<group>";
@@ -887,9 +887,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				664893CD273007F1009F03E2 /* LaunchScreen.storyboard in Resources */,
-				66B4ADFF2742BEFC0021EA27 /* Normal.jpg in Resources */,
-				66B4AE002742BEFC0021EA27 /* Polaroid.jpg in Resources */,
-				66B4AE012742BEFC0021EA27 /* LifeFourCuts.jpg in Resources */,
+				66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */,
+				66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */,
+				3161EF092746644600B922DD /* htmlCoder_8.png in Resources */,
+				3161EEF6274663BD00B922DD /* boolbadaSticker_1.png in Resources */,
+				3161EF0A2746644600B922DD /* htmlCoder_9.png in Resources */,
+				3161EF062746644600B922DD /* htmlCoder_1.png in Resources */,
+				3161EEE52744F57900B922DD /* buddySticker_cover.png in Resources */,
+				66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */,
+				3161EF082746644600B922DD /* htmlCoder_6.png in Resources */,
+				3161EF0C2746644600B922DD /* htmlCoder_7.png in Resources */,
+				3161EEF3274663BD00B922DD /* boolbadaSticker_2.png in Resources */,
+				3161EEF1274663BD00B922DD /* boolbadaSticker_cover.png in Resources */,
+				3161EEF4274663BD00B922DD /* boolbadaSticker_4.png in Resources */,
+				3161EF072746644600B922DD /* htmlCoder_5.png in Resources */,
+				3161EEDD2744C51000B922DD /* buddySticker_0.png in Resources */,
+				3161EF0F2746645E00B922DD /* htmlCoder_cover.png in Resources */,
+				3161EF052746644600B922DD /* htmlCoder_10.png in Resources */,
+				3161EEF2274663BD00B922DD /* boolbadaSticker_0.png in Resources */,
+				3161EEF5274663BD00B922DD /* boolbadaSticker_3.png in Resources */,
+				3161EF032746644600B922DD /* htmlCoder_2.png in Resources */,
+				3161EF142746651100B922DD /* buddySticker_1.png in Resources */,
+				3161EF152746651100B922DD /* buddySticker_3.png in Resources */,
+				3161EF162746651100B922DD /* buddySticker_4.png in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
 				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
 			);
