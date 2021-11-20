@@ -33,8 +33,8 @@ class StickerPackEntity {
     let stickerCount: Int
 
     var isUnpacked: Bool = false
-    var coverSticker: String { self.familyName + "_cover" }
-    var stickers: [String] {
+    var coverStickerName: String { self.familyName + "_cover" }
+    var stickersName: [String] {
         (0..<self.stickerCount).map { number in
             self.familyName + "_\(number)"
         }
@@ -61,4 +61,10 @@ class StickerPackEntity {
         familyName: "buddySticker",
         stickerCount: 5
     )
+}
+
+extension StickerPackEntity {
+    static func getStickerUrl(for stickerName: String) -> URL? {
+        return Bundle.main.url(forResource: stickerName, withExtension: "png")
+    }
 }
