@@ -192,7 +192,7 @@ extension StickerPickerBottomSheetViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? UnpackedStickerCollectionViewCell,
+        guard let _ = collectionView.cellForItem(at: indexPath) as? UnpackedStickerCollectionViewCell,
               let stickerComponentEntity = self.viewModel.stickerDidSelect(at: indexPath) else { return }
         self.delegate?.stickerDidSelected(stickerComponentEntity)
         self.dismiss(animated: true, completion: nil)
