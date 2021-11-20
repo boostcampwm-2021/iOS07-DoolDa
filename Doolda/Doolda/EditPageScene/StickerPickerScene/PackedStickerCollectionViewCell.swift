@@ -9,6 +9,7 @@ import Combine
 import CoreMotion
 import UIKit
 
+import Kingfisher
 import SnapKit
 
 class PackedStickerCollectionViewCell: UICollectionViewCell {
@@ -31,7 +32,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         return coverView
     }()
 
-    private lazy var coverSealingSticker: UIImageView = {
+    private lazy var coverSticker: UIImageView = {
         let coverSticker = UIImageView()
         coverSticker.contentMode = .scaleAspectFit
         return coverSticker
@@ -110,8 +111,8 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(-5)
         }
 
-        self.stickerPackCover.addSubview(self.coverSealingSticker)
-        self.coverSealingSticker.snp.makeConstraints { make in
+        self.stickerPackCover.addSubview(self.coverSticker)
+        self.coverSticker.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalTo(self.stickerPackCover.snp.bottom)
             make.width.equalToSuperview().multipliedBy(0.25)
@@ -143,18 +144,17 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
 
     func configure(with stickerPack: StickerPackEntity) {
-        let stickers = stickerPack.stickersUrl
         var widthOffset: CGFloat = 10
         var heightOffset: CGFloat = 10
 
-        for url in stickers {
-            guard let stickerImage = try? UIImage(data: Data(contentsOf: url)) else { continue }
-            let stickerView = UIImageView(image: stickerImage)
-            let ratio = stickerImage.size.height / stickerImage.size.width
+        for sticker in stickerPack.stickersName {
+            guard let stickerUrl = StickerPackEntity.getStickerUrl(for: sticker) else { continue }
+            let stickerView = UIImageView()
+            stickerView.kf.setImage(with: stickerUrl)
             let width: CGFloat = max(self.frame.width * 0.2, 50)
 
             self.stickerPackBody.addSubview(stickerView)
-            stickerView.frame = CGRect(x: widthOffset, y: heightOffset, width: width , height: width * ratio)
+            stickerView.frame = CGRect(x: widthOffset, y: heightOffset, width: width , height: width)
 
             self.gravity.addItem(stickerView)
             self.collider.addItem(stickerView)
@@ -171,8 +171,8 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             if self.stickerPackBody.subviews.count >= 8 { break }
         }
 
-        guard let coverImage = try? UIImage(data: Data(contentsOf: stickerPack.sealingImageUrl)) else { return }
-        self.coverSealingSticker.image = coverImage
+        guard let coverStickerUrl = StickerPackEntity.getStickerUrl(for: stickerPack.coverStickerName) else { return }
+        self.coverSticker.kf.setImage(with: coverStickerUrl)
     }
 
     func configureGravity(motion: CMDeviceMotion?, error: Error?) {
