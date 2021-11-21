@@ -71,26 +71,21 @@ class PairingViewController: UIViewController {
     }()
     
     private lazy var pairButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.cornerStyle = .capsule
-        var container = AttributeContainer()
-        configuration.attributedTitle = AttributedString("연결하기", attributes: container)
-        configuration.baseBackgroundColor = .dooldaHighlighted
-        configuration.baseForegroundColor = .dooldaLabel
-        let button = UIButton(configuration: configuration)
+        let button = DooldaButton()
+        button.setTitle("연결하기", for: .normal)
+        button.setTitleColor(.dooldaLabel, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.backgroundColor = .dooldaHighlighted
         button.isEnabled = false
         return button
     }()
 
     private lazy var pairSkipButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.cornerStyle = .capsule
-        var container = AttributeContainer()
-        configuration.attributedTitle = AttributedString("혼자 쓰러가기", attributes: container)
-        configuration.baseBackgroundColor = .dooldaHighlighted
-        configuration.baseForegroundColor = .dooldaLabel
-        let button = UIButton(configuration: configuration)
-        button.isEnabled = true
+        let button = DooldaButton()
+        button.setTitle("혼자 쓰러가기", for: .normal)
+        button.setTitleColor(.dooldaLabel, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.backgroundColor = .dooldaHighlighted
         return button
     }()
     
