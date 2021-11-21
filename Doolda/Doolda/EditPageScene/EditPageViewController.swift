@@ -356,6 +356,7 @@ class EditPageViewController: UIViewController {
                     case let stickerComponentEntity as StickerComponentEntity:
                         let stickerComponentView = UIImageView(frame: computedCGRect)
                         stickerComponentView.image = UIImage(named: stickerComponentEntity.name)
+                        stickerComponentView.contentMode = .scaleAspectFit
                         self.componentViewDictionary[stickerComponentEntity] = stickerComponentView
                         self.pageView.addSubview(stickerComponentView)
                         let transform = CGAffineTransform.identity
