@@ -20,6 +20,14 @@ class SettingsViewController: UIViewController {
         return button
     }()
 
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+    }()
+
     // MARK: - LifeCycle Methods
 
     override func viewDidLoad() {
@@ -34,6 +42,29 @@ class SettingsViewController: UIViewController {
         self.title = "설정"
         self.navigationController?.navigationBar.barTintColor = .dooldaLabel
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
+
+        self.view.addSubview(self.tableView)
+        self.tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 
+}
+
+extension SettingsViewController: UITableViewDelegate {
+
+}
+
+extension SettingsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
 }
