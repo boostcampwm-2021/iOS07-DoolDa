@@ -61,6 +61,8 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     }
     
     func filteringSheetRequested() {
+        let delegate = self.presenter.topViewController as? DiaryViewController
+        let viewController = FilterOptionBottomSheetViewController(delegate: delegate)
+        self.presenter.present(viewController, animated: false)
     }
-    
 }
