@@ -86,11 +86,33 @@ class EditPageUseCaseTest: XCTestCase {
         }
     }
     
+    class DummyPAirRepository: PairRepositoryProtocol {
+        var isSuccessMode: Bool = true
+        
+        init(isSuccessMode: Bool = true) {
+            self.isSuccessMode = isSuccessMode
+        }
+        
+        func setPairId(with user: User) -> AnyPublisher<DDID, Error> {
+            return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
+        }
+        
+        func setRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
+            return self.isSuccessMode ? Just(DDID()).setFailureType(to: Error.self).eraseToAnyPublisher() : Fail(error: TestError.notImplemented).eraseToAnyPublisher()
+        }
+        
+        func fetchRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
+            return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
+        }
+    }
+    
     func testSavingSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testGetMyIdSuceess")
@@ -103,7 +125,7 @@ class EditPageUseCaseTest: XCTestCase {
         editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()))
     
         var error: Error?
-        var result: Void?
+        var result: Bool?
     
         editPageUseCase.errorPublisher
             .compactMap { $0 }
@@ -129,10 +151,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSavingFailureDueToImageUseCase() {
         let editPageUseCase = EditPageUseCase(
-            user: User(id: DDID(), pairId: DDID()),
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: false),
             pageRepository: DummyPageRepository(isSuccessMode: true),
             rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSavingFailureDueToImageUseCase")
@@ -145,7 +168,7 @@ class EditPageUseCaseTest: XCTestCase {
         editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()))
     
         var error: Error?
-        var result: Void?
+        var result: Bool?
     
         editPageUseCase.errorPublisher
             .compactMap { $0 }
@@ -159,6 +182,7 @@ class EditPageUseCaseTest: XCTestCase {
             .compactMap { $0 }
             .sink { encounteredResult in
                 result = encounteredResult
+                expectation.fulfill()
             }
             .store(in: &self.cancellables)
         
@@ -170,9 +194,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSavingFailureDueToPageRepository() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: false),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSavingFailureDueToPageRepository")
@@ -185,7 +211,7 @@ class EditPageUseCaseTest: XCTestCase {
         editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()))
     
         var error: Error?
-        var result: Void?
+        var result: Bool?
     
         editPageUseCase.errorPublisher
             .compactMap { $0 }
@@ -211,9 +237,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSavingFailureDueToRawPageRepository() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: false)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: false),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSavingFailureDueToRawPageRepository")
@@ -226,7 +254,7 @@ class EditPageUseCaseTest: XCTestCase {
         editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()))
     
         var error: Error?
-        var result: Void?
+        var result: Bool?
     
         editPageUseCase.errorPublisher
             .compactMap { $0 }
@@ -252,9 +280,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectComponentWithOriginSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectComponentWithOriginSuccess")
@@ -280,9 +310,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectComponentWithRightTopSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectComponentWithRightTopSuccess")
@@ -308,9 +340,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectComponentWithRightTopFailure() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectComponentWithRightTopFailure")
@@ -336,9 +370,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectComponentWithLeftBottomSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectComponentWithLeftBottomSuccess")
@@ -364,9 +400,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectComponentWithLeftBottomFailure() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectComponentWithLeftBottomFailure")
@@ -392,9 +430,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectComponentWithRightBotomSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectComponentWithRightBotomSuccess")
@@ -420,9 +460,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectComponentWithRightBotomFailure() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectComponentWithRightBotomFailure")
@@ -448,9 +490,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectScaledComponentWithRightBotomSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotomSuccess")
@@ -476,9 +520,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectScaledComponentWithRightBotomFailure() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectScaledComponentWithRightBotomFailure")
@@ -504,9 +550,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectRotatedComponentWithRightBotomSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectRotatedComponentWithRightBotomSuccess")
@@ -532,9 +580,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectRotatedComponentWithRightBotomFailure() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectRotatedComponentWithRightBotomFailure")
@@ -560,9 +610,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectOneAmongComponentsSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectOneAmongComponentsSuccess")
@@ -590,9 +642,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSelectOneAmongComponentsFailure() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testSelectOneAmongComponentsFailure")
@@ -620,9 +674,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testMoveSelectedComponentSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testMoveSelectedComponentSuccess")
@@ -650,9 +706,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testMoveSelectedComponentFailure() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testMoveSelectedComponentFailure")
@@ -680,9 +738,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testScaleSelectedComponentSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testScaleSelectedComponentSuccess")
@@ -710,9 +770,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testScaleSelectedComponentFailure() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testScaleSelectedComponentFailure")
@@ -740,9 +802,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testRotateSelectedComponentSuccess() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testRotateSelectedComponentSuccess")
@@ -770,9 +834,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testRotateSelectedComponentFailure() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testRotateSelectedComponentFailure")
@@ -800,9 +866,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testSendComponentBack() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let a = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
@@ -844,9 +912,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testBringComponentFront() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let a = ComponentEntity(frame: CGRect(x: 0, y: 0, width: 10, height: 10), scale: 1, angle: 0, aspectRatio: 1)
@@ -888,9 +958,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testRemoveComponentSingle() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testRemoveComponentSingle")
@@ -920,9 +992,11 @@ class EditPageUseCaseTest: XCTestCase {
     
     func testRemoveComponentDouble() {
         let editPageUseCase = EditPageUseCase(
+            user: User(id: DDID(), pairId: nil),
             imageUseCase: DummyImageUseCase(isSuccessMode: true),
             pageRepository: DummyPageRepository(isSuccessMode: true),
-            rawPageRepository: DummyRawPageRepository(isSuccessMode: true)
+            rawPageRepository: DummyRawPageRepository(isSuccessMode: true),
+            pairRepository: DummyPAirRepository()
         )
         
         let expectation = self.expectation(description: "testRemoveComponentDouble")
