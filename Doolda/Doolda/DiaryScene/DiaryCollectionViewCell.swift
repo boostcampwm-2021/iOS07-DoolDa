@@ -178,8 +178,7 @@ class DiaryCollectionViewCell: UICollectionViewCell {
                 photoComponentView.layer.shadowOffset = CGSize(width: -5, height: -5)
             case let stickerComponentEntity as StickerComponentEntity:
                 let stickerComponentView = UIImageView(frame: computedCGRect)
-                let stickerUrl = StickerPackEntity.getStickerUrl(for: stickerComponentEntity.name)
-                stickerComponentView.kf.setImage(with: stickerUrl)
+                stickerComponentView.image = UIImage(named: stickerComponentEntity.name)
                 self.pageView.addSubview(stickerComponentView)
                 let transform = CGAffineTransform.identity
                     .rotated(by: componentEntity.angle)

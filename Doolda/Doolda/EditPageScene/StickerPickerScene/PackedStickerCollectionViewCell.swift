@@ -148,9 +148,8 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         var heightOffset: CGFloat = 10
 
         for sticker in stickerPack.stickersName {
-            guard let stickerUrl = StickerPackEntity.getStickerUrl(for: sticker) else { continue }
-            let stickerView = UIImageView()
-            stickerView.kf.setImage(with: stickerUrl)
+            let stickerImage = UIImage(named: sticker)
+            let stickerView = UIImageView(image: stickerImage)
             let width: CGFloat = max(self.frame.width * 0.2, 50)
 
             self.stickerPackBody.addSubview(stickerView)
@@ -171,8 +170,8 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             if self.stickerPackBody.subviews.count >= 8 { break }
         }
 
-        guard let coverStickerUrl = StickerPackEntity.getStickerUrl(for: stickerPack.coverStickerName) else { return }
-        self.coverSticker.kf.setImage(with: coverStickerUrl)
+        let coverStickerImage = UIImage(named: stickerPack.coverStickerName)
+        self.coverSticker.image = coverStickerImage
     }
 
     func configureGravity(motion: CMDeviceMotion?, error: Error?) {

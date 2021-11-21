@@ -220,9 +220,10 @@ extension StickerPickerBottomSheetViewController: UICollectionViewDataSource {
         }
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnpackedStickerCollectionViewCell.identifier, for: indexPath) as? UnpackedStickerCollectionViewCell,
-              let stickerUrl = self.viewModel.getStickerUrl(at: indexPath) else { return UICollectionViewCell() }
+              let stickerName = self.viewModel.getStickerName(at: indexPath),
+              let stickerImage = UIImage(named: stickerName) else { return UICollectionViewCell() }
 
-        cell.configure(with: stickerUrl)
+        cell.configure(with: stickerImage)
         return cell
     }
 }
