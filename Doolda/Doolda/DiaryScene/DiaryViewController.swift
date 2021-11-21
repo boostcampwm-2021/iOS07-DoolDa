@@ -241,7 +241,7 @@ class DiaryViewController: UIViewController {
     
     private func scrollToPage(of index: Int) {
         guard self.viewModel.displayMode == .carousel else { return }
-        let xOffset = CGFloat(index + 1) * self.pageOffset - 16
+        let xOffset = CGFloat(min(self.viewModel.filteredEntityCount, index + 1)) * self.pageOffset - 16
         let yOffset = self.pageCollectionView.contentOffset.y
         self.pageCollectionView.setContentOffset(CGPoint(x: xOffset, y: yOffset), animated: false)
     }

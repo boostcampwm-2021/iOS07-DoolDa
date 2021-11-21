@@ -26,6 +26,7 @@ protocol DiaryViewModelOutput {
     var filteredPageEntitiesPublisher: AnyPublisher<[PageEntity], Never> { get }
     var isRefreshingPublisher: Published<Bool>.Publisher { get }
     var displayMode: DiaryDisplayMode { get }
+    var filteredEntityCount: Int { get }
 }
 
 typealias DiaryViewModelProtocol = DiaryViewModelInput & DiaryViewModelOutput
@@ -65,6 +66,7 @@ class DiaryViewModel: DiaryViewModelProtocol {
     var displayModePublisher: Published<DiaryDisplayMode>.Publisher { self.$displayMode }
     var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }
     var isRefreshingPublisher: Published<Bool>.Publisher { self.$isRefreshing }
+    var filteredEntityCount: Int { self.filteredPageEntities.count }
   
     @Published var displayMode: DiaryDisplayMode = .carousel
     
