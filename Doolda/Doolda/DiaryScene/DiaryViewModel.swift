@@ -123,6 +123,16 @@ class DiaryViewModel: DiaryViewModelProtocol {
         self.checkMyTurnUseCase = checkMyTurnUseCase
         self.getPageUseCase = getPageUseCase
         self.getRawPageUseCase = getRawPageUseCase
+        self.bind()
+    }
+    
+    private func bind() {
+        self.$pageEntities
+            .sink { [weak self] entities in
+                guard let self = self else { return }
+                self.filterPageEntities(entities: entities, authorFilter: self.authorFilter, orderFilter: self.orderFilter)
+            }
+            .store(in: &self.cancellables)
     }
     
     func diaryViewWillAppear() {
@@ -160,11 +170,11 @@ class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func filterBottomSheetDidDismiss() {
-        self.filterPageEntities(authorFilter: self.authorFilter, orderFilter: self.orderFilter)
+        self.filterPageEntities(entities: self.pageEntities, authorFilter: self.authorFilter, orderFilter: self.orderFilter)
     }
     
     func filterOptionDidChange(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {
-        self.filterPageEntities(authorFilter: author, orderFilter: orderBy)
+        self.filterPageEntities(entities: self.pageEntities, authorFilter: author, orderFilter: orderBy)
     }
     
     private func fetchPages() {
@@ -184,8 +194,8 @@ class DiaryViewModel: DiaryViewModelProtocol {
             .store(in: &self.cancellables)
     }
     
-    private func filterPageEntities(authorFilter: DiaryAuthorFilter, orderFilter: DiaryOrderFilter) {
-        let filtered = self.pageEntities.filter { authorFilter == .both ? true : (authorFilter == .user ? ($0.author.id == self.user.id) : ($0.author.id != self.user.id)) }
+    private func filterPageEntities(entities: [PageEntity], authorFilter: DiaryAuthorFilter, orderFilter: DiaryOrderFilter) {
+        let filtered = entities.filter { authorFilter == .both ? true : (authorFilter == .user ? ($0.author.id == self.user.id) : ($0.author.id != self.user.id)) }
         let ordered = filtered.sorted { orderFilter == .descending ? ($0.timeStamp >= $1.timeStamp) : ($0.timeStamp <= $1.timeStamp) }
         self.filteredPageEntities = ordered
     }
