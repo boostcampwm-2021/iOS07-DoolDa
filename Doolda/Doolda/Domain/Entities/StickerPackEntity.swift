@@ -62,9 +62,3 @@ class StickerPackEntity {
         stickerCount: 5
     )
 }
-
-extension StickerPackEntity {
-    static func getStickerUrl(for stickerName: String) -> URL? {
-        return Bundle.main.url(forResource: stickerName, withExtension: "png")
-    }
-}
