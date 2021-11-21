@@ -166,15 +166,12 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             self.addCollider(to: stickerView)
             self.itemBehavior.addItem(stickerView)
 
-            // FIXME: 스티커 최대 개수 제한하도록 임시 구현
             if widthOffset < 100 {
                 widthOffset += 30
             } else {
                 widthOffset = 10
                 heightOffset += 50
             }
-
-            //if self.stickerPackBody.subviews.count >= 8 { break }
         }
 
         let coverStickerImage = UIImage(named: stickerPack.coverStickerName)
