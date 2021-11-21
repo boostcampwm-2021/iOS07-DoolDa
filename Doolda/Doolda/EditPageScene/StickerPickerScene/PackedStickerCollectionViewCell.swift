@@ -57,10 +57,12 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
 
     private let gravity: UIGravityBehavior = UIGravityBehavior()
 
-    private let collider: UICollisionBehavior = {
+    private let colliders: [UICollisionBehavior] = {
+        var colliders = [UICollisionBehavior]()
         let collider = UICollisionBehavior()
         collider.translatesReferenceBoundsIntoBoundary = true
-        return collider
+        colliders.append(collider)
+        return colliders
     }()
 
     private let itemBehavior: UIDynamicItemBehavior = {
@@ -68,6 +70,8 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         behavior.elasticity = 0.4
         return behavior
     }()
+
+    private let maximumCollisionCount: Int = 5
 
     private lazy var animator: UIDynamicAnimator = UIDynamicAnimator(referenceView: self.stickerPackBody)
     private var cancellables = Set<AnyCancellable>()
@@ -125,16 +129,20 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAnimating in
                 guard let gravity = self?.gravity,
-                      let collider = self?.collider,
+                      let colliders = self?.colliders,
                       let itemBehavior = self?.itemBehavior else { return }
 
                 if isAnimating {
                     self?.animator.addBehavior(gravity)
-                    self?.animator.addBehavior(collider)
+                    for collider in colliders {
+                        self?.animator.addBehavior(collider)
+                    }
                     self?.animator.addBehavior(itemBehavior)
                 } else {
                     self?.animator.removeBehavior(gravity)
-                    self?.animator.removeBehavior(collider)
+                    for collider in colliders {
+                        self?.animator.removeBehavior(collider)
+                    }
                     self?.animator.removeBehavior(itemBehavior)
                 }
             }
@@ -156,7 +164,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             stickerView.frame = CGRect(x: widthOffset, y: heightOffset, width: width , height: width)
 
             self.gravity.addItem(stickerView)
-            self.collider.addItem(stickerView)
+            self.addCollider(to: stickerView)
             self.itemBehavior.addItem(stickerView)
 
             // FIXME: 스티커 최대 개수 제한하도록 임시 구현
@@ -192,7 +200,9 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         self.stickerPackBody.subviews.forEach { subview in
             subview.removeFromSuperview()
             self.gravity.removeItem(subview)
-            self.collider.removeItem(subview)
+            for collider in self.colliders {
+                collider.removeItem(subview)
+            }
             self.itemBehavior.removeItem(subview)
         }
 
@@ -202,6 +212,12 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
 
     func unpackCell() {
         self.stickerPackCover.alpha = 0
+    }
+
+    // MARK: - Private Methods
+
+    private func addCollider(to item: UIView) {
+
     }
 
 }
