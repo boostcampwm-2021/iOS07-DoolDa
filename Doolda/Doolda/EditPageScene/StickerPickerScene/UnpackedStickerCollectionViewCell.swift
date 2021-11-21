@@ -37,9 +37,8 @@ class UnpackedStickerCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Helpers
 
-    func configure(with sticker: URL) {
-        guard let image = try? UIImage(data: Data(contentsOf: sticker)) else { return }
-        self.imageView.image = image
+    func configure(with sticker: UIImage) {
+        self.imageView.image = sticker
     }
 
     private func configureUI() {
