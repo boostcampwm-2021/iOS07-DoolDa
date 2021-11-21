@@ -234,8 +234,8 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         self.viewModel?.selectedPhotosPublisher
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
-            .sink { [weak self] _ in
-                self?.photoPickerCollectionView.reloadData()
+            .sink { [weak self] selectedPhotos in
+                self?.photoPickerCollectionView.reloadItems(at: selectedPhotos.map { IndexPath(item: $0, section: 0) })
             }
             .store(in: &self.cancellables)
         
@@ -387,6 +387,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
             if selectedPhotos.contains(indexPath.item),
                let target = selectedPhotos.enumerated().first(where: { $0.element == indexPath.item }) {
                 self.viewModel?.photoDidSelected(selectedPhotos.filter({ $0 != target.element }))
+                self.photoPickerCollectionView.reloadItems(at: [indexPath])
             } else {
                 selectedPhotos.append(indexPath.item)
                 self.viewModel?.photoDidSelected(selectedPhotos)
