@@ -57,14 +57,6 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
 
     private let gravity: UIGravityBehavior = UIGravityBehavior()
 
-    private let colliders: [UICollisionBehavior] = {
-        var colliders = [UICollisionBehavior]()
-        let collider = UICollisionBehavior()
-        collider.translatesReferenceBoundsIntoBoundary = true
-        colliders.append(collider)
-        return colliders
-    }()
-
     private let itemBehavior: UIDynamicItemBehavior = {
         let behavior = UIDynamicItemBehavior()
         behavior.elasticity = 0.4
@@ -72,6 +64,14 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
     }()
 
     private let maximumCollisionCount: Int = 5
+
+    private var colliders: [UICollisionBehavior] = {
+        var colliders = [UICollisionBehavior]()
+        let collider = UICollisionBehavior()
+        collider.translatesReferenceBoundsIntoBoundary = true
+        colliders.append(collider)
+        return colliders
+    }()
 
     private lazy var animator: UIDynamicAnimator = UIDynamicAnimator(referenceView: self.stickerPackBody)
     private var cancellables = Set<AnyCancellable>()
@@ -217,7 +217,15 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Methods
 
     private func addCollider(to item: UIView) {
+        guard var collider = self.colliders.last else { return }
 
+        if collider.items.count >= maximumCollisionCount {
+            let newCollider = UICollisionBehavior()
+            newCollider.translatesReferenceBoundsIntoBoundary = true
+            self.colliders.append(newCollider)
+            collider = newCollider
+        }
+        collider.addItem(item)
     }
 
 }
