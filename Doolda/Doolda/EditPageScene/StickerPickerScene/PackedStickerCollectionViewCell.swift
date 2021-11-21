@@ -156,12 +156,11 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         var heightOffset: CGFloat = 10
 
         for sticker in stickerPack.stickersName {
-            let stickerImage = UIImage(named: sticker)
-            let stickerView = UIImageView(image: stickerImage)
-            let width: CGFloat = max(self.frame.width * 0.2, 50)
+            guard let stickerImage = UIImage(named: sticker) else { continue }
+            let stickerView = self.configureStickerView(with: stickerImage)
 
             self.stickerPackBody.addSubview(stickerView)
-            stickerView.frame = CGRect(x: widthOffset, y: heightOffset, width: width , height: width)
+            stickerView.frame.origin = CGPoint(x: widthOffset, y: heightOffset)
 
             self.gravity.addItem(stickerView)
             self.addCollider(to: stickerView)
@@ -175,7 +174,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
                 heightOffset += 50
             }
 
-            if self.stickerPackBody.subviews.count >= 8 { break }
+            //if self.stickerPackBody.subviews.count >= 8 { break }
         }
 
         let coverStickerImage = UIImage(named: stickerPack.coverStickerName)
@@ -226,6 +225,25 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             collider = newCollider
         }
         collider.addItem(item)
+    }
+
+    private func configureStickerView(with stickerImage: UIImage) -> UIImageView {
+        let stickerView = UIImageView(image: stickerImage)
+        stickerView.contentMode = .scaleAspectFit
+
+        var width: CGFloat = 0
+        var height: CGFloat = 0
+        let imageRatio = stickerImage.size.width / stickerImage.size.height
+
+        if stickerImage.size.width > stickerImage.size.height {
+            width = self.frame.width / CGFloat(self.maximumCollisionCount)
+            height = width / imageRatio
+        } else {
+            height = self.frame.width / CGFloat(self.maximumCollisionCount)
+            width = height * imageRatio
+        }
+        stickerView.frame.size = CGSize(width: width, height: height)
+        return stickerView
     }
 
 }

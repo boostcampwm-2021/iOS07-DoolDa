@@ -97,7 +97,7 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
         self.stickerPickerView.snp.makeConstraints { make in
             make.top.equalTo(topStack.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-13)
         }
     }
 
