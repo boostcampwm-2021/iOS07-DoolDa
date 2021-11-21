@@ -17,8 +17,7 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
     func start() {
         DispatchQueue.main.async {
             let viewController = SettingsViewController()
-            
-            self.presenter.setViewControllers([viewController], animated: true)
+            self.presenter.pushViewController(viewController, animated: true)
         }
     }
 }
