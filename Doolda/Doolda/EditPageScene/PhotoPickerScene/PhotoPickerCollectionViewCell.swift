@@ -37,6 +37,8 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     // MARK: - Private Properties
     
     private var requestImageId: PHImageRequestID?
@@ -60,6 +62,11 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
+        if let requestImageId = requestImageId {
+            PHImageManager.default().cancelImageRequest(requestImageId)
+        }
+        self.imageView.image = .hedgehogWriting
+        self.activityIndicator.startAnimating()
         self.deselect()
     }
     
@@ -80,27 +87,29 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(15)
         }
         
+        self.addSubview(self.activityIndicator)
+        self.activityIndicator.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         self.layoutIfNeeded()
     }
     
     // MARK: - Public Methods
     
     func display(_ asset: PHAsset) {
-        if let requestImageId = requestImageId {
-            PHImageManager.default().cancelImageRequest(requestImageId)
-        }
-        
         let imageRequestOptions = PHImageRequestOptions()
         imageRequestOptions.deliveryMode = .opportunistic
+        imageRequestOptions.isNetworkAccessAllowed = true
         
-        self.requestImageId = PHImageManager.default().requestImage(
+        self.requestImageId = PHCachingImageManager.default().requestImage(
             for: asset,
             targetSize: self.bounds.size,
             contentMode: .aspectFill,
             options: imageRequestOptions
         ) { image, _ in
-            guard let image = image else { return }
             self.imageView.image = image
+            self.activityIndicator.stopAnimating()
         }
     }
     
