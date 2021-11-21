@@ -148,8 +148,8 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
     }
 
     private func createPackedStickerLayoutSection(in environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        let height = environment.container.contentSize.height * 0.75
-        let width = height * 0.9
+        let height = environment.container.contentSize.height * 0.85
+        let width = height * 0.85
         let widthInset = (environment.container.contentSize.width - width) / 2
         let heightInset = (environment.container.contentSize.height - height) / 2
 
@@ -163,7 +163,14 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
             subitems: [item]
         )
 
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(heightInset))
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+
+        // this activates the "sticky" behavior
+        footer.pinToVisibleBounds = true
+
         let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [footer]
         return section
     }
 
@@ -235,5 +242,17 @@ extension StickerPickerBottomSheetViewController: UICollectionViewDataSource {
 
         cell.configure(with: stickerImage)
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let footerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: StickerPickerCollectionViewFooter.identifier,
+            for: indexPath
+        ) as? StickerPickerCollectionViewFooter,
+              let stickerPack = self.viewModel.getStickerPackEntity(at: indexPath.section) else { return UICollectionReusableView() }
+
+        footerView.configureStickerPackTilte(with: stickerPack.displayName)
+        return footerView
     }
 }
