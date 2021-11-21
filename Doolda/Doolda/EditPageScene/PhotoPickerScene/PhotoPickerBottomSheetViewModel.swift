@@ -80,7 +80,6 @@ class PhotoPickerBottomSheetViewModel: NSObject, PhotoPickerBottomSheetViewModel
         self.imageUseCase = imageUseCase
         self.imageComposeUseCase = imageComposeUseCase
         super.init()
-        PHPhotoLibrary.shared().register(self)
         bind()
     }
     
@@ -182,6 +181,8 @@ class PhotoPickerBottomSheetViewModel: NSObject, PhotoPickerBottomSheetViewModel
         guard authorizationStatus == .authorized || authorizationStatus == .limited else {
             return self.photoAccessState = false
         }
+        
+        PHPhotoLibrary.shared().register(self)
         
         self.fetchPhotoAssets()
         
