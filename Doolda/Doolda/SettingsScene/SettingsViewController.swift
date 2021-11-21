@@ -10,6 +10,12 @@ import UIKit
 
 import SnapKit
 
+struct SettingsOption {
+    let title: String
+    let rightButtonItem: UIView
+    let handler: (() -> Void)
+}
+
 class SettingsViewController: UIViewController {
 
     // MARK: - Subviews
