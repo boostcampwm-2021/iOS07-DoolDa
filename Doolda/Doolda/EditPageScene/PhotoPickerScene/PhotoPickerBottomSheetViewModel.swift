@@ -44,7 +44,9 @@ protocol PhotoPickerBottomSheetViewModelOutput {
 
 typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewModelInput & PhotoPickerBottomSheetViewModelOutput
 
-class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {    
+class PhotoPickerBottomSheetViewModel: NSObject, PhotoPickerBottomSheetViewModelProtocol {
+    typealias PhotoFetchResultWithChangeDetails = (photoFetchResult: PHFetchResult<PHAsset>, changeDetails: PHFetchResultChangeDetails<PHAsset>?)
+    
     var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { self.$selectedPhotoFrame }
     var isReadyToSelectPhoto: Published<Bool>.Publisher { self.$readyToSelectPhotoState }
     var isReadyToComposePhoto: Published<Bool>.Publisher { self.$readyToComposeState }
@@ -58,7 +60,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     
     private var cancellables = Set<AnyCancellable>()
     
-    @Published private(set) var photoFetchResult: PHFetchResult<PHAsset>?
+    @Published private(set) var photoFetchResultWithChangeDetails: PhotoFetchResultWithChangeDetails?
     @Published private(set) var selectedPhotos: [Int] = []
     @Published private var selectedPhotoFrame: PhotoFrameType?
     @Published private var photoAccessState: Bool?
@@ -71,13 +73,18 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
         self.photoFrames = PhotoFrameType.allCases
         self.imageUseCase = imageUseCase
         self.imageComposeUseCase = imageComposeUseCase
+        super.init()
+        PHPhotoLibrary.shared().register(self)
         bind()
     }
     
     func fetchPhotoAssets() {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [.init(key: "creationDate", ascending: false)]
-        self.photoFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+        fetchOptions.includeAllBurstAssets = true
+        fetchOptions.includeHiddenAssets = false
+        fetchOptions.includeAssetSourceTypes = [.typeUserLibrary]
+        self.photoFetchResultWithChangeDetails = (PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions), nil)
     }
     
     func photoFrameDidSelect(_ index: Int) {
@@ -102,7 +109,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
         guard self.readyToComposeState,
               let photoFrame = self.selectedPhotoFrame else { return }
         
-        let assets = self.selectedPhotos.compactMap { self.photoFetchResult?.object(at: $0) }
+        let assets = self.selectedPhotos.compactMap { self.photoFetchResultWithChangeDetails?.photoFetchResult.object(at: $0) }
         
         let convertImagePublishers = assets.map { self.convertAssetToCIImage(asset: $0) }
         
@@ -177,6 +184,7 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     
     private func convertAssetToCIImage(asset: PHAsset) -> AnyPublisher<CIImage?, Never> {
         let imageRequestOptions = PHImageRequestOptions()
+        imageRequestOptions.isNetworkAccessAllowed = true
         imageRequestOptions.deliveryMode = .highQualityFormat
         
         return Future<CIImage?, Never> { promise in
@@ -191,5 +199,14 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
             }
         }
         .eraseToAnyPublisher()
+    }
+}
+
+extension PhotoPickerBottomSheetViewModel: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        guard let photoFetchResult = self.photoFetchResultWithChangeDetails?.photoFetchResult,
+              let changes = changeInstance.changeDetails(for: photoFetchResult) else { return }
+        
+        self.photoFetchResultWithChangeDetails = (changes.fetchResultAfterChanges, changes)
     }
 }
