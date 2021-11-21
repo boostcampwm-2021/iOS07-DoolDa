@@ -102,7 +102,7 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         imageRequestOptions.deliveryMode = .opportunistic
         imageRequestOptions.isNetworkAccessAllowed = true
         
-        self.requestImageId = PHCachingImageManager.default().requestImage(
+        self.requestImageId = PHImageManager.default().requestImage(
             for: asset,
             targetSize: self.bounds.size,
             contentMode: .aspectFill,
