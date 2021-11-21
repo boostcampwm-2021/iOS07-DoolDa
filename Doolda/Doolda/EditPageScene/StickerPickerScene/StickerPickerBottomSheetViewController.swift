@@ -138,15 +138,15 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
     }
 
     private func createPackedStickerLayoutSection(in environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        let width = environment.container.contentSize.width * 0.45
-        let height = width * 1.25
+        let height = environment.container.contentSize.height * 0.75
+        let width = height * 0.9
         let widthInset = (environment.container.contentSize.width - width) / 2
         let heightInset = (environment.container.contentSize.height - height) / 2
 
         let item = NSCollectionLayoutItem(
             layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         )
-        item.contentInsets = .init(top: heightInset, leading: widthInset, bottom: heightInset, trailing: widthInset)
+        item.contentInsets = .init(top: 0, leading: widthInset, bottom: heightInset, trailing: widthInset)
 
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)),

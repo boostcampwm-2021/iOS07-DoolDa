@@ -182,7 +182,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         let gravityX = CGFloat(gravity.x)
         let gravityY = CGFloat(-gravity.y)
 
-        self.gravity.gravityDirection = CGVector(dx: gravityX * 2.5, dy: gravityY * 2.5)
+        self.gravity.gravityDirection = CGVector(dx: gravityX * 4, dy: gravityY * 4)
     }
 
     func clear() {
