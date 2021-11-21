@@ -5,6 +5,7 @@
 //  Created by Seunghun Yang on 2021/11/21.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -50,12 +51,18 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
     
     // MARK: - Private Properties
     
+    private var viewModel: FilterOptionBottomSheetViewModel!
     private weak var delegate: FilterOptionBottomSheetViewControllerDelegate?
+    private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializers
     
-    convenience init(delegate: FilterOptionBottomSheetViewControllerDelegate?) {
+    convenience init(
+        viewModel: FilterOptionBottomSheetViewModel,
+        delegate: FilterOptionBottomSheetViewControllerDelegate?
+    ) {
         self.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
         self.delegate = delegate
     }
     
@@ -64,6 +71,7 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.bindUI()
     }
     
     // MARK: - Helpers
@@ -102,5 +110,9 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-32)
         }
+    }
+    
+    private func bindUI() {
+        
     }
 }
