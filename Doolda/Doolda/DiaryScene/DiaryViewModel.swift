@@ -42,12 +42,35 @@ enum DiaryDisplayMode {
     }
 }
 
-enum DiaryAuthorFilter {
-    case user, friend, both
+enum DiaryAuthorFilter: String, CaseIterable {
+    case both = "전체 보기"
+    case user = "내 것만 보기"
+    case friend = "친구 것만 보기"
+    
+    static var titles: [String] { DiaryAuthorFilter.allCases.map { $0.rawValue }}
+
+    static subscript(index: Int) -> DiaryAuthorFilter? {
+        return DiaryAuthorFilter(rawValue: DiaryAuthorFilter.titles[index])
+    }
+    
+    static func indexOf(authorFilter: DiaryAuthorFilter) -> Int {
+        return DiaryAuthorFilter.allCases.firstIndex(of: authorFilter) ?? 0
+    }
 }
 
-enum DiaryOrderFilter {
-    case ascending, descending
+enum DiaryOrderFilter: String, CaseIterable {
+    case descending = "최신순"
+    case ascending = "오래된순"
+    
+    static var titles: [String] { DiaryOrderFilter.allCases.map { $0.rawValue }}
+    
+    static subscript(index: Int) -> DiaryOrderFilter? {
+        return DiaryOrderFilter(rawValue: DiaryOrderFilter.titles[index])
+    }
+    
+    static func indexOf(orderFilter: DiaryOrderFilter) -> Int {
+        return DiaryOrderFilter.allCases.firstIndex(of: orderFilter) ?? 0
+    }
 }
 
 enum DiaryViewModelError: LocalizedError {
