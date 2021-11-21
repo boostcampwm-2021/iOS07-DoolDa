@@ -143,12 +143,13 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
 
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.scrollDirection = .horizontal
+
         layout.configuration = config
         return layout
     }
 
     private func createPackedStickerLayoutSection(in environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        let height = environment.container.contentSize.height * 0.85
+        let height = environment.container.contentSize.height * 0.75
         let width = height * 0.85
         let widthInset = (environment.container.contentSize.width - width) / 2
         let heightInset = (environment.container.contentSize.height - height) / 2
@@ -156,18 +157,19 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
         let item = NSCollectionLayoutItem(
             layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         )
-        item.contentInsets = .init(top: 0, leading: widthInset, bottom: heightInset, trailing: widthInset)
+        item.contentInsets = .init(top: heightInset/2, leading: widthInset, bottom: heightInset, trailing: widthInset)
 
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)),
             subitems: [item]
         )
 
-        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(heightInset))
-        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-
-        // this activates the "sticky" behavior
-        footer.pinToVisibleBounds = true
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(16))
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerSize,
+            elementKind: UICollectionView.elementKindSectionFooter,
+            alignment: .bottom
+        )
 
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [footer]
@@ -175,6 +177,7 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
     }
 
     private func createUnPackedStickerLayoutSection(in environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+        
         let item = NSCollectionLayoutItem(
             layoutSize: .init(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(1))
         )
@@ -184,10 +187,20 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
             layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.25)),
             subitems: [item]
         )
-        group.contentInsets = .init(top: 12, leading: 12, bottom: 12, trailing: 12)
+        group.contentInsets = .init(top: 6, leading: 8, bottom: 10, trailing: 8)
+
+        let anchor = NSCollectionLayoutAnchor(edges: [.bottom], absoluteOffset: CGPoint(x: 0, y: 16))
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(16))
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerSize,
+            elementKind: UICollectionView.elementKindSectionFooter,
+            containerAnchor: anchor
+        )
 
         let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 0, leading: 0, bottom: 16, trailing: 0)
         section.orthogonalScrollingBehavior = .continuous
+        section.boundarySupplementaryItems = [footer]
         return section
     }
 
