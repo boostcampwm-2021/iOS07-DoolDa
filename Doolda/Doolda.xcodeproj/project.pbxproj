@@ -83,6 +83,7 @@
 		3161EE9827436EC600B922DD /* StickerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3161EE9727436EC600B922DD /* StickerPickerView.swift */; };
 		3161EE9A274377E300B922DD /* PackedStickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3161EE99274377E300B922DD /* PackedStickerCollectionViewCell.swift */; };
 		3161EE9C274377F400B922DD /* UnpackedStickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3161EE9B274377F400B922DD /* UnpackedStickerCollectionViewCell.swift */; };
+		317FB60B274A3851005DF3A3 /* StickerPickerCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB60A274A3850005DF3A3 /* StickerPickerCollectionViewFooter.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
@@ -230,6 +231,7 @@
 		3161EE9727436EC600B922DD /* StickerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerView.swift; sourceTree = "<group>"; };
 		3161EE99274377E300B922DD /* PackedStickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackedStickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		3161EE9B274377F400B922DD /* UnpackedStickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpackedStickerCollectionViewCell.swift; sourceTree = "<group>"; };
+		317FB60A274A3850005DF3A3 /* StickerPickerCollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerCollectionViewFooter.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -465,6 +467,7 @@
 				3161EE9727436EC600B922DD /* StickerPickerView.swift */,
 				3161EE99274377E300B922DD /* PackedStickerCollectionViewCell.swift */,
 				3161EE9B274377F400B922DD /* UnpackedStickerCollectionViewCell.swift */,
+				317FB60A274A3850005DF3A3 /* StickerPickerCollectionViewFooter.swift */,
 				FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */,
 			);
 			path = StickerPickerScene;
@@ -1027,6 +1030,7 @@
 				665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
+				317FB60B274A3851005DF3A3 /* StickerPickerCollectionViewFooter.swift in Sources */,
 				66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */,
 				310125C427398DF600E43160 /* ImageUseCase.swift in Sources */,
 				66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */,
