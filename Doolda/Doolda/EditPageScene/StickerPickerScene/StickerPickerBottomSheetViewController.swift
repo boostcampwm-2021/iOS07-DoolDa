@@ -77,6 +77,7 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.bindUI()
     }
 
     // MARK: - Helpers
@@ -98,6 +99,15 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
+    }
+
+    private func bindUI() {
+        let publihser = self.closeButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
+            }
+        self.cancellables[-1] = publihser
     }
 
     private func bindCellUI(_ cell: PackedStickerCollectionViewCell, at indexPath: IndexPath) {
