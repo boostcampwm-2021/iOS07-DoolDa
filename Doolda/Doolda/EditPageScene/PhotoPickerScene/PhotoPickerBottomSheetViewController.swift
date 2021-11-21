@@ -135,6 +135,11 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         setContentView(self.framePicker)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureFont()
+    }
+    
     // MARK: - Helpers
     
     private func configureUI() {
@@ -167,6 +172,11 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         self.activityIndicator.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    private func configureFont() {
+        self.bottomSheetTitle.font = .systemFont(ofSize: 16)
+        self.nextButton.titleLabel?.font = .systemFont(ofSize: 16)
     }
     
     private func bindUI() {
