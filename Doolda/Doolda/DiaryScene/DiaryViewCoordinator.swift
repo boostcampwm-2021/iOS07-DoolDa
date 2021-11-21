@@ -60,9 +60,10 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     func settingsPageRequested() {
     }
     
-    func filteringSheetRequested() {
+    func filteringSheetRequested(authorFilter: DiaryAuthorFilter, orderFilter: DiaryOrderFilter) {
+        let viewModel = FilterOptionBottomSheetViewModel(authorFilter: authorFilter, orderFilter: orderFilter)
         let delegate = self.presenter.topViewController as? DiaryViewController
-        let viewController = FilterOptionBottomSheetViewController(delegate: delegate)
+        let viewController = FilterOptionBottomSheetViewController(viewModel: viewModel, delegate: delegate)
         self.presenter.present(viewController, animated: false)
     }
 }

@@ -154,7 +154,7 @@ class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func filterButtonDidTap() {
-        self.coordinator.filteringSheetRequested()
+        self.coordinator.filteringSheetRequested(authorFilter: self.authorFilter, orderFilter: self.orderFilter)
     }
     
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {
