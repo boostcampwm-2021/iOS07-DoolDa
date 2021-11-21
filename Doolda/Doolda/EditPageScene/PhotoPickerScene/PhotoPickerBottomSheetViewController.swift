@@ -89,24 +89,16 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     }()
     
     private lazy var nextButton: UIButton = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.cornerStyle = .capsule
-        configuration.baseForegroundColor = .dooldaLabel
-        configuration.baseBackgroundColor = .dooldaHighlighted
-        configuration.attributedTitle = AttributedString("다음", attributes: self.fontContainer)
-        let button = UIButton(configuration: configuration)
+        let button = DooldaButton()
+        button.setTitleColor(.dooldaLabel, for: .normal)
+        button.backgroundColor = .dooldaHighlighted
+        button.setTitle("다음", for: .normal)
         button.isEnabled = false
         return button
     }()
     
     // MARK: - Private Properties
-    
-    private var fontContainer: AttributeContainer {
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 16)
-        return container
-    }
-    
+
     private var viewModel: PhotoPickerBottomSheetViewModelProtocol?
     private var cancellables = Set<AnyCancellable>()
     private var currentContentView: UIView?
