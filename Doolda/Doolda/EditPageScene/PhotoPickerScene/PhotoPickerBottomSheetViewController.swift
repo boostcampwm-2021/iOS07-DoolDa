@@ -107,7 +107,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         return container
     }
     
-    private var viewModel: PhotoPickerBottomSheetViewModel?
+    private var viewModel: PhotoPickerBottomSheetViewModelProtocol?
     private var cancellables = Set<AnyCancellable>()
     private var currentContentView: UIView?
     private weak var delegate: PhotoPickerBottomSheetViewControllerDelegate?
@@ -115,7 +115,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     // MARK: - Initializers
     
     convenience init(
-        photoPickerViewModel: PhotoPickerBottomSheetViewModel,
+        photoPickerViewModel: PhotoPickerBottomSheetViewModelProtocol,
         delegate: PhotoPickerBottomSheetViewControllerDelegate?
     ) {
         self.init(nibName: nil, bundle: nil)
@@ -229,7 +229,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
         
-        self.viewModel?.$selectedPhotos
+        self.viewModel?.selectedPhotosPublisher
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] _ in
@@ -244,7 +244,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &cancellables)
         
-        self.viewModel?.$photoFetchResultWithChangeDetails
+        self.viewModel?.photoFetchResultWithChangeDetailsPublisher
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] _, changeDetails in
