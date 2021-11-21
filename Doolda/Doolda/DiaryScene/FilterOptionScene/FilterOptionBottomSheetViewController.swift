@@ -38,13 +38,11 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
     
     private lazy var authorFilterOptionSegmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: DiaryAuthorFilter.titles)
-        segmentedControl.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 14)], for: .normal)
         return segmentedControl
     }()
     
     private lazy var orderFilterOptionSegmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: DiaryOrderFilter.titles)
-        segmentedControl.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 14)], for: .normal)
         return segmentedControl
     }()
     
@@ -52,7 +50,6 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
         let button = UIButton()
         button.setTitle("적용", for: .normal)
         button.setTitleColor(.dooldaLabel, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .dooldaHighlighted
         button.layer.cornerRadius = 22
         return button
@@ -81,6 +78,11 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
         super.viewDidLoad()
         self.configureUI()
         self.bindUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureFont()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -124,6 +126,13 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-32)
         }
+    }
+    
+    private func configureFont() {
+        self.titleLabel.font = .systemFont(ofSize: 14)
+        self.authorFilterOptionSegmentedControl.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 14)], for: .normal)
+        self.orderFilterOptionSegmentedControl.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 14)], for: .normal)
+        self.applyButton.titleLabel?.font = .systemFont(ofSize: 14)
     }
     
     private func bindUI() {
