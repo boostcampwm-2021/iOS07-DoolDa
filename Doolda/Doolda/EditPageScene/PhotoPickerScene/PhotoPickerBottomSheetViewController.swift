@@ -196,9 +196,9 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     private func bindViewModel() {
         self.viewModel?.isPhotoAccessiblePublisher
             .compactMap { $0 }
-            .sink { result in
+            .sink { [weak self] result in
                 guard !result else { return }
-                self.requestToPhotoAccessPermission()
+                self?.requestAuthorization()
             }
             .store(in: &self.cancellables)
         
@@ -244,7 +244,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .sink { [weak self] _ in
                 self?.nextButton.isEnabled = true
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         self.viewModel?.photoFetchResultWithChangeDetailsPublisher
             .receive(on: DispatchQueue.main)
@@ -259,7 +259,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
                     self.photoPickerCollectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
                 }
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
         
         self.viewModel?.errorPublisher
             .compactMap { $0 }
@@ -286,10 +286,10 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         }
     }
     
-    private func requestToPhotoAccessPermission() {
+    private func requestAuthorization() {
         let authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         if authorizationStatus == .denied {
-            self.requestToChangePhotoAccessPermissionByOneself()
+            self.requestPermissionToAccessPhoto()
         } else {
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
                 self?.viewModel?.photoAccessPermissionDidChange(status)
@@ -297,7 +297,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         }
     }
     
-    private func requestToChangePhotoAccessPermissionByOneself() {
+    private func requestPermissionToAccessPhoto() {
         let alert = UIAlertController.selectAlert(
             title: "사진 접근 권한 요청",
             message: "사진 접근 권한이 없습니다.\n'설정'을 눌러\n'사진' 접근을 허용해주세요.",
