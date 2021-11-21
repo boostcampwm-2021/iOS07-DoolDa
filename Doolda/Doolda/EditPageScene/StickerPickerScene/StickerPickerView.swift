@@ -22,6 +22,11 @@ class StickerPickerView: UIView {
         collectionView.backgroundColor = .clear
         collectionView.register(PackedStickerCollectionViewCell.self, forCellWithReuseIdentifier: PackedStickerCollectionViewCell.identifier)
         collectionView.register(UnpackedStickerCollectionViewCell.self, forCellWithReuseIdentifier: UnpackedStickerCollectionViewCell.identifier)
+        collectionView.register(
+            StickerPickerCollectionViewFooter.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: StickerPickerCollectionViewFooter.identifier
+        )
         return collectionView
     }()
 
