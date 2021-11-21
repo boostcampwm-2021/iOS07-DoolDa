@@ -315,3 +315,8 @@ extension DiaryViewController: DiaryCollectionViewHeaderDelegate {
         self.viewModel?.addPageButtonDidTap()
     }
 }
+
+extension DiaryViewController: FilterOptionBottomSheetViewControllerDelegate {
+    func applyButtonDidTap(_ filterOptionBottomSheetViewController: FilterOptionBottomSheetViewController, authorFilter: DiaryAuthorFilter, orderFilter: DiaryOrderFilter) {
+    }
+}
