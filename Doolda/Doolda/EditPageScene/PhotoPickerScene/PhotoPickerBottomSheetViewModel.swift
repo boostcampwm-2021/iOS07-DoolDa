@@ -34,6 +34,11 @@ protocol PhotoPickerBottomSheetViewModelInput {
 }
 
 protocol PhotoPickerBottomSheetViewModelOutput {
+    var photoFrames: [PhotoFrameType] { get }
+    var selectedPhotos: [Int] { get }
+    var photoFetchResultWithChangeDetails: PhotoFetchResultWithChangeDetails? { get }
+    var selectedPhotosPublisher: Published<[Int]>.Publisher { get }
+    var photoFetchResultWithChangeDetailsPublisher: Published<PhotoFetchResultWithChangeDetails?>.Publisher { get }
     var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { get }
     var isReadyToSelectPhoto: Published<Bool>.Publisher { get }
     var isReadyToComposePhoto: Published<Bool>.Publisher { get }
@@ -43,10 +48,11 @@ protocol PhotoPickerBottomSheetViewModelOutput {
 }
 
 typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewModelInput & PhotoPickerBottomSheetViewModelOutput
+typealias PhotoFetchResultWithChangeDetails = (photoFetchResult: PHFetchResult<PHAsset>, changeDetails: PHFetchResultChangeDetails<PHAsset>?)
 
 class PhotoPickerBottomSheetViewModel: NSObject, PhotoPickerBottomSheetViewModelProtocol {
-    typealias PhotoFetchResultWithChangeDetails = (photoFetchResult: PHFetchResult<PHAsset>, changeDetails: PHFetchResultChangeDetails<PHAsset>?)
-    
+    var selectedPhotosPublisher: Published<[Int]>.Publisher { self.$selectedPhotos }
+    var photoFetchResultWithChangeDetailsPublisher: Published<PhotoFetchResultWithChangeDetails?>.Publisher { self.$photoFetchResultWithChangeDetails }
     var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { self.$selectedPhotoFrame }
     var isReadyToSelectPhoto: Published<Bool>.Publisher { self.$readyToSelectPhotoState }
     var isReadyToComposePhoto: Published<Bool>.Publisher { self.$readyToComposeState }
