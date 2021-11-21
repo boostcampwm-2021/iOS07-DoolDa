@@ -16,6 +16,8 @@ protocol DiaryViewModelInput {
     func addPageButtonDidTap()
     func refreshButtonDidTap()
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
+    func filterOptionDidChange(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
+    func filterBottomSheetDidDismiss()
     func pageDidDisplay(jsonPath: String) -> AnyPublisher<RawPageEntity, Error>
 }
 
@@ -23,7 +25,7 @@ protocol DiaryViewModelOutput {
     var errorPublisher: Published<Error?>.Publisher { get }
     var displayModePublisher: Published<DiaryDisplayMode>.Publisher { get }
     var isMyTurnPublisher: Published<Bool>.Publisher { get }
-    var filteredPageEntitiesPublisher: AnyPublisher<[PageEntity], Never> { get }
+    var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { get }
     var isRefreshingPublisher: Published<Bool>.Publisher { get }
     var displayMode: DiaryDisplayMode { get }
     var filteredEntityCount: Int { get }
@@ -89,21 +91,16 @@ class DiaryViewModel: DiaryViewModelProtocol {
     var displayModePublisher: Published<DiaryDisplayMode>.Publisher { self.$displayMode }
     var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }
     var isRefreshingPublisher: Published<Bool>.Publisher { self.$isRefreshing }
+    var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { self.$filteredPageEntities }
     var filteredEntityCount: Int { self.filteredPageEntities.count }
   
     @Published var displayMode: DiaryDisplayMode = .carousel
-    
-    lazy var filteredPageEntitiesPublisher: AnyPublisher<[PageEntity], Never> = Publishers
-        .CombineLatest3(self.$pageEntities, self.$authorFilter, self.$orderFilter)
-        .map { $0.0 }
-        .eraseToAnyPublisher()
-    
     @Published private var error: Error?
     @Published private var isRefreshing: Bool = false
     @Published private var isMyTurn: Bool = false
     @Published private var filteredPageEntities: [PageEntity] = []
     @Published private var pageEntities: [PageEntity] = []
-    @Published private var authorFilter: DiaryAuthorFilter = .user
+    @Published private var authorFilter: DiaryAuthorFilter = .both
     @Published private var orderFilter: DiaryOrderFilter = .descending
     
     private var cancellables: Set<AnyCancellable> = []
@@ -162,6 +159,14 @@ class DiaryViewModel: DiaryViewModelProtocol {
         self.orderFilter = orderBy
     }
     
+    func filterBottomSheetDidDismiss() {
+        self.filterPageEntities(authorFilter: self.authorFilter, orderFilter: self.orderFilter)
+    }
+    
+    func filterOptionDidChange(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {
+        self.filterPageEntities(authorFilter: author, orderFilter: orderBy)
+    }
+    
     private func fetchPages() {
         guard let pairId = self.user.pairId else { return }
         self.isRefreshing = true
@@ -177,5 +182,11 @@ class DiaryViewModel: DiaryViewModelProtocol {
                 self?.isRefreshing = false
             }
             .store(in: &self.cancellables)
+    }
+    
+    private func filterPageEntities(authorFilter: DiaryAuthorFilter, orderFilter: DiaryOrderFilter) {
+        let filtered = self.pageEntities.filter { authorFilter == .both ? true : (authorFilter == .user ? ($0.author.id == self.user.id) : ($0.author.id != self.user.id)) }
+        let ordered = filtered.sorted { orderFilter == .descending ? ($0.timeStamp >= $1.timeStamp) : ($0.timeStamp <= $1.timeStamp) }
+        self.filteredPageEntities = ordered
     }
 }

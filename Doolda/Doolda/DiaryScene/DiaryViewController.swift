@@ -317,6 +317,23 @@ extension DiaryViewController: DiaryCollectionViewHeaderDelegate {
 }
 
 extension DiaryViewController: FilterOptionBottomSheetViewControllerDelegate {
-    func applyButtonDidTap(_ filterOptionBottomSheetViewController: FilterOptionBottomSheetViewController, authorFilter: DiaryAuthorFilter, orderFilter: DiaryOrderFilter) {
+    func applyButtonDidTap(
+        _ filterOptionBottomSheetViewController: FilterOptionBottomSheetViewController,
+        authorFilter: DiaryAuthorFilter,
+        orderFilter: DiaryOrderFilter
+    ) {
+        self.viewModel.filterDidApply(author: authorFilter, orderBy: orderFilter)
+    }
+    
+    func filterOptionDidChange(
+        _ filterOptionBottomSheetViewController: FilterOptionBottomSheetViewController,
+        authorFilter: DiaryAuthorFilter,
+        orderFilter: DiaryOrderFilter
+    ) {
+        self.viewModel.filterOptionDidChange(author: authorFilter, orderBy: orderFilter)
+    }
+    
+    func filterBottomSheetWillDismiss(_ filteredOptionBottomSheetController: FilterOptionBottomSheetViewController) {
+        self.viewModel.filterBottomSheetDidDismiss()
     }
 }

@@ -16,6 +16,14 @@ protocol FilterOptionBottomSheetViewControllerDelegate: AnyObject {
         authorFilter: DiaryAuthorFilter,
         orderFilter: DiaryOrderFilter
     )
+    
+    func filterOptionDidChange(
+        _ filterOptionBottomSheetViewController: FilterOptionBottomSheetViewController,
+        authorFilter: DiaryAuthorFilter,
+        orderFilter: DiaryOrderFilter
+    )
+    
+    func filterBottomSheetWillDismiss(_ filteredOptionBottomSheetController: FilterOptionBottomSheetViewController)
 }
 
 class FilterOptionBottomSheetViewController: BottomSheetViewController {
@@ -74,6 +82,11 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
         self.bindUI()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.delegate?.filterBottomSheetWillDismiss(self)
+    }
+    
     // MARK: - Helpers
     
     private func configureUI() {
@@ -113,6 +126,51 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
     }
     
     private func bindUI() {
+        self.viewModel.authorFilterPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] authorFilter in
+                self?.authorFilterOptionSegmentedControl.selectedSegmentIndex = DiaryAuthorFilter.indexOf(authorFilter: authorFilter)
+            }
+            .store(in: &self.cancellables)
         
+        self.viewModel.orderFilterPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] orderFilter in
+                self?.orderFilterOptionSegmentedControl.selectedSegmentIndex = DiaryOrderFilter.indexOf(orderFilter: orderFilter)
+            }
+            .store(in: &self.cancellables)
+        
+        self.authorFilterOptionSegmentedControl.publisher(for: .valueChanged)
+            .sink { [weak self] _ in
+                guard let index = self?.authorFilterOptionSegmentedControl.selectedSegmentIndex else { return }
+                self?.viewModel.authorFilterIndexValueDidChange(index)
+            }
+            .store(in: &self.cancellables)
+        
+        self.orderFilterOptionSegmentedControl.publisher(for: .valueChanged)
+            .sink { [weak self] _ in
+                guard let index = self?.orderFilterOptionSegmentedControl.selectedSegmentIndex else { return }
+                self?.viewModel.orderFilterIndexValueDidChange(index)
+            }
+            .store(in: &self.cancellables)
+        
+        Publishers.CombineLatest3(
+            self.applyButton.publisher(for: .touchUpInside),
+            self.viewModel.authorFilterPublisher,
+            self.viewModel.orderFilterPublisher
+        )
+            .sink { [weak self] _, authorFilter, orderFilter in
+                guard let self = self else { return }
+                self.delegate?.applyButtonDidTap(self, authorFilter: authorFilter, orderFilter: orderFilter)
+                self.dismiss(animated: true)
+            }
+            .store(in: &self.cancellables)
+        
+        Publishers.CombineLatest(self.viewModel.authorFilterPublisher, self.viewModel.orderFilterPublisher)
+            .sink { [weak self] authorFilter, orderFilter in
+                guard let self = self else { return }
+                self.delegate?.filterOptionDidChange(self, authorFilter: authorFilter, orderFilter: orderFilter)
+            }
+            .store(in: &self.cancellables)
     }
 }
