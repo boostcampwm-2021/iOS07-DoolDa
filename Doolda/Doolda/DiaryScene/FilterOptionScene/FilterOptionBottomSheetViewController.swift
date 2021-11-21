@@ -54,6 +54,7 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
         button.setTitleColor(.dooldaLabel, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .dooldaHighlighted
+        button.layer.cornerRadius = 22
         return button
     }()
     
