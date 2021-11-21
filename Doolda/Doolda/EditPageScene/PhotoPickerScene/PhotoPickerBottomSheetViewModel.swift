@@ -11,26 +11,33 @@ import Foundation
 import Photos
 
 enum PhotoPickerBottomSheetViewModelError: LocalizedError {
-    case imageComposeError
+    case failedToComposeImages
+    case photoFrameNotSelected
     
     var errorDescription: String? {
         switch self {
-        case .imageComposeError:
+        case .failedToComposeImages:
             return "이미지 합성에 실패했습니다."
+        case .photoFrameNotSelected:
+            return "사진 프레임이 선택되지 않았습니다."
         }
     }
 }
 
 protocol PhotoPickerBottomSheetViewModelInput {
-    func fetchPhotoAssets()
     func photoFrameDidSelect(_ index: Int)
     func photoDidSelected(_ items: [Int])
+    func photoFrameCellDidTap()
+    func nextButtonDidTap()
     func completeButtonDidTap()
+    func photoAccessPermissionDidChange(_ authorizationStatus: PHAuthorizationStatus)
 }
 
 protocol PhotoPickerBottomSheetViewModelOutput {
     var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { get }
-    var isReadyToCompose: Published<Bool>.Publisher { get }
+    var isReadyToSelectPhoto: Published<Bool>.Publisher { get }
+    var isReadyToComposePhoto: Published<Bool>.Publisher { get }
+    var isPhotoAccessiblePublisher: Published<Bool?>.Publisher { get }
     var composedResultPublisher: Published<PhotoComponentEntity?>.Publisher { get }
     var errorPublisher: Published<Error?>.Publisher { get }
 }
@@ -39,7 +46,9 @@ typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewMo
 
 class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {    
     var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { self.$selectedPhotoFrame }
-    var isReadyToCompose: Published<Bool>.Publisher { self.$readyToComposeState }
+    var isReadyToSelectPhoto: Published<Bool>.Publisher { self.$readyToSelectPhotoState }
+    var isReadyToComposePhoto: Published<Bool>.Publisher { self.$readyToComposeState }
+    var isPhotoAccessiblePublisher: Published<Bool?>.Publisher { self.$photoAccessState }
     var composedResultPublisher: Published<PhotoComponentEntity?>.Publisher { self.$composedResult }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
@@ -52,6 +61,8 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
     @Published private(set) var photoFetchResult: PHFetchResult<PHAsset>?
     @Published private(set) var selectedPhotos: [Int] = []
     @Published private var selectedPhotoFrame: PhotoFrameType?
+    @Published private var photoAccessState: Bool?
+    @Published private var readyToSelectPhotoState: Bool = false
     @Published private var readyToComposeState: Bool = false
     @Published private var composedResult: PhotoComponentEntity?
     @Published private var error: Error?
@@ -79,6 +90,14 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
         self.selectedPhotos = items
     }
     
+    func photoFrameCellDidTap() {
+        selectPhotoFrame()
+    }
+    
+    func nextButtonDidTap() {
+        selectPhotoFrame()
+    }
+    
     func completeButtonDidTap() {
         guard self.readyToComposeState,
               let photoFrame = self.selectedPhotoFrame else { return }
@@ -91,7 +110,9 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
             .collect()
             .map { $0.compactMap { $0 } }
             .flatMap { [weak self] images -> AnyPublisher<CIImage, Error> in
-                guard let self = self else { return Fail(error: PhotoPickerBottomSheetViewModelError.imageComposeError).eraseToAnyPublisher() }
+                guard let self = self else {
+                    return Fail(error: PhotoPickerBottomSheetViewModelError.failedToComposeImages).eraseToAnyPublisher()
+                }
                 return self.imageComposeUseCase.compose(photoFrameType: photoFrame, images: images)
             }
             .sink { [weak self] completion in
@@ -121,6 +142,12 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
             .store(in: &self.cancellables)
     }
     
+    func photoAccessPermissionDidChange(_ authorizationStatus: PHAuthorizationStatus) {
+        guard authorizationStatus == .authorized || authorizationStatus == .limited else { return }
+        self.photoAccessState = true
+        selectPhotoFrame()
+    }
+    
     private func bind() {
         self.$selectedPhotos
             .sink { [weak self] photos in
@@ -131,6 +158,21 @@ class PhotoPickerBottomSheetViewModel: PhotoPickerBottomSheetViewModelProtocol {
                 )
             }
             .store(in: &self.cancellables)
+    }
+    
+    private func selectPhotoFrame() {
+        guard self.selectedPhotoFrame != nil else {
+            return self.error = PhotoPickerBottomSheetViewModelError.photoFrameNotSelected
+        }
+        
+        let authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        guard authorizationStatus == .authorized || authorizationStatus == .limited else {
+            return self.photoAccessState = false
+        }
+        
+        self.fetchPhotoAssets()
+        
+        self.readyToSelectPhotoState = true
     }
     
     private func convertAssetToCIImage(asset: PHAsset) -> AnyPublisher<CIImage?, Never> {

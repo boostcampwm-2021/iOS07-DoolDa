@@ -22,7 +22,6 @@ class PhotoFrameCollectionViewCell: UICollectionViewCell {
         imageView.layer.shadowColor = UIColor.lightGray.cgColor
         imageView.layer.shadowRadius = 10
         imageView.layer.shadowOpacity = 0.3
-        // FIXME : scaleAspectFit으로 생기는 이미지 여백의 그림자 처리를 dynamic shadow방식말고 사용할 수 있도록 개선
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
