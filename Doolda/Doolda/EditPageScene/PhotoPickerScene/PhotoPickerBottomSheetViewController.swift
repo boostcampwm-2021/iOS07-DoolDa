@@ -175,10 +175,9 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if self.currentContentView == self.framePicker {
-                    self.photoFrameDidSelect()
+                    self.viewModel?.nextButtonDidTap()
                 } else if self.currentContentView == self.photoPickerCollectionView {
                     self.activityIndicator.startAnimating()
-                    
                     self.viewModel?.completeButtonDidTap()
                 }
             }
@@ -245,11 +244,18 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &cancellables)
         
-        self.viewModel?.$photoFetchResult
+        self.viewModel?.$photoFetchResultWithChangeDetails
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
-            .sink { [weak self] _ in
-                self?.photoPickerCollectionView.reloadData()
+            .sink { [weak self] _, changeDetails in
+                guard let self = self else { return }
+                guard let changeDetails = changeDetails else {
+                    return self.photoPickerCollectionView.reloadData()
+                }
+                
+                if let changed = changeDetails.changedIndexes, !changed.isEmpty {
+                    self.photoPickerCollectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
+                }
             }
             .store(in: &cancellables)
         
@@ -331,7 +337,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.photoPickerCollectionView {
-            return self.viewModel?.photoFetchResult?.count ?? 0
+            return self.viewModel?.photoFetchResultWithChangeDetails?.photoFetchResult.count ?? 0
         } else {
             return self.viewModel?.photoFrames.count ?? 0
         }
@@ -348,7 +354,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
             
             if let selectedPhotos = self.viewModel?.selectedPhotos,
                let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
-               let imageAsset = self.viewModel?.photoFetchResult?.object(at: indexPath.item) {
+               let imageAsset = self.viewModel?.photoFetchResultWithChangeDetails?.photoFetchResult.object(at: indexPath.item) {
                 photoPickerCollectionViewCell.display(imageAsset)
                 
                 if selectedPhotos.contains(indexPath.item),
