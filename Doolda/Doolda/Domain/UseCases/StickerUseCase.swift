@@ -11,7 +11,7 @@ import Foundation
 protocol StickerUseCaseProtocol {
     var stickerPacks: [StickerPackType] { get }
     func getStickerPackEntity(at index: Int) -> StickerPackEntity?
-    func getStickerUrl(at indexPath: IndexPath) -> URL?
+    func getStickerName(at indexPath: IndexPath) -> String?
     func selectSticker(at indexPath: IndexPath) -> StickerComponentEntity?
 }
 
@@ -27,11 +27,10 @@ class StickerUseCase: StickerUseCaseProtocol {
         return StickerPackType.allCases[index].rawValue
     }
 
-    func getStickerUrl(at indexPath: IndexPath) -> URL? {
+    func getStickerName(at indexPath: IndexPath) -> String? {
         guard let stickerPack = self.getStickerPackEntity(at: indexPath.section) else { return nil }
         if stickerPack.stickerCount <= indexPath.item { return nil }
-        let stickerName = stickerPack.stickersName[indexPath.item]
-        return StickerPackEntity.getStickerUrl(for: stickerName)
+        return stickerPack.stickersName[indexPath.item]
     }
     
     func selectSticker(at indexPath: IndexPath) -> StickerComponentEntity? {

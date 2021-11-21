@@ -11,7 +11,7 @@ import Foundation
 protocol StickerPickerBottomSheetViewModelProtocol {
     func getStickerPacks() -> [StickerPackType]
     func getStickerPackEntity(at index: Int) -> StickerPackEntity?
-    func getStickerUrl(at indexPath: IndexPath) -> URL?
+    func getStickerName(at indexPath: IndexPath) -> String?
     func stickerDidSelect(at indexPath: IndexPath) -> StickerComponentEntity?
 }
 
@@ -30,8 +30,8 @@ class StickerPickerBottomSheetViewModel: StickerPickerBottomSheetViewModelProtoc
         return stickerUseCase.getStickerPackEntity(at: index)
     }
 
-    func getStickerUrl(at indexPath: IndexPath) -> URL? {
-        return stickerUseCase.getStickerUrl(at: indexPath)
+    func getStickerName(at indexPath: IndexPath) -> String? {
+        return stickerUseCase.getStickerName(at: indexPath)
     }
 
     func stickerDidSelect(at indexPath: IndexPath) -> StickerComponentEntity? {
