@@ -8,8 +8,8 @@
 import Combine
 import UIKit
 
-import SnapKit
 import Kingfisher
+import SnapKit
 
 class DiaryCollectionViewCell: UICollectionViewCell {
     
