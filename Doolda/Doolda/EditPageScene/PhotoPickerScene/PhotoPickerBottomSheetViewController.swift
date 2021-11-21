@@ -193,7 +193,26 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     }
     
     private func bindViewModel() {
-        self.viewModel?.isReadyToCompose
+        self.viewModel?.isPhotoAccessiblePublisher
+            .compactMap { $0 }
+            .sink { result in
+                guard !result else { return }
+                self.requestToPhotoAccessPermission()
+            }
+            .store(in: &self.cancellables)
+        
+        self.viewModel?.isReadyToSelectPhoto
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] result in
+                guard result,
+                      let self = self else { return }
+                self.setContentView(self.photoPickerCollectionView)
+                self.nextButton.setTitle("완료", for: .normal)
+                self.nextButton.isEnabled = false
+            }
+            .store(in: &self.cancellables)
+                   
+        self.viewModel?.isReadyToComposePhoto
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
                 self?.nextButton.isEnabled = self?.currentContentView == self?.framePicker ||
@@ -259,26 +278,30 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         }
     }
     
-    private func checkPhotoAccessPermission(completionHandler: @escaping (Bool) -> Void) {
-        guard PHPhotoLibrary.authorizationStatus(for: .readWrite) != .authorized else {
-            return completionHandler(true)
-        }
-        
-        PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
-            DispatchQueue.main.async {
-                completionHandler(status == .authorized)
+    private func requestToPhotoAccessPermission() {
+        let authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+        if authorizationStatus == .denied {
+            self.requestToChangePhotoAccessPermissionByOneself()
+        } else {
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
+                self?.viewModel?.photoAccessPermissionDidChange(status)
             }
         }
     }
     
-    private func photoFrameDidSelect() {
-        self.checkPhotoAccessPermission { result in
-            guard result else { return }
-            self.viewModel?.fetchPhotoAssets()
-            self.setContentView(self.photoPickerCollectionView)
-            self.nextButton.setTitle("완료", for: .normal)
-            self.nextButton.isEnabled = false
-        }
+    private func requestToChangePhotoAccessPermissionByOneself() {
+        let alert = UIAlertController.selectAlert(
+            title: "사진 접근 권한 요청",
+            message: "사진 접근 권한이 없습니다.\n'설정'을 눌러\n'사진' 접근을 허용해주세요.",
+            leftActionTitle: "취소",
+            rightActionTitle: "설정") { _ in
+                guard let url = URL(string: UIApplication.openSettingsURLString),
+                      UIApplication.shared.canOpenURL(url) else { return }
+
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -361,7 +384,7 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
                 self.viewModel?.photoDidSelected(selectedPhotos)
             }
         } else {
-            self.photoFrameDidSelect()
+            self.viewModel?.photoFrameCellDidTap()
         }
     }
 }
