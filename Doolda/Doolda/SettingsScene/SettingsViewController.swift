@@ -126,10 +126,8 @@ class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.section < self.settingsSections.count else { return }
-        let section = self.settingsSections[indexPath.section]
-        guard indexPath.row < section.settingsOptions.count,
-              let handler = section.settingsOptions[indexPath.row].handler else { return }
+        guard let section = self.settingsSections[exist: indexPath.section],
+              let handler = section.settingsOptions[exist: indexPath.row]?.handler else { return }
         handler()
     }
 }
@@ -140,13 +138,11 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard section < self.settingsSections.count else { return 0 }
-        return  self.settingsSections[section].settingsOptions.count
+        return self.settingsSections[exist: section]?.settingsOptions.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard section < self.settingsSections.count,
-              let header = tableView.dequeueReusableHeaderFooterView(
+        guard let header = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: SettingsTableViewHeader.identifier
               ) as? SettingsTableViewHeader else { return nil }
 
@@ -155,12 +151,8 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard indexPath.section < self.settingsSections.count else { return UITableViewCell() }
-
-        let section = self.settingsSections[indexPath.section]
-        guard indexPath.row < section.settingsOptions.count else { return UITableViewCell() }
-
-        let cell = section.settingsOptions[indexPath.row].cell
+        guard let section = self.settingsSections[exist: indexPath.section],
+              let cell = section.settingsOptions[exist: indexPath.row]?.cell else { return UITableViewCell() }
 
         let separator = CALayer()
         separator.frame = CGRect(x: 16, y: cell.frame.height - 1, width: self.tableView.frame.width-32, height: 1)
