@@ -10,24 +10,19 @@ import UIKit
 
 import SnapKit
 
-struct SettingsOption {
-    let title: String
-    let rightButtonItem: UIView
-    let handler: (() -> Void)
-}
-
 class SettingsViewController: UIViewController {
 
     // MARK: - Subviews
 
     private lazy var backButton: UIButton = {
         let button = UIButton()
-        button.setImage(.back, for: .normal)
+        button.setImage(.left, for: .normal)
         return button
     }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
         tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
@@ -71,6 +66,13 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        // FIXME: ViewModel로부터 indexPath의 타이틀 정보, 우측 텍스트 정보를 받아와야 함
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: SettingsTableViewCell.identifier,
+            for: indexPath
+        ) as? SettingsTableViewCell else { return UITableViewCell() }
+        let rightItem = UIImageView(image: .right)
+        cell.configure(title: "설정", rightItem: rightItem)
+        return cell
     }
 }
