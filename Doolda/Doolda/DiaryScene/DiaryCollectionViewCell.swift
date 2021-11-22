@@ -185,14 +185,15 @@ class DiaryCollectionViewCell: UICollectionViewCell {
                     .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
                 stickerComponentView.transform = transform
             case let textComponentEntity as TextComponentEntity:
-                let textComponentView = UITextView(frame: computedCGRect)
-                textComponentView.backgroundColor = .clear
+                let textComponentView = UILabel(frame: computedCGRect)
+                textComponentView.numberOfLines = 0
                 textComponentView.text = textComponentEntity.text
                 textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
-                textComponentView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
-                textComponentView.isScrollEnabled = false
                 textComponentView.textAlignment = .center
+                textComponentView.adjustsFontSizeToFitWidth = true
+                textComponentView.adjustsFontForContentSizeCategory = true
                 self.pageView.addSubview(textComponentView)
+                
                 let transform = CGAffineTransform.identity
                     .rotated(by: componentEntity.angle)
                     .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
