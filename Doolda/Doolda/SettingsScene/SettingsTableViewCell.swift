@@ -64,12 +64,5 @@ class SettingsTableViewCell: UITableViewCell {
             make.trailing.equalTo(self.rightItem.snp.leading)
         }
     }
-
-    // MARK: - Public Methods
-
-    func configure(title: String, rightItem: UIView) {
-        self.title.text = title
-        self.rightItem = rightItem
-    }
-
+    
 }
