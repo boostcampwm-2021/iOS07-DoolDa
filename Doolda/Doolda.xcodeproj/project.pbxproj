@@ -100,6 +100,7 @@
 		317FB615274B9A92005DF3A3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */; };
 		317FB617274BAAEC005DF3A3 /* DooldaInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */; };
 		317FB619274BBC9D005DF3A3 /* SettingsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */; };
+		317FB61B274BCE68005DF3A3 /* SettingsOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB61A274BCE68005DF3A3 /* SettingsOptionViewController.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
@@ -264,6 +265,7 @@
 		317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaInfoType.swift; sourceTree = "<group>"; };
 		317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewHeader.swift; sourceTree = "<group>"; };
+		317FB61A274BCE68005DF3A3 /* SettingsOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOptionViewController.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -408,6 +410,7 @@
 				317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */,
 				317FB610274A9175005DF3A3 /* SettingsViewCoordinator.swift */,
 				317FB60E274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift */,
+				317FB61A274BCE68005DF3A3 /* SettingsOptionViewController.swift */,
 			);
 			path = SettingsScene;
 			sourceTree = "<group>";
@@ -1117,6 +1120,7 @@
 				1D999468274CAC4700C72273 /* FCMTokenDocument.swift in Sources */,
 				1DE5E540273932B0004F794F /* PageRepositoryProtocol.swift in Sources */,
 				665303A62743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift in Sources */,
+				317FB61B274BCE68005DF3A3 /* SettingsOptionViewController.swift in Sources */,
 				1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */,
 				FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,

@@ -9,5 +9,5 @@ import Foundation
 
 protocol SettingsViewCoordinatorProtocol {
     func dismissSettings()
-    func settingsOptionRequested(with text: String)
+    func settingsOptionRequested(title: String, text: String)
 }

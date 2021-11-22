@@ -137,7 +137,13 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: UITableViewDelegate {
-   
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section < self.settingsSections.count else { return }
+        let section = self.settingsSections[indexPath.section]
+        guard indexPath.row < section.settingsOptions.count,
+              let handler = section.settingsOptions[indexPath.row].handler else { return }
+        handler()
+    }
 }
 
 extension SettingsViewController: UITableViewDataSource {
