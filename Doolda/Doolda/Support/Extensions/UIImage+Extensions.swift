@@ -30,5 +30,5 @@ extension UIImage {
     static let hedgehogWriting = UIImage(named: "hedgehogWriting")
     static let hedgehogFrustrated = UIImage(named: "hedgehogFrustrated")
     static let left = UIImage(systemName: "chevron.left")
-    static let right = UIImage(systemName: "right")
+    static let right = UIImage(systemName: "chevron.right")
 }

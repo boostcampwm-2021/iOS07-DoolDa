@@ -24,10 +24,7 @@ class SettingsTableViewCell: UITableViewCell {
         return label
     }()
 
-    private lazy var rightItem: UIView = {
-        let item = UIView()
-        return item
-    }()
+    private var rightItem: UIView = UIView()
 
     // MARK: - Initializers
 
@@ -53,19 +50,20 @@ class SettingsTableViewCell: UITableViewCell {
     private func configureUI() {
         self.backgroundColor = .clear
 
+        self.contentView.addSubview(self.rightItem)
+        self.rightItem.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(12)
+            make.bottom.equalToSuperview().offset(-12)
+            make.trailing.equalToSuperview().offset(-16)
+            make.width.equalTo(self.rightItem.intrinsicContentSize.width)
+        }
+
         self.contentView.addSubview(self.title)
         self.title.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.bottom.equalToSuperview().offset(-12)
             make.leading.equalToSuperview().offset(16)
-            make.width.equalToSuperview().multipliedBy(0.6)
-        }
-
-        self.contentView.addSubview(self.rightItem)
-        self.rightItem.snp.makeConstraints { make in
-            make.top.bottom.equalTo(self.title)
-            make.trailing.equalToSuperview().offset(-16)
-            make.leading.equalTo(self.title.snp.trailing)
+            make.trailing.equalTo(self.rightItem.snp.leading)
         }
     }
 
