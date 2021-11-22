@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
 
     struct SettingsOptions {
         let cell: UITableViewCell
-        let handler: (() -> ())?
+        let handler: (() -> Void)?
     }
 
     // MARK: - Subviews
@@ -135,21 +135,21 @@ extension SettingsViewController: UITableViewDelegate {
 
 extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return self.settingsSections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        guard section < self.settingsSections.count else { return 0 }
+        return  self.settingsSections[section].settingsOptions.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // FIXME: ViewModel로부터 indexPath의 타이틀 정보, 우측 텍스트 정보를 받아와야 함
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: SettingsTableViewCell.identifier,
-            for: indexPath
-        ) as? SettingsTableViewCell else { return UITableViewCell() }
-        let rightItem = UIImageView(image: .right)
-        cell.configure(title: "설정", rightItem: rightItem)
-        return cell
+        guard indexPath.section < self.settingsSections.count else { return UITableViewCell() }
+
+        let section = self.settingsSections[indexPath.section]
+        guard indexPath.row < section.settingsOptions.count else { return UITableViewCell() }
+
+        let settingsOption = section.settingsOptions
+        return settingsOption[indexPath.row].cell
     }
 }
