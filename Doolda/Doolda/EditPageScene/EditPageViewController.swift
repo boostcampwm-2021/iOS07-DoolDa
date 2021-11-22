@@ -416,8 +416,7 @@ class EditPageViewController: UIViewController {
 
 extension EditPageViewController: PageComponentControlViewDelegate {
     func controlViewDidTap(_ pageComponentControlView: PageComponentControlView, with gesture: UITapGestureRecognizer) {
-        self.viewModel?.
-        
+        self.viewModel?.componentDidTap()
     }
     
     

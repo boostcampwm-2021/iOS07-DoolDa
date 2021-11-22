@@ -11,6 +11,7 @@ import Foundation
 
 protocol EditPageViewModelInput {
     func canvasDidTap(at point: CGPoint)
+    func componentDidTap()
     func componentDidDrag(at point: CGPoint)
     func componentDidRotate(by angle: CGFloat)
     func componentDidScale(by scale: CGFloat)
@@ -39,7 +40,7 @@ protocol EditPageViewModelOutput {
 typealias EditPageViewModelProtocol = EditPageViewModelInput & EditPageViewModelOutput
 
 final class EditPageViewModel: EditPageViewModelProtocol {
-    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.editPageUseCase.selectedComponentPublisher }
+    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
     var componentsPublisher: Published<[ComponentEntity]>.Publisher { self.$components }
     var backgroundPublisher: Published<BackgroundType>.Publisher { self.$background }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
@@ -49,6 +50,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     private let editPageUseCase: EditPageUseCaseProtocol
     private var cancellables: Set<AnyCancellable> = []
     
+    @Published private var selectedComponent: ComponentEntity? = nil
     @Published private var components: [ComponentEntity] = []
     @Published private var background: BackgroundType = .dooldaBackground
     @Published private var error: Error?
@@ -65,6 +67,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     private func bind() {
+        self.editPageUseCase.selectedComponentPublisher
+            .sink { [weak self] selectedComponent in
+                self?.selectedComponent = selectedComponent
+            }.store(in : &cancellables)
+        
         self.editPageUseCase.rawPagePublisher
             .sink { [weak self] rawPageEntity in
                 guard let self = self,
@@ -81,6 +88,12 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         
         self.editPageUseCase.errorPublisher
             .assign(to: &$error)
+    }
+    func componentDidTap() {
+        if let selectedComponent = self.selectedComponent,
+            selectedComponent is TextComponentEntity {
+            self.coordinator.addTextComponent()
+        }
     }
     
     func canvasDidTap(at point: CGPoint) {
