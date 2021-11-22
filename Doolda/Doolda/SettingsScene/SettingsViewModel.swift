@@ -14,6 +14,7 @@ protocol SettingsViewModelInput {
     func openSourceLicenseDidTap()
     func privacyPolicyDidTap()
     func contributorDidTap()
+    func backButtonDidTap()
 }
 
 protocol SettingsViewModelOutput {
@@ -60,5 +61,9 @@ class SettingsViewModel: SettingsViewModelProtocol {
 
     func contributorDidTap() {
 
+    }
+
+    func backButtonDidTap() {
+        self.coordinator.dismissSettings()
     }
 }
