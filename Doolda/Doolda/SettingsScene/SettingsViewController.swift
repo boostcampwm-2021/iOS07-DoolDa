@@ -49,7 +49,7 @@ class SettingsViewController: UIViewController {
     private lazy var settingsSections: [SettingsSection] = {
         var sections: [SettingsSection] = []
 
-        
+        //let alertOption = SettingsOptions(cell: <#T##UITableViewCell#>, handler: <#T##() -> ()#>)
 
         return sections
     }()
