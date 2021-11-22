@@ -47,6 +47,7 @@
 		1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */; };
 		1D9DC09F274A0E290060587B /* FilterOptionBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */; };
 		1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A0274A47D50060587B /* DooldaButton.swift */; };
+		1D9DC0A3274B31950060587B /* DiaryBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */; };
 		1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
 		1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */; };
 		1DD0F34D2747AABA00FC5E65 /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
@@ -207,6 +208,7 @@
 		1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewController.swift; sourceTree = "<group>"; };
 		1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		1D9DC0A0274A47D50060587B /* DooldaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaButton.swift; sourceTree = "<group>"; };
+		1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryBackgroundView.swift; sourceTree = "<group>"; };
 		1DBF5714273A2C5100D28F5E /* FontColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorType.swift; sourceTree = "<group>"; };
 		1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameType.swift; sourceTree = "<group>"; };
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 				310D80D42731405B00F15F4F /* DiaryViewCoordinator.swift */,
 				1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */,
 				1D8BE07C2743437600201E3E /* DiaryViewModel.swift */,
+				1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */,
 				1D9DC09B2749F2AA0060587B /* FilterOptionScene */,
 			);
 			path = DiaryScene;
@@ -1051,6 +1054,7 @@
 				66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */,
 				FCE9D3F62739550C0001F155 /* EditPageViewCoordinatorProtocol.swift in Sources */,
 				665303A12743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift in Sources */,
+				1D9DC0A3274B31950060587B /* DiaryBackgroundView.swift in Sources */,
 				66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */,
 				664893FE273029AC009F03E2 /* SplashViewCoordinatorProtocol.swift in Sources */,
 				66F5D47E2733EE8F000FB471 /* RawPageEntity.swift in Sources */,
