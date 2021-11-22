@@ -11,6 +11,7 @@ import UIKit
 import SnapKit
 
 protocol PageComponentControlViewDelegate: AnyObject {
+    func controlViewDidTap(_ pageComponentControlView: PageComponentControlView, with gesture: UITapGestureRecognizer)
     func controlViewDidPan(_ pageComponentControlView: PageComponentControlView, with gesture: UIPanGestureRecognizer)
     func leftTopControlDidTap(_ pageComponentControlView: PageComponentControlView, with gesture: UITapGestureRecognizer)
     func leftBottomControlDidTap(_ pageComponentControlView: PageComponentControlView, with gesture: UITapGestureRecognizer)
@@ -154,6 +155,14 @@ class PageComponentControlView: UIView {
                 self.delegate?.controlViewDidPan(self, with: panGesture)
             }
             .store(in: &cancellables)
+        self.controlsView.publisher(for: UITapGestureRecognizer())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] gesture in
+                guard let self = self,
+                      let tapGesture = gesture as? UITapGestureRecognizer else { return }
+                self.delegate?.controlViewDidTap(self, with: tapGesture)
+            }
+            .store(in: &cancellables)
         
         self.leftTopControl.publisher(for: UITapGestureRecognizer())
             .receive(on: DispatchQueue.main)
@@ -209,6 +218,7 @@ class PageComponentControlView: UIView {
         } else {
             self.componentSpaceView.layer.borderWidth = 0
         }
+        self.controlsView.isHidden = !selectedState
         self.leftTopControl.isHidden = !selectedState
         self.leftBottomControl.isHidden = !selectedState
         self.rightTopControl.isHidden = !selectedState
