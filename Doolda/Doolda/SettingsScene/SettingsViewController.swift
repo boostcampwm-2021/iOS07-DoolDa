@@ -24,10 +24,16 @@ class SettingsViewController: UIViewController {
         let tableView = UITableView()
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
         tableView.backgroundColor = .clear
+        tableView.separatorColor = .dooldaLabel?.withAlphaComponent(0.5)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
     }()
+
+    // MARK: - Private Properties
+
+    private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - LifeCycle Methods
 
@@ -50,10 +56,18 @@ class SettingsViewController: UIViewController {
         }
     }
 
+    private func bindUI() {
+        self.backButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                
+            }
+            .store(in: &self.cancellables)
+    }
+
 }
 
 extension SettingsViewController: UITableViewDelegate {
-
+   
 }
 
 extension SettingsViewController: UITableViewDataSource {
