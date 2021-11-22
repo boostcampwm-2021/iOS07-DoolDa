@@ -110,9 +110,12 @@ class SettingsViewController: UIViewController {
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
         self.title = "설정"
+
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.tintColor = .dooldaLabel
         self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationItem.backButtonTitle = ""
+
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
