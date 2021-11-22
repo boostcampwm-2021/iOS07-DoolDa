@@ -36,6 +36,7 @@ class SettingsViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.separatorColor = .dooldaLabel?.withAlphaComponent(0.5)
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -59,24 +60,30 @@ class SettingsViewController: UIViewController {
 
         let appVersionLabel = UILabel()
         appVersionLabel.text = DooldaInfoType.appVersion.rawValue
+        appVersionLabel.textColor = .dooldaLabel
         let appVersionOption = SettingsOptions(
             cell: SettingsTableViewCell(title: "앱 현재 버전", rightItem: appVersionLabel),
             handler: nil
         )
 
-        let forwardImageView = UIImageView(image: .right)
+        let openSourceItem = UIImageView(image: .right)
+        openSourceItem.tintColor = .dooldaLabel
         let openSourceOption = SettingsOptions(
-            cell: SettingsTableViewCell(title: "Open Source License", rightItem: forwardImageView),
+            cell: SettingsTableViewCell(title: "Open Source License", rightItem: openSourceItem),
             handler: self.viewModel.openSourceLicenseDidTap
         )
 
+        let privacyItem = UIImageView(image: .right)
+        privacyItem.tintColor = .dooldaLabel
         let privacyOption = SettingsOptions(
-            cell: SettingsTableViewCell(title: "개인 정보 처리 방침", rightItem: forwardImageView),
+            cell: SettingsTableViewCell(title: "개인 정보 처리 방침", rightItem: privacyItem),
             handler: self.viewModel.privacyPolicyDidTap
         )
 
+        let contributorItem = UIImageView(image: .right)
+        contributorItem.tintColor = .dooldaLabel
         let contributorsOption = SettingsOptions(
-            cell: SettingsTableViewCell(title: "만든 사람들", rightItem: forwardImageView),
+            cell: SettingsTableViewCell(title: "만든 사람들", rightItem: contributorItem),
             handler: self.viewModel.contributorDidTap
         )
 
