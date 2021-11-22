@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "hedgehogWriting.png",
+      "filename" : "hedgehogFrustrated.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "hedgehogWriting-1.png",
+      "filename" : "hedgehogFrustrated-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "hedgehogWriting-2.png",
+      "filename" : "hedgehogFrustrated-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
