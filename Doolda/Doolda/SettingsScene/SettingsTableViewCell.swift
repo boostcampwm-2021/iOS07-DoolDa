@@ -37,12 +37,10 @@ class SettingsTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.configureUI()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.configureUI()
     }
 
     // MARK: - Helpers

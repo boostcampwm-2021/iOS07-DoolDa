@@ -17,7 +17,7 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
 
     // MARK: - Subviews
 
-    lazy var title: UILabel = {
+    private lazy var title: UILabel = {
         let title = UILabel()
         title.font = .systemFont(ofSize: 16)
         title.textColor = .dooldaSubLabel
@@ -43,6 +43,7 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
         self.title.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.bottom.equalToSuperview().offset(-16)
+            make.leading.equalToSuperview().offset(16)
             make.width.equalToSuperview()
         }
     }
