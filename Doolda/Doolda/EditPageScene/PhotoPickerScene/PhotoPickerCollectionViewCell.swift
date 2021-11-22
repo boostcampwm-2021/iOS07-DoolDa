@@ -37,7 +37,11 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
     
     // MARK: - Private Properties
     
@@ -65,7 +69,9 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
         if let requestImageId = requestImageId {
             PHImageManager.default().cancelImageRequest(requestImageId)
         }
-        self.imageView.image = .hedgehogWriting
+        self.imageView.image = nil
+        
+        self.activityIndicator.isHidden = false
         self.activityIndicator.startAnimating()
         self.deselect()
     }
@@ -107,9 +113,15 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
             targetSize: self.bounds.size,
             contentMode: .aspectFill,
             options: imageRequestOptions
-        ) { image, _ in
-            self.imageView.image = image
-            self.activityIndicator.stopAnimating()
+        ) { [weak self] image, requestInformation in
+            guard let requestInformation = requestInformation,
+                  let requestIdKey = requestInformation["PHImageResultRequestIDKey"] as? Int else { return }
+            let requestImageId = PHImageRequestID.init(requestIdKey)
+            
+            if self?.requestImageId == requestImageId {
+                self?.imageView.image = image
+                self?.activityIndicator.stopAnimating()
+            }
         }
     }
     
