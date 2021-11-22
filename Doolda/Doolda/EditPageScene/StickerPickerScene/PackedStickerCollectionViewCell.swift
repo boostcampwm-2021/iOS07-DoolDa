@@ -228,8 +228,8 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         let stickerView = UIImageView(image: stickerImage)
         stickerView.contentMode = .scaleAspectFit
 
-        var width: CGFloat = 0
-        var height: CGFloat = 0
+        let width: CGFloat
+        let height: CGFloat
         let imageRatio = stickerImage.size.width / stickerImage.size.height
 
         if stickerImage.size.width > stickerImage.size.height {
