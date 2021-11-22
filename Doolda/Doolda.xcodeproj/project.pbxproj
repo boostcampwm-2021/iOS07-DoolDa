@@ -48,6 +48,7 @@
 		1D9DC09F274A0E290060587B /* FilterOptionBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */; };
 		1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A0274A47D50060587B /* DooldaButton.swift */; };
 		1D9DC0A3274B31950060587B /* DiaryBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */; };
+		1D9DC0A5274B8A890060587B /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */; };
 		1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
 		1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */; };
 		1DD0F34D2747AABA00FC5E65 /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
@@ -209,6 +210,7 @@
 		1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		1D9DC0A0274A47D50060587B /* DooldaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaButton.swift; sourceTree = "<group>"; };
 		1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryBackgroundView.swift; sourceTree = "<group>"; };
+		1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
 		1DBF5714273A2C5100D28F5E /* FontColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorType.swift; sourceTree = "<group>"; };
 		1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameType.swift; sourceTree = "<group>"; };
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
@@ -719,6 +721,7 @@
 				1D3925CF273C1263003A0B70 /* CGFloat+Extensions.swift */,
 				319C222C273CEFBB009CE65C /* CIImage+Extension.swift */,
 				66CD6463273D125E00E55C03 /* CGImage+Extensions.swift */,
+				1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1031,6 +1034,7 @@
 				310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */,
 				FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */,
 				665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */,
+				1D9DC0A5274B8A890060587B /* Collection+Extensions.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
 				317FB60B274A3851005DF3A3 /* StickerPickerCollectionViewFooter.swift in Sources */,
