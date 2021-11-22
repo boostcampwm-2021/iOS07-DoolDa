@@ -20,4 +20,12 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
             self.presenter.pushViewController(viewController, animated: true)
         }
     }
+
+    func dismissSettings() {
+
+    }
+
+    func settingsOptionRequested(with text: String) {
+        
+    }
 }
