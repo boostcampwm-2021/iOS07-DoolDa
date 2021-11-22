@@ -11,6 +11,7 @@ import Foundation
 
 protocol EditPageViewModelInput {
     func canvasDidTap(at point: CGPoint)
+    
     func componentDidTap()
     func componentDidDrag(at point: CGPoint)
     func componentDidRotate(by angle: CGFloat)
@@ -18,6 +19,8 @@ protocol EditPageViewModelInput {
     func componentBringFrontControlDidTap()
     func componentSendBackControlDidTap()
     func componentRemoveControlDidTap()
+    
+    func textComponentDidChange(as textComponent: TextComponentEntity)
     
     func photoComponentAddButtonDidTap()
     func textComponentAddButtonDidTap()
@@ -40,6 +43,7 @@ protocol EditPageViewModelOutput {
 typealias EditPageViewModelProtocol = EditPageViewModelInput & EditPageViewModelOutput
 
 final class EditPageViewModel: EditPageViewModelProtocol {
+    
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
     var componentsPublisher: Published<[ComponentEntity]>.Publisher { self.$components }
     var backgroundPublisher: Published<BackgroundType>.Publisher { self.$background }
@@ -122,6 +126,10 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     
     func componentRemoveControlDidTap() {
         self.editPageUseCase.removeComponent()
+    }
+    
+    func textComponentDidChange(as textComponent: TextComponentEntity) {
+        self.editPageUseCase.changeTextComponent(into: textComponent)
     }
     
     func photoComponentAddButtonDidTap() {
