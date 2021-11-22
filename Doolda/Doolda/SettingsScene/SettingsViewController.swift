@@ -33,9 +33,9 @@ class SettingsViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
+        tableView.register(SettingsTableViewHeader.self, forHeaderFooterViewReuseIdentifier: SettingsTableViewHeader.identifier)
         tableView.backgroundColor = .clear
-        tableView.separatorColor = .dooldaLabel?.withAlphaComponent(0.5)
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -151,10 +151,12 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard section < self.settingsSections.count else { return UIView() }
-        let header = UILabel()
-        header.text = self.settingsSections[section].title
-        header.textColor = .dooldaSubLabel
+        guard section < self.settingsSections.count,
+              let header = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: SettingsTableViewHeader.identifier
+              ) as? SettingsTableViewHeader else { return nil }
+
+        header.configure(with: self.settingsSections[section].title)
         return header
     }
 
@@ -164,7 +166,13 @@ extension SettingsViewController: UITableViewDataSource {
         let section = self.settingsSections[indexPath.section]
         guard indexPath.row < section.settingsOptions.count else { return UITableViewCell() }
 
-        let settingsOption = section.settingsOptions
-        return settingsOption[indexPath.row].cell
+        let cell = section.settingsOptions[indexPath.row].cell
+
+        let separator = CALayer()
+        separator.frame = CGRect(x: 16, y: cell.frame.height - 1, width: self.tableView.frame.width-32, height: 1)
+        separator.backgroundColor = UIColor.dooldaLabel?.withAlphaComponent(0.2).cgColor
+        cell.layer.addSublayer(separator)
+        cell.selectionStyle = .none
+        return cell
     }
 }
