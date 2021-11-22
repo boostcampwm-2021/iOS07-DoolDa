@@ -61,14 +61,14 @@ class SettingsViewModel: SettingsViewModelProtocol {
     func privacyPolicyDidTap() {
         self.coordinator.settingsOptionRequested(
             title: "개인 정보 처리 방침",
-            text: DooldaInfoType.openSourceLicense.rawValue
+            text: DooldaInfoType.privacyPolicy.rawValue
         )
     }
 
     func contributorDidTap() {
         self.coordinator.settingsOptionRequested(
             title: "만든 사람들",
-            text: DooldaInfoType.openSourceLicense.rawValue
+            text: DooldaInfoType.contributor.rawValue
         )
     }
 
