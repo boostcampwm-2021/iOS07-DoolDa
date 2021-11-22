@@ -19,6 +19,8 @@ class SettingsTableViewCell: UITableViewCell {
 
     private lazy var title: UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .dooldaLabel
         return label
     }()
 
@@ -46,15 +48,16 @@ class SettingsTableViewCell: UITableViewCell {
 
         self.contentView.addSubview(self.title)
         self.title.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(12)
+            make.bottom.equalToSuperview().offset(-12)
+            make.leading.equalToSuperview().offset(16)
             make.width.equalToSuperview().multipliedBy(0.6)
         }
 
         self.contentView.addSubview(self.rightItem)
         self.rightItem.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-10)
+            make.top.bottom.equalTo(self.title)
+            make.trailing.equalToSuperview().offset(-16)
             make.leading.equalTo(self.title.snp.trailing)
         }
     }
