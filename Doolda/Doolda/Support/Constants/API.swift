@@ -21,6 +21,8 @@ enum FirebaseAPIs: URLRequestBuilder {
 
     case uploadDataFile(String, String, Data)
     case downloadDataFile(String, String)
+    
+    case sendFirebaseMessage(String, String, String, [String: Any])
 }
 
 extension FirebaseAPIs {
@@ -57,7 +59,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var parameters: [String : String]? {
         switch self {
-        case .getUserDocuement, .getPairDocument, .getPageDocuments:
+        case .getUserDocuement, .getPairDocument, .getPageDocuments, .sendFirebaseMessage:
             return nil
         case .createUserDocument(let id), .createPairDocument(let id, _):
             return ["documentId": id]
@@ -76,7 +78,7 @@ extension FirebaseAPIs {
         switch self {
         case .getUserDocuement, .getPairDocument, .downloadDataFile:
             return .get
-        case .createUserDocument, .createPairDocument, .createPageDocument, .uploadDataFile, .getPageDocuments:
+        case .createUserDocument, .createPairDocument, .createPageDocument, .uploadDataFile, .getPageDocuments, .sendFirebaseMessage:
             return .post
         case .patchUserDocuement, .patchPairDocument:
             return .patch
@@ -89,6 +91,8 @@ extension FirebaseAPIs {
         switch self {
         case .uploadDataFile:
             return ["Content-Type": "application/octet-stream"]
+        case .sendFirebaseMessage:
+            return ["Content-Type": "application/json", "Authorization": "key=\(Secrets.fcmServerKey ?? "")"]
         default :
             return ["Content-Type": "application/json", "Accept": "application/json"]
         }
@@ -161,6 +165,17 @@ extension FirebaseAPIs {
             let pageDocument = PageDocument(author: authorId, createdTime: createdTime, jsonPath: jsonPath, pairId: pairId)
             return [
                 "fields": pageDocument.fields
+            ]
+        case .sendFirebaseMessage(let receiverToken, let title, let body, let data):
+            return [
+                "to": receiverToken,
+                "notification": [
+                    "title": title,
+                    "body": body,
+                    "mutable_content": true,
+                    "sound": "Tri-tone"
+                ],
+                "data": data
             ]
         }
     }
