@@ -249,6 +249,7 @@ class DiaryViewController: UIViewController {
             self.pageCollectionView.alwaysBounceVertical = true
             self.pageCollectionView.showsVerticalScrollIndicator = true
             self.navigationController?.hidesBarsOnSwipe = true
+            self.title = "모아보기"
         case .carousel:
             self.pageCollectionView.collectionViewLayout = self.carouselFlowLayout
             self.displayModeToggleButton.setImage(.squareGrid2x2, for: .normal)
@@ -265,7 +266,18 @@ class DiaryViewController: UIViewController {
         guard self.viewModel.displayMode == .carousel else { return }
         let xOffset = CGFloat(min(self.viewModel.filteredEntityCount, index + 1)) * self.pageOffset - 16
         let yOffset = self.pageCollectionView.contentOffset.y
+        self.setTitle(for: index)
         self.pageCollectionView.setContentOffset(CGPoint(x: xOffset, y: yOffset), animated: false)
+    }
+    
+    private func setTitle(for index: Int) {
+        if let date = self.viewModel.getDate(of: index),
+           let formattedDateString = try? DateFormatter.koreanFormatter.string(from: date) {
+            print(date)
+            self.title = formattedDateString
+        } else {
+            self.title = "둘다"
+        }
     }
 }
 
@@ -300,6 +312,7 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
             actualIndex = Int(round(estimatedIndex))
         }
         
+        self.setTitle(for: actualIndex - 1)
         targetContentOffset.pointee = CGPoint(x: CGFloat(actualIndex) * pageOffset - 16, y: 0)
     }
     
