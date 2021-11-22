@@ -235,6 +235,7 @@ class DiaryViewController: UIViewController {
             self.pageCollectionView.alwaysBounceVertical = false
             self.pageCollectionView.showsVerticalScrollIndicator = false
             self.navigationController?.hidesBarsOnSwipe = false
+            self.navigationController?.isNavigationBarHidden = false
             self.scrollToPage(of: Int(self.pageCollectionView.contentOffset.x / self.pageOffset))
         }
     }
