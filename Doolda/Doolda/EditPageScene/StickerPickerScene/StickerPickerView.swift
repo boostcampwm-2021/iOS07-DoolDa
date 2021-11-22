@@ -17,7 +17,7 @@ class StickerPickerView: UIView {
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
-        collectionView.isPagingEnabled = true
+        collectionView.isPagingEnabled = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         collectionView.register(PackedStickerCollectionViewCell.self, forCellWithReuseIdentifier: PackedStickerCollectionViewCell.identifier)

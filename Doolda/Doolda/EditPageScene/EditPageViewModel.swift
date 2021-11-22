@@ -94,8 +94,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
             .assign(to: &$error)
     }
     func componentDidTap() {
-        if let selectedComponent = self.selectedComponent as? TextComponentEntity,
-            selectedComponent is TextComponentEntity {
+        if let selectedComponent = self.selectedComponent as? TextComponentEntity {
             self.coordinator.editTextComponent(with: selectedComponent)
         }
     }
