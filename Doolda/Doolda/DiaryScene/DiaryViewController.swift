@@ -51,6 +51,13 @@ class DiaryViewController: UIViewController {
         return flowLayout
     }()
     
+    private lazy var pageCollectionBackgroundView: DiaryBackgroundView = {
+        let backgroundView = DiaryBackgroundView()
+        backgroundView.image = UIImage.hedgehogWriting
+        backgroundView.title = "표시될 페이지가 없어요!"
+        return backgroundView
+    }()
+    
     private lazy var displayModeToggleButton: UIButton = {
         let button = UIButton()
         button.setImage(.square, for: .normal)
@@ -127,6 +134,11 @@ class DiaryViewController: UIViewController {
             UIBarButtonItem(customView: self.filterButton)
         ]
         
+        self.view.addSubview(self.pageCollectionBackgroundView)
+        self.pageCollectionBackgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         self.view.addSubview(self.pageCollectionView)
         self.pageCollectionView.snp.makeConstraints { make in
             make.topMargin.bottomMargin.leading.trailing.equalToSuperview()
@@ -137,15 +149,21 @@ class DiaryViewController: UIViewController {
         self.viewModel.filteredPageEntitiesPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] entities in
-                guard let self = self else { return }
-                self.applySnapshot(pageEntities: entities)
+                self?.applySnapshot(pageEntities: entities)
             }
             .store(in: &self.cancellables)
-        
+
         self.viewModel.displayModePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displayMode in
                 self?.updateView(with: displayMode)
+            }
+            .store(in: &self.cancellables)
+
+        Publishers.CombineLatest(self.viewModel.filteredPageEntitiesPublisher, self.viewModel.displayModePublisher)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] entities, displayMode in
+                self?.pageCollectionBackgroundView.isHidden = !entities.isEmpty || (displayMode == .carousel)
             }
             .store(in: &self.cancellables)
         
@@ -153,6 +171,7 @@ class DiaryViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isMyTurn in
                 self?.headerView?.isMyTurn = isMyTurn
+                self?.pageCollectionBackgroundView.subtitle = "헤더를 탭해 \(isMyTurn ? "새 글을 써" : "새로고침 해")보세요!"
             }
             .store(in: &self.cancellables)
 
