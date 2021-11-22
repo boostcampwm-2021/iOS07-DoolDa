@@ -16,16 +16,32 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
 
     func start() {
         DispatchQueue.main.async {
-            let viewController = SettingsViewController()
+            let userDefaultsPersistenceService = UserDefaultsPersistenceService()
+
+            let globalFontRepository = GlobalFontRepository(persistenceService: userDefaultsPersistenceService)
+            let pushNotificationStateRepository = PushNotificationStateRepository(persistenceService: userDefaultsPersistenceService)
+
+            let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)
+            let pushNotificationStateUseCase = PushNotificationStateUseCase(pushNotificationStateRepository: pushNotificationStateRepository)
+
+            let viewModel = SettingsViewModel(
+                coordinator: self,
+                globalFontUseCase: globalFontUseCase,
+                pushNotificationStateUseCase: pushNotificationStateUseCase
+            )
+
+            let viewController = SettingsViewController(viewModel: viewModel)
             self.presenter.pushViewController(viewController, animated: true)
         }
     }
 
     func dismissSettings() {
-
+        DispatchQueue.main.async {
+            self.presenter.popViewController(animated: true)
+        }
     }
 
     func settingsOptionRequested(with text: String) {
-        
+
     }
 }
