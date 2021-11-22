@@ -33,13 +33,22 @@ class SettingsViewController: UIViewController {
 
     // MARK: - Private Properties
 
+    private var viewModel: SettingsViewModelProtocol!
     private var cancellables: Set<AnyCancellable> = []
+
+    // MARK: - Initializers
+
+    convenience init(viewModel: SettingsViewModelProtocol) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
 
     // MARK: - LifeCycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.bindUI()
     }
 
     // MARK: - Helpers
@@ -59,7 +68,7 @@ class SettingsViewController: UIViewController {
     private func bindUI() {
         self.backButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
-                
+                self?.viewModel.backButtonDidTap()
             }
             .store(in: &self.cancellables)
     }
