@@ -24,12 +24,6 @@ class SettingsViewController: UIViewController {
 
     // MARK: - Subviews
 
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        button.setImage(.left, for: .normal)
-        return button
-    }()
-
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
@@ -109,7 +103,6 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
-        self.bindUI()
     }
 
     // MARK: - Helpers
@@ -117,21 +110,13 @@ class SettingsViewController: UIViewController {
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
         self.title = "설정"
-        self.navigationController?.navigationBar.barTintColor = .dooldaLabel
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
-
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.tintColor = .dooldaLabel
+        self.navigationController?.navigationBar.topItem?.title = ""
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-    }
-
-    private func bindUI() {
-        self.backButton.publisher(for: .touchUpInside)
-            .sink { [weak self] _ in
-                self?.viewModel.backButtonDidTap()
-            }
-            .store(in: &self.cancellables)
     }
 
 }
