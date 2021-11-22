@@ -45,10 +45,10 @@ class TextEditViewController: UIViewController {
     private var widthRatioFromAbsolute: CGFloat?
     private var heightRatioFromAbsolute: CGFloat?
     
-    private var currentColorIndex: CGFloat = 0.0
+    private var currentColorIndex: Int = 0
     
     private var cancellables: Set<AnyCancellable> = []
-    private var viewModel: TextEditViewModelProtocol?
+    private var viewModel: TextEditViewModelProtocol!
     private weak var delegate: TextEditViewControllerDelegate?
     
     override var inputAccessoryView: UIView? {
@@ -101,7 +101,7 @@ class TextEditViewController: UIViewController {
                         input: self.inputTextView.text,
                         contentSize: self.computeSizeToAbsolute(with: self.inputTextView.contentSize),
                         fontSize: 16,
-                        color: .black
+                        colorIndex: self.currentColorIndex
                     ) else { return }
                 if self.viewModel?.selectedTextComponent != nil {
                     self.delegate?.textInputDidEndEditing(textComponenetEntity)
@@ -184,7 +184,7 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
                 let cellWidth: CGFloat = 45
                 
                 var offset = targetContentOffset.pointee
-                let index = round((offset.x + collectionView.contentInset.left) / cellWidth)
+                let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))
                 
                 if index > self.currentColorIndex {
                     self.currentColorIndex += 1
@@ -194,7 +194,7 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
                     }
                 }
                 
-                offset = CGPoint(x: self.currentColorIndex * cellWidth - collectionView.contentInset.left, y: 0)
+                offset = CGPoint(x: CGFloat(self.currentColorIndex) * cellWidth - collectionView.contentInset.left, y: 0)
                 
                 targetContentOffset.pointee = offset
                 
@@ -204,14 +204,18 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
 
 extension TextEditViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel.getFontColorCount()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FontColorCollectionViewCell.identifier, for: indexPath) as? FontColorCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: FontColorCollectionViewCell.identifier,
+            for: indexPath
+        ) as? FontColorCollectionViewCell,
+              let cellColor = self.viewModel.getFontColor(at: indexPath.item)
         else { return UICollectionViewCell() }
 
-        cell.configure(with: .red)
+        cell.configure(with: UIColor(cgColor: cellColor))
         return cell
     }
 }
