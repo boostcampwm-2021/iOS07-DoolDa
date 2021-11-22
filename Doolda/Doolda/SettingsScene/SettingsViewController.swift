@@ -150,6 +150,14 @@ extension SettingsViewController: UITableViewDataSource {
         return  self.settingsSections[section].settingsOptions.count
     }
 
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section < self.settingsSections.count else { return UIView() }
+        let header = UILabel()
+        header.text = self.settingsSections[section].title
+        header.textColor = .dooldaSubLabel
+        return header
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard indexPath.section < self.settingsSections.count else { return UITableViewCell() }
 

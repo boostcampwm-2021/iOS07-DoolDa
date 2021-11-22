@@ -99,6 +99,7 @@
 		317FB613274AA879005DF3A3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB612274AA879005DF3A3 /* SettingsTableViewCell.swift */; };
 		317FB615274B9A92005DF3A3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */; };
 		317FB617274BAAEC005DF3A3 /* DooldaInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */; };
+		317FB619274BBC9D005DF3A3 /* SettingsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
@@ -262,6 +263,7 @@
 		317FB612274AA879005DF3A3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaInfoType.swift; sourceTree = "<group>"; };
+		317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewHeader.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -402,6 +404,7 @@
 			children = (
 				317FB60C274A8F59005DF3A3 /* SettingsViewController.swift */,
 				317FB612274AA879005DF3A3 /* SettingsTableViewCell.swift */,
+				317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */,
 				317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */,
 				317FB610274A9175005DF3A3 /* SettingsViewCoordinator.swift */,
 				317FB60E274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift */,
@@ -1083,6 +1086,7 @@
 				1D9DC0A5274B8A890060587B /* Collection+Extensions.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
+				317FB619274BBC9D005DF3A3 /* SettingsTableViewHeader.swift in Sources */,
 				317FB60B274A3851005DF3A3 /* StickerPickerCollectionViewFooter.swift in Sources */,
 				66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */,
 				317FB60F274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift in Sources */,
