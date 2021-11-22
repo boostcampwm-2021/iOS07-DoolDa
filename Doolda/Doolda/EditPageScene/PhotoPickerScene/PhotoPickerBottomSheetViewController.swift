@@ -249,10 +249,10 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         self.viewModel.photoFetchResultWithChangeDetailsPublisher
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _, changeDetails in
+            .sink { [weak self] _, fetchResultChangeDetails in
                 guard let self = self else { return }
                 
-                if let changed = changeDetails?.changedIndexes, !changed.isEmpty {
+                if let changed = fetchResultChangeDetails?.changedIndexes, !changed.isEmpty {
                     self.photoPickerCollectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
                 } else {
                     self.photoPickerCollectionView.reloadData()

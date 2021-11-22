@@ -48,7 +48,7 @@ protocol PhotoPickerBottomSheetViewModelOutput {
 }
 
 typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewModelInput & PhotoPickerBottomSheetViewModelOutput
-typealias PhotoFetchResultWithChangeDetails = (photoFetchResult: PHFetchResult<PHAsset>, changeDetails: PHFetchResultChangeDetails<PHAsset>?)
+typealias PhotoFetchResultWithChangeDetails = (photoFetchResult: PHFetchResult<PHAsset>, fetchResultChangeDetails: PHFetchResultChangeDetails<PHAsset>?)
 
 class PhotoPickerBottomSheetViewModel: NSObject, PhotoPickerBottomSheetViewModelProtocol {
     var selectedPhotosPublisher: Published<[Int]>.Publisher { self.$selectedPhotos }
