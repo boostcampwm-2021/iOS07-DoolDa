@@ -52,7 +52,10 @@ class SettingsViewModel: SettingsViewModelProtocol {
     }
 
     func openSourceLicenseDidTap() {
-
+        self.coordinator.settingsOptionRequested(
+            title: "Open Source License",
+            text: DooldaInfoType.openSourceLicense.rawValue
+        )
     }
 
     func privacyPolicyDidTap() {
