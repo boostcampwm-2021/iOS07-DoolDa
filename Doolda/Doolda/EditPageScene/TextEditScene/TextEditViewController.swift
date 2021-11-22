@@ -63,6 +63,19 @@ class TextEditViewController: UIViewController {
         self.bindUI()
     }
     
+    // MARK: - Helpers
+    
+    private func configureUI() {
+        self.view.backgroundColor = .black.withAlphaComponent(0.3)
+        
+        self.view.addSubview(self.inputTextView)
+        self.inputTextView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(self.view.snp.centerY)
+        }
+        self.inputTextView.becomeFirstResponder()
+    }
+    
     private func bindUI() {
         self.view.publisher(for: UITapGestureRecognizer())
             .sink { [weak self] _ in
@@ -76,19 +89,6 @@ class TextEditViewController: UIViewController {
                 self.delegate?.textInputDidEndEditing(textComponenetEntity)
                 self.dismiss(animated: false)
             }.store(in: &self.cancellables)
-    }
-    
-    // MARK: - Helpers
-    
-    private func configureUI() {
-        self.view.backgroundColor = .black.withAlphaComponent(0.3)
-        
-        self.view.addSubview(self.inputTextView)
-        self.inputTextView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(self.view.snp.centerY)
-        }
-        self.inputTextView.becomeFirstResponder()
     }
     
     // MARK: - Private Methods

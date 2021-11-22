@@ -11,7 +11,7 @@ protocol EditPageViewCoordinatorProtocol: CoordinatorProtocol {
     func editingPageSaved()
     func editingPageCanceled()
     func addPhotoComponent()
-    func addTextComponent()
+    func editTextComponent(with textComponent: TextComponentEntity?)
     func addStickerComponent()
     func changeBackgroundType()
 }

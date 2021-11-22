@@ -90,10 +90,12 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
     
-    func addTextComponent() {
+    func editTextComponent(with textComponent: TextComponentEntity? = nil) {
         let delegatedViewController = self.presenter.topViewController as? EditPageViewController
         
-        let textEditViewModel = TextEditViewModel(textUseCase: TextUseCase())
+        let textEditViewModel = TextEditViewModel(
+            textUseCase: TextUseCase(),
+            selectedTextComponent: textComponent)
         let viewController = TextEditViewController(
             textEditViewModel: textEditViewModel,
             delegate: delegatedViewController,

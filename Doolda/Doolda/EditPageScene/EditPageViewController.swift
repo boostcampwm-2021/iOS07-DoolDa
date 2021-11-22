@@ -419,7 +419,6 @@ extension EditPageViewController: PageComponentControlViewDelegate {
         self.viewModel?.componentDidTap()
     }
     
-    
     func leftTopControlDidTap(_ pageControlView: PageComponentControlView, with gesture: UITapGestureRecognizer) {
         self.viewModel?.componentBringFrontControlDidTap()
     }

@@ -90,9 +90,9 @@ final class EditPageViewModel: EditPageViewModelProtocol {
             .assign(to: &$error)
     }
     func componentDidTap() {
-        if let selectedComponent = self.selectedComponent,
+        if let selectedComponent = self.selectedComponent as? TextComponentEntity,
             selectedComponent is TextComponentEntity {
-            self.coordinator.addTextComponent()
+            self.coordinator.editTextComponent(with: selectedComponent)
         }
     }
     
@@ -129,7 +129,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func textComponentAddButtonDidTap() {
-        self.coordinator.addTextComponent()
+        self.coordinator.editTextComponent(with: nil)
     }
     
     func stickerComponentAddButtonDidTap() {
