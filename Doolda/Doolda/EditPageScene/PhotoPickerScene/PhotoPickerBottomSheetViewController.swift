@@ -99,7 +99,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     // MARK: - Private Properties
 
-    private var viewModel: PhotoPickerBottomSheetViewModelProtocol?
+    private var viewModel: PhotoPickerBottomSheetViewModelProtocol!
     private var cancellables = Set<AnyCancellable>()
     private var currentContentView: UIView?
     private weak var delegate: PhotoPickerBottomSheetViewControllerDelegate?
@@ -177,10 +177,10 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if self.currentContentView == self.framePicker {
-                    self.viewModel?.nextButtonDidTap()
+                    self.viewModel.nextButtonDidTap()
                 } else if self.currentContentView == self.photoPickerCollectionView {
                     self.activityIndicator.startAnimating()
-                    self.viewModel?.completeButtonDidTap()
+                    self.viewModel.completeButtonDidTap()
                 }
             }
             .store(in: &self.cancellables)
@@ -194,7 +194,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     }
     
     private func bindViewModel() {
-        self.viewModel?.isPhotoAccessiblePublisher
+        self.viewModel.isPhotoAccessiblePublisher
             .compactMap { $0 }
             .sink { [weak self] result in
                 guard !result else { return }
@@ -202,7 +202,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
         
-        self.viewModel?.isReadyToSelectPhoto
+        self.viewModel.isReadyToSelectPhoto
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
                 guard result,
@@ -213,7 +213,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
                    
-        self.viewModel?.isReadyToComposePhoto
+        self.viewModel.isReadyToComposePhoto
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
                 self?.nextButton.isEnabled = self?.currentContentView == self?.framePicker ||
@@ -221,7 +221,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
         
-        self.viewModel?.composedResultPublisher
+        self.viewModel.composedResultPublisher
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] photoComponentEntity in
@@ -231,7 +231,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
         
-        self.viewModel?.selectedPhotosPublisher
+        self.viewModel.selectedPhotosPublisher
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] selectedPhotos in
@@ -239,14 +239,14 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
         
-        self.viewModel?.selectedPhotoFramePublisher
+        self.viewModel.selectedPhotoFramePublisher
             .compactMap { $0 }
             .sink { [weak self] _ in
                 self?.nextButton.isEnabled = true
             }
             .store(in: &self.cancellables)
         
-        self.viewModel?.photoFetchResultWithChangeDetailsPublisher
+        self.viewModel.photoFetchResultWithChangeDetailsPublisher
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _, changeDetails in
@@ -260,7 +260,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             }
             .store(in: &self.cancellables)
         
-        self.viewModel?.errorPublisher
+        self.viewModel.errorPublisher
             .compactMap { $0 }
             .sink { [weak self] error in
                 let alert = UIAlertController.defaultAlert(title: "알림", message: error.localizedDescription) { _ in
@@ -291,7 +291,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             self.requestPermissionToAccessPhoto()
         } else {
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
-                self?.viewModel?.photoAccessPermissionDidChange(status)
+                self?.viewModel.photoAccessPermissionDidChange(status)
             }
         }
     }
@@ -314,7 +314,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
 
 extension PhotoPickerBottomSheetViewController: CarouselViewDelegate {
     func selectedItemDidChange(_ index: Int) {
-        self.viewModel?.photoFrameDidSelect(index)
+        self.viewModel.photoFrameDidSelect(index)
     }
 }
 
@@ -338,9 +338,9 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.photoPickerCollectionView {
-            return self.viewModel?.photoFetchResultWithChangeDetails?.photoFetchResult.count ?? 0
+            return self.viewModel.photoFetchResultWithChangeDetails?.photoFetchResult.count ?? 0
         } else {
-            return self.viewModel?.photoFrames.count ?? 0
+            return self.viewModel.photoFrames.count
         }
     }
     
@@ -353,13 +353,12 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
                 for: indexPath
             )
             
-            if let selectedPhotos = self.viewModel?.selectedPhotos,
-               let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
-               let imageAsset = self.viewModel?.photoFetchResultWithChangeDetails?.photoFetchResult.object(at: indexPath.item) {
+            if let photoPickerCollectionViewCell = cell as? PhotoPickerCollectionViewCell,
+               let imageAsset = self.viewModel.photoFetchResultWithChangeDetails?.photoFetchResult.object(at: indexPath.item) {
                 photoPickerCollectionViewCell.display(imageAsset)
                 
-                if selectedPhotos.contains(indexPath.item),
-                   let target = selectedPhotos.enumerated().first(where: { $0.element == indexPath.item }) {
+                if self.viewModel.selectedPhotos.contains(indexPath.item),
+                   let target = self.viewModel.selectedPhotos.enumerated().first(where: { $0.element == indexPath.item }) {
                     photoPickerCollectionViewCell.select(order: target.offset + 1)
                 }
             }
@@ -370,8 +369,8 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
             )
             
             if let photoFrameCollectionViewCell = cell as? PhotoFrameCollectionViewCell,
-               let baseImage = self.viewModel?.photoFrames[indexPath.item].rawValue?.baseImage,
-               let displayName = self.viewModel?.photoFrames[indexPath.item].rawValue?.displayName {
+               let baseImage = self.viewModel.photoFrames[indexPath.item].rawValue?.baseImage,
+               let displayName = self.viewModel.photoFrames[indexPath.item].rawValue?.displayName {
                 photoFrameCollectionViewCell.display(baseImage, displayName)
             }
         }
@@ -381,18 +380,18 @@ extension PhotoPickerBottomSheetViewController: UICollectionViewDataSource, UICo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.photoPickerCollectionView {
-            guard var selectedPhotos = self.viewModel?.selectedPhotos else { return }
+            var selectedPhotos = self.viewModel.selectedPhotos
             
             if selectedPhotos.contains(indexPath.item),
                let target = selectedPhotos.enumerated().first(where: { $0.element == indexPath.item }) {
-                self.viewModel?.photoDidSelected(selectedPhotos.filter({ $0 != target.element }))
+                self.viewModel.photoDidSelected(selectedPhotos.filter({ $0 != target.element }))
                 self.photoPickerCollectionView.reloadItems(at: [indexPath])
             } else {
                 selectedPhotos.append(indexPath.item)
-                self.viewModel?.photoDidSelected(selectedPhotos)
+                self.viewModel.photoDidSelected(selectedPhotos)
             }
         } else {
-            self.viewModel?.photoFrameCellDidTap()
+            self.viewModel.photoFrameCellDidTap()
         }
     }
 }
