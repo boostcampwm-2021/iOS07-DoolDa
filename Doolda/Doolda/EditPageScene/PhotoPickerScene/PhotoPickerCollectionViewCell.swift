@@ -66,6 +66,8 @@ class PhotoPickerCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
+        
         if let requestImageId = requestImageId {
             PHImageManager.default().cancelImageRequest(requestImageId)
         }
