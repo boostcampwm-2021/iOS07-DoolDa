@@ -11,6 +11,7 @@ import UIKit
 import SnapKit
 
 protocol TextEditViewControllerDelegate: AnyObject {
+    func textInputDidEndInput(_ textComponentEntity: TextComponentEntity)
     func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity)
 }
 
@@ -66,7 +67,7 @@ class TextEditViewController: UIViewController {
     // MARK: - Helpers
     
     private func configureUI() {
-        self.view.backgroundColor = .black.withAlphaComponent(0.3)
+        self.view.backgroundColor = .black.withAlphaComponent(0.7)
         
         self.view.addSubview(self.inputTextView)
         self.inputTextView.snp.makeConstraints { make in
@@ -80,13 +81,17 @@ class TextEditViewController: UIViewController {
         self.view.publisher(for: UITapGestureRecognizer())
             .sink { [weak self] _ in
                 guard let self = self,
-                      let textComponenetEntity = self.viewModel?.inputViewEditingDidEnd(
+                      let textComponenetEntity = self.viewModel?.inputViewEditingDidEnd (
                         input: self.inputTextView.text,
                         contentSize: self.computeSizeToAbsolute(with: self.inputTextView.contentSize),
                         fontSize: 16,
                         color: .black
-                      ) else { return }
-                self.delegate?.textInputDidEndEditing(textComponenetEntity)
+                    ) else { return }
+                if self.viewModel?.selectedTextComponent != nil {
+                    self.delegate?.textInputDidEndEditing(textComponenetEntity)
+                } else {
+                    self.delegate?.textInputDidEndInput(textComponenetEntity)
+                }
                 self.dismiss(animated: false)
             }.store(in: &self.cancellables)
     }
@@ -102,8 +107,13 @@ class TextEditViewController: UIViewController {
 
 extension TextEditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = "내용을 입력하세요"
-        textView.textColor = .darkGray
+        if let selectedTextComponent = self.viewModel?.selectedTextComponent {
+            self.inputTextView.text = selectedTextComponent.text
+
+        } else {
+            textView.text = "내용을 입력하세요"
+            textView.textColor = .darkGray
+        }
         textView.sizeToFit()
         textView.snp.makeConstraints { make in
             make.width.equalTo(textView.contentSize.width)

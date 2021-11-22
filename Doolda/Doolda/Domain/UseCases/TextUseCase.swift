@@ -9,10 +9,19 @@ import CoreGraphics
 import Foundation
 
 protocol TextUseCaseProtocol {
+    func changeTextComponent(from textComponent: TextComponentEntity, with input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity
     func getTextComponent(with input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity
 }
 
 class TextUseCase: TextUseCaseProtocol {
+    func changeTextComponent(from textComponent: TextComponentEntity, with input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity {
+        textComponent.text = input
+        textComponent.frame.size = contentSize
+        textComponent.fontSize = fontSize
+        textComponent.fontColor = color
+        return textComponent
+    }
+
     func getTextComponent(with input: String, contentSize: CGSize, fontSize: CGFloat, color: FontColorType) -> TextComponentEntity {
         let componentOrigin = CGPoint(x: 850 - contentSize.width/2, y: 1500 - contentSize.height/2)
         return TextComponentEntity(
