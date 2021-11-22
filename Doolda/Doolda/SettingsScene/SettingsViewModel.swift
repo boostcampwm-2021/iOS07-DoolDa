@@ -17,33 +17,48 @@ protocol SettingsViewModelInput {
 }
 
 protocol SettingsViewModelOutput {
-    var selectedFontPublisher: Published<String>.Publisher { get }
+    var selectedFontPublisher: Published<String?>.Publisher { get }
 }
 
 typealias SettingsViewModelProtocol = SettingsViewModelInput & SettingsViewModelOutput
 
 class SettingsViewModel: SettingsViewModelProtocol {
-    var selectedFontPublisher: Published<String>.Publisher { self.$selectedFont }
+    var selectedFontPublisher: Published<String?>.Publisher { self.$selectedFont }
 
-    @Published private var selectedFont: String
+    private let coordinator: SettingsViewCoordinatorProtocol
+    private let globalFontUseCase: GlobalFontUseCaseProtocol
+    private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
+    private var cancellables: Set<AnyCancellable> = []
+    @Published private var selectedFont: String?
+
+    init(
+        coordinator: SettingsViewCoordinatorProtocol,
+        globalFontUseCase: GlobalFontUseCaseProtocol,
+        pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
+    ) {
+        self.coordinator = coordinator
+        self.globalFontUseCase = globalFontUseCase
+        self.pushNotificationStateUseCase = pushNotificationStateUseCase
+        self.selectedFont = self.globalFontUseCase.getGlobalFont()
+    }
 
     func fontTypeDidChanged(_ fontName: String) {
-        <#code#>
+
     }
 
     func pushNotificationDidToggle() {
-        <#code#>
+
     }
 
     func openSourceLicenseDidTap() {
-        <#code#>
+
     }
 
     func privacyPolicyDidTap() {
-        <#code#>
+
     }
 
     func contributorDidTap() {
-        <#code#>
+
     }
 }
