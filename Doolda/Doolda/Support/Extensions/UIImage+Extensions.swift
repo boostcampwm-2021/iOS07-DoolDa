@@ -28,6 +28,7 @@ extension UIImage {
     static let plus = UIImage(systemName: "plus")
     static let hedgehog = UIImage(named: "hedgehog")
     static let hedgehogWriting = UIImage(named: "hedgehogWriting")
-    static let back = UIImage(systemName: "chevron.backward")
     static let hedgehogFrustrated = UIImage(named: "hedgehogFrustrated")
+    static let left = UIImage(systemName: "chevron.left")
+    static let right = UIImage(systemName: "right")
 }

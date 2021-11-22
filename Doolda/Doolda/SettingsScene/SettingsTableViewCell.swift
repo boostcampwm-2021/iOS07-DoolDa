@@ -42,17 +42,28 @@ class SettingsTableViewCell: UITableViewCell {
     // MARK: - Helpers
 
     private func configureUI() {
+        self.backgroundColor = .clear
+
         self.contentView.addSubview(self.title)
         self.title.snp.makeConstraints { make in
-            make.top.leading.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(10)
             make.width.equalToSuperview().multipliedBy(0.6)
         }
 
         self.contentView.addSubview(self.rightItem)
         self.rightItem.snp.makeConstraints { make in
-            make.top.trailing.bottom.equalToSuperview()
-            make.leading.equalTo(self.title)
+            make.top.bottom.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-10)
+            make.leading.equalTo(self.title.snp.trailing)
         }
+    }
+
+    // MARK: - Public Methods
+
+    func configure(title: String, rightItem: UIView) {
+        self.title.text = title
+        self.rightItem = rightItem
     }
 
 }
