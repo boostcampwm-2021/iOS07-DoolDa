@@ -31,6 +31,13 @@ class SettingsTableViewCell: UITableViewCell {
 
     // MARK: - Initializers
 
+    convenience init(title: String, rightItem: UIView) {
+        self.init()
+        self.title.text = title
+        self.rightItem = rightItem
+        self.configureUI()
+    }
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.configureUI()
