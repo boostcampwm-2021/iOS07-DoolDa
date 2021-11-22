@@ -118,6 +118,7 @@ class DiaryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel.diaryViewWillAppear()
+        self.configureFont()
     }
     
     // MARK: - Helpers
@@ -143,6 +144,11 @@ class DiaryViewController: UIViewController {
         self.pageCollectionView.snp.makeConstraints { make in
             make.topMargin.bottomMargin.leading.trailing.equalToSuperview()
         }
+    }
+    
+    private func configureFont() {
+        self.pageCollectionBackgroundView.titleFont = .systemFont(ofSize: 35)
+        self.pageCollectionBackgroundView.subtitleFont = .systemFont(ofSize: 20)
     }
     
     private func bindUI() {

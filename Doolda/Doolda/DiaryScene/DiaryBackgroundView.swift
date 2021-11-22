@@ -51,9 +51,19 @@ class DiaryBackgroundView: UIView {
         set { self.titleLabel.text = newValue }
     }
     
+    var titleFont: UIFont {
+        get { return self.titleLabel.font }
+        set { self.titleLabel.font = newValue }
+    }
+    
     var subtitle: String? {
         get { return self.subtitleLabel.text }
         set { self.subtitleLabel.text = newValue }
+    }
+    
+    var subtitleFont: UIFont {
+        get { return self.subtitleLabel.font }
+        set { self.subtitleLabel.font = newValue }
     }
     
     // MARK: - Initializers
@@ -68,13 +78,6 @@ class DiaryBackgroundView: UIView {
         self.configureUI()
     }
     
-    // MARK: - Override Methods
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.configureFont()
-    }
-    
     // MARK: - Helpers
     
     private func configureUI() {
@@ -87,10 +90,5 @@ class DiaryBackgroundView: UIView {
         self.imageView.snp.makeConstraints { make in
             make.width.height.equalTo(200)
         }
-    }
-    
-    private func configureFont() {
-        self.titleLabel.font = .systemFont(ofSize: 35)
-        self.subtitleLabel.font = .systemFont(ofSize: 20)
     }
 }
