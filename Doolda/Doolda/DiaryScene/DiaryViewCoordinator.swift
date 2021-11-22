@@ -58,6 +58,8 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     }
     
     func settingsPageRequested() {
+        let coordinator = SettingsViewCoordinator(presenter: self.presenter)
+        coordinator.start()
     }
     
     func filteringSheetRequested(authorFilter: DiaryAuthorFilter, orderFilter: DiaryOrderFilter) {
