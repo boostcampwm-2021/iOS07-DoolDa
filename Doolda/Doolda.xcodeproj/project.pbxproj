@@ -98,6 +98,7 @@
 		317FB611274A9175005DF3A3 /* SettingsViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB610274A9175005DF3A3 /* SettingsViewCoordinator.swift */; };
 		317FB613274AA879005DF3A3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB612274AA879005DF3A3 /* SettingsTableViewCell.swift */; };
 		317FB615274B9A92005DF3A3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */; };
+		317FB617274BAAEC005DF3A3 /* DooldaInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
@@ -260,6 +261,7 @@
 		317FB610274A9175005DF3A3 /* SettingsViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewCoordinator.swift; sourceTree = "<group>"; };
 		317FB612274AA879005DF3A3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaInfoType.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -702,6 +704,7 @@
 				1DBF5714273A2C5100D28F5E /* FontColorType.swift */,
 				31012597273842DA00E43160 /* TextComponentEntity.swift */,
 				3101259B2738430200E43160 /* StickerPackEntity.swift */,
+				317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1019,6 +1022,7 @@
 				1D9DC09F274A0E290060587B /* FilterOptionBottomSheetViewModel.swift in Sources */,
 				319C222D273CEFBB009CE65C /* CIImage+Extension.swift in Sources */,
 				661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */,
+				317FB617274BAAEC005DF3A3 /* DooldaInfoType.swift in Sources */,
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
 				FCD24D7827439717000203F7 /* GlobalFontUseCase.swift in Sources */,
 				1D999464274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift in Sources */,
