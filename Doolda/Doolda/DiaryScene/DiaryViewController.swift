@@ -34,6 +34,7 @@ class DiaryViewController: UIViewController {
         )
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
+        collectionView.backgroundView = self.pageCollectionBackgroundView
         return collectionView
     }()
     
@@ -53,7 +54,7 @@ class DiaryViewController: UIViewController {
     
     private lazy var pageCollectionBackgroundView: DiaryBackgroundView = {
         let backgroundView = DiaryBackgroundView()
-        backgroundView.image = UIImage.hedgehogWriting
+        backgroundView.image = UIImage.hedgehogFrustrated
         backgroundView.title = "표시될 페이지가 없어요!"
         return backgroundView
     }()
@@ -125,7 +126,6 @@ class DiaryViewController: UIViewController {
     
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
-        
         self.title = "둘다"
         
         self.navigationController?.navigationBar.barTintColor = .dooldaBackground
@@ -135,11 +135,6 @@ class DiaryViewController: UIViewController {
             UIBarButtonItem(customView: self.filterButton)
         ]
         
-        self.view.addSubview(self.pageCollectionBackgroundView)
-        self.pageCollectionBackgroundView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
         self.view.addSubview(self.pageCollectionView)
         self.pageCollectionView.snp.makeConstraints { make in
             make.topMargin.bottomMargin.leading.trailing.equalToSuperview()
@@ -147,6 +142,7 @@ class DiaryViewController: UIViewController {
     }
     
     private func configureFont() {
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
         self.pageCollectionBackgroundView.titleFont = .systemFont(ofSize: 35)
         self.pageCollectionBackgroundView.subtitleFont = .systemFont(ofSize: 20)
     }
