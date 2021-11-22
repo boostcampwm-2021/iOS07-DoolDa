@@ -93,6 +93,9 @@
 		3161EE9A274377E300B922DD /* PackedStickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3161EE99274377E300B922DD /* PackedStickerCollectionViewCell.swift */; };
 		3161EE9C274377F400B922DD /* UnpackedStickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3161EE9B274377F400B922DD /* UnpackedStickerCollectionViewCell.swift */; };
 		317FB60B274A3851005DF3A3 /* StickerPickerCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB60A274A3850005DF3A3 /* StickerPickerCollectionViewFooter.swift */; };
+		317FB60D274A8F59005DF3A3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB60C274A8F59005DF3A3 /* SettingsViewController.swift */; };
+		317FB60F274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB60E274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift */; };
+		317FB611274A9175005DF3A3 /* SettingsViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB610274A9175005DF3A3 /* SettingsViewCoordinator.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
@@ -160,7 +163,7 @@
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		FCC803F62744C22F00FFE4DC /* DoolDaFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F52744C22F00FFE4DC /* DoolDaFont.swift */; };
-		FCC803F82744FEF800FFE4DC /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F72744FEF800FFE4DC /* SettingViewModel.swift */; };
+		FCC803F82744FEF800FFE4DC /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F72744FEF800FFE4DC /* SettingsViewModel.swift */; };
 		FCC803FA27451A8000FFE4DC /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F927451A8000FFE4DC /* TextEditViewController.swift */; };
 		FCC803FC27451C9600FFE4DC /* TextEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803FB27451C9600FFE4DC /* TextEditViewModel.swift */; };
 		FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF022E273A12B400EAB00B /* EditPageViewController.swift */; };
@@ -251,6 +254,9 @@
 		3161EE99274377E300B922DD /* PackedStickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackedStickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		3161EE9B274377F400B922DD /* UnpackedStickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpackedStickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		317FB60A274A3850005DF3A3 /* StickerPickerCollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerCollectionViewFooter.swift; sourceTree = "<group>"; };
+		317FB60C274A8F59005DF3A3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		317FB60E274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		317FB610274A9175005DF3A3 /* SettingsViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewCoordinator.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -315,7 +321,7 @@
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCC803F52744C22F00FFE4DC /* DoolDaFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoolDaFont.swift; sourceTree = "<group>"; };
-		FCC803F72744FEF800FFE4DC /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		FCC803F72744FEF800FFE4DC /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		FCC803F927451A8000FFE4DC /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		FCC803FB27451C9600FFE4DC /* TextEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewModel.swift; sourceTree = "<group>"; };
 		FCCF022E273A12B400EAB00B /* EditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewController.swift; sourceTree = "<group>"; };
@@ -390,7 +396,10 @@
 		1D9FAD492747B6D400198B93 /* SettingsScene */ = {
 			isa = PBXGroup;
 			children = (
-				FCC803F72744FEF800FFE4DC /* SettingViewModel.swift */,
+				317FB60C274A8F59005DF3A3 /* SettingsViewController.swift */,
+				FCC803F72744FEF800FFE4DC /* SettingsViewModel.swift */,
+				317FB610274A9175005DF3A3 /* SettingsViewCoordinator.swift */,
+				317FB60E274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift */,
 			);
 			path = SettingsScene;
 			sourceTree = "<group>";
@@ -1030,6 +1039,7 @@
 				66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */,
 				1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */,
 				66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */,
+				317FB611274A9175005DF3A3 /* SettingsViewCoordinator.swift in Sources */,
 				1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */,
 				66CD645A273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift in Sources */,
 				1D3925B5273B9172003A0B70 /* DateFormatter+Extensions.swift in Sources */,
@@ -1068,16 +1078,18 @@
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
 				317FB60B274A3851005DF3A3 /* StickerPickerCollectionViewFooter.swift in Sources */,
 				66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */,
+				317FB60F274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift in Sources */,
 				310125C427398DF600E43160 /* ImageUseCase.swift in Sources */,
 				66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */,
 				FCD24D7C2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
-				FCC803F82744FEF800FFE4DC /* SettingViewModel.swift in Sources */,
+				FCC803F82744FEF800FFE4DC /* SettingsViewModel.swift in Sources */,
 				1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */,
 				3161EE9A274377E300B922DD /* PackedStickerCollectionViewCell.swift in Sources */,
 				3161EE942742A44100B922DD /* StickerPickerBottomSheetViewController.swift in Sources */,
 				FCC803F62744C22F00FFE4DC /* DoolDaFont.swift in Sources */,
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
+				317FB60D274A8F59005DF3A3 /* SettingsViewController.swift in Sources */,
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
 				FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */,
 				6653039B2743B3FF00E3075C /* CoreDataModel.xcdatamodeld in Sources */,
