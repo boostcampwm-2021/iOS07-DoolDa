@@ -30,6 +30,8 @@ extension FirebaseAPIs {
         switch self {
         case .uploadDataFile(let pairId, let fileName, _), .downloadDataFile(let pairId, let fileName):
             return URL(string: "https://firebasestorage.googleapis.com/v0/b/doolda.appspot.com/o/\(pairId)%2F\(fileName)")
+        case .sendFirebaseMessage:
+            return URL(string: "https://fcm.googleapis.com/fcm/send")
         default:
             return URL(string: "https://firestore.googleapis.com/v1/projects/doolda/databases/(default)/")
         }
