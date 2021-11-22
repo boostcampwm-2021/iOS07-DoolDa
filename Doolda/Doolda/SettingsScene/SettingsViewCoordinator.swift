@@ -35,12 +35,6 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
         }
     }
 
-    func dismissSettings() {
-        DispatchQueue.main.async {
-            self.presenter.popViewController(animated: true)
-        }
-    }
-
     func settingsOptionRequested(title: String ,text: String) {
         let viewController = SettingsOptionViewController(title: title, content: text)
         self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
