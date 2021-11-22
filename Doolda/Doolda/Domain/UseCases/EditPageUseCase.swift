@@ -34,9 +34,7 @@ protocol EditPageUseCaseProtocol {
     func removeComponent()
     func addComponent(_ component: ComponentEntity)
     
-    func changeTextComponentColor(into color: FontColorType)
-    func changeTextCompnentFontSize(into size: CGFloat)
-    func changeTextComponentContent(into content: String)
+    func changeTextComponent(into content: TextComponentEntity)
     
     func changeBackgroundType(_ backgroundType: BackgroundType)
     func savePage(author: User)
@@ -134,23 +132,9 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         self.selectedComponent = component
         self.selectedComponent = self.selectedComponent
     }
-
-    func changeTextComponentColor(into color: FontColorType) {
-        guard let selectedComponent = self.selectedComponent as? TextComponentEntity else { return }
-        selectedComponent.fontColor = color
-        self.selectedComponent = selectedComponent
-    }
     
-    func changeTextCompnentFontSize(into size: CGFloat) {
-        guard let selectedComponent = self.selectedComponent as? TextComponentEntity else { return }
-        selectedComponent.fontSize = size
-        self.selectedComponent = selectedComponent
-    }
-    
-    func changeTextComponentContent(into content: String) {
-        guard let selectedComponent = self.selectedComponent as? TextComponentEntity else { return }
-        selectedComponent.text = content
-        self.selectedComponent = selectedComponent
+    func changeTextComponent(into content: TextComponentEntity) {
+        self.selectedComponent = content
     }
     
     func changeBackgroundType(_ backgroundType: BackgroundType) {

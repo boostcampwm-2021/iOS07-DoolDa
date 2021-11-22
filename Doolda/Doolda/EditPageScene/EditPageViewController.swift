@@ -299,6 +299,11 @@ class EditPageViewController: UIViewController {
                 
                 componentView.transform = CGAffineTransform.identity
                 self.pageControlView.componentSpaceView.transform = CGAffineTransform.identity
+                
+                if let textComponentEntity = componentEntity as? TextComponentEntity,
+                   let textComponentView = componentView as? UITextView {
+                    textComponentView.text = textComponentEntity.text
+                }
 
                 let computedCGRect = CGRect(
                     origin: self.computePointFromAbsolute(at: componentEntity.origin),
@@ -310,6 +315,7 @@ class EditPageViewController: UIViewController {
                 
                 componentView.layer.frame = computedCGRect
                 self.pageControlView.componentSpaceView.frame = computedCGRect
+                
                 let transform = CGAffineTransform.identity.rotated(
                     by: componentEntity.angle
                 ).scaledBy(
@@ -501,7 +507,11 @@ extension EditPageViewController: StickerPickerBottomSheetViewControllerDelegate
 }
 
 extension EditPageViewController: TextEditViewControllerDelegate {
-    func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity) {
+    func textInputDidEndInput(_ textComponentEntity: TextComponentEntity) {
         self.viewModel?.componentEntityDidAdd(textComponentEntity)
+    }
+    
+    func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity) {
+        self.viewModel?.textComponentDidChange(as: textComponentEntity)
     }
 }
