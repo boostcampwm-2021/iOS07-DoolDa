@@ -5,6 +5,7 @@
 //  Created by Dozzing on 2021/11/22.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -26,6 +27,10 @@ class SettingsOptionViewController: UIViewController {
 
     private var contentView: UIView = UIView()
 
+    // MARK: - Private Properties
+
+    private var cancellables: Set<AnyCancellable> = []
+
     // MARK: - Initializers
 
     convenience init(title: String, content: UIView) {
@@ -33,6 +38,7 @@ class SettingsOptionViewController: UIViewController {
         self.navigationItem.title = title
         self.contentView = contentView
         self.configureUI()
+        self.bindUI()
     }
 
     // MARK: - Helpers
@@ -53,6 +59,14 @@ class SettingsOptionViewController: UIViewController {
             make.leading.equalTo(self.scrollView.frameLayoutGuide).offset(16)
             make.trailing.equalTo(self.scrollView.frameLayoutGuide).offset(-16)
         }
+    }
+
+    private func bindUI() {
+        self.backButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &self.cancellables)
     }
 
 }
