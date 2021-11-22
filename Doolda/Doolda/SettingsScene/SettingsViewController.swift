@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
 
     struct SettingsOptions {
         let cell: UITableViewCell
-        let handler: () -> ()
+        let handler: (() -> ())?
     }
 
     // MARK: - Subviews
@@ -47,10 +47,46 @@ class SettingsViewController: UIViewController {
     private var cancellables: Set<AnyCancellable> = []
 
     private lazy var settingsSections: [SettingsSection] = {
-        var sections: [SettingsSection] = []
+        let alertOption = SettingsOptions(
+            cell: SettingsTableViewCell(title: "푸시 알림 허용", rightItem: UILabel()),
+            handler: nil
+        )
 
-        //let alertOption = SettingsOptions(cell: <#T##UITableViewCell#>, handler: <#T##() -> ()#>)
+        let fontOption = SettingsOptions(
+            cell: SettingsTableViewCell(title: "폰트 설정", rightItem: UILabel()),
+            handler: nil
+        )
 
+        let appVersionLabel = UILabel()
+        appVersionLabel.text = DooldaInfoType.appVersion.rawValue
+        let appVersionOption = SettingsOptions(
+            cell: SettingsTableViewCell(title: "앱 현재 버전", rightItem: appVersionLabel),
+            handler: nil
+        )
+
+        let forwardImageView = UIImageView(image: .right)
+        let openSourceOption = SettingsOptions(
+            cell: SettingsTableViewCell(title: "Open Source License", rightItem: forwardImageView),
+            handler: self.viewModel.openSourceLicenseDidTap
+        )
+
+        let privacyOption = SettingsOptions(
+            cell: SettingsTableViewCell(title: "개인 정보 처리 방침", rightItem: forwardImageView),
+            handler: self.viewModel.privacyPolicyDidTap
+        )
+
+        let contributorsOption = SettingsOptions(
+            cell: SettingsTableViewCell(title: "만든 사람들", rightItem: forwardImageView),
+            handler: self.viewModel.contributorDidTap
+        )
+
+        let appSection = SettingsSection(title: "앱 설정", settingsOptions: [alertOption, fontOption])
+        let serviceSection = SettingsSection(
+            title: "서비스 정보",
+            settingsOptions: [appVersionOption, openSourceOption, privacyOption, contributorsOption]
+        )
+
+        let sections: [SettingsSection] = [appSection, serviceSection]
         return sections
     }()
 
