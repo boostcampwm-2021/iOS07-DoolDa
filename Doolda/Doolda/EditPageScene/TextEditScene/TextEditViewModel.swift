@@ -10,7 +10,9 @@ import Foundation
 
 protocol TextEditViewModelProtocol {
     var selectedTextComponent: TextComponentEntity? { get }
-    func inputViewEditingDidEnd(input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity
+    func getFontColorCount() -> Int
+    func getFontColor(at index: Int) -> CGColor?
+    func inputViewEditingDidEnd(input: String, contentSize: CGSize, fontSize:CGFloat, colorIndex: Int) -> TextComponentEntity?
 }
 
 class TextEditViewModel: TextEditViewModelProtocol {
@@ -22,7 +24,16 @@ class TextEditViewModel: TextEditViewModelProtocol {
         self.selectedTextComponent = selectedTextComponent
     }
     
-    func inputViewEditingDidEnd(input: String, contentSize: CGSize, fontSize: CGFloat, color: FontColorType) -> TextComponentEntity {
+    func getFontColorCount() -> Int {
+        return self.textUseCase.fontColors.count
+    }
+    
+    func getFontColor(at index: Int) -> CGColor? {
+        return self.textUseCase.getFontColor(at: index)?.rawValue
+    }
+    
+    func inputViewEditingDidEnd(input: String, contentSize: CGSize, fontSize: CGFloat, colorIndex: Int) -> TextComponentEntity? {
+        guard let color = self.textUseCase.getFontColor(at: colorIndex) else { return nil }
         if let selectedTextComponent = selectedTextComponent {
             return self.textUseCase.changeTextComponent(
                 from: selectedTextComponent,

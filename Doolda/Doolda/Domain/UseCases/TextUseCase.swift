@@ -9,12 +9,30 @@ import CoreGraphics
 import Foundation
 
 protocol TextUseCaseProtocol {
+    var fontColors: [FontColorType] { get }
+    func getFontColor(at index: Int) -> FontColorType? 
     func changeTextComponent(from textComponent: TextComponentEntity, with input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity
     func getTextComponent(with input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity
 }
 
 class TextUseCase: TextUseCaseProtocol {
-    func changeTextComponent(from textComponent: TextComponentEntity, with input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity {
+    let fontColors: [FontColorType]
+    
+    init() {
+        self.fontColors = FontColorType.allCases
+    }
+    
+    func getFontColor(at index: Int) -> FontColorType? {
+        return fontColors[index]
+    }
+    
+    func changeTextComponent(
+        from textComponent: TextComponentEntity,
+        with input: String,
+        contentSize: CGSize,
+        fontSize:CGFloat,
+        color: FontColorType
+    ) -> TextComponentEntity {
         textComponent.text = input
         textComponent.frame.size = contentSize
         textComponent.fontSize = fontSize
