@@ -19,6 +19,7 @@ protocol DiaryViewModelInput {
     func filterOptionDidChange(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
     func filterBottomSheetDidDismiss()
     func pageDidDisplay(jsonPath: String) -> AnyPublisher<RawPageEntity, Error>
+    func getDate(of index: Int) -> Date?
 }
 
 protocol DiaryViewModelOutput {
@@ -175,6 +176,10 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     func filterOptionDidChange(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {
         self.filterPageEntities(entities: self.pageEntities, authorFilter: author, orderFilter: orderBy)
+    }
+    
+    func getDate(of index: Int) -> Date? {
+        return filteredPageEntities[exist: index]?.timeStamp
     }
     
     private func fetchPages() {
