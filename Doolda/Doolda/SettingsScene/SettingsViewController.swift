@@ -12,6 +12,16 @@ import SnapKit
 
 class SettingsViewController: UIViewController {
 
+    struct SettingsSection {
+        let title: String
+        var settingsOptions: [SettingsOptions]
+    }
+
+    struct SettingsOptions {
+        let cell: UITableViewCell
+        let handler: () -> ()
+    }
+
     // MARK: - Subviews
 
     private lazy var backButton: UIButton = {
@@ -35,6 +45,14 @@ class SettingsViewController: UIViewController {
 
     private var viewModel: SettingsViewModelProtocol!
     private var cancellables: Set<AnyCancellable> = []
+
+    private lazy var settingsSections: [SettingsSection] = {
+        var sections: [SettingsSection] = []
+
+        
+
+        return sections
+    }()
 
     // MARK: - Initializers
 
