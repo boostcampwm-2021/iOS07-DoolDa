@@ -93,15 +93,15 @@ class BottomSheetViewController: UIViewController {
     
     // MARK: - Override Methods
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        let duration = flag ? 0.25 : 0.0
+    override func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
+        let duration = animated ? 0.25 : 0.0
         
         if self.presentedViewController == nil {
             hideBottomSheet(duration: duration) {
                 super.dismiss(animated: false, completion: completion)
             }
         } else {
-            super.dismiss(animated: flag, completion: completion)
+            super.dismiss(animated: animated, completion: completion)
         }
     }
     
