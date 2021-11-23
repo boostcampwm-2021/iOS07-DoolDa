@@ -22,6 +22,7 @@ enum RawPageRepositoryError: LocalizedError {
 
 class RawPageRepository: RawPageRepositoryProtocol {
     private let networkService: URLSessionNetworkServiceProtocol
+    private let coreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol
     private let fileManagerPersistenceService: FileManagerPersistenceServiceProtocol
     private let encoder: JSONEncoder
     
@@ -29,10 +30,12 @@ class RawPageRepository: RawPageRepositoryProtocol {
     
     init(
         networkService: URLSessionNetworkServiceProtocol,
+        coreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol,
         fileManagerPersistenceService: FileManagerPersistenceServiceProtocol,
         encoder: JSONEncoder = JSONEncoder()
     ) {
         self.networkService = networkService
+        self.coreDataPageEntityPersistenceService = coreDataPageEntityPersistenceService
         self.fileManagerPersistenceService = fileManagerPersistenceService
         self.encoder = encoder
     }

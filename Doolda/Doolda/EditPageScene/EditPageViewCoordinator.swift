@@ -37,6 +37,7 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
             )
             let rawPageRepository = RawPageRepository(
                 networkService: urlSessionNetworkService,
+                coreDataPageEntityPersistenceService: coreDataPageEntityPersistenceService,
                 fileManagerPersistenceService: fileManagerPersistenceService
             )
             let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
