@@ -57,7 +57,9 @@ class TextEditViewController: UIViewController {
         }
         didSet {
             guard let currentColor = self.viewModel.getFontColor(at: self.currentColorIndex) else { return }
-            self.inputTextView.textColor = UIColor(cgColor: currentColor)
+            if self.inputTextView.textColor != .systemGray {
+                self.inputTextView.textColor = UIColor(cgColor: currentColor)
+            }
             self.fontColorView.collectionView.reloadItems(
                 at: [
                     IndexPath(item: self.currentColorIndex, section: 0),
@@ -186,8 +188,9 @@ extension TextEditViewController: UITextViewDelegate {
             } else {
                 textView.text = ""
             }
-            textView.textColor = .black
-        } else if textView.textColor == .black, textView.text.isEmpty {
+            guard let currentColor = self.viewModel.getFontColor(at: self.currentColorIndex) else { return }
+            textView.textColor = UIColor(cgColor: currentColor)
+        } else if textView.textColor != .systemGray, textView.text.isEmpty {
             textView.textColor = .systemGray
             textView.text = "내용을 입력하세요"
         }
