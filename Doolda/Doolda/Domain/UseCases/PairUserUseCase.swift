@@ -117,8 +117,8 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                       case .failure = completion else { return }
                 
                 let pairId = DDID()
-                let user = User(id: user.id, pairId: pairId)
-                let friend = User(id: friend.id, pairId: pairId)
+                let user = User(id: user.id, pairId: pairId, friendId: friend.id)
+                let friend = User(id: friend.id, pairId: pairId, friendId: user.id)
                 
                 Publishers.Zip3(
                     self.userRepository.setUser(user),

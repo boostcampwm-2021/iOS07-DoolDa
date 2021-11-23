@@ -10,14 +10,17 @@ import Foundation
 struct User: Hashable {
     let id: DDID
     var pairId: DDID?
+    var friendId: DDID?
     
-    init(id: DDID, pairId: DDID? = nil) {
+    init(id: DDID, pairId: DDID? = nil, friendId: DDID? = nil) {
         self.id = id
         self.pairId = pairId
+        self.friendId = friendId
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(pairId)
+        hasher.combine(friendId)
     }
 }

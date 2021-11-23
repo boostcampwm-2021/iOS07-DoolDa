@@ -14,15 +14,21 @@ struct UserDocument: Codable {
     var pairId: String? {
         return self.fields["pairId"]?["stringValue"]
     }
+    var friendId: String? {
+        return self.fields["friendId"]?["stringValue"]
+    }
     
     let name: String
     let fields: [String: [String: String]]
     
-    init(userId: String, pairId: String) {
+    init(userId: String, pairId: String, friendId: String) {
         self.name = userId
         self.fields = [
             "pairId": [
                 "stringValue": pairId
+            ],
+            "friendId": [
+                "stringValue": friendId
             ]
         ]
     }
@@ -30,7 +36,8 @@ struct UserDocument: Codable {
     func toUser() -> User? {
         guard let userIdString = self.userId,
               let userDDID = DDID(from: userIdString),
-              let pairIdString = self.pairId else { return nil }
-        return User(id: userDDID, pairId: DDID(from: pairIdString))
+              let pairIdString = self.pairId,
+              let friendIdString = self.friendId else { return nil }
+        return User(id: userDDID, pairId: DDID(from: pairIdString), friendId: DDID(from: friendIdString))
     }
 }
