@@ -26,15 +26,22 @@ class PairingViewCoordinator: PairingViewCoordinatorProtocol {
         )
         
         let pairRepository = PairRepository(networkService: urlSessionNetworkService)
+        let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
+        let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 
         let pairUserUseCase = PairUserUseCase(userRepository: userRepository, pairRepository: pairRepository)
         let refreshUserUseCase = RefreshUserUseCase(userRepository: userRepository)
+        let firebaseMessageUseCase = FirebaseMessageUseCase(
+            fcmTokenRepository: fcmTokenRepository,
+            firebaseMessageRepository: firebaseMessageRepository
+        )
 
         let viewModel = PairingViewModel(
             user: user,
             coordinator: self,
             pairUserUseCase: pairUserUseCase,
-            refreshUserUseCase: refreshUserUseCase
+            refreshUserUseCase: refreshUserUseCase,
+            firebaseMessageUseCase: firebaseMessageUseCase
         )
 
         DispatchQueue.main.async {
