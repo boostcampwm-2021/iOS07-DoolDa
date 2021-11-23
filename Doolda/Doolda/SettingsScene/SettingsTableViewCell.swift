@@ -5,11 +5,16 @@
 //  Created by Dozzing on 2021/11/22.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
 class SettingsTableViewCell: UITableViewCell {
+
+    enum Style {
+        case detail, disclosure
+    }
 
     // MARK: - Static Properties
 
@@ -17,22 +22,32 @@ class SettingsTableViewCell: UITableViewCell {
 
     // MARK: - Subviews
 
-    private lazy var title: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
         label.textColor = .dooldaLabel
+        label.text = "title"
         return label
     }()
 
-    private var rightItem: UIView = UIView()
+    // MARK: - Public Properties
+
+    @Published var title: String?
+    @Published var detailText: String?
+    @Published var font: UIFont?
+
+    // MARK: - Private Properties
+
+    private var style: Style?
+    private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - Initializers
 
-    convenience init(title: String, rightItem: UIView) {
+    convenience init(style: Style) {
         self.init()
-        self.title.text = title
-        self.rightItem = rightItem
+        self.style = style
         self.configureUI()
+        self.bindUI()
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -48,21 +63,28 @@ class SettingsTableViewCell: UITableViewCell {
     private func configureUI() {
         self.backgroundColor = .clear
 
-        self.contentView.addSubview(self.rightItem)
-        self.rightItem.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
-            make.bottom.equalToSuperview().offset(-12)
-            make.trailing.equalToSuperview().offset(-16)
-            make.width.equalTo(self.rightItem.intrinsicContentSize.width)
-        }
-
-        self.contentView.addSubview(self.title)
-        self.title.snp.makeConstraints { make in
+        self.contentView.addSubview(self.titleLabel)
+        self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.bottom.equalToSuperview().offset(-12)
             make.leading.equalToSuperview().offset(16)
-            make.trailing.equalTo(self.rightItem.snp.leading)
+            make.trailing.equalToSuperview().multipliedBy(0.6)
         }
+
+        switch self.style {
+        case .disclosure:
+            self.accessoryType = .disclosureIndicator
+        default: return
+        }
+    }
+
+    private func bindUI() {
+        self.$title
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] title in
+                self?.titleLabel.text = title
+            }
+            .store(in: &self.cancellables)
     }
     
 }
