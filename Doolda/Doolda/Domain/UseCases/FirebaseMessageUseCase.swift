@@ -10,14 +10,12 @@ import Foundation
 
 protocol FirebaseMessageUseCaseProtocol {
     var errorPublisher: Published<Error?>.Publisher { get }
-    var isMessageSentPublisher: Published<Bool?>.Publisher { get }
     
     func sendMessage(to user: DDID, message: PushMessageEntity)
 }
 
 class FirebaseMessageUseCase: FirebaseMessageUseCaseProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
-    var isMessageSentPublisher: Published<Bool?>.Publisher { self.$isMessageSent }
     
     private let fcmTokenRepository: FCMTokenRepositoryProtocol
     private let firebaseMessageRepository: FirebaseMessageRepositoryProtocol
@@ -25,7 +23,6 @@ class FirebaseMessageUseCase: FirebaseMessageUseCaseProtocol {
     private var cancellables: Set<AnyCancellable> = []
     
     @Published private var error: Error?
-    @Published private var isMessageSent: Bool?
     
     init(fcmTokenRepository: FCMTokenRepositoryProtocol, firebaseMessageRepository: FirebaseMessageRepositoryProtocol) {
         self.fcmTokenRepository = fcmTokenRepository
@@ -48,9 +45,7 @@ class FirebaseMessageUseCase: FirebaseMessageUseCaseProtocol {
                     .sink { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
                         self?.error = error
-                    } receiveValue: { [weak self] _ in
-                        self?.isMessageSent = true
-                    }
+                    } receiveValue: { _ in }
                     .store(in: &self.cancellables)
             }
             .store(in: &self.cancellables)
