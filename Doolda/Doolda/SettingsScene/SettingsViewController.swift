@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController {
     }
 
     struct SettingsOptions {
-        let cell: UITableViewCell
+        let cell: SettingsTableViewCell
         let handler: (() -> Void)?
     }
 
@@ -36,17 +36,12 @@ class SettingsViewController: UIViewController {
         return tableView
     }()
 
-    // MARK: - Private Properties
-
-    private var viewModel: SettingsViewModelProtocol!
-    private var cancellables: Set<AnyCancellable> = []
-
     private lazy var settingsSections: [SettingsSection] = {
-        let alertCell = SettingsTableViewCell(style: .disclosure)
+        let alertCell = SettingsTableViewCell(style: .detail)
         alertCell.title = "푸시 알림 허용"
         let alertOption = SettingsOptions(cell: alertCell, handler: nil)
 
-        let fontCell = SettingsTableViewCell(style: .disclosure)
+        let fontCell = SettingsTableViewCell(style: .detail)
         fontCell.title = "폰트 설정"
         let fontOption = SettingsOptions(cell: fontCell, handler: nil)
 
@@ -77,6 +72,11 @@ class SettingsViewController: UIViewController {
         return sections
     }()
 
+    // MARK: - Private Properties
+
+    private var viewModel: SettingsViewModelProtocol!
+    private var cancellables: Set<AnyCancellable> = []
+
     // MARK: - Initializers
 
     convenience init(viewModel: SettingsViewModelProtocol) {
@@ -105,6 +105,16 @@ class SettingsViewController: UIViewController {
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+
+        self.configureFont()
+    }
+
+    private func configureFont() {
+        self.settingsSections.forEach { section in
+            section.settingsOptions.forEach { options in
+                options.cell.font = .systemFont(ofSize: 16)
+            }
         }
     }
 
