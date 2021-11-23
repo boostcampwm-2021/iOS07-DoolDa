@@ -157,6 +157,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(44)
             make.bottom.equalToSuperview().offset(-32)
+            make.top.equalTo(self.contentFrame.snp.bottom).offset(10).priority(.low)
         }
         
         self.view.addSubview(self.activityIndicator)
