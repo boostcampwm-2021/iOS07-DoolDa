@@ -31,6 +31,7 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
         
         let rawPageRepository = RawPageRepository(
             networkService: urlSessionNetworkService,
+            coreDataPageEntityPersistenceService: coreDataPageEntityPersistenceService,
             fileManagerPersistenceService: fileManagerPersistenceService
         )
         
