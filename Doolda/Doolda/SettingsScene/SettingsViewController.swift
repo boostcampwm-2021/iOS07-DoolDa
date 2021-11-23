@@ -184,3 +184,9 @@ extension SettingsViewController: UITableViewDataSource {
         return cell
     }
 }
+
+extension SettingsViewController: FontPickerViewControllerDelegate {
+    func fontDidSelect(_ font: FontType) {
+        self.viewModel.fontTypeDidChanged(font.name)
+    }
+}
