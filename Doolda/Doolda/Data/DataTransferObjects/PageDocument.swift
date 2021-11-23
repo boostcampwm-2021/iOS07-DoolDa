@@ -61,6 +61,6 @@ struct PageDocument: Codable {
               let timeStamp = self.timeStamp,
               let formattedDate = DateFormatter.firestoreFormatter.date(from: timeStamp),
               let jsonPath = self.jsonPath else { return nil }
-        return PageEntity(author: User(id: authorDDID, pairId: pairDDID), timeStamp: formattedDate, jsonPath: jsonPath)
+        return PageEntity(author: User(id: authorDDID, pairId: pairDDID), createdTime: formattedDate, jsonPath: jsonPath)
     }
 }

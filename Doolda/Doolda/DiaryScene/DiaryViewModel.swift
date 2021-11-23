@@ -185,7 +185,7 @@ class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func getDate(of index: Int) -> Date? {
-        return filteredPageEntities[exist: index]?.timeStamp
+        return filteredPageEntities[exist: index]?.createdTime
     }
     
     private func fetchPages() {
@@ -207,7 +207,7 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     private func filterPageEntities(entities: [PageEntity], authorFilter: DiaryAuthorFilter, orderFilter: DiaryOrderFilter) {
         let filtered = entities.filter { authorFilter == .both ? true : (authorFilter == .user ? ($0.author.id == self.user.id) : ($0.author.id != self.user.id)) }
-        let ordered = filtered.sorted { orderFilter == .descending ? ($0.timeStamp >= $1.timeStamp) : ($0.timeStamp <= $1.timeStamp) }
+        let ordered = filtered.sorted { orderFilter == .descending ? ($0.createdTime >= $1.createdTime) : ($0.createdTime <= $1.createdTime) }
         self.filteredPageEntities = ordered
     }
 }

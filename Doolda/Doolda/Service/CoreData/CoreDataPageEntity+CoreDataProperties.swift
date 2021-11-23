@@ -25,14 +25,14 @@ extension CoreDataPageEntity {
               let timeStamp = timeStamp,
               let jsonPath = jsonPath else { return nil }
         
-        return PageEntity(author: User(id: id, pairId: pairId), timeStamp: timeStamp, jsonPath: jsonPath)
+        return PageEntity(author: User(id: id, pairId: pairId), createdTime: timeStamp, jsonPath: jsonPath)
     }
     
     func update(_ pageEntity: PageEntity) {
         self.id = pageEntity.author.id.ddidString
         self.pairId = pageEntity.author.pairId?.ddidString
         self.jsonPath = pageEntity.jsonPath
-        self.timeStamp = pageEntity.timeStamp
+        self.timeStamp = pageEntity.createdTime
     }
 }
 

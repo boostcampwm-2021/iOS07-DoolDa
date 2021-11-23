@@ -216,7 +216,7 @@ class DiaryViewController: UIViewController {
                 
                 guard let viewModel = self?.viewModel else { return nil }
                 cell.displayRawPage(with: viewModel.pageDidDisplay(jsonPath: pageEntity.jsonPath))
-                cell.timestamp = pageEntity.timeStamp
+                cell.timestamp = pageEntity.createdTime
                 return cell
         })
         
