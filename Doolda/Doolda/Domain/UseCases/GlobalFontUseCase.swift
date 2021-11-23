@@ -10,7 +10,7 @@ import UIKit
 protocol GlobalFontUseCaseProtocol {
     func setGlobalFont(with fontName: String)
     func saveGlobalFont(as fontName: String)
-    func getGlobalFont() -> String?
+    func getGlobalFont() -> FontType?
 }
 
 class GlobalFontUseCase: GlobalFontUseCaseProtocol {
@@ -28,7 +28,8 @@ class GlobalFontUseCase: GlobalFontUseCaseProtocol {
         self.globalFontRepository.saveGlobalFont(as: fontName)
     }
     
-    func getGlobalFont() -> String? {
-        return self.globalFontRepository.getGlobalFont()
+    func getGlobalFont() -> FontType? {
+        guard let fontName = self.globalFontRepository.getGlobalFont() else { return nil }
+        return FontType(fontName: fontName)
     }
 }
