@@ -155,6 +155,7 @@
 		FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
 		FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */; };
 		FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */; };
+		FC51FA6B274C7D910069D39C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FC51FA6A274C7D910069D39C /* Config.xcconfig */; };
 		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
 		FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* PairDocument.swift */; };
@@ -236,7 +237,6 @@
 		1DBF5714273A2C5100D28F5E /* FontColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorType.swift; sourceTree = "<group>"; };
 		1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameType.swift; sourceTree = "<group>"; };
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
-		1DDADCB2274BCB29000330C9 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		1DDADCB3274BCE63000330C9 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		1DE5E5372738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
@@ -319,6 +319,7 @@
 		FC28CB31274609F300BA47BB /* TextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCase.swift; sourceTree = "<group>"; };
 		FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorPickerView.swift; sourceTree = "<group>"; };
 		FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC51FA6A274C7D910069D39C /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* PairDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDocument.swift; sourceTree = "<group>"; };
@@ -950,6 +951,7 @@
 				66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */,
 				66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
+				FC51FA6B274C7D910069D39C /* Config.xcconfig in Resources */,
 				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
 				1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */,
 			);
@@ -1400,7 +1402,6 @@
 		};
 		664893D2273007F1009F03E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DDADCB2274BCB29000330C9 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1430,7 +1431,6 @@
 		};
 		664893D3273007F1009F03E2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DDADCB2274BCB29000330C9 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
