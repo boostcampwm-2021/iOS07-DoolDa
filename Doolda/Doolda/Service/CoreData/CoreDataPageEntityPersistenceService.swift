@@ -27,6 +27,33 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
         self.coreDataPersistenceService = coreDataPersistenceService
     }
     
+    func isPageEntityUpToDate(_ pageEntity: PageEntity) -> AnyPublisher<Bool, Error> {
+        guard let context = coreDataPersistenceService.backgroundContext else {
+            return Fail(error: CoreDataPageEntityPersistenceServiceError.failedToInitializeCoreDataContainer).eraseToAnyPublisher()
+        }
+        
+        return Future { promise in
+            context.perform {
+                do {
+                    let fetchRequest = CoreDataPageEntity.fetchRequest()
+                    fetchRequest.predicate = NSPredicate(
+                        format: "%K == %@",
+                        #keyPath(CoreDataPageEntity.createdTime),
+                        pageEntity.createdTime as NSDate
+                    )
+                    
+                    guard let fetchResult = try context.fetch(fetchRequest).first else {
+                        return promise(.failure(RawPageRepositoryError.failedToFetchRawPage))
+                    }
+                    promise(.success(fetchResult.isUpToDate))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
     func fetchPageEntities() -> AnyPublisher<[PageEntity], Error> {
         guard let context = coreDataPersistenceService.backgroundContext else {
             return Fail(error: CoreDataPageEntityPersistenceServiceError.failedToInitializeCoreDataContainer).eraseToAnyPublisher()
