@@ -50,10 +50,20 @@ class TextEditViewController: UIViewController {
     private var widthRatioFromAbsolute: CGFloat?
     private var heightRatioFromAbsolute: CGFloat?
     
+    private var previousColorIndex: Int = 0
     private var currentColorIndex: Int = 0 {
+        willSet {
+            self.previousColorIndex = self.currentColorIndex
+        }
         didSet {
             guard let currentColor = self.viewModel.getFontColor(at: self.currentColorIndex) else { return }
             self.inputTextView.textColor = UIColor(cgColor: currentColor)
+            self.fontColorView.collectionView.reloadItems(
+                at: [
+                    IndexPath(item: self.currentColorIndex, section: 0),
+                    IndexPath(item: self.previousColorIndex, section: 0)
+                ]
+            )
         }
     }
     
@@ -241,6 +251,11 @@ extension TextEditViewController: UICollectionViewDataSource {
         else { return UICollectionViewCell() }
         
         cell.configure(with: UIColor(cgColor: cellColor))
+        if indexPath.item == self.currentColorIndex {
+            cell.transform = .init(scaleX: 1.2, y: 1.2)
+        } else {
+            cell.transform = .identity
+        }
         return cell
     }
 }
