@@ -70,23 +70,25 @@ class FontPickerViewController: BottomSheetViewController {
 
         self.body.addSubview(self.bottomSheetTitle)
         self.bottomSheetTitle.snp.makeConstraints { make in
-            make.top.equalTo(self.body).offset(16)
-            make.leading.trailing.equalTo(self.body)
+            make.top.equalToSuperview().offset(16)
+            make.height.equalToSuperview().multipliedBy(0.1)
+            make.leading.trailing.equalToSuperview()
         }
 
         self.body.addSubview(self.applyButton)
         self.applyButton.snp.makeConstraints { make in
-            make.leading.equalTo(self.body).offset(16)
-            make.trailing.equalTo(self.body).offset(-16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(44)
-            make.bottom.equalTo(self.body).offset(-32)
+            make.bottom.equalToSuperview().offset(-32)
         }
 
         self.body.addSubview(self.fontPicker)
         self.fontPicker.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(self.applyButton)
-            make.top.equalTo(self.bottomSheetTitle.snp.bottom).offset(16)
-            make.bottom.equalTo(self.applyButton.snp.top).offset(-16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalTo(self.applyButton.snp.top)
+            make.top.equalTo(self.bottomSheetTitle.snp.bottom).priority(.low)
         }
     }
 
@@ -109,7 +111,20 @@ extension FontPickerViewController: UIPickerViewDataSource {
         return DoolDaFont.allCases.count
     }
 
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return self.body.frame.height / 10
+    }
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return DoolDaFont.allCases[exist: row]?.rawValue
     }
+
+//    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+//        guard let fontName = DoolDaFont.allCases[exist: row]?.rawValue else { return UIView() }
+//        var pickerLabel = view as? UILabel
+//        if pickerLabel == nil { pickerLabel = UILabel() }
+//        pickerLabel?.font = UIFont(name: fontName, size: 16)
+//        pickerLabel?.textAlignment = .center
+//        return pickerLabel ?? UIView()
+//    }
 }
