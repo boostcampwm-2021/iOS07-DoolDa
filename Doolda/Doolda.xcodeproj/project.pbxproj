@@ -51,6 +51,7 @@
 		1D999466274CAB8900C72273 /* FCMTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999465274CAB8900C72273 /* FCMTokenRepository.swift */; };
 		1D999468274CAC4700C72273 /* FCMTokenDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999467274CAC4700C72273 /* FCMTokenDocument.swift */; };
 		1D99946A274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999469274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift */; };
+		1D99946C274CEF2900C72273 /* FirebaseMessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D99946B274CEF2900C72273 /* FirebaseMessageRepository.swift */; };
 		1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */; };
 		1D9DC09F274A0E290060587B /* FilterOptionBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */; };
 		1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A0274A47D50060587B /* DooldaButton.swift */; };
@@ -233,6 +234,7 @@
 		1D999465274CAB8900C72273 /* FCMTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenRepository.swift; sourceTree = "<group>"; };
 		1D999467274CAC4700C72273 /* FCMTokenDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenDocument.swift; sourceTree = "<group>"; };
 		1D999469274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageRepositoryProtocol.swift; sourceTree = "<group>"; };
+		1D99946B274CEF2900C72273 /* FirebaseMessageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageRepository.swift; sourceTree = "<group>"; };
 		1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewController.swift; sourceTree = "<group>"; };
 		1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		1D9DC0A0274A47D50060587B /* DooldaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaButton.swift; sourceTree = "<group>"; };
@@ -639,6 +641,7 @@
 				FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */,
 				FCD24D7227439268000203F7 /* GlobalFontRepository.swift */,
 				1D999465274CAB8900C72273 /* FCMTokenRepository.swift */,
+				1D99946B274CEF2900C72273 /* FirebaseMessageRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1163,6 +1166,7 @@
 				664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */,
 				66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */,
 				66FE936F27356E160036CED2 /* User.swift in Sources */,
+				1D99946C274CEF2900C72273 /* FirebaseMessageRepository.swift in Sources */,
 				FCD24D7327439268000203F7 /* GlobalFontRepository.swift in Sources */,
 				FC5FB7DC2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */,
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
