@@ -20,7 +20,7 @@ enum FirebaseAPIs: URLRequestBuilder {
     case createPageDocument(String, Date, String, String)
     
     case getFCMTokenDocument(String)
-    case putFCMTokenDocument(String, String)
+    case patchFCMTokenDocument(String, String)
 
     case uploadDataFile(String, String, Data)
     case downloadDataFile(String, String)
@@ -56,7 +56,7 @@ extension FirebaseAPIs {
             return "documents:runQuery"
         case .createPageDocument:
             return "documents/page"
-        case .getFCMTokenDocument(let userId), .putFCMTokenDocument(let userId, _):
+        case .getFCMTokenDocument(let userId), .patchFCMTokenDocument(let userId, _):
             return "documents/fcmToken/\(userId)"
         default: return nil
         }
@@ -66,9 +66,9 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var parameters: [String : String]? {
         switch self {
-        case .getUserDocuement, .getPairDocument, .getPageDocuments, .getFCMTokenDocument, .sendFirebaseMessage:
+        case .getUserDocuement, .getPairDocument, .getPageDocuments, .sendFirebaseMessage, .getFCMTokenDocument, .patchFCMTokenDocument:
             return nil
-        case .createUserDocument(let id), .createPairDocument(let id, _), .putFCMTokenDocument(let id, _):
+        case .createUserDocument(let id), .createPairDocument(let id, _):
             return ["documentId": id]
         case .createPageDocument(_, _, let jsonPath, let pairId):
             return ["documentId": pairId + jsonPath]
@@ -87,9 +87,7 @@ extension FirebaseAPIs {
             return .get
         case .createUserDocument, .createPairDocument, .createPageDocument, .uploadDataFile, .getPageDocuments, .sendFirebaseMessage:
             return .post
-        case .putFCMTokenDocument:
-            return .put
-        case .patchUserDocuement, .patchPairDocument:
+        case .patchUserDocuement, .patchPairDocument, .patchFCMTokenDocument:
             return .patch
         }
     }
@@ -186,7 +184,7 @@ extension FirebaseAPIs {
                 ],
                 "data": data
             ]
-        case .putFCMTokenDocument(_, let token):
+        case .patchFCMTokenDocument(_, let token):
             let tokenDocument = FCMTokenDocument(token: token)
             return [
                 "fields": tokenDocument.fields

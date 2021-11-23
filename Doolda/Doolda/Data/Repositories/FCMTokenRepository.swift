@@ -16,7 +16,7 @@ class FCMTokenRepository: FCMTokenRepositoryProtocol {
     }
     
     func saveToken(for userId: DDID, with token: String) -> AnyPublisher<String, Error> {
-        let request = FirebaseAPIs.putFCMTokenDocument(userId.ddidString, token)
+        let request = FirebaseAPIs.patchFCMTokenDocument(userId.ddidString, token)
         let publisher: AnyPublisher<FCMTokenDocument, Error> = self.urlSessionNetworkService.request(request)
         return publisher
             .compactMap { $0.token }
