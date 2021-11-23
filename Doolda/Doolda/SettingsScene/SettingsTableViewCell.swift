@@ -30,6 +30,14 @@ class SettingsTableViewCell: UITableViewCell {
         return label
     }()
 
+    private lazy var detailLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .dooldaLabel
+        return label
+
+    }()
+
     // MARK: - Public Properties
 
     @Published var title: String?
@@ -63,17 +71,28 @@ class SettingsTableViewCell: UITableViewCell {
     private func configureUI() {
         self.backgroundColor = .clear
 
+        self.contentView.addSubview(self.detailLabel)
+        self.detailLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(12)
+            make.bottom.equalToSuperview().offset(-12)
+            make.trailing.equalToSuperview().offset(-16)
+            make.width.equalTo(self.detailLabel.intrinsicContentSize.width)
+        }
+
         self.contentView.addSubview(self.titleLabel)
         self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.bottom.equalToSuperview().offset(-12)
             make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().multipliedBy(0.6)
+            make.trailing.equalTo(self.detailLabel.snp.leading)
         }
 
         switch self.style {
         case .disclosure:
             self.accessoryType = .disclosureIndicator
+            self.detailLabel.isHidden = true
+        case .detail:
+            self.detailLabel.isHidden = false
         default: return
         }
     }
@@ -83,6 +102,16 @@ class SettingsTableViewCell: UITableViewCell {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] title in
                 self?.titleLabel.text = title
+            }
+            .store(in: &self.cancellables)
+
+        self.$detailText
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] detailText in
+                self?.detailLabel.text = detailText
+                self?.detailLabel.snp.updateConstraints { make in
+                    make.width.equalTo(self?.detailLabel.intrinsicContentSize.width ?? 0)
+                }
             }
             .store(in: &self.cancellables)
     }
