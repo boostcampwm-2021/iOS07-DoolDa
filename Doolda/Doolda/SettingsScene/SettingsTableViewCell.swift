@@ -37,12 +37,15 @@ class SettingsTableViewCell: UITableViewCell {
 
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
-        //switchControl.tintColor = .dooldaHighlighted
         switchControl.onTintColor = .dooldaHighlighted
         return switchControl
     }()
 
-    private lazy var separator = CALayer()
+    private lazy var separator: CALayer = {
+        let separator = CALayer()
+        separator.backgroundColor = UIColor.dooldaLabel?.withAlphaComponent(0.2).cgColor
+        return separator
+    }()
 
     // MARK: - Public Properties
 
@@ -71,6 +74,8 @@ class SettingsTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+
+    // MARK: - LifeCycle Methods
 
     override func setNeedsLayout() {
         super.setNeedsLayout()
@@ -105,7 +110,6 @@ class SettingsTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-16)
         }
 
-        separator.backgroundColor = UIColor.dooldaLabel?.withAlphaComponent(0.2).cgColor
         self.layer.addSublayer(self.separator)
 
         switch self.style {
