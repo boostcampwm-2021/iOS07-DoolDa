@@ -52,6 +52,8 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     private let user: User
     private let coordinator: EditPageViewCoordinatorProtocol
     private let editPageUseCase: EditPageUseCaseProtocol
+    private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
+    
     private var cancellables: Set<AnyCancellable> = []
     
     @Published private var selectedComponent: ComponentEntity? = nil
@@ -62,11 +64,13 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     init(
         user: User,
         coordinator: EditPageViewCoordinatorProtocol,
-        editPageUseCase: EditPageUseCaseProtocol
+        editPageUseCase: EditPageUseCaseProtocol,
+        firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
         self.coordinator = coordinator
         self.editPageUseCase = editPageUseCase
+        self.firebaseMessageUseCase = firebaseMessageUseCase
         bind()
     }
     
@@ -87,6 +91,8 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         self.editPageUseCase.resultPublisher
             .dropFirst()
             .sink { [weak self] _ in
+                guard let friendId = self?.user.friendId else { return }
+                self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPostedNewPage)
                 self?.coordinator.editingPageSaved()
             }.store(in: &self.cancellables)
         

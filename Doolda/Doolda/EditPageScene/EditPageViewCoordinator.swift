@@ -39,6 +39,8 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
                 networkService: urlSessionNetworkService,
                 fileManagerPersistenceService: fileManagerPersistenceService
             )
+            let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
+            let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
             
             let imageUseCase = ImageUseCase(imageRepository: imageRepository)
             let editPageUseCase = EditPageUseCase(
@@ -48,8 +50,17 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
                 rawPageRepository: rawPageRepository,
                 pairRepository: pairRepository
             )
+            let firebaseMessageUseCase = FirebaseMessageUseCase(
+                fcmTokenRepository: fcmTokenRepository,
+                firebaseMessageRepository: firebaseMessageRepository
+            )
             
-            let editPageViewModel = EditPageViewModel(user: self.user, coordinator: self, editPageUseCase: editPageUseCase)
+            let editPageViewModel = EditPageViewModel(
+                user: self.user,
+                coordinator: self,
+                editPageUseCase: editPageUseCase,
+                firebaseMessageUseCase: firebaseMessageUseCase
+            )
             
             let viewController = EditPageViewController(viewModel: editPageViewModel)
             self.presenter.pushViewController(viewController, animated: true)
