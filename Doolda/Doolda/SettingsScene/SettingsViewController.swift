@@ -37,7 +37,7 @@ class SettingsViewController: UIViewController {
     }()
 
     private lazy var settingsSections: [SettingsSection] = {
-        let alertCell = SettingsTableViewCell(style: .detail)
+        let alertCell = SettingsTableViewCell(style: .switchControl)
         alertCell.title = "푸시 알림 허용"
         let alertOption = SettingsOptions(cell: alertCell, handler: nil)
 
@@ -153,10 +153,11 @@ extension SettingsViewController: UITableViewDataSource {
         guard let section = self.settingsSections[exist: indexPath.section],
               let cell = section.settingsOptions[exist: indexPath.row]?.cell else { return UITableViewCell() }
 
-        let separator = CALayer()
-        separator.frame = CGRect(x: 16, y: cell.frame.height - 1, width: self.tableView.frame.width-32, height: 1)
-        separator.backgroundColor = UIColor.dooldaLabel?.withAlphaComponent(0.2).cgColor
-        cell.layer.addSublayer(separator)
+//        let separator = CALayer()
+//
+//        separator.frame = CGRect(x: 16, y: cell.contentView.frame.height - 1, width: self.tableView.frame.width-32, height: 1)
+//        separator.backgroundColor = UIColor.dooldaLabel?.withAlphaComponent(0.2).cgColor
+//        cell.contentView.layer.addSublayer(separator)
         cell.selectionStyle = .none
         return cell
     }
