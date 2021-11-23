@@ -42,44 +42,30 @@ class SettingsViewController: UIViewController {
     private var cancellables: Set<AnyCancellable> = []
 
     private lazy var settingsSections: [SettingsSection] = {
-        let alertOption = SettingsOptions(
-            cell: SettingsTableViewCell(title: "푸시 알림 허용", rightItem: UILabel()),
-            handler: nil
-        )
+        let alertCell = SettingsTableViewCell(style: .disclosure)
+        alertCell.title = "푸시 알림 허용"
+        let alertOption = SettingsOptions(cell: alertCell, handler: nil)
 
-        let fontOption = SettingsOptions(
-            cell: SettingsTableViewCell(title: "폰트 설정", rightItem: UILabel()),
-            handler: nil
-        )
+        let fontCell = SettingsTableViewCell(style: .disclosure)
+        fontCell.title = "폰트 설정"
+        let fontOption = SettingsOptions(cell: fontCell, handler: nil)
 
-        let appVersionLabel = UILabel()
-        appVersionLabel.text = DooldaInfoType.appVersion.rawValue
-        appVersionLabel.textColor = .dooldaLabel
-        let appVersionOption = SettingsOptions(
-            cell: SettingsTableViewCell(title: "앱 현재 버전", rightItem: appVersionLabel),
-            handler: nil
-        )
+        let versionCell = SettingsTableViewCell(style: .detail)
+        versionCell.title = "앱 현재 버전"
+        versionCell.detailText = DooldaInfoType.appVersion.rawValue
+        let appVersionOption = SettingsOptions(cell: versionCell, handler: nil)
 
-        let openSourceItem = UIImageView(image: .right)
-        openSourceItem.tintColor = .dooldaLabel
-        let openSourceOption = SettingsOptions(
-            cell: SettingsTableViewCell(title: "Open Source License", rightItem: openSourceItem),
-            handler: self.viewModel.openSourceLicenseDidTap
-        )
+        let openSourceCell = SettingsTableViewCell(style: .disclosure)
+        openSourceCell.title = "Open Source License"
+        let openSourceOption = SettingsOptions(cell: openSourceCell, handler: self.viewModel.openSourceLicenseDidTap)
 
-        let privacyItem = UIImageView(image: .right)
-        privacyItem.tintColor = .dooldaLabel
-        let privacyOption = SettingsOptions(
-            cell: SettingsTableViewCell(title: "개인 정보 처리 방침", rightItem: privacyItem),
-            handler: self.viewModel.privacyPolicyDidTap
-        )
+        let privacyCell = SettingsTableViewCell(style: .disclosure)
+        privacyCell.title = "개인 정보 처리 방침"
+        let privacyOption = SettingsOptions(cell: privacyCell, handler: self.viewModel.privacyPolicyDidTap)
 
-        let contributorItem = UIImageView(image: .right)
-        contributorItem.tintColor = .dooldaLabel
-        let contributorsOption = SettingsOptions(
-            cell: SettingsTableViewCell(title: "만든 사람들", rightItem: contributorItem),
-            handler: self.viewModel.contributorDidTap
-        )
+        let contributorCell = SettingsTableViewCell(style: .disclosure)
+        contributorCell.title = "만든 사람들"
+        let contributorsOption = SettingsOptions(cell: contributorCell, handler: self.viewModel.contributorDidTap)
 
         let appSection = SettingsSection(title: "앱 설정", settingsOptions: [alertOption, fontOption])
         let serviceSection = SettingsSection(
