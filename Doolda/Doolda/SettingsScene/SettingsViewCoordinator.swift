@@ -36,8 +36,9 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
     }
 
     func fontPickerSheetRequested() {
-        let fontPickerSheet = FontPickerViewController()
-        self.presenter.topViewController?.present(fontPickerSheet, animated: false, completion: nil)
+        guard let settingsViewController = self.presenter.topViewController as? SettingsViewController else { return }
+        let fontPickerSheet = FontPickerViewController(delegate: settingsViewController)
+        settingsViewController.present(fontPickerSheet, animated: false, completion: nil)
     }
 
     func settingsOptionRequested(title: String ,text: String) {
