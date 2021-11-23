@@ -10,6 +10,7 @@ import Foundation
 
 protocol SettingsViewModelInput {
     func settingsViewDidLoad()
+    func fontTypeDidTap()
     func fontTypeDidChanged(_ fontName: String)
     func pushNotificationDidToggle(_ isOn: Bool)
     func openSourceLicenseDidTap()
@@ -50,9 +51,11 @@ class SettingsViewModel: SettingsViewModelProtocol {
         self.selectedFont = self.globalFontUseCase.getGlobalFont()
     }
 
-    // FIXME: 아직 구현중인 부분
-    func fontTypeDidChanged(_ fontName: String) { }
-    func pushNotificationDidToggle() {}
+    func fontTypeDidTap() {
+        self.coordinator.fontPickerSheetRequested()
+    }
+
+    func fontTypeDidChanged(_ fontName: String) {
 
     }
 
