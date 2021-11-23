@@ -41,7 +41,7 @@ class TextEditViewController: UIViewController {
     }()
     
     private lazy var fontSizeControl: FontSizeControl = {
-        let fontSizeControl = FontSizeControl(frame: CGRect(x: 0, y: 0, width: 30, height: 300))
+        let fontSizeControl = FontSizeControl(frame: CGRect(x: 0, y: .zero, width: 30, height: 300))
         return fontSizeControl
     }()
     
@@ -104,7 +104,7 @@ class TextEditViewController: UIViewController {
         
         self.view.addSubview(self.fontSizeControl)
         self.fontSizeControl.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
+//            make.leading.equalToSuperview().offset(-15)
             make.height.equalTo(300)
             make.width.equalTo(30)
             make.bottom.equalTo(self.view.snp.centerY)
@@ -119,7 +119,7 @@ class TextEditViewController: UIViewController {
                       let textComponenetEntity = self.viewModel?.inputViewEditingDidEnd(
                         input: self.inputTextView.text,
                         contentSize: self.computeSizeToAbsolute(with: self.inputTextView.contentSize),
-                        fontSize: 16,
+                        fontSize: 18 * self.fontSizeControl.value,
                         colorIndex: self.currentColorIndex
                     ) else { return }
                 if self.viewModel?.selectedTextComponent != nil {
@@ -129,9 +129,12 @@ class TextEditViewController: UIViewController {
                 }
                 self.dismiss(animated: false)
             }.store(in: &self.cancellables)
-        self.fontSizeControl.publisher(for: .touchDragEnter)
+  
+
+        self.fontSizeControl.publisher(for: .allTouchEvents)
             .sink { [weak self] control in
-                
+                guard let fontsizeControl = control as? FontSizeControl else { return }
+                self?.inputTextView.font = .systemFont(ofSize: 18 * fontsizeControl.value)
             }.store(in: &self.cancellables)
     }
     
