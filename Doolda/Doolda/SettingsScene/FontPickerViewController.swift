@@ -40,11 +40,6 @@ class FontPickerViewController: BottomSheetViewController {
         return button
     }()
 
-    private var contentView: UIView = {
-        let view = UIView()
-        return view
-    }()
-
     // MARK: - Private Properties
 
     private var cancellables: Set<AnyCancellable> = []
@@ -70,39 +65,31 @@ class FontPickerViewController: BottomSheetViewController {
     // MARK: - Helpers
 
     private func configureUI() {
-        self.detent = .zero
         self.body.backgroundColor = .dooldaBackground
 
         self.body.addSubview(self.bottomSheetTitle)
         self.bottomSheetTitle.snp.makeConstraints { make in
-            make.top.equalTo(self.body).offset(8)
+            make.top.equalTo(self.body).offset(16)
             make.leading.equalTo(self.body).offset(16)
             make.trailing.equalTo(self.body).offset(-16)
             make.height.equalTo(20)
         }
 
+        self.body.addSubview(self.fontPicker)
+        self.fontPicker.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(self.bottomSheetTitle)
+            make.top.equalTo(self.bottomSheetTitle.snp.bottom).offset(8)
+            make.height.equalTo(162)
+        }
+
         self.body.addSubview(self.applyButton)
         self.applyButton.snp.makeConstraints { make in
-            make.leading.equalTo(self.body).offset(16)
-            make.trailing.equalTo(self.body).offset(-16)
-            make.bottom.equalToSuperview().offset(-32)
+            make.leading.trailing.equalTo(self.bottomSheetTitle)
+            make.top.equalTo(self.fontPicker.snp.bottom).offset(8)
             make.height.equalTo(44)
         }
 
-//        self.body.addSubview(self.contentView)
-//        self.contentView.snp.makeConstraints { make in
-//            make.leading.equalTo(self.body).offset(16)
-//            make.trailing.equalTo(self.body).offset(-16)
-//            make.top.equalTo(self.bottomSheetTitle.snp.bottom)
-//            make.bottom.equalTo(self.applyButton.snp.top)
-//        }
-
-        self.body.addSubview(self.fontPicker)
-        self.fontPicker.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(self.applyButton)
-            make.bottom.equalTo(self.applyButton.snp.top).offset(-4)
-            make.top.equalTo(self.bottomSheetTitle.snp.bottom).offset(-4)
-        }
+        self.detent = .custom(292)
     }
 
     private func configureFont() {
