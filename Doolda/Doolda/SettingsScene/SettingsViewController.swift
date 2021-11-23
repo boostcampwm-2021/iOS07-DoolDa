@@ -133,6 +133,14 @@ class SettingsViewController: UIViewController {
                 alertCell.switchControl.isOn = isPushNotificationOn
             }
             .store(in: &self.cancellables)
+
+        guard let section = self.settingsSections[exist: 0],
+              let alertCell = section.settingsOptions[exist: 0]?.cell else { return }
+        alertCell.switchControl.publisher(for: .valueChanged)
+            .sink { [weak self] _ in
+                self?.viewModel.pushNotificationDidToggle(alertCell.switchControl.isOn)
+            }
+            .store(in: &self.cancellables)
     }
 
 }
