@@ -15,6 +15,16 @@ enum FontType: CaseIterable {
     case dungGeunMo
     case kyoboHandwriting
     case appleNeo
+
+    init?(fontName: String) {
+        for fontType in FontType.allCases {
+            if fontType.name == fontName {
+                self = fontType
+                return
+            }
+        }
+        self = .dovemayo
+    }
 }
 
 extension FontType {

@@ -35,8 +35,8 @@ final class SplashViewModel {
     }
     
     func applyGlobalFont() {
-        guard let globalFontName = self.globalFontUseCase.getGlobalFont() else { return }
-        self.globalFontUseCase.setGlobalFont(with: globalFontName)
+        guard let globalFont = self.globalFontUseCase.getGlobalFont() else { return }
+        self.globalFontUseCase.setGlobalFont(with: globalFont.name)
     }
 
     func prepareUserInfo() {

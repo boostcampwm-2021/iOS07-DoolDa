@@ -20,21 +20,21 @@ protocol SettingsViewModelInput {
 
 protocol SettingsViewModelOutput {
     var pushNotificationStatePublisher: Published<Bool?>.Publisher { get }
-    var selectedFontPublisher: Published<String?>.Publisher { get }
+    var selectedFontPublisher: Published<FontType?>.Publisher { get }
 }
 
 typealias SettingsViewModelProtocol = SettingsViewModelInput & SettingsViewModelOutput
 
 class SettingsViewModel: SettingsViewModelProtocol {
     var pushNotificationStatePublisher: Published<Bool?>.Publisher { self.$isPushNotificationOn }
-    var selectedFontPublisher: Published<String?>.Publisher { self.$selectedFont }
+    var selectedFontPublisher: Published<FontType?>.Publisher { self.$selectedFont }
 
     private let coordinator: SettingsViewCoordinatorProtocol
     private let globalFontUseCase: GlobalFontUseCaseProtocol
     private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
     private var cancellables: Set<AnyCancellable> = []
     @Published private var isPushNotificationOn: Bool?
-    @Published private var selectedFont: String?
+    @Published private var selectedFont: FontType?
 
     init(
         coordinator: SettingsViewCoordinatorProtocol,
@@ -58,6 +58,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
     func fontTypeDidChanged(_ fontName: String) {
         self.globalFontUseCase.setGlobalFont(with: fontName)
         self.globalFontUseCase.saveGlobalFont(as: fontName)
+        self.selectedFont = FontType(fontName: fontName)
     }
 
     func pushNotificationDidToggle(_ isOn: Bool) {

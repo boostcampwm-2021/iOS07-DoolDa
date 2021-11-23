@@ -136,6 +136,15 @@ class SettingsViewController: UIViewController {
             }
             .store(in: &self.cancellables)
 
+        self.viewModel.selectedFontPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] selectedFont in
+                guard let section = self?.settingsSections[exist: 0],
+                      let fontCell = section.settingsOptions[exist: 1]?.cell else { return }
+                fontCell.detailText = selectedFont?.displayName
+            }
+            .store(in: &self.cancellables)
+
         guard let section = self.settingsSections[exist: 0],
               let alertCell = section.settingsOptions[exist: 0]?.cell else { return }
         alertCell.switchControl.publisher(for: .valueChanged)
@@ -144,7 +153,6 @@ class SettingsViewController: UIViewController {
             }
             .store(in: &self.cancellables)
     }
-
 }
 
 extension SettingsViewController: UITableViewDelegate {
@@ -165,7 +173,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        return 40
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
