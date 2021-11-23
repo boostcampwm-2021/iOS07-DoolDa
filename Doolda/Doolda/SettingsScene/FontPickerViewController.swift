@@ -59,6 +59,11 @@ class FontPickerViewController: BottomSheetViewController {
         self.fontPicker.delegate = self
         self.fontPicker.dataSource = self
         self.configureUI()
+        self.bindUI()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.configureFont()
     }
 
@@ -100,9 +105,11 @@ class FontPickerViewController: BottomSheetViewController {
         self.applyButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
+                print(self?.fontPicker.selectedRow(inComponent: 0))
                 guard let index = self?.fontPicker.selectedRow(inComponent: 0),
                       let font = FontType.allCases[exist: index] else { return }
                 self?.delegate?.fontDidSelect(font)
+                self?.dismiss(animated: true, completion: nil)
             }
             .store(in: &self.cancellables)
     }
