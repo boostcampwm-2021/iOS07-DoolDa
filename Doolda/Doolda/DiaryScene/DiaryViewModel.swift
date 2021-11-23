@@ -111,19 +111,22 @@ class DiaryViewModel: DiaryViewModelProtocol {
     private let checkMyTurnUseCase: CheckMyTurnUseCaseProtocol
     private let getPageUseCase: GetPageUseCaseProtocol
     private let getRawPageUseCase: GetRawPageUseCaseProtocol
+    private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
     init(
         user: User,
         coordinator: DiaryViewCoordinatorProtocol,
         checkMyTurnUseCase: CheckMyTurnUseCaseProtocol,
         getPageUseCase: GetPageUseCaseProtocol,
-        getRawPageUseCase: GetRawPageUseCaseProtocol
+        getRawPageUseCase: GetRawPageUseCaseProtocol,
+        firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
         self.coordinator = coordinator
         self.checkMyTurnUseCase = checkMyTurnUseCase
         self.getPageUseCase = getPageUseCase
         self.getRawPageUseCase = getRawPageUseCase
+        self.firebaseMessageUseCase = firebaseMessageUseCase
         self.bind()
     }
     
@@ -155,6 +158,9 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     func refreshButtonDidTap() {
         self.fetchPages()
+        
+        guard let friendId = self.user.friendId else { return }
+        self.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userRequestedNewPage)
     }
     
     func settingsButtonDidTap() {

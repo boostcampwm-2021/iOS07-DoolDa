@@ -34,16 +34,24 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
             fileManagerPersistenceService: fileManagerPersistenceService
         )
         
+        let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
+        let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
+        
         let checkMyTurnUseCase = CheckMyTurnUseCase(pairRepository: pairRepository)
         let getPageUseCase = GetPageUseCase(pageRepository: pageRepository)
         let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: rawPageRepository)
+        let firebaseMessageUseCase = FirebaseMessageUseCase(
+            fcmTokenRepository: fcmTokenRepository,
+            firebaseMessageRepository: firebaseMessageRepository
+        )
         
         let viewModel = DiaryViewModel(
             user: self.user,
             coordinator: self,
             checkMyTurnUseCase: checkMyTurnUseCase,
             getPageUseCase: getPageUseCase,
-            getRawPageUseCase: getRawPageUseCase
+            getRawPageUseCase: getRawPageUseCase,
+            firebaseMessageUseCase: firebaseMessageUseCase
         )
         
         DispatchQueue.main.async {
