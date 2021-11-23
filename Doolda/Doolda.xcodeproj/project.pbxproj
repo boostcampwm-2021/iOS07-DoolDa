@@ -107,6 +107,11 @@
 		317FB619274BBC9D005DF3A3 /* SettingsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */; };
 		317FB61B274BCE68005DF3A3 /* SettingsDetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB61A274BCE68005DF3A3 /* SettingsDetailedInfoViewController.swift */; };
 		318D9F5B274CC77800AA6F0E /* FontPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F5A274CC77800AA6F0E /* FontPickerViewController.swift */; };
+		318D9F61274CFF9C00AA6F0E /* darae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F5C274CFAEB00AA6F0E /* darae.ttf */; };
+		318D9F62274CFF9E00AA6F0E /* uhBeeMysen.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F5D274CFBA100AA6F0E /* uhBeeMysen.ttf */; };
+		318D9F63274CFFA000AA6F0E /* dungGeunMo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F5E274CFBEA00AA6F0E /* dungGeunMo.otf */; };
+		318D9F64274CFFA200AA6F0E /* kotraHope.otf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F5F274CFC0800AA6F0E /* kotraHope.otf */; };
+		318D9F65274CFFA300AA6F0E /* kyoboHandwriting.otf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F60274CFC2500AA6F0E /* kyoboHandwriting.otf */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
@@ -280,6 +285,11 @@
 		317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewHeader.swift; sourceTree = "<group>"; };
 		317FB61A274BCE68005DF3A3 /* SettingsDetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailedInfoViewController.swift; sourceTree = "<group>"; };
 		318D9F5A274CC77800AA6F0E /* FontPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerViewController.swift; sourceTree = "<group>"; };
+		318D9F5C274CFAEB00AA6F0E /* darae.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = darae.ttf; sourceTree = "<group>"; };
+		318D9F5D274CFBA100AA6F0E /* uhBeeMysen.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = uhBeeMysen.ttf; sourceTree = "<group>"; };
+		318D9F5E274CFBEA00AA6F0E /* dungGeunMo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dungGeunMo.otf; sourceTree = "<group>"; };
+		318D9F5F274CFC0800AA6F0E /* kotraHope.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kotraHope.otf; sourceTree = "<group>"; };
+		318D9F60274CFC2500AA6F0E /* kyoboHandwriting.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kyoboHandwriting.otf; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -554,6 +564,11 @@
 		1DD6AD3E27321E3700592AC8 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				318D9F60274CFC2500AA6F0E /* kyoboHandwriting.otf */,
+				318D9F5F274CFC0800AA6F0E /* kotraHope.otf */,
+				318D9F5E274CFBEA00AA6F0E /* dungGeunMo.otf */,
+				318D9F5D274CFBA100AA6F0E /* uhBeeMysen.ttf */,
+				318D9F5C274CFAEB00AA6F0E /* darae.ttf */,
 				1DD6AD3F27321E5800592AC8 /* dovemayo.otf */,
 			);
 			path = Fonts;
@@ -972,13 +987,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				318D9F63274CFFA000AA6F0E /* dungGeunMo.otf in Resources */,
 				664893CD273007F1009F03E2 /* LaunchScreen.storyboard in Resources */,
+				318D9F62274CFF9E00AA6F0E /* uhBeeMysen.ttf in Resources */,
+				318D9F64274CFFA200AA6F0E /* kotraHope.otf in Resources */,
 				66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */,
+				318D9F61274CFF9C00AA6F0E /* darae.ttf in Resources */,
 				66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */,
 				66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */,
 				1D71B53D274E0C36000B50A8 /* Config.xcconfig in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
 				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
+				318D9F65274CFFA300AA6F0E /* kyoboHandwriting.otf in Resources */,
 				1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
