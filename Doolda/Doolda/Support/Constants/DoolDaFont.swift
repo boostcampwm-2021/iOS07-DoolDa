@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum DoolDaFont: String {
+enum DoolDaFont: String, CaseIterable {
     case dovemayo = "Dovemayo"
 }
