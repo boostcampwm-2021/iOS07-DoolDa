@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 
 protocol FontPickerViewControllerDelegate: AnyObject {
-    func fontDidSelect(_ font: DoolDaFont)
+    func fontDidSelect(_ font: FontType)
 }
 
 class FontPickerViewController: BottomSheetViewController {
@@ -108,7 +108,7 @@ extension FontPickerViewController: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return DoolDaFont.allCases.count
+        return FontType.allCases.count
     }
 
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -116,8 +116,8 @@ extension FontPickerViewController: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        guard let fontName = DoolDaFont.allCases[exist: row]?.rawValue,
-              let text = DoolDaFont.allCases[exist: row]?.rawValue else { return UIView() }
+        guard let fontName = FontType.allCases[exist: row]?.rawValue,
+              let text = FontType.allCases[exist: row]?.rawValue else { return UIView() }
 
         var pickerLabel = view as? UILabel
         if pickerLabel == nil { pickerLabel = UILabel() }

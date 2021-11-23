@@ -181,7 +181,7 @@
 		FC822FB22736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
-		FCC803F62744C22F00FFE4DC /* DoolDaFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F52744C22F00FFE4DC /* DoolDaFont.swift */; };
+		FCC803F62744C22F00FFE4DC /* FontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F52744C22F00FFE4DC /* FontType.swift */; };
 		FCC803FA27451A8000FFE4DC /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F927451A8000FFE4DC /* TextEditViewController.swift */; };
 		FCC803FC27451C9600FFE4DC /* TextEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803FB27451C9600FFE4DC /* TextEditViewModel.swift */; };
 		FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCF022E273A12B400EAB00B /* EditPageViewController.swift */; };
@@ -356,7 +356,7 @@
 		FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
-		FCC803F52744C22F00FFE4DC /* DoolDaFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoolDaFont.swift; sourceTree = "<group>"; };
+		FCC803F52744C22F00FFE4DC /* FontType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontType.swift; sourceTree = "<group>"; };
 		FCC803F927451A8000FFE4DC /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		FCC803FB27451C9600FFE4DC /* TextEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewModel.swift; sourceTree = "<group>"; };
 		FCCF022E273A12B400EAB00B /* EditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewController.swift; sourceTree = "<group>"; };
@@ -753,6 +753,7 @@
 				1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */,
 				3101259327383DED00E43160 /* PhotoComponentEntity.swift */,
 				31012595273842B300E43160 /* StickerComponentEntity.swift */,
+				FCC803F52744C22F00FFE4DC /* FontType.swift */,
 				1DBF5714273A2C5100D28F5E /* FontColorType.swift */,
 				31012597273842DA00E43160 /* TextComponentEntity.swift */,
 				3101259B2738430200E43160 /* StickerPackEntity.swift */,
@@ -832,7 +833,6 @@
 			children = (
 				FC5FB7DF2733A6D5008AC3D2 /* FirebaseCollection.swift */,
 				FC822FAF27367AFD00C918A0 /* API.swift */,
-				FCC803F52744C22F00FFE4DC /* DoolDaFont.swift */,
 				1DDADCB3274BCE63000330C9 /* Secrets.swift */,
 			);
 			path = Constants;
@@ -1159,7 +1159,7 @@
 				1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */,
 				3161EE9A274377E300B922DD /* PackedStickerCollectionViewCell.swift in Sources */,
 				3161EE942742A44100B922DD /* StickerPickerBottomSheetViewController.swift in Sources */,
-				FCC803F62744C22F00FFE4DC /* DoolDaFont.swift in Sources */,
+				FCC803F62744C22F00FFE4DC /* FontType.swift in Sources */,
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
 				317FB613274AA879005DF3A3 /* SettingsTableViewCell.swift in Sources */,
 				318D9F5B274CC77800AA6F0E /* FontPickerViewController.swift in Sources */,

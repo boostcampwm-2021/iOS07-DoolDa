@@ -93,8 +93,8 @@ final class SplashViewController: UIViewController {
     }
 
     private func configureFont() {
-        self.titleLabel.font = UIFont(name: DoolDaFont.dovemayo.rawValue, size: 72)
-        self.subtitleLabel.font = UIFont(name: DoolDaFont.dovemayo.rawValue, size: 18)
+        self.titleLabel.font = UIFont(name: FontType.dovemayo.rawValue, size: 72)
+        self.subtitleLabel.font = UIFont(name: FontType.dovemayo.rawValue, size: 18)
     }
 
     private func bindUI() {
