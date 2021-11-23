@@ -430,12 +430,12 @@
 			children = (
 				317FB60C274A8F59005DF3A3 /* SettingsViewController.swift */,
 				317FB61A274BCE68005DF3A3 /* SettingsDetailedInfoViewController.swift */,
+				318D9F5A274CC77800AA6F0E /* FontPickerViewController.swift */,
 				317FB612274AA879005DF3A3 /* SettingsTableViewCell.swift */,
 				317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */,
 				317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */,
 				317FB610274A9175005DF3A3 /* SettingsViewCoordinator.swift */,
 				317FB60E274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift */,
-				318D9F5A274CC77800AA6F0E /* FontPickerViewController.swift */,
 			);
 			path = SettingsScene;
 			sourceTree = "<group>";

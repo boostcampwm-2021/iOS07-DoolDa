@@ -115,16 +115,15 @@ extension FontPickerViewController: UIPickerViewDataSource {
         return self.body.frame.height / 10
     }
 
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return DoolDaFont.allCases[exist: row]?.rawValue
-    }
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        guard let fontName = DoolDaFont.allCases[exist: row]?.rawValue,
+              let text = DoolDaFont.allCases[exist: row]?.rawValue else { return UIView() }
 
-//    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-//        guard let fontName = DoolDaFont.allCases[exist: row]?.rawValue else { return UIView() }
-//        var pickerLabel = view as? UILabel
-//        if pickerLabel == nil { pickerLabel = UILabel() }
-//        pickerLabel?.font = UIFont(name: fontName, size: 16)
-//        pickerLabel?.textAlignment = .center
-//        return pickerLabel ?? UIView()
-//    }
+        var pickerLabel = view as? UILabel
+        if pickerLabel == nil { pickerLabel = UILabel() }
+        pickerLabel?.text = text
+        pickerLabel?.font = UIFont(name: fontName, size: 16)
+        pickerLabel?.textAlignment = .center
+        return pickerLabel ?? UIView()
+    }
 }
