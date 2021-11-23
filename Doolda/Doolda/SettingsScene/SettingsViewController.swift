@@ -89,6 +89,8 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.bindUI()
+        self.viewModel.settingsViewDidLoad()
     }
 
     // MARK: - Helpers
@@ -119,6 +121,18 @@ class SettingsViewController: UIViewController {
                 options.cell.font = .systemFont(ofSize: 16)
             }
         }
+    }
+
+    private func bindUI() {
+        self.viewModel.pushNotificationStatePublisher
+            .receive(on: DispatchQueue.main)
+            .sink{ [weak self] isPushNotificationOn in
+                guard let isPushNotificationOn = isPushNotificationOn,
+                      let section = self?.settingsSections[exist: 0],
+                      let alertCell = section.settingsOptions[exist: 0]?.cell else { return }
+                alertCell.switchControl.isOn = isPushNotificationOn
+            }
+            .store(in: &self.cancellables)
     }
 
 }
