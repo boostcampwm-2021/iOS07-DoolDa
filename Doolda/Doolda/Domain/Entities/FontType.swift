@@ -18,7 +18,7 @@ enum FontType: CaseIterable {
 }
 
 extension FontType {
-    var familyName: String {
+    var fontName: String {
         switch self {
         case.dovemayo:
             return "dovemayo"
