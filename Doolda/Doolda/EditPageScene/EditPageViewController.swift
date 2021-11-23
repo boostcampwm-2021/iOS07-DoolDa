@@ -419,7 +419,6 @@ class EditPageViewController: UIViewController {
         let computedHeight = size.height * self.heightRatioFromAbsolute
         return CGSize(width: computedWidth, height: computedHeight)
     }
-    
 }
 
 extension EditPageViewController: PageComponentControlViewDelegate {

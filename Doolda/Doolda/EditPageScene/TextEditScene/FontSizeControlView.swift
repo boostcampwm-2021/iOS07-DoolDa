@@ -8,28 +8,22 @@
 import UIKit
 
 class FontSizeControl: UIControl {
+    private (set) var value: CGFloat = 1.0
     
-    var minimumValue: CGFloat = 0.0
-    var maximumValue: CGFloat = 2.0
-    var previousLocation = CGPoint()
-
-    private (set) var value: CGFloat = 0
     private let renderer = FontSizeControlRenderer()
-
-    func setValue(_ newValue: CGFloat, animated: Bool = false) {
-      value = min(maximumValue, max(minimumValue, newValue))
-    }
-
-    var isContinuous = true
     
+    private var minimumValue: CGFloat = 0.0
+    private var maximumValue: CGFloat = 2.0
+    private var previousLocation = CGPoint()
+
     override init(frame: CGRect) {
       super.init(frame: frame)
-      commonInit()
+        self.commonInit()
     }
 
     required init?(coder aDecoder: NSCoder) {
       super.init(coder: aDecoder)
-      commonInit()
+        self.commonInit()
     }
 
     private func commonInit() {
@@ -39,6 +33,11 @@ class FontSizeControl: UIControl {
         self.layer.addSublayer(self.renderer.pointerLayer)
         
     }
+    
+    func setValue(_ newValue: CGFloat, animated: Bool = false) {
+      value = min(maximumValue, max(minimumValue, newValue))
+    }
+    
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         self.previousLocation = touch.location(in: self)
         if self.renderer.trackLayer.frame.contains(self.previousLocation) {
@@ -76,7 +75,6 @@ class FontSizeControl: UIControl {
         
         return true
     }
-    
   }
 
 private class FontSizeControlRenderer {

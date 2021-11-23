@@ -21,7 +21,7 @@ class TextEditViewController: UIViewController {
     
     private lazy var inputTextView: UITextView = {
         var textView = UITextView()
-        textView.font = .systemFont(ofSize: 16)
+        textView.font = .systemFont(ofSize: 18)
         textView.autocapitalizationType = .words
         textView.isScrollEnabled = true
         textView.backgroundColor = .clear
