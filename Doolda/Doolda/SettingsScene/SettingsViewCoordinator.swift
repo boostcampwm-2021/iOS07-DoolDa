@@ -36,7 +36,9 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
     }
 
     func settingsOptionRequested(title: String ,text: String) {
-        let viewController = SettingsDetailedInfoViewController(title: title, content: text)
+        let viewController = SettingsDetailedInfoViewController()
+        viewController.titleText = title
+        viewController.contentText = text
         self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
     }
 }
