@@ -9,14 +9,14 @@ import UIKit
 
 class FontSizeControl: UIControl {
     
-    var minimumValue:Float = 0.0
-    var maximumValue:Float = 1.0
+    var minimumValue: CGFloat = 0.0
+    var maximumValue: CGFloat = 2.0
     var previousLocation = CGPoint()
 
-    private (set) var value: Float = 0
+    private (set) var value: CGFloat = 0
     private let renderer = FontSizeControlRenderer()
 
-    func setValue(_ newValue: Float, animated: Bool = false) {
+    func setValue(_ newValue: CGFloat, animated: Bool = false) {
       value = min(maximumValue, max(minimumValue, newValue))
     }
 
@@ -41,7 +41,8 @@ class FontSizeControl: UIControl {
     }
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         self.previousLocation = touch.location(in: self)
-        if self.renderer.pointerLayer.frame.contains(self.previousLocation) {
+        if self.renderer.trackLayer.frame.contains(self.previousLocation) {
+            self.frame.origin = CGPoint(x: 0, y: self.frame.origin.y)
             return true
         } else {
             return false
@@ -51,7 +52,7 @@ class FontSizeControl: UIControl {
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         let deltaLocation = Double(location.y - self.previousLocation.y)
-        
+
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         let initalPointerX = self.renderer.pointerLayer.position.x
@@ -68,6 +69,10 @@ class FontSizeControl: UIControl {
             )
         }
         CATransaction.commit()
+        
+        let valueGap = self.maximumValue - self.minimumValue
+        let currentValue =  valueGap - ( self.renderer.pointerLayer.position.y / self.renderer.trackLayer.bounds.height * valueGap )
+        self.setValue(currentValue)
         
         return true
     }
