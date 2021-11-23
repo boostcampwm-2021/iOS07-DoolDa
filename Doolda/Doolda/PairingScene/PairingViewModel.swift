@@ -45,6 +45,8 @@ final class PairingViewModel: PairingViewModelProtocol {
     private let coordinator: PairingViewCoordinatorProtocol
     private let pairUserUseCase: PairUserUseCaseProtocol
     private let refreshUserUseCase: RefreshUserUseCaseProtocol
+    private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
+    
     private var cancellables: Set<AnyCancellable> = []
     @Published private var pairedUser: User?
     @Published private var isPairedByRefresh: Bool = false
@@ -54,12 +56,14 @@ final class PairingViewModel: PairingViewModelProtocol {
         user: User,
         coordinator: PairingViewCoordinatorProtocol,
         pairUserUseCase: PairUserUseCaseProtocol,
-        refreshUserUseCase: RefreshUserUseCaseProtocol
+        refreshUserUseCase: RefreshUserUseCaseProtocol,
+        firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
         self.coordinator = coordinator
         self.pairUserUseCase = pairUserUseCase
         self.refreshUserUseCase = refreshUserUseCase
+        self.firebaseMessageUseCase = firebaseMessageUseCase
         bind()
     }
     
@@ -73,6 +77,8 @@ final class PairingViewModel: PairingViewModelProtocol {
         self.pairUserUseCase.pairedUserPublisher
             .compactMap { $0 }
             .sink { [weak self] user in
+                guard let friendId = user.friendId else { return }
+                self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPairedWithFriend)
                 self?.coordinator.userDidPaired(user: user)
             }
             .store(in: &self.cancellables)
