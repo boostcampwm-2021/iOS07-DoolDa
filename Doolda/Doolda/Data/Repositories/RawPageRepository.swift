@@ -54,7 +54,11 @@ class RawPageRepository: RawPageRepositoryProtocol {
         }
     }
     
-    func fetch(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
+    func fetch(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error> {
+        guard let folder = metaData.author.pairId?.ddidString else {
+            return Fail(error: RawPageRepositoryError.failedToFetchRawPage).eraseToAnyPublisher()
+        }
+        let name = metaData.jsonPath
         let fileName = "\(folder)\(name)"
         
         if self.fileManagerPersistenceService.isFileExists(at: .cache, fileName: fileName) {
