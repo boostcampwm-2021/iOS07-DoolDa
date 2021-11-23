@@ -12,7 +12,7 @@ protocol FirebaseMessageUseCaseProtocol {
     var errorPublisher: Published<Error?>.Publisher { get }
     var isMessageSentPublisher: Published<Bool?>.Publisher { get }
     
-    func sendMessage(to user: DDID, title: String, body: String, data: [String : String])
+    func sendMessage(to user: DDID, message: PushMessageEntity)
 }
 
 class FirebaseMessageUseCase: FirebaseMessageUseCaseProtocol {
@@ -32,14 +32,19 @@ class FirebaseMessageUseCase: FirebaseMessageUseCaseProtocol {
         self.firebaseMessageRepository = firebaseMessageRepository
     }
     
-    func sendMessage(to user: DDID, title: String, body: String, data: [String : String]) {
+    func sendMessage(to user: DDID, message: PushMessageEntity) {
         self.fcmTokenRepository.fetchToken(for: user)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
             } receiveValue: { [weak self] token in
                 guard let self = self else { return }
-                self.firebaseMessageRepository.sendMessage(to: token, title: title, body: body, data: data)
+                self.firebaseMessageRepository.sendMessage(
+                    to: token,
+                    title: message.title,
+                    body: message.body,
+                    data: message.data
+                )
                     .sink { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
                         self?.error = error
