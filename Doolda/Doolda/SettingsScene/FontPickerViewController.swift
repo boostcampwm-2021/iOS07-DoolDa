@@ -112,12 +112,12 @@ extension FontPickerViewController: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return self.body.frame.height / 10
+        return self.body.frame.height / 8
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        guard let fontName = FontType.allCases[exist: row]?.rawValue,
-              let text = FontType.allCases[exist: row]?.rawValue else { return UIView() }
+        guard let fontName = FontType.allCases[exist: row]?.fontName,
+              let text = FontType.allCases[exist: row]?.displayName else { return UIView() }
 
         var pickerLabel = view as? UILabel
         if pickerLabel == nil { pickerLabel = UILabel() }
