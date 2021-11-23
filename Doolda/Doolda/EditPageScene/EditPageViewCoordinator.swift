@@ -87,7 +87,7 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
             delegate: delegatedViewController
         )
         
-        self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
+        self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
     
     func addTextComponent() {
