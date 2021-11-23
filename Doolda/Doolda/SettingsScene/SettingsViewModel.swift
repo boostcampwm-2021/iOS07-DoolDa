@@ -56,7 +56,8 @@ class SettingsViewModel: SettingsViewModelProtocol {
     }
 
     func fontTypeDidChanged(_ fontName: String) {
-
+        self.globalFontUseCase.setGlobalFont(with: fontName)
+        self.globalFontUseCase.saveGlobalFont(as: fontName)
     }
 
     func pushNotificationDidToggle(_ isOn: Bool) {
