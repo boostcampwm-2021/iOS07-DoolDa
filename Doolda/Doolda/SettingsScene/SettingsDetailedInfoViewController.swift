@@ -1,5 +1,5 @@
 //
-//  SettingsOptionViewController.swift
+//  SettingsDetailedInfoViewController.swift
 //  Doolda
 //
 //  Created by Dozzing on 2021/11/22.
@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-class SettingsOptionViewController: UIViewController {
+class SettingsDetailedInfoViewController: UIViewController {
 
     // MARK: - Subviews
 
