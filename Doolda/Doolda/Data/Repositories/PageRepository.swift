@@ -37,7 +37,7 @@ class PageRepository: PageRepositoryProtocol {
     
     func savePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
         guard let pairId = page.author.pairId?.ddidString else { return Fail(error: PageRepositoryError.userNotPaired).eraseToAnyPublisher() }
-        let request = FirebaseAPIs.createPageDocument(page.author.id.ddidString, page.createdTime, page.jsonPath, pairId)
+        let request = FirebaseAPIs.createPageDocument(page.author.id.ddidString, page.createdTime, page.updatedTime, page.jsonPath, pairId)
         let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService.request(request)
         
         return publisher
@@ -46,31 +46,12 @@ class PageRepository: PageRepositoryProtocol {
     }
     
     func fetchPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error> {
-        return Future<[PageEntity], Error> { [weak self] promise in
-            guard let self = self else {
-                return promise(.failure(PageRepositoryError.failedToFetchPages))
+        return self.fetchPageFromServer(pairId: pair, after: nil)
+            .map { pages -> [PageEntity] in
+                self.savePageToCache(pages: pages)
+                return pages
             }
-            
-            self.pageEntityPersistenceService.fetchPageEntities()
-                .sink { completion in
-                    guard case .failure(let error) = completion else { return }
-                    promise(.failure(error))
-                } receiveValue: { cachedPages in
-                    let latestPageEntity = cachedPages.first
-                    
-                    self.fetchPageFromServer(pairId: pair, after: latestPageEntity?.createdTime)
-                        .sink { completion in
-                            guard case .failure(let error) = completion else { return }
-                            promise(.failure(error))
-                        } receiveValue: { pages in
-                            self.savePageToCache(pages: pages)
-                            promise(.success(pages + cachedPages))
-                        }
-                        .store(in: &self.cancellables)
-                }
-                .store(in: &self.cancellables)
-        }
-        .eraseToAnyPublisher()
+            .eraseToAnyPublisher()
     }
     
     private func fetchPageFromServer(pairId: DDID, after: Date?) -> AnyPublisher<[PageEntity], Error> {
