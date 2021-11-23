@@ -13,7 +13,7 @@ import SnapKit
 class SettingsTableViewCell: UITableViewCell {
 
     enum Style {
-        case detail, disclosure
+        case detail, disclosure, switchButton
     }
 
     // MARK: - Static Properties
@@ -24,7 +24,6 @@ class SettingsTableViewCell: UITableViewCell {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
         label.textColor = .dooldaLabel
         label.text = "title"
         return label
@@ -32,7 +31,6 @@ class SettingsTableViewCell: UITableViewCell {
 
     private lazy var detailLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
         label.textColor = .dooldaLabel
         return label
 
@@ -97,6 +95,11 @@ class SettingsTableViewCell: UITableViewCell {
         }
     }
 
+    private func configureFont() {
+        self.titleLabel.font = self.font
+        self.detailLabel.font = self.font
+    }
+
     private func bindUI() {
         self.$title
             .receive(on: DispatchQueue.main)
@@ -112,6 +115,13 @@ class SettingsTableViewCell: UITableViewCell {
                 self?.detailLabel.snp.updateConstraints { make in
                     make.width.equalTo(self?.detailLabel.intrinsicContentSize.width ?? 0)
                 }
+            }
+            .store(in: &self.cancellables)
+
+        self.$font
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.configureFont()
             }
             .store(in: &self.cancellables)
     }
