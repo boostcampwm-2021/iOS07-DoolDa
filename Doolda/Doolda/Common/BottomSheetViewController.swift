@@ -15,6 +15,7 @@ class BottomSheetViewController: UIViewController {
         case large
         case smallLarge
         case medium
+        case smallMedium
         case small
         case zero
         
@@ -26,6 +27,8 @@ class BottomSheetViewController: UIViewController {
                 return baseView.frame.size.height * 0.7
             case .medium:
                 return baseView.frame.size.height * 0.5
+            case .smallMedium:
+                return baseView.frame.size.height * 0.4
             case .small:
                 return baseView.frame.size.height * 0.25
             case .zero:
