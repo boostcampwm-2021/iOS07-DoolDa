@@ -76,8 +76,7 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
     }
 
     func pair(user: User) {
-        let pairId = user.id
-        let user = User(id: user.id, pairId: pairId)
+        let user = User(id: user.id, pairId: user.id, friendId: user.id)
 
         Publishers.Zip(
             self.userRepository.setUser(user),
