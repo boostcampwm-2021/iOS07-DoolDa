@@ -41,6 +41,7 @@
 		1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */; };
 		1D71B540274E0CD5000B50A8 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D71B53F274E0CD5000B50A8 /* FirebaseMessaging */; };
 		1D8646A3274D2DB600C4511D /* PushMessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */; };
+		1D8646A7274D61BE00C4511D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8646A6274D61BE00C4511D /* FirebaseMessaging */; };
 		1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
 		1D8BE07B2742A3DB00201E3E /* DiaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */; };
 		1D8BE07D2743437600201E3E /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07C2743437600201E3E /* DiaryViewModel.swift */; };
@@ -397,7 +398,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D71B540274E0CD5000B50A8 /* FirebaseMessaging in Frameworks */,
+				1D8646A7274D61BE00C4511D /* FirebaseMessaging in Frameworks */,
 				664893F027300DB9009F03E2 /* Kingfisher in Frameworks */,
 				664893ED27300D7D009F03E2 /* SnapKit in Frameworks */,
 			);
@@ -926,7 +927,7 @@
 			packageProductDependencies = (
 				664893EC27300D7D009F03E2 /* SnapKit */,
 				664893EF27300DB9009F03E2 /* Kingfisher */,
-				1D71B53F274E0CD5000B50A8 /* FirebaseMessaging */,
+				1D8646A6274D61BE00C4511D /* FirebaseMessaging */,
 			);
 			productName = Doolda;
 			productReference = 664893BD273007ED009F03E2 /* Doolda.app */;
@@ -967,7 +968,7 @@
 				664893EB27300D7D009F03E2 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				664893EE27300DB9009F03E2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				664893F127300E28009F03E2 /* XCRemoteSwiftPackageReference "SwiftLint" */,
-				1D71B53E274E0CD5000B50A8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1D8646A5274D61BE00C4511D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 664893BE273007ED009F03E2 /* Products */;
 			projectDirPath = "";
@@ -1565,7 +1566,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1D71B53E274E0CD5000B50A8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		1D8646A5274D61BE00C4511D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -1601,9 +1602,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1D71B53F274E0CD5000B50A8 /* FirebaseMessaging */ = {
+		1D8646A6274D61BE00C4511D /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1D71B53E274E0CD5000B50A8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1D8646A5274D61BE00C4511D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
 		664893EC27300D7D009F03E2 /* SnapKit */ = {
