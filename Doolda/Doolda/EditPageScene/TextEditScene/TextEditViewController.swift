@@ -40,6 +40,11 @@ class TextEditViewController: UIViewController {
         return fontColorView
     }()
     
+    private lazy var fontSizeControl: FontSizeControl = {
+        let fontSizeControl = FontSizeControl(frame: CGRect(x: 0, y: 0, width: 30, height: 300))
+        return fontSizeControl
+    }()
+    
     // MARK: - Private Properties
     
     private var widthRatioFromAbsolute: CGFloat?
@@ -96,6 +101,15 @@ class TextEditViewController: UIViewController {
             make.bottom.equalTo(self.view.snp.centerY)
         }
         self.inputTextView.becomeFirstResponder()
+        
+        self.view.addSubview(self.fontSizeControl)
+        self.fontSizeControl.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.height.equalTo(300)
+            make.width.equalTo(30)
+            make.bottom.equalTo(self.view.snp.centerY)
+        }
+ 
     }
     
     private func bindUI() {
@@ -114,6 +128,10 @@ class TextEditViewController: UIViewController {
                     self.delegate?.textInputDidEndInput(textComponenetEntity)
                 }
                 self.dismiss(animated: false)
+            }.store(in: &self.cancellables)
+        self.fontSizeControl.publisher(for: .touchDragEnter)
+            .sink { [weak self] control in
+                
             }.store(in: &self.cancellables)
     }
     
@@ -168,7 +186,6 @@ extension TextEditViewController: UITextViewDelegate {
 extension TextEditViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
-    
 }
 
 extension TextEditViewController: UICollectionViewDelegateFlowLayout {

@@ -156,6 +156,7 @@
 		FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */; };
 		FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */; };
 		FC51FA6B274C7D910069D39C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FC51FA6A274C7D910069D39C /* Config.xcconfig */; };
+		FC51FA6D274C89330069D39C /* FontSizeControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA6C274C89330069D39C /* FontSizeControlView.swift */; };
 		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
 		FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* PairDocument.swift */; };
@@ -320,6 +321,7 @@
 		FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorPickerView.swift; sourceTree = "<group>"; };
 		FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		FC51FA6A274C7D910069D39C /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		FC51FA6C274C89330069D39C /* FontSizeControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeControlView.swift; sourceTree = "<group>"; };
 		FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* PairDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDocument.swift; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				FCC803F927451A8000FFE4DC /* TextEditViewController.swift */,
 				FCC803FB27451C9600FFE4DC /* TextEditViewModel.swift */,
 				FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */,
+				FC51FA6C274C89330069D39C /* FontSizeControlView.swift */,
 				FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */,
 			);
 			path = TextEditScene;
@@ -1047,6 +1050,7 @@
 				3161EE9827436EC600B922DD /* StickerPickerView.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
 				66CD6464273D125F00E55C03 /* CGImage+Extensions.swift in Sources */,
+				FC51FA6D274C89330069D39C /* FontSizeControlView.swift in Sources */,
 				1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */,
 				665303AA2744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift in Sources */,
 				6653039D2743B49E00E3075C /* CoreDataPersistenceService.swift in Sources */,
