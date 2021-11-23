@@ -41,21 +41,21 @@ class FontPickerViewController: BottomSheetViewController {
     // MARK: - Helpers
 
     private func configureUI() {
-        self.detent = .medium
+        self.detent = .smallMedium
         self.body.backgroundColor = .dooldaBackground
 
         self.body.addSubview(self.bottomSheetTitle)
-        self.body.snp.makeConstraints { make in
+        self.bottomSheetTitle.snp.makeConstraints { make in
             make.top.equalTo(self.body).offset(16)
             make.leading.trailing.equalTo(self.body)
         }
 
         self.body.addSubview(self.applyButton)
         self.applyButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
+            make.leading.equalTo(self.body).offset(16)
+            make.trailing.equalTo(self.body).offset(-16)
             make.height.equalTo(44)
-            make.bottom.equalToSuperview().offset(-32)
+            make.bottom.equalTo(self.body).offset(-32)
         }
     }
 
