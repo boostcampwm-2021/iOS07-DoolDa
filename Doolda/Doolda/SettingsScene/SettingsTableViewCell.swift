@@ -22,6 +22,12 @@ class SettingsTableViewCell: UITableViewCell {
 
     // MARK: - Subviews
 
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .dooldaLabel
@@ -88,28 +94,38 @@ class SettingsTableViewCell: UITableViewCell {
     private func configureUI() {
         self.backgroundColor = .clear
 
-        self.contentView.addSubview(self.detailLabel)
-        self.detailLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
-            make.trailing.equalToSuperview().offset(-16)
-            make.width.equalTo(self.detailLabel.intrinsicContentSize.width)
-        }
+        self.stackView.addArrangedSubview(self.titleLabel)
+        self.stackView.addArrangedSubview(self.detailLabel)
+        self.stackView.addArrangedSubview(self.switchControl)
+        self.contentView.addSubview(self.stackView)
 
-        self.contentView.addSubview(self.titleLabel)
-        self.titleLabel.snp.makeConstraints { make in
+        self.stackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
             make.bottom.equalToSuperview().offset(-8)
             make.leading.equalToSuperview().offset(16)
-            make.trailing.equalTo(self.detailLabel.snp.leading)
+            make.trailing.equalToSuperview().offset(-16)
+            //make.width.equalToSuperview()
         }
 
-        self.contentView.addSubview(self.switchControl)
-        self.switchControl.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
-            make.trailing.equalToSuperview().offset(-18)
-        }
+//        self.titleLabel.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(8)
+//            make.bottom.equalToSuperview().offset(-8)
+//            make.leading.equalToSuperview().offset(16)
+//            make.trailing.equalTo(self.detailLabel.snp.leading)
+//        }
+//
+//        self.detailLabel.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(8)
+//            make.bottom.equalToSuperview().offset(-8)
+//            make.trailing.equalToSuperview().offset(-16)
+//            make.width.equalTo(self.detailLabel.intrinsicContentSize.width)
+//        }
+//
+//        self.switchControl.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(8)
+//            make.bottom.equalToSuperview().offset(-8)
+//            make.trailing.equalToSuperview().offset(-18)
+//        }
 
         self.layer.addSublayer(self.separator)
 
@@ -158,6 +174,9 @@ class SettingsTableViewCell: UITableViewCell {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.configureFont()
+                self?.detailLabel.snp.updateConstraints { make in
+                    make.width.equalTo(self?.detailLabel.intrinsicContentSize.width ?? 0)
+                }
             }
             .store(in: &self.cancellables)
     }
