@@ -64,6 +64,7 @@ class SettingsTableViewCell: UITableViewCell {
         self.init()
         self.style = style
         self.configureUI()
+        self.configureFont()
         self.bindUI()
     }
 
@@ -89,25 +90,25 @@ class SettingsTableViewCell: UITableViewCell {
 
         self.contentView.addSubview(self.detailLabel)
         self.detailLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
-            make.bottom.equalToSuperview().offset(-12)
+            make.top.equalToSuperview().offset(8)
+            make.bottom.equalToSuperview().offset(-8)
             make.trailing.equalToSuperview().offset(-16)
             make.width.equalTo(self.detailLabel.intrinsicContentSize.width)
         }
 
         self.contentView.addSubview(self.titleLabel)
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
-            make.bottom.equalToSuperview().offset(-12)
+            make.top.equalToSuperview().offset(8)
+            make.bottom.equalToSuperview().offset(-8)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalTo(self.detailLabel.snp.leading)
         }
 
         self.contentView.addSubview(self.switchControl)
         self.switchControl.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
-            make.bottom.equalToSuperview().offset(-12)
-            make.trailing.equalToSuperview().offset(-16)
+            make.top.equalToSuperview().offset(8)
+            make.bottom.equalToSuperview().offset(-8)
+            make.trailing.equalToSuperview().offset(-18)
         }
 
         self.layer.addSublayer(self.separator)
@@ -128,8 +129,11 @@ class SettingsTableViewCell: UITableViewCell {
     }
 
     private func configureFont() {
-        self.titleLabel.font = self.font
-        self.detailLabel.font = self.font
+        var font = self.font
+        if font == nil { font = .systemFont(ofSize: 16) }
+
+        self.titleLabel.font = font
+        self.detailLabel.font = font
     }
 
     private func bindUI() {

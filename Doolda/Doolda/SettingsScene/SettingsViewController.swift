@@ -93,11 +93,6 @@ class SettingsViewController: UIViewController {
         self.viewModel.settingsViewDidLoad()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.configureFont()
-    }
-
     // MARK: - Helpers
 
     private func configureUI() {
@@ -122,7 +117,7 @@ class SettingsViewController: UIViewController {
 
         self.settingsSections.enumerated().forEach { index, section in
             guard let header = self.tableView.headerView(forSection: index) as? SettingsTableViewHeader else { return }
-            header.font = .systemFont(ofSize: 16)
+            header.font = .systemFont(ofSize: 17)
 
             section.settingsOptions.forEach { options in
                 options.cell.font = .systemFont(ofSize: 16)
@@ -169,6 +164,10 @@ extension SettingsViewController: UITableViewDataSource {
         return self.settingsSections[exist: section]?.settingsOptions.count ?? 0
     }
 
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: SettingsTableViewHeader.identifier
@@ -182,11 +181,6 @@ extension SettingsViewController: UITableViewDataSource {
         guard let section = self.settingsSections[exist: indexPath.section],
               let cell = section.settingsOptions[exist: indexPath.row]?.cell else { return UITableViewCell() }
 
-//        let separator = CALayer()
-//
-//        separator.frame = CGRect(x: 16, y: cell.contentView.frame.height - 1, width: self.tableView.frame.width-32, height: 1)
-//        separator.backgroundColor = UIColor.dooldaLabel?.withAlphaComponent(0.2).cgColor
-//        cell.contentView.layer.addSublayer(separator)
         cell.selectionStyle = .none
         return cell
     }
@@ -195,5 +189,6 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: FontPickerViewControllerDelegate {
     func fontDidSelect(_ font: FontType) {
         self.viewModel.fontTypeDidChanged(font.name)
+        self.configureFont()
     }
 }
