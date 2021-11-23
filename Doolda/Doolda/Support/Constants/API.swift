@@ -16,8 +16,11 @@ enum FirebaseAPIs: URLRequestBuilder {
     case createPairDocument(String, String)
     case patchPairDocument(String, String)
     
-    case createPageDocument(String, Date, String, String)
     case getPageDocuments(String, Date?)
+    case createPageDocument(String, Date, String, String)
+    
+    case getFCMTokenDocument(String)
+    case putFCMTokenDocument(String, String)
 
     case uploadDataFile(String, String, Data)
     case downloadDataFile(String, String)
@@ -53,6 +56,8 @@ extension FirebaseAPIs {
             return "documents:runQuery"
         case .createPageDocument:
             return "documents/page"
+        case .getFCMTokenDocument(let userId), .putFCMTokenDocument(let userId, _):
+            return "documents/fcmToken/\(userId)"
         default: return nil
         }
     }
@@ -61,9 +66,9 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var parameters: [String : String]? {
         switch self {
-        case .getUserDocuement, .getPairDocument, .getPageDocuments, .sendFirebaseMessage:
+        case .getUserDocuement, .getPairDocument, .getPageDocuments, .getFCMTokenDocument, .sendFirebaseMessage:
             return nil
-        case .createUserDocument(let id), .createPairDocument(let id, _):
+        case .createUserDocument(let id), .createPairDocument(let id, _), .putFCMTokenDocument(let id, _):
             return ["documentId": id]
         case .createPageDocument(_, _, let jsonPath, let pairId):
             return ["documentId": pairId + jsonPath]
@@ -78,10 +83,12 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var method: HttpMethod {
         switch self {
-        case .getUserDocuement, .getPairDocument, .downloadDataFile:
+        case .getUserDocuement, .getPairDocument, .getFCMTokenDocument, .downloadDataFile:
             return .get
         case .createUserDocument, .createPairDocument, .createPageDocument, .uploadDataFile, .getPageDocuments, .sendFirebaseMessage:
             return .post
+        case .putFCMTokenDocument:
+            return .put
         case .patchUserDocuement, .patchPairDocument:
             return .patch
         }
@@ -104,7 +111,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var body: [String: Any]? {
         switch self {
-        case .getUserDocuement, .getPairDocument, .uploadDataFile, .downloadDataFile:
+        case .getUserDocuement, .getPairDocument, .getFCMTokenDocument, .uploadDataFile, .downloadDataFile:
             return nil
         case .getPageDocuments(let pairId, let date):
             var filters = [[String: Any]]()
@@ -178,6 +185,11 @@ extension FirebaseAPIs {
                     "sound": "Tri-tone"
                 ],
                 "data": data
+            ]
+        case .putFCMTokenDocument(_, let token):
+            let tokenDocument = FCMTokenDocument(token: token)
+            return [
+                "fields": tokenDocument.fields
             ]
         }
     }
