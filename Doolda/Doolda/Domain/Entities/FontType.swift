@@ -23,7 +23,7 @@ extension FontType {
         case.dovemayo:
             return "dovemayo"
         case.darae:
-            return "darae"
+            return "drfont_daraehand"
         case .kotraHope:
             return "kotraHope"
         case .uhBeeMysen:
@@ -31,7 +31,7 @@ extension FontType {
         case .dungGeunMo:
             return "dungGeunMo"
         case .kyoboHandwriting:
-            return "kyoboHandwriting"
+            return "Kyobo Handwriting 2019"
         case .appleNeo:
             return "Apple SD Gothic Neo"
         }
