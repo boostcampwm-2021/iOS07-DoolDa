@@ -4,8 +4,6 @@
 <dict>
 	<key>FCM_SERVER_KEY</key>
 	<string>$(FCM_SERVER_KEY)</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>dovemayo.otf</string>
@@ -27,5 +25,9 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

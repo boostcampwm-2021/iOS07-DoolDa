@@ -11,6 +11,7 @@
 		1D04F41C273957E600CFCC3A /* BackgroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F41B273957E600CFCC3A /* BackgroundType.swift */; };
 		1D097E97273CFA5900A4810B /* RawPageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D097E96273CFA5900A4810B /* RawPageRepository.swift */; };
 		1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
+		1D2E22C6274C87F600A902B2 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D2E22C5274C87F600A902B2 /* FirebaseMessaging */; };
 		1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */; };
 		1D3925B5273B9172003A0B70 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */; };
 		1D3925BD273BB4BE003A0B70 /* EditPageUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925BC273BB4BE003A0B70 /* EditPageUseCaseTest.swift */; };
@@ -44,6 +45,7 @@
 		1D8BE07D2743437600201E3E /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07C2743437600201E3E /* DiaryViewModel.swift */; };
 		1D8BE07F2743846A00201E3E /* DiaryCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07E2743846A00201E3E /* DiaryCollectionViewHeader.swift */; };
 		1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D992B41273D0EAB00B63954 /* PageRepository.swift */; };
+		1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D99945F274C8E6300C72273 /* GoogleService-Info.plist */; };
 		1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */; };
 		1D9DC09F274A0E290060587B /* FilterOptionBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */; };
 		1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A0274A47D50060587B /* DooldaButton.swift */; };
@@ -207,6 +209,8 @@
 		1D8BE07C2743437600201E3E /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		1D8BE07E2743846A00201E3E /* DiaryCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCollectionViewHeader.swift; sourceTree = "<group>"; };
 		1D992B41273D0EAB00B63954 /* PageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepository.swift; sourceTree = "<group>"; };
+		1D99945E274C8BF600C72273 /* Doolda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Doolda.entitlements; sourceTree = "<group>"; };
+		1D99945F274C8E6300C72273 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewController.swift; sourceTree = "<group>"; };
 		1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		1D9DC0A0274A47D50060587B /* DooldaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaButton.swift; sourceTree = "<group>"; };
@@ -341,6 +345,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D2E22C6274C87F600A902B2 /* FirebaseMessaging in Frameworks */,
 				664893F027300DB9009F03E2 /* Kingfisher in Frameworks */,
 				664893ED27300D7D009F03E2 /* SnapKit in Frameworks */,
 			);
@@ -528,6 +533,7 @@
 		664893BF273007ED009F03E2 /* Doolda */ = {
 			isa = PBXGroup;
 			children = (
+				1D99945E274C8BF600C72273 /* Doolda.entitlements */,
 				664893D4273008C2009F03E2 /* Application */,
 				664893D52730090B009F03E2 /* Resources */,
 				664893E927300B59009F03E2 /* Support */,
@@ -564,6 +570,7 @@
 				664893CE273007F1009F03E2 /* Info.plist */,
 				665303992743B3FF00E3075C /* CoreDataModel.xcdatamodeld */,
 				1DDADCB2274BCB29000330C9 /* Config.xcconfig */,
+				1D99945F274C8E6300C72273 /* GoogleService-Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -826,6 +833,7 @@
 			packageProductDependencies = (
 				664893EC27300D7D009F03E2 /* SnapKit */,
 				664893EF27300DB9009F03E2 /* Kingfisher */,
+				1D2E22C5274C87F600A902B2 /* FirebaseMessaging */,
 			);
 			productName = Doolda;
 			productReference = 664893BD273007ED009F03E2 /* Doolda.app */;
@@ -866,6 +874,7 @@
 				664893EB27300D7D009F03E2 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				664893EE27300DB9009F03E2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				664893F127300E28009F03E2 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				1D2E22C4274C87F600A902B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 664893BE273007ED009F03E2 /* Products */;
 			projectDirPath = "";
@@ -903,6 +912,7 @@
 				66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
 				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
+				1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1342,11 +1352,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doolda/Resources/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1356,7 +1368,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boolbada.Doolda;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1370,11 +1382,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doolda/Resources/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1384,7 +1398,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boolbada.Doolda;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1434,6 +1448,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1D2E22C4274C87F600A902B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		664893EB27300D7D009F03E2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1461,6 +1483,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1D2E22C5274C87F600A902B2 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1D2E22C4274C87F600A902B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		664893EC27300D7D009F03E2 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 664893EB27300D7D009F03E2 /* XCRemoteSwiftPackageReference "SnapKit" */;
