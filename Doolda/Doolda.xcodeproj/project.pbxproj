@@ -52,6 +52,7 @@
 		1D999468274CAC4700C72273 /* FCMTokenDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999467274CAC4700C72273 /* FCMTokenDocument.swift */; };
 		1D99946A274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999469274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift */; };
 		1D99946C274CEF2900C72273 /* FirebaseMessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D99946B274CEF2900C72273 /* FirebaseMessageRepository.swift */; };
+		1D99946E274CEFC500C72273 /* FirebaseMessageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D99946D274CEFC500C72273 /* FirebaseMessageUseCase.swift */; };
 		1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */; };
 		1D9DC09F274A0E290060587B /* FilterOptionBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */; };
 		1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A0274A47D50060587B /* DooldaButton.swift */; };
@@ -235,6 +236,7 @@
 		1D999467274CAC4700C72273 /* FCMTokenDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenDocument.swift; sourceTree = "<group>"; };
 		1D999469274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		1D99946B274CEF2900C72273 /* FirebaseMessageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageRepository.swift; sourceTree = "<group>"; };
+		1D99946D274CEFC500C72273 /* FirebaseMessageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageUseCase.swift; sourceTree = "<group>"; };
 		1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewController.swift; sourceTree = "<group>"; };
 		1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		1D9DC0A0274A47D50060587B /* DooldaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaButton.swift; sourceTree = "<group>"; };
@@ -709,6 +711,7 @@
 				FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */,
 				66C482DA2746135500823151 /* GetRawPageUseCase.swift */,
 				1D999461274CA94600C72273 /* FCMTokenUseCase.swift */,
+				1D99946D274CEFC500C72273 /* FirebaseMessageUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1182,6 +1185,7 @@
 				66ECCD3A273E5342003990EE /* CarouselView.swift in Sources */,
 				66CAFF242740F63A00A48DCF /* BackgroundTypePickerViewController.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
+				1D99946E274CEFC500C72273 /* FirebaseMessageUseCase.swift in Sources */,
 				1D58277D2732883E00FD0EA5 /* PairingViewCoordinatorProtocol.swift in Sources */,
 				665303A02743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift in Sources */,
 				31012596273842B300E43160 /* StickerComponentEntity.swift in Sources */,
