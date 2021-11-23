@@ -179,6 +179,7 @@ class DiaryCollectionViewCell: UICollectionViewCell {
             case let stickerComponentEntity as StickerComponentEntity:
                 let stickerComponentView = UIImageView(frame: computedCGRect)
                 stickerComponentView.image = UIImage(named: stickerComponentEntity.name)
+                stickerComponentView.contentMode = .scaleAspectFit
                 self.pageView.addSubview(stickerComponentView)
                 let transform = CGAffineTransform.identity
                     .rotated(by: componentEntity.angle)
