@@ -19,6 +19,7 @@ extension CoreDataPageEntity {
     @NSManaged public var jsonPath: String?
     @NSManaged public var createdTime: Date?
     @NSManaged public var updatedTime: Date?
+    @NSManaged public var isUpToDate: Bool
 
     func toPageEntity() -> PageEntity? {
         guard let id = DDID(from: id ?? ""),
@@ -40,6 +41,7 @@ extension CoreDataPageEntity {
         self.pairId = pageEntity.author.pairId?.ddidString
         self.jsonPath = pageEntity.jsonPath
         self.createdTime = pageEntity.createdTime
+        self.isUpToDate = self.updatedTime == pageEntity.updatedTime
         self.updatedTime = pageEntity.updatedTime
     }
 }

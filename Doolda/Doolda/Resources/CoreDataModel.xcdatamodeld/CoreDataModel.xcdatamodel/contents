@@ -3,11 +3,12 @@
     <entity name="CoreDataPageEntity" representedClassName="CoreDataPageEntity" syncable="YES">
         <attribute name="createdTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isUpToDate" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="jsonPath" optional="YES" attributeType="String"/>
         <attribute name="pairId" optional="YES" attributeType="String"/>
         <attribute name="updatedTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="CoreDataPageEntity" positionX="-54" positionY="-9" width="128" height="104"/>
+        <element name="CoreDataPageEntity" positionX="-54" positionY="-9" width="128" height="119"/>
     </elements>
 </model>
