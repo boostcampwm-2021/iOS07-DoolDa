@@ -116,18 +116,6 @@ class FontPickerViewController: BottomSheetViewController {
 }
 
 extension FontPickerViewController: UIPickerViewDelegate {
-
-}
-
-extension FontPickerViewController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return FontType.allCases.count
-    }
-
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return self.body.frame.height / 9
     }
@@ -142,5 +130,15 @@ extension FontPickerViewController: UIPickerViewDataSource {
         pickerLabel?.font = UIFont(name: fontName, size: 28)
         pickerLabel?.textAlignment = .center
         return pickerLabel ?? UIView()
+    }
+}
+
+extension FontPickerViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return FontType.allCases.count
     }
 }
