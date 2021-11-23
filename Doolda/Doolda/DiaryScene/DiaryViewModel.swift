@@ -18,7 +18,7 @@ protocol DiaryViewModelInput {
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
     func filterOptionDidChange(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
     func filterBottomSheetDidDismiss()
-    func pageDidDisplay(jsonPath: String) -> AnyPublisher<RawPageEntity, Error>
+    func pageDidDisplay(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error>
     func getDate(of index: Int) -> Date?
 }
 
@@ -143,9 +143,8 @@ class DiaryViewModel: DiaryViewModelProtocol {
         self.fetchPages()
     }
     
-    func pageDidDisplay(jsonPath: String) -> AnyPublisher<RawPageEntity, Error> {
-        guard let pairId = self.user.pairId else { return Fail(error: DiaryViewModelError.userNotPaired).eraseToAnyPublisher() }
-        return self.getRawPageUseCase.getRawPageEntity(for: pairId, jsonPath: jsonPath)
+    func pageDidDisplay(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error> {
+        return self.getRawPageUseCase.getRawPageEntity(metaData: metaData)
     }
 
     func displayModeToggleButtonDidTap() {

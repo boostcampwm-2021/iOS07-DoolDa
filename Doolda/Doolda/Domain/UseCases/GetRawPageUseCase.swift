@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol GetRawPageUseCaseProtocol {
-    func getRawPageEntity(for pairId: DDID, jsonPath: String) -> AnyPublisher<RawPageEntity, Error>
+    func getRawPageEntity(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error>
 }
 
 class GetRawPageUseCase: GetRawPageUseCaseProtocol {
@@ -19,7 +19,7 @@ class GetRawPageUseCase: GetRawPageUseCaseProtocol {
         self.rawPageRepository = rawPageRepository
     }
     
-    func getRawPageEntity(for pairId: DDID, jsonPath: String) -> AnyPublisher<RawPageEntity, Error> {
-        return self.rawPageRepository.fetch(at: pairId.ddidString, with: jsonPath)
+    func getRawPageEntity(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error> {
+        return self.rawPageRepository.fetch(metaData: metaData)
     }
 }

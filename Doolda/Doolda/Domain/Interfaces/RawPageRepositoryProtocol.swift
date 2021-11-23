@@ -10,5 +10,5 @@ import Foundation
 
 protocol RawPageRepositoryProtocol {
     func save(rawPage: RawPageEntity, at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error>
-    func fetch(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error>
+    func fetch(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error>
 }
