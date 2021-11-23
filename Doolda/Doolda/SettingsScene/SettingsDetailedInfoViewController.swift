@@ -14,25 +14,35 @@ class SettingsDetailedInfoViewController: UIViewController {
 
     // MARK: - Subviews
 
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        return scrollView
+    private var textView: UITextView = {
+        let textView = UITextView()
+        textView.font = .systemFont(ofSize: 16)
+        textView.textColor = .dooldaLabel
+        textView.backgroundColor = .clear
+        textView.isScrollEnabled = true
+        return textView
     }()
 
-    private var contentView: UILabel = {
-        let label = UILabel()
-        label.textColor = .dooldaLabel
-        label.font = .systemFont(ofSize: 16)
-        label.textAlignment = .left
-        return label
-    }()
+    // MARK: - Public Properties
+
+    @Published var titleText: String?
+    @Published var contentText: String?
+
+    // MARK: - Private Properties
+
+    private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - Initializers
 
-    convenience init(title: String, content: String) {
+    convenience init() {
         self.init(nibName: nil, bundle: nil)
-        self.navigationItem.title = title
-        self.contentView.text = content
+        self.bindUI()
+    }
+
+    // MARK: - LifeCycle Methods
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
         self.configureUI()
     }
 
@@ -40,18 +50,28 @@ class SettingsDetailedInfoViewController: UIViewController {
 
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
-        
-        self.view.addSubview(self.scrollView)
-        self.scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view.safeAreaLayoutGuide).offset(16)
-        }
 
-        self.scrollView.addSubview(self.contentView)
-        self.contentView.snp.makeConstraints { make in
-            make.top.equalTo(self.scrollView.frameLayoutGuide)
-            make.leading.equalTo(self.scrollView.frameLayoutGuide)
-            make.trailing.equalTo(self.scrollView.frameLayoutGuide)
+        self.view.addSubview(self.textView)
+        self.textView.snp.makeConstraints { make in
+            make.top.leading.equalTo(self.view.safeAreaLayoutGuide).offset(16)
+            make.bottom.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-16)
         }
+    }
+
+    private func bindUI() {
+        self.$titleText
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] title in
+                self?.navigationItem.title = title
+            }
+            .store(in: &self.cancellables)
+
+        self.$contentText
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] contentText in
+                self?.textView.text = contentText
+            }
+            .store(in: &self.cancellables)
     }
 
 }
