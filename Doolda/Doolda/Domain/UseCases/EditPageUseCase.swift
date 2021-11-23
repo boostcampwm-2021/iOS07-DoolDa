@@ -147,7 +147,9 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         
         let currentTime = Date()
         let path = DateFormatter.jsonPathFormatter.string(from: currentTime)
-        let metaData = PageEntity(author: author, createdTime: currentTime, jsonPath: path)
+        // FIXME: Edit 동작이 구현되면 updateTime수정할 것!
+        // FIXME: 첫 생성은 currenTime과 같은것으로 대입!
+        let metaData = PageEntity(author: author, createdTime: currentTime, updatedTime: currentTime, jsonPath: path)
         
         let imageUploadPublishers = page.components
             .compactMap { $0 as? PhotoComponentEntity }
