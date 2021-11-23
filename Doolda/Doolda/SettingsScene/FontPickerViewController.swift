@@ -96,6 +96,17 @@ class FontPickerViewController: BottomSheetViewController {
         self.bottomSheetTitle.font = .systemFont(ofSize: 16)
     }
 
+    private func bindUI() {
+        self.applyButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let index = self?.fontPicker.selectedRow(inComponent: 0),
+                      let font = FontType.allCases[exist: index] else { return }
+                self?.delegate?.fontDidSelect(font)
+            }
+            .store(in: &self.cancellables)
+    }
+
 }
 
 extension FontPickerViewController: UIPickerViewDelegate {
@@ -116,7 +127,7 @@ extension FontPickerViewController: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        guard let fontName = FontType.allCases[exist: row]?.fontName,
+        guard let fontName = FontType.allCases[exist: row]?.name,
               let text = FontType.allCases[exist: row]?.displayName else { return UIView() }
 
         var pickerLabel = view as? UILabel

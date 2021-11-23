@@ -207,7 +207,7 @@ class PairingViewController: UIViewController {
     }
     
     private func configureFont() {
-        self.logoLabel.font = UIFont(name: FontType.dovemayo.fontName, size: 72)
+        self.logoLabel.font = UIFont(name: FontType.dovemayo.name, size: 72)
         self.instructionLabel.font = .systemFont(ofSize: 18)
         self.myIdTitleLabel.font = .systemFont(ofSize: 14)
         self.myIdLabel.font = .systemFont(ofSize: 16)
