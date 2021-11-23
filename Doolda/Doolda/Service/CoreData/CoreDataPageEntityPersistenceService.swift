@@ -36,7 +36,7 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
             context.perform {
                 do {
                     let fetchRequest = CoreDataPageEntity.fetchRequest()
-                    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timeStamp", ascending: false)]
+                    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdTime", ascending: false)]
                     let fetchResult = try context.fetch(fetchRequest)
                     let pageEntities = fetchResult.compactMap { $0.toPageEntity() }
                     
@@ -50,15 +50,17 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
     }
     
     func savePageEntity(_ pageEntity: PageEntity) -> AnyPublisher<Void, Error> {
-        guard let context = coreDataPersistenceService.backgroundContext else {
+        guard let context = coreDataPersistenceService.backgroundContext,
+              let coreDataPageEntity = NSEntityDescription.entity(forEntityName: CoreDataPageEntity.coreDataPageEntityName, in: context) else {
             return Fail(error: CoreDataPageEntityPersistenceServiceError.failedToInitializeCoreDataContainer).eraseToAnyPublisher()
         }
         
         return Future { promise in
             context.perform {
-                let entity = CoreDataPageEntity(context: context)
-                entity.update(pageEntity)
-            
+                if let managedObject = NSManagedObject(entity: coreDataPageEntity, insertInto: context) as? CoreDataPageEntity {
+                    managedObject.update(pageEntity)
+                }
+                
                 do {
                     try context.save()
                     promise(.success(()))
