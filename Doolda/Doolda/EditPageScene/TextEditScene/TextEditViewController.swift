@@ -45,7 +45,12 @@ class TextEditViewController: UIViewController {
     private var widthRatioFromAbsolute: CGFloat?
     private var heightRatioFromAbsolute: CGFloat?
     
-    private var currentColorIndex: Int = 0
+    private var currentColorIndex: Int = 0 {
+        didSet {
+            guard let currentColor = self.viewModel.getFontColor(at: self.currentColorIndex) else { return }
+            self.inputTextView.textColor = UIColor(cgColor: currentColor)
+        }
+    }
     
     private var cancellables: Set<AnyCancellable> = []
     private var viewModel: TextEditViewModelProtocol!
@@ -184,24 +189,20 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
             if let collectionView = scrollView as? UICollectionView {
-                
+                let cellCount = collectionView.numberOfItems(inSection: 0)
                 let cellWidth: CGFloat = 45
                 
                 var offset = targetContentOffset.pointee
                 let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))
                 
                 if index > self.currentColorIndex {
-                    self.currentColorIndex += 1
+                    self.currentColorIndex = index < cellCount ? index : cellCount - 1
                 } else if index < self.currentColorIndex {
-                    if self.currentColorIndex != 0 {
-                        self.currentColorIndex -= 1
-                    }
+                    self.currentColorIndex = index > 0 ? index : 0
                 }
                 
                 offset = CGPoint(x: CGFloat(self.currentColorIndex) * cellWidth - collectionView.contentInset.left, y: 0)
-                
                 targetContentOffset.pointee = offset
-                
             }
         }
 }

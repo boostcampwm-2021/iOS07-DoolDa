@@ -303,6 +303,8 @@ class EditPageViewController: UIViewController {
                 if let textComponentEntity = componentEntity as? TextComponentEntity,
                    let textComponentView = componentView as? UITextView {
                     textComponentView.text = textComponentEntity.text
+                    textComponentView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
+                    textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
                 }
 
                 let computedCGRect = CGRect(
