@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 protocol SettingsViewModelInput {
+    func settingsViewDidLoad()
     func fontTypeDidChanged(_ fontName: String)
     func pushNotificationDidToggle()
     func openSourceLicenseDidTap()
@@ -17,18 +18,21 @@ protocol SettingsViewModelInput {
 }
 
 protocol SettingsViewModelOutput {
+    var pushNotificationStatePublisher: Published<Bool?>.Publisher { get }
     var selectedFontPublisher: Published<String?>.Publisher { get }
 }
 
 typealias SettingsViewModelProtocol = SettingsViewModelInput & SettingsViewModelOutput
 
 class SettingsViewModel: SettingsViewModelProtocol {
+    var pushNotificationStatePublisher: Published<Bool?>.Publisher { self.$isPushNotificationOn }
     var selectedFontPublisher: Published<String?>.Publisher { self.$selectedFont }
 
     private let coordinator: SettingsViewCoordinatorProtocol
     private let globalFontUseCase: GlobalFontUseCaseProtocol
     private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
     private var cancellables: Set<AnyCancellable> = []
+    @Published private var isPushNotificationOn: Bool?
     @Published private var selectedFont: String?
 
     init(
@@ -39,6 +43,10 @@ class SettingsViewModel: SettingsViewModelProtocol {
         self.coordinator = coordinator
         self.globalFontUseCase = globalFontUseCase
         self.pushNotificationStateUseCase = pushNotificationStateUseCase
+    }
+
+    func settingsViewDidLoad() {
+        self.isPushNotificationOn = self.pushNotificationStateUseCase.getPushNotificationState()
         self.selectedFont = self.globalFontUseCase.getGlobalFont()
     }
 
