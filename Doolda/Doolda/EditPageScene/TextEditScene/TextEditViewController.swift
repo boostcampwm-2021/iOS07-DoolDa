@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 
 protocol TextEditViewControllerDelegate: AnyObject {
-    func textInputDidEndInput(_ textComponentEntity: TextComponentEntity)
+    func textInputDidEndAdd(_ textComponentEntity: TextComponentEntity)
     func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity)
 }
 
@@ -62,7 +62,7 @@ class TextEditViewController: UIViewController {
     private weak var delegate: TextEditViewControllerDelegate?
     
     override var inputAccessoryView: UIView? {
-            return self.fontColorView
+        return self.fontColorView
     }
     
     // MARK: - Initializers
@@ -80,9 +80,9 @@ class TextEditViewController: UIViewController {
         self.heightRatioFromAbsolute = heightRatioFromAbsolute
         self.modalPresentationStyle = .overFullScreen
     }
-
+    
     // MARK: - Lifecycle Methods
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,7 +108,7 @@ class TextEditViewController: UIViewController {
             make.width.equalTo(30)
             make.bottom.equalTo(self.view.snp.centerY)
         }
- 
+        
     }
     
     private func bindUI() {
@@ -120,15 +120,15 @@ class TextEditViewController: UIViewController {
                         contentSize: self.computeSizeToAbsolute(with: self.inputTextView.contentSize),
                         fontSize: 18 * self.fontSizeControl.value,
                         colorIndex: self.currentColorIndex
-                    ) else { return }
+                      ) else { return }
                 if self.viewModel?.selectedTextComponent != nil {
                     self.delegate?.textInputDidEndEditing(textComponenetEntity)
                 } else {
-                    self.delegate?.textInputDidEndInput(textComponenetEntity)
+                    self.delegate?.textInputDidEndAdd(textComponenetEntity)
                 }
                 self.dismiss(animated: false)
             }.store(in: &self.cancellables)
-  
+        
         self.fontSizeControl.publisher(for: .allTouchEvents)
             .sink { [weak self] control in
                 guard let self = self ,
@@ -145,7 +145,7 @@ class TextEditViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-
+    
     private func computeSizeToAbsolute(with size: CGSize) -> CGSize {
         let computedWidth =  size.width / ( self.widthRatioFromAbsolute ?? 0.0 )
         let computedHeight = size.height / ( self.heightRatioFromAbsolute ?? 0.0 )
@@ -157,7 +157,6 @@ extension TextEditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if let selectedTextComponent = self.viewModel?.selectedTextComponent {
             self.inputTextView.text = selectedTextComponent.text
-
         } else {
             textView.text = "내용을 입력하세요"
             textView.textColor = .systemGray
@@ -192,11 +191,6 @@ extension TextEditViewController: UITextViewDelegate {
     }
 }
 
-extension TextEditViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    }
-}
-
 extension TextEditViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -209,35 +203,35 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         let inset = collectionView.frame.width / 2.0 - 15
         return UIEdgeInsets(top: 5, left: inset, bottom: 5, right: inset)
-        }
+    }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-            if let collectionView = scrollView as? UICollectionView {
-                let cellCount = collectionView.numberOfItems(inSection: 0)
-                let cellWidth: CGFloat = 45
-                
-                var offset = targetContentOffset.pointee
-                let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))
-                
-                if index > self.currentColorIndex {
-                    self.currentColorIndex = index < cellCount ? index : cellCount - 1
-                } else if index < self.currentColorIndex {
-                    self.currentColorIndex = index > 0 ? index : 0
-                }
-                
-                offset = CGPoint(x: CGFloat(self.currentColorIndex) * cellWidth - collectionView.contentInset.left, y: 0)
-                targetContentOffset.pointee = offset
+        if let collectionView = scrollView as? UICollectionView {
+            let cellCount = collectionView.numberOfItems(inSection: 0)
+            let cellWidth: CGFloat = 45
+            
+            var offset = targetContentOffset.pointee
+            let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))
+            
+            if index > self.currentColorIndex {
+                self.currentColorIndex = index < cellCount ? index : cellCount - 1
+            } else if index < self.currentColorIndex {
+                self.currentColorIndex = index > 0 ? index : 0
             }
+            
+            offset = CGPoint(x: CGFloat(self.currentColorIndex) * cellWidth - collectionView.contentInset.left, y: 0)
+            targetContentOffset.pointee = offset
         }
+    }
 }
 
 extension TextEditViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.getFontColorCount()
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: FontColorCollectionViewCell.identifier,
@@ -245,7 +239,7 @@ extension TextEditViewController: UICollectionViewDataSource {
         ) as? FontColorCollectionViewCell,
               let cellColor = self.viewModel.getFontColor(at: indexPath.item)
         else { return UICollectionViewCell() }
-
+        
         cell.configure(with: UIColor(cgColor: cellColor))
         return cell
     }

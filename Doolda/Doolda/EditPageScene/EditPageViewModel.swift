@@ -20,7 +20,7 @@ protocol EditPageViewModelInput {
     func componentSendBackControlDidTap()
     func componentRemoveControlDidTap()
     
-    func textComponentDidChange(as textComponent: TextComponentEntity)
+    func textComponentDidChange(to textComponent: TextComponentEntity)
     
     func photoComponentAddButtonDidTap()
     func textComponentAddButtonDidTap()
@@ -74,7 +74,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         self.editPageUseCase.selectedComponentPublisher
             .sink { [weak self] selectedComponent in
                 self?.selectedComponent = selectedComponent
-            }.store(in : &cancellables)
+            }.store(in : &self.cancellables)
         
         self.editPageUseCase.rawPagePublisher
             .sink { [weak self] rawPageEntity in
@@ -82,7 +82,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
                       let rawPageEntity = rawPageEntity else { return }
                 self.components = rawPageEntity.components
                 self.background = rawPageEntity.backgroundType
-            }.store(in : &cancellables)
+            }.store(in : &self.cancellables)
         
         self.editPageUseCase.resultPublisher
             .dropFirst()
@@ -93,6 +93,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         self.editPageUseCase.errorPublisher
             .assign(to: &$error)
     }
+    
     func componentDidTap() {
         if let selectedComponent = self.selectedComponent as? TextComponentEntity {
             self.coordinator.editTextComponent(with: selectedComponent)
@@ -127,7 +128,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         self.editPageUseCase.removeComponent()
     }
     
-    func textComponentDidChange(as textComponent: TextComponentEntity) {
+    func textComponentDidChange(to textComponent: TextComponentEntity) {
         self.editPageUseCase.changeTextComponent(into: textComponent)
     }
     

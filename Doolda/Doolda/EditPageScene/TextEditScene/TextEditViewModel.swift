@@ -25,15 +25,16 @@ class TextEditViewModel: TextEditViewModelProtocol {
     }
     
     func getFontColorCount() -> Int {
-        return self.textUseCase.fontColors.count
+        return FontColorType.allCases.count
     }
     
     func getFontColor(at index: Int) -> CGColor? {
-        return self.textUseCase.getFontColor(at: index)?.rawValue
+        let fontColorType = FontColorType.allCases
+        return fontColorType[index].rawValue
     }
     
     func inputViewEditingDidEnd(input: String, contentSize: CGSize, fontSize: CGFloat, colorIndex: Int) -> TextComponentEntity? {
-        guard let color = self.textUseCase.getFontColor(at: colorIndex) else { return nil }
+        let color = FontColorType.allCases[colorIndex]
         if let selectedTextComponent = selectedTextComponent {
             return self.textUseCase.changeTextComponent(
                 from: selectedTextComponent,

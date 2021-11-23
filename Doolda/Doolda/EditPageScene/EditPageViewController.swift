@@ -508,11 +508,11 @@ extension EditPageViewController: StickerPickerBottomSheetViewControllerDelegate
 }
 
 extension EditPageViewController: TextEditViewControllerDelegate {
-    func textInputDidEndInput(_ textComponentEntity: TextComponentEntity) {
+    func textInputDidEndAdd(_ textComponentEntity: TextComponentEntity) {
         self.viewModel?.componentEntityDidAdd(textComponentEntity)
     }
     
     func textInputDidEndEditing(_ textComponentEntity: TextComponentEntity) {
-        self.viewModel?.textComponentDidChange(as: textComponentEntity)
+        self.viewModel?.textComponentDidChange(to: textComponentEntity)
     }
 }
