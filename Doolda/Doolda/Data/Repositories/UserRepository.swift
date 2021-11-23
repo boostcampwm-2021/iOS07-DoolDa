@@ -9,6 +9,7 @@ import Foundation
 
 enum UserRepositoryError: LocalizedError {
     case nilUserId
+    case nilFriendId
     case DTOInitError
     case savePairIdFail
     
@@ -16,6 +17,8 @@ enum UserRepositoryError: LocalizedError {
         switch self {
         case .nilUserId:
             return "유저의 아이디가 존재하지 않습니다."
+        case .nilFriendId:
+            return "친구의 아이디가 존재하지 않습니다."
         case .DTOInitError:
             return "DataTransferObjects가 올바르지 않습니다."
         case .savePairIdFail:
@@ -60,8 +63,9 @@ class UserRepository: UserRepositoryProtocol {
             .eraseToAnyPublisher()
         }
         
+        guard let friendId = user.friendId else { return Fail(error: UserRepositoryError.nilFriendId).eraseToAnyPublisher() }
         let publisher: AnyPublisher<UserDocument, Error> =
-        self.urlSessionNetworkService.request(FirebaseAPIs.patchUserDocuement(user.id.ddidString, pairId.ddidString))
+        self.urlSessionNetworkService.request(FirebaseAPIs.patchUserDocument(user.id.ddidString, pairId.ddidString, friendId.ddidString))
         return publisher.tryMap { userDocument in
             guard let newUser = userDocument.toUser() else {
                 throw UserRepositoryError.nilUserId

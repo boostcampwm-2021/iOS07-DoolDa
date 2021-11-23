@@ -10,7 +10,7 @@ import Foundation
 enum FirebaseAPIs: URLRequestBuilder {
     case getUserDocuement(String)
     case createUserDocument(String)
-    case patchUserDocuement(String, String)
+    case patchUserDocument(String, String, String)
     
     case getPairDocument(String)
     case createPairDocument(String, String)
@@ -44,7 +44,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var path: String? {
         switch self {
-        case .getUserDocuement(let userId), .patchUserDocuement(let userId, _):
+        case .getUserDocuement(let userId), .patchUserDocument(let userId, _, _):
             return "documents/user/\(userId)"
         case .createUserDocument:
             return "documents/user"
@@ -72,7 +72,7 @@ extension FirebaseAPIs {
             return ["documentId": id]
         case .createPageDocument(_, _, let jsonPath, let pairId):
             return ["documentId": pairId + jsonPath]
-        case .patchUserDocuement, .patchPairDocument:
+        case .patchUserDocument, .patchPairDocument:
             return ["currentDocument.exists": "true"]
         case .uploadDataFile, .downloadDataFile:
             return ["alt": "media"]
@@ -87,7 +87,7 @@ extension FirebaseAPIs {
             return .get
         case .createUserDocument, .createPairDocument, .createPageDocument, .uploadDataFile, .getPageDocuments, .sendFirebaseMessage:
             return .post
-        case .patchUserDocuement, .patchPairDocument, .patchFCMTokenDocument:
+        case .patchUserDocument, .patchPairDocument, .patchFCMTokenDocument:
             return .patch
         }
     }
@@ -154,12 +154,12 @@ extension FirebaseAPIs {
                 ]
             ]
         case .createUserDocument(let userId):
-            let userDocument = UserDocument(userId: userId, pairId: "")
+            let userDocument = UserDocument(userId: userId, pairId: "", friendId: "")
             return [
                 "fields": userDocument.fields
             ]
-        case .patchUserDocuement(let userId, let pairId):
-            let userDocument = UserDocument(userId: userId, pairId: pairId)
+        case .patchUserDocument(let userId, let pairId, let friendId):
+            let userDocument = UserDocument(userId: userId, pairId: pairId, friendId: friendId)
             return [
                 "fields": userDocument.fields
             ]
