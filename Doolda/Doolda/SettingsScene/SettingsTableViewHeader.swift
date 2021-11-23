@@ -20,7 +20,6 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
 
     private lazy var titleLabel: UILabel = {
         let title = UILabel()
-        title.font = .systemFont(ofSize: 16)
         title.textColor = .dooldaSubLabel
         return title
     }()
@@ -39,6 +38,8 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         self.configureUI()
+        self.configureFont()
+        self.bindUI()
     }
 
     required init?(coder: NSCoder) {
@@ -49,17 +50,20 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
     // MARK: - Helpers
 
     private func configureUI() {
+        self.backgroundView?.backgroundColor = .red
         self.addSubview(titleLabel)
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-16)
+            make.top.equalToSuperview().offset(8)
+            make.bottom.equalToSuperview().offset(-8)
             make.leading.equalToSuperview().offset(16)
             make.width.equalToSuperview()
         }
     }
 
     private func configureFont() {
-        self.titleLabel.font = self.font
+        var font = self.font
+        if font == nil { font = .systemFont(ofSize: 16) }
+        self.titleLabel.font = font
     }
 
     private func bindUI() {

@@ -105,7 +105,6 @@ class FontPickerViewController: BottomSheetViewController {
         self.applyButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                print(self?.fontPicker.selectedRow(inComponent: 0))
                 guard let index = self?.fontPicker.selectedRow(inComponent: 0),
                       let font = FontType.allCases[exist: index] else { return }
                 self?.delegate?.fontDidSelect(font)

@@ -22,7 +22,6 @@ class GlobalFontUseCase: GlobalFontUseCaseProtocol {
 
     func setGlobalFont(with fontName: String) {
         UIFont.globalFontFamily = fontName
-        print(UIFont.globalFontFamily)
     }
     
     func saveGlobalFont(as fontName: String) {
