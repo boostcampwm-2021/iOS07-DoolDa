@@ -5,6 +5,7 @@
 //  Created by Dozzing on 2021/11/22.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -17,12 +18,21 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
 
     // MARK: - Subviews
 
-    private lazy var title: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let title = UILabel()
         title.font = .systemFont(ofSize: 16)
         title.textColor = .dooldaSubLabel
         return title
     }()
+
+    // MARK: - Public Properties
+
+    @Published var title: String?
+    @Published var font: UIFont?
+
+    // MARK: - Private Properties
+
+    private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - Initializers
 
@@ -39,8 +49,8 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
     // MARK: - Helpers
 
     private func configureUI() {
-        self.addSubview(title)
-        self.title.snp.makeConstraints { make in
+        self.addSubview(titleLabel)
+        self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.bottom.equalToSuperview().offset(-16)
             make.leading.equalToSuperview().offset(16)
@@ -48,10 +58,24 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
         }
     }
 
-    // MARK: - Public Methods
+    private func configureFont() {
+        self.titleLabel.font = self.font
+    }
 
-    func configure(with title: String) {
-        self.title.text = title
+    private func bindUI() {
+        self.$title
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] title in
+                self?.titleLabel.text = title
+            }
+            .store(in: &self.cancellables)
+
+        self.$font
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.configureFont()
+            }
+            .store(in: &self.cancellables)
     }
 
 }
