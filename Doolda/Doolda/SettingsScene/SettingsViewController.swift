@@ -43,7 +43,7 @@ class SettingsViewController: UIViewController {
 
         let fontCell = SettingsTableViewCell(style: .detail)
         fontCell.title = "폰트 설정"
-        let fontOption = SettingsOptions(cell: fontCell, handler: nil)
+        let fontOption = SettingsOptions(cell: fontCell, handler: self.viewModel.fontTypeDidTap)
 
         let versionCell = SettingsTableViewCell(style: .detail)
         versionCell.title = "앱 현재 버전"
