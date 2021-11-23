@@ -111,7 +111,10 @@ class SettingsViewController: UIViewController {
     }
 
     private func configureFont() {
-        self.settingsSections.forEach { section in
+        self.settingsSections.enumerated().forEach { index, section in
+            guard let header = self.tableView.headerView(forSection: index) as? SettingsTableViewHeader else { return }
+            header.font = .systemFont(ofSize: 16)
+
             section.settingsOptions.forEach { options in
                 options.cell.font = .systemFont(ofSize: 16)
             }
@@ -142,7 +145,7 @@ extension SettingsViewController: UITableViewDataSource {
                 withIdentifier: SettingsTableViewHeader.identifier
               ) as? SettingsTableViewHeader else { return nil }
 
-        header.configure(with: self.settingsSections[section].title)
+        header.title = self.settingsSections[section].title
         return header
     }
 
