@@ -145,6 +145,8 @@ class DiaryViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
         self.pageCollectionBackgroundView.titleFont = .systemFont(ofSize: 35)
         self.pageCollectionBackgroundView.subtitleFont = .systemFont(ofSize: 20)
+        // FIXME: cell의 font 갱신 방법 리팩토링 필요
+        self.headerView?.displayMode = self.headerView?.displayMode ?? .list
     }
     
     private func bindUI() {
