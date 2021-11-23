@@ -9,6 +9,6 @@ import Combine
 import Foundation
 
 protocol FCMTokenRepositoryProtocol {
-    func saveToken(for userId: DDID, with token: String) -> AnyPublisher<Void, Error>
+    func saveToken(for userId: DDID, with token: String) -> AnyPublisher<String, Error>
     func fetchToken(for userId: DDID) -> AnyPublisher<String, Error>
 }
