@@ -46,6 +46,8 @@
 		1D8BE07F2743846A00201E3E /* DiaryCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07E2743846A00201E3E /* DiaryCollectionViewHeader.swift */; };
 		1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D992B41273D0EAB00B63954 /* PageRepository.swift */; };
 		1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D99945F274C8E6300C72273 /* GoogleService-Info.plist */; };
+		1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999461274CA94600C72273 /* FCMTokenUseCase.swift */; };
+		1D999464274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */; };
 		1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */; };
 		1D9DC09F274A0E290060587B /* FilterOptionBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */; };
 		1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A0274A47D50060587B /* DooldaButton.swift */; };
@@ -211,6 +213,8 @@
 		1D992B41273D0EAB00B63954 /* PageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepository.swift; sourceTree = "<group>"; };
 		1D99945E274C8BF600C72273 /* Doolda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Doolda.entitlements; sourceTree = "<group>"; };
 		1D99945F274C8E6300C72273 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1D999461274CA94600C72273 /* FCMTokenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenUseCase.swift; sourceTree = "<group>"; };
+		1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenRepositoryProtocol.swift; sourceTree = "<group>"; };
 		1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewController.swift; sourceTree = "<group>"; };
 		1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		1D9DC0A0274A47D50060587B /* DooldaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaButton.swift; sourceTree = "<group>"; };
@@ -660,6 +664,7 @@
 				FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */,
 				FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */,
 				66C482DA2746135500823151 /* GetRawPageUseCase.swift */,
+				1D999461274CA94600C72273 /* FCMTokenUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -693,6 +698,7 @@
 				319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */,
 				FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */,
 				FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */,
+				1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -997,6 +1003,7 @@
 				661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */,
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
 				FCD24D7827439717000203F7 /* GlobalFontUseCase.swift in Sources */,
+				1D999464274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift in Sources */,
 				310125D6273A6F3400E43160 /* FileManagerPersistenceService.swift in Sources */,
 				FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */,
@@ -1098,6 +1105,7 @@
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */,
 				FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */,
+				1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */,
 				1D097E97273CFA5900A4810B /* RawPageRepository.swift in Sources */,
 				1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */,
 				310125A027393D3B00E43160 /* ImageComposeUseCase.swift in Sources */,
