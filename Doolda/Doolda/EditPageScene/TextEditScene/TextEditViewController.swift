@@ -104,7 +104,6 @@ class TextEditViewController: UIViewController {
         
         self.view.addSubview(self.fontSizeControl)
         self.fontSizeControl.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().offset(-15)
             make.height.equalTo(300)
             make.width.equalTo(30)
             make.bottom.equalTo(self.view.snp.centerY)
@@ -130,11 +129,18 @@ class TextEditViewController: UIViewController {
                 self.dismiss(animated: false)
             }.store(in: &self.cancellables)
   
-
         self.fontSizeControl.publisher(for: .allTouchEvents)
             .sink { [weak self] control in
-                guard let fontsizeControl = control as? FontSizeControl else { return }
-                self?.inputTextView.font = .systemFont(ofSize: 18 * fontsizeControl.value)
+                guard let self = self ,
+                      let fontsizeControl = control as? FontSizeControl else { return }
+                self.inputTextView.font = .systemFont(ofSize: 18 * fontsizeControl.value)
+                let maximumWidth: CGFloat = self.view.frame.width - 40
+                let newSize = self.inputTextView.sizeThatFits(CGSize(width: maximumWidth, height: CGFloat.greatestFiniteMagnitude))
+                
+                self.inputTextView.snp.updateConstraints { make in
+                    make.width.equalTo(newSize.width)
+                    make.height.equalTo(newSize.height)
+                }
             }.store(in: &self.cancellables)
     }
     
@@ -154,7 +160,7 @@ extension TextEditViewController: UITextViewDelegate {
 
         } else {
             textView.text = "내용을 입력하세요"
-            textView.textColor = .darkGray
+            textView.textColor = .systemGray
         }
         textView.sizeToFit()
         textView.snp.makeConstraints { make in
@@ -164,7 +170,7 @@ extension TextEditViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.textColor == .darkGray,
+        if textView.textColor == .systemGray,
            let input = textView.text.last {
             if !"내용을 입력하세요".contains(input) {
                 textView.text = String(input)
@@ -173,7 +179,7 @@ extension TextEditViewController: UITextViewDelegate {
             }
             textView.textColor = .black
         } else if textView.textColor == .black, textView.text.isEmpty {
-            textView.textColor = .darkGray
+            textView.textColor = .systemGray
             textView.text = "내용을 입력하세요"
         }
         let maximumWidth: CGFloat = self.view.frame.width - 40
