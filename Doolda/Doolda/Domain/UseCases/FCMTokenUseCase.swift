@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol FCMTokenUseCaseProtocol {
-    func setToken(for userId: DDID, with token: String) -> AnyPublisher<Void, Error>
+    func setToken(for userId: DDID, with token: String) -> AnyPublisher<String, Error>
     func getToken(for userId: DDID) -> AnyPublisher<String, Error>
 }
 
@@ -20,7 +20,7 @@ class FCMTokenUseCase: FCMTokenUseCaseProtocol {
         self.fcmTokenRepository = fcmTokenRepository
     }
     
-    func setToken(for userId: DDID, with token: String) -> AnyPublisher<Void, Error> {
+    func setToken(for userId: DDID, with token: String) -> AnyPublisher<String, Error> {
         return self.fcmTokenRepository.saveToken(for: userId, with: token)
     }
     

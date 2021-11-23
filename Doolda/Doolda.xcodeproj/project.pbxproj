@@ -48,6 +48,7 @@
 		1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D99945F274C8E6300C72273 /* GoogleService-Info.plist */; };
 		1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999461274CA94600C72273 /* FCMTokenUseCase.swift */; };
 		1D999464274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */; };
+		1D999466274CAB8900C72273 /* FCMTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999465274CAB8900C72273 /* FCMTokenRepository.swift */; };
 		1D999468274CAC4700C72273 /* FCMTokenDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999467274CAC4700C72273 /* FCMTokenDocument.swift */; };
 		1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */; };
 		1D9DC09F274A0E290060587B /* FilterOptionBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */; };
@@ -216,6 +217,7 @@
 		1D99945F274C8E6300C72273 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1D999461274CA94600C72273 /* FCMTokenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenUseCase.swift; sourceTree = "<group>"; };
 		1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenRepositoryProtocol.swift; sourceTree = "<group>"; };
+		1D999465274CAB8900C72273 /* FCMTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenRepository.swift; sourceTree = "<group>"; };
 		1D999467274CAC4700C72273 /* FCMTokenDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenDocument.swift; sourceTree = "<group>"; };
 		1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewController.swift; sourceTree = "<group>"; };
 		1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewModel.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				1D992B41273D0EAB00B63954 /* PageRepository.swift */,
 				FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */,
 				FCD24D7227439268000203F7 /* GlobalFontRepository.swift */,
+				1D999465274CAB8900C72273 /* FCMTokenRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1124,6 +1127,7 @@
 				66CD6456273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift in Sources */,
 				1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
+				1D999466274CAB8900C72273 /* FCMTokenRepository.swift in Sources */,
 				FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
