@@ -11,7 +11,7 @@ import Foundation
 protocol SettingsViewModelInput {
     func settingsViewDidLoad()
     func fontTypeDidChanged(_ fontName: String)
-    func pushNotificationDidToggle()
+    func pushNotificationDidToggle(_ isOn: Bool)
     func openSourceLicenseDidTap()
     func privacyPolicyDidTap()
     func contributorDidTap()
@@ -53,6 +53,12 @@ class SettingsViewModel: SettingsViewModelProtocol {
     // FIXME: 아직 구현중인 부분
     func fontTypeDidChanged(_ fontName: String) { }
     func pushNotificationDidToggle() {}
+
+    }
+
+    func pushNotificationDidToggle(_ isOn: Bool) {
+        self.pushNotificationStateUseCase.setPushNotificationState(as: isOn)
+    }
 
     func openSourceLicenseDidTap() {
         self.coordinator.settingsOptionRequested(
