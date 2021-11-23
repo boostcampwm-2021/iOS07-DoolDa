@@ -42,13 +42,9 @@ class SettingsViewModel: SettingsViewModelProtocol {
         self.selectedFont = self.globalFontUseCase.getGlobalFont()
     }
 
-    func fontTypeDidChanged(_ fontName: String) {
-
-    }
-
-    func pushNotificationDidToggle() {
-
-    }
+    // FIXME: 아직 구현중인 부분
+    func fontTypeDidChanged(_ fontName: String) { }
+    func pushNotificationDidToggle() {}
 
     func openSourceLicenseDidTap() {
         self.coordinator.settingsOptionRequested(
