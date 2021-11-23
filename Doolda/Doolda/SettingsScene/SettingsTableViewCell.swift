@@ -104,28 +104,7 @@ class SettingsTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-8)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            //make.width.equalToSuperview()
         }
-
-//        self.titleLabel.snp.makeConstraints { make in
-//            make.top.equalToSuperview().offset(8)
-//            make.bottom.equalToSuperview().offset(-8)
-//            make.leading.equalToSuperview().offset(16)
-//            make.trailing.equalTo(self.detailLabel.snp.leading)
-//        }
-//
-//        self.detailLabel.snp.makeConstraints { make in
-//            make.top.equalToSuperview().offset(8)
-//            make.bottom.equalToSuperview().offset(-8)
-//            make.trailing.equalToSuperview().offset(-16)
-//            make.width.equalTo(self.detailLabel.intrinsicContentSize.width)
-//        }
-//
-//        self.switchControl.snp.makeConstraints { make in
-//            make.top.equalToSuperview().offset(8)
-//            make.bottom.equalToSuperview().offset(-8)
-//            make.trailing.equalToSuperview().offset(-18)
-//        }
 
         self.layer.addSublayer(self.separator)
 

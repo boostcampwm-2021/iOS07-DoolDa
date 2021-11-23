@@ -20,6 +20,7 @@ class StickerPickerCollectionViewFooter: UICollectionReusableView {
     private lazy var title: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .dooldaLabel
         return label
     }()
