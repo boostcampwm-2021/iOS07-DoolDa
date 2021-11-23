@@ -17,7 +17,7 @@ enum FirebaseAPIs: URLRequestBuilder {
     case patchPairDocument(String, String)
     
     case getPageDocuments(String, Date?)
-    case createPageDocument(String, Date, String, String)
+    case createPageDocument(String, Date, Date, String, String)
     
     case getFCMTokenDocument(String)
     case patchFCMTokenDocument(String, String)
@@ -70,7 +70,7 @@ extension FirebaseAPIs {
             return nil
         case .createUserDocument(let id), .createPairDocument(let id, _):
             return ["documentId": id]
-        case .createPageDocument(_, _, let jsonPath, let pairId):
+        case .createPageDocument(_, _, _, let jsonPath, let pairId):
             return ["documentId": pairId + jsonPath]
         case .patchUserDocument, .patchPairDocument:
             return ["currentDocument.exists": "true"]
@@ -168,8 +168,14 @@ extension FirebaseAPIs {
             return [
                 "fields": pairDocument.fields
             ]
-        case .createPageDocument(let authorId, let createdTime, let jsonPath, let pairId):
-            let pageDocument = PageDocument(author: authorId, createdTime: createdTime, jsonPath: jsonPath, pairId: pairId)
+        case .createPageDocument(let authorId, let createdTime, let updatedTime, let jsonPath, let pairId):
+            let pageDocument = PageDocument(
+                author: authorId,
+                createdTime: createdTime,
+                updatedTime: updatedTime,
+                jsonPath: jsonPath,
+                pairId: pairId
+            )
             return [
                 "fields": pageDocument.fields
             ]
