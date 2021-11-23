@@ -140,8 +140,12 @@ extension TextEditViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if textView.textColor == .darkGray,
            let input = textView.text.last {
+            if !"내용을 입력하세요".contains(input) {
+                textView.text = String(input)
+            } else {
+                textView.text = ""
+            }
             textView.textColor = .black
-            textView.text = String(input)
         } else if textView.textColor == .black, textView.text.isEmpty {
             textView.textColor = .darkGray
             textView.text = "내용을 입력하세요"
