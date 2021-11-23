@@ -57,12 +57,24 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
         
         return Future { promise in
             context.perform {
-                if let managedObject = NSManagedObject(entity: coreDataPageEntity, insertInto: context) as? CoreDataPageEntity {
-                    managedObject.update(pageEntity)
-                }
-                
                 do {
-                    try context.save()
+                    let fetchRequest = CoreDataPageEntity.fetchRequest()
+                    fetchRequest.predicate = NSPredicate(
+                        format: "%K == %@",
+                        #keyPath(CoreDataPageEntity.createdTime),
+                        pageEntity.createdTime as NSDate
+                    )
+                    let fetchResult = try context.fetch(fetchRequest)
+                    
+                    if let cachedCoreDataPage = fetchResult.first {
+                        cachedCoreDataPage.update(pageEntity)
+                    } else if let coreDataPage = NSManagedObject(entity: coreDataPageEntity, insertInto: context) as? CoreDataPageEntity {
+                        coreDataPage.update(pageEntity)
+                    }
+                    
+                    if context.hasChanges {
+                        try context.save()
+                    }
                     promise(.success(()))
                 } catch {
                     promise(.failure(error))
