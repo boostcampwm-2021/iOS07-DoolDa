@@ -9,7 +9,7 @@ import UIKit
 
 extension UIFont {
     static var isOverrided: Bool = false
-    static var globalFontFamily: String = DoolDaFont.dovemayo.rawValue
+    static var globalFontFamily: String = FontType.dovemayo.rawValue
     
     class func overrideInitialize() {
         guard self == UIFont.self , !self.isOverrided else { return }
