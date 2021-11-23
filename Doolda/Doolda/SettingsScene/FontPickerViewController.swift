@@ -129,7 +129,7 @@ extension FontPickerViewController: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return self.body.frame.height / 8
+        return self.body.frame.height / 9
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
