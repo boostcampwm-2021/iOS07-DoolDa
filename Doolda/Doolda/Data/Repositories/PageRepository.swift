@@ -37,7 +37,7 @@ class PageRepository: PageRepositoryProtocol {
     
     func savePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
         guard let pairId = page.author.pairId?.ddidString else { return Fail(error: PageRepositoryError.userNotPaired).eraseToAnyPublisher() }
-        let request = FirebaseAPIs.createPageDocument(page.author.id.ddidString, page.timeStamp, page.jsonPath, pairId)
+        let request = FirebaseAPIs.createPageDocument(page.author.id.ddidString, page.createdTime, page.jsonPath, pairId)
         let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService.request(request)
         
         return publisher
@@ -58,7 +58,7 @@ class PageRepository: PageRepositoryProtocol {
                 } receiveValue: { cachedPages in
                     let latestPageEntity = cachedPages.first
                     
-                    self.fetchPageFromServer(pairId: pair, after: latestPageEntity?.timeStamp)
+                    self.fetchPageFromServer(pairId: pair, after: latestPageEntity?.createdTime)
                         .sink { completion in
                             guard case .failure(let error) = completion else { return }
                             promise(.failure(error))

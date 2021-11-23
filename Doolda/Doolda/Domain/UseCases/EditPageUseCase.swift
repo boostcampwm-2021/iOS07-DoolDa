@@ -147,7 +147,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         
         let currentTime = Date()
         let path = DateFormatter.jsonPathFormatter.string(from: currentTime)
-        let metaData = PageEntity(author: author, timeStamp: currentTime, jsonPath: path)
+        let metaData = PageEntity(author: author, createdTime: currentTime, jsonPath: path)
         
         let imageUploadPublishers = page.components
             .compactMap { $0 as? PhotoComponentEntity }
