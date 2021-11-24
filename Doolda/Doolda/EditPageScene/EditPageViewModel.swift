@@ -50,6 +50,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
 
     private let user: User
+    private let rawPageEntity: RawPageEntity?
     private let coordinator: EditPageViewCoordinatorProtocol
     private let editPageUseCase: EditPageUseCaseProtocol
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
@@ -63,11 +64,13 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     
     init(
         user: User,
+        rawPageEntity: RawPageEntity? = nil,
         coordinator: EditPageViewCoordinatorProtocol,
         editPageUseCase: EditPageUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
+        self.rawPageEntity = rawPageEntity
         self.coordinator = coordinator
         self.editPageUseCase = editPageUseCase
         self.firebaseMessageUseCase = firebaseMessageUseCase
