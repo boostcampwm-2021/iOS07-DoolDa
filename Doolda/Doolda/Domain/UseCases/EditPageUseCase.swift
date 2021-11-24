@@ -141,7 +141,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         self.rawPage?.backgroundType = backgroundType
     }
 
-    func savePage(author: User) {
+    func savePage(author: User, metaData: PageEntity?) {
         guard let page = self.rawPage else { return self.error = EditPageUseCaseError.rawPageNotFound }
         guard let pairId = author.pairId?.ddidString else { return }
         

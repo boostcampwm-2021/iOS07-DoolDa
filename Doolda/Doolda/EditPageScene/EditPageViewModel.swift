@@ -163,7 +163,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func saveEditingPageButtonDidTap() {
-        self.editPageUseCase.savePage(author: self.user)
+        self.editPageUseCase.savePage(author: self.user, metaData: nil)
     }
     
     func cancelEditingPageButtonDidTap() {
