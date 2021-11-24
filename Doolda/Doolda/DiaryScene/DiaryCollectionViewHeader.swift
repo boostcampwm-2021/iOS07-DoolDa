@@ -100,12 +100,14 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.configureUI()
+        self.configureFont()
         self.bindUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.configureUI()
+        self.configureFont()
         self.bindUI()
     }
     
@@ -193,6 +195,12 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
                 UIView.animate(withDuration: 0.75, delay: 0, options: .curveEaseOut) { [weak self] in
                     self?.updateView(with: headerState)
                 }
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
             }
             .store(in: &self.cancellables)
     }
@@ -290,6 +298,17 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
                 self.rightHedgehogShowingConstraint = make.centerX.equalTo(self.headerCardView.snp.trailing).offset(-10).constraint
                 self.rightHedgehogHidingConstraint = make.leading.equalTo(self.headerCardView.snp.trailing).priority(.medium).constraint
             }
+        }
+    }
+    
+    private func configureFont() {
+        switch self.displayMode {
+        case .list:
+            self.titleLabel.font = .systemFont(ofSize: 20)
+            self.subtitleLabel.font = .systemFont(ofSize: 15)
+        case .carousel:
+            self.titleLabel.font = .systemFont(ofSize: 30)
+            self.subtitleLabel.font = .systemFont(ofSize: 20)
         }
     }
 }
