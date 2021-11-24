@@ -19,6 +19,7 @@ protocol DiaryViewModelInput {
     func filterOptionDidChange(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
     func filterBottomSheetDidDismiss()
     func pageDidDisplay(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error>
+    func pageDidTap(rawPage: RawPageEntity) 
     func getDate(of index: Int) -> Date?
     func userPostedNewPageNotificationDidReceived()
     func userRequestedNewPageNotificationDidReceived()
@@ -147,6 +148,10 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     func pageDidDisplay(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error> {
         return self.getRawPageUseCase.getRawPageEntity(metaData: metaData)
+    }
+    
+    func pageDidTap(rawPage: RawPageEntity) {
+        self.coordinator.pageDetailRequested(rawPage: rawPage)
     }
 
     func displayModeToggleButtonDidTap() {
