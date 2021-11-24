@@ -77,12 +77,12 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureFont()
         self.bindUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.configureFont()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -180,6 +180,12 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
             .sink { [weak self] authorFilter, orderFilter in
                 guard let self = self else { return }
                 self.delegate?.filterOptionDidChange(self, authorFilter: authorFilter, orderFilter: orderFilter)
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
             }
             .store(in: &self.cancellables)
     }

@@ -117,6 +117,7 @@ class DiaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureFont()
         self.configureDataSource()
         self.bindUI()
     }
@@ -126,7 +127,6 @@ class DiaryViewController: UIViewController {
         self.hapticGenerator.prepare()
         self.hapticGenerator.impactOccurred()
         self.viewModel.diaryViewWillAppear()
-        self.configureFont()
     }
     
     // MARK: - Helpers
@@ -228,6 +228,12 @@ class DiaryViewController: UIViewController {
                 self?.hapticGenerator.impactOccurred()
                 self?.scrollToPage(of: 0)
                 self?.viewModel.userRequestedNewPageNotificationDidReceived()
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
             }
             .store(in: &self.cancellables)
     }

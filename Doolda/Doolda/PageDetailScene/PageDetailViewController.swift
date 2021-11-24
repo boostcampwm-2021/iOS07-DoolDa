@@ -62,6 +62,7 @@ class PageDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureFont()
         self.bindUI()
         self.bindViewModel()
     }
@@ -69,7 +70,6 @@ class PageDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel.pageDetailViewWillAppear()
-        self.configureFont()
     }
     
     // MARK: - Helpers
@@ -139,6 +139,12 @@ class PageDetailViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.viewModel.editPageButtonDidTap()
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
             }
             .store(in: &self.cancellables)
     }

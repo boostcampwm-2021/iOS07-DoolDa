@@ -54,6 +54,7 @@ final class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureFont()
         self.bindUI()
         self.viewModel?.applyGlobalFont()
         self.viewModel?.prepareUserInfo()
@@ -61,7 +62,6 @@ final class SplashViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.configureFont()
     }
 
     // MARK: - Helpers
@@ -105,6 +105,12 @@ final class SplashViewController: UIViewController {
                 self?.presentNetworkAlert()
             }
             .store(in: &cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
+            }
+            .store(in: &self.cancellables)
     }
 
     // MARK: - Private Methods

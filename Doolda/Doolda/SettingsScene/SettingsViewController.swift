@@ -89,6 +89,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureFont()
         self.bindUI()
         self.viewModel.settingsViewDidLoad()
     }
@@ -108,8 +109,6 @@ class SettingsViewController: UIViewController {
         self.tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-
-        self.configureFont()
     }
 
     private func configureFont() {
@@ -150,6 +149,12 @@ class SettingsViewController: UIViewController {
         alertCell.switchControl.publisher(for: .valueChanged)
             .sink { [weak self] _ in
                 self?.viewModel.pushNotificationDidToggle(alertCell.switchControl.isOn)
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
             }
             .store(in: &self.cancellables)
     }
@@ -197,6 +202,5 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: FontPickerViewControllerDelegate {
     func fontDidSelect(_ font: FontType) {
         self.viewModel.fontTypeDidChanged(font.name)
-        self.configureFont()
     }
 }
