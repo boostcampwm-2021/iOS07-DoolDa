@@ -57,6 +57,8 @@ extension FirebaseAPIs {
             return "documents:runQuery"
         case .createPageDocument:
             return "documents/page"
+        case .patchPageDocument(_, _, _, let jsonPath, let pairId):
+            return "documents/page/\(pairId + jsonPath)"
         case .getFCMTokenDocument(let userId), .patchFCMTokenDocument(let userId, _):
             return "documents/fcmToken/\(userId)"
         default: return nil
