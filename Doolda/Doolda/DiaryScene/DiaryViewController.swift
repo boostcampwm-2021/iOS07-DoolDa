@@ -357,9 +357,7 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
 
 extension DiaryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let diaryCollectionViewCell = collectionView.cellForItem(at: indexPath) as? DiaryCollectionViewCell,
-        let rawPageEntity = diaryCollectionViewCell.rawPageEntity else { return }
-        self.viewModel?.pageDidTap(rawPage: rawPageEntity)
+        self.viewModel?.pageDidTap(index: indexPath.item)
     }
 }
 
