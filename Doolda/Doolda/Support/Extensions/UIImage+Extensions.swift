@@ -29,4 +29,6 @@ extension UIImage {
     static let hedgehog = UIImage(named: "hedgehog")
     static let hedgehogWriting = UIImage(named: "hedgehogWriting")
     static let hedgehogFrustrated = UIImage(named: "hedgehogFrustrated")
+    static let squareAndArrowUp = UIImage(systemName: "square.and.arrow.up")
+    static let squareAndPencil = UIImage(systemName: "square.and.pencil")
 }

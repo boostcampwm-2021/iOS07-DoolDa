@@ -167,7 +167,6 @@ class EditPageViewController: UIViewController {
             make.top.equalTo(self.scrollView.snp.top).offset(12)
             make.width.equalTo(self.pageView.snp.height).multipliedBy(17.0 / 30.0)
             let screenHeight = UIScreen.main.bounds.size.height
-            print(screenHeight)
             if screenHeight > 750 {
                 make.height.equalTo(self.scrollView.snp.height).offset(-100)
             } else {
