@@ -13,6 +13,7 @@ protocol PairingViewModelInput {
     func pairButtonDidTap()
     func pairSkipButtonDidTap()
     func refreshButtonDidTap()
+    func userPairedWithFriendNotificationDidReceived()
 }
 
 protocol PairingViewModelOutput {
@@ -105,6 +106,10 @@ final class PairingViewModel: PairingViewModelProtocol {
     }
     
     func refreshButtonDidTap() {
+        self.refreshUserUseCase.refresh(for: self.user)
+    }
+    
+    func userPairedWithFriendNotificationDidReceived() {
         self.refreshUserUseCase.refresh(for: self.user)
     }
 }
