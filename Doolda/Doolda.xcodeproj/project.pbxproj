@@ -117,6 +117,7 @@
 		318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */; };
 		318D9F72274E17AB00AA6F0E /* PageDetailViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F71274E17AB00AA6F0E /* PageDetailViewCoordinator.swift */; };
 		318D9F74274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F73274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift */; };
+		318D9F76274E258D00AA6F0E /* PageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F75274E258D00AA6F0E /* PageDetailViewController.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
@@ -297,6 +298,7 @@
 		318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewModel.swift; sourceTree = "<group>"; };
 		318D9F71274E17AB00AA6F0E /* PageDetailViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewCoordinator.swift; sourceTree = "<group>"; };
 		318D9F73274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		318D9F75274E258D00AA6F0E /* PageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewController.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -585,6 +587,7 @@
 		318D9F6E274E129C00AA6F0E /* PageDetailScene */ = {
 			isa = PBXGroup;
 			children = (
+				318D9F75274E258D00AA6F0E /* PageDetailViewController.swift */,
 				318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */,
 				FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */,
 				318D9F71274E17AB00AA6F0E /* PageDetailViewCoordinator.swift */,
@@ -1217,6 +1220,7 @@
 				1D99946C274CEF2900C72273 /* FirebaseMessageRepository.swift in Sources */,
 				FCD24D7327439268000203F7 /* GlobalFontRepository.swift in Sources */,
 				FC5FB7DC2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */,
+				318D9F76274E258D00AA6F0E /* PageDetailViewController.swift in Sources */,
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
 				FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
