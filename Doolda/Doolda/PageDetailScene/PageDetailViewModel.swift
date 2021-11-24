@@ -9,9 +9,10 @@ import Combine
 import Foundation
 
 protocol PageDetailViewModelInput {
-    func pageDetailViewWillApper()
+    func pageDetailViewWillAppear()
+    func isPageEditable() -> Bool
+    func getDate() -> Date
     func editPageButtonDidTap()
-    func getDate() -> Date?
 }
 
 protocol PageDetailViewModelOuput {
@@ -28,15 +29,18 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
     @Published private var rawPageEntity: RawPageEntity?
     @Published private var error: Error?
 
+    private let user: User
     private let pageEntity: PageEntity
     private let coordinator: PageDetailViewCoordinatorProtocol
     private let getRawPageUseCase: GetRawPageUseCaseProtocol
 
     init(
+        user: User,
         pageEntity: PageEntity,
         coordinator: PageDetailViewCoordinatorProtocol,
         getRawPageUseCase: GetRawPageUseCaseProtocol
     ) {
+        self.user = user
         self.pageEntity = pageEntity
         self.coordinator = coordinator
         self.getRawPageUseCase = getRawPageUseCase
@@ -53,6 +57,14 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
                 self?.rawPageEntity = rawPageEntity
             }
             .store(in: &self.cancellabels)
+    }
+
+    func isPageEditable() -> Bool {
+        return self.pageEntity.author == self.user
+    }
+
+    func getDate() -> Date {
+        return self.pageEntity.createdTime
     }
 
     func editPageButtonDidTap() {

@@ -33,6 +33,7 @@ class PageDetailViewCoordinator: PageDetailViewCoordinatorProtocol {
         let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: rawPageRepository)
 
         let viewModel = PageDetaillViewModel(
+            user: self.user,
             pageEntity: self.pageEntity,
             coordinator: self,
             getRawPageUseCase: getRawPageUseCase
