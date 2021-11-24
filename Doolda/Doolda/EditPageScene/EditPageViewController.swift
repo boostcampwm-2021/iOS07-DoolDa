@@ -134,6 +134,7 @@ class EditPageViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.configureFont()
+        self.viewModel?.editPageViewWillAppear()
     }
     
     // MARK: - Helpers

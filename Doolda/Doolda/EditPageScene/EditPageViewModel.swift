@@ -10,6 +10,8 @@ import CoreGraphics
 import Foundation
 
 protocol EditPageViewModelInput {
+    func editPageViewWillAppear()
+
     func canvasDidTap(at point: CGPoint)
     
     func componentDidTap()
@@ -43,7 +45,6 @@ protocol EditPageViewModelOutput {
 typealias EditPageViewModelProtocol = EditPageViewModelInput & EditPageViewModelOutput
 
 final class EditPageViewModel: EditPageViewModelProtocol {
-    
     var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
     var componentsPublisher: Published<[ComponentEntity]>.Publisher { self.$components }
     var backgroundPublisher: Published<BackgroundType>.Publisher { self.$background }
@@ -102,7 +103,12 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         self.editPageUseCase.errorPublisher
             .assign(to: &$error)
     }
-    
+
+    func editPageViewWillAppear() {
+        guard let rawPageEntity = self.rawPageEntity else { return }
+        self.components = rawPageEntity.components
+    }
+
     func componentDidTap() {
         if let selectedComponent = self.selectedComponent as? TextComponentEntity {
             self.coordinator.editTextComponent(with: selectedComponent)
