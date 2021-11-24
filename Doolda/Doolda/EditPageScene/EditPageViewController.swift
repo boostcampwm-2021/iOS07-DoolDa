@@ -131,6 +131,7 @@ class EditPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureFont()
         self.bindUI()
         self.bindViewModel()
     }
@@ -138,7 +139,6 @@ class EditPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        self.configureFont()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -295,6 +295,12 @@ class EditPageViewController: UIViewController {
                 guard let self = self else { return }
                 self.viewModel?.backgroundTypeButtonDidTap()
             }.store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
+            }
+            .store(in: &self.cancellables)
     }
     
     private func bindViewModel() {

@@ -57,12 +57,12 @@ class FontPickerViewController: BottomSheetViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureFont()
         self.bindUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.configureFont()
     }
 
     // MARK: - Helpers
@@ -110,6 +110,12 @@ class FontPickerViewController: BottomSheetViewController {
                       let font = FontType.allCases[exist: index] else { return }
                 self?.delegate?.fontDidSelect(font)
                 self?.dismiss(animated: true, completion: nil)
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
             }
             .store(in: &self.cancellables)
     }

@@ -140,6 +140,7 @@ class PairingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureFont()
         self.bindUI()
     }
     
@@ -147,7 +148,6 @@ class PairingViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.standardAppearance = transparentNavigationBarAppearance
         self.navigationController?.navigationBar.scrollEdgeAppearance = transparentNavigationBarAppearance
-        self.configureFont()
     }
     
     // MARK: - Helpers
@@ -299,6 +299,12 @@ class PairingViewController: UIViewController {
                 self?.hapticGenerator.prepare()
                 self?.hapticGenerator.impactOccurred()
                 self?.viewModel.userPairedWithFriendNotificationDidReceived()
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
             }
             .store(in: &self.cancellables)
     }

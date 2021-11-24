@@ -119,8 +119,8 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureUI()
+        self.configureFont()
         bindUI()
         bindViewModel()
         
@@ -129,7 +129,6 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureFont()
     }
     
     // MARK: - Helpers
@@ -268,6 +267,12 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
                 }
                 
                 self?.present(alert, animated: true, completion: nil)
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
             }
             .store(in: &self.cancellables)
     }
