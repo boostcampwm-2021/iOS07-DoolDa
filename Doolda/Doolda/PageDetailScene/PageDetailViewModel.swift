@@ -60,7 +60,7 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
     }
 
     func isPageEditable() -> Bool {
-        return self.pageEntity.author == self.user
+        return self.pageEntity.author.id == self.user.id
     }
 
     func getDate() -> Date {
