@@ -5,6 +5,7 @@
 //  Created by 김민주 on 2021/11/24.
 //
 
+import Combine
 import UIKit
 
 class PageDetailViewController: UIViewController {
@@ -30,6 +31,11 @@ class PageDetailViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Private Properties
+
+    private var viewModel: PageDetailViewModelProtocol!
+    private var cancellables: Set<AnyCancellable> = []
+    
     // MARK: - Initializers
     
     convenience init() {
@@ -41,6 +47,7 @@ class PageDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.bindUI()
         self.configureFont() 
     }
     
@@ -90,9 +97,31 @@ class PageDetailViewController: UIViewController {
         }
     }
     
+    private func bindUI() {
+        self.shareButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.savePageAndShare()
+            }.store(in: &self.cancellables)
+    }
+    
+    private func savePageAndShare() {
+        UIGraphicsBeginImageContext(self.pageView.frame.size)
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        self.pageView.layer.render(in: context)
+        if let pageImage = UIGraphicsGetImageFromCurrentImageContext() {
+            UIGraphicsEndImageContext()
+            
+            var imagesToShare = [AnyObject]()
+            imagesToShare.append(pageImage)
+            
+            let activityViewController = UIActivityViewController(activityItems: imagesToShare , applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            present(activityViewController, animated: true, completion: nil)
+        }
+    }
+    
     private func configureFont() {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)]
-
     }
-
 }
