@@ -115,6 +115,8 @@
 		318D9F67274D4D5000AA6F0E /* darae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F66274D4D5000AA6F0E /* darae.ttf */; };
 		318D9F69274D4D9900AA6F0E /* kyoboHandwriting.otf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F68274D4D9900AA6F0E /* kyoboHandwriting.otf */; };
 		318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */; };
+		318D9F72274E17AB00AA6F0E /* PageDetailViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F71274E17AB00AA6F0E /* PageDetailViewCoordinator.swift */; };
+		318D9F74274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F73274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
@@ -293,6 +295,8 @@
 		318D9F66274D4D5000AA6F0E /* darae.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = darae.ttf; sourceTree = "<group>"; };
 		318D9F68274D4D9900AA6F0E /* kyoboHandwriting.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kyoboHandwriting.otf; sourceTree = "<group>"; };
 		318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewModel.swift; sourceTree = "<group>"; };
+		318D9F71274E17AB00AA6F0E /* PageDetailViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewCoordinator.swift; sourceTree = "<group>"; };
+		318D9F73274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -583,6 +587,8 @@
 			children = (
 				318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */,
 				FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */,
+				318D9F71274E17AB00AA6F0E /* PageDetailViewCoordinator.swift */,
+				318D9F73274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift */,
 			);
 			path = PageDetailScene;
 			sourceTree = "<group>";
@@ -1100,6 +1106,7 @@
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
 				FCD24D7827439717000203F7 /* GlobalFontUseCase.swift in Sources */,
 				1D999464274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift in Sources */,
+				318D9F72274E17AB00AA6F0E /* PageDetailViewCoordinator.swift in Sources */,
 				310125D6273A6F3400E43160 /* FileManagerPersistenceService.swift in Sources */,
 				FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */,
@@ -1230,6 +1237,7 @@
 				665303A02743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift in Sources */,
 				31012596273842B300E43160 /* StickerComponentEntity.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
+				318D9F74274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift in Sources */,
 				66CD6456273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift in Sources */,
 				1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
