@@ -289,7 +289,6 @@ class DiaryViewController: UIViewController {
     private func setTitle(for index: Int) {
         if let date = self.viewModel.getDate(of: index),
            let formattedDateString = try? DateFormatter.koreanFormatter.string(from: date) {
-            print(date)
             self.title = formattedDateString
         } else {
             self.title = "둘다"
