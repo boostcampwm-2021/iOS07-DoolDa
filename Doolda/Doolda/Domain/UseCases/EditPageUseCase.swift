@@ -183,7 +183,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
                 if isNewPage {
                     savePublisher = Publishers.Zip3(
                         self.pageRepository.savePage(pageEntity),
-                        self.rawPageRepository.save(rawPage: page, at: pairId, with: path),
+                        self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath),
                         self.pairRepository.setRecentlyEditedUser(with: self.user)
                     )
                         .mapError { _ -> Error in EditPageUseCaseError.failedToSavePage }
@@ -192,7 +192,7 @@ class EditPageUseCase: EditPageUseCaseProtocol {
                 } else {
                     savePublisher = Publishers.Zip(
                         self.pageRepository.updatePage(pageEntity),
-                        self.rawPageRepository.save(rawPage: page, at: pairId, with: path)
+                        self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath)
                     )
                         .mapError { _ -> Error in EditPageUseCaseError.failedToSavePage }
                         .map { _ -> Void in () }
