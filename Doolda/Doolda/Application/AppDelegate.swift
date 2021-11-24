@@ -50,10 +50,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         guard let notification = userInfo["notification"] as? String else { return }
         
         switch notification {
-        case "userPairedWithFriend":
-            NotificationCenter.default.post(name: PushMessageEntity.Notifications.userPairedWithFriend, object: nil)
-        case "userPostedNewPage":
-            NotificationCenter.default.post(name: PushMessageEntity.Notifications.userPostedNewPage, object: nil)
         case "userRequestedNewPage":
             NotificationCenter.default.post(name: PushMessageEntity.Notifications.userRequestedNewPage, object: nil)
         default: break
@@ -66,6 +62,17 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         completionHandler([.banner, .sound])
+        
+        let userInfo = notification.request.content.userInfo
+        guard let notification = userInfo["notification"] as? String else { return }
+        
+        switch notification {
+        case "userPairedWithFriend":
+            NotificationCenter.default.post(name: PushMessageEntity.Notifications.userPairedWithFriend, object: nil)
+        case "userPostedNewPage":
+            NotificationCenter.default.post(name: PushMessageEntity.Notifications.userPostedNewPage, object: nil)
+        default: break
+        }
     }
 }
 
