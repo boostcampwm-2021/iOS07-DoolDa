@@ -42,7 +42,14 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
     private var cancellabels: Set<AnyCancellable> = []
 
     func pageDetailViewWillAppear() {
-        
+        self.getRawPageUseCase.getRawPageEntity(metaData: self.pageEntity)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] rawPageEntity in
+                self?.rawPageEntity = rawPageEntity
+            }
+            .store(in: &self.cancellabels)
     }
 
     func editPageButtonDidTap() {
