@@ -72,6 +72,11 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
         return activityIndicator
     }()
     
+    private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        return generator
+    }()
+    
     // MARK: - Public Properties
     
     weak var delegate: DiaryCollectionViewHeaderDelegate?
@@ -162,6 +167,8 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
         self.headerCardView.publisher(for: UITapGestureRecognizer())
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                self.hapticGenerator.prepare()
+                self.hapticGenerator.impactOccurred()
                 switch self.headerState {
                 case .newPageAddable: self.delegate?.addPageButtonDidTap(self)
                 case .waitingForOpponent: self.delegate?.refreshButtonDidTap(self)
