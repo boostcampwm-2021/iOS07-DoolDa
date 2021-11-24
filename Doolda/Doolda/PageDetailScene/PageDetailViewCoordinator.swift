@@ -46,7 +46,7 @@ class PageDetailViewCoordinator: PageDetailViewCoordinatorProtocol {
     }
 
     func editPageRequested(with rawPageEntity: RawPageEntity) {
-        let coordinator = EditPageViewCoordinator(presenter: self.presenter, user: self.user, rawPageEntity: rawPageEntity)
+        let coordinator = EditPageViewCoordinator(presenter: self.presenter, user: self.user, pageEntity: self.pageEntity, rawPageEntity: rawPageEntity)
         coordinator.start()
     }
 

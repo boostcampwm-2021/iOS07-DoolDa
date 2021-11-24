@@ -51,6 +51,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
 
     private let user: User
+    private let pageEntity: PageEntity?
     private let rawPageEntity: RawPageEntity?
     private let coordinator: EditPageViewCoordinatorProtocol
     private let editPageUseCase: EditPageUseCaseProtocol
@@ -65,12 +66,14 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     
     init(
         user: User,
+        pageEntity: PageEntity? = nil,
         rawPageEntity: RawPageEntity? = nil,
         coordinator: EditPageViewCoordinatorProtocol,
         editPageUseCase: EditPageUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
+        self.pageEntity = pageEntity
         self.rawPageEntity = rawPageEntity
         self.coordinator = coordinator
         self.editPageUseCase = editPageUseCase
@@ -174,7 +177,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func saveEditingPageButtonDidTap() {
-        self.editPageUseCase.savePage(author: self.user, metaData: nil)
+        self.editPageUseCase.savePage(author: self.user, metaData: self.pageEntity)
     }
     
     func cancelEditingPageButtonDidTap() {
