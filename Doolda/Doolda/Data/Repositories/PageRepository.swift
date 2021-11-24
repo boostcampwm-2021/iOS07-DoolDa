@@ -45,6 +45,16 @@ class PageRepository: PageRepositoryProtocol {
             .eraseToAnyPublisher()
     }
     
+    func updatePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
+        guard let pairId = page.author.pairId?.ddidString else { return Fail(error: PageRepositoryError.userNotPaired).eraseToAnyPublisher() }
+        let request = FirebaseAPIs.patchPageDocument(page.author.id.ddidString, page.createdTime, page.updatedTime, page.jsonPath, pairId)
+        let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService.request(request)
+        
+        return publisher
+            .map { _ in page }
+            .eraseToAnyPublisher()
+    }
+    
     func fetchPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error> {
         return self.fetchPageFromServer(pairId: pair, after: nil)
             .map { pages -> [PageEntity] in

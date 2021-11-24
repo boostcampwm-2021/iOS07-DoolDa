@@ -10,5 +10,6 @@ import Foundation
 
 protocol PageRepositoryProtocol {
     func savePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error>
+    func updatePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error>
     func fetchPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error>
 }
