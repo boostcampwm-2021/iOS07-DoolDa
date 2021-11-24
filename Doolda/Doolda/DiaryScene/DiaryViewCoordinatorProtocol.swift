@@ -11,5 +11,5 @@ protocol DiaryViewCoordinatorProtocol: CoordinatorProtocol {
     func editPageRequested()
     func settingsPageRequested()
     func filteringSheetRequested(authorFilter: DiaryAuthorFilter, orderFilter: DiaryOrderFilter)
-    func pageDetailRequested(rawPage: RawPageEntity)
+    func pageDetailRequested(pageEntity: PageEntity)
 }
