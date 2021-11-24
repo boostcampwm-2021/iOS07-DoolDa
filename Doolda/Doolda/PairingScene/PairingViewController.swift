@@ -121,7 +121,7 @@ class PairingViewController: UIViewController {
     // MARK: - Private Properties
     
     private var cancellables: Set<AnyCancellable> = []
-    private var viewModel: PairingViewModel?
+    private var viewModel: PairingViewModel!
     
     // MARK: - Initializers
     
@@ -217,8 +217,6 @@ class PairingViewController: UIViewController {
         self.pairSkipButton.titleLabel?.font = .systemFont(ofSize: 16)
     }
     
-    // MARK: - FIXME : should bind to viewModel
-    
     private func bindUI() {
         guard let viewModel = self.viewModel else { return }
         self.refreshButton.publisher(for: .touchUpInside)
@@ -244,25 +242,25 @@ class PairingViewController: UIViewController {
         self.pairSkipButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { _ in
-                self.viewModel?.pairSkipButtonDidTap()
+                self.viewModel.pairSkipButtonDidTap()
             }
             .store(in: &self.cancellables)
 
-        self.viewModel?.myId
+        self.viewModel.myId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] myId in
                 self?.myIdLabel.text = myId
             }
             .store(in: &self.cancellables)
         
-        self.viewModel?.isFriendIdValid
+        self.viewModel.isFriendIdValid
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isValid in
                 self?.pairButton.isEnabled = isValid
             }
             .store(in: &self.cancellables)
 
-        self.viewModel?.errorPublisher
+        self.viewModel.errorPublisher
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] error in
@@ -282,6 +280,12 @@ class PairingViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] keyboardHeight in
                 self?.updateScrollView(with: keyboardHeight)
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userPairedWithFriend, object: nil)
+            .sink { [weak self] _ in
+                self?.viewModel.userPairedWithFriendNotificationDidReceived()
             }
             .store(in: &self.cancellables)
     }
