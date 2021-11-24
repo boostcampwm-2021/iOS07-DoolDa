@@ -21,7 +21,7 @@ struct PushMessageEntity {
     static let userPostedNewPage: PushMessageEntity = PushMessageEntity(
         title: "띵동! 🔔",
         body: "친구가 다이어리를 작성했어요!\n새 다이어리를 확인해볼까요?",
-        data: ["notification": "userRequestedNewPage"]
+        data: ["notification": "userPostedNewPage"]
     )
     
     static let userRequestedNewPage: PushMessageEntity = PushMessageEntity(
