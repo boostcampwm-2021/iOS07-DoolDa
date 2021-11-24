@@ -11,11 +11,13 @@ import UIKit
 class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     var presenter: UINavigationController
     private let user: User
+    private let pageEntity: PageEntity?
     private let rawPageEntity: RawPageEntity?
     
-    init(presenter: UINavigationController, user: User, rawPageEntity: RawPageEntity? = nil) {
+    init(presenter: UINavigationController, user: User, pageEntity: PageEntity? = nil, rawPageEntity: RawPageEntity? = nil) {
         self.presenter = presenter
         self.user = user
+        self.pageEntity = pageEntity
         self.rawPageEntity = rawPageEntity
     }
     
@@ -60,6 +62,7 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
             
             let editPageViewModel = EditPageViewModel(
                 user: self.user,
+                pageEntity: self.pageEntity,
                 rawPageEntity: self.rawPageEntity,
                 coordinator: self,
                 editPageUseCase: editPageUseCase,
