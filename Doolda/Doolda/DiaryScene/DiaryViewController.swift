@@ -84,6 +84,11 @@ class DiaryViewController: UIViewController {
         return appearance
     }()
     
+    private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        return generator
+    }()
+    
     private var headerView: DiaryCollectionViewHeader?
     
     // MARK: - Override Properties
@@ -118,6 +123,8 @@ class DiaryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.hapticGenerator.prepare()
+        self.hapticGenerator.impactOccurred()
         self.viewModel.diaryViewWillAppear()
         self.configureFont()
     }
@@ -188,6 +195,8 @@ class DiaryViewController: UIViewController {
         
         self.displayModeToggleButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
                 self?.viewModel.displayModeToggleButtonDidTap()
             }
             .store(in: &self.cancellables)
@@ -206,6 +215,8 @@ class DiaryViewController: UIViewController {
         
         NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userPostedNewPage, object: nil)
             .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
                 self?.scrollToPage(of: 0)
                 self?.viewModel.userPostedNewPageNotificationDidReceived()
             }
@@ -213,6 +224,8 @@ class DiaryViewController: UIViewController {
         
         NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userRequestedNewPage, object: nil)
             .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
                 self?.scrollToPage(of: 0)
                 self?.viewModel.userRequestedNewPageNotificationDidReceived()
             }
