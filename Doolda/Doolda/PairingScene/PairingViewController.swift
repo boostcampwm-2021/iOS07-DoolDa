@@ -118,6 +118,11 @@ class PairingViewController: UIViewController {
         return appearance
     }()
     
+    private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        return generator
+    }()
+    
     // MARK: - Private Properties
     
     private var cancellables: Set<AnyCancellable> = []
@@ -221,7 +226,9 @@ class PairingViewController: UIViewController {
         guard let viewModel = self.viewModel else { return }
         self.refreshButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
                 viewModel.refreshButtonDidTap()
             }
             .store(in: &self.cancellables)
@@ -234,15 +241,19 @@ class PairingViewController: UIViewController {
         
         self.pairButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
                 viewModel.pairButtonDidTap()
             }
             .store(in: &self.cancellables)
 
         self.pairSkipButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
-            .sink { _ in
-                self.viewModel.pairSkipButtonDidTap()
+            .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
+                self?.viewModel.pairSkipButtonDidTap()
             }
             .store(in: &self.cancellables)
 
@@ -285,6 +296,8 @@ class PairingViewController: UIViewController {
         
         NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userPairedWithFriend, object: nil)
             .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
                 self?.viewModel.userPairedWithFriendNotificationDidReceived()
             }
             .store(in: &self.cancellables)
