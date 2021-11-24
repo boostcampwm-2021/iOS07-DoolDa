@@ -84,7 +84,7 @@ class PageDetailViewController: UIViewController {
         self.navigationItem.backButtonTitle = ""
         
         let date = self.viewModel.getDate()
-        self.title = DateFormatter.koreanFormatter.string(from: date) ?? "둘다"
+        self.title = DateFormatter.koreanFormatter.string(from: date)
 
         self.view.addSubview(self.pageView)
         self.pageView.clipsToBounds = true
@@ -122,19 +122,31 @@ class PageDetailViewController: UIViewController {
             make.width.equalTo(30)
             make.height.equalTo(self.editPageButton.snp.width)
         }
+
+        self.editPageButton.isEnabled = self.viewModel.isPageEditable()
     }
     
     private func bindUI() {
         self.shareButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.savePageAndShare()
-            }.store(in: &self.cancellables)
+            }
+            .store(in: &self.cancellables)
+
+        self.editPageButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.viewModel.editPageButtonDidTap()
+            }
+            .store(in: &self.cancellables)
     }
     
     private func bindViewModel() {
         self.activityIndicator.startAnimating()
         self.viewModel.rawPageEntityPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] rawPageEntity in
                 guard let rawPageEntity = rawPageEntity,
                       let self = self else { return }
@@ -143,8 +155,6 @@ class PageDetailViewController: UIViewController {
     }
     
     private func drawPage(with rawPage: RawPageEntity) {
-        self.pageView.subviews.forEach { $0.removeFromSuperview() }
-        
         self.pageView.backgroundColor = UIColor(cgColor: rawPage.backgroundType.rawValue)
         for componentEntity in rawPage.components {
             let computedCGRect = CGRect(

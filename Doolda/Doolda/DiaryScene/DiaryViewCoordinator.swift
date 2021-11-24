@@ -77,8 +77,8 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
         self.presenter.present(viewController, animated: false)
     }
     
-    func pageDetailRequested(pageEntity: PageEntity){
-//        let coordinator = EditPageViewCoordinator(presenter: self.presenter, user: self.user, pageEntity: pageEntity)
-//        coordinator.start()
+    func pageDetailRequested(pageEntity: PageEntity) {
+        let coordinator = PageDetailViewCoordinator(presenter: self.presenter, user: self.user, pageEntity: pageEntity)
+        coordinator.start()
     }
 }

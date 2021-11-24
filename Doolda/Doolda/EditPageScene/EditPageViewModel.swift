@@ -10,7 +10,7 @@ import CoreGraphics
 import Foundation
 
 protocol EditPageViewModelInput {
-    func editPageViewWillAppear()
+    func editPageViewDidAppear()
 
     func canvasDidTap(at point: CGPoint)
     
@@ -104,9 +104,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
             .assign(to: &$error)
     }
 
-    func editPageViewWillAppear() {
+    func editPageViewDidAppear() {
         guard let rawPageEntity = self.rawPageEntity else { return }
-        self.components = rawPageEntity.components
+        rawPageEntity.components.forEach { component in
+            self.componentEntityDidAdd(component)
+        }
     }
 
     func componentDidTap() {

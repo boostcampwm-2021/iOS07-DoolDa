@@ -134,7 +134,11 @@ class EditPageViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.configureFont()
-        self.viewModel?.editPageViewWillAppear()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.viewModel?.editPageViewDidAppear()
     }
     
     // MARK: - Helpers
@@ -341,6 +345,7 @@ class EditPageViewController: UIViewController {
                     value.removeFromSuperview()
                     self.componentViewDictionary[key] = nil
                 }
+                print(componenets)
                 //MARK: fixme: 다른 컴포넌트들에 알맞게
                 for componentEntity in componenets {
                     let computedCGRect = CGRect(
