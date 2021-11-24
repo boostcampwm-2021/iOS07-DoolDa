@@ -188,11 +188,13 @@ class DiaryCollectionViewCell: UICollectionViewCell {
             case let textComponentEntity as TextComponentEntity:
                 let textComponentView = UILabel(frame: computedCGRect)
                 textComponentView.numberOfLines = 0
-                textComponentView.text = textComponentEntity.text
-                textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
                 textComponentView.textAlignment = .center
                 textComponentView.adjustsFontSizeToFitWidth = true
                 textComponentView.adjustsFontForContentSizeCategory = true
+                textComponentView.text = textComponentEntity.text
+                textComponentView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
+                textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
+                
                 self.pageView.addSubview(textComponentView)
                 
                 let transform = CGAffineTransform.identity
