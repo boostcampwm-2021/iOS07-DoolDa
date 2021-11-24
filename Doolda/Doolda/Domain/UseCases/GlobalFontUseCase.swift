@@ -14,6 +14,10 @@ protocol GlobalFontUseCaseProtocol {
 }
 
 class GlobalFontUseCase: GlobalFontUseCaseProtocol {
+    enum Notifications {
+        static let globalFontDidSet = Notification.Name("globalFontDidSet")
+    }
+    
     private let globalFontRepository: GlobalFontRepositoryProtocol
 
     init(globalFontRepository: GlobalFontRepositoryProtocol) {
@@ -22,6 +26,7 @@ class GlobalFontUseCase: GlobalFontUseCaseProtocol {
 
     func setGlobalFont(with fontName: String) {
         UIFont.globalFontFamily = fontName
+        NotificationCenter.default.post(name: Notifications.globalFontDidSet, object: nil)
     }
     
     func saveGlobalFont(as fontName: String) {
