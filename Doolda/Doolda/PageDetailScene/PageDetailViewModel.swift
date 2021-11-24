@@ -29,18 +29,24 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
     @Published private var error: Error?
 
     private let pageEntity: PageEntity
+    private let getRawPageUseCase: GetRawPageUseCaseProtocol
 
-    init(pageEntity: PageEntity) {
+    init(
+        pageEntity: PageEntity,
+        getRawPageUseCase: GetRawPageUseCaseProtocol
+    ) {
         self.pageEntity = pageEntity
+        self.getRawPageUseCase = getRawPageUseCase
     }
 
     private var cancellabels: Set<AnyCancellable> = []
 
+    func pageDetailViewWillAppear() {
+        
+    }
+
     func editPageButtonDidTap() {
-
+        
     }
 
-    func backButtonDidTap() {
-
-    }
 }
