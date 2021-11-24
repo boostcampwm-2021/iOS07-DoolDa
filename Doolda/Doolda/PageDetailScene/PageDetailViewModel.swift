@@ -20,3 +20,27 @@ protocol PageDetailViewModelOuput {
 }
 
 typealias PageDetailViewModelProtocol = PageDetailViewModelInput & PageDetailViewModelOuput
+
+class PageDetaillViewModel: PageDetailViewModelProtocol {
+    var rawPageEntityPublisher: Published<RawPageEntity?>.Publisher { self.$rawPageEntity }
+    var errorPublisher: Published<Error?>.Publisher { self.$error }
+
+    @Published private var rawPageEntity: RawPageEntity?
+    @Published private var error: Error?
+
+    private let pageEntity: PageEntity
+
+    init(pageEntity: PageEntity) {
+        self.pageEntity = pageEntity
+    }
+
+    private var cancellabels: Set<AnyCancellable> = []
+
+    func editPageButtonDidTap() {
+
+    }
+
+    func backButtonDidTap() {
+
+    }
+}
