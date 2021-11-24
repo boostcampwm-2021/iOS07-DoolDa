@@ -39,7 +39,6 @@
 		1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */; };
 		1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */; };
 		1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */; };
-		1D71B53D274E0C36000B50A8 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1D71B53C274E0C36000B50A8 /* Config.xcconfig */; };
 		1D71B540274E0CD5000B50A8 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D71B53F274E0CD5000B50A8 /* FirebaseMessaging */; };
 		1D8646A3274D2DB600C4511D /* PushMessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */; };
 		1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
@@ -112,6 +111,8 @@
 		318D9F64274CFFA200AA6F0E /* kotraHope.otf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F5F274CFC0800AA6F0E /* kotraHope.otf */; };
 		318D9F67274D4D5000AA6F0E /* darae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F66274D4D5000AA6F0E /* darae.ttf */; };
 		318D9F69274D4D9900AA6F0E /* kyoboHandwriting.otf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F68274D4D9900AA6F0E /* kyoboHandwriting.otf */; };
+		318D9F6D274E104C00AA6F0E /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F6C274E104C00AA6F0E /* Config.xcconfig */; };
+		318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
 		319C21D8273BD764009CE65C /* URLSessionNetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */; };
@@ -290,6 +291,8 @@
 		318D9F5F274CFC0800AA6F0E /* kotraHope.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kotraHope.otf; sourceTree = "<group>"; };
 		318D9F66274D4D5000AA6F0E /* darae.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = darae.ttf; sourceTree = "<group>"; };
 		318D9F68274D4D9900AA6F0E /* kyoboHandwriting.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kyoboHandwriting.otf; sourceTree = "<group>"; };
+		318D9F6C274E104C00AA6F0E /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../../../../../../../Downloads/Config.xcconfig; sourceTree = "<group>"; };
+		318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewModel.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -574,6 +577,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		318D9F6E274E129C00AA6F0E /* PageDetailScene */ = {
+			isa = PBXGroup;
+			children = (
+				318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */,
+			);
+			path = PageDetailScene;
+			sourceTree = "<group>";
+		};
 		319C21D6273BD764009CE65C /* URLSessionNetworkServiceTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -613,6 +624,7 @@
 				1DD0F35A2747AE8600FC5E65 /* SplashScene */,
 				1DD0F35E2747AF5A00FC5E65 /* PairingScene */,
 				1DD0F35F2747AFC800FC5E65 /* DiaryScene */,
+				318D9F6E274E129C00AA6F0E /* PageDetailScene */,
 				1DD0F3612747B14500FC5E65 /* EditPageScene */,
 				1D9FAD492747B6D400198B93 /* SettingsScene */,
 				664893E227300A9E009F03E2 /* Domain */,
@@ -641,7 +653,7 @@
 				664893CB273007F1009F03E2 /* LaunchScreen.storyboard */,
 				664893CE273007F1009F03E2 /* Info.plist */,
 				665303992743B3FF00E3075C /* CoreDataModel.xcdatamodeld */,
-				1D71B53C274E0C36000B50A8 /* Config.xcconfig */,
+				318D9F6C274E104C00AA6F0E /* Config.xcconfig */,
 				1D99945F274C8E6300C72273 /* GoogleService-Info.plist */,
 			);
 			path = Resources;
@@ -994,11 +1006,11 @@
 				66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */,
 				66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */,
 				66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */,
-				1D71B53D274E0C36000B50A8 /* Config.xcconfig in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
 				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
 				318D9F67274D4D5000AA6F0E /* darae.ttf in Resources */,
 				318D9F69274D4D9900AA6F0E /* kyoboHandwriting.otf in Resources */,
+				318D9F6D274E104C00AA6F0E /* Config.xcconfig in Resources */,
 				1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1201,6 +1213,7 @@
 				1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */,
 				FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */,
 				1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */,
+				318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */,
 				1D097E97273CFA5900A4810B /* RawPageRepository.swift in Sources */,
 				1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */,
 				310125A027393D3B00E43160 /* ImageComposeUseCase.swift in Sources */,
