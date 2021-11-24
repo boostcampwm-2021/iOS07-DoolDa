@@ -39,8 +39,9 @@
 		1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */; };
 		1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */; };
 		1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */; };
+		1D71B53D274E0C36000B50A8 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1D71B53C274E0C36000B50A8 /* Config.xcconfig */; };
+		1D71B540274E0CD5000B50A8 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D71B53F274E0CD5000B50A8 /* FirebaseMessaging */; };
 		1D8646A3274D2DB600C4511D /* PushMessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */; };
-		1D8646A7274D61BE00C4511D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8646A6274D61BE00C4511D /* FirebaseMessaging */; };
 		1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
 		1D8BE07B2742A3DB00201E3E /* DiaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */; };
 		1D8BE07D2743437600201E3E /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07C2743437600201E3E /* DiaryViewModel.swift */; };
@@ -159,9 +160,7 @@
 		FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
 		FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */; };
 		FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */; };
-		FC51FA6B274C7D910069D39C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FC51FA6A274C7D910069D39C /* Config.xcconfig */; };
 		FC51FA6D274C89330069D39C /* FontSizeControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA6C274C89330069D39C /* FontSizeControlView.swift */; };
-		FC51FA70274D4C4C0069D39C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FC51FA6F274D4C4C0069D39C /* Config.xcconfig */; };
 		FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */; };
 		FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB792273260C3008AC3D2 /* UserRepository.swift */; };
 		FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5FB7942732627C008AC3D2 /* PairDocument.swift */; };
@@ -224,6 +223,7 @@
 		1D6232F427313D8E00A9AD6B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
+		1D71B53C274E0C36000B50A8 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../Config.xcconfig; sourceTree = "<group>"; };
 		1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushMessageEntity.swift; sourceTree = "<group>"; };
 		1D8BE0782740FE5E00201E3E /* PageDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDocument.swift; sourceTree = "<group>"; };
 		1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -329,9 +329,7 @@
 		FC28CB31274609F300BA47BB /* TextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCase.swift; sourceTree = "<group>"; };
 		FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorPickerView.swift; sourceTree = "<group>"; };
 		FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorCollectionViewCell.swift; sourceTree = "<group>"; };
-		FC51FA6A274C7D910069D39C /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		FC51FA6C274C89330069D39C /* FontSizeControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeControlView.swift; sourceTree = "<group>"; };
-		FC51FA6F274D4C4C0069D39C /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		FC5FB792273260C3008AC3D2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		FC5FB7942732627C008AC3D2 /* PairDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairDocument.swift; sourceTree = "<group>"; };
@@ -384,7 +382,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D8646A7274D61BE00C4511D /* FirebaseMessaging in Frameworks */,
+				1D71B540274E0CD5000B50A8 /* FirebaseMessaging in Frameworks */,
 				664893F027300DB9009F03E2 /* Kingfisher in Frameworks */,
 				664893ED27300D7D009F03E2 /* SnapKit in Frameworks */,
 			);
@@ -569,7 +567,6 @@
 		664893B4273007ED009F03E2 = {
 			isa = PBXGroup;
 			children = (
-				FC51FA6F274D4C4C0069D39C /* Config.xcconfig */,
 				664893BF273007ED009F03E2 /* Doolda */,
 				1D9FAD4A2747B82B00198B93 /* Tests */,
 				664893BE273007ED009F03E2 /* Products */,
@@ -626,6 +623,7 @@
 				664893CB273007F1009F03E2 /* LaunchScreen.storyboard */,
 				664893CE273007F1009F03E2 /* Info.plist */,
 				665303992743B3FF00E3075C /* CoreDataModel.xcdatamodeld */,
+				1D71B53C274E0C36000B50A8 /* Config.xcconfig */,
 				1D99945F274C8E6300C72273 /* GoogleService-Info.plist */,
 			);
 			path = Resources;
@@ -843,14 +841,6 @@
 			path = PhotoFrames;
 			sourceTree = "<group>";
 		};
-		FC51FA6E274D301C0069D39C /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				FC51FA6A274C7D910069D39C /* Config.xcconfig */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -906,7 +896,7 @@
 			packageProductDependencies = (
 				664893EC27300D7D009F03E2 /* SnapKit */,
 				664893EF27300DB9009F03E2 /* Kingfisher */,
-				1D8646A6274D61BE00C4511D /* FirebaseMessaging */,
+				1D71B53F274E0CD5000B50A8 /* FirebaseMessaging */,
 			);
 			productName = Doolda;
 			productReference = 664893BD273007ED009F03E2 /* Doolda.app */;
@@ -947,7 +937,7 @@
 				664893EB27300D7D009F03E2 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				664893EE27300DB9009F03E2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				664893F127300E28009F03E2 /* XCRemoteSwiftPackageReference "SwiftLint" */,
-				1D8646A5274D61BE00C4511D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1D71B53E274E0CD5000B50A8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 664893BE273007ED009F03E2 /* Products */;
 			projectDirPath = "";
@@ -983,9 +973,8 @@
 				66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */,
 				66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */,
 				66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */,
-				FC51FA70274D4C4C0069D39C /* Config.xcconfig in Resources */,
+				1D71B53D274E0C36000B50A8 /* Config.xcconfig in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
-				FC51FA6B274C7D910069D39C /* Config.xcconfig in Resources */,
 				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
 				1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */,
 			);
@@ -1539,7 +1528,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1D8646A5274D61BE00C4511D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		1D71B53E274E0CD5000B50A8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -1575,9 +1564,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1D8646A6274D61BE00C4511D /* FirebaseMessaging */ = {
+		1D71B53F274E0CD5000B50A8 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1D8646A5274D61BE00C4511D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1D71B53E274E0CD5000B50A8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
 		664893EC27300D7D009F03E2 /* SnapKit */ = {
