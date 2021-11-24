@@ -9,8 +9,9 @@ import Combine
 import Foundation
 
 protocol PageDetailViewModelInput {
+    func pageDetailViewWillApper()
     func editPageButtonDidTap()
-    func backButtonDidTap()
+    func getDate() -> Date?
 }
 
 protocol PageDetailViewModelOuput {
