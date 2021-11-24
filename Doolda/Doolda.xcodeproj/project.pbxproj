@@ -164,7 +164,6 @@
 		66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */; };
 		66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */; };
 		FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */; };
-		FC23C226274E170300EBAE4C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FC23C225274E170300EBAE4C /* Config.xcconfig */; };
 		FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */; };
 		FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
 		FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */; };
@@ -342,7 +341,6 @@
 		66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserUseCase.swift; sourceTree = "<group>"; };
 		66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
-		FC23C225274E170300EBAE4C /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailViewController.swift; sourceTree = "<group>"; };
 		FC28CB31274609F300BA47BB /* TextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCase.swift; sourceTree = "<group>"; };
 		FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorPickerView.swift; sourceTree = "<group>"; };
@@ -659,7 +657,6 @@
 				665303992743B3FF00E3075C /* CoreDataModel.xcdatamodeld */,
 				1DC17BD4274E2B22006774FD /* Config.xcconfig */,
 				1D99945F274C8E6300C72273 /* GoogleService-Info.plist */,
-				FC23C225274E170300EBAE4C /* Config.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
