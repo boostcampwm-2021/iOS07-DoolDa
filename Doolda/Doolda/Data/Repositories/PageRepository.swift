@@ -51,7 +51,10 @@ class PageRepository: PageRepositoryProtocol {
         let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService.request(request)
         
         return publisher
-            .map { _ in page }
+            .map { [weak self] _ -> PageEntity in
+                self?.savePageToCache(pages: [page])
+                return page
+            }
             .eraseToAnyPublisher()
     }
     
