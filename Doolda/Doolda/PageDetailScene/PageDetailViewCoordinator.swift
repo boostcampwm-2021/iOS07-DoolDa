@@ -9,10 +9,12 @@ import UIKit
 
 class PageDetailViewCoordinator: PageDetailViewCoordinatorProtocol {
     var presenter: UINavigationController
+    private let user: User
     private let pageEntity: PageEntity
 
-    init(presenter: UINavigationController, pageEntity: PageEntity) {
+    init(presenter: UINavigationController, user: User, pageEntity: PageEntity) {
         self.presenter = presenter
+        self.user = user
         self.pageEntity = pageEntity
     }
 
@@ -43,7 +45,8 @@ class PageDetailViewCoordinator: PageDetailViewCoordinatorProtocol {
     }
 
     func editPageRequested(with rawPageEntity: RawPageEntity) {
-
+        let coordinator = EditPageViewCoordinator(presenter: self.presenter, user: self.user, rawPageEntity: rawPageEntity)
+        coordinator.start()
     }
 
 }
