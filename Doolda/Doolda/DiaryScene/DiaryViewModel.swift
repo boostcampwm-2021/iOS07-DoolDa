@@ -20,6 +20,7 @@ protocol DiaryViewModelInput {
     func filterBottomSheetDidDismiss()
     func pageDidDisplay(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error>
     func getDate(of index: Int) -> Date?
+    func userPostedNewPageNotificationDidReceived()
 }
 
 protocol DiaryViewModelOutput {
@@ -185,6 +186,10 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     func getDate(of index: Int) -> Date? {
         return filteredPageEntities[exist: index]?.createdTime
+    }
+    
+    func userPostedNewPageNotificationDidReceived() {
+        self.fetchPages()
     }
     
     private func fetchPages() {
