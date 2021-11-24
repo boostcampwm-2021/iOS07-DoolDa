@@ -127,6 +127,7 @@ class DiaryViewController: UIViewController {
         self.hapticGenerator.prepare()
         self.hapticGenerator.impactOccurred()
         self.viewModel.diaryViewWillAppear()
+        self.updateView(with: self.viewModel.displayMode)
     }
     
     // MARK: - Helpers
@@ -291,15 +292,15 @@ class DiaryViewController: UIViewController {
             self.pageCollectionView.showsVerticalScrollIndicator = false
             self.navigationController?.hidesBarsOnSwipe = false
             self.navigationController?.isNavigationBarHidden = false
-            self.scrollToPage(of: Int(self.pageCollectionView.contentOffset.x / self.pageOffset) + 1)
+            self.scrollToPage(of: Int(self.pageCollectionView.contentOffset.x / self.pageOffset))
         }
     }
     
     private func scrollToPage(of index: Int) {
         guard self.viewModel.displayMode == .carousel else { return }
-        let xOffset = CGFloat(min(self.viewModel.filteredEntityCount, index)) * self.pageOffset - 16
+        let xOffset = CGFloat(min(self.viewModel.filteredEntityCount + 1, index)) * self.pageOffset - 16
         let yOffset = self.pageCollectionView.contentOffset.y
-        self.setTitle(for: index)
+        self.setTitle(for: index - 1)
         self.pageCollectionView.setContentOffset(CGPoint(x: xOffset, y: yOffset), animated: false)
     }
     
