@@ -11,10 +11,12 @@ import UIKit
 class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     var presenter: UINavigationController
     private let user: User
+    private let rawPageEntity: RawPageEntity?
     
-    init(presenter: UINavigationController, user: User) {
+    init(presenter: UINavigationController, user: User, rawPageEntity: RawPageEntity? = nil) {
         self.presenter = presenter
         self.user = user
+        self.rawPageEntity = rawPageEntity
     }
     
     func start() {
@@ -58,6 +60,7 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
             
             let editPageViewModel = EditPageViewModel(
                 user: self.user,
+                rawPageEntity: self.rawPageEntity,
                 coordinator: self,
                 editPageUseCase: editPageUseCase,
                 firebaseMessageUseCase: firebaseMessageUseCase
