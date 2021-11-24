@@ -31,15 +31,30 @@ class PageDetailViewController: UIViewController {
         return button
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .large
+        return activityIndicator
+    }()
+    
     // MARK: - Private Properties
 
     private var viewModel: PageDetailViewModelProtocol!
     private var cancellables: Set<AnyCancellable> = []
     
+    private var widthRatioFromAbsolute: CGFloat {
+        return self.pageView.frame.width / 1700.0
+    }
+    
+    private var heightRatioFromAbsolute: CGFloat {
+        return self.pageView.frame.height / 3000.0
+    }
+    
     // MARK: - Initializers
     
-    convenience init() {
+    convenience init(viewModel: PageDetailViewModelProtocol) {
         self.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
     }
 
     // MARK: - Lifecycle Methods
@@ -48,7 +63,13 @@ class PageDetailViewController: UIViewController {
         super.viewDidLoad()
         self.configureUI()
         self.bindUI()
-        self.configureFont() 
+        self.bindViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.pageDetailViewWillApper()
+        self.configureFont()
     }
     
     // MARK: - Helpers
@@ -61,9 +82,15 @@ class PageDetailViewController: UIViewController {
         navigationController.navigationBar.tintColor = .dooldaLabel
         navigationController.navigationBar.topItem?.title = ""
         self.navigationItem.backButtonTitle = ""
-    
+        
+        if let date = self.viewModel.getDate() {
+            let formattedDateString = DateFormatter.koreanFormatter.string(from: date)
+            self.title = formattedDateString
+        } else {
+            self.title = "둘다"
+        }
+        
         self.view.addSubview(self.pageView)
-        self.pageView.isUserInteractionEnabled = true
         self.pageView.clipsToBounds = true
         self.pageView.layer.cornerRadius = 4
         
@@ -77,6 +104,11 @@ class PageDetailViewController: UIViewController {
             } else {
                 make.height.equalTo(self.view.safeAreaLayoutGuide).offset(-45)
             }
+        }
+        
+        self.pageView.addSubview(self.activityIndicator)
+        self.activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
         
         self.view.addSubview(self.shareButton)
@@ -103,6 +135,83 @@ class PageDetailViewController: UIViewController {
                 guard let self = self else { return }
                 self.savePageAndShare()
             }.store(in: &self.cancellables)
+    }
+    
+    private func bindViewModel() {
+        self.activityIndicator.startAnimating()
+        self.viewModel.rawPageEntityPublisher
+            .sink { [weak self] rawPageEntity in
+                guard let rawPageEntity = rawPageEntity,
+                      let self = self else { return }
+                self.drawPage(with: rawPageEntity)
+            }.store(in: &self.cancellables)
+    }
+    
+    private func drawPage(with rawPage: RawPageEntity) {
+        self.pageView.subviews.forEach { $0.removeFromSuperview() }
+        
+        self.pageView.backgroundColor = UIColor(cgColor: rawPage.backgroundType.rawValue)
+        for componentEntity in rawPage.components {
+            let computedCGRect = CGRect(
+                origin: self.computePointFromAbsolute(at: componentEntity.origin),
+                size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
+            )
+            
+            switch componentEntity {
+            case let photoComponentEtitiy as PhotoComponentEntity:
+                let photoComponentView = UIImageView(frame: computedCGRect)
+                photoComponentView.kf.setImage(with: photoComponentEtitiy.imageUrl)
+                self.pageView.addSubview(photoComponentView)
+                let transform = CGAffineTransform.identity
+                    .rotated(by: componentEntity.angle)
+                    .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
+                photoComponentView.transform = transform
+                photoComponentView.layer.shadowColor = UIColor.lightGray.cgColor
+                photoComponentView.layer.shadowOpacity = 0.3
+                photoComponentView.layer.shadowRadius = 10
+                photoComponentView.layer.shadowOffset = CGSize(width: -5, height: -5)
+            case let stickerComponentEntity as StickerComponentEntity:
+                let stickerComponentView = UIImageView(frame: computedCGRect)
+                stickerComponentView.image = UIImage(named: stickerComponentEntity.name)
+                stickerComponentView.contentMode = .scaleAspectFit
+                self.pageView.addSubview(stickerComponentView)
+                let transform = CGAffineTransform.identity
+                    .rotated(by: componentEntity.angle)
+                    .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
+                stickerComponentView.transform = transform
+            case let textComponentEntity as TextComponentEntity:
+                let textComponentView = UILabel(frame: computedCGRect)
+                textComponentView.numberOfLines = 0
+                textComponentView.textAlignment = .center
+                textComponentView.adjustsFontSizeToFitWidth = true
+                textComponentView.adjustsFontForContentSizeCategory = true
+                textComponentView.text = textComponentEntity.text
+                textComponentView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
+                textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
+                
+                self.pageView.addSubview(textComponentView)
+                
+                let transform = CGAffineTransform.identity
+                    .rotated(by: componentEntity.angle)
+                    .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
+                textComponentView.transform = transform
+            default:
+                break
+            }
+        }
+        self.activityIndicator.stopAnimating()
+    }
+    
+    private func computePointFromAbsolute(at point: CGPoint) -> CGPoint {
+        let computedX = point.x * self.widthRatioFromAbsolute
+        let computedY = point.y * self.heightRatioFromAbsolute
+        return CGPoint(x: computedX, y: computedY)
+    }
+    
+    private func computeSizeFromAbsolute(with size: CGSize) -> CGSize {
+        let computedWidth =  size.width  * self.widthRatioFromAbsolute
+        let computedHeight = size.height  * self.widthRatioFromAbsolute
+        return CGSize(width: computedWidth, height: computedHeight)
     }
     
     private func savePageAndShare() {
