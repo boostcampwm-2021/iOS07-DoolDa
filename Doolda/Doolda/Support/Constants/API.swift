@@ -18,6 +18,7 @@ enum FirebaseAPIs: URLRequestBuilder {
     
     case getPageDocuments(String, Date?)
     case createPageDocument(String, Date, Date, String, String)
+    case patchPageDocument(String, Date, Date, String, String)
     
     case getFCMTokenDocument(String)
     case patchFCMTokenDocument(String, String)
@@ -72,7 +73,7 @@ extension FirebaseAPIs {
             return ["documentId": id]
         case .createPageDocument(_, _, _, let jsonPath, let pairId):
             return ["documentId": pairId + jsonPath]
-        case .patchUserDocument, .patchPairDocument:
+        case .patchUserDocument, .patchPairDocument, .patchPageDocument:
             return ["currentDocument.exists": "true"]
         case .uploadDataFile, .downloadDataFile:
             return ["alt": "media"]
@@ -87,7 +88,7 @@ extension FirebaseAPIs {
             return .get
         case .createUserDocument, .createPairDocument, .createPageDocument, .uploadDataFile, .getPageDocuments, .sendFirebaseMessage:
             return .post
-        case .patchUserDocument, .patchPairDocument, .patchFCMTokenDocument:
+        case .patchUserDocument, .patchPairDocument, .patchPageDocument, .patchFCMTokenDocument:
             return .patch
         }
     }
@@ -168,7 +169,8 @@ extension FirebaseAPIs {
             return [
                 "fields": pairDocument.fields
             ]
-        case .createPageDocument(let authorId, let createdTime, let updatedTime, let jsonPath, let pairId):
+        case .createPageDocument(let authorId, let createdTime, let updatedTime, let jsonPath, let pairId),
+             .patchPageDocument(let authorId, let createdTime, let updatedTime, let jsonPath, let pairId):
             let pageDocument = PageDocument(
                 author: authorId,
                 createdTime: createdTime,
