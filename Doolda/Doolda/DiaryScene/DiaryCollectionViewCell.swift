@@ -23,7 +23,6 @@ class DiaryCollectionViewCell: UICollectionViewCell {
     private lazy var layeredView: UIView = UIView()
     private lazy var dayLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 100)
         label.adjustsFontSizeToFitWidth = true
         label.textColor = .black
         return label
@@ -31,7 +30,6 @@ class DiaryCollectionViewCell: UICollectionViewCell {
     
     private lazy var monthLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 100)
         label.adjustsFontSizeToFitWidth = true
         label.textColor = .black
         return label
@@ -62,6 +60,7 @@ class DiaryCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Properties
     
     private var cancellables: Set<AnyCancellable> = []
+    private var rawPageEntityPublisherCancellable: Cancellable?
     private var widthRatioFromAbsolute: CGFloat {
         return self.frame.size.width / 1700.0
     }
@@ -79,16 +78,21 @@ class DiaryCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.configureUI()
+        self.configureFont()
+        self.bindUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.configureUI()
+        self.configureFont()
+        self.bindUI()
     }
     
     // MARK: - Lifecycle Methods
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         self.drawPage()
     }
     
@@ -138,6 +142,14 @@ class DiaryCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(self.snp.width).dividedBy(7.0)
             make.height.equalTo(self.monthLabel.snp.width)
         }
+    }
+    
+    private func bindUI() {
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
+            }
+            .store(in: &self.cancellables)
     }
     
     private func computePointFromAbsolute(at point: CGPoint) -> CGPoint {
@@ -209,17 +221,21 @@ class DiaryCollectionViewCell: UICollectionViewCell {
         self.monthLabel.sizeToFit()
     }
     
+    private func configureFont() {
+        self.dayLabel.font = .systemFont(ofSize: 100)
+        self.monthLabel.font = .systemFont(ofSize: 100)
+    }
+    
     func displayRawPage(with rawPageEntityPublisher: AnyPublisher<RawPageEntity, Error>) {
         self.activityIndicator.startAnimating()
-        self.cancellables = []
-        rawPageEntityPublisher
+        self.rawPageEntityPublisherCancellable?.cancel()
+        self.rawPageEntityPublisherCancellable = rawPageEntityPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in
                 return
             }, receiveValue: { [weak self] rawPageEntity in
                 self?.rawPageEntity = rawPageEntity
             })
-            .store(in: &self.cancellables)
     }
 
 }
