@@ -68,7 +68,7 @@ class PageDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel.pageDetailViewWillApper()
+        self.viewModel.pageDetailViewWillAppear()
         self.configureFont()
     }
     
@@ -83,13 +83,9 @@ class PageDetailViewController: UIViewController {
         navigationController.navigationBar.topItem?.title = ""
         self.navigationItem.backButtonTitle = ""
         
-        if let date = self.viewModel.getDate() {
-            let formattedDateString = DateFormatter.koreanFormatter.string(from: date)
-            self.title = formattedDateString
-        } else {
-            self.title = "둘다"
-        }
-        
+        let date = self.viewModel.getDate()
+        self.title = DateFormatter.koreanFormatter.string(from: date) ?? "둘다"
+
         self.view.addSubview(self.pageView)
         self.pageView.clipsToBounds = true
         self.pageView.layer.cornerRadius = 4
