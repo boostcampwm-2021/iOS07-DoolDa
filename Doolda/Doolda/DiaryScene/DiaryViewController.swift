@@ -206,12 +206,14 @@ class DiaryViewController: UIViewController {
         
         NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userPostedNewPage, object: nil)
             .sink { [weak self] _ in
+                self?.scrollToPage(of: 0)
                 self?.viewModel.userPostedNewPageNotificationDidReceived()
             }
             .store(in: &self.cancellables)
         
         NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userRequestedNewPage, object: nil)
             .sink { [weak self] _ in
+                self?.scrollToPage(of: 0)
                 self?.viewModel.userRequestedNewPageNotificationDidReceived()
             }
             .store(in: &self.cancellables)

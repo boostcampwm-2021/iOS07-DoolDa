@@ -200,7 +200,7 @@ class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func userRequestedNewPageNotificationDidReceived() {
-        self.coordinator.editPageRequested()
+        self.fetchPages()
     }
     
     private func fetchPages() {
