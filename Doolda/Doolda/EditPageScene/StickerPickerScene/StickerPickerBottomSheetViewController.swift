@@ -100,7 +100,6 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
             make.bottom.equalTo(self.view.snp.bottom).offset(-13)
         }
     }
-
     private func bindUI() {
         let publihser = self.closeButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)

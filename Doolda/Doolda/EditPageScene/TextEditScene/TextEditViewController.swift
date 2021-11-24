@@ -56,6 +56,7 @@ class TextEditViewController: UIViewController {
             self.previousColorIndex = self.currentColorIndex
         }
         didSet {
+            self.feedbackGenerator?.impactOccurred()
             guard let currentColor = self.viewModel.getFontColor(at: self.currentColorIndex) else { return }
             if self.inputTextView.textColor != .systemGray {
                 self.inputTextView.textColor = UIColor(cgColor: currentColor)
@@ -72,6 +73,7 @@ class TextEditViewController: UIViewController {
     private var cancellables: Set<AnyCancellable> = []
     private var viewModel: TextEditViewModelProtocol!
     private weak var delegate: TextEditViewControllerDelegate?
+    private var feedbackGenerator: UIImpactFeedbackGenerator?
     
     override var inputAccessoryView: UIView? {
         return self.fontColorView
@@ -99,6 +101,7 @@ class TextEditViewController: UIViewController {
         super.viewDidLoad()
         
         self.configureUI()
+        self.configureGenerator()
         self.bindUI()
     }
     
@@ -120,7 +123,11 @@ class TextEditViewController: UIViewController {
             make.width.equalTo(30)
             make.bottom.equalTo(self.view.snp.centerY)
         }
-        
+    }
+    
+    private func configureGenerator() {
+        self.feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+        self.feedbackGenerator?.prepare()
     }
     
     private func bindUI() {
