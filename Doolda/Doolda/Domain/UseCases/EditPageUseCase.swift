@@ -11,10 +11,12 @@ import Foundation
 
 enum EditPageUseCaseError: LocalizedError {
     case rawPageNotFound
+    case failedToSavePage
     
     var errorDescription: String? {
         switch self {
         case .rawPageNotFound: return "편집중인 페이지를 찾을 수 없습니다."
+        case .failedToSavePage: return "페이지 저장에 실패 했습니다."
         }
     }
 }
@@ -145,14 +147,20 @@ class EditPageUseCase: EditPageUseCaseProtocol {
         guard let page = self.rawPage else { return self.error = EditPageUseCaseError.rawPageNotFound }
         guard let pairId = author.pairId?.ddidString else { return }
         
+        let isNewPage = metaData == nil
         let currentTime = Date()
         let path = DateFormatter.jsonPathFormatter.string(from: currentTime)
-        // FIXME: Edit 동작이 구현되면 updateTime수정할 것!
-        // FIXME: 첫 생성은 currenTime과 같은것으로 대입!
-        let metaData = PageEntity(author: author, createdTime: currentTime, updatedTime: currentTime, jsonPath: path)
+        
+        let pageEntity = PageEntity(
+            author: metaData?.author ?? author,
+            createdTime: metaData?.createdTime ?? currentTime,
+            updatedTime: currentTime,
+            jsonPath: metaData?.jsonPath ?? path
+        )
         
         let imageUploadPublishers = page.components
             .compactMap { $0 as? PhotoComponentEntity }
+            .filter { $0.imageUrl.scheme == "file" }
             .map { [weak self] photoComponent -> AnyPublisher<URL, Error> in
                 guard let self = self else { return Fail(error: EditPageUseCaseError.rawPageNotFound).eraseToAnyPublisher() }
                 return self.imageUseCase.saveRemote(for: author, localUrl: photoComponent.imageUrl)
@@ -171,11 +179,27 @@ class EditPageUseCase: EditPageUseCaseProtocol {
                 self?.error = error
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                Publishers.Zip3(
-                    self.pageRepository.savePage(metaData),
-                    self.rawPageRepository.save(rawPage: page, at: pairId, with: path),
-                    self.pairRepository.setRecentlyEditedUser(with: self.user)
-                )
+                let savePublisher: AnyPublisher<Void, Error>
+                if isNewPage {
+                    savePublisher = Publishers.Zip3(
+                        self.pageRepository.savePage(pageEntity),
+                        self.rawPageRepository.save(rawPage: page, at: pairId, with: path),
+                        self.pairRepository.setRecentlyEditedUser(with: self.user)
+                    )
+                        .mapError { _ -> Error in EditPageUseCaseError.failedToSavePage }
+                        .map { _ -> Void in () }
+                        .eraseToAnyPublisher()
+                } else {
+                    savePublisher = Publishers.Zip(
+                        self.pageRepository.updatePage(pageEntity),
+                        self.rawPageRepository.save(rawPage: page, at: pairId, with: path)
+                    )
+                        .mapError { _ -> Error in EditPageUseCaseError.failedToSavePage }
+                        .map { _ -> Void in () }
+                        .eraseToAnyPublisher()
+                }
+                
+                savePublisher
                     .sink { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
                         self?.error = error
