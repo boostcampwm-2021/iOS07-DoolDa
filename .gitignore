@@ -146,7 +146,7 @@ GoogleService-Info.plist
 # SwiftPackageManager
 Package.resolved
 
-# Xcode Config
+# Xcconfig
 *.xcconfig
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,cocoapods,macos,xcode
