@@ -76,7 +76,7 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
         .eraseToAnyPublisher()
     }
     
-    func savePageEntity(_ pageEntity: PageEntity) -> AnyPublisher<Void, Error> {
+    func savePageEntity(_ pageEntity: PageEntity) -> AnyPublisher<PageEntity, Error> {
         guard let context = coreDataPersistenceService.backgroundContext,
               let coreDataPageEntity = NSEntityDescription.entity(forEntityName: CoreDataPageEntity.coreDataPageEntityName, in: context) else {
             return Fail(error: CoreDataPageEntityPersistenceServiceError.failedToInitializeCoreDataContainer).eraseToAnyPublisher()
@@ -102,7 +102,7 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
                     if context.hasChanges {
                         try context.save()
                     }
-                    promise(.success(()))
+                    promise(.success(pageEntity))
                 } catch {
                     promise(.failure(error))
                 }
