@@ -8,7 +8,6 @@
 import UIKit
 
 class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
-    
     var presenter: UINavigationController
     private let user: User
     
@@ -76,5 +75,10 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
         let delegate = self.presenter.topViewController as? DiaryViewController
         let viewController = FilterOptionBottomSheetViewController(viewModel: viewModel, delegate: delegate)
         self.presenter.present(viewController, animated: false)
+    }
+    
+    func pageDetailRequested(rawPage: RawPageEntity) {
+//        let coordinator = EditPageViewCoordinator(presenter: self.presenter, user: self.user, rawPageEntity: rawPage)
+//        coordinator.start()
     }
 }

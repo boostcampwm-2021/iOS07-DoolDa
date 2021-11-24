@@ -29,9 +29,7 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
                 globalFontUseCase: globalFontUseCase,
                 pushNotificationStateUseCase: pushNotificationStateUseCase
             )
-//MARK: - fixme
-//            let viewController = SettingsViewController(viewModel: viewModel)
-            let viewController = PageDetailViewController()
+            let viewController = SettingsViewController(viewModel: viewModel)
             self.presenter.pushViewController(viewController, animated: true)
         }
     }

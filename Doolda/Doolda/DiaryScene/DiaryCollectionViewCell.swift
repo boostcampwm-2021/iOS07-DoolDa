@@ -70,7 +70,7 @@ class DiaryCollectionViewCell: UICollectionViewCell {
         return self.frame.size.height / 3000.0
     }
     
-    private var rawPageEntity: RawPageEntity? {
+    private(set) var rawPageEntity: RawPageEntity? {
         didSet { self.drawPage() }
     }
     

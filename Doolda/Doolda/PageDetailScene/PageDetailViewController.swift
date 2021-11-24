@@ -117,7 +117,6 @@ class PageDetailViewController: UIViewController {
             make.leading.equalTo(self.pageView.snp.leading)
             make.width.equalTo(30)
             make.height.equalTo(self.shareButton.snp.width)
-
         }
         
         self.view.addSubview(self.editPageButton)
