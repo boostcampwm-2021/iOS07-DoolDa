@@ -209,6 +209,12 @@ class DiaryViewController: UIViewController {
                 self?.viewModel.userPostedNewPageNotificationDidReceived()
             }
             .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userRequestedNewPage, object: nil)
+            .sink { [weak self] _ in
+                self?.viewModel.userRequestedNewPageNotificationDidReceived()
+            }
+            .store(in: &self.cancellables)
     }
     
     private func configureDataSource() {
