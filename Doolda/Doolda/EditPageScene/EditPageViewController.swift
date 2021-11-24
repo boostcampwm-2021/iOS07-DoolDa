@@ -86,6 +86,11 @@ class EditPageViewController: UIViewController {
         return customActivityIndicator
     }()
     
+    private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        return generator
+    }()
+    
     // MARK: - Override Properties
     
     override var prefersStatusBarHidden: Bool { return true }
@@ -490,24 +495,32 @@ extension EditPageViewController: PageComponentControlViewDelegate {
 
 extension EditPageViewController: PhotoPickerBottomSheetViewControllerDelegate {
     func composedPhotoDidMake(_ photoComponentEntity: PhotoComponentEntity) {
+        self.hapticGenerator.prepare()
+        self.hapticGenerator.impactOccurred()
         self.viewModel?.componentEntityDidAdd(photoComponentEntity)
     }
 }
 
 extension EditPageViewController: BackgroundTypePickerViewControllerDelegate {
     func backgroundTypeDidSelect(_ backgroundType: BackgroundType) {
+        self.hapticGenerator.prepare()
+        self.hapticGenerator.impactOccurred()
         self.viewModel?.backgroundColorDidChange(backgroundType)
     }
 }
 
 extension EditPageViewController: StickerPickerBottomSheetViewControllerDelegate {
     func stickerDidSelected(_ stickerComponentEntity: StickerComponentEntity) {
+        self.hapticGenerator.prepare()
+        self.hapticGenerator.impactOccurred()
         self.viewModel?.componentEntityDidAdd(stickerComponentEntity)
     }
 }
 
 extension EditPageViewController: TextEditViewControllerDelegate {
     func textInputDidEndAdd(_ textComponentEntity: TextComponentEntity) {
+        self.hapticGenerator.prepare()
+        self.hapticGenerator.impactOccurred()
         self.viewModel?.componentEntityDidAdd(textComponentEntity)
     }
     
