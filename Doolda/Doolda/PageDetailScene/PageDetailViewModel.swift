@@ -29,13 +29,16 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
     @Published private var error: Error?
 
     private let pageEntity: PageEntity
+    private let coordinator: PageDetailViewCoordinatorProtocol
     private let getRawPageUseCase: GetRawPageUseCaseProtocol
 
     init(
         pageEntity: PageEntity,
+        coordinator: PageDetailViewCoordinatorProtocol,
         getRawPageUseCase: GetRawPageUseCaseProtocol
     ) {
         self.pageEntity = pageEntity
+        self.coordinator = coordinator
         self.getRawPageUseCase = getRawPageUseCase
     }
 
@@ -53,7 +56,8 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
     }
 
     func editPageButtonDidTap() {
-        
+        guard let rawPageEntity = self.rawPageEntity else { return }
+        self.coordinator.editPageRequested(with: rawPageEntity)
     }
 
 }
