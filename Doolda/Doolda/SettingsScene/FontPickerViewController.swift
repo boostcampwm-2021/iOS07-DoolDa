@@ -56,8 +56,6 @@ class FontPickerViewController: BottomSheetViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.fontPicker.delegate = self
-        self.fontPicker.dataSource = self
         self.configureUI()
         self.bindUI()
     }
@@ -70,6 +68,9 @@ class FontPickerViewController: BottomSheetViewController {
     // MARK: - Helpers
 
     private func configureUI() {
+        self.fontPicker.delegate = self
+        self.fontPicker.dataSource = self
+
         self.body.backgroundColor = .dooldaBackground
 
         self.body.addSubview(self.bottomSheetTitle)
@@ -124,12 +125,11 @@ extension FontPickerViewController: UIPickerViewDelegate {
         guard let fontName = FontType.allCases[exist: row]?.name,
               let text = FontType.allCases[exist: row]?.displayName else { return UIView() }
 
-        var pickerLabel = view as? UILabel
-        if pickerLabel == nil { pickerLabel = UILabel() }
-        pickerLabel?.text = text
-        pickerLabel?.font = UIFont(name: fontName, size: 28)
-        pickerLabel?.textAlignment = .center
-        return pickerLabel ?? UIView()
+        let pickerLabel = view as? UILabel ?? UILabel()
+        pickerLabel.text = text
+        pickerLabel.font = UIFont(name: fontName, size: 28)
+        pickerLabel.textAlignment = .center
+        return pickerLabel
     }
 }
 

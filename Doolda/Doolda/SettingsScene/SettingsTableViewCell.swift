@@ -22,12 +22,6 @@ class SettingsTableViewCell: UITableViewCell {
 
     // MARK: - Subviews
 
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        return stackView
-    }()
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .dooldaLabel
@@ -45,6 +39,18 @@ class SettingsTableViewCell: UITableViewCell {
         let switchControl = UISwitch()
         switchControl.onTintColor = .dooldaHighlighted
         return switchControl
+    }()
+
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                self.titleLabel,
+                self.detailLabel,
+                self.switchControl
+            ]
+        )
+        stackView.axis = .horizontal
+        return stackView
     }()
 
     private lazy var separator: CALayer = {
@@ -94,11 +100,7 @@ class SettingsTableViewCell: UITableViewCell {
     private func configureUI() {
         self.backgroundColor = .clear
 
-        self.stackView.addArrangedSubview(self.titleLabel)
-        self.stackView.addArrangedSubview(self.detailLabel)
-        self.stackView.addArrangedSubview(self.switchControl)
         self.contentView.addSubview(self.stackView)
-
         self.stackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
             make.bottom.equalToSuperview().offset(-8)
@@ -124,8 +126,7 @@ class SettingsTableViewCell: UITableViewCell {
     }
 
     private func configureFont() {
-        var font = self.font
-        if font == nil { font = .systemFont(ofSize: 16) }
+        let font = self.font ?? .systemFont(ofSize: 16)
 
         self.titleLabel.font = font
         self.detailLabel.font = font
