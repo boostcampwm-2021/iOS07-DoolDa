@@ -37,7 +37,7 @@ protocol EditPageUseCaseProtocol {
     func changeTextComponent(into content: TextComponentEntity)
     
     func changeBackgroundType(_ backgroundType: BackgroundType)
-    func savePage(author: User)
+    func savePage(author: User, metaData: PageEntity?)
 }
 
 class EditPageUseCase: EditPageUseCaseProtocol {
