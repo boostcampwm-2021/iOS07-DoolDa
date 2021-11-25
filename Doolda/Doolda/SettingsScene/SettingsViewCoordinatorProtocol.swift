@@ -10,4 +10,5 @@ import Foundation
 protocol SettingsViewCoordinatorProtocol {
     func fontPickerSheetRequested()
     func settingsOptionRequested(title: String, text: String)
+    func splashViewRequested()
 }
