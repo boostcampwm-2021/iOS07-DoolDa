@@ -74,7 +74,6 @@ class PairingViewController: UIViewController {
         let button = DooldaButton()
         button.setTitle("연결하기", for: .normal)
         button.setTitleColor(.dooldaLabel, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .dooldaHighlighted
         button.isEnabled = false
         return button
@@ -84,7 +83,6 @@ class PairingViewController: UIViewController {
         let button = DooldaButton()
         button.setTitle("혼자 쓰러가기", for: .normal)
         button.setTitleColor(.dooldaLabel, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .dooldaHighlighted
         return button
     }()
@@ -218,8 +216,8 @@ class PairingViewController: UIViewController {
         self.myIdLabel.font = .systemFont(ofSize: 16)
         self.friendIdTitleLabel.font = .systemFont(ofSize: 14)
         self.friendIdTextField.font = .systemFont(ofSize: 16)
-        self.pairButton.titleLabel?.font = .systemFont(ofSize: 16)
-        self.pairSkipButton.titleLabel?.font = .systemFont(ofSize: 16)
+        self.pairButton.titleLabel?.font = .systemFont(ofSize: 14)
+        self.pairSkipButton.titleLabel?.font = .systemFont(ofSize: 14)
     }
     
     private func bindUI() {
