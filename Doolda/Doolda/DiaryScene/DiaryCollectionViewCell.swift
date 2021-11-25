@@ -41,7 +41,7 @@ class DiaryCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var darkModeView: UIView = {
+    private lazy var darkModeDimView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.isHidden = true
@@ -166,9 +166,9 @@ class DiaryCollectionViewCell: UICollectionViewCell {
         if #available(iOS 13.0, *) {
             if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
                 if traitCollection.userInterfaceStyle == .dark {
-                    self.darkModeView.isHidden = false
+                    self.darkModeDimView.isHidden = false
                 } else {
-                    self.darkModeView.isHidden = true
+                    self.darkModeDimView.isHidden = true
                 }
             }
         }
@@ -192,8 +192,8 @@ class DiaryCollectionViewCell: UICollectionViewCell {
         
         self.backgroundColor = UIColor(cgColor: rawPage.backgroundType.rawValue)
         
-        self.pageView.addSubview(self.darkModeView)
-        self.darkModeView.snp.makeConstraints { make in
+        self.pageView.addSubview(self.darkModeDimView)
+        self.darkModeDimView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
