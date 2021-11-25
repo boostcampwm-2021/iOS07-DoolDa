@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "withBuddy_5.png",
+      "filename" : "Yellow14.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Yellow14-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Yellow14-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

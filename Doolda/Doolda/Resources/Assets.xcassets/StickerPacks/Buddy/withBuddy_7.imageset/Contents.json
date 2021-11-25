@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "withBuddy_0.png",
+      "filename" : "Blue5.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "withBuddy_0-1.png",
+      "filename" : "Blue5-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "withBuddy_0-2.png",
+      "filename" : "Blue5-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

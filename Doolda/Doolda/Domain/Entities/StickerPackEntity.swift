@@ -59,6 +59,6 @@ class StickerPackEntity {
     static let buddyStickerPack = StickerPackEntity(
         displayName: "위드버디",
         familyName: "withBuddy",
-        stickerCount: 6
+        stickerCount: 12
     )
 }
