@@ -75,6 +75,18 @@ class UserRepository: UserRepositoryProtocol {
         .eraseToAnyPublisher()
     }
     
+    func resetUser(_ user: User) -> AnyPublisher<User, Error> {
+        let publisher: AnyPublisher<UserDocument, Error> =
+        self.urlSessionNetworkService.request(FirebaseAPIs.patchUserDocument(user.id.ddidString, "", ""))
+        return publisher.tryMap { userDocument in
+            guard let user = userDocument.toUser() else {
+                throw UserRepositoryError.nilUserId
+            }
+            return user
+        }
+        .eraseToAnyPublisher()
+    }
+    
     func fetchUser(_ id: DDID) -> AnyPublisher<User?, Error> {
         let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.getUserDocuement(id.ddidString))
         return publisher.tryMap { userDocument in
