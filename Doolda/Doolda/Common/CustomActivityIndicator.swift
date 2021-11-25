@@ -30,7 +30,6 @@ final class CustomActivityIndicator: UIView {
     
     private lazy var subTitle: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
         label.textAlignment = .center
         label.textColor = .dooldaSubLabel
         return label
@@ -46,6 +45,7 @@ final class CustomActivityIndicator: UIView {
         self.init(frame: .zero)
         self.subTitle.text = subTitle
         configureUI()
+        configureFont()
         bindUI()
     }
     
@@ -74,13 +74,23 @@ final class CustomActivityIndicator: UIView {
         }
     }
     
-    func bindUI() {
+    private func configureFont() {
+        self.subTitle.font = .systemFont(ofSize: 20)
+    }
+    
+    private func bindUI() {
         self.publisher(for: UITapGestureRecognizer())
             .sink { _ in }
             .store(in: &self.cancellables)
         
         self.publisher(for: UIPanGestureRecognizer())
             .sink { _ in }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
+            }
             .store(in: &self.cancellables)
     }
     
