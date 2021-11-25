@@ -22,7 +22,7 @@ final class CustomActivityIndicator: UIView {
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.color = .dooldaSubLabel
+        indicator.color = .dooldaSublabel
         indicator.hidesWhenStopped = false
         return indicator
     }()
@@ -30,7 +30,7 @@ final class CustomActivityIndicator: UIView {
     private lazy var subTitle: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .dooldaSubLabel
+        label.textColor = .dooldaSublabel
         return label
     }()
     

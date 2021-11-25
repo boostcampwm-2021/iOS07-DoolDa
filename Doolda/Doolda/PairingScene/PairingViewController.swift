@@ -39,7 +39,7 @@ class PairingViewController: UIViewController {
     
     private lazy var myIdTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .dooldaSubLabel
+        label.textColor = .dooldaSublabel
         label.text = "내 초대코드"
         return label
     }()
@@ -54,7 +54,7 @@ class PairingViewController: UIViewController {
     
     private lazy var friendIdTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .dooldaSubLabel
+        label.textColor = .dooldaSublabel
         label.text = "상대방 초대코드를 전달 받으셨나요?"
         return label
     }()
@@ -91,7 +91,7 @@ class PairingViewController: UIViewController {
     
     private lazy var divider: UIView = {
         let view = UIView()
-        view.backgroundColor = .dooldaSubLabel
+        view.backgroundColor = .dooldaSublabel
         return view
     }()
     
@@ -327,5 +327,4 @@ class PairingViewController: UIViewController {
         )
         self.present(alert, animated: true)
     }
-
 }

@@ -27,7 +27,7 @@ class DiaryBackgroundView: UIView {
     private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .dooldaSubLabel
+        label.textColor = .dooldaSublabel
         return label
     }()
     

@@ -20,7 +20,7 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
 
     private lazy var titleLabel: UILabel = {
         let title = UILabel()
-        title.textColor = .dooldaSubLabel
+        title.textColor = .dooldaSublabel
         return title
     }()
 
