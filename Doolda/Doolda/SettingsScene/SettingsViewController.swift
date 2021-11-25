@@ -72,6 +72,10 @@ class SettingsViewController: UIViewController {
         return sections
     }()
 
+    // MARK: - Override Properties
+
+    override var prefersStatusBarHidden: Bool { return true }
+
     // MARK: - Private Properties
 
     private var viewModel: SettingsViewModelProtocol!

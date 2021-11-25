@@ -150,7 +150,7 @@ class EditPageViewController: UIViewController {
         
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
-        self.title = "새 페이지"
+        self.title = "페이지 편집"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.cancelButton)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.saveButton)
 
