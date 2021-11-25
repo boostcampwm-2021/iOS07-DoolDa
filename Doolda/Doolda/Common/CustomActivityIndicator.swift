@@ -14,10 +14,9 @@ final class CustomActivityIndicator: UIView {
     
     // MARK: - Subviews
     
-    private lazy var activityIndicatorImage: UIImageView = {
+    private lazy var loadingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = .hedgehog
         return imageView
     }()
     
@@ -41,9 +40,10 @@ final class CustomActivityIndicator: UIView {
     
     // MARK: - Initializers
     
-    convenience init(subTitle: String?) {
+    convenience init(subTitle: String?, loadingImage: UIImage? = .hedgehog) {
         self.init(frame: .zero)
         self.subTitle.text = subTitle
+        self.loadingImageView.image = loadingImage
         configureUI()
         configureFont()
         bindUI()
@@ -51,7 +51,7 @@ final class CustomActivityIndicator: UIView {
     
     // MARK: - Helpers
     
-    func configureUI() {
+    private func configureUI() {
         self.backgroundColor = .dooldaActivityIndicatorBackground
         
         self.addSubview(self.activityIndicator)
@@ -60,8 +60,8 @@ final class CustomActivityIndicator: UIView {
             make.center.equalToSuperview()
         }
         
-        self.addSubview(self.activityIndicatorImage)
-        self.activityIndicatorImage.snp.makeConstraints { make in
+        self.addSubview(self.loadingImageView)
+        self.loadingImageView.snp.makeConstraints { make in
             make.width.height.equalTo(100)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(self.activityIndicator.snp.top).offset(-10)
