@@ -38,7 +38,7 @@ class SettingsViewController: UIViewController {
 
     private lazy var settingsSections: [SettingsSection] = {
         let alertCell = SettingsTableViewCell(style: .switchControl)
-        alertCell.title = "푸시 알림 허용"
+        alertCell.title = "앱 실행 중 알림"
         let alertOption = SettingsOptions(cell: alertCell, handler: nil)
 
         let fontCell = SettingsTableViewCell(style: .detail)
