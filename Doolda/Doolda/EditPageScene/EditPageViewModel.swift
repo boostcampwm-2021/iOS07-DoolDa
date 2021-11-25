@@ -112,6 +112,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         rawPageEntity.components.forEach { component in
             self.componentEntityDidAdd(component)
         }
+        self.backgroundColorDidChange(rawPageEntity.backgroundType)
     }
 
     func componentDidTap() {
