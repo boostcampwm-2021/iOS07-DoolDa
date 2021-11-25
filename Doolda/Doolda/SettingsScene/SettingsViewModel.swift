@@ -33,6 +33,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
     private let user: User
     private let coordinator: SettingsViewCoordinatorProtocol
     private let globalFontUseCase: GlobalFontUseCaseProtocol
+    private let pairUserUseCase: PairUserUseCaseProtocol
     private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
@@ -44,12 +45,14 @@ class SettingsViewModel: SettingsViewModelProtocol {
         user: User,
         coordinator: SettingsViewCoordinatorProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol,
-        pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol,
+        pairUserUseCase: PairUserUseCase,
+        pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
         self.coordinator = coordinator
         self.globalFontUseCase = globalFontUseCase
+        self.pairUserUseCase = pairUserUseCase
         self.pushNotificationStateUseCase = pushNotificationStateUseCase
         self.firebaseMessageUseCase = firebaseMessageUseCase
     }
@@ -95,6 +98,14 @@ class SettingsViewModel: SettingsViewModelProtocol {
     }
     
     func disconnectButtonDidTap() {
+        self.pairUserUseCase.disconnectPair(user: self.user)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+
+            } receiveValue: { [weak self] _ in
+                self?.coordinator.splashViewRequested()
+            }
+            .store(in: &self.cancellables)
         // FIXME: 연결 해제 행위가 올 곳.
         guard let friendId = self.user.friendId,
               user.id != friendId else { return }
