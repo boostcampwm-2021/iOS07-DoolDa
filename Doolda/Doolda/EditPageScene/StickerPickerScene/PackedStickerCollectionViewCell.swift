@@ -157,7 +157,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         var widthOffset: CGFloat = 10
         var heightOffset: CGFloat = 10
         var maxHeight: CGFloat = 0
-        let bodyWidth = self.contentView.frame.width - 16
+        let bodyWidth = self.frame.width - 16
 
         for sticker in stickerPack.stickersName {
             guard let stickerImage = UIImage(named: sticker) else { continue }
@@ -235,7 +235,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         let stickerView = UIImageView(image: stickerImage)
         stickerView.contentMode = .scaleAspectFit
 
-        let bodyWidth = self.contentView.frame.width - 16
+        let bodyWidth = self.frame.width - 16
         let width: CGFloat
         let height: CGFloat
         let imageRatio = stickerImage.size.width / stickerImage.size.height
