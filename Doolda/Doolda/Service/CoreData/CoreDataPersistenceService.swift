@@ -26,29 +26,30 @@ enum CoreDataPersistenceServiceError: LocalizedError {
 final class CoreDataPersistenceService: CoreDataPersistenceServiceProtocol {
     static let coreDataModelName = "CoreDataModel"
     
-    private var isPersistentStoreLoaded = false
+    static let shared = CoreDataPersistenceService()
     
-    private let persistentContainer: NSPersistentContainer
-    
-    init() {
-        self.persistentContainer = NSPersistentContainer(name: Self.coreDataModelName)
-        self.persistentContainer.loadPersistentStores { _, error in
-            guard error == nil else { return }
-            self.isPersistentStoreLoaded = true
-        }
-    }
-    
-    var context: NSManagedObjectContext? {
+    lazy var context: NSManagedObjectContext? = {
         guard self.isPersistentStoreLoaded else { return nil }
         let context = self.persistentContainer.viewContext
         context.automaticallyMergesChangesFromParent = true
         return context
-    }
+    }()
     
-    var backgroundContext: NSManagedObjectContext? {
+    lazy var backgroundContext: NSManagedObjectContext? = {
         guard self.isPersistentStoreLoaded else { return nil }
         let context = self.persistentContainer.newBackgroundContext()
         context.automaticallyMergesChangesFromParent = true
         return context
+    }()
+    
+    private var isPersistentStoreLoaded = false
+    private var persistentContainer: NSPersistentContainer
+    
+    private init() {
+        self.persistentContainer = NSPersistentContainer(name: Self.coreDataModelName)
+        self.persistentContainer.loadPersistentStores { [weak self] _, error in
+            guard error == nil else { return }
+            self?.isPersistentStoreLoaded = true
+        }
     }
 }
