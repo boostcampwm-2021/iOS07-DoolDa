@@ -30,9 +30,16 @@ struct PushMessageEntity {
         data: ["notification": "userRequestedNewPage"]
     )
     
+    static let userDisconnected: PushMessageEntity = PushMessageEntity(
+        title: "연결 해제",
+        body: "상대방이 연결을 해제했습니다.",
+        data: ["notification": "userDisconnected"]
+    )
+    
     enum Notifications {
         static let userPairedWithFriend = Notification.Name("userPairedWithFriend")
         static let userPostedNewPage = Notification.Name("userPostedNewPage")
         static let userRequestedNewPage = Notification.Name("userRequestedNewPage")
+        static let userDisconnected = Notification.Name("userDisconnected")
     }
 }
