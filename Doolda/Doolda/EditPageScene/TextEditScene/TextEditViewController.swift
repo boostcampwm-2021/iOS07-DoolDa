@@ -209,6 +209,13 @@ extension TextEditViewController: UITextViewDelegate {
 }
 
 extension TextEditViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cellWidth: CGFloat = 45
+        self.currentColorIndex = indexPath.item
+        let offset = CGPoint(x: CGFloat(self.currentColorIndex) * cellWidth - collectionView.contentInset.left, y: 0)
+        collectionView.setContentOffset(offset, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -224,18 +231,17 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if let collectionView = scrollView as? UICollectionView {
-
-        let cellCount = collectionView.numberOfItems(inSection: 0)
-        let cellWidth: CGFloat = 45
-        let offset = scrollView.contentOffset
-
-        let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))
-        
-        if index > self.currentColorIndex {
-            self.currentColorIndex = index < cellCount ? index : cellCount - 1
-        } else if index < self.currentColorIndex {
-            self.currentColorIndex = index > 0 ? index : 0
-        }
+            let cellCount = collectionView.numberOfItems(inSection: 0)
+            let cellWidth: CGFloat = 45
+            let offset = scrollView.contentOffset
+            
+            let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))
+            
+            if index > self.currentColorIndex {
+                self.currentColorIndex = index < cellCount ? index : cellCount - 1
+            } else if index < self.currentColorIndex {
+                self.currentColorIndex = index > 0 ? index : 0
+            }
         }
     }
     
@@ -247,7 +253,7 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
             let cellWidth: CGFloat = 45
             
             var offset = targetContentOffset.pointee
-
+            
             let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))
             
             if index > self.currentColorIndex {
