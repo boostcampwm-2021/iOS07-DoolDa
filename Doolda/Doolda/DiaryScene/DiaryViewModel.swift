@@ -166,7 +166,8 @@ class DiaryViewModel: DiaryViewModelProtocol {
     func refreshButtonDidTap() {
         self.fetchPages()
         
-        guard let friendId = self.user.friendId else { return }
+        guard let friendId = user.friendId,
+              friendId != user.id else { return }
         self.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userRequestedNewPage)
     }
     
