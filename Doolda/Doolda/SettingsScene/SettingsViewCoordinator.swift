@@ -57,4 +57,9 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
         viewController.contentText = text
         self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
     }
+
+    func splashViewRequested() {
+        let coordinator = SplashViewCoordinator(presenter: self.presenter)
+        coordinator.start()
+    }
 }
