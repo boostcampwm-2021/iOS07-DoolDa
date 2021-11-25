@@ -66,7 +66,7 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     }
     
     func settingsPageRequested() {
-        let coordinator = SettingsViewCoordinator(presenter: self.presenter)
+        let coordinator = SettingsViewCoordinator(presenter: self.presenter, user: self.user)
         coordinator.start()
     }
     

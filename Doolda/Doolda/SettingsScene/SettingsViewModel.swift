@@ -29,21 +29,28 @@ class SettingsViewModel: SettingsViewModelProtocol {
     var pushNotificationStatePublisher: Published<Bool?>.Publisher { self.$isPushNotificationOn }
     var selectedFontPublisher: Published<FontType?>.Publisher { self.$selectedFont }
 
+    private let user: User
     private let coordinator: SettingsViewCoordinatorProtocol
     private let globalFontUseCase: GlobalFontUseCaseProtocol
     private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
+    private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
+    
     private var cancellables: Set<AnyCancellable> = []
     @Published private var isPushNotificationOn: Bool?
     @Published private var selectedFont: FontType?
 
     init(
+        user: User,
         coordinator: SettingsViewCoordinatorProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol,
-        pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
+        pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol,
+        firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
+        self.user = user
         self.coordinator = coordinator
         self.globalFontUseCase = globalFontUseCase
         self.pushNotificationStateUseCase = pushNotificationStateUseCase
+        self.firebaseMessageUseCase = firebaseMessageUseCase
     }
 
     func settingsViewDidLoad() {
@@ -85,5 +92,11 @@ class SettingsViewModel: SettingsViewModelProtocol {
             text: DooldaInfoType.contributor.rawValue
         )
     }
-
+    
+    func disconnectButtonDidTap() {
+        // FIXME: 연결 해제 행위가 올 곳.
+        guard let friendId = self.user.friendId,
+              user.id != friendId else { return }
+        self.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userDisconnected)
+    }
 }

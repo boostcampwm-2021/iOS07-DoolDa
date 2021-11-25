@@ -9,25 +9,36 @@ import UIKit
 
 class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
     var presenter: UINavigationController
+    var user: User
 
-    init(presenter: UINavigationController) {
+    init(presenter: UINavigationController, user: User) {
         self.presenter = presenter
+        self.user = user
     }
 
     func start() {
         DispatchQueue.main.async {
             let userDefaultsPersistenceService = UserDefaultsPersistenceService()
+            let urlSessionNetworkService = URLSessionNetworkService()
 
             let globalFontRepository = GlobalFontRepository(persistenceService: userDefaultsPersistenceService)
             let pushNotificationStateRepository = PushNotificationStateRepository(persistenceService: userDefaultsPersistenceService)
+            let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
+            let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 
             let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)
             let pushNotificationStateUseCase = PushNotificationStateUseCase(pushNotificationStateRepository: pushNotificationStateRepository)
+            let firebaseMessageUseCase = FirebaseMessageUseCase(
+                fcmTokenRepository: fcmTokenRepository,
+                firebaseMessageRepository: firebaseMessageRepository
+            )
 
             let viewModel = SettingsViewModel(
+                user: self.user,
                 coordinator: self,
                 globalFontUseCase: globalFontUseCase,
-                pushNotificationStateUseCase: pushNotificationStateUseCase
+                pushNotificationStateUseCase: pushNotificationStateUseCase,
+                firebaseMessageUseCase: firebaseMessageUseCase
             )
             let viewController = SettingsViewController(viewModel: viewModel)
             self.presenter.pushViewController(viewController, animated: true)
