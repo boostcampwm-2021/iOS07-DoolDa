@@ -71,6 +71,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             NotificationCenter.default.post(name: PushMessageEntity.Notifications.userPairedWithFriend, object: nil)
         case "userPostedNewPage":
             NotificationCenter.default.post(name: PushMessageEntity.Notifications.userPostedNewPage, object: nil)
+        case "userDisconnected":
+            NotificationCenter.default.post(name: PushMessageEntity.Notifications.userDisconnected, object: nil)
         default: break
         }
     }
