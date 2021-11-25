@@ -15,6 +15,7 @@
 		1D0C7EBE274F800F00812C82 /* DooldaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C7EBD274F800E00812C82 /* DooldaWidget.swift */; };
 		1D0C7EC0274F801000812C82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D0C7EBF274F801000812C82 /* Assets.xcassets */; };
 		1D0C7EC4274F801000812C82 /* DooldaWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1D0C7EB9274F800E00812C82 /* DooldaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1D0C7ECA274F86C300812C82 /* dovemayo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0C7EC9274F86C300812C82 /* dovemayo.otf */; };
 		1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */; };
 		1D3925B5273B9172003A0B70 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */; };
@@ -248,9 +249,10 @@
 		1D0C7E8F274F7F3A00812C82 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1D0C7E91274F7F3A00812C82 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1D0C7EB9274F800E00812C82 /* DooldaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DooldaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1D0C7EBD274F800E00812C82 /* DooldaWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaWidget.swift; sourceTree = "<group>"; };
+		1D0C7EBD274F800E00812C82 /* DooldaWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaWidget.swift; sourceTree = "<group>"; tabWidth = 7; usesTabs = 0; };
 		1D0C7EBF274F801000812C82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D0C7EC1274F801000812C82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D0C7EC9274F86C300812C82 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dovemayo.otf; path = Doolda/Resources/Fonts/dovemayo.otf; sourceTree = SOURCE_ROOT; };
 		1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCase.swift; sourceTree = "<group>"; };
 		1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
 		1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 		1D0C7EBC274F800E00812C82 /* DooldaWidget */ = {
 			isa = PBXGroup;
 			children = (
+				1D0C7EC9274F86C300812C82 /* dovemayo.otf */,
 				1D0C7EBD274F800E00812C82 /* DooldaWidget.swift */,
 				1D0C7EBF274F801000812C82 /* Assets.xcassets */,
 				1D0C7EC1274F801000812C82 /* Info.plist */,
@@ -1075,6 +1078,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D0C7EC0274F801000812C82 /* Assets.xcassets in Resources */,
+				1D0C7ECA274F86C300812C82 /* dovemayo.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
