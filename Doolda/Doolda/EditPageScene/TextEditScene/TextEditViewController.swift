@@ -50,12 +50,9 @@ class TextEditViewController: UIViewController {
     private var widthRatioFromAbsolute: CGFloat?
     private var heightRatioFromAbsolute: CGFloat?
     
-    private var previousColorIndex: Int = 0
     private var currentColorIndex: Int = 0 {
-        willSet {
-            self.previousColorIndex = self.currentColorIndex
-        }
         didSet {
+            guard oldValue != self.currentColorIndex else { return }
             self.feedbackGenerator?.impactOccurred()
             guard let currentColor = self.viewModel.getFontColor(at: self.currentColorIndex) else { return }
             if self.inputTextView.textColor != .systemGray {
@@ -64,7 +61,7 @@ class TextEditViewController: UIViewController {
             self.fontColorView.collectionView.reloadItems(
                 at: [
                     IndexPath(item: self.currentColorIndex, section: 0),
-                    IndexPath(item: self.previousColorIndex, section: 0)
+                    IndexPath(item: oldValue, section: 0)
                 ]
             )
         }
@@ -225,6 +222,23 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 5, left: inset, bottom: 5, right: inset)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let collectionView = scrollView as? UICollectionView {
+
+        let cellCount = collectionView.numberOfItems(inSection: 0)
+        let cellWidth: CGFloat = 45
+        let offset = scrollView.contentOffset
+
+        let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))
+        
+        if index > self.currentColorIndex {
+            self.currentColorIndex = index < cellCount ? index : cellCount - 1
+        } else if index < self.currentColorIndex {
+            self.currentColorIndex = index > 0 ? index : 0
+        }
+        }
+    }
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -233,6 +247,7 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
             let cellWidth: CGFloat = 45
             
             var offset = targetContentOffset.pointee
+
             let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))
             
             if index > self.currentColorIndex {
