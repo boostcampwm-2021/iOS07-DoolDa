@@ -20,7 +20,7 @@ class PageDetailViewCoordinator: PageDetailViewCoordinatorProtocol {
 
     func start() {
         let networkService = URLSessionNetworkService()
-        let coreDataPersistenceService = CoreDataPersistenceService()
+        let coreDataPersistenceService = CoreDataPersistenceService.shared
         let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(coreDataPersistenceService: coreDataPersistenceService)
         let fileManagerPersistenceService = FileManagerPersistenceService()
 

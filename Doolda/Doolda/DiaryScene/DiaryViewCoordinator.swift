@@ -18,7 +18,7 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     
     func start() {
         let urlSessionNetworkService = URLSessionNetworkService()
-        let coreDataPersistenceService = CoreDataPersistenceService()
+        let coreDataPersistenceService = CoreDataPersistenceService.shared
         let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(coreDataPersistenceService: coreDataPersistenceService)
         let fileManagerPersistenceService = FileManagerPersistenceService()
         
