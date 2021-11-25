@@ -78,8 +78,9 @@ final class PairingViewModel: PairingViewModelProtocol {
         self.pairUserUseCase.pairedUserPublisher
             .compactMap { $0 }
             .sink { [weak self] user in
-                guard let friendId = user.friendId else { return }
-                self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPairedWithFriend)
+                if let friendId = user.friendId, friendId != user.id {
+                    self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPairedWithFriend)
+                }
                 self?.coordinator.userDidPaired(user: user)
             }
             .store(in: &self.cancellables)

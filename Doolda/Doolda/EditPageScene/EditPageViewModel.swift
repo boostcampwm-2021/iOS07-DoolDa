@@ -98,9 +98,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
         self.editPageUseCase.resultPublisher
             .dropFirst()
             .sink { [weak self] _ in
-                guard let friendId = self?.user.friendId else { return }
-                self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPostedNewPage)
-                self?.coordinator.editingPageSaved()
+                guard let self = self else { return }
+                if let friendId = self.user.friendId, friendId != self.user.id {
+                    self.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPostedNewPage)
+                }
+                self.coordinator.editingPageSaved()
             }.store(in: &self.cancellables)
         
         self.editPageUseCase.errorPublisher
