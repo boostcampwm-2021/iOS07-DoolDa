@@ -36,6 +36,13 @@ class SettingsViewController: UIViewController {
         return tableView
     }()
 
+    private lazy var disconnectButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("친구 끊기", for: .normal)
+        button.setTitleColor(.dooldaWarning, for: .normal)
+        return button
+    }()
+
     private lazy var settingsSections: [SettingsSection] = {
         let alertCell = SettingsTableViewCell(style: .switchControl)
         alertCell.title = "앱 실행 중 알림"
@@ -185,6 +192,11 @@ extension SettingsViewController: UITableViewDataSource {
         return 40
     }
 
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == self.settingsSections.count - 1 { return 65 }
+        return 0
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: SettingsTableViewHeader.identifier
@@ -192,6 +204,13 @@ extension SettingsViewController: UITableViewDataSource {
 
         header.title = self.settingsSections[section].title
         return header
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == self.settingsSections.count - 1 {
+            return self.disconnectButton
+        }
+        return nil
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
