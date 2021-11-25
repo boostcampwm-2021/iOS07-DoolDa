@@ -150,7 +150,8 @@ class PairingViewController: UIViewController {
         
         self.scrollView.addSubview(contentView)
         self.contentView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(44)
+            make.leading.trailing.equalToSuperview()
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().priority(.low)
             make.centerY.equalToSuperview().priority(.low)
