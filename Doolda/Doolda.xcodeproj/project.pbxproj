@@ -10,6 +10,11 @@
 		1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */; };
 		1D04F41C273957E600CFCC3A /* BackgroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04F41B273957E600CFCC3A /* BackgroundType.swift */; };
 		1D097E97273CFA5900A4810B /* RawPageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D097E96273CFA5900A4810B /* RawPageRepository.swift */; };
+		1D0C7EBA274F800E00812C82 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0C7E8F274F7F3A00812C82 /* WidgetKit.framework */; };
+		1D0C7EBB274F800E00812C82 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0C7E91274F7F3A00812C82 /* SwiftUI.framework */; };
+		1D0C7EBE274F800F00812C82 /* DooldaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C7EBD274F800E00812C82 /* DooldaWidget.swift */; };
+		1D0C7EC0274F801000812C82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D0C7EBF274F801000812C82 /* Assets.xcassets */; };
+		1D0C7EC4274F801000812C82 /* DooldaWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1D0C7EB9274F800E00812C82 /* DooldaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */; };
 		1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */; };
 		1D3925B5273B9172003A0B70 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */; };
@@ -213,12 +218,39 @@
 			remoteGlobalIDString = 664893BC273007ED009F03E2;
 			remoteInfo = Doolda;
 		};
+		1D0C7EC2274F801000812C82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D0C7EB8274F800E00812C82;
+			remoteInfo = DooldaWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1D0C7E9C274F7F3D00812C82 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1D0C7EC4274F801000812C82 /* DooldaWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D04F419273954CD00CFCC3A /* CGColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGColor+Extensions.swift"; sourceTree = "<group>"; };
 		1D04F41B273957E600CFCC3A /* BackgroundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundType.swift; sourceTree = "<group>"; };
 		1D097E96273CFA5900A4810B /* RawPageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPageRepository.swift; sourceTree = "<group>"; };
+		1D0C7E8F274F7F3A00812C82 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		1D0C7E91274F7F3A00812C82 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		1D0C7EB9274F800E00812C82 /* DooldaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DooldaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D0C7EBD274F800E00812C82 /* DooldaWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaWidget.swift; sourceTree = "<group>"; };
+		1D0C7EBF274F801000812C82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1D0C7EC1274F801000812C82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCase.swift; sourceTree = "<group>"; };
 		1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCase.swift; sourceTree = "<group>"; };
 		1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
@@ -386,6 +418,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1D0C7EB6274F800E00812C82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0C7EBB274F800E00812C82 /* SwiftUI.framework in Frameworks */,
+				1D0C7EBA274F800E00812C82 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D3925B7273BB4BE003A0B70 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -413,6 +454,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D0C7EBC274F800E00812C82 /* DooldaWidget */ = {
+			isa = PBXGroup;
+			children = (
+				1D0C7EBD274F800E00812C82 /* DooldaWidget.swift */,
+				1D0C7EBF274F801000812C82 /* Assets.xcassets */,
+				1D0C7EC1274F801000812C82 /* Info.plist */,
+			);
+			path = DooldaWidget;
+			sourceTree = "<group>";
+		};
 		1D3925BB273BB4BE003A0B70 /* EditPageUseCaseTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +475,8 @@
 		1D8646A4274D60AA00C4511D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D0C7E8F274F7F3A00812C82 /* WidgetKit.framework */,
+				1D0C7E91274F7F3A00812C82 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -609,6 +662,7 @@
 			children = (
 				664893BF273007ED009F03E2 /* Doolda */,
 				1D9FAD4A2747B82B00198B93 /* Tests */,
+				1D0C7EBC274F800E00812C82 /* DooldaWidget */,
 				664893BE273007ED009F03E2 /* Products */,
 				1D8646A4274D60AA00C4511D /* Frameworks */,
 			);
@@ -620,6 +674,7 @@
 				664893BD273007ED009F03E2 /* Doolda.app */,
 				319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */,
 				1D3925BA273BB4BE003A0B70 /* EditPageUseCaseTest.xctest */,
+				1D0C7EB9274F800E00812C82 /* DooldaWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -885,6 +940,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1D0C7EB8274F800E00812C82 /* DooldaWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D0C7EC5274F801000812C82 /* Build configuration list for PBXNativeTarget "DooldaWidgetExtension" */;
+			buildPhases = (
+				1D0C7EB5274F800E00812C82 /* Sources */,
+				1D0C7EB6274F800E00812C82 /* Frameworks */,
+				1D0C7EB7274F800E00812C82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DooldaWidgetExtension;
+			productName = DooldaWidgetExtension;
+			productReference = 1D0C7EB9274F800E00812C82 /* DooldaWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1D3925B9273BB4BE003A0B70 /* EditPageUseCaseTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D3925BE273BB4BE003A0B70 /* Build configuration list for PBXNativeTarget "EditPageUseCaseTest" */;
@@ -928,10 +1000,12 @@
 				664893BA273007ED009F03E2 /* Frameworks */,
 				664893BB273007ED009F03E2 /* Resources */,
 				664893F227300EDF009F03E2 /* ShellScript */,
+				1D0C7E9C274F7F3D00812C82 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1D0C7EC3274F801000812C82 /* PBXTargetDependency */,
 			);
 			name = Doolda;
 			packageProductDependencies = (
@@ -953,6 +1027,9 @@
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
+					1D0C7EB8274F800E00812C82 = {
+						CreatedOnToolsVersion = 13.0;
+					};
 					1D3925B9273BB4BE003A0B70 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -987,11 +1064,20 @@
 				664893BC273007ED009F03E2 /* Doolda */,
 				319C21D4273BD764009CE65C /* URLSessionNetworkServiceTest */,
 				1D3925B9273BB4BE003A0B70 /* EditPageUseCaseTest */,
+				1D0C7EB8274F800E00812C82 /* DooldaWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1D0C7EB7274F800E00812C82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0C7EC0274F801000812C82 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D3925B8273BB4BE003A0B70 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1049,6 +1135,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1D0C7EB5274F800E00812C82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D0C7EBE274F800F00812C82 /* DooldaWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D3925B6273BB4BE003A0B70 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1253,6 +1347,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1D0C7EC3274F801000812C82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D0C7EB8274F800E00812C82 /* DooldaWidgetExtension */;
+			targetProxy = 1D0C7EC2274F801000812C82 /* PBXContainerItemProxy */;
+		};
 		319C21DA273BD764009CE65C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 664893BC273007ED009F03E2 /* Doolda */;
@@ -1272,6 +1371,60 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1D0C7EC6274F801000812C82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DooldaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DooldaWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda.DooldaWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1D0C7EC7274F801000812C82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DooldaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DooldaWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda.DooldaWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		1D3925BF273BB4BE003A0B70 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1484,6 +1637,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1DC17BD4274E2B22006774FD /* Config.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
@@ -1515,6 +1669,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1DC17BD4274E2B22006774FD /* Config.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
@@ -1545,6 +1700,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1D0C7EC5274F801000812C82 /* Build configuration list for PBXNativeTarget "DooldaWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D0C7EC6274F801000812C82 /* Debug */,
+				1D0C7EC7274F801000812C82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1D3925BE273BB4BE003A0B70 /* Build configuration list for PBXNativeTarget "EditPageUseCaseTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
