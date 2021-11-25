@@ -38,9 +38,11 @@ class SplashViewCoordinator: SplashViewCoordinatorProtocol {
             registerUserUseCase: registerUserUseCase,
             globalFontUseCase: globalFontUseCase
         )
-        
-        let viewController = SplashViewController(viewModel: viewModel)
-        self.presenter.pushViewController(viewController, animated: false)
+
+        DispatchQueue.main.async {
+            let viewController = SplashViewController(viewModel: viewModel)
+            self.presenter.pushViewController(viewController, animated: false)
+        }
     }
     
     func userNotPaired(myId: DDID) {
