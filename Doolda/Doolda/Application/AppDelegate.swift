@@ -24,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
         
+        UserDefaults.standard.register(defaults: [
+            UserDefaults.Keys.globalFont: FontType.dovemayo.name,
+            UserDefaults.Keys.pushNotificationState: true
+            ])
+        
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
             options: authOptions,
