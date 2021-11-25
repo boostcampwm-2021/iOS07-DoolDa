@@ -54,7 +54,7 @@ class StickerPackEntity {
     static let boolbadaStickerPack = StickerPackEntity(
         displayName: "불타는 불바다",
         familyName: "boolbada",
-        stickerCount: 8
+        stickerCount: 10
     )
     static let buddyStickerPack = StickerPackEntity(
         displayName: "위드버디",

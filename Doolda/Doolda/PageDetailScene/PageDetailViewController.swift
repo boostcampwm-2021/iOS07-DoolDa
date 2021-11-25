@@ -69,6 +69,9 @@ class PageDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.pageView.subviews.forEach { componentView in
+            componentView.removeFromSuperview()
+        }
         self.viewModel.pageDetailViewWillAppear()
     }
     
