@@ -66,8 +66,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        completionHandler([.banner, .sound])
+        let userDefaultsPersistenceService = UserDefaultsPersistenceService()
+        let pushNotificationStateRepository = PushNotificationStateRepository(persistenceService: userDefaultsPersistenceService)
+        let pushNotificationStateUseCase = PushNotificationStateUseCase(pushNotificationStateRepository: pushNotificationStateRepository)
         
+        guard let state = pushNotificationStateUseCase.getPushNotificationState(), state else { return }
+        completionHandler([.banner, .sound])
         let userInfo = notification.request.content.userInfo
         guard let notification = userInfo["notification"] as? String else { return }
         
