@@ -154,8 +154,8 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
 
     func configure(with stickerPack: StickerPackEntity) {
-        var widthOffset: CGFloat = 10
-        var heightOffset: CGFloat = 10
+        var widthOffset: CGFloat = 20
+        var heightOffset: CGFloat = 20
 
         for sticker in stickerPack.stickersName {
             guard let stickerImage = UIImage(named: sticker) else { continue }
@@ -171,7 +171,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             if widthOffset < 100 {
                 widthOffset += 30
             } else {
-                widthOffset = 10
+                widthOffset = 20
                 heightOffset += 50
             }
         }
@@ -235,10 +235,10 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         let imageRatio = stickerImage.size.width / stickerImage.size.height
 
         if stickerImage.size.width > stickerImage.size.height {
-            width = self.frame.width / CGFloat(self.maximumCollisionCount)
+            width = self.frame.width / CGFloat(self.maximumCollisionCount - 1)
             height = width / imageRatio
         } else {
-            height = self.frame.width / CGFloat(self.maximumCollisionCount)
+            height = self.frame.width / CGFloat(self.maximumCollisionCount - 1)
             width = height * imageRatio
         }
         stickerView.frame.size = CGSize(width: width, height: height)
