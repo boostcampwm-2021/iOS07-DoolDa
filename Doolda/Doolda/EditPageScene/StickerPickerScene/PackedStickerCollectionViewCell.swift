@@ -154,12 +154,22 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
 
     func configure(with stickerPack: StickerPackEntity) {
-        var widthOffset: CGFloat = 20
-        var heightOffset: CGFloat = 20
+        var widthOffset: CGFloat = 10
+        var heightOffset: CGFloat = 10
+        var maxHeight: CGFloat = 0
+        let bodyWidth = self.contentView.frame.width - 16
 
         for sticker in stickerPack.stickersName {
             guard let stickerImage = UIImage(named: sticker) else { continue }
             let stickerView = self.configureStickerView(with: stickerImage)
+            let stickerWidth = stickerView.frame.width
+            maxHeight = max(stickerView.frame.height, maxHeight)
+
+            if widthOffset + stickerWidth >= bodyWidth {
+                widthOffset = 10
+                heightOffset += maxHeight + 5
+                maxHeight = 0
+            }
 
             self.stickerPackBody.addSubview(stickerView)
             stickerView.frame.origin = CGPoint(x: widthOffset, y: heightOffset)
@@ -168,12 +178,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             self.addCollider(to: stickerView)
             self.itemBehavior.addItem(stickerView)
 
-            if widthOffset < 100 {
-                widthOffset += 30
-            } else {
-                widthOffset = 20
-                heightOffset += 50
-            }
+            widthOffset += stickerWidth + 5
         }
 
         let coverStickerImage = UIImage(named: stickerPack.coverStickerName)
@@ -230,15 +235,16 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         let stickerView = UIImageView(image: stickerImage)
         stickerView.contentMode = .scaleAspectFit
 
+        let bodyWidth = self.contentView.frame.width - 16
         let width: CGFloat
         let height: CGFloat
         let imageRatio = stickerImage.size.width / stickerImage.size.height
 
         if stickerImage.size.width > stickerImage.size.height {
-            width = self.frame.width / CGFloat(self.maximumCollisionCount - 1)
+            width = bodyWidth / CGFloat(self.maximumCollisionCount - 1)
             height = width / imageRatio
         } else {
-            height = self.frame.width / CGFloat(self.maximumCollisionCount - 1)
+            height = bodyWidth / CGFloat(self.maximumCollisionCount - 1)
             width = height * imageRatio
         }
         stickerView.frame.size = CGSize(width: width, height: height)
