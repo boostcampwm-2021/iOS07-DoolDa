@@ -44,7 +44,7 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
                 coordinator: self,
                 globalFontUseCase: globalFontUseCase,
                 pairUserUseCase: pairUserUseCase,
-                pushNotificationStateUseCase: pushNotificationStateUseCase
+                pushNotificationStateUseCase: pushNotificationStateUseCase,
                 firebaseMessageUseCase: firebaseMessageUseCase
             )
             let viewController = SettingsViewController(viewModel: viewModel)

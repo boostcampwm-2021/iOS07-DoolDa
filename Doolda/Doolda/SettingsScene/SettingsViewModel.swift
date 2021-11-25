@@ -46,7 +46,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
         coordinator: SettingsViewCoordinatorProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol,
         pairUserUseCase: PairUserUseCase,
-        pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
+        pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
@@ -101,14 +101,13 @@ class SettingsViewModel: SettingsViewModelProtocol {
         self.pairUserUseCase.disconnectPair(user: self.user)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
-
+                print(error)
             } receiveValue: { [weak self] _ in
+                guard let friendId = self?.user.friendId,
+                      self?.user.id != friendId else { return }
+                self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userDisconnected)
                 self?.coordinator.splashViewRequested()
             }
             .store(in: &self.cancellables)
-        // FIXME: 연결 해제 행위가 올 곳.
-        guard let friendId = self.user.friendId,
-              user.id != friendId else { return }
-        self.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userDisconnected)
     }
 }
