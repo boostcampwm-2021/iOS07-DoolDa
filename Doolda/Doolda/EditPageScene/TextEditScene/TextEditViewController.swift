@@ -217,15 +217,19 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
         collectionView.setContentOffset(offset, animated: true)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         return CGSize(width: 30, height: 30)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
         let inset = collectionView.frame.width / 2.0 - 15
         return UIEdgeInsets(top: 5, left: inset, bottom: 5, right: inset)
     }
@@ -246,9 +250,11 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
-                                   withVelocity velocity: CGPoint,
-                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(
+        _ scrollView: UIScrollView,
+        withVelocity velocity: CGPoint,
+        targetContentOffset: UnsafeMutablePointer<CGPoint>
+    ) {
         if let collectionView = scrollView as? UICollectionView {
             let cellCount = collectionView.numberOfItems(inSection: 0)
             let cellWidth: CGFloat = 45
