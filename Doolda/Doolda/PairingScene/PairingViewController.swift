@@ -105,13 +105,6 @@ class PairingViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var transparentNavigationBarAppearance: UINavigationBarAppearance = {
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .clear
-        appearance.configureWithTransparentBackground()
-        return appearance
-    }()
-    
     private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
         let generator = UIImpactFeedbackGenerator(style: .heavy)
         return generator
@@ -142,11 +135,17 @@ class PairingViewController: UIViewController {
     
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.refreshButton)
+        self.navigationController?.navigationBar.isHidden = true
         
         self.view.addSubview(scrollView)
         self.scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        self.view.addSubview(self.refreshButton)
+        self.refreshButton.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(16)
+            make.trailing.equalToSuperview().offset(-16)
         }
         
         self.scrollView.addSubview(contentView)
@@ -200,9 +199,6 @@ class PairingViewController: UIViewController {
     }
     
     private func configureFont() {
-        self.transparentNavigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
-        self.navigationController?.navigationBar.standardAppearance = self.transparentNavigationBarAppearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = self.transparentNavigationBarAppearance
         self.logoLabel.font = UIFont(name: FontType.dovemayo.name, size: 72)
         self.instructionLabel.font = .systemFont(ofSize: 18)
         self.myIdTitleLabel.font = .systemFont(ofSize: 14)

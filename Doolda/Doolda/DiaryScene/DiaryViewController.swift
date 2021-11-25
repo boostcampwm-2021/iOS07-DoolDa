@@ -82,13 +82,6 @@ class DiaryViewController: UIViewController {
         return generator
     }()
     
-    private lazy var transparentNavigationBarAppearance: UINavigationBarAppearance = {
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .clear
-        appearance.configureWithTransparentBackground()
-        return appearance
-    }()
-    
     private var headerView: DiaryCollectionViewHeader?
     
     // MARK: - Override Properties
@@ -136,6 +129,7 @@ class DiaryViewController: UIViewController {
         self.view.backgroundColor = .dooldaBackground
         self.title = "둘다"
         
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.barTintColor = .dooldaBackground
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.settingsButton)
         self.navigationItem.leftBarButtonItems = [
@@ -150,9 +144,7 @@ class DiaryViewController: UIViewController {
     }
     
     private func configureFont() {
-        self.transparentNavigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
-        self.navigationController?.navigationBar.standardAppearance = self.transparentNavigationBarAppearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = self.transparentNavigationBarAppearance
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
         self.pageCollectionBackgroundView.titleFont = .systemFont(ofSize: 35)
         self.pageCollectionBackgroundView.subtitleFont = .systemFont(ofSize: 20)
     }
