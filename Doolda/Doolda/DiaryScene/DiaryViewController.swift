@@ -150,7 +150,7 @@ class DiaryViewController: UIViewController {
     }
     
     private func configureFont() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
         self.pageCollectionBackgroundView.titleFont = .systemFont(ofSize: 35)
         self.pageCollectionBackgroundView.subtitleFont = .systemFont(ofSize: 20)
     }

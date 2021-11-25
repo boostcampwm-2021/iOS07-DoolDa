@@ -116,7 +116,7 @@ class SettingsViewController: UIViewController {
     }
 
     private func configureFont() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
 
         self.settingsSections.enumerated().forEach { index, section in
             guard let header = self.tableView.headerView(forSection: index) as? SettingsTableViewHeader else { return }

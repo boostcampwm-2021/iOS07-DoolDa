@@ -207,7 +207,7 @@ class EditPageViewController: UIViewController {
     
     private func configureFont() {
         self.navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17) as Any
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16) as Any
         ]
     }
     
