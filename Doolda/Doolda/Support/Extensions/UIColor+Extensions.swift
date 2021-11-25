@@ -20,4 +20,5 @@ extension UIColor {
     static let dooldaStickerPackCover = UIColor(named: "dooldaStickerPackCover")
     static let dooldaMaximumTrackTintColor = UIColor(named: "dooldaMaximumTrackTintColor")
     static let dooldaMinimumTrackTintColor = UIColor(named: "dooldaMinimumTrackTintColor")
+    static let dooldaWarning = UIColor(named: "dooldaWarning")
 }
