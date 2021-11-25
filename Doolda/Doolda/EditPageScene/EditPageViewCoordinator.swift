@@ -25,7 +25,7 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         DispatchQueue.main.async {
             let fileManagerPersistenceService = FileManagerPersistenceService()
             let urlSessionNetworkService = URLSessionNetworkService()
-            let coreDataPersistenceService = CoreDataPersistenceService()
+            let coreDataPersistenceService = CoreDataPersistenceService.shared
             let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(
                 coreDataPersistenceService: coreDataPersistenceService
             )
