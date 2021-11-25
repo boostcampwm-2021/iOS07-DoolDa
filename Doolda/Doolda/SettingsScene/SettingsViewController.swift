@@ -21,6 +21,13 @@ class SettingsViewController: UIViewController {
         let cell: SettingsTableViewCell
         let handler: (() -> Void)?
     }
+    
+    private lazy var transparentNavigationBarAppearance: UINavigationBarAppearance = {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .clear
+        appearance.configureWithTransparentBackground()
+        return appearance
+    }()
 
     // MARK: - Subviews
 
@@ -116,7 +123,9 @@ class SettingsViewController: UIViewController {
     }
 
     private func configureFont() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        self.transparentNavigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        self.navigationController?.navigationBar.standardAppearance = self.transparentNavigationBarAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = self.transparentNavigationBarAppearance
 
         self.settingsSections.enumerated().forEach { index, section in
             guard let header = self.tableView.headerView(forSection: index) as? SettingsTableViewHeader else { return }

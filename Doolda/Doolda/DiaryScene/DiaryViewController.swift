@@ -77,16 +77,16 @@ class DiaryViewController: UIViewController {
         return button
     }()
     
-    private let transparentNavigationBarAppearance: UINavigationBarAppearance = {
+    private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        return generator
+    }()
+    
+    private lazy var transparentNavigationBarAppearance: UINavigationBarAppearance = {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .clear
         appearance.configureWithTransparentBackground()
         return appearance
-    }()
-    
-    private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
-        return generator
     }()
     
     private var headerView: DiaryCollectionViewHeader?
@@ -150,7 +150,9 @@ class DiaryViewController: UIViewController {
     }
     
     private func configureFont() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        self.transparentNavigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        self.navigationController?.navigationBar.standardAppearance = self.transparentNavigationBarAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = self.transparentNavigationBarAppearance
         self.pageCollectionBackgroundView.titleFont = .systemFont(ofSize: 35)
         self.pageCollectionBackgroundView.subtitleFont = .systemFont(ofSize: 20)
     }

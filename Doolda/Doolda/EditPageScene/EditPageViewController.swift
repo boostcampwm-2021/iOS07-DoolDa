@@ -91,6 +91,13 @@ class EditPageViewController: UIViewController {
         return generator
     }()
     
+    private lazy var transparentNavigationBarAppearance: UINavigationBarAppearance = {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .clear
+        appearance.configureWithTransparentBackground()
+        return appearance
+    }()
+    
     // MARK: - Override Properties
     
     override var prefersStatusBarHidden: Bool { return true }
@@ -206,9 +213,9 @@ class EditPageViewController: UIViewController {
     }
     
     private func configureFont() {
-        self.navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16) as Any
-        ]
+        self.transparentNavigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        self.navigationController?.navigationBar.standardAppearance = self.transparentNavigationBarAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = self.transparentNavigationBarAppearance
     }
     
     private func bindUI() {
