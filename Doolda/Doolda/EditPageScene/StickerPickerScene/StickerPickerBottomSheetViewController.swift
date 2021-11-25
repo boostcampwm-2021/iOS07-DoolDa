@@ -59,6 +59,7 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
 
     private var viewModel: StickerPickerBottomSheetViewModelProtocol!
     private weak var delegate: StickerPickerBottomSheetViewControllerDelegate?
+    private var feedbackGenerator: UIImpactFeedbackGenerator?
     private var cancellables = [Int: AnyCancellable]()
 
     // MARK: - Initializers
@@ -77,6 +78,7 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.configureGenerator()
         self.bindUI()
     }
 
@@ -100,6 +102,12 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
             make.bottom.equalTo(self.body.snp.bottom).offset(-13)
         }
     }
+
+    private func configureGenerator() {
+        self.feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        self.feedbackGenerator?.prepare()
+    }
+
     private func bindUI() {
         let publihser = self.closeButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
@@ -113,10 +121,15 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
         let publisher = cell.slider.publisher(for: .valueChanged)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                if cell.slider.value >= cell.slider.maximumValue * 0.95 {
+                if Int(cell.slider.value) % 3 == 1 {
+                    self?.feedbackGenerator?.impactOccurred()
+                }
+
+                if cell.slider.value == cell.slider.maximumValue {
                     guard let stickerPack = self?.viewModel.getStickerPackEntity(at: indexPath.section) else { return }
 
                     stickerPack.isUnpacked = true
+                    self?.feedbackGenerator?.impactOccurred()
                     UIView.animate(withDuration: 1.0, animations: { cell.unpackCell() }) { [weak self] _ in
                         UIView.animate(withDuration: 0.5, animations: { cell.alpha = 0 }) { [weak self] _ in
                             self?.stickerPickerView.collectionView.collectionViewLayout.invalidateLayout()
