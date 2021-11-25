@@ -39,12 +39,42 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct EmojiWidgetEntryView : View {
+    @Environment(\.colorScheme) var colorScheme
     var entry: Provider.Entry
 
     var body: some View {
         VStack{
-            Text("\(entry.count)").font(.system(size: 12)).padding(.top,20)
+            ZStack {
+                VStack {
+                    Spacer(minLength: 80)
+                    HStack {
+                        Spacer(minLength: 80)
+                        Image("hedgehogWriting")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                }
+                VStack {
+                    Spacer()
+                    Text("둘이 함께 쓴")
+                        .font(Font.custom("dovemayo", size: 24))
+                        .foregroundColor(colorScheme == .dark ?  Color("dooldaLabelDark") : Color("dooldaLabelLight"))
+                    Spacer(minLength: 120)
+                }
+                VStack {
+                    Spacer(minLength: 30)
+                    HStack {
+                        Spacer(minLength: 30)
+                        Text("\(entry.count)장")
+                            .font(Font.custom("dovemayo", size: 36))
+                            .foregroundColor(colorScheme == .dark ?  Color("dooldaLabelDark") : Color("dooldaLabelLight"))
+                        Spacer(minLength: 60)
+                    }
+                    Spacer(minLength: 72)
+                }
+            }
         }
+        .foregroundColor(colorScheme == .dark ?  Color("dooldaBackgroundDark") : Color("dooldaBackgroundLight"))
     }
 }
 
@@ -64,6 +94,7 @@ struct EmojiWidget: Widget {
 struct EmojiWidget_Previews: PreviewProvider {
     static var previews: some View {
         EmojiWidgetEntryView(entry: SimpleEntry(date: Date(), count: 3))
+            .preferredColorScheme(.dark)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
