@@ -24,6 +24,15 @@
 
 </br>
 
+## 배포 링크 🔗
+<Blockquote>
+둘다를 직접 실행할 수 있는 배포링크입니다.
+</Blockquote>
+
+[둘다 배포링크](yabbyark.iptime.org)
+
+</br>
+
 ## Bool 바다 소개 🔥
  | S007 김민주 | S017 박세원 | S027 양승훈 | S053 정지승 |
 | :--------: | :--------: | :--------: | :--------: |
@@ -31,17 +40,6 @@
 | <img src="https://avatars.githubusercontent.com/minglely" width="150">     | <img src="https://avatars.githubusercontent.com/ehWld" width="150">      | <img src="https://avatars.githubusercontent.com/yabby1997" width="150">      | <img src="https://avatars.githubusercontent.com/JungJiSeung" width="150"> |
 
 </br>
-
-## 동작 화면 📱
-<Blockquote>
-둘다의 실제 동작화면 입니다.🦔
-</Blockquote>
-
-| gif | gif | gif | gif |
-| :-:| :-: | :-: | :-: |
-| `페어링 화면` | `페이지 작성` | `페이지 꾸미기` | `다이어리 보기` |
-| gif | gif | gif | gif |
-| `푸시 알림`  | `페이지 수정` | `페이지 저장` | `설정 변경` |
 
 
 ## 주요 기능 ✨
