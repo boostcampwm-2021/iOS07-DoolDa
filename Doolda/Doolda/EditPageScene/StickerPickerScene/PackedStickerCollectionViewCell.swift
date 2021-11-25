@@ -44,7 +44,6 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         slider.minimumValue = 0
         slider.maximumTrackTintColor = UIColor.dooldaMaximumTrackTintColor
         slider.minimumTrackTintColor = UIColor.dooldaMinimumTrackTintColor
-        slider.setThumbImage(UIImage.scissors, for: .normal)
         return slider
     }()
 
@@ -93,7 +92,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
     // MARK: - Helpers
 
     private func configureUI() {
-        self.backgroundColor = UIColor.dooldaStickerPackBackground
+        self.backgroundColor = UIColor.white
 
         self.addSubview(self.stickerPackBody)
         self.stickerPackBody.snp.makeConstraints { make in
@@ -108,6 +107,9 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
             make.height.equalTo(self.stickerPackBody).multipliedBy(0.2)
         }
 
+        self.slider.tintColor = .darkGray
+        self.slider.setThumbImage(UIImage.scissors, for: .normal)
+        self.slider.setThumbImage(UIImage.scissors, for: .highlighted)
         self.stickerPackCover.addSubview(self.slider)
         self.slider.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)

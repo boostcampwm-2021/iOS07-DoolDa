@@ -96,8 +96,8 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
         self.body.addSubview(self.stickerPickerView)
         self.stickerPickerView.snp.makeConstraints { make in
             make.top.equalTo(topStack.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(self.view.snp.bottom).offset(-13)
+            make.leading.trailing.equalTo(self.body)
+            make.bottom.equalTo(self.body.snp.bottom).offset(-13)
         }
     }
     private func bindUI() {
