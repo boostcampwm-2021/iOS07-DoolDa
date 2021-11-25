@@ -93,9 +93,11 @@ class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceService
                     )
                     let fetchResult = try context.fetch(fetchRequest)
                     
-                    if let cachedCoreDataPage = fetchResult.first {
+                    if let cachedCoreDataPage = fetchResult.first,
+                       cachedCoreDataPage.updatedTime != pageEntity.updatedTime {
                         cachedCoreDataPage.update(pageEntity)
-                    } else if let coreDataPage = NSManagedObject(entity: coreDataPageEntity, insertInto: context) as? CoreDataPageEntity {
+                    } else if fetchResult.isEmpty,
+                              let coreDataPage = NSManagedObject(entity: coreDataPageEntity, insertInto: context) as? CoreDataPageEntity {
                         coreDataPage.update(pageEntity)
                     }
                     
