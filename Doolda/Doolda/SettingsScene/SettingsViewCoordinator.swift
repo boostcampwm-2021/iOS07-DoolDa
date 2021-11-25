@@ -9,7 +9,7 @@ import UIKit
 
 class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
     var presenter: UINavigationController
-    var user: User
+    private let user: User
 
     init(presenter: UINavigationController, user: User) {
         self.presenter = presenter
@@ -23,11 +23,17 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
 
             let globalFontRepository = GlobalFontRepository(persistenceService: userDefaultsPersistenceService)
             let pushNotificationStateRepository = PushNotificationStateRepository(persistenceService: userDefaultsPersistenceService)
+            let userRepository = UserRepository(
+                persistenceService: userDefaultsPersistenceService,
+                networkService: urlSessionNetworkService
+            )
+            let pairRepository = PairRepository(networkService: urlSessionNetworkService)
             let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
             let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 
             let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)
             let pushNotificationStateUseCase = PushNotificationStateUseCase(pushNotificationStateRepository: pushNotificationStateRepository)
+            let pairUserUseCase = PairUserUseCase(userRepository: userRepository, pairRepository: pairRepository)
             let firebaseMessageUseCase = FirebaseMessageUseCase(
                 fcmTokenRepository: fcmTokenRepository,
                 firebaseMessageRepository: firebaseMessageRepository
@@ -37,7 +43,8 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
                 user: self.user,
                 coordinator: self,
                 globalFontUseCase: globalFontUseCase,
-                pushNotificationStateUseCase: pushNotificationStateUseCase,
+                pairUserUseCase: pairUserUseCase,
+                pushNotificationStateUseCase: pushNotificationStateUseCase
                 firebaseMessageUseCase: firebaseMessageUseCase
             )
             let viewController = SettingsViewController(viewModel: viewModel)
