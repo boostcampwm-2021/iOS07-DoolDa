@@ -64,7 +64,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
     }()
     
     private lazy var activityIndicator: CustomActivityIndicator = {
-        let customActivityIndicator = CustomActivityIndicator(subTitle: "이미지 합성중이에요!🦔🦔")
+        let customActivityIndicator = CustomActivityIndicator(subTitle: "이미지 합성중이에요!🦔🦔", loadingImage: .hedgehogWriting)
         customActivityIndicator.isHidden = true
         return customActivityIndicator
     }()

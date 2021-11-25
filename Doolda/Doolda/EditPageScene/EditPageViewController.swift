@@ -81,7 +81,7 @@ class EditPageViewController: UIViewController {
     }()
     
     private lazy var activityIndicator: CustomActivityIndicator = {
-        let customActivityIndicator = CustomActivityIndicator(subTitle: "페이지 저장중이에요!!🦔🦔")
+        let customActivityIndicator = CustomActivityIndicator(subTitle: "페이지 저장중이에요!!🦔🦔", loadingImage: .hedgehogWriting)
         customActivityIndicator.isHidden = true
         return customActivityIndicator
     }()
