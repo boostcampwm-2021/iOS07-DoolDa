@@ -242,6 +242,6 @@ class PageDetailViewController: UIViewController {
     }
     
     private func configureFont() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
     }
 }

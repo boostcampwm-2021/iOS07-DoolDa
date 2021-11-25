@@ -61,10 +61,6 @@ class PairingViewController: UIViewController {
     
     private lazy var friendIdTextField: UITextField = {
         let textField = UITextField()
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "전달 받은 초대코드 입력",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.dooldaPlaceholder as Any]
-        )
         textField.textColor = .dooldaLabel
         textField.textAlignment = .center
         return textField
