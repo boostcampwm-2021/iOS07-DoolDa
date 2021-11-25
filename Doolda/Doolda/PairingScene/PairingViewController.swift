@@ -105,7 +105,7 @@ class PairingViewController: UIViewController {
         return stackView
     }()
     
-    private let transparentNavigationBarAppearance: UINavigationBarAppearance = {
+    private lazy var transparentNavigationBarAppearance: UINavigationBarAppearance = {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .clear
         appearance.configureWithTransparentBackground()
@@ -136,12 +136,6 @@ class PairingViewController: UIViewController {
         self.configureUI()
         self.configureFont()
         self.bindUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.standardAppearance = transparentNavigationBarAppearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = transparentNavigationBarAppearance
     }
     
     // MARK: - Helpers
@@ -206,6 +200,9 @@ class PairingViewController: UIViewController {
     }
     
     private func configureFont() {
+        self.transparentNavigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        self.navigationController?.navigationBar.standardAppearance = self.transparentNavigationBarAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = self.transparentNavigationBarAppearance
         self.logoLabel.font = UIFont(name: FontType.dovemayo.name, size: 72)
         self.instructionLabel.font = .systemFont(ofSize: 18)
         self.myIdTitleLabel.font = .systemFont(ofSize: 14)
