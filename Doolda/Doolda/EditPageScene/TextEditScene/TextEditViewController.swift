@@ -27,6 +27,7 @@ class TextEditViewController: UIViewController {
         textView.backgroundColor = .clear
         textView.textAlignment = .center
         textView.delegate = self
+        textView.autocapitalizationType = .none
         return textView
     }()
     
@@ -251,7 +252,6 @@ extension TextEditViewController: UICollectionViewDelegateFlowLayout {
         if let collectionView = scrollView as? UICollectionView {
             let cellCount = collectionView.numberOfItems(inSection: 0)
             let cellWidth: CGFloat = 45
-            
             var offset = targetContentOffset.pointee
             
             let index = Int(round((offset.x + collectionView.contentInset.left) / cellWidth))

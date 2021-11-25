@@ -41,6 +41,14 @@ class DiaryCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private lazy var darkModeView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.isHidden = true
+        view.alpha = 0.1
+        return view
+    }()
+    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .large
@@ -152,6 +160,20 @@ class DiaryCollectionViewCell: UICollectionViewCell {
             .store(in: &self.cancellables)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                if traitCollection.userInterfaceStyle == .dark {
+                    self.darkModeView.isHidden = false
+                } else {
+                    self.darkModeView.isHidden = true
+                }
+            }
+        }
+    }
+    
     private func computePointFromAbsolute(at point: CGPoint) -> CGPoint {
         let computedX = point.x * self.widthRatioFromAbsolute
         let computedY = point.y * self.heightRatioFromAbsolute
@@ -169,6 +191,12 @@ class DiaryCollectionViewCell: UICollectionViewCell {
         self.pageView.subviews.forEach { $0.removeFromSuperview() }
         
         self.backgroundColor = UIColor(cgColor: rawPage.backgroundType.rawValue)
+        
+        self.pageView.addSubview(self.darkModeView)
+        self.darkModeView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         for componentEntity in rawPage.components {
             let computedCGRect = CGRect(
                 origin: self.computePointFromAbsolute(at: componentEntity.origin),
