@@ -155,6 +155,21 @@ class SettingsViewController: UIViewController {
             }
             .store(in: &self.cancellables)
 
+        self.disconnectButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let alert = UIAlertController.selectAlert(
+                    title: "친구 끊기",
+                    message: "정말 친구와 연결을 끊으시겠습니까?",
+                    leftActionTitle: "취소",
+                    rightActionTitle: "확인" ) { _ in
+                        self.viewModel.disconnectButtonDidTap()
+                    }
+                self.present(alert, animated: true, completion: nil)
+            }
+            .store(in: &self.cancellables)
+
         guard let section = self.settingsSections[exist: 0],
               let alertCell = section.settingsOptions[exist: 0]?.cell else { return }
         alertCell.switchControl.publisher(for: .valueChanged)

@@ -16,6 +16,7 @@ protocol SettingsViewModelInput {
     func openSourceLicenseDidTap()
     func privacyPolicyDidTap()
     func contributorDidTap()
+    func disconnectButtonDidTap()
 }
 
 protocol SettingsViewModelOutput {
