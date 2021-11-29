@@ -160,6 +160,7 @@
 		66F176092754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */; };
 		66F1760B2754C27C006ACB41 /* PairUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */; };
 		66F1760D2754C2CF006ACB41 /* GetUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760C2754C2CE006ACB41 /* GetUserUseCaseProtocol.swift */; };
+		66F1760F2754C334006ACB41 /* RefreshUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760E2754C334006ACB41 /* RefreshUserUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -359,6 +360,7 @@
 		66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760C2754C2CE006ACB41 /* GetUserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F1760E2754C334006ACB41 /* RefreshUserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -923,6 +925,7 @@
 				66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */,
 				66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */,
 				66F1760C2754C2CE006ACB41 /* GetUserUseCaseProtocol.swift */,
+				66F1760E2754C334006ACB41 /* RefreshUserUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1160,6 +1163,7 @@
 				310125D6273A6F3400E43160 /* FileManagerPersistenceService.swift in Sources */,
 				FC5FB7E02733A6D5008AC3D2 /* FirebaseCollection.swift in Sources */,
 				1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */,
+				66F1760F2754C334006ACB41 /* RefreshUserUseCaseProtocol.swift in Sources */,
 				1DDADCB4274BCE63000330C9 /* Secrets.swift in Sources */,
 				3161EE9827436EC600B922DD /* StickerPickerView.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
