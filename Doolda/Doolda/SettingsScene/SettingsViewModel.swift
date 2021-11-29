@@ -80,15 +80,15 @@ class SettingsViewModel: SettingsViewModelProtocol {
     }
 
     func openSourceLicenseDidTap() {
-        self.coordinator.settingsDetailInfoRequested(for: .openSourceLicense)
+        self.coordinator.informationViewRequested(for: .openSourceLicense)
     }
 
     func privacyPolicyDidTap() {
-        self.coordinator.settingsDetailInfoRequested(for: .privacyPolicy)
+        self.coordinator.informationViewRequested(for: .privacyPolicy)
     }
 
     func contributorDidTap() {
-        self.coordinator.settingsContributorRequested()
+        self.coordinator.informationViewRequested(for: .contributor)
     }
     
     func unpairButtonDidTap() {
