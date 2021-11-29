@@ -35,7 +35,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
     private let user: User
     private let coordinator: SettingsViewCoordinatorProtocol
     private let globalFontUseCase: GlobalFontUseCaseProtocol
-    private let pairUserUseCase: PairUserUseCaseProtocol
+    private let unpairUserUseCase: UnpairUserUseCaseProtocol
     private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
@@ -48,14 +48,14 @@ class SettingsViewModel: SettingsViewModelProtocol {
         user: User,
         coordinator: SettingsViewCoordinatorProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol,
-        pairUserUseCase: PairUserUseCase,
+        unpairUserUseCase: UnpairUserUseCaseProtocol,
         pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
         self.coordinator = coordinator
         self.globalFontUseCase = globalFontUseCase
-        self.pairUserUseCase = pairUserUseCase
+        self.unpairUserUseCase = unpairUserUseCase
         self.pushNotificationStateUseCase = pushNotificationStateUseCase
         self.firebaseMessageUseCase = firebaseMessageUseCase
     }
@@ -101,7 +101,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
     }
     
     func unpairButtonDidTap() {
-        self.pairUserUseCase.disconnectPair(user: self.user)
+        self.unpairUserUseCase.unpair(user: self.user)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
