@@ -8,10 +8,6 @@
 import Combine
 import Foundation
 
-protocol GetMyIdUseCaseProtocol {
-    func getMyId() -> AnyPublisher<DDID?, Never>
-}
-
 final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
     private let userRepository: UserRepositoryProtocol
         
