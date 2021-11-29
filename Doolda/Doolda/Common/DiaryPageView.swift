@@ -8,6 +8,10 @@
 import Combine
 import UIKit
 
+protocol DiaryPageViewDelegate: AnyObject {
+    func diaryPageDrawDidFinish(_ diaryPageView: DiaryPageView)
+}
+
 class DiaryPageView: UIView {
     
     // MARK: - Subviews
@@ -127,8 +131,4 @@ class DiaryPageView: UIView {
         let computedHeight = size.height  * self.widthRatioFromAbsolute
         return CGSize(width: computedWidth, height: computedHeight)
     }
-}
-
-protocol DiaryPageViewDelegate: AnyObject {
-    func diaryPageDrawDidFinish(_ diaryPageView: DiaryPageView)
 }
