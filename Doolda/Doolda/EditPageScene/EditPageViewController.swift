@@ -21,12 +21,14 @@ class EditPageViewController: UIViewController {
     private lazy var cancelButton: UIButton = {
         var button = UIButton()
         button.setImage(.xmark, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
     private lazy var saveButton: UIButton = {
         var button = UIButton()
         button.setImage(.checkmark, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
