@@ -169,6 +169,7 @@
 		66F1761B2754C589006ACB41 /* GetPageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1761A2754C589006ACB41 /* GetPageUseCaseProtocol.swift */; };
 		66F1761D2754C5FF006ACB41 /* StickerUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1761C2754C5FF006ACB41 /* StickerUseCaseProtocol.swift */; };
 		66F1761F2754C656006ACB41 /* TextUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1761E2754C656006ACB41 /* TextUseCaseProtocol.swift */; };
+		66F176212754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -377,6 +378,7 @@
 		66F1761A2754C589006ACB41 /* GetPageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPageUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1761C2754C5FF006ACB41 /* StickerUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1761E2754C656006ACB41 /* TextUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -950,6 +952,7 @@
 				66F1761A2754C589006ACB41 /* GetPageUseCaseProtocol.swift */,
 				66F1761C2754C5FF006ACB41 /* StickerUseCaseProtocol.swift */,
 				66F1761E2754C656006ACB41 /* TextUseCaseProtocol.swift */,
+				66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1213,6 +1216,7 @@
 				FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */,
 				66CD645A273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift in Sources */,
 				1D3925B5273B9172003A0B70 /* DateFormatter+Extensions.swift in Sources */,
+				66F176212754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift in Sources */,
 				FCC803FA27451A8000FFE4DC /* TextEditViewController.swift in Sources */,
 				1D99946A274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift in Sources */,
 				FC822FAA2736088100C918A0 /* URLSessionNetworkService.swift in Sources */,

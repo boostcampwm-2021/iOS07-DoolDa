@@ -7,11 +7,6 @@
 
 import Foundation
 
-protocol PushNotificationStateUseCaseProtocol {
-    func getPushNotificationState() -> Bool?
-    func setPushNotificationState(as state: Bool)
-}
-
 final class PushNotificationStateUseCase: PushNotificationStateUseCaseProtocol {
     private let pushNotificationStateRepository: PushNotificationStateRepositoryProtocol
         
