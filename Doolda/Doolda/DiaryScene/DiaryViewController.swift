@@ -81,7 +81,7 @@ class DiaryViewController: UIViewController {
     }()
     
     private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
-        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        let generator = UIImpactFeedbackGenerator(style: .light)
         return generator
     }()
     
