@@ -139,7 +139,7 @@ class SettingsViewController: UIViewController {
     private func bindUI() {
         self.viewModel.pushNotificationStatePublisher
             .receive(on: DispatchQueue.main)
-            .sink{ [weak self] isPushNotificationOn in
+            .sink { [weak self] isPushNotificationOn in
                 guard let isPushNotificationOn = isPushNotificationOn,
                       let section = self?.settingsSections[exist: 0],
                       let alertCell = section.settingsOptions[exist: 0]?.cell else { return }
