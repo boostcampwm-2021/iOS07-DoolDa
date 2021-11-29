@@ -170,6 +170,7 @@
 		66F1761D2754C5FF006ACB41 /* StickerUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1761C2754C5FF006ACB41 /* StickerUseCaseProtocol.swift */; };
 		66F1761F2754C656006ACB41 /* TextUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1761E2754C656006ACB41 /* TextUseCaseProtocol.swift */; };
 		66F176212754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */; };
+		66F176232754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -379,6 +380,7 @@
 		66F1761C2754C5FF006ACB41 /* StickerUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1761E2754C656006ACB41 /* TextUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -953,6 +955,7 @@
 				66F1761C2754C5FF006ACB41 /* StickerUseCaseProtocol.swift */,
 				66F1761E2754C656006ACB41 /* TextUseCaseProtocol.swift */,
 				66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */,
+				66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1183,6 +1186,7 @@
 				661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */,
 				66F176092754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift in Sources */,
 				317FB617274BAAEC005DF3A3 /* DooldaInfoType.swift in Sources */,
+				66F176232754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift in Sources */,
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
 				FCD24D7827439717000203F7 /* GlobalFontUseCase.swift in Sources */,
 				1D999464274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift in Sources */,
