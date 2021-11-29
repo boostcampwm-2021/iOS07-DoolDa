@@ -76,6 +76,7 @@ class PageDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel.pageDetailViewWillAppear()
+        self.navigationController?.hidesBarsOnSwipe = false
     }
     
     // MARK: - Helpers
