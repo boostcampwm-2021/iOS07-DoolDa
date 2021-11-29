@@ -78,12 +78,14 @@ class DiaryCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.configureUI()
+        self.configureFont()
         self.bindUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.configureUI()
+        self.configureFont()
         self.bindUI()
     }
     
