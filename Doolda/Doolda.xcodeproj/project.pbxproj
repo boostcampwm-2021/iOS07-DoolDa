@@ -108,7 +108,7 @@
 		317FB615274B9A92005DF3A3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */; };
 		317FB617274BAAEC005DF3A3 /* DooldaInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */; };
 		317FB619274BBC9D005DF3A3 /* SettingsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */; };
-		317FB61B274BCE68005DF3A3 /* SettingsDetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB61A274BCE68005DF3A3 /* SettingsDetailedInfoViewController.swift */; };
+		317FB61B274BCE68005DF3A3 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB61A274BCE68005DF3A3 /* InformationViewController.swift */; };
 		318D9F5B274CC77800AA6F0E /* FontPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F5A274CC77800AA6F0E /* FontPickerViewController.swift */; };
 		318D9F62274CFF9E00AA6F0E /* uhBeeMysen.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F5D274CFBA100AA6F0E /* uhBeeMysen.ttf */; };
 		318D9F63274CFFA000AA6F0E /* dungGeunMo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F5E274CFBEA00AA6F0E /* dungGeunMo.otf */; };
@@ -128,7 +128,6 @@
 		319C21E1273BD805009CE65C /* URLSessionNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */; };
 		319C222D273CEFBB009CE65C /* CIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C222C273CEFBB009CE65C /* CIImage+Extension.swift */; };
 		31BEC80B2754DD74009AF22A /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 31BEC80A2754DD74009AF22A /* license.txt */; };
-		31BEC80D2754F132009AF22A /* SettingsContributorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BEC80C2754F132009AF22A /* SettingsContributorViewController.swift */; };
 		661A840427434FE10077E0E3 /* GetPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A840327434FE10077E0E3 /* GetPageUseCase.swift */; };
 		661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
@@ -325,7 +324,7 @@
 		317FB614274B9A92005DF3A3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaInfoType.swift; sourceTree = "<group>"; };
 		317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewHeader.swift; sourceTree = "<group>"; };
-		317FB61A274BCE68005DF3A3 /* SettingsDetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailedInfoViewController.swift; sourceTree = "<group>"; };
+		317FB61A274BCE68005DF3A3 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		318D9F5A274CC77800AA6F0E /* FontPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerViewController.swift; sourceTree = "<group>"; };
 		318D9F5D274CFBA100AA6F0E /* uhBeeMysen.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = uhBeeMysen.ttf; sourceTree = "<group>"; };
 		318D9F5E274CFBEA00AA6F0E /* dungGeunMo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dungGeunMo.otf; sourceTree = "<group>"; };
@@ -342,7 +341,6 @@
 		319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkServiceTest.swift; sourceTree = "<group>"; };
 		319C222C273CEFBB009CE65C /* CIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Extension.swift"; sourceTree = "<group>"; };
 		31BEC80A2754DD74009AF22A /* license.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
-		31BEC80C2754F132009AF22A /* SettingsContributorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsContributorViewController.swift; sourceTree = "<group>"; };
 		661A840327434FE10077E0E3 /* GetPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPageUseCase.swift; sourceTree = "<group>"; };
 		661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyTurnUseCase.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -508,8 +506,7 @@
 			isa = PBXGroup;
 			children = (
 				317FB60C274A8F59005DF3A3 /* SettingsViewController.swift */,
-				317FB61A274BCE68005DF3A3 /* SettingsDetailedInfoViewController.swift */,
-				31BEC80C2754F132009AF22A /* SettingsContributorViewController.swift */,
+				317FB61A274BCE68005DF3A3 /* InformationViewController.swift */,
 				318D9F5A274CC77800AA6F0E /* FontPickerViewController.swift */,
 				317FB612274AA879005DF3A3 /* SettingsTableViewCell.swift */,
 				317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */,
@@ -1313,7 +1310,7 @@
 				1D999468274CAC4700C72273 /* FCMTokenDocument.swift in Sources */,
 				1DE5E540273932B0004F794F /* PageRepositoryProtocol.swift in Sources */,
 				665303A62743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift in Sources */,
-				317FB61B274BCE68005DF3A3 /* SettingsDetailedInfoViewController.swift in Sources */,
+				317FB61B274BCE68005DF3A3 /* InformationViewController.swift in Sources */,
 				1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */,
 				FC5FB79A273284E2008AC3D2 /* UserDefaultsPersistenceService.swift in Sources */,
 				664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */,
