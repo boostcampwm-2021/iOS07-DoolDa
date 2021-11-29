@@ -8,13 +8,6 @@
 import Combine
 import Foundation
 
-protocol RegisterUserUseCaseProtocol {
-    var registeredUserPublisher: Published<User?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
-    
-    func register()
-}
-
 final class RegisterUserUseCase: RegisterUserUseCaseProtocol {
     var registeredUserPublisher: Published<User?>.Publisher { self.$registeredUser }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
