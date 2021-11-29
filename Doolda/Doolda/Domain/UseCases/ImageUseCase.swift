@@ -23,12 +23,7 @@ enum ImageUseCaseError: LocalizedError {
     }
 }
 
-protocol ImageUseCaseProtocol {
-    func saveLocal(image: CIImage) -> AnyPublisher<URL, Error>
-    func saveRemote(for user: User, localUrl: URL) -> AnyPublisher<URL, Error>
-}
-
-class ImageUseCase: ImageUseCaseProtocol {
+final class ImageUseCase: ImageUseCaseProtocol {
     private let imageRepository: ImageRepositoryProtocol
 
     init(imageRepository: ImageRepositoryProtocol) {

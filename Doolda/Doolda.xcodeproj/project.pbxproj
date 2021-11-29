@@ -164,6 +164,7 @@
 		66F176112754C370006ACB41 /* RegisterUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176102754C370006ACB41 /* RegisterUserUseCaseProtocol.swift */; };
 		66F176132754C3C3006ACB41 /* EditPageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176122754C3C3006ACB41 /* EditPageUseCaseProtocol.swift */; };
 		66F176152754C413006ACB41 /* ImageComposeUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176142754C413006ACB41 /* ImageComposeUseCaseProtocol.swift */; };
+		66F176172754C4F6006ACB41 /* ImageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176162754C4F6006ACB41 /* ImageUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -367,6 +368,7 @@
 		66F176102754C370006ACB41 /* RegisterUserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176122754C3C3006ACB41 /* EditPageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176142754C413006ACB41 /* ImageComposeUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComposeUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F176162754C4F6006ACB41 /* ImageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -935,6 +937,7 @@
 				66F176102754C370006ACB41 /* RegisterUserUseCaseProtocol.swift */,
 				66F176122754C3C3006ACB41 /* EditPageUseCaseProtocol.swift */,
 				66F176142754C413006ACB41 /* ImageComposeUseCaseProtocol.swift */,
+				66F176162754C4F6006ACB41 /* ImageUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1294,6 +1297,7 @@
 				1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */,
 				318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */,
 				66F176152754C413006ACB41 /* ImageComposeUseCaseProtocol.swift in Sources */,
+				66F176172754C4F6006ACB41 /* ImageUseCaseProtocol.swift in Sources */,
 				1D097E97273CFA5900A4810B /* RawPageRepository.swift in Sources */,
 				1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */,
 				310125A027393D3B00E43160 /* ImageComposeUseCase.swift in Sources */,
