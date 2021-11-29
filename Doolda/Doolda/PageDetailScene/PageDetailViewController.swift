@@ -73,11 +73,9 @@ class PageDetailViewController: UIViewController {
     func configureUI() {
         self.view.backgroundColor = .dooldaBackground
         guard let navigationController = self.navigationController else { return }
-
         navigationController.isNavigationBarHidden = false
         navigationController.navigationBar.tintColor = .dooldaLabel
         navigationController.navigationBar.topItem?.title = ""
-        self.navigationItem.backButtonTitle = ""
         
         let date = self.viewModel.getDate()
         self.title = DateFormatter.koreanFormatter.string(from: date)
