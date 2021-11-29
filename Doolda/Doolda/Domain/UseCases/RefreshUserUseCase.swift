@@ -8,13 +8,6 @@
 import Combine
 import Foundation
 
-protocol RefreshUserUseCaseProtocol {
-    var refreshedUserPublisher: Published<User?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
-    
-    func refresh(for user: User)
-}
-
 final class RefreshUserUseCase: RefreshUserUseCaseProtocol {
     var refreshedUserPublisher: Published<User?>.Publisher { self.$refreshedUser }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
