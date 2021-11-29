@@ -34,7 +34,6 @@ protocol PairUserUseCaseProtocol {
     
     func pair(user: User, friendId: DDID)
     func pair(user: User)
-    func disconnectPair(user: User) -> AnyPublisher<User, Error>
 }
 
 final class PairUserUseCase: PairUserUseCaseProtocol {
@@ -90,35 +89,6 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                 self.pairedUser = user
             }
             .store(in: &self.cancellables)
-    }
-    
-    func disconnectPair(user: User) -> AnyPublisher<User, Error> {
-        let resetUser = User(id: user.id, pairId: nil, friendId: nil)
-        let publisher: AnyPublisher<User, Error>
-        
-        if let friendId = user.friendId,
-           resetUser.id != friendId {
-            publisher = Publishers.Zip3(
-                self.userRepository.resetUser(resetUser),
-                self.userRepository.resetUser(User(id: friendId, pairId: nil, friendId: nil)),
-                self.pairRepository.deletePair(with: user)
-            )
-                .map { user, _, _ in
-                    return user
-                }
-                .eraseToAnyPublisher()
-        } else {
-            publisher = Publishers.Zip(
-                self.userRepository.resetUser(resetUser),
-                self.pairRepository.deletePair(with: user)
-            )
-                .map { user, _ in
-                    return user
-                }
-                .eraseToAnyPublisher()
-        }
-        
-        return publisher
     }
     
     private func isItPossibleToPair(user: User, with another: User) -> Bool {
