@@ -77,4 +77,18 @@ final class PairRepository: PairRepositoryProtocol {
         }
         .eraseToAnyPublisher()
     }
+    
+    func deletePair(with user: User) -> AnyPublisher<User, Error> {
+        guard let pairId = user.pairId else {
+            return Fail(error: PairRepositoryError.nilUserPairId).eraseToAnyPublisher()
+        }
+        
+        let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService
+            .request(FirebaseAPIs.deletePairDocument(pairId.ddidString))
+        
+        return publisher.map { _ in
+            return User(id: user.id, pairId: nil, friendId: nil)
+        }
+        .eraseToAnyPublisher()
+    }
 }
