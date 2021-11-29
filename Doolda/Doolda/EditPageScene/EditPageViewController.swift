@@ -219,6 +219,8 @@ class EditPageViewController: UIViewController {
         self.cancelButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                self.hapticGenerator.prepare()
+                self.hapticGenerator.impactOccurred()
                 let alert = UIAlertController.selectAlert(
                     title: "편집 나가기",
                     message: "페이지를 저장하지 않고 나갈 시, 작성한 내용은 저장되지 않습니다.",
@@ -233,6 +235,8 @@ class EditPageViewController: UIViewController {
         self.saveButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                self.hapticGenerator.prepare()
+                self.hapticGenerator.impactOccurred()
                 let alert = UIAlertController.selectAlert(
                     title: "편집 저장하기",
                     message: "페이지를 저장하시겠습니까?, 저장 후 더 이상 편집할 수 없습니다.",
@@ -279,24 +283,32 @@ class EditPageViewController: UIViewController {
         self.addPhotoComponentButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                self.hapticGenerator.prepare()
+                self.hapticGenerator.impactOccurred()
                 self.viewModel?.photoComponentAddButtonDidTap()
             }.store(in: &self.cancellables)
         
         self.addTextComponentButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                self.hapticGenerator.prepare()
+                self.hapticGenerator.impactOccurred()
                 self.viewModel?.textComponentAddButtonDidTap()
             }.store(in: &self.cancellables)
         
         self.addStickerComponentButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                self.hapticGenerator.prepare()
+                self.hapticGenerator.impactOccurred()
                 self.viewModel?.stickerComponentAddButtonDidTap()
             }.store(in: &self.cancellables)
         
         self.changeBackgroundTypeButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                self.hapticGenerator.prepare()
+                self.hapticGenerator.impactOccurred()
                 self.viewModel?.backgroundTypeButtonDidTap()
             }.store(in: &self.cancellables)
         
