@@ -23,6 +23,10 @@ class SettingsDetailedInfoViewController: UIViewController {
         return textView
     }()
 
+    // MARK: - Override Properties
+
+    override var prefersStatusBarHidden: Bool { return true }
+
     // MARK: - Public Properties
 
     @Published var titleText: String?

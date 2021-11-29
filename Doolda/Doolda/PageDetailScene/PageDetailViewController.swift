@@ -36,6 +36,10 @@ class PageDetailViewController: UIViewController {
         activityIndicator.style = .large
         return activityIndicator
     }()
+
+    // MARK: - Override Properties
+
+    override var prefersStatusBarHidden: Bool { return true }
     
     // MARK: - Private Properties
 
