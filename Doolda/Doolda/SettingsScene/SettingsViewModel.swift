@@ -16,7 +16,7 @@ protocol SettingsViewModelInput {
     func openSourceLicenseDidTap()
     func privacyPolicyDidTap()
     func contributorDidTap()
-    func disconnectButtonDidTap()
+    func unpairButtonDidTap()
 }
 
 protocol SettingsViewModelOutput {
@@ -100,7 +100,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
         )
     }
     
-    func disconnectButtonDidTap() {
+    func unpairButtonDidTap() {
         self.pairUserUseCase.disconnectPair(user: self.user)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }

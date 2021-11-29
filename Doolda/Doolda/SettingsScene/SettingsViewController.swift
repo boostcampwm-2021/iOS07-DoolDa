@@ -174,7 +174,7 @@ class SettingsViewController: UIViewController {
                     message: "정말 친구와 연결을 끊으시겠습니까?\n모든 데이터가 지워집니다.",
                     leftActionTitle: "취소",
                     rightActionTitle: "확인" ) { _ in
-                        self.viewModel.disconnectButtonDidTap()
+                        self.viewModel.unpairButtonDidTap()
                     }
                 self.present(alert, animated: true, completion: nil)
             }
