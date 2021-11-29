@@ -7,13 +7,7 @@
 
 import UIKit
 
-protocol GlobalFontUseCaseProtocol {
-    func setGlobalFont(with fontName: String)
-    func saveGlobalFont(as fontName: String)
-    func getGlobalFont() -> FontType?
-}
-
-class GlobalFontUseCase: GlobalFontUseCaseProtocol {
+final class GlobalFontUseCase: GlobalFontUseCaseProtocol {
     enum Notifications {
         static let globalFontDidSet = Notification.Name("globalFontDidSet")
     }
