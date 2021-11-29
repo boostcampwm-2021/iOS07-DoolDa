@@ -1,5 +1,5 @@
 //
-//  SettingsDetailedInfoViewController.swift
+//  InformationViewController.swift
 //  Doolda
 //
 //  Created by Dozzing on 2021/11/22.
@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-class SettingsDetailedInfoViewController: UIViewController {
+class InformationViewController: UIViewController {
 
     // MARK: - Subviews
 
@@ -24,14 +24,16 @@ class SettingsDetailedInfoViewController: UIViewController {
         return textView
     }()
 
-    // MARK: - Override Properties
-
-    override var prefersStatusBarHidden: Bool { return true }
+    private var imageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
 
     // MARK: - Public Properties
 
     @Published var titleText: String?
     @Published var contentText: String?
+    @Published var image: UIImage?
 
     // MARK: - Private Properties
 
@@ -61,6 +63,12 @@ class SettingsDetailedInfoViewController: UIViewController {
             make.top.leading.equalTo(self.view.safeAreaLayoutGuide).offset(16)
             make.bottom.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-16)
         }
+
+        self.view.addSubview(self.imageView)
+        self.imageView.snp.makeConstraints { make in
+            make.top.leading.equalTo(self.view.safeAreaLayoutGuide).offset(16)
+            make.bottom.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-16)
+        }
     }
 
     private func bindUI() {
@@ -75,6 +83,13 @@ class SettingsDetailedInfoViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] contentText in
                 self?.textView.text = contentText
+            }
+            .store(in: &self.cancellables)
+
+        self.$image
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] image in
+                self?.imageView.image = image
             }
             .store(in: &self.cancellables)
     }
