@@ -34,8 +34,10 @@ final class PairRepository: PairRepositoryProtocol {
         guard let pairId = user.pairId else {
             return Fail(error: PairRepositoryError.nilUserPairId).eraseToAnyPublisher()
         }
-        let publisher: AnyPublisher<PairDocument, Error> = self.urlSessionNetworkService
-            .request(FirebaseAPIs.createPairDocument(pairId.ddidString, user.id.ddidString))
+        
+        let request = FirebaseAPIs.createPairDocument(pairId.ddidString, user.id.ddidString)
+        let publisher: AnyPublisher<PairDocument, Error> = self.urlSessionNetworkService.request(request)
+        
         return publisher.tryMap { pairDocument in
             guard let pairIdString = pairDocument.pairId,
                   let pairId = DDID(from: pairIdString) else {
@@ -50,8 +52,10 @@ final class PairRepository: PairRepositoryProtocol {
         guard let pairId = user.pairId else {
             return Fail(error: PairRepositoryError.nilUserPairId).eraseToAnyPublisher()
         }
-        let publisher: AnyPublisher<PairDocument, Error> = self.urlSessionNetworkService
-            .request(FirebaseAPIs.patchPairDocument(pairId.ddidString, user.id.ddidString))
+        
+        let request = FirebaseAPIs.patchPairDocument(pairId.ddidString, user.id.ddidString)
+        let publisher: AnyPublisher<PairDocument, Error> = self.urlSessionNetworkService.request(request)
+        
         return publisher.tryMap { pairDocument in
             guard let pairIdString = pairDocument.pairId,
                   let pairId = DDID(from: pairIdString) else {
@@ -66,8 +70,10 @@ final class PairRepository: PairRepositoryProtocol {
         guard let pairId = user.pairId else {
             return Fail(error: PairRepositoryError.nilUserPairId).eraseToAnyPublisher()
         }
-        let publisher: AnyPublisher<PairDocument, Error> = self.urlSessionNetworkService
-            .request(FirebaseAPIs.getPairDocument(pairId.ddidString))
+        
+        let request = FirebaseAPIs.getPairDocument(pairId.ddidString)
+        let publisher: AnyPublisher<PairDocument, Error> = self.urlSessionNetworkService.request(request)
+        
         return publisher.tryMap { pairDocument in
             guard let recentlyEditedUserIdString = pairDocument.recentlyEditedUser,
                   let recentlyEditedUser = DDID(from: recentlyEditedUserIdString) else {
@@ -83,8 +89,8 @@ final class PairRepository: PairRepositoryProtocol {
             return Fail(error: PairRepositoryError.nilUserPairId).eraseToAnyPublisher()
         }
         
-        let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService
-            .request(FirebaseAPIs.deletePairDocument(pairId.ddidString))
+        let request = FirebaseAPIs.deletePairDocument(pairId.ddidString)
+        let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService.request(request)
         
         return publisher.map { _ in
             return User(id: user.id, pairId: nil, friendId: nil)
