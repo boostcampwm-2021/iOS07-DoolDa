@@ -158,6 +158,7 @@
 		66ECCD3A273E5342003990EE /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ECCD39273E5342003990EE /* CarouselView.swift */; };
 		66ECCD3C273F7C9F003990EE /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */; };
 		66F176092754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */; };
+		66F1760B2754C27C006ACB41 /* PairUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -355,6 +356,7 @@
 		66ECCD39273E5342003990EE /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -917,6 +919,7 @@
 			isa = PBXGroup;
 			children = (
 				66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */,
+				66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1264,6 +1267,7 @@
 				318D9F76274E258D00AA6F0E /* PageDetailViewController.swift in Sources */,
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
 				FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */,
+				66F1760B2754C27C006ACB41 /* PairUserUseCaseProtocol.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				1DE5E5382738BCE0004F794F /* DiaryViewCoordinatorProtocol.swift in Sources */,
 				66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */,

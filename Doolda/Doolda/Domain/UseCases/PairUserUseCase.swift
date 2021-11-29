@@ -28,14 +28,6 @@ enum PairUserUseCaseError: LocalizedError {
     }
 }
 
-protocol PairUserUseCaseProtocol {
-    var pairedUserPublisher: Published<User?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
-    
-    func pair(user: User, friendId: DDID)
-    func pair(user: User)
-}
-
 final class PairUserUseCase: PairUserUseCaseProtocol {
     var pairedUserPublisher: Published<User?>.Publisher { self.$pairedUser }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
