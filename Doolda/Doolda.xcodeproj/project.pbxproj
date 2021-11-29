@@ -159,6 +159,7 @@
 		66ECCD3C273F7C9F003990EE /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */; };
 		66F176092754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */; };
 		66F1760B2754C27C006ACB41 /* PairUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */; };
+		66F1760D2754C2CF006ACB41 /* GetUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760C2754C2CE006ACB41 /* GetUserUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -357,6 +358,7 @@
 		66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F1760C2754C2CE006ACB41 /* GetUserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -920,6 +922,7 @@
 			children = (
 				66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */,
 				66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */,
+				66F1760C2754C2CE006ACB41 /* GetUserUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1260,6 +1263,7 @@
 				FCC803FC27451C9600FFE4DC /* TextEditViewModel.swift in Sources */,
 				664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */,
 				66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */,
+				66F1760D2754C2CF006ACB41 /* GetUserUseCaseProtocol.swift in Sources */,
 				66FE936F27356E160036CED2 /* User.swift in Sources */,
 				1D99946C274CEF2900C72273 /* FirebaseMessageRepository.swift in Sources */,
 				FCD24D7327439268000203F7 /* GlobalFontRepository.swift in Sources */,
