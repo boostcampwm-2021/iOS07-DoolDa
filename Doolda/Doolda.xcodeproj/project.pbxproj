@@ -43,12 +43,13 @@
 		1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */; };
 		1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */; };
 		1D8646A3274D2DB600C4511D /* PushMessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */; };
+		1D8AFD0927506BE100822B89 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1D8AFD0727506BE100822B89 /* Config.xcconfig */; };
+		1D8AFD0A27506BE100822B89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D8AFD0827506BE100822B89 /* GoogleService-Info.plist */; };
 		1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
 		1D8BE07B2742A3DB00201E3E /* DiaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */; };
 		1D8BE07D2743437600201E3E /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07C2743437600201E3E /* DiaryViewModel.swift */; };
 		1D8BE07F2743846A00201E3E /* DiaryCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07E2743846A00201E3E /* DiaryCollectionViewHeader.swift */; };
 		1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D992B41273D0EAB00B63954 /* PageRepository.swift */; };
-		1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D99945F274C8E6300C72273 /* GoogleService-Info.plist */; };
 		1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999461274CA94600C72273 /* FCMTokenUseCase.swift */; };
 		1D999464274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */; };
 		1D999466274CAB8900C72273 /* FCMTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999465274CAB8900C72273 /* FCMTokenRepository.swift */; };
@@ -63,7 +64,6 @@
 		1D9DC0A5274B8A890060587B /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */; };
 		1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
 		1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */; };
-		1DC17BD5274E2B22006774FD /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1DC17BD4274E2B22006774FD /* Config.xcconfig */; };
 		1DD0F34D2747AABA00FC5E65 /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
 		1DD0F34E2747AAC700FC5E65 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		1DD0F34F2747AAD800FC5E65 /* TextComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012597273842DA00E43160 /* TextComponentEntity.swift */; };
@@ -76,6 +76,7 @@
 		1DD0F3562747ABEC00FC5E65 /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
 		1DD0F3572747ABFD00FC5E65 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
 		1DD0F3582747AC0300FC5E65 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
+		1DD58BD62754ACA600B93184 /* DiaryPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD58BD52754ACA600B93184 /* DiaryPageView.swift */; };
 		1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DD6AD3F27321E5800592AC8 /* dovemayo.otf */; };
 		1DDADCB4274BCE63000330C9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDADCB3274BCE63000330C9 /* Secrets.swift */; };
 		1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */; };
@@ -250,13 +251,14 @@
 		1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushMessageEntity.swift; sourceTree = "<group>"; };
+		1D8AFD0727506BE100822B89 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		1D8AFD0827506BE100822B89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1D8BE0782740FE5E00201E3E /* PageDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDocument.swift; sourceTree = "<group>"; };
 		1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		1D8BE07C2743437600201E3E /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		1D8BE07E2743846A00201E3E /* DiaryCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCollectionViewHeader.swift; sourceTree = "<group>"; };
 		1D992B41273D0EAB00B63954 /* PageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepository.swift; sourceTree = "<group>"; };
 		1D99945E274C8BF600C72273 /* Doolda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Doolda.entitlements; sourceTree = "<group>"; };
-		1D99945F274C8E6300C72273 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1D999461274CA94600C72273 /* FCMTokenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenUseCase.swift; sourceTree = "<group>"; };
 		1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenRepositoryProtocol.swift; sourceTree = "<group>"; };
 		1D999465274CAB8900C72273 /* FCMTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenRepository.swift; sourceTree = "<group>"; };
@@ -271,7 +273,7 @@
 		1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
 		1DBF5714273A2C5100D28F5E /* FontColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorType.swift; sourceTree = "<group>"; };
 		1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameType.swift; sourceTree = "<group>"; };
-		1DC17BD4274E2B22006774FD /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		1DD58BD52754ACA600B93184 /* DiaryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPageView.swift; sourceTree = "<group>"; };
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
 		1DDADCB3274BCE63000330C9 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 				66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */,
 				1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */,
 				1D9DC0A0274A47D50060587B /* DooldaButton.swift */,
+				1DD58BD52754ACA600B93184 /* DiaryPageView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -681,8 +684,8 @@
 				664893CB273007F1009F03E2 /* LaunchScreen.storyboard */,
 				664893CE273007F1009F03E2 /* Info.plist */,
 				665303992743B3FF00E3075C /* CoreDataModel.xcdatamodeld */,
-				1DC17BD4274E2B22006774FD /* Config.xcconfig */,
-				1D99945F274C8E6300C72273 /* GoogleService-Info.plist */,
+				1D8AFD0727506BE100822B89 /* Config.xcconfig */,
+				1D8AFD0827506BE100822B89 /* GoogleService-Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1028,19 +1031,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D8AFD0A27506BE100822B89 /* GoogleService-Info.plist in Resources */,
 				318D9F63274CFFA000AA6F0E /* dungGeunMo.otf in Resources */,
 				664893CD273007F1009F03E2 /* LaunchScreen.storyboard in Resources */,
 				318D9F62274CFF9E00AA6F0E /* uhBeeMysen.ttf in Resources */,
 				318D9F64274CFFA200AA6F0E /* kotraHope.otf in Resources */,
+				1D8AFD0927506BE100822B89 /* Config.xcconfig in Resources */,
 				66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */,
-				1DC17BD5274E2B22006774FD /* Config.xcconfig in Resources */,
 				66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */,
 				66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
 				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
 				318D9F67274D4D5000AA6F0E /* darae.ttf in Resources */,
 				318D9F69274D4D9900AA6F0E /* kyoboHandwriting.otf in Resources */,
-				1D999460274C8E6300C72273 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1205,6 +1208,7 @@
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
 				317FB613274AA879005DF3A3 /* SettingsTableViewCell.swift in Sources */,
 				318D9F5B274CC77800AA6F0E /* FontPickerViewController.swift in Sources */,
+				1DD58BD62754ACA600B93184 /* DiaryPageView.swift in Sources */,
 				317FB60D274A8F59005DF3A3 /* SettingsViewController.swift in Sources */,
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
 				FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */,
@@ -1500,7 +1504,7 @@
 		};
 		664893D2273007F1009F03E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DC17BD4274E2B22006774FD /* Config.xcconfig */;
+			baseConfigurationReference = 1D8AFD0727506BE100822B89 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1532,7 +1536,7 @@
 		};
 		664893D3273007F1009F03E2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DC17BD4274E2B22006774FD /* Config.xcconfig */;
+			baseConfigurationReference = 1D8AFD0727506BE100822B89 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
