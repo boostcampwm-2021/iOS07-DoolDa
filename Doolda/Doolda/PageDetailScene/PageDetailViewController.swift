@@ -165,54 +165,21 @@ class PageDetailViewController: UIViewController {
     
     private func drawPage(with rawPage: RawPageEntity) {
         self.pageView.backgroundColor = UIColor(cgColor: rawPage.backgroundType.rawValue)
+        self.pageView.subviews.forEach { $0.removeFromSuperview() }
+        
         for componentEntity in rawPage.components {
-            let computedCGRect = CGRect(
+            guard let componentView = self.getComponentView(from: componentEntity) else { return }
+            componentView.frame = CGRect(
                 origin: self.computePointFromAbsolute(at: componentEntity.origin),
                 size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
             )
+            componentView.transform = CGAffineTransform.identity
+                .rotated(by: componentEntity.angle)
+                .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
             
-            switch componentEntity {
-            case let photoComponentEtitiy as PhotoComponentEntity:
-                let photoComponentView = UIImageView(frame: computedCGRect)
-                photoComponentView.kf.setImage(with: photoComponentEtitiy.imageUrl)
-                self.pageView.addSubview(photoComponentView)
-                let transform = CGAffineTransform.identity
-                    .rotated(by: componentEntity.angle)
-                    .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
-                photoComponentView.transform = transform
-                photoComponentView.layer.shadowColor = UIColor.lightGray.cgColor
-                photoComponentView.layer.shadowOpacity = 0.3
-                photoComponentView.layer.shadowRadius = 10
-                photoComponentView.layer.shadowOffset = CGSize(width: -5, height: -5)
-            case let stickerComponentEntity as StickerComponentEntity:
-                let stickerComponentView = UIImageView(frame: computedCGRect)
-                stickerComponentView.image = UIImage(named: stickerComponentEntity.name)
-                stickerComponentView.contentMode = .scaleAspectFit
-                self.pageView.addSubview(stickerComponentView)
-                let transform = CGAffineTransform.identity
-                    .rotated(by: componentEntity.angle)
-                    .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
-                stickerComponentView.transform = transform
-            case let textComponentEntity as TextComponentEntity:
-                let textComponentView = UILabel(frame: computedCGRect)
-                textComponentView.numberOfLines = 0
-                textComponentView.textAlignment = .center
-                textComponentView.adjustsFontSizeToFitWidth = true
-                textComponentView.adjustsFontForContentSizeCategory = true
-                textComponentView.text = textComponentEntity.text
-                textComponentView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
-                textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
-                
-                self.pageView.addSubview(textComponentView)
-                
-                let transform = CGAffineTransform.identity
-                    .rotated(by: componentEntity.angle)
-                    .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
-                textComponentView.transform = transform
-            default:
-                break
-            }
+            self.pageView.addSubview(componentView)
         }
+
         self.activityIndicator.stopAnimating()
     }
     
@@ -246,5 +213,34 @@ class PageDetailViewController: UIViewController {
     
     private func configureFont() {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+    }
+    
+    private func getComponentView(from componentEntity: ComponentEntity) -> UIView? {
+        switch componentEntity {
+        case let photoComponentEtitiy as PhotoComponentEntity:
+            let photoView =  UIImageView()
+            photoView.kf.setImage(with: photoComponentEtitiy.imageUrl)
+            photoView.layer.shadowColor = UIColor.lightGray.cgColor
+            photoView.layer.shadowOpacity = 0.3
+            photoView.layer.shadowRadius = 10
+            photoView.layer.shadowOffset = CGSize(width: -5, height: -5)
+            return photoView
+        case let stickerComponentEntity as StickerComponentEntity:
+            let stickerView = UIImageView()
+            stickerView.image = UIImage(named: stickerComponentEntity.name)
+            stickerView.contentMode = .scaleAspectFit
+            return stickerView
+        case let textComponentEntity as TextComponentEntity:
+            let textView = UILabel()
+            textView.numberOfLines = 0
+            textView.textAlignment = .center
+            textView.adjustsFontSizeToFitWidth = true
+            textView.adjustsFontForContentSizeCategory = true
+            textView.text = textComponentEntity.text
+            textView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
+            textView.font = .systemFont(ofSize: textComponentEntity.fontSize)
+            return textView
+        default: return nil
+        }
     }
 }
