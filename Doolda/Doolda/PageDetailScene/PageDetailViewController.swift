@@ -12,10 +12,13 @@ class PageDetailViewController: UIViewController {
     
     // MARK: - Subviews
     
-    private lazy var pageView: UIView = {
-        var view = UIView()
+    private lazy var diaryPageView: DiaryPageView = {
+        let view = DiaryPageView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 4
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1
+        view.delegate = self
         return view
     }()
     
@@ -42,14 +45,6 @@ class PageDetailViewController: UIViewController {
     private var viewModel: PageDetailViewModelProtocol!
     private var cancellables: Set<AnyCancellable> = []
     
-    private var widthRatioFromAbsolute: CGFloat {
-        return self.pageView.frame.width / 1700.0
-    }
-    
-    private var heightRatioFromAbsolute: CGFloat {
-        return self.pageView.frame.height / 3000.0
-    }
-    
     // MARK: - Initializers
     
     convenience init(viewModel: PageDetailViewModelProtocol) {
@@ -69,9 +64,6 @@ class PageDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.pageView.subviews.forEach { componentView in
-            componentView.removeFromSuperview()
-        }
         self.viewModel.pageDetailViewWillAppear()
     }
     
@@ -89,14 +81,12 @@ class PageDetailViewController: UIViewController {
         let date = self.viewModel.getDate()
         self.title = DateFormatter.koreanFormatter.string(from: date)
 
-        self.view.addSubview(self.pageView)
-        self.pageView.clipsToBounds = true
-        self.pageView.layer.cornerRadius = 4
+        self.view.addSubview(self.diaryPageView)
         
-        self.pageView.snp.makeConstraints { make in
+        self.diaryPageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(self.view.safeAreaLayoutGuide).offset(12)
-            make.width.equalTo(self.pageView.snp.height).multipliedBy(17.0 / 30.0)
+            make.width.equalTo(self.diaryPageView.snp.height).multipliedBy(17.0 / 30.0)
             let screenHeight = UIScreen.main.bounds.size.height
             if screenHeight > 750 {
                 make.height.equalTo(self.view.safeAreaLayoutGuide).offset(-80)
@@ -105,28 +95,29 @@ class PageDetailViewController: UIViewController {
             }
         }
         
-        self.pageView.addSubview(self.activityIndicator)
+        self.diaryPageView.addSubview(self.activityIndicator)
         self.activityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
         
         self.view.addSubview(self.shareButton)
         self.shareButton.snp.makeConstraints { make in
-            make.top.equalTo(self.pageView.snp.bottom).offset(5)
-            make.leading.equalTo(self.pageView.snp.leading)
+            make.top.equalTo(self.diaryPageView.snp.bottom).offset(5)
+            make.leading.equalTo(self.diaryPageView.snp.leading)
             make.width.equalTo(30)
             make.height.equalTo(self.shareButton.snp.width)
         }
         
         self.view.addSubview(self.editPageButton)
         self.editPageButton.snp.makeConstraints { make in
-            make.top.equalTo(self.pageView.snp.bottom).offset(5)
-            make.trailing.equalTo(self.pageView.snp.trailing)
+            make.top.equalTo(self.diaryPageView.snp.bottom).offset(5)
+            make.trailing.equalTo(self.diaryPageView.snp.trailing)
             make.width.equalTo(30)
             make.height.equalTo(self.editPageButton.snp.width)
         }
 
         self.editPageButton.isEnabled = self.viewModel.isPageEditable()
+        self.activityIndicator.startAnimating()
     }
     
     private func bindUI() {
@@ -153,58 +144,23 @@ class PageDetailViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        self.activityIndicator.startAnimating()
         self.viewModel.rawPageEntityPublisher
+            .compactMap { $0 }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] rawPageEntity in
-                guard let rawPageEntity = rawPageEntity,
-                      let self = self else { return }
-                self.drawPage(with: rawPageEntity)
+                self?.diaryPageView.pageBackgroundColor = UIColor(cgColor: rawPageEntity.backgroundType.rawValue)
+                self?.diaryPageView.components = rawPageEntity.components
             }.store(in: &self.cancellables)
     }
     
-    private func drawPage(with rawPage: RawPageEntity) {
-        self.pageView.backgroundColor = UIColor(cgColor: rawPage.backgroundType.rawValue)
-        self.pageView.subviews.forEach { $0.removeFromSuperview() }
-        
-        for componentEntity in rawPage.components {
-            guard let componentView = self.getComponentView(from: componentEntity) else { return }
-            componentView.frame = CGRect(
-                origin: self.computePointFromAbsolute(at: componentEntity.origin),
-                size: self.computeSizeFromAbsolute(with: componentEntity.frame.size)
-            )
-            componentView.transform = CGAffineTransform.identity
-                .rotated(by: componentEntity.angle)
-                .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
-            
-            self.pageView.addSubview(componentView)
-        }
-
-        self.activityIndicator.stopAnimating()
-    }
-    
-    private func computePointFromAbsolute(at point: CGPoint) -> CGPoint {
-        let computedX = point.x * self.widthRatioFromAbsolute
-        let computedY = point.y * self.heightRatioFromAbsolute
-        return CGPoint(x: computedX, y: computedY)
-    }
-    
-    private func computeSizeFromAbsolute(with size: CGSize) -> CGSize {
-        let computedWidth =  size.width  * self.widthRatioFromAbsolute
-        let computedHeight = size.height  * self.widthRatioFromAbsolute
-        return CGSize(width: computedWidth, height: computedHeight)
-    }
-    
     private func savePageAndShare() {
-        UIGraphicsBeginImageContext(self.pageView.frame.size)
+        UIGraphicsBeginImageContext(self.diaryPageView.frame.size)
         guard let context = UIGraphicsGetCurrentContext() else { return }
-        self.pageView.layer.render(in: context)
+        self.diaryPageView.layer.render(in: context)
         if let pageImage = UIGraphicsGetImageFromCurrentImageContext() {
             UIGraphicsEndImageContext()
-            
             var imagesToShare = [AnyObject]()
             imagesToShare.append(pageImage)
-            
             let activityViewController = UIActivityViewController(activityItems: imagesToShare , applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             present(activityViewController, animated: true, completion: nil)
@@ -214,33 +170,10 @@ class PageDetailViewController: UIViewController {
     private func configureFont() {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
     }
-    
-    private func getComponentView(from componentEntity: ComponentEntity) -> UIView? {
-        switch componentEntity {
-        case let photoComponentEtitiy as PhotoComponentEntity:
-            let photoView =  UIImageView()
-            photoView.kf.setImage(with: photoComponentEtitiy.imageUrl)
-            photoView.layer.shadowColor = UIColor.lightGray.cgColor
-            photoView.layer.shadowOpacity = 0.3
-            photoView.layer.shadowRadius = 10
-            photoView.layer.shadowOffset = CGSize(width: -5, height: -5)
-            return photoView
-        case let stickerComponentEntity as StickerComponentEntity:
-            let stickerView = UIImageView()
-            stickerView.image = UIImage(named: stickerComponentEntity.name)
-            stickerView.contentMode = .scaleAspectFit
-            return stickerView
-        case let textComponentEntity as TextComponentEntity:
-            let textView = UILabel()
-            textView.numberOfLines = 0
-            textView.textAlignment = .center
-            textView.adjustsFontSizeToFitWidth = true
-            textView.adjustsFontForContentSizeCategory = true
-            textView.text = textComponentEntity.text
-            textView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
-            textView.font = .systemFont(ofSize: textComponentEntity.fontSize)
-            return textView
-        default: return nil
-        }
+}
+
+extension PageDetailViewController: DiaryPageViewDelegate {
+    func diaryPageDrawDidFinish(_ diaryPageView: DiaryPageView) {
+        self.activityIndicator.stopAnimating()
     }
 }
