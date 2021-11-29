@@ -106,9 +106,10 @@ class SettingsViewModel: SettingsViewModelProtocol {
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
             } receiveValue: { [weak self] _ in
-                guard let friendId = self?.user.friendId,
-                      self?.user.id != friendId else { return }
-                self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userDisconnected)
+                if let friendId = self?.user.friendId,
+                   friendId != self?.user.id {
+                    self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userDisconnected)
+                }
                 self?.coordinator.splashViewRequested()
             }
             .store(in: &self.cancellables)
