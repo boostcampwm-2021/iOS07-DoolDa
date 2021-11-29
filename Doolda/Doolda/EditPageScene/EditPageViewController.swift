@@ -15,9 +15,6 @@ class EditPageViewController: UIViewController {
     
     // MARK: - Subviews
     
-    private lazy var scrollView: UIScrollView = UIScrollView()
-    private lazy var contentView: UIView = UIView()
-    
     private lazy var cancelButton: UIButton = {
         var button = UIButton()
         button.setImage(.xmark, for: .normal)
@@ -159,50 +156,35 @@ class EditPageViewController: UIViewController {
         self.title = "페이지 편집"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.cancelButton)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.saveButton)
-
-        self.view.addSubview(self.scrollView)
-        self.scrollView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.leading.trailing.equalToSuperview()
-        }
         
-        self.scrollView.addSubview(self.contentView)
-        self.contentView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().priority(.low)
-            make.centerY.equalToSuperview().priority(.low)
-        }
-        
-        self.contentView.addSubview(self.pageView)
+        self.view.addSubview(self.pageView)
         self.pageView.isUserInteractionEnabled = true
         self.pageView.clipsToBounds = true
         self.pageView.layer.cornerRadius = 4
         self.pageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.scrollView.snp.top).offset(12)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(12)
             make.width.equalTo(self.pageView.snp.height).multipliedBy(17.0 / 30.0)
             let screenHeight = UIScreen.main.bounds.size.height
             if screenHeight > 750 {
-                make.height.equalTo(self.scrollView.snp.height).offset(-100)
+                make.height.equalTo(self.view.safeAreaLayoutGuide).offset(-65)
             } else {
-                make.height.equalTo(self.scrollView.snp.height).offset(-45)
+                make.height.equalTo(self.view.safeAreaLayoutGuide).offset(-45)
             }
         }
         
-        self.contentView.addSubview(self.pageControlView)
+        self.view.addSubview(self.pageControlView)
         self.pageControlView.clipsToBounds = true
         self.pageControlView.isUserInteractionEnabled = true
         self.pageControlView.snp.makeConstraints { make in
             make.edges.equalTo(self.pageView)
         }
         
-        self.contentView.addSubview(self.componentsStackView)
+        self.view.addSubview(self.componentsStackView)
         self.componentsStackView.snp.makeConstraints { make in
             make.leading.equalTo(self.pageView)
             make.top.equalTo(self.pageView.snp.bottom).offset(5)
-            make.bottom.equalToSuperview().offset(-5)
-            make.width.equalTo(150)
+            make.width.equalTo(135)
         }
         
         self.view.addSubview(self.activityIndicator)
