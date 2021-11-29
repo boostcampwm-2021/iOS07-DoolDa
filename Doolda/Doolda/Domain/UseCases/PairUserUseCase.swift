@@ -95,16 +95,27 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
     func disconnectPair(user: User) -> AnyPublisher<User, Error> {
         let resetUser = User(id: user.id, pairId: nil, friendId: nil)
         let publisher: AnyPublisher<User, Error>
+        
         if let friendId = user.friendId,
            resetUser.id != friendId {
-            publisher = Publishers.Zip(
+            publisher = Publishers.Zip3(
                 self.userRepository.resetUser(resetUser),
-                self.userRepository.resetUser(User(id: friendId, pairId: nil, friendId: nil))
+                self.userRepository.resetUser(User(id: friendId, pairId: nil, friendId: nil)),
+                self.pairRepository.deletePair(with: user)
             )
-                .map { user, _ -> User in user }
+                .map { user, _, _ in
+                    return user
+                }
                 .eraseToAnyPublisher()
         } else {
-            publisher = self.userRepository.resetUser(resetUser)
+            publisher = Publishers.Zip(
+                self.userRepository.resetUser(resetUser),
+                self.pairRepository.deletePair(with: user)
+            )
+                .map { user, _ in
+                    return user
+                }
+                .eraseToAnyPublisher()
         }
         
         return publisher
