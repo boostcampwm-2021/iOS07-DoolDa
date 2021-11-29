@@ -809,15 +809,7 @@
 		664893E527300AB9009F03E2 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */,
-				FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */,
-				1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */,
-				1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */,
-				319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */,
-				FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */,
-				FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */,
-				1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */,
-				1D999469274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift */,
+				66F176062754C0E3006ACB41 /* Repositories */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -900,6 +892,22 @@
 				66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */,
 			);
 			path = PhotoFrames;
+			sourceTree = "<group>";
+		};
+		66F176062754C0E3006ACB41 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */,
+				FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */,
+				1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */,
+				1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */,
+				319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */,
+				FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */,
+				FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */,
+				1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */,
+				1D999469274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
