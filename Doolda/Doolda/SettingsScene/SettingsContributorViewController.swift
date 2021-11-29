@@ -19,11 +19,20 @@ class SettingsContributorViewController: UIViewController {
         return imageView
     }()
 
+    // MARK: - Public Properties
+
+    @Published var titleText: String?
+    
+    // MARK: - Private Properties
+
+    private var cancellables: Set<AnyCancellable> = []
+
     // MARK: - LifeCycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.bindUI()
     }
 
     // MARK: - Helpers
@@ -36,5 +45,14 @@ class SettingsContributorViewController: UIViewController {
             make.top.leading.equalTo(self.view.safeAreaLayoutGuide).offset(16)
             make.bottom.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-16)
         }
+    }
+
+    private func bindUI() {
+        self.$titleText
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] title in
+                self?.navigationItem.title = title
+            }
+            .store(in: &self.cancellables)
     }
 }

@@ -58,7 +58,13 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
         settingsViewController.present(fontPickerSheet, animated: false, completion: nil)
     }
 
-    func settingsOptionRequested(for option: DooldaInfoType) {
+    func settingsContributorRequested() {
+        let viewController = SettingsContributorViewController()
+        viewController.titleText = DooldaInfoType.contributor.title
+        self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    func settingsDetailInfoRequested(for option: DooldaInfoType) {
         let viewController = SettingsDetailedInfoViewController()
         viewController.titleText = option.title
         viewController.contentText = option.content
