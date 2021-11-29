@@ -81,6 +81,7 @@ class TextEditViewController: UIViewController {
     private var viewModel: TextEditViewModelProtocol!
     private weak var delegate: TextEditViewControllerDelegate?
     private var feedbackGenerator: UIImpactFeedbackGenerator?
+    private var initialScrollDone: Bool = false
     
     override var inputAccessoryView: UIView? {
         return self.fontColorView
@@ -111,6 +112,22 @@ class TextEditViewController: UIViewController {
         self.configureGenerator()
         self.bindUI()
     }
+    
+    override func viewWillLayoutSubviews() {
+       super.viewWillLayoutSubviews()
+         if !self.initialScrollDone {
+            self.initialScrollDone = true
+             if let selectedTextComponent = self.viewModel?.selectedTextComponent,
+                let selecedColorIndex = FontColorType.allCases.firstIndex(of: selectedTextComponent.fontColor) {
+                 self.currentColorIndex = selecedColorIndex
+                 self.fontColorView.collectionView.scrollToItem(
+                     at: IndexPath.init(row: selecedColorIndex, section: 0),
+                     at: .centeredHorizontally,
+                     animated: true
+                 )
+             }
+       }
+   }
     
     // MARK: - Helpers
     
