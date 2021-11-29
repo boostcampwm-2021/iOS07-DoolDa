@@ -124,7 +124,7 @@ class TextEditViewController: UIViewController {
     }
     
     private func configureGenerator() {
-        self.feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+        self.feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         self.feedbackGenerator?.prepare()
     }
     
