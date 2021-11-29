@@ -208,7 +208,11 @@ class DiaryViewModel: DiaryViewModelProtocol {
         guard let pairId = self.user.pairId else { return }
         self.isRefreshing = true
         
-        Publishers.Zip(self.checkMyTurnUseCase.checkTurn(for: self.user), self.getPageUseCase.getPages(for: pairId))
+        Publishers.Zip(
+            self.checkMyTurnUseCase.checkTurn(for: self.user),
+            self.getPageUseCase.getPages(for: pairId)
+        )
+            .delay(for: .seconds(1), scheduler: DispatchQueue.global())
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
