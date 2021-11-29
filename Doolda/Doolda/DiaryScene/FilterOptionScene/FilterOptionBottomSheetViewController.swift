@@ -54,6 +54,11 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
         button.layer.cornerRadius = 22
         return button
     }()
+
+    private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        return generator
+    }()
     
     // MARK: - Private Properties
     
@@ -171,6 +176,8 @@ class FilterOptionBottomSheetViewController: BottomSheetViewController {
         )
             .sink { [weak self] _, authorFilter, orderFilter in
                 guard let self = self else { return }
+                self.hapticGenerator.prepare()
+                self.hapticGenerator.impactOccurred()
                 self.delegate?.applyButtonDidTap(self, authorFilter: authorFilter, orderFilter: orderFilter)
                 self.dismiss(animated: true)
             }

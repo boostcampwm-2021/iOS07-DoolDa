@@ -37,6 +37,11 @@ class PageDetailViewController: UIViewController {
         return activityIndicator
     }()
 
+    private lazy var hapticGenerator: UIImpactFeedbackGenerator = {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        return generator
+    }()
+
     // MARK: - Override Properties
 
     override var prefersStatusBarHidden: Bool { return true }
@@ -138,6 +143,8 @@ class PageDetailViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
+                self.hapticGenerator.prepare()
+                self.hapticGenerator.impactOccurred()
                 self.savePageAndShare()
             }
             .store(in: &self.cancellables)
@@ -145,6 +152,8 @@ class PageDetailViewController: UIViewController {
         self.editPageButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
                 self?.viewModel.editPageButtonDidTap()
             }
             .store(in: &self.cancellables)
