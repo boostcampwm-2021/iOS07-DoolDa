@@ -157,10 +157,10 @@ class SettingsViewController: UIViewController {
             .store(in: &self.cancellables)
 
         self.viewModel.errorPublisher
-            .compactMap { $0 }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
-                let alert = UIAlertController.defaultAlert(title: "알림", message: error.localizedDescription) { _ in }
+                guard let error = error as? LocalizedError else { return }
+                let alert = UIAlertController.defaultAlert(title: "오류", message: error.localizedDescription) { _ in }
                 self?.present(alert, animated: true, completion: nil)
             }
             .store(in: &self.cancellables)
