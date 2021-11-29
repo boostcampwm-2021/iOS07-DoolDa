@@ -23,12 +23,7 @@ enum ImageComposeUseCaseError: LocalizedError {
     }
 }
 
-protocol ImageComposeUseCaseProtocol {
-    func isComposable(photoFrameType: PhotoFrameType?, numberOfPhotos: Int) -> Bool
-    func compose(photoFrameType: PhotoFrameType, images: [CIImage]) -> AnyPublisher<CIImage, Error>
-}
-
-class ImageComposeUseCase: ImageComposeUseCaseProtocol {
+final class ImageComposeUseCase: ImageComposeUseCaseProtocol {
     func isComposable(photoFrameType: PhotoFrameType?, numberOfPhotos: Int) -> Bool {
         guard let photoFrame = photoFrameType?.rawValue else { return false }
 
