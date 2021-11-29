@@ -19,6 +19,14 @@ class TextEditViewController: UIViewController {
     
     // MARK: - Subviews
     
+    private lazy var placeholderLabel: UILabel = {
+        var label = UILabel()
+        label.font = .systemFont(ofSize: 18)
+        label.text = "내용을 입력하세요"
+        label.textColor = .systemGray
+        return label
+    }()
+    
     private lazy var inputTextView: UITextView = {
         var textView = UITextView()
         textView.font = .systemFont(ofSize: 18)
@@ -28,6 +36,7 @@ class TextEditViewController: UIViewController {
         textView.textAlignment = .center
         textView.delegate = self
         textView.autocapitalizationType = .none
+        textView.tintColor = .clear
         return textView
     }()
     
@@ -108,6 +117,12 @@ class TextEditViewController: UIViewController {
     private func configureUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         
+        self.view.addSubview(self.placeholderLabel)
+        self.placeholderLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(self.view.snp.centerY).offset(-9)
+        }
+        
         self.view.addSubview(self.inputTextView)
         self.inputTextView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -173,10 +188,10 @@ class TextEditViewController: UIViewController {
 extension TextEditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if let selectedTextComponent = self.viewModel?.selectedTextComponent {
+            self.placeholderLabel.isHidden = true
             self.inputTextView.text = selectedTextComponent.text
         } else {
-            textView.text = "내용을 입력하세요"
-            textView.textColor = .systemGray
+            self.placeholderLabel.isHidden = false
         }
         textView.sizeToFit()
         textView.snp.makeConstraints { make in
@@ -186,19 +201,15 @@ extension TextEditViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.textColor == .systemGray,
-           let input = textView.text.last {
-            if !"내용을 입력하세요".contains(input) {
-                textView.text = String(input)
-            } else {
-                textView.text = ""
-            }
-            guard let currentColor = self.viewModel.getFontColor(at: self.currentColorIndex) else { return }
-            textView.textColor = UIColor(cgColor: currentColor)
-        } else if textView.textColor != .systemGray, textView.text.isEmpty {
-            textView.textColor = .systemGray
-            textView.text = "내용을 입력하세요"
+        if textView.text.isEmpty {
+            self.placeholderLabel.isHidden = false
+            self.inputTextView.tintColor = .clear
+
+        } else {
+            self.placeholderLabel.isHidden = true
+            self.inputTextView.tintColor = .black
         }
+
         let maximumWidth: CGFloat = self.view.frame.width - 40
         let newSize = textView.sizeThatFits(CGSize(width: maximumWidth, height: CGFloat.greatestFiniteMagnitude))
         
