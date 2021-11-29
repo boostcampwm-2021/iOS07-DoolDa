@@ -42,7 +42,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         let slider = UISlider()
         slider.maximumValue = 100
         slider.minimumValue = 0
-        slider.maximumTrackTintColor = UIColor.dooldaMaximumTrackTintColor
+        slider.setMaximumTrackImage(UIImage.dottedLine, for: .normal)
         slider.minimumTrackTintColor = UIColor.dooldaMinimumTrackTintColor
         return slider
     }()
@@ -110,6 +110,7 @@ class PackedStickerCollectionViewCell: UICollectionViewCell {
         self.slider.tintColor = .darkGray
         self.slider.setThumbImage(UIImage.scissors, for: .normal)
         self.slider.setThumbImage(UIImage.scissors, for: .highlighted)
+
         self.stickerPackCover.addSubview(self.slider)
         self.slider.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
