@@ -127,6 +127,7 @@
 		319C21E0273BD791009CE65C /* URLRequsetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FAB27360F8600C918A0 /* URLRequsetBuilder.swift */; };
 		319C21E1273BD805009CE65C /* URLSessionNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */; };
 		319C222D273CEFBB009CE65C /* CIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C222C273CEFBB009CE65C /* CIImage+Extension.swift */; };
+		31BEC80B2754DD74009AF22A /* license.txt in Resources */ = {isa = PBXBuildFile; fileRef = 31BEC80A2754DD74009AF22A /* license.txt */; };
 		661A840427434FE10077E0E3 /* GetPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A840327434FE10077E0E3 /* GetPageUseCase.swift */; };
 		661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
@@ -339,6 +340,7 @@
 		319C21D5273BD764009CE65C /* URLSessionNetworkServiceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URLSessionNetworkServiceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		319C21D7273BD764009CE65C /* URLSessionNetworkServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkServiceTest.swift; sourceTree = "<group>"; };
 		319C222C273CEFBB009CE65C /* CIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Extension.swift"; sourceTree = "<group>"; };
+		31BEC80A2754DD74009AF22A /* license.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
 		661A840327434FE10077E0E3 /* GetPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPageUseCase.swift; sourceTree = "<group>"; };
 		661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyTurnUseCase.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -720,8 +722,9 @@
 				664893CB273007F1009F03E2 /* LaunchScreen.storyboard */,
 				664893CE273007F1009F03E2 /* Info.plist */,
 				665303992743B3FF00E3075C /* CoreDataModel.xcdatamodeld */,
-				1D8AFD0727506BE100822B89 /* Config.xcconfig */,
-				1D8AFD0827506BE100822B89 /* GoogleService-Info.plist */,
+				1DC17BD4274E2B22006774FD /* Config.xcconfig */,
+				1D99945F274C8E6300C72273 /* GoogleService-Info.plist */,
+				31BEC80A2754DD74009AF22A /* license.txt */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1112,6 +1115,7 @@
 				66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
 				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
+				31BEC80B2754DD74009AF22A /* license.txt in Resources */,
 				318D9F67274D4D5000AA6F0E /* darae.ttf in Resources */,
 				318D9F69274D4D9900AA6F0E /* kyoboHandwriting.otf in Resources */,
 			);
