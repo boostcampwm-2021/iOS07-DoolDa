@@ -65,13 +65,6 @@ class DiaryCollectionViewCell: UICollectionViewCell {
     
     private var cancellables: Set<AnyCancellable> = []
     private var rawPageEntityPublisherCancellable: Cancellable?
-    private var widthRatioFromAbsolute: CGFloat {
-        return self.frame.size.width / 1700.0
-    }
-    
-    private var heightRatioFromAbsolute: CGFloat {
-        return self.frame.size.height / 3000.0
-    }
     
     // MARK: - Initializers
     
