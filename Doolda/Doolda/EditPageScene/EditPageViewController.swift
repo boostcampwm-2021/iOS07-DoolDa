@@ -312,13 +312,6 @@ class EditPageViewController: UIViewController {
                 
                 componentView.transform = CGAffineTransform.identity
                 self.pageControlView.componentSpaceView.transform = CGAffineTransform.identity
-                
-                if let textComponentEntity = componentEntity as? TextComponentEntity,
-                   let textComponentView = componentView as? UITextView {
-                    textComponentView.text = textComponentEntity.text
-                    textComponentView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
-                    textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
-                }
 
                 let computedCGRect = CGRect(
                     origin: self.computePointFromAbsolute(at: componentEntity.origin),
@@ -338,6 +331,14 @@ class EditPageViewController: UIViewController {
                     y: componentEntity.scale
                 )
                 componentView.transform = transform
+                
+                if let textComponentEntity = componentEntity as? TextComponentEntity,
+                   let textComponentView = componentView as? UILabel {
+                    textComponentView.text = textComponentEntity.text
+                    textComponentView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
+                    textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
+                }
+                
                 self.pageControlView.componentSpaceView.transform = transform
                 self.pageControlView.controlsView.transform = transform
                 
@@ -386,13 +387,13 @@ class EditPageViewController: UIViewController {
                             .scaledBy(x: componentEntity.scale, y: componentEntity.scale)
                         stickerComponentView.transform = transform
                     case let textComponentEntity as TextComponentEntity:
-                        let textComponentView = UITextView(frame: computedCGRect)
+                        let textComponentView = UILabel(frame: computedCGRect)
                         textComponentView.backgroundColor = .clear
                         textComponentView.text = textComponentEntity.text
                         textComponentView.font = .systemFont(ofSize: textComponentEntity.fontSize)
                         textComponentView.textColor = UIColor(cgColor: textComponentEntity.fontColor.rawValue)
-                        textComponentView.isScrollEnabled = false
                         textComponentView.textAlignment = .center
+                        textComponentView.numberOfLines = 0
 
                         self.componentViewDictionary[textComponentEntity] = textComponentView
                         self.pageView.addSubview(textComponentView)
