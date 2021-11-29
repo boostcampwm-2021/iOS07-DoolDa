@@ -33,7 +33,7 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
 
             let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)
             let pushNotificationStateUseCase = PushNotificationStateUseCase(pushNotificationStateRepository: pushNotificationStateRepository)
-            let pairUserUseCase = PairUserUseCase(userRepository: userRepository, pairRepository: pairRepository)
+            let unpairUserUseCase = UnpairUserUseCase(userRepository: userRepository, pairRepository: pairRepository)
             let firebaseMessageUseCase = FirebaseMessageUseCase(
                 fcmTokenRepository: fcmTokenRepository,
                 firebaseMessageRepository: firebaseMessageRepository
@@ -43,7 +43,7 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
                 user: self.user,
                 coordinator: self,
                 globalFontUseCase: globalFontUseCase,
-                pairUserUseCase: pairUserUseCase,
+                unpairUserUseCase: unpairUserUseCase,
                 pushNotificationStateUseCase: pushNotificationStateUseCase,
                 firebaseMessageUseCase: firebaseMessageUseCase
             )
