@@ -58,16 +58,17 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
         settingsViewController.present(fontPickerSheet, animated: false, completion: nil)
     }
 
-    func settingsContributorRequested() {
-        let viewController = SettingsContributorViewController()
-        viewController.titleText = DooldaInfoType.contributor.title
-        self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
-    }
-
-    func settingsDetailInfoRequested(for option: DooldaInfoType) {
-        let viewController = SettingsDetailedInfoViewController()
+    func informationViewRequested(for option: DooldaInfoType) {
+        let viewController = InformationViewController()
         viewController.titleText = option.title
-        viewController.contentText = option.content
+
+        if option == .contributor {
+            // FIXME: 만든 사람들 이미지를 넣어야함!!
+            // viewController.image = UIImage.contributorImage
+        } else {
+            viewController.contentText = option.content
+        }
+
         self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
     }
 

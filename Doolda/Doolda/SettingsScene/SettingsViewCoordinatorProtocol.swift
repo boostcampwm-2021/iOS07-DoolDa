@@ -9,7 +9,6 @@ import Foundation
 
 protocol SettingsViewCoordinatorProtocol {
     func fontPickerSheetRequested()
-    func settingsContributorRequested()
-    func settingsDetailInfoRequested(for option: DooldaInfoType)
+    func informationViewRequested(for option: DooldaInfoType)
     func splashViewRequested()
 }
