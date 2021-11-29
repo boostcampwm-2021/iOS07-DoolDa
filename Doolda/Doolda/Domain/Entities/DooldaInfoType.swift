@@ -26,3 +26,33 @@ enum DooldaInfoType: String {
         }
     }
 }
+
+extension DooldaInfoType {
+    var title: String {
+        switch self {
+        case .appVersion:
+            return "앱 현재 버전"
+        case .openSourceLicense:
+            return "Open Source License"
+        case .privacyPolicy:
+            return "개인 정보 처리 방침"
+        case .contributor:
+            return "만든 사람들"
+        }
+    }
+
+    var content: String {
+        switch self {
+        case .appVersion:
+            return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        case .openSourceLicense:
+            guard let path =  Bundle.main.path(forResource: "license", ofType: "txt"),
+                  let text = try? String(contentsOfFile: path) else { return "" }
+            return text
+        case .privacyPolicy:
+            return "개인 정보 처리 방침"
+        case .contributor:
+            return ""
+        }
+    }
+}
