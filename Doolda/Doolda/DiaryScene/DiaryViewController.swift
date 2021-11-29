@@ -62,18 +62,21 @@ class DiaryViewController: UIViewController {
     private lazy var displayModeToggleButton: UIButton = {
         let button = UIButton()
         button.setImage(.square, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
     private lazy var filterButton: UIButton = {
         let button = UIButton()
         button.setImage(.line3HorizontalDecrease, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
     private lazy var settingsButton: UIButton = {
         let button = UIButton()
         button.setImage(.gearshape, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
@@ -132,6 +135,7 @@ class DiaryViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.barTintColor = .dooldaBackground
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.settingsButton)
+
         self.navigationItem.leftBarButtonItems = [
             UIBarButtonItem(customView: self.displayModeToggleButton),
             UIBarButtonItem(customView: self.filterButton)
