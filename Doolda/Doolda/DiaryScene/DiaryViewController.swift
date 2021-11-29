@@ -200,12 +200,16 @@ class DiaryViewController: UIViewController {
         
         self.filterButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
                 self?.viewModel.filterButtonDidTap()
             }
             .store(in: &self.cancellables)
         
         self.settingsButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
+                self?.hapticGenerator.prepare()
+                self?.hapticGenerator.impactOccurred()
                 self?.viewModel.settingsButtonDidTap()
             }
             .store(in: &self.cancellables)
