@@ -20,6 +20,7 @@ class SettingsDetailedInfoViewController: UIViewController {
         textView.textColor = .dooldaLabel
         textView.backgroundColor = .clear
         textView.isScrollEnabled = true
+        textView.isEditable = false
         return textView
     }()
 
