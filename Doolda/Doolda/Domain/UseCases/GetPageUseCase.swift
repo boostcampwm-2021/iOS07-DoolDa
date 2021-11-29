@@ -8,11 +8,7 @@
 import Combine
 import Foundation
 
-protocol GetPageUseCaseProtocol {
-    func getPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error>
-}
-
-class GetPageUseCase: GetPageUseCaseProtocol {
+final class GetPageUseCase: GetPageUseCaseProtocol {
     private let pageRepository: PageRepositoryProtocol
     
     init(pageRepository: PageRepositoryProtocol) {
