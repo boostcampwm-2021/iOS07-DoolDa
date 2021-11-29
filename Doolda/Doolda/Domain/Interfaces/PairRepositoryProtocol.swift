@@ -13,4 +13,5 @@ protocol PairRepositoryProtocol {
     
     func setRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error>
     func fetchRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error>
+    func deletePair(with user: User) -> AnyPublisher<User, Error>
 }
