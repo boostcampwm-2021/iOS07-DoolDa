@@ -47,24 +47,28 @@ class EditPageViewController: UIViewController {
     private lazy var addPhotoComponentButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
         button.setImage(.photo, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
     private lazy var addTextComponentButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
         button.setImage(.textformat, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
     private lazy var addStickerComponentButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
         button.setImage(.sticker, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
     private lazy var changeBackgroundTypeButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
         button.setImage(.background, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
@@ -198,7 +202,7 @@ class EditPageViewController: UIViewController {
             make.leading.equalTo(self.pageView)
             make.top.equalTo(self.pageView.snp.bottom).offset(5)
             make.bottom.equalToSuperview().offset(-5)
-            make.width.equalTo(135)
+            make.width.equalTo(150)
         }
         
         self.view.addSubview(self.activityIndicator)
