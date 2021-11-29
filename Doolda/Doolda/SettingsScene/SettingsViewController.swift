@@ -156,6 +156,15 @@ class SettingsViewController: UIViewController {
             }
             .store(in: &self.cancellables)
 
+        self.viewModel.errorPublisher
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                let alert = UIAlertController.defaultAlert(title: "알림", message: error.localizedDescription) { _ in }
+                self?.present(alert, animated: true, completion: nil)
+            }
+            .store(in: &self.cancellables)
+
         self.disconnectButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
