@@ -8,13 +8,7 @@
 import Combine
 import Foundation
 
-protocol FirebaseMessageUseCaseProtocol {
-    var errorPublisher: Published<Error?>.Publisher { get }
-    
-    func sendMessage(to user: DDID, message: PushMessageEntity)
-}
-
-class FirebaseMessageUseCase: FirebaseMessageUseCaseProtocol {
+final class FirebaseMessageUseCase: FirebaseMessageUseCaseProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     
     private let fcmTokenRepository: FCMTokenRepositoryProtocol

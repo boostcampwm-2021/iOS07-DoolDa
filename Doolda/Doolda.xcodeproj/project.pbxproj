@@ -173,6 +173,7 @@
 		66F176232754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */; };
 		66F176252754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */; };
 		66F176272754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */; };
+		66F176292754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -385,6 +386,7 @@
 		66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -962,6 +964,7 @@
 				66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */,
 				66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */,
 				66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */,
+				66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1257,6 +1260,7 @@
 				FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
 				66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */,
+				66F176292754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift in Sources */,
 				310D81482733F56700F15F4F /* DiaryViewController.swift in Sources */,
 				FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */,
 				665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */,
