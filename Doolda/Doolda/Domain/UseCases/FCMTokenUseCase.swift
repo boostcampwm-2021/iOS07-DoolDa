@@ -8,12 +8,7 @@
 import Combine
 import Foundation
 
-protocol FCMTokenUseCaseProtocol {
-    func setToken(for userId: DDID, with token: String) -> AnyPublisher<String, Error>
-    func getToken(for userId: DDID) -> AnyPublisher<String, Error>
-}
-
-class FCMTokenUseCase: FCMTokenUseCaseProtocol {
+final class FCMTokenUseCase: FCMTokenUseCaseProtocol {
     private let fcmTokenRepository: FCMTokenRepositoryProtocol
     
     init(fcmTokenRepository: FCMTokenRepositoryProtocol) {

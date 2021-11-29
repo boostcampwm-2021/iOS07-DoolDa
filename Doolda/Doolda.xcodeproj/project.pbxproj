@@ -172,6 +172,7 @@
 		66F176212754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */; };
 		66F176232754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */; };
 		66F176252754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */; };
+		66F176272754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -383,6 +384,7 @@
 		66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -959,6 +961,7 @@
 				66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */,
 				66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */,
 				66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */,
+				66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1206,6 +1209,7 @@
 				1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */,
 				665303AA2744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift in Sources */,
 				6653039D2743B49E00E3075C /* CoreDataPersistenceService.swift in Sources */,
+				66F176272754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift in Sources */,
 				1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */,
 				1D8BE07F2743846A00201E3E /* DiaryCollectionViewHeader.swift in Sources */,
 				66F176112754C370006ACB41 /* RegisterUserUseCaseProtocol.swift in Sources */,
