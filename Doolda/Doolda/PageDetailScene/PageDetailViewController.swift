@@ -22,12 +22,14 @@ class PageDetailViewController: UIViewController {
     private lazy var shareButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
         button.setImage(.squareAndArrowUp, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
     private lazy var editPageButton: UIButton = {
         var button = UIButton(frame: CGRect(x: .zero, y: .zero, width: 24, height: 24))
         button.setImage(.squareAndPencil, for: .normal)
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 21), forImageIn: .normal)
         return button
     }()
     
