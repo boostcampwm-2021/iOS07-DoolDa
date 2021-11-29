@@ -8,14 +8,7 @@
 import CoreGraphics
 import Foundation
 
-protocol StickerUseCaseProtocol {
-    var stickerPacks: [StickerPackType] { get }
-    func getStickerPackEntity(at index: Int) -> StickerPackEntity?
-    func getStickerName(at indexPath: IndexPath) -> String?
-    func selectSticker(at indexPath: IndexPath) -> StickerComponentEntity?
-}
-
-class StickerUseCase: StickerUseCaseProtocol {
+final class StickerUseCase: StickerUseCaseProtocol {
     let stickerPacks: [StickerPackType]
     
     init() {
