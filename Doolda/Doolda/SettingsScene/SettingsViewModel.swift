@@ -80,24 +80,15 @@ class SettingsViewModel: SettingsViewModelProtocol {
     }
 
     func openSourceLicenseDidTap() {
-        self.coordinator.settingsOptionRequested(
-            title: "Open Source License",
-            text: DooldaInfoType.openSourceLicense.rawValue
-        )
+        self.coordinator.settingsOptionRequested(for: .openSourceLicense)
     }
 
     func privacyPolicyDidTap() {
-        self.coordinator.settingsOptionRequested(
-            title: "개인 정보 처리 방침",
-            text: DooldaInfoType.privacyPolicy.rawValue
-        )
+        self.coordinator.settingsOptionRequested(for: .privacyPolicy)
     }
 
     func contributorDidTap() {
-        self.coordinator.settingsOptionRequested(
-            title: "만든 사람들",
-            text: DooldaInfoType.contributor.rawValue
-        )
+        self.coordinator.settingsOptionRequested(for: .contributor)
     }
     
     func unpairButtonDidTap() {
