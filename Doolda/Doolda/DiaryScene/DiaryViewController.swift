@@ -134,6 +134,7 @@ class DiaryViewController: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.barTintColor = .dooldaBackground
+        self.navigationItem.backButtonTitle = ""
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.settingsButton)
 
         self.navigationItem.leftBarButtonItems = [
