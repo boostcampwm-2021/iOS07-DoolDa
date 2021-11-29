@@ -15,6 +15,7 @@ enum FirebaseAPIs: URLRequestBuilder {
     case getPairDocument(String)
     case createPairDocument(String, String)
     case patchPairDocument(String, String)
+    case deletePairDocument(String)
     
     case getPageDocuments(String, Date?)
     case createPageDocument(String, Date, Date, String, String)
@@ -49,7 +50,7 @@ extension FirebaseAPIs {
             return "documents/user/\(userId)"
         case .createUserDocument:
             return "documents/user"
-        case .getPairDocument(let pairId), .patchPairDocument(let pairId, _):
+        case .getPairDocument(let pairId), .patchPairDocument(let pairId, _), .deletePairDocument(let pairId):
             return "documents/pair/\(pairId)"
         case .createPairDocument:
             return "documents/pair"
@@ -69,7 +70,13 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var parameters: [String : String]? {
         switch self {
-        case .getUserDocuement, .getPairDocument, .getPageDocuments, .sendFirebaseMessage, .getFCMTokenDocument, .patchFCMTokenDocument:
+        case .getUserDocuement,
+             .getPairDocument,
+             .getPageDocuments,
+             .sendFirebaseMessage,
+             .getFCMTokenDocument,
+             .patchFCMTokenDocument,
+             .deletePairDocument:
             return nil
         case .createUserDocument(let id), .createPairDocument(let id, _):
             return ["documentId": id]
@@ -92,6 +99,8 @@ extension FirebaseAPIs {
             return .post
         case .patchUserDocument, .patchPairDocument, .patchPageDocument, .patchFCMTokenDocument:
             return .patch
+        case .deletePairDocument:
+            return .delete
         }
     }
 }
@@ -112,7 +121,7 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var body: [String: Any]? {
         switch self {
-        case .getUserDocuement, .getPairDocument, .getFCMTokenDocument, .uploadDataFile, .downloadDataFile:
+        case .getUserDocuement, .getPairDocument, .getFCMTokenDocument, .uploadDataFile, .downloadDataFile, .deletePairDocument:
             return nil
         case .getPageDocuments(let pairId, let date):
             var filters = [[String: Any]]()
