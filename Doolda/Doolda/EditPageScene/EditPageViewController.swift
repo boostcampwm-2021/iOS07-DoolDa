@@ -412,6 +412,17 @@ class EditPageViewController: UIViewController {
             .sink { backgroundType in
                 self.pageView.backgroundColor = UIColor(cgColor: backgroundType.rawValue)
             }.store(in: &self.cancellables)
+        
+        self.viewModel?.errorPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let error = error as? LocalizedError else { return }
+                let alert = UIAlertController.defaultAlert(title: "알림", message: error.localizedDescription, handler: { _ in
+                    self?.activityIndicator.stopAnimating()
+                })
+                self?.present(alert, animated: true, completion: nil)
+            }
+            .store(in: &self.cancellables)
     }
     
     // MARK: - Private Methods
