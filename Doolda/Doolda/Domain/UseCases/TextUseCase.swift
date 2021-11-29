@@ -8,12 +8,7 @@
 import CoreGraphics
 import Foundation
 
-protocol TextUseCaseProtocol {
-    func changeTextComponent(from textComponent: TextComponentEntity, with input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity
-    func getTextComponent(with input: String, contentSize: CGSize, fontSize:CGFloat, color: FontColorType) -> TextComponentEntity
-}
-
-class TextUseCase: TextUseCaseProtocol {
+final class TextUseCase: TextUseCaseProtocol {
     func changeTextComponent(
         from textComponent: TextComponentEntity,
         with input: String,
