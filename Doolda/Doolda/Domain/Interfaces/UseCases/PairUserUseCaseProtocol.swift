@@ -14,5 +14,4 @@ protocol PairUserUseCaseProtocol {
     
     func pair(user: User, friendId: DDID)
     func pair(user: User)
-    func disconnectPair(user: User) -> AnyPublisher<User, Error>
 }
