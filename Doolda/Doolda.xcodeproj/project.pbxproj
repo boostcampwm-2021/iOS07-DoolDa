@@ -167,6 +167,7 @@
 		66F176172754C4F6006ACB41 /* ImageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176162754C4F6006ACB41 /* ImageUseCaseProtocol.swift */; };
 		66F176192754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176182754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift */; };
 		66F1761B2754C589006ACB41 /* GetPageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1761A2754C589006ACB41 /* GetPageUseCaseProtocol.swift */; };
+		66F1761D2754C5FF006ACB41 /* StickerUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1761C2754C5FF006ACB41 /* StickerUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -373,6 +374,7 @@
 		66F176162754C4F6006ACB41 /* ImageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176182754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyTurnUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1761A2754C589006ACB41 /* GetPageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPageUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F1761C2754C5FF006ACB41 /* StickerUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -944,6 +946,7 @@
 				66F176162754C4F6006ACB41 /* ImageUseCaseProtocol.swift */,
 				66F176182754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift */,
 				66F1761A2754C589006ACB41 /* GetPageUseCaseProtocol.swift */,
+				66F1761C2754C5FF006ACB41 /* StickerUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1325,6 +1328,7 @@
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
 				1D999466274CAB8900C72273 /* FCMTokenRepository.swift in Sources */,
 				FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */,
+				66F1761D2754C5FF006ACB41 /* StickerUseCaseProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
