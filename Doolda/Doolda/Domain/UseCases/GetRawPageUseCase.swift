@@ -8,11 +8,7 @@
 import Combine
 import Foundation
 
-protocol GetRawPageUseCaseProtocol {
-    func getRawPageEntity(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error>
-}
-
-class GetRawPageUseCase: GetRawPageUseCaseProtocol {
+final class GetRawPageUseCase: GetRawPageUseCaseProtocol {
     private let rawPageRepository: RawPageRepositoryProtocol
     
     init(rawPageRepository: RawPageRepositoryProtocol) {
