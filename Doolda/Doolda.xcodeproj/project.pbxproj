@@ -165,6 +165,7 @@
 		66F176132754C3C3006ACB41 /* EditPageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176122754C3C3006ACB41 /* EditPageUseCaseProtocol.swift */; };
 		66F176152754C413006ACB41 /* ImageComposeUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176142754C413006ACB41 /* ImageComposeUseCaseProtocol.swift */; };
 		66F176172754C4F6006ACB41 /* ImageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176162754C4F6006ACB41 /* ImageUseCaseProtocol.swift */; };
+		66F176192754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176182754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -369,6 +370,7 @@
 		66F176122754C3C3006ACB41 /* EditPageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176142754C413006ACB41 /* ImageComposeUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComposeUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176162754C4F6006ACB41 /* ImageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseProtocol.swift; sourceTree = "<group>"; };
+		66F176182754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyTurnUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -938,6 +940,7 @@
 				66F176122754C3C3006ACB41 /* EditPageUseCaseProtocol.swift */,
 				66F176142754C413006ACB41 /* ImageComposeUseCaseProtocol.swift */,
 				66F176162754C4F6006ACB41 /* ImageUseCaseProtocol.swift */,
+				66F176182754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1259,6 +1262,7 @@
 				FCD24D75274392AB000203F7 /* GlobalFontRepositoryProtocol.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
 				1D3925D0273C1263003A0B70 /* CGFloat+Extensions.swift in Sources */,
+				66F176192754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift in Sources */,
 				66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */,
 				FCE9D3F62739550C0001F155 /* EditPageViewCoordinatorProtocol.swift in Sources */,
 				665303A12743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift in Sources */,

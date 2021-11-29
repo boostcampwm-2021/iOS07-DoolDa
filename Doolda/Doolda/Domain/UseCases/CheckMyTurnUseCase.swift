@@ -8,11 +8,7 @@
 import Combine
 import Foundation
 
-protocol CheckMyTurnUseCaseProtocol {
-    func checkTurn(for user: User) -> AnyPublisher<Bool, Error>
-}
-
-class CheckMyTurnUseCase: CheckMyTurnUseCaseProtocol {
+final class CheckMyTurnUseCase: CheckMyTurnUseCaseProtocol {
     private let pairRepository: PairRepositoryProtocol
     
     private var cancellables = Set<AnyCancellable>()
