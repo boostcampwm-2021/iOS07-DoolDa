@@ -20,6 +20,7 @@ protocol SettingsViewModelInput {
 }
 
 protocol SettingsViewModelOutput {
+    var errorPublisher: Published<Error?>.Publisher { get }
     var pushNotificationStatePublisher: Published<Bool?>.Publisher { get }
     var selectedFontPublisher: Published<FontType?>.Publisher { get }
 }
@@ -27,6 +28,7 @@ protocol SettingsViewModelOutput {
 typealias SettingsViewModelProtocol = SettingsViewModelInput & SettingsViewModelOutput
 
 class SettingsViewModel: SettingsViewModelProtocol {
+    var errorPublisher: Published<Error?>.Publisher { self.$error }
     var pushNotificationStatePublisher: Published<Bool?>.Publisher { self.$isPushNotificationOn }
     var selectedFontPublisher: Published<FontType?>.Publisher { self.$selectedFont }
 
@@ -38,6 +40,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
     private var cancellables: Set<AnyCancellable> = []
+    @Published private var error: Error?
     @Published private var isPushNotificationOn: Bool?
     @Published private var selectedFont: FontType?
 
@@ -101,7 +104,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
         self.pairUserUseCase.disconnectPair(user: self.user)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
-                print(error)
+                self?.error = error
             } receiveValue: { [weak self] _ in
                 guard let friendId = self?.user.friendId,
                       self?.user.id != friendId else { return }
