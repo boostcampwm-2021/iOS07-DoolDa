@@ -31,4 +31,5 @@ extension UIImage {
     static let hedgehogFrustrated = UIImage(named: "hedgehogFrustrated")
     static let squareAndArrowUp = UIImage(systemName: "square.and.arrow.up")
     static let squareAndPencil = UIImage(systemName: "square.and.pencil")
+    static let dottedLine = UIImage(named: "dottedLine")
 }
