@@ -9,16 +9,43 @@ import Combine
 import XCTest
 
 class PushNotificationStateUseCaseTest: XCTestCase {
-    private var cancellables: Set<AnyCancellable> = []
 
-    override func tearDown(){
-        self.cancellables = []
-    }
-
-    func test() {
+    func testSetPushNotificationStateAsTrue() {
+        let targetState = true
+        let dummyPushNotificationStateRepository = DummyPushNotificationStateRepository()
         let pushNotificationStateUseCase = PushNotificationStateUseCase(
-            pushNotificationStateRepository: PushNotificationStateRepositoryProtocol
+            pushNotificationStateRepository: dummyPushNotificationStateRepository
         )
 
+        pushNotificationStateUseCase.setPushNotificationState(as: targetState)
+        
+        XCTAssertEqual(targetState, dummyPushNotificationStateRepository.dummyNotificationState)
+    }
+    
+    func testSetPushNotificationStateAsFalse() {
+        let targetState = false
+        let dummyPushNotificationStateRepository = DummyPushNotificationStateRepository()
+        let pushNotificationStateUseCase = PushNotificationStateUseCase(
+            pushNotificationStateRepository: dummyPushNotificationStateRepository
+        )
+
+        pushNotificationStateUseCase.setPushNotificationState(as: targetState)
+        
+        XCTAssertEqual(targetState, dummyPushNotificationStateRepository.dummyNotificationState)
+    }
+    
+    func testFetchPushNotificationStateSuccess() {
+        let targetState = true
+        let dummyPushNotificationStateRepository = DummyPushNotificationStateRepository(dummyNotificationState: targetState)
+        let pushNotificationStateUseCase = PushNotificationStateUseCase(
+            pushNotificationStateRepository: dummyPushNotificationStateRepository
+        )
+
+        guard let result = pushNotificationStateUseCase.getPushNotificationState() else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertEqual(targetState, result)
     }
 }
