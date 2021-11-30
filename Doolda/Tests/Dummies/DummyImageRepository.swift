@@ -10,10 +10,11 @@ import Foundation
 
 class DummyImageRepository: ImageRepositoryProtocol {
     var isSuccessMode: Bool = true
-    private let dummyUrl: URL = URL(string: "http://www.naver.com")!
+    private let dummyUrl: URL
 
-    init(isSuccessMode: Bool = true) {
+    init(isSuccessMode: Bool = true, dummyUrl: URL) {
         self.isSuccessMode = isSuccessMode
+        self.dummyUrl = dummyUrl
     }
 
     func saveLocal(imageData: Data, fileName: String) -> AnyPublisher<URL, Error> {
