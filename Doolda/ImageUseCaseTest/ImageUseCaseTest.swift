@@ -131,4 +131,58 @@ class ImageUseCaseTest: XCTestCase {
         XCTAssertEqual(dummyUrl, resultUrl)
     }
 
+    func testSaveRemoteFailureDueToWrongImageUrl() {
+        guard let dummyUrl = URL(string: "http://naver.com"),
+              let dummyImageUrl = URL(string: "file://naver.com") else {
+            XCTFail("Fail to initailize")
+            return
+        }
+
+        let mockImageRepository = DummyImageRepository(dummyUrl: dummyUrl)
+        let imageUseCase = ImageUseCase(imageRepository: mockImageRepository)
+        let dummyUser = User(id: DDID(), pairId: DDID(), friendId: DDID())
+
+        let expectation = self.expectation(description: "testImageUseCase")
+
+        imageUseCase.saveRemote(for: dummyUser, localUrl: dummyImageUrl)
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                XCTAssertEqual(error.localizedDescription, ImageUseCaseError.failToLoadImageFromUrl.localizedDescription)
+                expectation.fulfill()
+            } receiveValue: { _ in
+                XCTFail()
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+
+        waitForExpectations(timeout: 5)
+    }
+
+    func testSaveRemoteFailureDueToRepository() {
+        guard let dummyUrl = URL(string: "http://naver.com"),
+              let dummyImageUrl = URL(string: "http://naver.com") else {
+            XCTFail("Fail to initailize")
+            return
+        }
+
+        let mockImageRepository = DummyImageRepository(isSuccessMode: false, dummyUrl: dummyUrl)
+        let imageUseCase = ImageUseCase(imageRepository: mockImageRepository)
+        let dummyUser = User(id: DDID(), pairId: DDID(), friendId: DDID())
+
+        let expectation = self.expectation(description: "testImageUseCase")
+
+        imageUseCase.saveRemote(for: dummyUser, localUrl: dummyImageUrl)
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                XCTAssertNotNil(error)
+                expectation.fulfill()
+            } receiveValue: { _ in
+                XCTFail()
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+
+        waitForExpectations(timeout: 5)
+    }
+
 }
