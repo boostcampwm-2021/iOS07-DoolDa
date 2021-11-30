@@ -1618,7 +1618,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				66C2CAB027561E1200AFE5EE /* PBXTargetDependency */,
 			);
 			name = RefreshUserUseCaseTest;
 			productName = RefreshUserUseCaseTest;
