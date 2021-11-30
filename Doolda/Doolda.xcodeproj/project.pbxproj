@@ -72,6 +72,7 @@
 		1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A0274A47D50060587B /* DooldaButton.swift */; };
 		1D9DC0A3274B31950060587B /* DiaryBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */; };
 		1D9DC0A5274B8A890060587B /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */; };
+		1DAEB005275601760040E8C1 /* DummyUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1C8EC52755ECF10044AF95 /* DummyUserRepository.swift */; };
 		1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
 		1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */; };
 		1DD0F34D2747AABA00FC5E65 /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
@@ -212,7 +213,6 @@
 		FC4459B42755EB47004888B9 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC4459B52755EB47004888B9 /* GetMyIdUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */; };
 		FC4459B62755EB96004888B9 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
-		FC4459B82755EBC5004888B9 /* DummyUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4459B72755EBC5004888B9 /* DummyUserRepository.swift */; };
 		FC4459B92755EC0F004888B9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936E27356E160036CED2 /* User.swift */; };
 		FC4459BA2755EC71004888B9 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
 		FC4459BB2755ED05004888B9 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
@@ -262,13 +262,6 @@
 			remoteInfo = Doolda;
 		};
 		1D992E342755E8EC002C4457 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 664893BC273007ED009F03E2;
-			remoteInfo = Doolda;
-		};
-		FC4459AF2755E8C4004888B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
 			proxyType = 1;
@@ -747,6 +740,7 @@
 			children = (
 				1D8AFD0827506BE100822B89 /* GoogleService-Info.plist */,
 				1D8AFD0727506BE100822B89 /* Config.xcconfig */,
+				FC4459B72755EBC5004888B9 /* DummyUserRepository.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1564,10 +1558,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC4459B92755EC0F004888B9 /* User.swift in Sources */,
-				FC4459B82755EBC5004888B9 /* DummyUserRepository.swift in Sources */,
 				FC4459BC2755ED0A004888B9 /* DDIDDataTransferObject.swift in Sources */,
 				FC4459BB2755ED05004888B9 /* DDID.swift in Sources */,
 				FC4459B62755EB96004888B9 /* UserRepositoryProtocol.swift in Sources */,
+				1DAEB005275601760040E8C1 /* DummyUserRepository.swift in Sources */,
 				FC4459B42755EB47004888B9 /* GetMyIdUseCase.swift in Sources */,
 				FC4459B52755EB47004888B9 /* GetMyIdUseCaseProtocol.swift in Sources */,
 				FC4459AE2755E8C4004888B9 /* GetMyIdUseCaseTest.swift in Sources */,
