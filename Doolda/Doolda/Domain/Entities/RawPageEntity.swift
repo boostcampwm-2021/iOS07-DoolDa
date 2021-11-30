@@ -8,10 +8,6 @@
 import CoreGraphics
 import Foundation
 
-enum ComponentType: String, Codable {
-    case base, photo, sticker, text
-}
-
 struct RawPageEntity: Codable {
     var components: [ComponentEntity]
     var backgroundType: BackgroundType

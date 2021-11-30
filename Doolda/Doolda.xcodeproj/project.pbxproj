@@ -259,6 +259,14 @@
 		FC4459F627561ACB004888B9 /* PushNotificationStateUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */; };
 		FC4459F727561ACB004888B9 /* PushNotificationStateRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */; };
 		FC4459F927561BB3004888B9 /* DummyPushNotificationStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4459F827561BB3004888B9 /* DummyPushNotificationStateRepository.swift */; };
+		FC445A01275622CB004888B9 /* TextUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC445A00275622CB004888B9 /* TextUseCaseTest.swift */; };
+		FC445A07275622E2004888B9 /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
+		FC445A08275622E2004888B9 /* TextUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1761E2754C656006ACB41 /* TextUseCaseProtocol.swift */; };
+		FC445A09275624C5004888B9 /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
+		FC445A0A275624CA004888B9 /* TextComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31012597273842DA00E43160 /* TextComponentEntity.swift */; };
+		FC445A0B275624F2004888B9 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
+		FC445A0D27562590004888B9 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC445A0C27562590004888B9 /* ComponentType.swift */; };
+		FC445A0E27562590004888B9 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC445A0C27562590004888B9 /* ComponentType.swift */; };
 		FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */; };
 		FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */; };
 		FC51FA6D274C89330069D39C /* FontSizeControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA6C274C89330069D39C /* FontSizeControlView.swift */; };
@@ -318,6 +326,13 @@
 			remoteInfo = Doolda;
 		};
 		1DAEB02827560E8F0040E8C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 664893BC273007ED009F03E2;
+			remoteInfo = Doolda;
+		};
+		FC445A02275622CB004888B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
 			proxyType = 1;
@@ -523,6 +538,9 @@
 		FC4459AB2755E8C4004888B9 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4459AD2755E8C4004888B9 /* GetMyIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseTest.swift; sourceTree = "<group>"; };
 		FC4459B72755EBC5004888B9 /* DummyUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyUserRepository.swift; sourceTree = "<group>"; };
+		FC4459FE275622CB004888B9 /* TextUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC445A00275622CB004888B9 /* TextUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCaseTest.swift; sourceTree = "<group>"; };
+		FC445A0C27562590004888B9 /* ComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentType.swift; sourceTree = "<group>"; };
 		FC4459EC27561A48004888B9 /* PushNotificationStateUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushNotificationStateUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4459EE27561A48004888B9 /* PushNotificationStateUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateUseCaseTest.swift; sourceTree = "<group>"; };
 		FC4459D827560731004888B9 /* GlobalFontUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlobalFontUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -625,6 +643,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC4459FB275622CB004888B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC4459E927561A48004888B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -710,6 +735,7 @@
 				66C2CA862755E9F200AFE5EE /* PairUserUseCaseTest */,
 				31BEC8322755EA89009AF22A /* ImageUseCaseTest */,
 				1DAEB02527560E8F0040E8C1 /* FCMTokenUseCaseTest */,
+				FC4459FF275622CB004888B9 /* TextUseCaseTest */,
 				FC4459ED27561A48004888B9 /* PushNotificationStateUseCaseTest */,
 				FC4459D927560731004888B9 /* GlobalFontUseCaseTest */,
 			);
@@ -902,6 +928,7 @@
 				31BEC8312755EA89009AF22A /* ImageUseCaseTest.xctest */,
 				FC4459EC27561A48004888B9 /* PushNotificationStateUseCaseTest.xctest */,
 				1DAEB02427560E8F0040E8C1 /* FCMTokenUseCaseTest.xctest */,
+				FC4459FE275622CB004888B9 /* TextUseCaseTest.xctest */,
 				FC4459D827560731004888B9 /* GlobalFontUseCaseTest.xctest */,
 			);
 			name = Products;
@@ -1067,6 +1094,7 @@
 				3101259B2738430200E43160 /* StickerPackEntity.swift */,
 				317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */,
 				1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */,
+				FC445A0C27562590004888B9 /* ComponentType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1231,6 +1259,14 @@
 				FC4459AD2755E8C4004888B9 /* GetMyIdUseCaseTest.swift */,
 			);
 			path = GetMyIdUseCaseTest;
+			sourceTree = "<group>";
+		};
+		FC4459FF275622CB004888B9 /* TextUseCaseTest */ = {
+			isa = PBXGroup;
+			children = (
+				FC445A00275622CB004888B9 /* TextUseCaseTest.swift */,
+			);
+			path = TextUseCaseTest;
 			sourceTree = "<group>";
 		};
 		FC4459ED27561A48004888B9 /* PushNotificationStateUseCaseTest */ = {
@@ -1398,6 +1434,24 @@
 			productReference = FC4459AB2755E8C4004888B9 /* GetMyIdUseCaseTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FC4459FD275622CB004888B9 /* TextUseCaseTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC445A06275622CB004888B9 /* Build configuration list for PBXNativeTarget "TextUseCaseTest" */;
+			buildPhases = (
+				FC4459FA275622CB004888B9 /* Sources */,
+				FC4459FB275622CB004888B9 /* Frameworks */,
+				FC4459FC275622CB004888B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC445A03275622CB004888B9 /* PBXTargetDependency */,
+			);
+			name = TextUseCaseTest;
+			productName = TextUseCaseTest;
+			productReference = FC4459FE275622CB004888B9 /* TextUseCaseTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FC4459EB27561A48004888B9 /* PushNotificationStateUseCaseTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC4459F427561A48004888B9 /* Build configuration list for PBXNativeTarget "PushNotificationStateUseCaseTest" */;
@@ -1469,6 +1523,9 @@
 					FC4459AA2755E8C4004888B9 = {
 						CreatedOnToolsVersion = 13.0;
 					};
+					FC4459FD275622CB004888B9 = {
+						CreatedOnToolsVersion = 13.0;
+					};
 					FC4459D727560731004888B9 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -1505,6 +1562,7 @@
 				31BEC8302755EA89009AF22A /* ImageUseCaseTest */,
 				FC4459EB27561A48004888B9 /* PushNotificationStateUseCaseTest */,
 				1DAEB02327560E8F0040E8C1 /* FCMTokenUseCaseTest */,
+				FC4459FD275622CB004888B9 /* TextUseCaseTest */,
 				FC4459D727560731004888B9 /* GlobalFontUseCaseTest */,
 			);
 		};
@@ -1575,6 +1633,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FC4459A92755E8C4004888B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC4459FC275622CB004888B9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1812,6 +1877,7 @@
 				317FB60B274A3851005DF3A3 /* StickerPickerCollectionViewFooter.swift in Sources */,
 				66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */,
 				317FB60F274A915C005DF3A3 /* SettingsViewCoordinatorProtocol.swift in Sources */,
+				FC445A0D27562590004888B9 /* ComponentType.swift in Sources */,
 				310125C427398DF600E43160 /* ImageUseCase.swift in Sources */,
 				66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */,
 				66F176132754C3C3006ACB41 /* EditPageUseCaseProtocol.swift in Sources */,
@@ -1931,6 +1997,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC4459FA275622CB004888B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC445A0E27562590004888B9 /* ComponentType.swift in Sources */,
+				FC445A0B275624F2004888B9 /* ComponentEntity.swift in Sources */,
+				FC445A07275622E2004888B9 /* TextUseCase.swift in Sources */,
+				FC445A0A275624CA004888B9 /* TextComponentEntity.swift in Sources */,
+				FC445A08275622E2004888B9 /* TextUseCaseProtocol.swift in Sources */,
+				FC445A09275624C5004888B9 /* FontColorType.swift in Sources */,
+				FC445A01275622CB004888B9 /* TextUseCaseTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC4459D427560731004888B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1974,6 +2054,11 @@
 			isa = PBXTargetDependency;
 			target = 664893BC273007ED009F03E2 /* Doolda */;
 			targetProxy = 1D097E94273CFA1200A4810B /* PBXContainerItemProxy */;
+		};
+		FC445A03275622CB004888B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 664893BC273007ED009F03E2 /* Doolda */;
+			targetProxy = FC445A02275622CB004888B9 /* PBXContainerItemProxy */;
 		};
 		FC4459DD27560731004888B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2491,6 +2576,50 @@
 			};
 			name = Release;
 		};
+		FC445A04275622CB004888B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda.TextUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FC445A05275622CB004888B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda.TextUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		FC4459DE27560731004888B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2659,6 +2788,15 @@
 			buildConfigurations = (
 				FC4459B22755E8C4004888B9 /* Debug */,
 				FC4459B32755E8C4004888B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC445A06275622CB004888B9 /* Build configuration list for PBXNativeTarget "TextUseCaseTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC445A04275622CB004888B9 /* Debug */,
+				FC445A05275622CB004888B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
