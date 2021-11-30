@@ -32,6 +32,10 @@ class DummyPairRepository: PairRepositoryProtocol {
     }
     
     func fetchRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
-        return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+        if isSuccessMode {
+            return Just(user.id).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } else {
+            return Fail(error: DummyError.failed).eraseToAnyPublisher()
+        }
     }
 }
