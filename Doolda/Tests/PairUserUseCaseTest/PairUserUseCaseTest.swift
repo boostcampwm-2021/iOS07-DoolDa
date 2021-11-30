@@ -121,6 +121,122 @@ class PairUserUseCaseTest: XCTestCase {
         XCTAssertNil(errorResult)
     }
     
+    func testPairWithFriendWhereFriendAlreadyPairedWithAnotherUserFailure() {
+        let user = User(id: DummyUserRepository.firstUserId, pairId: nil, friendId: nil)
+        
+        let pairUserUseCase = PairUserUseCase(
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
+            pairRepository: DummyPairRepository(isSuccessMode: true)
+        )
+        
+        let expectation = expectation(description: #function)
+        
+        let friendId = DummyUserRepository.fourthUserId
+        pairUserUseCase.pair(user: user, friendId: friendId)
+        
+        var errorResult: Error?
+        pairUserUseCase.errorPublisher
+            .sink { error in
+                errorResult = error
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNotNil(errorResult)
+    }
+    
+    func testPairWithFriendWhereUserAlreadyPairedWithAnotherUserFailure() {
+        let user = User(id: DummyUserRepository.fourthUserId, pairId: nil, friendId: nil)
+        
+        let pairUserUseCase = PairUserUseCase(
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
+            pairRepository: DummyPairRepository(isSuccessMode: true)
+        )
+        
+        let expectation = expectation(description: #function)
+        
+        let friendId = DummyUserRepository.firstUserId
+        pairUserUseCase.pair(user: user, friendId: friendId)
+        
+        var errorResult: Error?
+        pairUserUseCase.errorPublisher
+            .sink { error in
+                errorResult = error
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNotNil(errorResult)
+    }
+    
+    func testPairWithFriendWhereUserAlreadyPairedWithFriendSuccess() {
+        let user = User(id: DummyUserRepository.fourthUserId, pairId: nil, friendId: nil)
+        
+        let pairUserUseCase = PairUserUseCase(
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
+            pairRepository: DummyPairRepository(isSuccessMode: true)
+        )
+        
+        let expectation = expectation(description: #function)
+        expectation.expectedFulfillmentCount = 2
+        
+        let friendId = DummyUserRepository.fifthUserId
+        pairUserUseCase.pair(user: user, friendId: friendId)
+        pairUserUseCase.pairedUserPublisher
+            .sink { user in
+                if let user = user {
+                    XCTAssertNotNil(user.pairId)
+                } else {
+                    XCTFail()
+                }
+                
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        var errorResult: Error?
+        pairUserUseCase.errorPublisher
+            .sink { error in
+                errorResult = error
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNil(errorResult)
+    }
+    
+    func testPairWithFriendWhereUserAndFriendHaveDifferentPairIdFailure() {
+        let user = User(id: DummyUserRepository.fourthUserId, pairId: nil, friendId: nil)
+        
+        let pairUserUseCase = PairUserUseCase(
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
+            pairRepository: DummyPairRepository(isSuccessMode: true)
+        )
+        
+        let expectation = expectation(description: #function)
+        
+        let friendId = DummyUserRepository.sixthUserId
+        pairUserUseCase.pair(user: user, friendId: friendId)
+        
+        var errorResult: Error?
+        pairUserUseCase.errorPublisher
+            .sink { error in
+                errorResult = error
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNotNil(errorResult)
+    }
+    
     func testPairWithFriendFailure() {
         let user = User(id: DummyUserRepository.firstUserId, pairId: nil, friendId: nil)
         
