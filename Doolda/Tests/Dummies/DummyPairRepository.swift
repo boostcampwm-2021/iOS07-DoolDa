@@ -20,7 +20,11 @@ class DummyPairRepository: PairRepositoryProtocol {
     }
     
     func setPairId(with user: User) -> AnyPublisher<DDID, Error> {
-        return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+        if isSuccessMode {
+            return Just(DDID()).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } else {
+            return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+        }
     }
     
     func setRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
