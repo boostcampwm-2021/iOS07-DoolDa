@@ -172,6 +172,16 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "66C2CABF275623F700AFE5EE"
+               BuildableName = "CheckMyTurnUseCaseTest.xctest"
+               BlueprintName = "CheckMyTurnUseCaseTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "FC4459D727560731004888B9"
                BuildableName = "GlobalFontUseCaseTest.xctest"
                BlueprintName = "GlobalFontUseCaseTest"
