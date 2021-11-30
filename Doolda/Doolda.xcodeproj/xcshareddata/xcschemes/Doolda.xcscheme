@@ -198,6 +198,16 @@
                ReferencedContainer = "container:Doolda.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1DAEB039275617010040E8C1"
+               BuildableName = "FirebaseMessageUseCaseTest.xctest"
+               BlueprintName = "FirebaseMessageUseCaseTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
