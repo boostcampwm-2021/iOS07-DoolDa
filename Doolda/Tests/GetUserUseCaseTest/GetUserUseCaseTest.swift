@@ -16,7 +16,7 @@ class GetUserUseCaseTest: XCTestCase {
     }
     
     func testGetUserSuccess() {
-        let userRepository = DummyUserRepository(isSuccessMode: true)
+        let userRepository = DummyUserRepository(dummyMyId: DDID(), isSuccessMode: true)
         let getUserUseCase = GetUserUseCase(userRepository: userRepository)
         
         let expectation = self.expectation(description: "testGetUserSuccess")
@@ -43,7 +43,7 @@ class GetUserUseCaseTest: XCTestCase {
     }
     
     func testGetUserFailure() {
-        let userRepository = DummyUserRepository(isSuccessMode: false)
+        let userRepository = DummyUserRepository(dummyMyId: DDID(), isSuccessMode: false)
         let getUserUseCase = GetUserUseCase(userRepository: userRepository)
         
         let expectation = self.expectation(description: "testGetUserFailure")
