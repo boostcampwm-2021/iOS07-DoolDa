@@ -15,10 +15,18 @@ class DummyUserRepository: UserRepositoryProtocol {
     static let firstUserId = DDID()
     static let secondUserId = DDID()
     static let thirdUserId = DDID()
+    static let fourthUserId = DDID()
+    static let fifthUserId = DDID()
+    static let sixthUserId = DDID()
+    static let fourthAndFifthUserPairId = DDID()
+    static let secondAndSixthUserPairId = DDID()
     
     private var userTable: [DDID: User] = [
         DummyUserRepository.firstUserId: User(id: DummyUserRepository.firstUserId, pairId: nil, friendId: nil),
-        DummyUserRepository.secondUserId: User(id: DummyUserRepository.secondUserId, pairId: nil, friendId: nil)
+        DummyUserRepository.secondUserId: User(id: DummyUserRepository.secondUserId, pairId: nil, friendId: nil),
+        DummyUserRepository.fourthUserId: User(id: DummyUserRepository.fourthUserId, pairId: DummyUserRepository.fourthAndFifthUserPairId, friendId: DummyUserRepository.fifthUserId),
+        DummyUserRepository.fifthUserId: User(id: DummyUserRepository.fifthUserId, pairId: DummyUserRepository.fourthAndFifthUserPairId, friendId: DummyUserRepository.fourthUserId),
+        DummyUserRepository.sixthUserId: User(id: DummyUserRepository.sixthUserId, pairId: DummyUserRepository.secondAndSixthUserPairId, friendId: DummyUserRepository.secondUserId)
     ]
     
     init(dummyMyId: DDID, isSuccessMode: Bool = true) {
@@ -36,6 +44,7 @@ class DummyUserRepository: UserRepositoryProtocol {
     
     func setUser(_ user: User) -> AnyPublisher<User, Error> {
         if isSuccessMode {
+            self.userTable[user.id] = user
             return Just(user).setFailureType(to: Error.self).eraseToAnyPublisher()
         } else {
             return Fail(error: DummyError.failed).eraseToAnyPublisher()
