@@ -5,28 +5,55 @@
 //  Created by 정지승 on 2021/11/30.
 //
 
+import Combine
 import XCTest
 
 class GetPageUseCaseTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    private var cancellables: Set<AnyCancellable> = []
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        self.cancellables.removeAll()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testGetPagesSuccess() {
+        let getPageUseCase = GetPageUseCase(pageRepository: DummyPageRepository(isSuccessMode: true))
+        let expectation = expectation(description: #function)
+        
+        var errorResult: Error?
+        
+        getPageUseCase.getPages(for: DDID())
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                errorResult = error
+                expectation.fulfill()
+            } receiveValue: { _ in
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNil(errorResult)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testGetPagesFailure() {
+        let getPageUseCase = GetPageUseCase(pageRepository: DummyPageRepository(isSuccessMode: false))
+        let expectation = expectation(description: #function)
+        
+        var errorResult: Error?
+        
+        getPageUseCase.getPages(for: DDID())
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                errorResult = error
+                expectation.fulfill()
+            } receiveValue: { _ in
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNotNil(errorResult)
     }
-
 }
