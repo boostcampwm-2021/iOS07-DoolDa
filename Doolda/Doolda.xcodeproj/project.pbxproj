@@ -212,6 +212,15 @@
 		66C2CA9A2755EDB300AFE5EE /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
 		66C2CA9B2755EDB300AFE5EE /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		66C2CAA62756040000AFE5EE /* DummyUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1C8EC52755ECF10044AF95 /* DummyUserRepository.swift */; };
+		66C2CAC3275623F700AFE5EE /* CheckMyTurnUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C2CAC2275623F700AFE5EE /* CheckMyTurnUseCaseTest.swift */; };
+		66C2CAC92756247200AFE5EE /* CheckMyTurnUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */; };
+		66C2CACA2756247200AFE5EE /* CheckMyTurnUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176182754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift */; };
+		66C2CACB2756248600AFE5EE /* DummyPairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4459A52755E470004888B9 /* DummyPairRepository.swift */; };
+		66C2CACC275624B500AFE5EE /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
+		66C2CACD275624BF00AFE5EE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936E27356E160036CED2 /* User.swift */; };
+		66C2CACE275624C500AFE5EE /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
+		66C2CACF275624C500AFE5EE /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
+		66C2CAD0275624D800AFE5EE /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
 		66C482DB2746135500823151 /* GetRawPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C482DA2746135500823151 /* GetRawPageUseCase.swift */; };
 		66CAFF242740F63A00A48DCF /* BackgroundTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */; };
 		66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644D273A490800E55C03 /* BottomSheetViewController.swift */; };
@@ -522,6 +531,8 @@
 		66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lifeFourCuts.jpg; sourceTree = "<group>"; };
 		66C2CA852755E9F200AFE5EE /* PairUserUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PairUserUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C2CA872755E9F200AFE5EE /* PairUserUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCaseTest.swift; sourceTree = "<group>"; };
+		66C2CAC0275623F700AFE5EE /* CheckMyTurnUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckMyTurnUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66C2CAC2275623F700AFE5EE /* CheckMyTurnUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyTurnUseCaseTest.swift; sourceTree = "<group>"; };
 		66C482DA2746135500823151 /* GetRawPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCase.swift; sourceTree = "<group>"; };
 		66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTypePickerViewController.swift; sourceTree = "<group>"; };
 		66CD644D273A490800E55C03 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -681,6 +692,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		66C2CABD275623F700AFE5EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC4459A82755E8C4004888B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -781,6 +799,7 @@
 				66C2CA862755E9F200AFE5EE /* PairUserUseCaseTest */,
 				31BEC8322755EA89009AF22A /* ImageUseCaseTest */,
 				1DAEB02527560E8F0040E8C1 /* FCMTokenUseCaseTest */,
+				66C2CAC1275623F700AFE5EE /* CheckMyTurnUseCaseTest */,
 				FC4459FF275622CB004888B9 /* TextUseCaseTest */,
 				FC4459ED27561A48004888B9 /* PushNotificationStateUseCaseTest */,
 				FC4459D927560731004888B9 /* GlobalFontUseCaseTest */,
@@ -991,6 +1010,7 @@
 				31BEC8312755EA89009AF22A /* ImageUseCaseTest.xctest */,
 				FC4459EC27561A48004888B9 /* PushNotificationStateUseCaseTest.xctest */,
 				1DAEB02427560E8F0040E8C1 /* FCMTokenUseCaseTest.xctest */,
+				66C2CAC0275623F700AFE5EE /* CheckMyTurnUseCaseTest.xctest */,
 				FC4459FE275622CB004888B9 /* TextUseCaseTest.xctest */,
 				FC4459D827560731004888B9 /* GlobalFontUseCaseTest.xctest */,
 				1DAEB00F275603C80040E8C1 /* RegisterUserUseCaseTest.xctest */,
@@ -1249,6 +1269,14 @@
 				66C2CA872755E9F200AFE5EE /* PairUserUseCaseTest.swift */,
 			);
 			path = PairUserUseCaseTest;
+			sourceTree = "<group>";
+		};
+		66C2CAC1275623F700AFE5EE /* CheckMyTurnUseCaseTest */ = {
+			isa = PBXGroup;
+			children = (
+				66C2CAC2275623F700AFE5EE /* CheckMyTurnUseCaseTest.swift */,
+			);
+			path = CheckMyTurnUseCaseTest;
 			sourceTree = "<group>";
 		};
 		66CAFF38274136FE00A48DCF /* PhotoFrames */ = {
@@ -1515,6 +1543,23 @@
 			productReference = 66C2CA852755E9F200AFE5EE /* PairUserUseCaseTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		66C2CABF275623F700AFE5EE /* CheckMyTurnUseCaseTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66C2CAC8275623F700AFE5EE /* Build configuration list for PBXNativeTarget "CheckMyTurnUseCaseTest" */;
+			buildPhases = (
+				66C2CABC275623F700AFE5EE /* Sources */,
+				66C2CABD275623F700AFE5EE /* Frameworks */,
+				66C2CABE275623F700AFE5EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CheckMyTurnUseCaseTest;
+			productName = CheckMyTurnUseCaseTest;
+			productReference = 66C2CAC0275623F700AFE5EE /* CheckMyTurnUseCaseTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FC4459AA2755E8C4004888B9 /* GetMyIdUseCaseTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC4459B12755E8C4004888B9 /* Build configuration list for PBXNativeTarget "GetMyIdUseCaseTest" */;
@@ -1624,6 +1669,10 @@
 						CreatedOnToolsVersion = 13.0;
 						TestTargetID = 664893BC273007ED009F03E2;
 					};
+					66C2CABF275623F700AFE5EE = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 664893BC273007ED009F03E2;
+					};
 					FC4459AA2755E8C4004888B9 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -1666,6 +1715,7 @@
 				31BEC8302755EA89009AF22A /* ImageUseCaseTest */,
 				FC4459EB27561A48004888B9 /* PushNotificationStateUseCaseTest */,
 				1DAEB02327560E8F0040E8C1 /* FCMTokenUseCaseTest */,
+				66C2CABF275623F700AFE5EE /* CheckMyTurnUseCaseTest */,
 				FC4459FD275622CB004888B9 /* TextUseCaseTest */,
 				FC4459D727560731004888B9 /* GlobalFontUseCaseTest */,
 				1DAEB00E275603C80040E8C1 /* RegisterUserUseCaseTest */,
@@ -1746,6 +1796,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		66C2CA832755E9F200AFE5EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66C2CABE275623F700AFE5EE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2131,6 +2188,22 @@
 				66C2CA8F2755EA7A00AFE5EE /* PairUserUseCaseProtocol.swift in Sources */,
 				66C2CA952755ECBC00AFE5EE /* DummyError.swift in Sources */,
 				66C2CAA62756040000AFE5EE /* DummyUserRepository.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66C2CABC275623F700AFE5EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66C2CACE275624C500AFE5EE /* DDID.swift in Sources */,
+				66C2CAD0275624D800AFE5EE /* DummyError.swift in Sources */,
+				66C2CACF275624C500AFE5EE /* DDIDDataTransferObject.swift in Sources */,
+				66C2CACD275624BF00AFE5EE /* User.swift in Sources */,
+				66C2CACC275624B500AFE5EE /* PairRepositoryProtocol.swift in Sources */,
+				66C2CACB2756248600AFE5EE /* DummyPairRepository.swift in Sources */,
+				66C2CAC92756247200AFE5EE /* CheckMyTurnUseCase.swift in Sources */,
+				66C2CACA2756247200AFE5EE /* CheckMyTurnUseCaseProtocol.swift in Sources */,
+				66C2CAC3275623F700AFE5EE /* CheckMyTurnUseCaseTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2778,6 +2851,54 @@
 			};
 			name = Release;
 		};
+		66C2CAC6275623F700AFE5EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = doolda.CheckMyTurnUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Debug;
+		};
+		66C2CAC7275623F700AFE5EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = doolda.CheckMyTurnUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Release;
+		};
 		FC4459B22755E8C4004888B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3043,6 +3164,15 @@
 			buildConfigurations = (
 				66C2CA8B2755E9F200AFE5EE /* Debug */,
 				66C2CA8C2755E9F200AFE5EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66C2CAC8275623F700AFE5EE /* Build configuration list for PBXNativeTarget "CheckMyTurnUseCaseTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66C2CAC6275623F700AFE5EE /* Debug */,
+				66C2CAC7275623F700AFE5EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
