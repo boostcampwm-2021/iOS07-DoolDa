@@ -10,4 +10,5 @@ import Foundation
 enum DummyError: Error {
     case notImplemented
     case failed
+    case valueIsNil
 }
