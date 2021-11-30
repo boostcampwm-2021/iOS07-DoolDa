@@ -37,9 +37,7 @@ class GlobalFontUseCaseTest: XCTestCase {
     
     func testSaveGlobalFontSuccess() {
         let dummyGlobalFontRepository = DummyGlobalFontRepository()
-        let globalFontUseCase = GlobalFontUseCase(
-            globalFontRepository: dummyGlobalFontRepository
-        )
+        let globalFontUseCase = GlobalFontUseCase(globalFontRepository: dummyGlobalFontRepository)
         
         let targetFontName = "testFontName"
 
@@ -51,9 +49,7 @@ class GlobalFontUseCaseTest: XCTestCase {
     func testGetGlobalFontSuccess() {
         let targetFontName = "dungGeunMo"
         let dummyGlobalFontRepository = DummyGlobalFontRepository(dummyGlobalFontName: targetFontName)
-        let globalFontUseCase = GlobalFontUseCase(
-            globalFontRepository: dummyGlobalFontRepository
-        )
+        let globalFontUseCase = GlobalFontUseCase(globalFontRepository: dummyGlobalFontRepository)
         
         let globalFontType = globalFontUseCase.getGlobalFont()
         
@@ -61,3 +57,14 @@ class GlobalFontUseCaseTest: XCTestCase {
         XCTAssertEqual(globalFontType?.name, targetFontName)
     }
     
+    func testGetDefaultGlobalFontDueToWrongFontName() {
+        let targetFontName = "dummy"
+        let dummyGlobalFontRepository = DummyGlobalFontRepository(dummyGlobalFontName: targetFontName)
+        let globalFontUseCase = GlobalFontUseCase(globalFontRepository: dummyGlobalFontRepository)
+
+        let globalFontType = globalFontUseCase.getGlobalFont()
+        
+        XCTAssertNotNil(globalFontType)
+        XCTAssertEqual(globalFontType?.name, "dovemayo")
+    }
+}
