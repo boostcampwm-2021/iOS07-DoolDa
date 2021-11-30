@@ -142,6 +142,16 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FC4459EB27561A48004888B9"
+               BuildableName = "PushNotificationStateUseCaseTest.xctest"
+               BlueprintName = "PushNotificationStateUseCaseTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "66C2CA842755E9F200AFE5EE"
                BuildableName = "PairUserUseCaseTest.xctest"
                BlueprintName = "PairUserUseCaseTest"
