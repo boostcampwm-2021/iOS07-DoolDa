@@ -29,7 +29,7 @@ class DummyRawPageRepository: RawPageRepositoryProtocol {
         if isSuccessMode {
             return Just(RawPageEntity()).setFailureType(to: Error.self).eraseToAnyPublisher()
         } else {
-            return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+            return Fail(error: DummyError.failed).eraseToAnyPublisher()
         }
     }
 }
