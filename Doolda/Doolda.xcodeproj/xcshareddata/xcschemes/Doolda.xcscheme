@@ -148,6 +148,16 @@
                ReferencedContainer = "container:Doolda.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1DAEB02327560E8F0040E8C1"
+               BuildableName = "FCMTokenUseCaseTest.xctest"
+               BlueprintName = "FCMTokenUseCaseTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
