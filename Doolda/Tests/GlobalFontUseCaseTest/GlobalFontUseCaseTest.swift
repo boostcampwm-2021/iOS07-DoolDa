@@ -48,3 +48,16 @@ class GlobalFontUseCaseTest: XCTestCase {
         XCTAssertEqual(targetFontName, dummyGlobalFontRepository.dummyGlobalFontName)
     }
     
+    func testGetGlobalFontSuccess() {
+        let targetFontName = "dungGeunMo"
+        let dummyGlobalFontRepository = DummyGlobalFontRepository(dummyGlobalFontName: targetFontName)
+        let globalFontUseCase = GlobalFontUseCase(
+            globalFontRepository: dummyGlobalFontRepository
+        )
+        
+        let globalFontType = globalFontUseCase.getGlobalFont()
+        
+        XCTAssertNotNil(globalFontType)
+        XCTAssertEqual(globalFontType?.name, targetFontName)
+    }
+    
