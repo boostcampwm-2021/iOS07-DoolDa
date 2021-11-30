@@ -75,7 +75,6 @@
 		1DAEB005275601760040E8C1 /* DummyUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1C8EC52755ECF10044AF95 /* DummyUserRepository.swift */; };
 		1DAEB02727560E8F0040E8C1 /* FCMTokenUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB02627560E8F0040E8C1 /* FCMTokenUseCaseTest.swift */; };
 		1DAEB02D27560EA20040E8C1 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
-		1DAEB02F27560F5F0040E8C1 /* DummyFCMTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */; };
 		1DAEB03027560F7A0040E8C1 /* FCMTokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */; };
 		1DAEB03127560F960040E8C1 /* DummyFCMTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */; };
 		1DAEB03227560FB80040E8C1 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
@@ -1776,7 +1775,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				31BEC8422755F4F2009AF22A /* DDIDDataTransferObject.swift in Sources */,
-				1DAEB02F27560F5F0040E8C1 /* DummyFCMTokenRepository.swift in Sources */,
 				31BEC8402755ED64009AF22A /* DDID.swift in Sources */,
 				31BEC8412755EF02009AF22A /* DummyError.swift in Sources */,
 				31BEC83F2755ED60009AF22A /* User.swift in Sources */,
