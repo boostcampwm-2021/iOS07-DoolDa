@@ -5,28 +5,63 @@
 //  Created by 김민주 on 2021/11/30.
 //
 
+import Combine
 import XCTest
 
 class GetMyIdUseCaseTest: XCTestCase {
+    private var cancellables: Set<AnyCancellable> = []
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func tearDown(){
+        self.cancellables = []
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    func testGetMyIdSuccess() {
+        guard let targetDDID = DDID(from: UUID.init().uuidString) else {
+            XCTFail()
+            return
         }
+        
+        let getMyIdUseCase = GetMyIdUseCase(
+            userRepository: DummyUserRepository(dummyMyId: targetDDID, isSuccessMode: true)
+        )
+        
+        let expectation = self.expectation(description: "testGetMyIdSuccess")
+        
+        var result: DDID?
+        
+        getMyIdUseCase.getMyId()
+            .sink { ddid in
+                result = ddid
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 5)
+        XCTAssertEqual(result, targetDDID)
     }
-
+    
+    func testGetMyIdFailure() {
+        guard let targetDDID = DDID(from: UUID.init().uuidString) else {
+            XCTFail()
+            return
+        }
+        
+        let getMyIdUseCase = GetMyIdUseCase(
+            userRepository: DummyUserRepository(dummyMyId: targetDDID, isSuccessMode: false)
+        )
+        
+        let expectation = self.expectation(description: "testGetMyIdFailure")
+        
+        var result: DDID?
+        
+        getMyIdUseCase.getMyId()
+            .sink { ddid in
+                result = ddid
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 5)
+        XCTAssertNil(result)
+    }
 }
