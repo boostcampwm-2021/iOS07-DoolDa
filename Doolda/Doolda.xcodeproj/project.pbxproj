@@ -73,6 +73,15 @@
 		1D9DC0A3274B31950060587B /* DiaryBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */; };
 		1D9DC0A5274B8A890060587B /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */; };
 		1DAEB005275601760040E8C1 /* DummyUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1C8EC52755ECF10044AF95 /* DummyUserRepository.swift */; };
+		1DAEB02727560E8F0040E8C1 /* FCMTokenUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB02627560E8F0040E8C1 /* FCMTokenUseCaseTest.swift */; };
+		1DAEB02D27560EA20040E8C1 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
+		1DAEB02F27560F5F0040E8C1 /* DummyFCMTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */; };
+		1DAEB03027560F7A0040E8C1 /* FCMTokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */; };
+		1DAEB03127560F960040E8C1 /* DummyFCMTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */; };
+		1DAEB03227560FB80040E8C1 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
+		1DAEB03327560FBB0040E8C1 /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
+		1DAEB034275612D30040E8C1 /* FCMTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999461274CA94600C72273 /* FCMTokenUseCase.swift */; };
+		1DAEB035275613EE0040E8C1 /* FCMTokenUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */; };
 		1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
 		1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */; };
 		1DD0F34D2747AABA00FC5E65 /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
@@ -289,6 +298,13 @@
 			remoteGlobalIDString = 664893BC273007ED009F03E2;
 			remoteInfo = Doolda;
 		};
+		1DAEB02827560E8F0040E8C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 664893BC273007ED009F03E2;
+			remoteInfo = Doolda;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -349,6 +365,9 @@
 		1D9DC0A0274A47D50060587B /* DooldaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaButton.swift; sourceTree = "<group>"; };
 		1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryBackgroundView.swift; sourceTree = "<group>"; };
 		1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
+		1DAEB02427560E8F0040E8C1 /* FCMTokenUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FCMTokenUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DAEB02627560E8F0040E8C1 /* FCMTokenUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenUseCaseTest.swift; sourceTree = "<group>"; };
+		1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyFCMTokenRepository.swift; sourceTree = "<group>"; };
 		1DBF5714273A2C5100D28F5E /* FontColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorType.swift; sourceTree = "<group>"; };
 		1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameType.swift; sourceTree = "<group>"; };
 		1DD58BD52754ACA600B93184 /* DiaryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPageView.swift; sourceTree = "<group>"; };
@@ -529,6 +548,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1DAEB02127560E8F0040E8C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		319C21D2273BD764009CE65C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -637,8 +663,17 @@
 				FC4459AC2755E8C4004888B9 /* GetMyIdUseCaseTest */,
 				66C2CA862755E9F200AFE5EE /* PairUserUseCaseTest */,
 				31BEC8322755EA89009AF22A /* ImageUseCaseTest */,
+				1DAEB02527560E8F0040E8C1 /* FCMTokenUseCaseTest */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		1DAEB02527560E8F0040E8C1 /* FCMTokenUseCaseTest */ = {
+			isa = PBXGroup;
+			children = (
+				1DAEB02627560E8F0040E8C1 /* FCMTokenUseCaseTest.swift */,
+			);
+			path = FCMTokenUseCaseTest;
 			sourceTree = "<group>";
 		};
 		1DD0F35A2747AE8600FC5E65 /* SplashScene */ = {
@@ -817,6 +852,7 @@
 				FC4459AB2755E8C4004888B9 /* GetMyIdUseCaseTest.xctest */,
 				66C2CA852755E9F200AFE5EE /* PairUserUseCaseTest.xctest */,
 				31BEC8312755EA89009AF22A /* ImageUseCaseTest.xctest */,
+				1DAEB02427560E8F0040E8C1 /* FCMTokenUseCaseTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1132,6 +1168,7 @@
 				FC4459A52755E470004888B9 /* DummyPairRepository.swift */,
 				1D1C8EC52755ECF10044AF95 /* DummyUserRepository.swift */,
 				31BEC8392755EBB7009AF22A /* DummyImageRepository.swift */,
+				1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */,
 			);
 			path = Dummies;
 			sourceTree = "<group>";
@@ -1180,6 +1217,24 @@
 			name = GetUserUseCaseTest;
 			productName = GetUserUseCaseTest;
 			productReference = 1D992E302755E8EC002C4457 /* GetUserUseCaseTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1DAEB02327560E8F0040E8C1 /* FCMTokenUseCaseTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DAEB02C27560E8F0040E8C1 /* Build configuration list for PBXNativeTarget "FCMTokenUseCaseTest" */;
+			buildPhases = (
+				1DAEB02027560E8F0040E8C1 /* Sources */,
+				1DAEB02127560E8F0040E8C1 /* Frameworks */,
+				1DAEB02227560E8F0040E8C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1DAEB02927560E8F0040E8C1 /* PBXTargetDependency */,
+			);
+			name = FCMTokenUseCaseTest;
+			productName = FCMTokenUseCaseTest;
+			productReference = 1DAEB02427560E8F0040E8C1 /* FCMTokenUseCaseTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		319C21D4273BD764009CE65C /* URLSessionNetworkServiceTest */ = {
@@ -1282,13 +1337,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					1D3925B9273BB4BE003A0B70 = {
 						CreatedOnToolsVersion = 13.0;
 					};
 					1D992E2F2755E8EC002C4457 = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					1DAEB02327560E8F0040E8C1 = {
 						CreatedOnToolsVersion = 13.0;
 					};
 					319C21D4273BD764009CE65C = {
@@ -1335,6 +1393,7 @@
 				FC4459AA2755E8C4004888B9 /* GetMyIdUseCaseTest */,
 				66C2CA842755E9F200AFE5EE /* PairUserUseCaseTest */,
 				31BEC8302755EA89009AF22A /* ImageUseCaseTest */,
+				1DAEB02327560E8F0040E8C1 /* FCMTokenUseCaseTest */,
 			);
 		};
 /* End PBXProject section */
@@ -1348,6 +1407,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1D992E2E2755E8EC002C4457 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DAEB02227560E8F0040E8C1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1477,6 +1543,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1DAEB02027560E8F0040E8C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DAEB02727560E8F0040E8C1 /* FCMTokenUseCaseTest.swift in Sources */,
+				1DAEB03027560F7A0040E8C1 /* FCMTokenRepositoryProtocol.swift in Sources */,
+				1DAEB035275613EE0040E8C1 /* FCMTokenUseCaseProtocol.swift in Sources */,
+				1DAEB034275612D30040E8C1 /* FCMTokenUseCase.swift in Sources */,
+				1DAEB03327560FBB0040E8C1 /* DDIDDataTransferObject.swift in Sources */,
+				1DAEB02D27560EA20040E8C1 /* DummyError.swift in Sources */,
+				1DAEB03127560F960040E8C1 /* DummyFCMTokenRepository.swift in Sources */,
+				1DAEB03227560FB80040E8C1 /* DDID.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		319C21D1273BD764009CE65C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1504,6 +1585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31BEC8422755F4F2009AF22A /* DDIDDataTransferObject.swift in Sources */,
+				1DAEB02F27560F5F0040E8C1 /* DummyFCMTokenRepository.swift in Sources */,
 				31BEC8402755ED64009AF22A /* DDID.swift in Sources */,
 				31BEC8412755EF02009AF22A /* DummyError.swift in Sources */,
 				31BEC83F2755ED60009AF22A /* User.swift in Sources */,
@@ -1731,6 +1813,11 @@
 			target = 664893BC273007ED009F03E2 /* Doolda */;
 			targetProxy = 1D992E342755E8EC002C4457 /* PBXContainerItemProxy */;
 		};
+		1DAEB02927560E8F0040E8C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 664893BC273007ED009F03E2 /* Doolda */;
+			targetProxy = 1DAEB02827560E8F0040E8C1 /* PBXContainerItemProxy */;
+		};
 		319C21DA273BD764009CE65C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 664893BC273007ED009F03E2 /* Doolda */;
@@ -1833,6 +1920,50 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.GetUserUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1DAEB02A27560E8F0040E8C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.FCMTokenUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1DAEB02B27560E8F0040E8C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.FCMTokenUseCaseTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -2215,6 +2346,15 @@
 			buildConfigurations = (
 				1D992E362755E8EC002C4457 /* Debug */,
 				1D992E372755E8EC002C4457 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DAEB02C27560E8F0040E8C1 /* Build configuration list for PBXNativeTarget "FCMTokenUseCaseTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DAEB02A27560E8F0040E8C1 /* Debug */,
+				1DAEB02B27560E8F0040E8C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
