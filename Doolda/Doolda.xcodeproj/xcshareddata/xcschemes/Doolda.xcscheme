@@ -52,7 +52,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FC9F1061273102E30060FEB7"
+               BlueprintIdentifier = "FC4459AA2755E8C4004888B9"
                BuildableName = "GetMyIdUseCaseTest.xctest"
                BlueprintName = "GetMyIdUseCaseTest"
                ReferencedContainer = "container:Doolda.xcodeproj">
@@ -135,6 +135,16 @@
                BlueprintIdentifier = "1D992E2F2755E8EC002C4457"
                BuildableName = "GetUserUseCaseTest.xctest"
                BlueprintName = "GetUserUseCaseTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "66C2CA842755E9F200AFE5EE"
+               BuildableName = "PairUserUseCaseTest.xctest"
+               BlueprintName = "PairUserUseCaseTest"
                ReferencedContainer = "container:Doolda.xcodeproj">
             </BuildableReference>
          </TestableReference>

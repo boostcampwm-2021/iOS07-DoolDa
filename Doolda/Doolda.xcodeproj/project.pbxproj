@@ -173,6 +173,17 @@
 		66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFC2742BEFC0021EA27 /* normal.jpg */; };
 		66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */; };
 		66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */; };
+		66C2CA882755E9F200AFE5EE /* PairUserUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C2CA872755E9F200AFE5EE /* PairUserUseCaseTest.swift */; };
+		66C2CA8E2755EA6D00AFE5EE /* PairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9370273671910036CED2 /* PairUserUseCase.swift */; };
+		66C2CA8F2755EA7A00AFE5EE /* PairUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */; };
+		66C2CA902755EB4800AFE5EE /* DummyPairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4459A52755E470004888B9 /* DummyPairRepository.swift */; };
+		66C2CA952755ECBC00AFE5EE /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
+		66C2CA972755ED7300AFE5EE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936E27356E160036CED2 /* User.swift */; };
+		66C2CA982755ED7A00AFE5EE /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
+		66C2CA992755ED7A00AFE5EE /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
+		66C2CA9A2755EDB300AFE5EE /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
+		66C2CA9B2755EDB300AFE5EE /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
+		66C2CAA22755F46A00AFE5EE /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDADCB3274BCE63000330C9 /* Secrets.swift */; };
 		66C482DB2746135500823151 /* GetRawPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C482DA2746135500823151 /* GetRawPageUseCase.swift */; };
 		66CAFF242740F63A00A48DCF /* BackgroundTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */; };
 		66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644D273A490800E55C03 /* BottomSheetViewController.swift */; };
@@ -418,6 +429,8 @@
 		66B4ADFC2742BEFC0021EA27 /* normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = normal.jpg; sourceTree = "<group>"; };
 		66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = polaroid.jpg; sourceTree = "<group>"; };
 		66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lifeFourCuts.jpg; sourceTree = "<group>"; };
+		66C2CA852755E9F200AFE5EE /* PairUserUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PairUserUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66C2CA872755E9F200AFE5EE /* PairUserUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCaseTest.swift; sourceTree = "<group>"; };
 		66C482DA2746135500823151 /* GetRawPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCase.swift; sourceTree = "<group>"; };
 		66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTypePickerViewController.swift; sourceTree = "<group>"; };
 		66CD644D273A490800E55C03 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -540,6 +553,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		66C2CA822755E9F200AFE5EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC4459A82755E8C4004888B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -615,6 +635,7 @@
 				319C21D6273BD764009CE65C /* URLSessionNetworkServiceTest */,
 				1D3925BB273BB4BE003A0B70 /* EditPageUseCaseTest */,
 				FC4459AC2755E8C4004888B9 /* GetMyIdUseCaseTest */,
+				66C2CA862755E9F200AFE5EE /* PairUserUseCaseTest */,
 				31BEC8322755EA89009AF22A /* ImageUseCaseTest */,
 			);
 			path = Tests;
@@ -794,6 +815,7 @@
 				1D3925BA273BB4BE003A0B70 /* EditPageUseCaseTest.xctest */,
 				1D992E302755E8EC002C4457 /* GetUserUseCaseTest.xctest */,
 				FC4459AB2755E8C4004888B9 /* GetMyIdUseCaseTest.xctest */,
+				66C2CA852755E9F200AFE5EE /* PairUserUseCaseTest.xctest */,
 				31BEC8312755EA89009AF22A /* ImageUseCaseTest.xctest */,
 			);
 			name = Products;
@@ -1042,6 +1064,14 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		66C2CA862755E9F200AFE5EE /* PairUserUseCaseTest */ = {
+			isa = PBXGroup;
+			children = (
+				66C2CA872755E9F200AFE5EE /* PairUserUseCaseTest.swift */,
+			);
+			path = PairUserUseCaseTest;
+			sourceTree = "<group>";
+		};
 		66CAFF38274136FE00A48DCF /* PhotoFrames */ = {
 			isa = PBXGroup;
 			children = (
@@ -1211,6 +1241,23 @@
 			productReference = 664893BD273007ED009F03E2 /* Doolda.app */;
 			productType = "com.apple.product-type.application";
 		};
+		66C2CA842755E9F200AFE5EE /* PairUserUseCaseTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66C2CA8D2755E9F200AFE5EE /* Build configuration list for PBXNativeTarget "PairUserUseCaseTest" */;
+			buildPhases = (
+				66C2CA812755E9F200AFE5EE /* Sources */,
+				66C2CA822755E9F200AFE5EE /* Frameworks */,
+				66C2CA832755E9F200AFE5EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PairUserUseCaseTest;
+			productName = PairUserUseCaseTest;
+			productReference = 66C2CA852755E9F200AFE5EE /* PairUserUseCaseTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FC4459AA2755E8C4004888B9 /* GetMyIdUseCaseTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC4459B12755E8C4004888B9 /* Build configuration list for PBXNativeTarget "GetMyIdUseCaseTest" */;
@@ -1253,6 +1300,10 @@
 					664893BC273007ED009F03E2 = {
 						CreatedOnToolsVersion = 13.0;
 					};
+					66C2CA842755E9F200AFE5EE = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 664893BC273007ED009F03E2;
+					};
 					FC4459AA2755E8C4004888B9 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -1282,6 +1333,7 @@
 				1D3925B9273BB4BE003A0B70 /* EditPageUseCaseTest */,
 				1D992E2F2755E8EC002C4457 /* GetUserUseCaseTest */,
 				FC4459AA2755E8C4004888B9 /* GetMyIdUseCaseTest */,
+				66C2CA842755E9F200AFE5EE /* PairUserUseCaseTest */,
 				31BEC8302755EA89009AF22A /* ImageUseCaseTest */,
 			);
 		};
@@ -1334,6 +1386,13 @@
 				318D9F67274D4D5000AA6F0E /* darae.ttf in Resources */,
 				318D9F69274D4D9900AA6F0E /* kyoboHandwriting.otf in Resources */,
 				31BEC8212755B160009AF22A /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66C2CA832755E9F200AFE5EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1627,6 +1686,23 @@
 				1D999466274CAB8900C72273 /* FCMTokenRepository.swift in Sources */,
 				FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */,
 				66F1761D2754C5FF006ACB41 /* StickerUseCaseProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66C2CA812755E9F200AFE5EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66C2CA9A2755EDB300AFE5EE /* UserRepositoryProtocol.swift in Sources */,
+				66C2CA9B2755EDB300AFE5EE /* PairRepositoryProtocol.swift in Sources */,
+				66C2CA982755ED7A00AFE5EE /* DDID.swift in Sources */,
+				66C2CA992755ED7A00AFE5EE /* DDIDDataTransferObject.swift in Sources */,
+				66C2CA972755ED7300AFE5EE /* User.swift in Sources */,
+				66C2CA902755EB4800AFE5EE /* DummyPairRepository.swift in Sources */,
+				66C2CA8E2755EA6D00AFE5EE /* PairUserUseCase.swift in Sources */,
+				66C2CA882755E9F200AFE5EE /* PairUserUseCaseTest.swift in Sources */,
+				66C2CA8F2755EA7A00AFE5EE /* PairUserUseCaseProtocol.swift in Sources */,
+				66C2CA952755ECBC00AFE5EE /* DummyError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2029,6 +2105,54 @@
 			};
 			name = Release;
 		};
+		66C2CA8B2755E9F200AFE5EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = doolda.PairUserUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Debug;
+		};
+		66C2CA8C2755E9F200AFE5EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = doolda.PairUserUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
+			};
+			name = Release;
+		};
 		FC4459B22755E8C4004888B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2126,6 +2250,15 @@
 			buildConfigurations = (
 				664893D2273007F1009F03E2 /* Debug */,
 				664893D3273007F1009F03E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66C2CA8D2755E9F200AFE5EE /* Build configuration list for PBXNativeTarget "PairUserUseCaseTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66C2CA8B2755E9F200AFE5EE /* Debug */,
+				66C2CA8C2755E9F200AFE5EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
