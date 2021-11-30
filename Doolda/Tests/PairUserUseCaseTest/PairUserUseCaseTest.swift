@@ -24,6 +24,7 @@ class PairUserUseCaseTest: XCTestCase {
         )
         
         let expectation = expectation(description: #function)
+        expectation.expectedFulfillmentCount = 2
         
         pairUserUseCase.pair(user: user)
         pairUserUseCase.pairedUserPublisher
@@ -36,7 +37,6 @@ class PairUserUseCaseTest: XCTestCase {
                 } else {
                     XCTFail()
                 }
-                
                 expectation.fulfill()
             }
             .store(in: &self.cancellables)
@@ -45,6 +45,7 @@ class PairUserUseCaseTest: XCTestCase {
         pairUserUseCase.errorPublisher
             .sink { error in
                 errorResult = error
+                expectation.fulfill()
             }
             .store(in: &self.cancellables)
         
@@ -62,6 +63,7 @@ class PairUserUseCaseTest: XCTestCase {
         )
         
         let expectation = expectation(description: #function)
+        expectation.expectedFulfillmentCount = 2
         
         pairUserUseCase.pair(user: user)
         pairUserUseCase.pairedUserPublisher
@@ -75,6 +77,7 @@ class PairUserUseCaseTest: XCTestCase {
         pairUserUseCase.errorPublisher
             .sink { error in
                 errorResult = error
+                expectation.fulfill()
             }
             .store(in: &self.cancellables)
         
@@ -92,6 +95,7 @@ class PairUserUseCaseTest: XCTestCase {
         )
         
         let expectation = expectation(description: #function)
+        expectation.expectedFulfillmentCount = 2
         
         let friendId = DummyUserRepository.secondUserId
         pairUserUseCase.pair(user: user, friendId: friendId)
@@ -113,6 +117,7 @@ class PairUserUseCaseTest: XCTestCase {
         pairUserUseCase.errorPublisher
             .sink { error in
                 errorResult = error
+                expectation.fulfill()
             }
             .store(in: &self.cancellables)
         
@@ -246,6 +251,7 @@ class PairUserUseCaseTest: XCTestCase {
         )
         
         let expectation = expectation(description: #function)
+        expectation.expectedFulfillmentCount = 2
         
         let friendId = DummyUserRepository.secondUserId
         pairUserUseCase.pair(user: user, friendId: friendId)
@@ -260,6 +266,7 @@ class PairUserUseCaseTest: XCTestCase {
         pairUserUseCase.errorPublisher
             .sink { error in
                 errorResult = error
+                expectation.fulfill()
             }
             .store(in: &self.cancellables)
         
