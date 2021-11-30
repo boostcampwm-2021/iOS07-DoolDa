@@ -35,7 +35,11 @@ class DummyUserRepository: UserRepositoryProtocol {
     }
     
     func setUser(_ user: User) -> AnyPublisher<User, Error> {
-        return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+        if isSuccessMode {
+            return Just(user).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } else {
+            return Fail(error: DummyError.failed).eraseToAnyPublisher()
+        }
     }
     
     func resetUser(_ user: User) -> AnyPublisher<User, Error> {
@@ -51,6 +55,10 @@ class DummyUserRepository: UserRepositoryProtocol {
     }
     
     func fetchUser(_ user: User) -> AnyPublisher<User?, Error> {
-        return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+        if self.isSuccessMode {
+            return Just(self.userTable[user.id]).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } else {
+            return Fail(error: DummyError.failed).eraseToAnyPublisher()
+        }
     }
 }
