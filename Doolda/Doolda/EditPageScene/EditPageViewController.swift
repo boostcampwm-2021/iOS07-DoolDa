@@ -246,7 +246,7 @@ class EditPageViewController: UIViewController {
                 case .began:
                     let touchCGPoint = panGestrue.location(in: self.pageControlView)
                     self.viewModel?.canvasDidTap(at: self.computePointToAbsolute(at: touchCGPoint))
-                    self.initialOrigin = self.pageControlView.componentSpaceView.frame.origin
+                    self.initialOrigin = self.selectedComponentInitialRect.origin
                     fallthrough
                 case .changed:
                     let translation = panGestrue.translation(in: self.pageControlView)
