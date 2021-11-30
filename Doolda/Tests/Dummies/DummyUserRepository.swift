@@ -18,8 +18,7 @@ class DummyUserRepository: UserRepositoryProtocol {
     
     private var userTable: [DDID: User] = [
         DummyUserRepository.firstUserId: User(id: DummyUserRepository.firstUserId, pairId: nil, friendId: nil),
-        DummyUserRepository.secondUserId: User(id: DummyUserRepository.secondUserId, pairId: nil, friendId: nil),
-        DummyUserRepository.thirdUserId: User(id: DummyUserRepository.thirdUserId, pairId: nil, friendId: nil)
+        DummyUserRepository.secondUserId: User(id: DummyUserRepository.secondUserId, pairId: nil, friendId: nil)
     ]
     
     init(dummyMyId: DDID, isSuccessMode: Bool = true) {
@@ -44,7 +43,11 @@ class DummyUserRepository: UserRepositoryProtocol {
     }
     
     func fetchUser(_ id: DDID) -> AnyPublisher<User?, Error> {
-        return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+        if self.isSuccessMode {
+            return Just(self.userTable[id]).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } else {
+            return Fail(error: DummyError.failed).eraseToAnyPublisher()
+        }
     }
     
     func fetchUser(_ user: User) -> AnyPublisher<User?, Error> {
