@@ -18,8 +18,8 @@ class ImageUseCaseTest: XCTestCase {
 
     func testSaveLocalSuccess() {
         guard let dummyUrl = URL(string: "http://naver.com"),
-              let imageUrl = URL(string: "https://user-images.githubusercontent.com/61934702/132952591-74350741-dac8-4295-9f72-33e9f382cb46.png"),
-              let dummyImage: CIImage = CIImage(contentsOf: imageUrl) else {
+              let dummyImageUrl = URL(string: "https://user-images.githubusercontent.com/61934702/132952591-74350741-dac8-4295-9f72-33e9f382cb46.png"),
+              let dummyImage: CIImage = CIImage(contentsOf: dummyImageUrl) else {
             XCTFail("Fail to initailize")
             return
         }
@@ -47,7 +47,7 @@ class ImageUseCaseTest: XCTestCase {
         XCTAssertEqual(dummyUrl, resultUrl)
     }
 
-    func testSaveLocalFailure() {
+    func testSaveLocalFailureDueToRepository() {
         guard let dummyUrl = URL(string: "http://naver.com"),
               let dummyImageUrl = URL(string: "https://user-images.githubusercontent.com/61934702/132952591-74350741-dac8-4295-9f72-33e9f382cb46.png"),
               let dummyImage: CIImage = CIImage(contentsOf: dummyImageUrl) else {
@@ -64,6 +64,32 @@ class ImageUseCaseTest: XCTestCase {
             .sink { completion in
                 guard case .failure(let error) = completion else { return }
                 XCTAssertNotNil(error)
+                expectation.fulfill()
+            } receiveValue: { _ in
+                XCTFail()
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+
+        waitForExpectations(timeout: 5)
+    }
+
+    func testSaveLocalFailureDueToNilImageData() {
+        guard let dummyUrl = URL(string: "http://naver.com") else {
+            XCTFail("Fail to initailize")
+            return
+        }
+
+        let mockImageRepository = DummyImageRepository(dummyUrl: dummyUrl)
+        let imageUseCase = ImageUseCase(imageRepository: mockImageRepository)
+        let dummyImage: CIImage = CIImage(color: .blue)
+
+        let expectation = self.expectation(description: "testImageUseCase")
+
+        imageUseCase.saveLocal(image: dummyImage)
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                XCTAssertEqual(error.localizedDescription, ImageUseCaseError.nilImageData.localizedDescription)
                 expectation.fulfill()
             } receiveValue: { _ in
                 XCTFail()
