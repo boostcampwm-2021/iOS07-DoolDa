@@ -15,97 +15,6 @@ class EditPageUseCaseTest: XCTestCase {
         self.cancellables = []
     }
     
-    enum TestError: Error {
-        case notImplemented
-        case failed
-    }
-
-    class DummyImageUseCase: ImageUseCaseProtocol {
-        var isSuccessMode: Bool = true
-        
-        init(isSuccessMode: Bool) {
-            self.isSuccessMode = isSuccessMode
-        }
-        
-        func saveLocal(image: CIImage) -> AnyPublisher<URL, Error> {
-            return Just(URL(string: "https://naver.com")!).setFailureType(to: Error.self).eraseToAnyPublisher()
-        }
-        
-        func saveRemote(for user: User, localUrl: URL) -> AnyPublisher<URL, Error> {
-            if isSuccessMode {
-                return Just(URL(string: "https://youtube.com")!).setFailureType(to: Error.self)
-                    .delay(for: .seconds(1), tolerance: nil, scheduler: RunLoop.main, options: nil)
-                    .eraseToAnyPublisher()
-            } else {
-                return Fail(error: TestError.failed).eraseToAnyPublisher()
-            }
-        }
-    }
-    
-    class DummyPageRepository: PageRepositoryProtocol {
-        var isSuccessMode: Bool = true
-        
-        init(isSuccessMode: Bool) {
-            self.isSuccessMode = isSuccessMode
-        }
-        
-        func savePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
-            if isSuccessMode {
-                return Just(page)
-                    .setFailureType(to: Error.self)
-                    .eraseToAnyPublisher()
-            } else {
-                return Fail(error: TestError.failed).eraseToAnyPublisher()
-            }
-        }
-        
-        func fetchPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error> {
-            return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
-        }
-    }
-    
-    class DummyRawPageRepository: RawPageRepositoryProtocol {
-        var isSuccessMode: Bool = true
-        
-        init(isSuccessMode: Bool) {
-            self.isSuccessMode = isSuccessMode
-        }
-        
-        func save(rawPage: RawPageEntity, at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
-            if isSuccessMode {
-                return Just(rawPage)
-                    .setFailureType(to: Error.self)
-                    .eraseToAnyPublisher()
-            } else {
-                return Fail(error: TestError.failed).eraseToAnyPublisher()
-            }
-        }
-        
-        func fetch(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
-            return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
-        }
-    }
-    
-    class DummyPairRepository: PairRepositoryProtocol {
-        var isSuccessMode: Bool = true
-        
-        init(isSuccessMode: Bool = true) {
-            self.isSuccessMode = isSuccessMode
-        }
-        
-        func setPairId(with user: User) -> AnyPublisher<DDID, Error> {
-            return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
-        }
-        
-        func setRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
-            return self.isSuccessMode ? Just(DDID()).setFailureType(to: Error.self).eraseToAnyPublisher() : Fail(error: TestError.notImplemented).eraseToAnyPublisher()
-        }
-        
-        func fetchRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
-            return Fail(error: TestError.notImplemented).eraseToAnyPublisher()
-        }
-    }
-    
     func testSavingSuccess() {
         let editPageUseCase = EditPageUseCase(
             user: User(id: DDID(), pairId: nil),
@@ -122,7 +31,7 @@ class EditPageUseCaseTest: XCTestCase {
         editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
         editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
         editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
-        editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()))
+        editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()), metaData: nil)
     
         var error: Error?
         var result: Bool?
@@ -160,12 +69,12 @@ class EditPageUseCaseTest: XCTestCase {
         
         let expectation = self.expectation(description: "testSavingFailureDueToImageUseCase")
 
-        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
-        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
-        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
-        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
-        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
-        editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()))
+        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "file://naver.com")!))
+        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "file://naver.com")!))
+        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "file://naver.com")!))
+        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "file://naver.com")!))
+        editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "file://naver.com")!))
+        editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()), metaData: nil)
     
         var error: Error?
         var result: Bool?
@@ -208,7 +117,7 @@ class EditPageUseCaseTest: XCTestCase {
         editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
         editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
         editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
-        editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()))
+        editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()), metaData: nil)
     
         var error: Error?
         var result: Bool?
@@ -251,7 +160,7 @@ class EditPageUseCaseTest: XCTestCase {
         editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
         editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
         editPageUseCase.addComponent(PhotoComponentEntity(frame: .zero, scale: .zero, angle: 0, aspectRatio: 0, imageUrl: URL(string: "https://naver.com")!))
-        editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()))
+        editPageUseCase.savePage(author: User(id: DDID(), pairId: DDID()), metaData: nil)
     
         var error: Error?
         var result: Bool?

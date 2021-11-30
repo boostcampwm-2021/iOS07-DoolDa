@@ -154,7 +154,7 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
             .collect()
             .eraseToAnyPublisher()
             .sink { [weak self] completion in
-                guard case .failure(let error) = completion else { return }
+                guard case .failure(let error) = completion else {return }
                 self?.error = error
             } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
