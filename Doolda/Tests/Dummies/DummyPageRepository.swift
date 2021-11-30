@@ -30,6 +30,10 @@ class DummyPageRepository: PageRepositoryProtocol {
     }
     
     func fetchPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error> {
-        return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+        if isSuccessMode {
+            return Just([]).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } else {
+            return Fail(error: DummyError.failed).eraseToAnyPublisher()
+        }
     }
 }
