@@ -5,28 +5,33 @@
 //  Created by 김민주 on 2021/11/30.
 //
 
+import Combine
 import XCTest
 
 class GlobalFontUseCaseTest: XCTestCase {
+    private var cancellables: Set<AnyCancellable> = []
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func tearDown(){
+        self.cancellables = []
     }
+    
+    func testSetGlobalFontSuccess() {
+        let globalFontUseCase = GlobalFontUseCase(
+            globalFontRepository: DummyGlobalFontRepository()
+        )
+        
+        let targetFontName = "testFontName"
+        let expectation = self.expectation(description: #function)
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { _ in
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        globalFontUseCase.setGlobalFont(with: targetFontName)
+        
+        waitForExpectations(timeout: 5)
+        XCTAssertEqual(targetFontName, UIFont.globalFontFamily)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
