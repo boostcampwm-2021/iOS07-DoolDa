@@ -57,7 +57,7 @@ class PairUserUseCaseTest: XCTestCase {
         let user = User(id: DDID(), pairId: nil, friendId: nil)
         
         let pairUserUseCase = PairUserUseCase(
-            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: false),
             pairRepository: DummyPairRepository(isSuccessMode: false)
         )
         
@@ -84,7 +84,7 @@ class PairUserUseCaseTest: XCTestCase {
     }
     
     func testPairWithFriendSuccess() {
-        let user = User(id: DDID(), pairId: nil, friendId: nil)
+        let user = User(id: DummyUserRepository.firstUserId, pairId: nil, friendId: nil)
         
         let pairUserUseCase = PairUserUseCase(
             userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
@@ -93,7 +93,7 @@ class PairUserUseCaseTest: XCTestCase {
         
         let expectation = expectation(description: #function)
         
-        let friendId = DDID()
+        let friendId = DummyUserRepository.secondUserId
         pairUserUseCase.pair(user: user, friendId: friendId)
         pairUserUseCase.pairedUserPublisher
             .sink { user in
@@ -122,16 +122,16 @@ class PairUserUseCaseTest: XCTestCase {
     }
     
     func testPairWithFriendFailure() {
-        let user = User(id: DDID(), pairId: nil, friendId: nil)
+        let user = User(id: DummyUserRepository.firstUserId, pairId: nil, friendId: nil)
         
         let pairUserUseCase = PairUserUseCase(
-            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: false),
             pairRepository: DummyPairRepository(isSuccessMode: false)
         )
         
         let expectation = expectation(description: #function)
         
-        let friendId = DDID()
+        let friendId = DummyUserRepository.secondUserId
         pairUserUseCase.pair(user: user, friendId: friendId)
         pairUserUseCase.pairedUserPublisher
             .sink { user in
