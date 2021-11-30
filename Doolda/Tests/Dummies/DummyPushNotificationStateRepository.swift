@@ -8,11 +8,17 @@
 import Foundation
 
 class DummyPushNotificationStateRepository: PushNotificationStateRepositoryProtocol {
-    func save(_ state: Bool) {
-        <#code#>
+    var dummyNotificationState: Bool?
+    
+    init(dummyNotificationState: Bool? = nil) {
+        self.dummyNotificationState = dummyNotificationState
+    }
+    
+    func save( _ state: Bool) {
+        self.dummyNotificationState = state
     }
     
     func fetch() -> Bool? {
-        <#code#>
+        return dummyNotificationState
     }
 }
