@@ -81,7 +81,7 @@ class TextEditViewController: UIViewController {
     private var viewModel: TextEditViewModelProtocol!
     private weak var delegate: TextEditViewControllerDelegate?
     private var feedbackGenerator: UIImpactFeedbackGenerator?
-    private var initialScrollDone: Bool = false
+    private var initialFontColorPickerScrollDone: Bool = false
     
     override var inputAccessoryView: UIView? {
         return self.fontColorView
@@ -114,20 +114,11 @@ class TextEditViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-       super.viewWillLayoutSubviews()
-         if !self.initialScrollDone {
-            self.initialScrollDone = true
-             if let selectedTextComponent = self.viewModel?.selectedTextComponent,
-                let selecedColorIndex = FontColorType.allCases.firstIndex(of: selectedTextComponent.fontColor) {
-                 self.currentColorIndex = selecedColorIndex
-                 self.fontColorView.collectionView.scrollToItem(
-                     at: IndexPath.init(row: selecedColorIndex, section: 0),
-                     at: .centeredHorizontally,
-                     animated: true
-                 )
-             }
-       }
-   }
+        super.viewWillLayoutSubviews()
+        guard !self.initialFontColorPickerScrollDone else { return }
+        self.initialFontColorPickerScrollDone = true
+        self.configureFontColorPicker()
+    }
     
     // MARK: - Helpers
     
@@ -199,6 +190,18 @@ class TextEditViewController: UIViewController {
         let computedWidth =  size.width / ( self.widthRatioFromAbsolute ?? 0.0 )
         let computedHeight = size.height / ( self.heightRatioFromAbsolute ?? 0.0 )
         return CGSize(width: computedWidth, height: computedHeight)
+    }
+    
+    private func configureFontColorPicker() {
+        if let selectedTextComponent = self.viewModel?.selectedTextComponent,
+           let selecedColorIndex = FontColorType.allCases.firstIndex(of: selectedTextComponent.fontColor) {
+            self.currentColorIndex = selecedColorIndex
+            self.fontColorView.collectionView.scrollToItem(
+                at: IndexPath.init(row: selecedColorIndex, section: 0),
+                at: .centeredHorizontally,
+                animated: true
+            )
+        }
     }
 }
 
