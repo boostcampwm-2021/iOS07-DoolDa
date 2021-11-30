@@ -247,6 +247,13 @@
 		FC4459BA2755EC71004888B9 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
 		FC4459BB2755ED05004888B9 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
 		FC4459BC2755ED0A004888B9 /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
+		FC4459DB27560731004888B9 /* GlobalFontUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4459DA27560731004888B9 /* GlobalFontUseCaseTest.swift */; };
+		FC4459E127560782004888B9 /* GlobalFontUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */; };
+		FC4459E227560782004888B9 /* GlobalFontUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */; };
+		FC4459E32756079E004888B9 /* FontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F52744C22F00FFE4DC /* FontType.swift */; };
+		FC4459E4275607A3004888B9 /* GlobalFontRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */; };
+		FC4459E5275607AB004888B9 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7027437F31000203F7 /* UIFont+Extensions.swift */; };
+		FC4459E727560909004888B9 /* DummyGlobalFontRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4459E627560909004888B9 /* DummyGlobalFontRepository.swift */; };
 		FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */; };
 		FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */; };
 		FC51FA6D274C89330069D39C /* FontSizeControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA6C274C89330069D39C /* FontSizeControlView.swift */; };
@@ -299,6 +306,13 @@
 			remoteInfo = Doolda;
 		};
 		1DAEB02827560E8F0040E8C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 664893BC273007ED009F03E2;
+			remoteInfo = Doolda;
+		};
+		FC4459DC27560731004888B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 664893B5273007ED009F03E2 /* Project object */;
 			proxyType = 1;
@@ -497,6 +511,9 @@
 		FC4459AB2755E8C4004888B9 /* GetMyIdUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetMyIdUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4459AD2755E8C4004888B9 /* GetMyIdUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseTest.swift; sourceTree = "<group>"; };
 		FC4459B72755EBC5004888B9 /* DummyUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyUserRepository.swift; sourceTree = "<group>"; };
+		FC4459D827560731004888B9 /* GlobalFontUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlobalFontUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC4459DA27560731004888B9 /* GlobalFontUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontUseCaseTest.swift; sourceTree = "<group>"; };
+		FC4459E627560909004888B9 /* DummyGlobalFontRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyGlobalFontRepository.swift; sourceTree = "<group>"; };
 		FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorPickerView.swift; sourceTree = "<group>"; };
 		FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		FC51FA6C274C89330069D39C /* FontSizeControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeControlView.swift; sourceTree = "<group>"; };
@@ -593,6 +610,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC4459D527560731004888B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -664,6 +688,7 @@
 				66C2CA862755E9F200AFE5EE /* PairUserUseCaseTest */,
 				31BEC8322755EA89009AF22A /* ImageUseCaseTest */,
 				1DAEB02527560E8F0040E8C1 /* FCMTokenUseCaseTest */,
+				FC4459D927560731004888B9 /* GlobalFontUseCaseTest */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -853,6 +878,7 @@
 				66C2CA852755E9F200AFE5EE /* PairUserUseCaseTest.xctest */,
 				31BEC8312755EA89009AF22A /* ImageUseCaseTest.xctest */,
 				1DAEB02427560E8F0040E8C1 /* FCMTokenUseCaseTest.xctest */,
+				FC4459D827560731004888B9 /* GlobalFontUseCaseTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1169,6 +1195,7 @@
 				1D1C8EC52755ECF10044AF95 /* DummyUserRepository.swift */,
 				31BEC8392755EBB7009AF22A /* DummyImageRepository.swift */,
 				1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */,
+				FC4459E627560909004888B9 /* DummyGlobalFontRepository.swift */,
 			);
 			path = Dummies;
 			sourceTree = "<group>";
@@ -1179,6 +1206,14 @@
 				FC4459AD2755E8C4004888B9 /* GetMyIdUseCaseTest.swift */,
 			);
 			path = GetMyIdUseCaseTest;
+			sourceTree = "<group>";
+		};
+		FC4459D927560731004888B9 /* GlobalFontUseCaseTest */ = {
+			isa = PBXGroup;
+			children = (
+				FC4459DA27560731004888B9 /* GlobalFontUseCaseTest.swift */,
+			);
+			path = GlobalFontUseCaseTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1330,6 +1365,24 @@
 			productReference = FC4459AB2755E8C4004888B9 /* GetMyIdUseCaseTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FC4459D727560731004888B9 /* GlobalFontUseCaseTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC4459E027560731004888B9 /* Build configuration list for PBXNativeTarget "GlobalFontUseCaseTest" */;
+			buildPhases = (
+				FC4459D427560731004888B9 /* Sources */,
+				FC4459D527560731004888B9 /* Frameworks */,
+				FC4459D627560731004888B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC4459DD27560731004888B9 /* PBXTargetDependency */,
+			);
+			name = GlobalFontUseCaseTest;
+			productName = GlobalFontUseCaseTest;
+			productReference = FC4459D827560731004888B9 /* GlobalFontUseCaseTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1365,6 +1418,9 @@
 					FC4459AA2755E8C4004888B9 = {
 						CreatedOnToolsVersion = 13.0;
 					};
+					FC4459D727560731004888B9 = {
+						CreatedOnToolsVersion = 13.0;
+					};
 				};
 			};
 			buildConfigurationList = 664893B8273007ED009F03E2 /* Build configuration list for PBXProject "Doolda" */;
@@ -1394,6 +1450,7 @@
 				66C2CA842755E9F200AFE5EE /* PairUserUseCaseTest */,
 				31BEC8302755EA89009AF22A /* ImageUseCaseTest */,
 				1DAEB02327560E8F0040E8C1 /* FCMTokenUseCaseTest */,
+				FC4459D727560731004888B9 /* GlobalFontUseCaseTest */,
 			);
 		};
 /* End PBXProject section */
@@ -1463,6 +1520,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FC4459A92755E8C4004888B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC4459D627560731004888B9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1805,6 +1869,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC4459D427560731004888B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC4459E127560782004888B9 /* GlobalFontUseCase.swift in Sources */,
+				FC4459E227560782004888B9 /* GlobalFontUseCaseProtocol.swift in Sources */,
+				FC4459E32756079E004888B9 /* FontType.swift in Sources */,
+				FC4459DB27560731004888B9 /* GlobalFontUseCaseTest.swift in Sources */,
+				FC4459E5275607AB004888B9 /* UIFont+Extensions.swift in Sources */,
+				FC4459E727560909004888B9 /* DummyGlobalFontRepository.swift in Sources */,
+				FC4459E4275607A3004888B9 /* GlobalFontRepositoryProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1822,6 +1900,11 @@
 			isa = PBXTargetDependency;
 			target = 664893BC273007ED009F03E2 /* Doolda */;
 			targetProxy = 1D097E94273CFA1200A4810B /* PBXContainerItemProxy */;
+		};
+		FC4459DD27560731004888B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 664893BC273007ED009F03E2 /* Doolda */;
+			targetProxy = FC4459DC27560731004888B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2329,6 +2412,50 @@
 			};
 			name = Release;
 		};
+		FC4459DE27560731004888B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda.GlobalFontUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FC4459DF27560731004888B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda.GlobalFontUseCaseTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2409,6 +2536,15 @@
 			buildConfigurations = (
 				FC4459B22755E8C4004888B9 /* Debug */,
 				FC4459B32755E8C4004888B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC4459E027560731004888B9 /* Build configuration list for PBXNativeTarget "GlobalFontUseCaseTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC4459DE27560731004888B9 /* Debug */,
+				FC4459DF27560731004888B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
