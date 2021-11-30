@@ -32,89 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FC9F107E27315EB80060FEB7"
-               BuildableName = "FirebaseNetworkTest.xctest"
-               BlueprintName = "FirebaseNetworkTest"
-               ReferencedContainer = "container:Doolda.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6648945B27327F1D009F03E2"
-               BuildableName = "GeneratePairIdUseCaseTests.xctest"
-               BlueprintName = "GeneratePairIdUseCaseTests"
-               ReferencedContainer = "container:Doolda.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "FC4459AA2755E8C4004888B9"
                BuildableName = "GetMyIdUseCaseTest.xctest"
                BlueprintName = "GetMyIdUseCaseTest"
-               ReferencedContainer = "container:Doolda.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1D0C8BC82732B5F90091ACC0"
-               BuildableName = "GetPairIdUseCaseTest.xctest"
-               BlueprintName = "GetPairIdUseCaseTest"
-               ReferencedContainer = "container:Doolda.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FC5FB7A027328A19008AC3D2"
-               BuildableName = "UserDefaultsPersistenceServiceTest.xctest"
-               BlueprintName = "UserDefaultsPersistenceServiceTest"
-               ReferencedContainer = "container:Doolda.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FC5FB7C827339213008AC3D2"
-               BuildableName = "UserRepositoryTests.xctest"
-               BlueprintName = "UserRepositoryTests"
-               ReferencedContainer = "container:Doolda.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "310D81222733C7FC00F15F4F"
-               BuildableName = "SplashViewModelTest.xctest"
-               BlueprintName = "SplashViewModelTest"
-               ReferencedContainer = "container:Doolda.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "669ADE312732E4A8007B529B"
-               BuildableName = "RefreshPairIdUseCaseTest.xctest"
-               BlueprintName = "RefreshPairIdUseCaseTest"
-               ReferencedContainer = "container:Doolda.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "310125C82739A56600E43160"
-               BuildableName = "ImageComposeUseCaseTest.xctest"
-               BlueprintName = "ImageComposeUseCaseTest"
                ReferencedContainer = "container:Doolda.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -245,6 +165,26 @@
                BlueprintIdentifier = "1DAEB039275617010040E8C1"
                BuildableName = "FirebaseMessageUseCaseTest.xctest"
                BlueprintName = "FirebaseMessageUseCaseTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1D3925B9273BB4BE003A0B70"
+               BuildableName = "EditPageUseCaseTest.xctest"
+               BlueprintName = "EditPageUseCaseTest"
+               ReferencedContainer = "container:Doolda.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "31BEC8302755EA89009AF22A"
+               BuildableName = "ImageUseCaseTest.xctest"
+               BlueprintName = "ImageUseCaseTest"
                ReferencedContainer = "container:Doolda.xcodeproj">
             </BuildableReference>
          </TestableReference>
