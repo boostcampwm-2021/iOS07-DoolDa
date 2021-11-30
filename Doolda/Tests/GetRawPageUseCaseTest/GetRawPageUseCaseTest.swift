@@ -5,28 +5,67 @@
 //  Created by 정지승 on 2021/11/30.
 //
 
+import Combine
 import XCTest
 
 class GetRawPageUseCaseTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    private var cancellables: Set<AnyCancellable> = []
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        self.cancellables = []
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testGetRawPageEntitySuccess() {
+        let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: DummyRawPageRepository(isSuccessMode: true))
+        let pageEntity = PageEntity(
+            author: User(id: DDID(), pairId: DDID(), friendId: DDID()),
+            createdTime: Date(),
+            updatedTime: Date(),
+            jsonPath: "2001101011"
+        )
+        
+        let expectation = expectation(description: #function)
+        var errorResult: Error?
+        
+        getRawPageUseCase.getRawPageEntity(metaData: pageEntity)
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                errorResult = error
+                expectation.fulfill()
+            } receiveValue: { _ in
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNil(errorResult)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testGetRawPageEntityFailure() {
+        let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: DummyRawPageRepository(isSuccessMode: false))
+        let pageEntity = PageEntity(
+            author: User(id: DDID(), pairId: DDID(), friendId: DDID()),
+            createdTime: Date(),
+            updatedTime: Date(),
+            jsonPath: "2001101011"
+        )
+        
+        let expectation = expectation(description: #function)
+        var errorResult: Error?
+        
+        getRawPageUseCase.getRawPageEntity(metaData: pageEntity)
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                errorResult = error
+                expectation.fulfill()
+            } receiveValue: { _ in
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNotNil(errorResult)
     }
-
 }
