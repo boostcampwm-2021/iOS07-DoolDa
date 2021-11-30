@@ -15,10 +15,10 @@ final class PushNotificationStateUseCase: PushNotificationStateUseCaseProtocol {
     }
     
     func getPushNotificationState() -> Bool? {
-        return self.pushNotificationStateRepository.fetchState()
+        return self.pushNotificationStateRepository.fetch()
     }
     
     func setPushNotificationState(as state: Bool) {
-        self.pushNotificationStateRepository.saveState(as: state)
+        self.pushNotificationStateRepository.save(state)
     }
 }

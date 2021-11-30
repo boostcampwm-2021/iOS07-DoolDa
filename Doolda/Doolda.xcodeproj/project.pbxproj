@@ -258,6 +258,7 @@
 		FC4459F527561ACB004888B9 /* PushNotificationStateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */; };
 		FC4459F627561ACB004888B9 /* PushNotificationStateUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */; };
 		FC4459F727561ACB004888B9 /* PushNotificationStateRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */; };
+		FC4459F927561BB3004888B9 /* DummyPushNotificationStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4459F827561BB3004888B9 /* DummyPushNotificationStateRepository.swift */; };
 		FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */; };
 		FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */; };
 		FC51FA6D274C89330069D39C /* FontSizeControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC51FA6C274C89330069D39C /* FontSizeControlView.swift */; };
@@ -527,6 +528,7 @@
 		FC4459D827560731004888B9 /* GlobalFontUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlobalFontUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4459DA27560731004888B9 /* GlobalFontUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontUseCaseTest.swift; sourceTree = "<group>"; };
 		FC4459E627560909004888B9 /* DummyGlobalFontRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyGlobalFontRepository.swift; sourceTree = "<group>"; };
+		FC4459F827561BB3004888B9 /* DummyPushNotificationStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyPushNotificationStateRepository.swift; sourceTree = "<group>"; };
 		FC51FA66274BB9D60069D39C /* FontColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorPickerView.swift; sourceTree = "<group>"; };
 		FC51FA68274BBB3C0069D39C /* FontColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		FC51FA6C274C89330069D39C /* FontSizeControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeControlView.swift; sourceTree = "<group>"; };
@@ -1218,6 +1220,7 @@
 				31BEC8392755EBB7009AF22A /* DummyImageRepository.swift */,
 				1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */,
 				FC4459E627560909004888B9 /* DummyGlobalFontRepository.swift */,
+				FC4459F827561BB3004888B9 /* DummyPushNotificationStateRepository.swift */,
 			);
 			path = Dummies;
 			sourceTree = "<group>";
@@ -1947,6 +1950,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC4459F527561ACB004888B9 /* PushNotificationStateUseCase.swift in Sources */,
+				FC4459F927561BB3004888B9 /* DummyPushNotificationStateRepository.swift in Sources */,
 				FC4459F627561ACB004888B9 /* PushNotificationStateUseCaseProtocol.swift in Sources */,
 				FC4459F727561ACB004888B9 /* PushNotificationStateRepositoryProtocol.swift in Sources */,
 				FC4459EF27561A48004888B9 /* PushNotificationStateUseCaseTest.swift in Sources */,
