@@ -16,7 +16,9 @@ class CheckMyTurnUseCaseTest: XCTestCase {
     }
     
     func testCheckMyTurnSuccess() {
-        let checkMyTurnUseCase = CheckMyTurnUseCase(pairRepository: DummyPairRepository(isSuccessMode: true))
+        let pairRepository = DummyPairRepository(isSuccessMode: true)
+        pairRepository.isCheckTurnMode = true
+        let checkMyTurnUseCase = CheckMyTurnUseCase(pairRepository: pairRepository)
         let user = User(id: DDID(), pairId: nil, friendId: nil)
         
         let expectation = expectation(description: #function)
@@ -39,7 +41,9 @@ class CheckMyTurnUseCaseTest: XCTestCase {
     }
     
     func testCheckMyTurnFailure() {
-        let checkMyTurnUseCase = CheckMyTurnUseCase(pairRepository: DummyPairRepository(isSuccessMode: false))
+        let pairRepository = DummyPairRepository(isSuccessMode: false)
+        pairRepository.isCheckTurnMode = true
+        let checkMyTurnUseCase = CheckMyTurnUseCase(pairRepository: pairRepository)
         let user = User(id: DDID(), pairId: nil, friendId: nil)
         
         let expectation = expectation(description: #function)

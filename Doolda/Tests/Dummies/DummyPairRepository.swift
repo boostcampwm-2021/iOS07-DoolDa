@@ -14,6 +14,7 @@ class DummyPairRepository: PairRepositoryProtocol {
     }
     
     var isSuccessMode: Bool = true
+    var isCheckTurnMode: Bool = false
     
     init(isSuccessMode: Bool = true) {
         self.isSuccessMode = isSuccessMode
@@ -32,7 +33,7 @@ class DummyPairRepository: PairRepositoryProtocol {
     }
     
     func fetchRecentlyEditedUser(with user: User) -> AnyPublisher<DDID, Error> {
-        if isSuccessMode {
+        if self.isSuccessMode && self.isCheckTurnMode {
             return Just(user.id).setFailureType(to: Error.self).eraseToAnyPublisher()
         } else {
             return Fail(error: DummyError.failed).eraseToAnyPublisher()
