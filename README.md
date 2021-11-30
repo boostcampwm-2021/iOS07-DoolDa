@@ -29,7 +29,7 @@
 둘다를 직접 실행할 수 있는 배포링크입니다.
 </Blockquote>
 
-[둘다 배포링크](yabbyark.iptime.org)
+[둘다 배포링크](http://yabbyark.iptime.org)
 
 </br>
 
