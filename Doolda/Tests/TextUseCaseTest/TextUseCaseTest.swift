@@ -9,17 +9,68 @@ import XCTest
 
 class TextUseCaseTest: XCTestCase {
 
+    func testGetTextComponent() {
+        let textUseCase = TextUseCase()
+        let targetText: String = "dummy"
+        let targetSize: CGSize = .zero
+        let targetOrigin = CGPoint(x: 850 - targetSize.width/2, y: 1500 - targetSize.height/2)
+        let targetFontSize: CGFloat = .zero
+        let targetColor: FontColorType = .black
+        let targetTextComponent = TextComponentEntity(
+            frame: CGRect(origin: targetOrigin, size: targetSize),
+            scale: 1.0,
+            angle: 0,
+            aspectRatio: 1,
+            text: targetText,
+            fontSize: targetFontSize,
+            fontColor: targetColor
+        )
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let result = textUseCase.getTextComponent(
+            with: targetText,
+            contentSize: targetSize,
+            fontSize: targetFontSize,
+            color: targetColor
+        )
+        
+        XCTAssertEqual(targetText, result.text)
+        XCTAssertEqual(targetSize, result.frame.size)
+        XCTAssertEqual(targetOrigin, result.frame.origin)
+        XCTAssertEqual(targetFontSize, result.fontSize)
+        XCTAssertEqual(targetColor, result.fontColor)
+        
+        XCTAssertNotEqual(targetTextComponent, result)
     }
+    
+    func testChangeTextComponent() {
+        let textUseCase = TextUseCase()
+        let targetTextComponent = TextComponentEntity(
+            frame: CGRect(origin: .zero, size: .zero),
+            scale: 1.0,
+            angle: 0,
+            aspectRatio: 1,
+            text: "dummy",
+            fontSize: .zero,
+            fontColor: .black
+        )
+        
+        let targetText: String = "changedummy"
+        let targetSize: CGSize = CGSize(width: 100, height: 100)
+        let targetFontSize: CGFloat = 16
+        let targetColor: FontColorType = .purple
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+        let result = textUseCase.changeTextComponent(
+            from: targetTextComponent,
+            with: targetText,
+            contentSize: targetSize,
+            fontSize: targetFontSize,
+            color: targetColor
+        )
+        
+        XCTAssertEqual(targetTextComponent, result)
+        XCTAssertEqual(targetText, result.text)
+        XCTAssertEqual(targetSize, result.frame.size)
+        XCTAssertEqual(targetFontSize, result.fontSize)
+        XCTAssertEqual(targetColor, result.fontColor)
     }
-
 }
