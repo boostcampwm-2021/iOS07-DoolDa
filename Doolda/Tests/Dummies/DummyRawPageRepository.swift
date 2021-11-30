@@ -9,10 +9,6 @@ import Combine
 import Foundation
 
 class DummyRawPageRepository: RawPageRepositoryProtocol {
-    func fetch(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error> {
-        return Fail(error: DummyError.failed).eraseToAnyPublisher()
-    }
-    
     var isSuccessMode: Bool = true
     
     init(isSuccessMode: Bool) {
@@ -29,7 +25,11 @@ class DummyRawPageRepository: RawPageRepositoryProtocol {
         }
     }
     
-    func fetch(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
-        return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+    func fetch(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error> {
+        if isSuccessMode {
+            return Just(RawPageEntity()).setFailureType(to: Error.self).eraseToAnyPublisher()
+        } else {
+            return Fail(error: DummyError.notImplemented).eraseToAnyPublisher()
+        }
     }
 }
