@@ -16,14 +16,14 @@ class PairUserUseCaseTest: XCTestCase {
     }
 
     func testPairWithMyselfSuccess() {
+        let user = User(id: DDID(), pairId: nil, friendId: nil)
+        
         let pairUserUseCase = PairUserUseCase(
-            userRepository: DummyUserRepository(isSuccessMode: true),
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
             pairRepository: DummyPairRepository(isSuccessMode: true)
         )
         
         let expectation = expectation(description: #function)
-        
-        let user = User(id: DDID(), pairId: nil, friendId: nil)
         
         pairUserUseCase.pair(user: user)
         pairUserUseCase.pairedUserPublisher
@@ -54,14 +54,14 @@ class PairUserUseCaseTest: XCTestCase {
     }
     
     func testPairWithMyselfFailure() {
+        let user = User(id: DDID(), pairId: nil, friendId: nil)
+        
         let pairUserUseCase = PairUserUseCase(
-            userRepository: DummyUserRepository(isSuccessMode: false),
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
             pairRepository: DummyPairRepository(isSuccessMode: false)
         )
         
         let expectation = expectation(description: #function)
-        
-        let user = User(id: DDID(), pairId: nil, friendId: nil)
         
         pairUserUseCase.pair(user: user)
         pairUserUseCase.pairedUserPublisher
@@ -84,14 +84,15 @@ class PairUserUseCaseTest: XCTestCase {
     }
     
     func testPairWithFriendSuccess() {
+        let user = User(id: DDID(), pairId: nil, friendId: nil)
+        
         let pairUserUseCase = PairUserUseCase(
-            userRepository: DummyUserRepository(isSuccessMode: true),
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
             pairRepository: DummyPairRepository(isSuccessMode: true)
         )
         
         let expectation = expectation(description: #function)
         
-        let user = User(id: DDID(), pairId: nil, friendId: nil)
         let friendId = DDID()
         pairUserUseCase.pair(user: user, friendId: friendId)
         pairUserUseCase.pairedUserPublisher
@@ -121,14 +122,15 @@ class PairUserUseCaseTest: XCTestCase {
     }
     
     func testPairWithFriendFailure() {
+        let user = User(id: DDID(), pairId: nil, friendId: nil)
+        
         let pairUserUseCase = PairUserUseCase(
-            userRepository: DummyUserRepository(isSuccessMode: false),
+            userRepository: DummyUserRepository(dummyMyId: user.id, isSuccessMode: true),
             pairRepository: DummyPairRepository(isSuccessMode: false)
         )
         
         let expectation = expectation(description: #function)
         
-        let user = User(id: DDID(), pairId: nil, friendId: nil)
         let friendId = DDID()
         pairUserUseCase.pair(user: user, friendId: friendId)
         pairUserUseCase.pairedUserPublisher
