@@ -66,4 +66,54 @@ class FCMTokenUseCaseTest: XCTestCase {
         XCTAssertNotNil(error)
         XCTAssertNotEqual(dummyToken, result)
     }
+    
+    func testGetTokenSuccess() {
+        let fcmTokenRepository = DummyFCMTokenRepository(isSuccessMode: true)
+        let fcmTokenUseCase = FCMTokenUseCase(fcmTokenRepository: fcmTokenRepository)
+        
+        let expectation = self.expectation(description: "testGetTokenSuccess")
+        var error: Error?
+        var result: String?
+        
+        fcmTokenUseCase.getToken(for: DDID())
+            .sink { completion in
+                guard case .failure(let encounteredError) = completion else { return }
+                error = encounteredError
+                expectation.fulfill()
+            } receiveValue: { token in
+                result = token
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 3)
+        
+        XCTAssertNil(error)
+        XCTAssertNotNil(result)
+    }
+    
+    func testGetTokenFailure() {
+        let fcmTokenRepository = DummyFCMTokenRepository(isSuccessMode: false)
+        let fcmTokenUseCase = FCMTokenUseCase(fcmTokenRepository: fcmTokenRepository)
+        
+        let expectation = self.expectation(description: "testGetTokenFailure")
+        var error: Error?
+        var result: String?
+        
+        fcmTokenUseCase.getToken(for: DDID())
+            .sink { completion in
+                guard case .failure(let encounteredError) = completion else { return }
+                error = encounteredError
+                expectation.fulfill()
+            } receiveValue: { token in
+                result = token
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 3)
+        
+        XCTAssertNotNil(error)
+        XCTAssertNil(result)
+    }
 }
