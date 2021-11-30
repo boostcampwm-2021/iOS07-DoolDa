@@ -34,4 +34,17 @@ class GlobalFontUseCaseTest: XCTestCase {
         waitForExpectations(timeout: 5)
         XCTAssertEqual(targetFontName, UIFont.globalFontFamily)
     }
-}
+    
+    func testSaveGlobalFontSuccess() {
+        let dummyGlobalFontRepository = DummyGlobalFontRepository()
+        let globalFontUseCase = GlobalFontUseCase(
+            globalFontRepository: dummyGlobalFontRepository
+        )
+        
+        let targetFontName = "testFontName"
+
+        globalFontUseCase.saveGlobalFont(as: targetFontName)
+        
+        XCTAssertEqual(targetFontName, dummyGlobalFontRepository.dummyGlobalFontName)
+    }
+    
