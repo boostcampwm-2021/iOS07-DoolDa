@@ -8,6 +8,6 @@
 import Foundation
 
 protocol PushNotificationStateRepositoryProtocol {
-    func saveState(as state: Bool)
-    func fetchState() -> Bool?
+    func save(_ state: Bool)
+    func fetch() -> Bool?
 }

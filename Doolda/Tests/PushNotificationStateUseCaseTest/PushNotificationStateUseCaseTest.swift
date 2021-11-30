@@ -15,8 +15,10 @@ class PushNotificationStateUseCaseTest: XCTestCase {
         self.cancellables = []
     }
 
-    func testGetMyIdSuccess() {
-        
+    func test() {
+        let pushNotificationStateUseCase = PushNotificationStateUseCase(
+            pushNotificationStateRepository: PushNotificationStateRepositoryProtocol
+        )
 
     }
 }

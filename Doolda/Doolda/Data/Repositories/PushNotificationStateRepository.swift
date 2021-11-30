@@ -14,11 +14,11 @@ final class PushNotificationStateRepository: PushNotificationStateRepositoryProt
         self.userDefaultsPersistenceService = persistenceService
     }
     
-    func saveState(as state: Bool) {
+    func save(_ state: Bool) {
         self.userDefaultsPersistenceService.set(key: UserDefaults.Keys.pushNotificationState, value: state)
     }
     
-    func fetchState() -> Bool? {
+    func fetch() -> Bool? {
         guard let pushNotificationState: Bool = self.userDefaultsPersistenceService.get(
             key: UserDefaults.Keys.pushNotificationState
         ) else {
