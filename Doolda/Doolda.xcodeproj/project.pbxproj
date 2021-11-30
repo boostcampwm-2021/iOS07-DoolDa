@@ -18,6 +18,11 @@
 		1D1C8ECA2755EE530044AF95 /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
 		1D1C8ECB2755EE8C0044AF95 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936E27356E160036CED2 /* User.swift */; };
 		1D1C8ECC2755EF080044AF95 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
+		1D1C8ECD2755F6BB0044AF95 /* GetUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760C2754C2CE006ACB41 /* GetUserUseCaseProtocol.swift */; };
+		1D1C8ECE2755F71F0044AF95 /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
+		1D1C8ECF2755F7270044AF95 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936E27356E160036CED2 /* User.swift */; };
+		1D1C8ED02755F7480044AF95 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDADCB3274BCE63000330C9 /* Secrets.swift */; };
+		1D1C8ED12755F7500044AF95 /* FCMTokenDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999467274CAC4700C72273 /* FCMTokenDocument.swift */; };
 		1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */; };
 		1D3925B5273B9172003A0B70 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925B4273B9172003A0B70 /* DateFormatter+Extensions.swift */; };
 		1D3925BD273BB4BE003A0B70 /* EditPageUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925BC273BB4BE003A0B70 /* EditPageUseCaseTest.swift */; };
@@ -1195,11 +1200,9 @@
 					};
 					1D992E2F2755E8EC002C4457 = {
 						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 664893BC273007ED009F03E2;
 					};
 					319C21D4273BD764009CE65C = {
 						CreatedOnToolsVersion = 13.1;
-						TestTargetID = 664893BC273007ED009F03E2;
 					};
 					664893BC273007ED009F03E2 = {
 						CreatedOnToolsVersion = 13.0;
@@ -1355,6 +1358,7 @@
 				1D1C8ECA2755EE530044AF95 /* DDIDDataTransferObject.swift in Sources */,
 				1D1C8EC72755ED690044AF95 /* UserRepositoryProtocol.swift in Sources */,
 				1D1C8EC82755EDF20044AF95 /* DummyUserRepository.swift in Sources */,
+				1D1C8ECD2755F6BB0044AF95 /* GetUserUseCaseProtocol.swift in Sources */,
 				1D1C8EC92755EE420044AF95 /* DDID.swift in Sources */,
 				1D1C8ECB2755EE8C0044AF95 /* User.swift in Sources */,
 			);
@@ -1364,13 +1368,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D1C8ECF2755F7270044AF95 /* User.swift in Sources */,
 				1DD0F3552747ABE000FC5E65 /* PairDocument.swift in Sources */,
 				319C21E1273BD805009CE65C /* URLSessionNetworkServiceProtocol.swift in Sources */,
+				1D1C8ECE2755F71F0044AF95 /* DDIDDataTransferObject.swift in Sources */,
 				319C21DE273BD791009CE65C /* API.swift in Sources */,
+				1D1C8ED12755F7500044AF95 /* FCMTokenDocument.swift in Sources */,
 				1DD0F3562747ABEC00FC5E65 /* PageDocument.swift in Sources */,
 				1DD0F3572747ABFD00FC5E65 /* DDID.swift in Sources */,
 				1DD0F3582747AC0300FC5E65 /* PageEntity.swift in Sources */,
 				1DD0F3542747ABDA00FC5E65 /* UserDocument.swift in Sources */,
+				1D1C8ED02755F7480044AF95 /* Secrets.swift in Sources */,
 				1DD0F3532747ABD400FC5E65 /* DateFormatter+Extensions.swift in Sources */,
 				319C21DF273BD791009CE65C /* URLSessionNetworkService.swift in Sources */,
 				319C21E0273BD791009CE65C /* URLRequsetBuilder.swift in Sources */,
@@ -1643,7 +1651,6 @@
 		1D992E362755E8EC002C4457 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1660,14 +1667,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
 			};
 			name = Debug;
 		};
 		1D992E372755E8EC002C4457 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1684,14 +1689,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
 			};
 			name = Release;
 		};
 		319C21DB273BD764009CE65C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1707,14 +1710,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
 			};
 			name = Debug;
 		};
 		319C21DC273BD764009CE65C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
@@ -1730,7 +1731,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Doolda.app/Doolda";
 			};
 			name = Release;
 		};
