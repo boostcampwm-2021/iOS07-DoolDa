@@ -82,4 +82,71 @@ class PairUserUseCaseTest: XCTestCase {
         
         XCTAssertNotNil(errorResult)
     }
+    
+    func testPairWithFriendSuccess() {
+        let pairUserUseCase = PairUserUseCase(
+            userRepository: DummyUserRepository(isSuccessMode: true),
+            pairRepository: DummyPairRepository(isSuccessMode: true)
+        )
+        
+        let expectation = expectation(description: #function)
+        
+        let user = User(id: DDID(), pairId: nil, friendId: nil)
+        let friendId = DDID()
+        pairUserUseCase.pair(user: user, friendId: friendId)
+        pairUserUseCase.pairedUserPublisher
+            .sink { user in
+                if let user = user,
+                   let friendIdResult = user.friendId {
+                    XCTAssertNotNil(user.pairId)
+                    XCTAssertEqual(friendId, friendIdResult)
+                } else {
+                    XCTFail()
+                }
+                
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        var errorResult: Error?
+        pairUserUseCase.errorPublisher
+            .sink { error in
+                errorResult = error
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNil(errorResult)
+    }
+    
+    func testPairWithFriendFailure() {
+        let pairUserUseCase = PairUserUseCase(
+            userRepository: DummyUserRepository(isSuccessMode: false),
+            pairRepository: DummyPairRepository(isSuccessMode: false)
+        )
+        
+        let expectation = expectation(description: #function)
+        
+        let user = User(id: DDID(), pairId: nil, friendId: nil)
+        let friendId = DDID()
+        pairUserUseCase.pair(user: user, friendId: friendId)
+        pairUserUseCase.pairedUserPublisher
+            .sink { user in
+                XCTAssertNil(user?.pairId)
+                expectation.fulfill()
+            }
+            .store(in: &self.cancellables)
+        
+        var errorResult: Error?
+        pairUserUseCase.errorPublisher
+            .sink { error in
+                errorResult = error
+            }
+            .store(in: &self.cancellables)
+        
+        waitForExpectations(timeout: 10)
+        
+        XCTAssertNotNil(errorResult)
+    }
 }
