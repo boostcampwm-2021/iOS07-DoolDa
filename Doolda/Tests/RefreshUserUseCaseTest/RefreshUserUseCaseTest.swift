@@ -24,7 +24,6 @@ class RefreshUserUseCaseTest: XCTestCase {
         )
         
         let expectation = expectation(description: #function)
-        expectation.expectedFulfillmentCount = 2
         
         let user = User(id: DummyUserRepository.fourthUserId, pairId: nil, friendId: nil)
         refreshUserUseCase.refresh(for: user)
@@ -38,9 +37,9 @@ class RefreshUserUseCaseTest: XCTestCase {
             .store(in: &self.cancellables)
         
         refreshUserUseCase.errorPublisher
+            .compactMap { $0 }
             .sink { error in
-                XCTAssertNil(error)
-                expectation.fulfill()
+                XCTFail()
             }
             .store(in: &self.cancellables)
         
@@ -56,18 +55,17 @@ class RefreshUserUseCaseTest: XCTestCase {
         )
         
         let expectation = expectation(description: #function)
-        expectation.expectedFulfillmentCount = 2
         
         let user = User(id: DummyUserRepository.fourthUserId, pairId: nil, friendId: nil)
         refreshUserUseCase.refresh(for: user)
         refreshUserUseCase.refreshedUserPublisher
             .sink { user in
                 XCTAssertNil(user)
-                expectation.fulfill()
             }
             .store(in: &self.cancellables)
         
         refreshUserUseCase.errorPublisher
+            .compactMap { $0 }
             .sink { error in
                 XCTAssertNotNil(error)
                 expectation.fulfill()
