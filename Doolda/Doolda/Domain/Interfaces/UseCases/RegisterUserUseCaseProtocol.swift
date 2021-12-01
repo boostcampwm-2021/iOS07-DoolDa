@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 protocol RegisterUserUseCaseProtocol {
-    var registeredUserPublisher: Published<User?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
+    var registeredUserPublisher: AnyPublisher<User?, Never> { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
     
     func register()
 }

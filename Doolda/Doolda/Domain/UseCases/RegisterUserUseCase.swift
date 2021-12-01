@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 final class RegisterUserUseCase: RegisterUserUseCaseProtocol {
-    var registeredUserPublisher: Published<User?>.Publisher { self.$registeredUser }
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    var registeredUserPublisher: AnyPublisher<User?, Never> { self.$registeredUser.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     
     private let userRepository: UserRepositoryProtocol
     private var cancellables: Set<AnyCancellable> = []
