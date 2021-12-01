@@ -162,7 +162,7 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     func addPageButtonDidTap() {
         NotificationCenter.default.post(
-            name: DiaryViewCoordinator.Notifications.editPageRequested,
+            name: DiaryViewCoordinator.Notifications.addPageRequested,
             object: nil
         )
     }

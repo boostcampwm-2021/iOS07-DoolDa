@@ -14,7 +14,7 @@ final class DiaryViewCoordinator: CoordinatorProtocol {
     
     enum Notifications {
         static let pageDetailRequested = Notification.Name("pageDetailRequested")
-        static let editPageRequested = Notification.Name("editPageRequested")
+        static let addPageRequested = Notification.Name("addPageRequested")
         static let settingsPageRequested = Notification.Name("settingsPageRequested")
         static let filteringSheetRequested = Notification.Name("filteringSheetRequested")
     }
@@ -84,7 +84,7 @@ final class DiaryViewCoordinator: CoordinatorProtocol {
     }
     
     private func bind() {
-        NotificationCenter.default.publisher(for: Notifications.editPageRequested, object: nil)
+        NotificationCenter.default.publisher(for: Notifications.addPageRequested, object: nil)
             .sink { [weak self] _ in
                 self?.editPageRequested()
             }
