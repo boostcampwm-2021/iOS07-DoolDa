@@ -22,10 +22,10 @@ enum EditPageUseCaseError: LocalizedError {
 }
 
 final class EditPageUseCase: EditPageUseCaseProtocol {
-    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
-    var rawPagePublisher: Published<RawPageEntity?>.Publisher { self.$rawPage }
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
-    var resultPublisher: Published<Bool?>.Publisher { self.$result }
+    var selectedComponentPublisher: AnyPublisher<ComponentEntity?, Never> { self.$selectedComponent.eraseToAnyPublisher() }
+    var rawPagePublisher: AnyPublisher<RawPageEntity?, Never> { self.$rawPage.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
+    var resultPublisher: AnyPublisher<Bool?, Never> { self.$result.eraseToAnyPublisher() }
     
     private let user: User
     private let imageUseCase: ImageUseCaseProtocol
