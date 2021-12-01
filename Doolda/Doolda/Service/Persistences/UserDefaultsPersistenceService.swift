@@ -7,7 +7,12 @@
 
 import Foundation
 
-class UserDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol {
+final class UserDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol {
+    
+    static let shared: UserDefaultsPersistenceService = UserDefaultsPersistenceService()
+    
+    private init() {}
+    
     func set(key: String, value: Any?) {
         UserDefaults.standard.set(value, forKey: key)
     }

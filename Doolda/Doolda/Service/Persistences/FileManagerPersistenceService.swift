@@ -36,7 +36,12 @@ enum FileManagerPersistenceServiceError: LocalizedError {
     }
 }
 
-class FileManagerPersistenceService: FileManagerPersistenceServiceProtocol {
+final class FileManagerPersistenceService: FileManagerPersistenceServiceProtocol {
+    
+    static let shared: FileManagerPersistenceService = FileManagerPersistenceService()
+    
+    private init() {}
+    
     func save(data: Data, at documents: FileDocuments, fileName: String) -> AnyPublisher<URL, Error> {
         guard let fileUrl = documents.rawValue?.appendingPathComponent(fileName) else {
             return Fail(error: FileManagerPersistenceServiceError.failedToSaveFile).eraseToAnyPublisher()
