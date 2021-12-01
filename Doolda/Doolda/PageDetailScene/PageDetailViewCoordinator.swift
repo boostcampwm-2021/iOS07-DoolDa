@@ -40,7 +40,7 @@ final class PageDetailViewCoordinator: CoordinatorProtocol {
         self.presenter = presenter
         self.user = user
         self.pageEntity = pageEntity
-        bind()
+        self.bind()
     }
 
     // MARK: - Helpers
