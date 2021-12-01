@@ -122,6 +122,7 @@ final class DiaryViewCoordinator: CoordinatorProtocol {
     private func settingsPageRequested() {
         let identifier = UUID()
         let coordinator = SettingsViewCoordinator(identifier: identifier, presenter: self.presenter, user: self.user)
+        self.children[identifier] = coordinator
         coordinator.start()
     }
     

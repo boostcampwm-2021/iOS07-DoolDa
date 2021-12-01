@@ -90,7 +90,7 @@ enum DiaryViewModelError: LocalizedError {
     }
 }
 
-class DiaryViewModel: DiaryViewModelProtocol {
+final class DiaryViewModel: DiaryViewModelProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     var displayModePublisher: Published<DiaryDisplayMode>.Publisher { self.$displayMode }
     var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }

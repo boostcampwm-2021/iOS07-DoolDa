@@ -5,19 +5,61 @@
 //  Created by Dozzing on 2021/11/21.
 //
 
+import Combine
 import UIKit
 
-class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
+final class SettingsViewCoordinator: CoordinatorProtocol {
+
+    // MARK: - Nested enum
+
+    enum Notifications {
+        static let fontPickerSheetRequested = Notification.Name("fontPickerSheetRequested")
+        static let informationViewRequested = Notification.Name("informationViewRequested")
+    }
+
+    enum Keys {
+        static let infoType = "infoType"
+    }
+
+    // MARK: - Public Properties
+
     var identifier: UUID
     var presenter: UINavigationController
     var children: [UUID : CoordinatorProtocol] = [:]
+
+    // MARK: - Private Properties
+
     private let user: User
+
+    private var cancellables: Set<AnyCancellable> = []
+
+    // MARK: - Initializers
 
     init(identifier: UUID, presenter: UINavigationController, user: User) {
         self.identifier = identifier
         self.presenter = presenter
         self.user = user
+        self.bind()
     }
+
+    // MARK: - Helpers
+
+    private func bind() {
+        NotificationCenter.default.publisher(for: Notifications.fontPickerSheetRequested, object: nil)
+            .sink { [weak self] _ in
+                self?.fontPickerSheetRequested()
+            }
+            .store(in: &self.cancellables)
+
+        NotificationCenter.default.publisher(for: Notifications.informationViewRequested, object: nil)
+            .compactMap { $0.userInfo?[Keys.infoType] as? DooldaInfoType }
+            .sink { [weak self] infoType in
+                self?.informationViewRequested(for: infoType)
+            }
+            .store(in: &self.cancellables)
+    }
+
+    // MARK: - Public Methods
 
     func start() {
         DispatchQueue.main.async {
@@ -44,7 +86,6 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
 
             let viewModel = SettingsViewModel(
                 user: self.user,
-                coordinator: self,
                 globalFontUseCase: globalFontUseCase,
                 unpairUserUseCase: unpairUserUseCase,
                 pushNotificationStateUseCase: pushNotificationStateUseCase,
@@ -55,13 +96,15 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
         }
     }
 
-    func fontPickerSheetRequested() {
+    // MARK: - Private Methods
+
+    private func fontPickerSheetRequested() {
         guard let settingsViewController = self.presenter.topViewController as? SettingsViewController else { return }
         let fontPickerSheet = FontPickerViewController(delegate: settingsViewController)
         settingsViewController.present(fontPickerSheet, animated: false, completion: nil)
     }
 
-    func informationViewRequested(for option: DooldaInfoType) {
+    private func informationViewRequested(for option: DooldaInfoType) {
         let viewController = InformationViewController()
         viewController.titleText = option.title
 
@@ -71,11 +114,7 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
         } else {
             viewController.contentText = option.content
         }
-
         self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
     }
 
-    func splashViewRequested() {
-        NotificationCenter.default.post(name: AppCoordinator.Notifications.appRestartSignal, object: self)
-    }
 }
