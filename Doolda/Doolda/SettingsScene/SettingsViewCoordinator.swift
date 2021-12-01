@@ -46,12 +46,14 @@ final class SettingsViewCoordinator: CoordinatorProtocol {
 
     private func bind() {
         NotificationCenter.default.publisher(for: Notifications.fontPickerSheetRequested, object: nil)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.fontPickerSheetRequested()
             }
             .store(in: &self.cancellables)
 
         NotificationCenter.default.publisher(for: Notifications.informationViewRequested, object: nil)
+            .receive(on: DispatchQueue.main)
             .compactMap { $0.userInfo?[Keys.infoType] as? DooldaInfoType }
             .sink { [weak self] infoType in
                 self?.informationViewRequested(for: infoType)
