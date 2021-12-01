@@ -84,19 +84,22 @@ final class DiaryViewCoordinator: CoordinatorProtocol {
     }
     
     private func bind() {
-        NotificationCenter.default.publisher(for: Notifications.addPageRequested, object: nil)
+        NotificationCenter.default.publisher(for: Notifications.editPageRequested, object: nil)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.editPageRequested()
             }
             .store(in: &self.cancellables)
         
         NotificationCenter.default.publisher(for: Notifications.settingsPageRequested, object: nil)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.settingsPageRequested()
             }
             .store(in: &self.cancellables)
         
         NotificationCenter.default.publisher(for: Notifications.pageDetailRequested, object: nil)
+            .receive(on: DispatchQueue.main)
             .compactMap { $0.userInfo?[Keys.pageEntity] as? PageEntity }
             .sink { [weak self] pageEntity in
                 self?.pageDetailRequested(pageEntity: pageEntity)
@@ -104,6 +107,7 @@ final class DiaryViewCoordinator: CoordinatorProtocol {
             .store(in: &self.cancellables)
         
         NotificationCenter.default.publisher(for: Notifications.filteringSheetRequested, object: nil)
+            .receive(on: DispatchQueue.main)
             .compactMap { ($0.userInfo?[Keys.authorFilter] as? DiaryAuthorFilter, $0.userInfo?[Keys.orderFilter] as? DiaryOrderFilter) }
             .sink { [weak self] filters in
                 guard let authorFilter = filters.0,

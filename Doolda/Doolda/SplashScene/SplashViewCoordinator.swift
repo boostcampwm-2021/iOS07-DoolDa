@@ -66,6 +66,7 @@ final class SplashViewCoordinator: CoordinatorProtocol {
     
     private func bind() {
         NotificationCenter.default.publisher(for: Notifications.userNotPaired, object: nil)
+            .receive(on: DispatchQueue.main)
             .compactMap { $0.userInfo?[Keys.myId] as? DDID }
             .sink { [weak self] myId in
                 self?.userNotPaired(myId: myId)
@@ -73,6 +74,7 @@ final class SplashViewCoordinator: CoordinatorProtocol {
             .store(in: &self.cancellables)
         
         NotificationCenter.default.publisher(for: Notifications.userAlreadyPaired, object: nil)
+            .receive(on: DispatchQueue.main)
             .compactMap { $0.userInfo?[Keys.user] as? User }
             .sink { [weak self] user in
                 self?.userAlreadyPaired(user: user)

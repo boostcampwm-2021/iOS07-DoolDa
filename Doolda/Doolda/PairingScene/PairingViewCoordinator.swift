@@ -70,6 +70,7 @@ class PairingViewCoordinator: CoordinatorProtocol {
     
     private func bind() {
         NotificationCenter.default.publisher(for: Notifications.userDidPaired, object: nil)
+            .receive(on: DispatchQueue.main)
             .compactMap { $0.userInfo?[Keys.user] as? User }
             .sink { user in
                 self.userDidPaired(user: user)
