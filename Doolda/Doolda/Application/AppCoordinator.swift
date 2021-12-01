@@ -9,6 +9,18 @@ import Combine
 import UIKit
 
 final class AppCoordinator: CoordinatorProtocol {
+    
+    //MARK: - Nested enum
+    
+    enum Notifications {
+        static let coordinatorDidPop = Notification.Name("coordinatorDidPop")
+        static let appRestartSignal = Notification.Name("appRestartSignal")
+    }
+    
+    enum Keys {
+        static let coordinatorIdentifier = "coordinatorIdentifier"
+    }
+    
     var identifier: UUID
     var presenter: UINavigationController
     var children: [UUID: CoordinatorProtocol] = [:]
@@ -51,14 +63,4 @@ final class AppCoordinator: CoordinatorProtocol {
         self.children[splashIdentifier] = splashViewCoordinator
         splashViewCoordinator.start()
     }
-    
-    enum Notifications {
-        static let coordinatorDidPop = Notification.Name("coordinatorDidPop")
-        static let appRestartSignal = Notification.Name("appRestartSignal")
-    }
-    
-    enum Keys {
-        static let coordinatorIdentifier = "coordinatorIdentifier"
-    }
-    
 }

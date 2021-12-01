@@ -11,7 +11,6 @@ import Foundation
 final class SplashViewModel {
     @Published var error: Error?
 
-    private let coordinator: SplashViewCoordinatorProtocol
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
     private let getUserUseCase: GetUserUseCaseProtocol
     private let registerUserUseCase: RegisterUserUseCaseProtocol
@@ -21,13 +20,11 @@ final class SplashViewModel {
     @Published private var user: User?
     
     init(
-        coordinator: SplashViewCoordinatorProtocol,
         getMyIdUseCase: GetMyIdUseCaseProtocol,
         getUserUseCase: GetUserUseCaseProtocol,
         registerUserUseCase: RegisterUserUseCaseProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol
     ) {
-        self.coordinator = coordinator
         self.getMyIdUseCase = getMyIdUseCase
         self.getUserUseCase = getUserUseCase
         self.registerUserUseCase = registerUserUseCase
@@ -49,8 +46,18 @@ final class SplashViewModel {
             .compactMap { $0 }
             .sink(receiveValue: { [weak self] user in
                 if user.pairId?.ddidString.isEmpty == false {
-                    self?.coordinator.userAlreadyPaired(user: user)
-                } else { self?.coordinator.userNotPaired(myId: user.id) }
+                    NotificationCenter.default.post(
+                        name: SplashViewCoordinator.Notifications.userAlreadyPaired,
+                        object: self,
+                        userInfo: [SplashViewCoordinator.Keys.user: user]
+                    )
+                } else {
+                    NotificationCenter.default.post(
+                        name: SplashViewCoordinator.Notifications.userNotPaired,
+                        object: self,
+                        userInfo: [SplashViewCoordinator.Keys.myId: user.id]
+                    )
+                }
             })
             .store(in: &self.cancellables)
 
