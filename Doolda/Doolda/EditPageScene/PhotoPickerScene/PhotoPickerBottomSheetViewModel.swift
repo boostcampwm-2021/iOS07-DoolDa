@@ -37,28 +37,30 @@ protocol PhotoPickerBottomSheetViewModelOutput {
     var photoFrames: [PhotoFrameType] { get }
     var selectedPhotos: [Int] { get }
     var photoFetchResultWithChangeDetails: PhotoFetchResultWithChangeDetails? { get }
-    var selectedPhotosPublisher: Published<[Int]>.Publisher { get }
-    var photoFetchResultWithChangeDetailsPublisher: Published<PhotoFetchResultWithChangeDetails?>.Publisher { get }
-    var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { get }
-    var isReadyToSelectPhoto: Published<Bool>.Publisher { get }
-    var isReadyToComposePhoto: Published<Bool>.Publisher { get }
-    var isPhotoAccessiblePublisher: Published<Bool?>.Publisher { get }
-    var composedResultPublisher: Published<PhotoComponentEntity?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
+    var selectedPhotosPublisher: AnyPublisher<[Int], Never> { get }
+    var photoFetchResultWithChangeDetailsPublisher: AnyPublisher<PhotoFetchResultWithChangeDetails?, Never> { get }
+    var selectedPhotoFramePublisher: AnyPublisher<PhotoFrameType?, Never> { get }
+    var isReadyToSelectPhoto: AnyPublisher<Bool, Never> { get }
+    var isReadyToComposePhoto: AnyPublisher<Bool, Never> { get }
+    var isPhotoAccessiblePublisher: AnyPublisher<Bool?, Never> { get }
+    var composedResultPublisher: AnyPublisher<PhotoComponentEntity?, Never> { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
 }
 
 typealias PhotoPickerBottomSheetViewModelProtocol = PhotoPickerBottomSheetViewModelInput & PhotoPickerBottomSheetViewModelOutput
 typealias PhotoFetchResultWithChangeDetails = (photoFetchResult: PHFetchResult<PHAsset>, fetchResultChangeDetails: PHFetchResultChangeDetails<PHAsset>?)
 
 class PhotoPickerBottomSheetViewModel: NSObject, PhotoPickerBottomSheetViewModelProtocol {
-    var selectedPhotosPublisher: Published<[Int]>.Publisher { self.$selectedPhotos }
-    var photoFetchResultWithChangeDetailsPublisher: Published<PhotoFetchResultWithChangeDetails?>.Publisher { self.$photoFetchResultWithChangeDetails }
-    var selectedPhotoFramePublisher: Published<PhotoFrameType?>.Publisher { self.$selectedPhotoFrame }
-    var isReadyToSelectPhoto: Published<Bool>.Publisher { self.$readyToSelectPhotoState }
-    var isReadyToComposePhoto: Published<Bool>.Publisher { self.$readyToComposeState }
-    var isPhotoAccessiblePublisher: Published<Bool?>.Publisher { self.$photoAccessState }
-    var composedResultPublisher: Published<PhotoComponentEntity?>.Publisher { self.$composedResult }
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    var selectedPhotosPublisher: AnyPublisher<[Int], Never> { self.$selectedPhotos.eraseToAnyPublisher() }
+    var photoFetchResultWithChangeDetailsPublisher: AnyPublisher<PhotoFetchResultWithChangeDetails?, Never> {
+        self.$photoFetchResultWithChangeDetails.eraseToAnyPublisher()
+    }
+    var selectedPhotoFramePublisher: AnyPublisher<PhotoFrameType?, Never> { self.$selectedPhotoFrame.eraseToAnyPublisher() }
+    var isReadyToSelectPhoto: AnyPublisher<Bool, Never> { self.$readyToSelectPhotoState.eraseToAnyPublisher() }
+    var isReadyToComposePhoto: AnyPublisher<Bool, Never> { self.$readyToComposeState.eraseToAnyPublisher() }
+    var isPhotoAccessiblePublisher: AnyPublisher<Bool?, Never> { self.$photoAccessState.eraseToAnyPublisher() }
+    var composedResultPublisher: AnyPublisher<PhotoComponentEntity?, Never> { self.$composedResult.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     
     private(set) var photoFrames: [PhotoFrameType]
     private let imageUseCase: ImageUseCaseProtocol
