@@ -31,18 +31,15 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
 
     private let user: User
     private let pageEntity: PageEntity
-    private let coordinator: PageDetailViewCoordinatorProtocol
     private let getRawPageUseCase: GetRawPageUseCaseProtocol
 
     init(
         user: User,
         pageEntity: PageEntity,
-        coordinator: PageDetailViewCoordinatorProtocol,
         getRawPageUseCase: GetRawPageUseCaseProtocol
     ) {
         self.user = user
         self.pageEntity = pageEntity
-        self.coordinator = coordinator
         self.getRawPageUseCase = getRawPageUseCase
     }
 
@@ -69,7 +66,10 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
 
     func editPageButtonDidTap() {
         guard let rawPageEntity = self.rawPageEntity else { return }
-        self.coordinator.editPageRequested(with: rawPageEntity)
+        NotificationCenter.default.post(
+            name: PageDetailViewCoordinator.Notifications.editPageRequested,
+            object: self,
+            userInfo: [PageDetailViewCoordinator.Keys.rawPageEntity: rawPageEntity]
+        )
     }
-
 }
