@@ -27,11 +27,11 @@ protocol DiaryViewModelInput {
 }
 
 protocol DiaryViewModelOutput {
-    var errorPublisher: Published<Error?>.Publisher { get }
-    var displayModePublisher: Published<DiaryDisplayMode>.Publisher { get }
-    var isMyTurnPublisher: Published<Bool>.Publisher { get }
-    var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { get }
-    var isRefreshingPublisher: Published<Bool>.Publisher { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
+    var displayModePublisher: AnyPublisher<DiaryDisplayMode, Never> { get }
+    var isMyTurnPublisher: AnyPublisher<Bool, Never> { get }
+    var filteredPageEntitiesPublisher: AnyPublisher<[PageEntity], Never> { get }
+    var isRefreshingPublisher: AnyPublisher<Bool, Never> { get }
     var displayMode: DiaryDisplayMode { get }
     var filteredEntityCount: Int { get }
 }
@@ -92,11 +92,11 @@ enum DiaryViewModelError: LocalizedError {
 }
 
 final class DiaryViewModel: DiaryViewModelProtocol {
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
-    var displayModePublisher: Published<DiaryDisplayMode>.Publisher { self.$displayMode }
-    var isMyTurnPublisher: Published<Bool>.Publisher { self.$isMyTurn }
-    var isRefreshingPublisher: Published<Bool>.Publisher { self.$isRefreshing }
-    var filteredPageEntitiesPublisher: Published<[PageEntity]>.Publisher { self.$filteredPageEntities }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
+    var displayModePublisher: AnyPublisher<DiaryDisplayMode, Never> { self.$displayMode.eraseToAnyPublisher() }
+    var isMyTurnPublisher: AnyPublisher<Bool, Never> { self.$isMyTurn.eraseToAnyPublisher() }
+    var isRefreshingPublisher: AnyPublisher<Bool, Never> { self.$isRefreshing.eraseToAnyPublisher() }
+    var filteredPageEntitiesPublisher: AnyPublisher<[PageEntity], Never> { self.$filteredPageEntities.eraseToAnyPublisher() }
     var filteredEntityCount: Int { self.filteredPageEntities.count }
   
     @Published var displayMode: DiaryDisplayMode = .carousel
