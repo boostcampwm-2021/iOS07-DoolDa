@@ -8,7 +8,9 @@
 import UIKit
 
 protocol CoordinatorProtocol {
+    var identifier: UUID { get }
     var presenter: UINavigationController { get }
+    var children: [UUID: CoordinatorProtocol] { get set }
     
     func start()
 }

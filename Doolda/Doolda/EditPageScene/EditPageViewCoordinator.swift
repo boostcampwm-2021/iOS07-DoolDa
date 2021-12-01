@@ -9,12 +9,22 @@ import Combine
 import UIKit
 
 class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
+    var identifier: UUID
     var presenter: UINavigationController
+    var children: [UUID : CoordinatorProtocol] = [:]
+    
     private let user: User
     private let pageEntity: PageEntity?
     private let rawPageEntity: RawPageEntity?
     
-    init(presenter: UINavigationController, user: User, pageEntity: PageEntity? = nil, rawPageEntity: RawPageEntity? = nil) {
+    init(
+        identifier: UUID,
+        presenter: UINavigationController,
+        user: User,
+        pageEntity: PageEntity? = nil,
+        rawPageEntity: RawPageEntity? = nil
+    ) {
+        self.identifier = identifier
         self.presenter = presenter
         self.user = user
         self.pageEntity = pageEntity
@@ -23,8 +33,8 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     
     func start() {
         DispatchQueue.main.async {
-            let fileManagerPersistenceService = FileManagerPersistenceService()
-            let urlSessionNetworkService = URLSessionNetworkService()
+            let fileManagerPersistenceService = FileManagerPersistenceService.shared
+            let urlSessionNetworkService = URLSessionNetworkService.shared
             let coreDataPersistenceService = CoreDataPersistenceService.shared
             let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(
                 coreDataPersistenceService: coreDataPersistenceService
@@ -87,8 +97,8 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
     }
     
     func addPhotoComponent() {
-        let fileManagerPersistenceService = FileManagerPersistenceService()
-        let urlSessionNetworkService = URLSessionNetworkService()
+        let fileManagerPersistenceService = FileManagerPersistenceService.shared
+        let urlSessionNetworkService = URLSessionNetworkService.shared
         
         let imageRepository = ImageRepository(fileManagerService: fileManagerPersistenceService, networkService: urlSessionNetworkService)
         let imageUseCase = ImageUseCase(imageRepository: imageRepository)

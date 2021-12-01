@@ -7,20 +7,24 @@
 
 import UIKit
 
-class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
+final class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
+    var identifier: UUID
     var presenter: UINavigationController
+    var children: [UUID : CoordinatorProtocol] = [:]
+    
     private let user: User
     
-    init(presenter: UINavigationController, user: User) {
+    init(identifier: UUID, presenter: UINavigationController, user: User) {
+        self.identifier = identifier
         self.presenter = presenter
         self.user = user
     }
     
     func start() {
-        let urlSessionNetworkService = URLSessionNetworkService()
+        let urlSessionNetworkService = URLSessionNetworkService.shared
         let coreDataPersistenceService = CoreDataPersistenceService.shared
         let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(coreDataPersistenceService: coreDataPersistenceService)
-        let fileManagerPersistenceService = FileManagerPersistenceService()
+        let fileManagerPersistenceService = FileManagerPersistenceService.shared
         
         let pairRepository = PairRepository(networkService: urlSessionNetworkService)
         let pageRepository = PageRepository(
@@ -61,12 +65,14 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     }
     
     func editPageRequested() {
-        let coordinator = EditPageViewCoordinator(presenter: self.presenter, user: self.user)
+        let identifier = UUID()
+        let coordinator = EditPageViewCoordinator(identifier: identifier, presenter: self.presenter, user: self.user)
         coordinator.start()
     }
     
     func settingsPageRequested() {
-        let coordinator = SettingsViewCoordinator(presenter: self.presenter, user: self.user)
+        let identifier = UUID()
+        let coordinator = SettingsViewCoordinator(identifier: identifier, presenter: self.presenter, user: self.user)
         coordinator.start()
     }
     
@@ -78,7 +84,9 @@ class DiaryViewCoordinator: DiaryViewCoordinatorProtocol {
     }
     
     func pageDetailRequested(pageEntity: PageEntity) {
-        let coordinator = PageDetailViewCoordinator(presenter: self.presenter, user: self.user, pageEntity: pageEntity)
+        let identifier = UUID()
+        let coordinator = PageDetailViewCoordinator(identifier: identifier, presenter: self.presenter, user: self.user, pageEntity: pageEntity)
+        self.children[identifier] = coordinator
         coordinator.start()
     }
 }

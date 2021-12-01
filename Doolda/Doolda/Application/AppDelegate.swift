@@ -66,7 +66,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        let userDefaultsPersistenceService = UserDefaultsPersistenceService()
+        let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
         let pushNotificationStateRepository = PushNotificationStateRepository(persistenceService: userDefaultsPersistenceService)
         let pushNotificationStateUseCase = PushNotificationStateUseCase(pushNotificationStateRepository: pushNotificationStateRepository)
         
@@ -92,8 +92,8 @@ extension AppDelegate: MessagingDelegate {
         guard let token = fcmToken else { return }
         
         // FIXME: 더 좋은 방법 찾아보기
-        let networkService = URLSessionNetworkService()
-        let persistenceService = UserDefaultsPersistenceService()
+        let networkService = URLSessionNetworkService.shared
+        let persistenceService = UserDefaultsPersistenceService.shared
         let userRepository: UserRepository = UserRepository(persistenceService: persistenceService, networkService: networkService)
         let fcmTokenRepository: FCMTokenRepository = FCMTokenRepository(urlSessionNetworkService: networkService)
         let getMyIdUseCase: GetMyIdUseCase = GetMyIdUseCase(userRepository: userRepository)

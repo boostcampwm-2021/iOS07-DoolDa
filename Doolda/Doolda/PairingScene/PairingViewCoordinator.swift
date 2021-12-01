@@ -8,17 +8,21 @@
 import UIKit
 
 class PairingViewCoordinator: PairingViewCoordinatorProtocol {
+    var identifier: UUID
     var presenter: UINavigationController
+    var children: [UUID : CoordinatorProtocol] = [:]
+
     private let user: User
     
-    init(presenter: UINavigationController, user: User) {
+    init(identifier: UUID, presenter: UINavigationController, user: User) {
+        self.identifier = identifier
         self.presenter = presenter
         self.user = user
     }
     
     func start() {
-        let userDefaultsPersistenceService = UserDefaultsPersistenceService()
-        let urlSessionNetworkService = URLSessionNetworkService()
+        let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
+        let urlSessionNetworkService = URLSessionNetworkService.shared
         
         let userRepository = UserRepository(
             persistenceService: userDefaultsPersistenceService,
@@ -51,7 +55,9 @@ class PairingViewCoordinator: PairingViewCoordinatorProtocol {
     }
     
     func userDidPaired(user: User) {
-        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, user: user)
+        let identifier = UUID()
+        let diaryViewCoordinator = DiaryViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
+        self.children[identifier] = diaryViewCoordinator
         diaryViewCoordinator.start()
     }
 }

@@ -7,22 +7,25 @@
 
 import UIKit
 
-class PageDetailViewCoordinator: PageDetailViewCoordinatorProtocol {
+final class PageDetailViewCoordinator: PageDetailViewCoordinatorProtocol {
+    var identifier: UUID
     var presenter: UINavigationController
+    var children: [UUID : CoordinatorProtocol] = [:]
     private let user: User
     private let pageEntity: PageEntity
 
-    init(presenter: UINavigationController, user: User, pageEntity: PageEntity) {
+    init(identifier: UUID, presenter: UINavigationController, user: User, pageEntity: PageEntity) {
+        self.identifier = identifier
         self.presenter = presenter
         self.user = user
         self.pageEntity = pageEntity
     }
 
     func start() {
-        let networkService = URLSessionNetworkService()
+        let networkService = URLSessionNetworkService.shared
         let coreDataPersistenceService = CoreDataPersistenceService.shared
         let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(coreDataPersistenceService: coreDataPersistenceService)
-        let fileManagerPersistenceService = FileManagerPersistenceService()
+        let fileManagerPersistenceService = FileManagerPersistenceService.shared
 
         let rawPageRepository = RawPageRepository(
             networkService: networkService,
@@ -46,7 +49,9 @@ class PageDetailViewCoordinator: PageDetailViewCoordinatorProtocol {
     }
 
     func editPageRequested(with rawPageEntity: RawPageEntity) {
-        let coordinator = EditPageViewCoordinator(presenter: self.presenter, user: self.user, pageEntity: self.pageEntity, rawPageEntity: rawPageEntity)
+        let identifier = UUID()
+        let coordinator = EditPageViewCoordinator(identifier: identifier, presenter: self.presenter, user: self.user, pageEntity: self.pageEntity, rawPageEntity: rawPageEntity)
+        self.children[identifier] = coordinator
         coordinator.start()
     }
 
