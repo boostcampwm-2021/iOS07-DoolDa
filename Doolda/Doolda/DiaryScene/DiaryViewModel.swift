@@ -186,7 +186,10 @@ class DiaryViewModel: DiaryViewModelProtocol {
         NotificationCenter.default.post(
             name: DiaryViewCoordinator.Notifications.filteringSheetRequested,
             object: nil,
-            userInfo: [DiaryViewCoordinator.Keys.authorFilter: self.authorFilter, DiaryViewCoordinator.Keys.authorFilter: self.orderFilter]
+            userInfo: [
+                DiaryViewCoordinator.Keys.authorFilter: self.authorFilter,
+                DiaryViewCoordinator.Keys.orderFilter: self.orderFilter
+            ]
         )
     }
     
