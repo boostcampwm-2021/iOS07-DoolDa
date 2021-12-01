@@ -156,7 +156,6 @@
 		318D9F69274D4D9900AA6F0E /* kyoboHandwriting.otf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F68274D4D9900AA6F0E /* kyoboHandwriting.otf */; };
 		318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */; };
 		318D9F72274E17AB00AA6F0E /* PageDetailViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F71274E17AB00AA6F0E /* PageDetailViewCoordinator.swift */; };
-		318D9F74274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F73274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift */; };
 		318D9F76274E258D00AA6F0E /* PageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F75274E258D00AA6F0E /* PageDetailViewController.swift */; };
 		319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */; };
 		319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C21CF273BA7D4009CE65C /* ImageRepository.swift */; };
@@ -509,7 +508,6 @@
 		318D9F68274D4D9900AA6F0E /* kyoboHandwriting.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kyoboHandwriting.otf; sourceTree = "<group>"; };
 		318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewModel.swift; sourceTree = "<group>"; };
 		318D9F71274E17AB00AA6F0E /* PageDetailViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewCoordinator.swift; sourceTree = "<group>"; };
-		318D9F73274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		318D9F75274E258D00AA6F0E /* PageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetailViewController.swift; sourceTree = "<group>"; };
 		319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		319C21CF273BA7D4009CE65C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
@@ -1002,7 +1000,6 @@
 				318D9F6F274E12D900AA6F0E /* PageDetailViewModel.swift */,
 				FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */,
 				318D9F71274E17AB00AA6F0E /* PageDetailViewCoordinator.swift */,
-				318D9F73274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift */,
 			);
 			path = PageDetailScene;
 			sourceTree = "<group>";
@@ -2325,7 +2322,6 @@
 				665303A02743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift in Sources */,
 				31012596273842B300E43160 /* StickerComponentEntity.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
-				318D9F74274E17BF00AA6F0E /* PageDetailViewCoordinatorProtocol.swift in Sources */,
 				66CD6456273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift in Sources */,
 				1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
