@@ -27,13 +27,12 @@ protocol SettingsViewModelOutput {
 
 typealias SettingsViewModelProtocol = SettingsViewModelInput & SettingsViewModelOutput
 
-class SettingsViewModel: SettingsViewModelProtocol {
+final class SettingsViewModel: SettingsViewModelProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
     var pushNotificationStatePublisher: Published<Bool?>.Publisher { self.$isPushNotificationOn }
     var selectedFontPublisher: Published<FontType?>.Publisher { self.$selectedFont }
 
     private let user: User
-    private let coordinator: SettingsViewCoordinatorProtocol
     private let globalFontUseCase: GlobalFontUseCaseProtocol
     private let unpairUserUseCase: UnpairUserUseCaseProtocol
     private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
@@ -46,14 +45,12 @@ class SettingsViewModel: SettingsViewModelProtocol {
 
     init(
         user: User,
-        coordinator: SettingsViewCoordinatorProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol,
         unpairUserUseCase: UnpairUserUseCaseProtocol,
         pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
-        self.coordinator = coordinator
         self.globalFontUseCase = globalFontUseCase
         self.unpairUserUseCase = unpairUserUseCase
         self.pushNotificationStateUseCase = pushNotificationStateUseCase
@@ -66,7 +63,10 @@ class SettingsViewModel: SettingsViewModelProtocol {
     }
 
     func fontTypeDidTap() {
-        self.coordinator.fontPickerSheetRequested()
+        NotificationCenter.default.post(
+            name: SettingsViewCoordinator.Notifications.fontPickerSheetRequested,
+            object: nil
+        )
     }
 
     func fontTypeDidChanged(_ fontName: String) {
@@ -80,15 +80,27 @@ class SettingsViewModel: SettingsViewModelProtocol {
     }
 
     func openSourceLicenseDidTap() {
-        self.coordinator.informationViewRequested(for: .openSourceLicense)
+        NotificationCenter.default.post(
+            name: SettingsViewCoordinator.Notifications.informationViewRequested,
+            object: nil,
+            userInfo: [SettingsViewCoordinator.Keys.infoType: DooldaInfoType.openSourceLicense]
+        )
     }
 
     func privacyPolicyDidTap() {
-        self.coordinator.informationViewRequested(for: .privacyPolicy)
+        NotificationCenter.default.post(
+            name: SettingsViewCoordinator.Notifications.informationViewRequested,
+            object: nil,
+            userInfo: [SettingsViewCoordinator.Keys.infoType: DooldaInfoType.privacyPolicy]
+        )
     }
 
     func contributorDidTap() {
-        self.coordinator.informationViewRequested(for: .contributor)
+        NotificationCenter.default.post(
+            name: SettingsViewCoordinator.Notifications.informationViewRequested,
+            object: nil,
+            userInfo: [SettingsViewCoordinator.Keys.infoType: DooldaInfoType.contributor]
+        )
     }
     
     func unpairButtonDidTap() {
@@ -101,7 +113,11 @@ class SettingsViewModel: SettingsViewModelProtocol {
                    friendId != self?.user.id {
                     self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userDisconnected)
                 }
-                self?.coordinator.splashViewRequested()
+
+                NotificationCenter.default.post(
+                    name: AppCoordinator.Notifications.appRestartSignal,
+                    object: nil
+                )
             }
             .store(in: &self.cancellables)
     }
