@@ -20,9 +20,9 @@ protocol PairingViewModelInput {
 protocol PairingViewModelOutput {
     var myId: AnyPublisher<String, Never> { get }
     var isFriendIdValid: AnyPublisher<Bool, Never> { get }
-    var pairedUserPublisher: Published<User?>.Publisher { get }
-    var isPairedByRefreshPublisher: Published<Bool>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
+    var pairedUserPublisher: AnyPublisher<User?, Never> { get }
+    var isPairedByRefreshPublisher: AnyPublisher<Bool, Never> { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
 }
 
 typealias PairingViewModelProtocol = PairingViewModelInput & PairingViewModelOutput
@@ -39,9 +39,9 @@ final class PairingViewModel: PairingViewModelProtocol {
         .compactMap { DDID.isValid(ddidString: $0) }
         .eraseToAnyPublisher()
     
-    var pairedUserPublisher: Published<User?>.Publisher { self.$pairedUser }
-    var isPairedByRefreshPublisher: Published<Bool>.Publisher { self.$isPairedByRefresh }
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    var pairedUserPublisher: AnyPublisher<User?, Never> { self.$pairedUser.eraseToAnyPublisher() }
+    var isPairedByRefreshPublisher: AnyPublisher<Bool, Never> { self.$isPairedByRefresh.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
 
     private let sceneId: UUID
     private let user: User
