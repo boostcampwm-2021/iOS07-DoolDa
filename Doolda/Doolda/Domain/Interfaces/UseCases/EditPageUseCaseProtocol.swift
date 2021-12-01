@@ -10,10 +10,10 @@ import CoreGraphics
 import Foundation
 
 protocol EditPageUseCaseProtocol {
-    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
-    var rawPagePublisher: Published<RawPageEntity?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
-    var resultPublisher: Published<Bool?>.Publisher { get }
+    var selectedComponentPublisher: AnyPublisher<ComponentEntity?, Never> { get }
+    var rawPagePublisher: AnyPublisher<RawPageEntity?, Never> { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
+    var resultPublisher: AnyPublisher<Bool?, Never> { get }
     
     func selectComponent(at point: CGPoint)
     func moveComponent(to point: CGPoint)
