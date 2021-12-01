@@ -370,8 +370,8 @@ class EditPageViewController: UIViewController {
             }.store(in: &self.cancellables)
         
         self.viewModel?.backgroundPublisher
-            .sink { backgroundType in
-                self.pageView.backgroundColor = UIColor(cgColor: backgroundType.rawValue)
+            .sink { [weak self] backgroundType in
+                self?.pageView.backgroundColor = UIColor(cgColor: backgroundType.rawValue)
             }.store(in: &self.cancellables)
         
         self.viewModel?.errorPublisher
