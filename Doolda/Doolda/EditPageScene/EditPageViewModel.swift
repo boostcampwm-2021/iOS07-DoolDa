@@ -37,19 +37,19 @@ protocol EditPageViewModelInput {
 }
 
 protocol EditPageViewModelOutput {
-    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { get }
-    var componentsPublisher: Published<[ComponentEntity]>.Publisher { get }
-    var backgroundPublisher: Published<BackgroundType>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
+    var selectedComponentPublisher: AnyPublisher<ComponentEntity?, Never> { get }
+    var componentsPublisher: AnyPublisher<[ComponentEntity], Never> { get }
+    var backgroundPublisher: AnyPublisher<BackgroundType, Never> { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
 }
 
 typealias EditPageViewModelProtocol = EditPageViewModelInput & EditPageViewModelOutput
 
 final class EditPageViewModel: EditPageViewModelProtocol {
-    var selectedComponentPublisher: Published<ComponentEntity?>.Publisher { self.$selectedComponent }
-    var componentsPublisher: Published<[ComponentEntity]>.Publisher { self.$components }
-    var backgroundPublisher: Published<BackgroundType>.Publisher { self.$background }
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    var selectedComponentPublisher: AnyPublisher<ComponentEntity?, Never> { self.$selectedComponent.eraseToAnyPublisher() }
+    var componentsPublisher: AnyPublisher<[ComponentEntity], Never> { self.$components.eraseToAnyPublisher() }
+    var backgroundPublisher: AnyPublisher<BackgroundType, Never> { self.$background.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
 
     private let sceneId: UUID
     private let user: User
