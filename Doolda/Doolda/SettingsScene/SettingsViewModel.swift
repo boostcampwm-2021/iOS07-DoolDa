@@ -21,17 +21,17 @@ protocol SettingsViewModelInput {
 }
 
 protocol SettingsViewModelOutput {
-    var errorPublisher: Published<Error?>.Publisher { get }
-    var pushNotificationStatePublisher: Published<Bool?>.Publisher { get }
-    var selectedFontPublisher: Published<FontType?>.Publisher { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
+    var pushNotificationStatePublisher: AnyPublisher<Bool?, Never> { get }
+    var selectedFontPublisher: AnyPublisher<FontType?, Never> { get }
 }
 
 typealias SettingsViewModelProtocol = SettingsViewModelInput & SettingsViewModelOutput
 
 final class SettingsViewModel: SettingsViewModelProtocol {
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
-    var pushNotificationStatePublisher: Published<Bool?>.Publisher { self.$isPushNotificationOn }
-    var selectedFontPublisher: Published<FontType?>.Publisher { self.$selectedFont }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
+    var pushNotificationStatePublisher: AnyPublisher<Bool?, Never> { self.$isPushNotificationOn.eraseToAnyPublisher() }
+    var selectedFontPublisher: AnyPublisher<FontType?, Never> { self.$selectedFont.eraseToAnyPublisher() }
 
     private let sceneId: UUID
     private let user: User
