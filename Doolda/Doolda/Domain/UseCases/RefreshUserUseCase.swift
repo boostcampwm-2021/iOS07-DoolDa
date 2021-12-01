@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 final class RefreshUserUseCase: RefreshUserUseCaseProtocol {
-    var refreshedUserPublisher: Published<User?>.Publisher { self.$refreshedUser }
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    var refreshedUserPublisher: AnyPublisher<User?, Never> { self.$refreshedUser.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     
     private let userRepository: UserRepositoryProtocol
     

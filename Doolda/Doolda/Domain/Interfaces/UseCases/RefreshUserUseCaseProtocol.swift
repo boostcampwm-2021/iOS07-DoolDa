@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 protocol RefreshUserUseCaseProtocol {
-    var refreshedUserPublisher: Published<User?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
+    var refreshedUserPublisher: AnyPublisher<User?, Never> { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
     
     func refresh(for user: User)
 }
