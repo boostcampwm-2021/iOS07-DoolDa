@@ -17,15 +17,15 @@ protocol PageDetailViewModelInput {
 }
 
 protocol PageDetailViewModelOuput {
-    var rawPageEntityPublisher: Published<RawPageEntity?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
+    var rawPageEntityPublisher: AnyPublisher<RawPageEntity?, Never> { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
 }
 
 typealias PageDetailViewModelProtocol = PageDetailViewModelInput & PageDetailViewModelOuput
 
 class PageDetaillViewModel: PageDetailViewModelProtocol {
-    var rawPageEntityPublisher: Published<RawPageEntity?>.Publisher { self.$rawPageEntity }
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    var rawPageEntityPublisher: AnyPublisher<RawPageEntity?, Never> { self.$rawPageEntity.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
 
     @Published private var rawPageEntity: RawPageEntity?
     @Published private var error: Error?
