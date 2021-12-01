@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol FirebaseMessageUseCaseProtocol {
-    var errorPublisher: Published<Error?>.Publisher { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
     
     func sendMessage(to user: DDID, message: PushMessageEntity)
 }

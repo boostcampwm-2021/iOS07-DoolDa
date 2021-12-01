@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 final class FirebaseMessageUseCase: FirebaseMessageUseCaseProtocol {
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     
     private let fcmTokenRepository: FCMTokenRepositoryProtocol
     private let firebaseMessageRepository: FirebaseMessageRepositoryProtocol
