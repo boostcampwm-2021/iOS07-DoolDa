@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 protocol PairUserUseCaseProtocol {
-    var pairedUserPublisher: Published<User?>.Publisher { get }
-    var errorPublisher: Published<Error?>.Publisher { get }
+    var pairedUserPublisher: AnyPublisher<User?, Never> { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
     
     func pair(user: User, friendId: DDID)
     func pair(user: User)

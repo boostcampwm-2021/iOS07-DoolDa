@@ -29,8 +29,8 @@ enum PairUserUseCaseError: LocalizedError {
 }
 
 final class PairUserUseCase: PairUserUseCaseProtocol {
-    var pairedUserPublisher: Published<User?>.Publisher { self.$pairedUser }
-    var errorPublisher: Published<Error?>.Publisher { self.$error }
+    var pairedUserPublisher: AnyPublisher<User?, Never> { self.$pairedUser.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     
     private let userRepository: UserRepositoryProtocol
     private let pairRepository: PairRepositoryProtocol
