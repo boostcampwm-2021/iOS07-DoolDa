@@ -23,6 +23,7 @@ protocol DiaryViewModelInput {
     func getDate(of index: Int) -> Date?
     func userPostedNewPageNotificationDidReceived()
     func userRequestedNewPageNotificationDidReceived()
+    func deinitRequested()
 }
 
 protocol DiaryViewModelOutput {
@@ -109,6 +110,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     
     private var cancellables: Set<AnyCancellable> = []
     
+    private let sceneId: UUID
     private let user: User
     private let checkMyTurnUseCase: CheckMyTurnUseCaseProtocol
     private let getPageUseCase: GetPageUseCaseProtocol
@@ -116,12 +118,14 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
     init(
+        sceneId: UUID,
         user: User,
         checkMyTurnUseCase: CheckMyTurnUseCaseProtocol,
         getPageUseCase: GetPageUseCaseProtocol,
         getRawPageUseCase: GetRawPageUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
+        self.sceneId = sceneId
         self.user = user
         self.checkMyTurnUseCase = checkMyTurnUseCase
         self.getPageUseCase = getPageUseCase
@@ -243,5 +247,13 @@ final class DiaryViewModel: DiaryViewModelProtocol {
         let filtered = entities.filter { authorFilter == .both ? true : (authorFilter == .user ? ($0.author.id == self.user.id) : ($0.author.id != self.user.id)) }
         let ordered = filtered.sorted { orderFilter == .descending ? ($0.createdTime >= $1.createdTime) : ($0.createdTime <= $1.createdTime) }
         self.filteredPageEntities = ordered
+    }
+    
+    func deinitRequested() {
+        NotificationCenter.default.post(
+            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
+            object: nil,
+            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
+        )
     }
 }

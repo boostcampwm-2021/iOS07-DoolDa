@@ -101,7 +101,7 @@ class EditPageViewController: UIViewController {
     // MARK: - Private Properties
     
     private var cancellables: Set<AnyCancellable> = []
-    private var viewModel: EditPageViewModelProtocol?
+    private var viewModel: EditPageViewModelProtocol!
     private var componentViewDictionary: [ComponentEntity: UIView] = [:]
     
     var widthRatioFromAbsolute: CGFloat {
@@ -127,6 +127,11 @@ class EditPageViewController: UIViewController {
     convenience init(viewModel: EditPageViewModelProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
+    }
+    
+    deinit {
+        print(#file, "DEINIT")
+        self.viewModel.deinitRequested()
     }
     
     // MARK: - Lifecycle Methods

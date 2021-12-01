@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class DiaryViewCoordinator: CoordinatorProtocol {
+final class DiaryViewCoordinator: BaseCoordinator {
     
     // MARK: - Nested enum
     
@@ -25,18 +25,12 @@ final class DiaryViewCoordinator: CoordinatorProtocol {
         static let orderFilter = "orderFilter"
     }
     
-    var identifier: UUID
-    var presenter: UINavigationController
-    var children: [UUID : CoordinatorProtocol] = [:]
-    
     private let user: User
-    
     private var cancellables: Set<AnyCancellable> = []
     
     init(identifier: UUID, presenter: UINavigationController, user: User) {
-        self.identifier = identifier
-        self.presenter = presenter
         self.user = user
+        super.init(identifier: identifier, presenter: presenter)
         self.bind()
     }
     
@@ -70,6 +64,7 @@ final class DiaryViewCoordinator: CoordinatorProtocol {
         )
         
         let viewModel = DiaryViewModel(
+            sceneId: self.identifier,
             user: self.user,
             checkMyTurnUseCase: checkMyTurnUseCase,
             getPageUseCase: getPageUseCase,
@@ -77,14 +72,12 @@ final class DiaryViewCoordinator: CoordinatorProtocol {
             firebaseMessageUseCase: firebaseMessageUseCase
         )
         
-        DispatchQueue.main.async {
-            let viewController = DiaryViewController(viewModel: viewModel)
-            self.presenter.setViewControllers([viewController], animated: false)
-        }
+        let viewController = DiaryViewController(viewModel: viewModel)
+        self.presenter.setViewControllers([viewController], animated: false)
     }
     
     private func bind() {
-        NotificationCenter.default.publisher(for: Notifications.editPageRequested, object: nil)
+        NotificationCenter.default.publisher(for: Notifications.addPageRequested, object: nil)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.editPageRequested()
@@ -120,6 +113,7 @@ final class DiaryViewCoordinator: CoordinatorProtocol {
     private func editPageRequested() {
         let identifier = UUID()
         let coordinator = EditPageViewCoordinator(identifier: identifier, presenter: self.presenter, user: self.user)
+        self.children[identifier] = coordinator
         coordinator.start()
     }
     

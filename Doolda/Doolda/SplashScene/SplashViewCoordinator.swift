@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class SplashViewCoordinator: CoordinatorProtocol {
+final class SplashViewCoordinator: BaseCoordinator {
     
     //MARK: - Nested enum
     
@@ -22,15 +22,10 @@ final class SplashViewCoordinator: CoordinatorProtocol {
         static let myId = "myId"
     }
     
-    var identifier: UUID
-    var presenter: UINavigationController
-    var children: [UUID : CoordinatorProtocol] = [:]
-    
     private var cancellables: Set<AnyCancellable> = []
 
-    init(identifier: UUID, presenter: UINavigationController) {
-        self.identifier = identifier
-        self.presenter = presenter
+    override init(identifier: UUID, presenter: UINavigationController) {
+        super.init(identifier: identifier, presenter: presenter)
         self.bind()
     }
     
@@ -52,16 +47,15 @@ final class SplashViewCoordinator: CoordinatorProtocol {
         let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)
         
         let viewModel = SplashViewModel(
+            sceneId: self.identifier,
             getMyIdUseCase: getMyIdUseCase,
             getUserUseCase: getUserUseCase,
             registerUserUseCase: registerUserUseCase,
             globalFontUseCase: globalFontUseCase
         )
 
-        DispatchQueue.main.async {
-            let viewController = SplashViewController(viewModel: viewModel)
-            self.presenter.pushViewController(viewController, animated: false)
-        }
+        let viewController = SplashViewController(viewModel: viewModel)
+        self.presenter.pushViewController(viewController, animated: false)
     }
     
     private func bind() {

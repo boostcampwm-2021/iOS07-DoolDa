@@ -107,6 +107,11 @@ class DiaryViewController: UIViewController {
         self.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
     }
+    
+    deinit {
+        print(#file, "DEINIT")
+        self.viewModel.deinitRequested()
+    }
 
     // MARK: - Lifecycle Methods
     

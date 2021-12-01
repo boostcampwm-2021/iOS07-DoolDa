@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class SettingsViewCoordinator: CoordinatorProtocol {
+class SettingsViewCoordinator: BaseCoordinator {
 
     // MARK: - Nested enum
 
@@ -21,11 +21,6 @@ final class SettingsViewCoordinator: CoordinatorProtocol {
         static let infoType = "infoType"
     }
 
-    // MARK: - Public Properties
-
-    var identifier: UUID
-    var presenter: UINavigationController
-    var children: [UUID : CoordinatorProtocol] = [:]
 
     // MARK: - Private Properties
 
@@ -36,9 +31,8 @@ final class SettingsViewCoordinator: CoordinatorProtocol {
     // MARK: - Initializers
 
     init(identifier: UUID, presenter: UINavigationController, user: User) {
-        self.identifier = identifier
-        self.presenter = presenter
         self.user = user
+        super.init(identifier: identifier, presenter: presenter)
         self.bind()
     }
 
@@ -87,6 +81,7 @@ final class SettingsViewCoordinator: CoordinatorProtocol {
             )
 
             let viewModel = SettingsViewModel(
+                sceneId: self.identifier,
                 user: self.user,
                 globalFontUseCase: globalFontUseCase,
                 unpairUserUseCase: unpairUserUseCase,

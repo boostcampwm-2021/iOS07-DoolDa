@@ -24,11 +24,11 @@ final class RefreshUserUseCase: RefreshUserUseCaseProtocol {
     
     func refresh(for user: User) {
         self.userRepository.fetchUser(user)
-            .sink { completion in
+            .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
-                self.error = error
-            } receiveValue: { user in
-                self.refreshedUser = user
+                self?.error = error
+            } receiveValue: { [weak self] user in
+                self?.refreshedUser = user
             }
             .store(in: &cancellables)
     }

@@ -8,9 +8,9 @@
 import Combine
 import UIKit
 
-final class AppCoordinator: CoordinatorProtocol {
+final class AppCoordinator: BaseCoordinator {
     
-    //MARK: - Nested enum
+    // MARK: - Nested enum
     
     enum Notifications {
         static let coordinatorDidPop = Notification.Name("coordinatorDidPop")
@@ -20,16 +20,11 @@ final class AppCoordinator: CoordinatorProtocol {
     enum Keys {
         static let coordinatorIdentifier = "coordinatorIdentifier"
     }
-    
-    var identifier: UUID
-    var presenter: UINavigationController
-    var children: [UUID: CoordinatorProtocol] = [:]
 
     private var cancellables: Set<AnyCancellable> = []
     
-    init(identifier: UUID = UUID(), presenter: UINavigationController) {
-        self.identifier = identifier
-        self.presenter = presenter
+    override init(identifier: UUID = UUID(), presenter: UINavigationController) {
+        super.init(identifier: identifier, presenter: presenter)
         self.bind()
     }
     

@@ -13,6 +13,7 @@ protocol PageDetailViewModelInput {
     func isPageEditable() -> Bool
     func getDate() -> Date
     func editPageButtonDidTap()
+    func deinitRequested()
 }
 
 protocol PageDetailViewModelOuput {
@@ -28,16 +29,19 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
 
     @Published private var rawPageEntity: RawPageEntity?
     @Published private var error: Error?
-
+    
+    private let sceneId: UUID
     private let user: User
     private let pageEntity: PageEntity
     private let getRawPageUseCase: GetRawPageUseCaseProtocol
 
     init(
+        sceneId: UUID,
         user: User,
         pageEntity: PageEntity,
         getRawPageUseCase: GetRawPageUseCaseProtocol
     ) {
+        self.sceneId = sceneId
         self.user = user
         self.pageEntity = pageEntity
         self.getRawPageUseCase = getRawPageUseCase
@@ -70,6 +74,14 @@ class PageDetaillViewModel: PageDetailViewModelProtocol {
             name: PageDetailViewCoordinator.Notifications.editPageRequested,
             object: self,
             userInfo: [PageDetailViewCoordinator.Keys.rawPageEntity: rawPageEntity]
+        )
+    }
+    
+    func deinitRequested() {
+        NotificationCenter.default.post(
+            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
+            object: nil,
+            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
         )
     }
 }

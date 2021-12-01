@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class PageDetailViewCoordinator: CoordinatorProtocol {
+final class PageDetailViewCoordinator: BaseCoordinator {
     
     // MARK: - Nested enum
     
@@ -21,13 +21,6 @@ final class PageDetailViewCoordinator: CoordinatorProtocol {
     }
     
     // MARK: - Public Properties
-    
-    var identifier: UUID
-    var presenter: UINavigationController
-    var children: [UUID : CoordinatorProtocol] = [:]
-    
-    // MARK: - Private Properties
-    
     private let user: User
     private let pageEntity: PageEntity
     
@@ -36,10 +29,9 @@ final class PageDetailViewCoordinator: CoordinatorProtocol {
     // MARK: - Initializers
     
     init(identifier: UUID, presenter: UINavigationController, user: User, pageEntity: PageEntity) {
-        self.identifier = identifier
-        self.presenter = presenter
         self.user = user
         self.pageEntity = pageEntity
+        super.init(identifier: identifier, presenter: presenter)
         self.bind()
     }
 
@@ -72,6 +64,7 @@ final class PageDetailViewCoordinator: CoordinatorProtocol {
         let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: rawPageRepository)
 
         let viewModel = PageDetaillViewModel(
+            sceneId: self.identifier,
             user: self.user,
             pageEntity: self.pageEntity,
             getRawPageUseCase: getRawPageUseCase

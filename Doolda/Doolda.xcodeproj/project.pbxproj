@@ -116,7 +116,7 @@
 		1DD58BD62754ACA600B93184 /* DiaryPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD58BD52754ACA600B93184 /* DiaryPageView.swift */; };
 		1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DD6AD3F27321E5800592AC8 /* dovemayo.otf */; };
 		1DDADCB4274BCE63000330C9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDADCB3274BCE63000330C9 /* Secrets.swift */; };
-		1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */; };
+		1DE5E5362738BBAA004F794F /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5352738BBAA004F794F /* BaseCoordinator.swift */; };
 		1DE5E53E273929CE004F794F /* EditPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E53D273929CE004F794F /* EditPageUseCase.swift */; };
 		1DE5E540273932B0004F794F /* PageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */; };
 		1DE5E5422739352B004F794F /* RawPageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */; };
@@ -361,7 +361,6 @@
 		FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */; };
 		FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3DD2738CFB50001F155 /* PairRepository.swift */; };
 		FCE9D3F427391F260001F155 /* EditPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F327391F260001F155 /* EditPageViewModel.swift */; };
-		FCE9D3F62739550C0001F155 /* EditPageViewCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE9D3F52739550C0001F155 /* EditPageViewCoordinatorProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -465,7 +464,7 @@
 		1DD58BD52754ACA600B93184 /* DiaryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPageView.swift; sourceTree = "<group>"; };
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
 		1DDADCB3274BCE63000330C9 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
-		1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		1DE5E5352738BBAA004F794F /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		1DE5E53D273929CE004F794F /* EditPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCase.swift; sourceTree = "<group>"; };
 		1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPageRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -635,7 +634,6 @@
 		FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepositoryProtocol.swift; sourceTree = "<group>"; };
 		FCE9D3DD2738CFB50001F155 /* PairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairRepository.swift; sourceTree = "<group>"; };
 		FCE9D3F327391F260001F155 /* EditPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewModel.swift; sourceTree = "<group>"; };
-		FCE9D3F52739550C0001F155 /* EditPageViewCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageViewCoordinatorProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -908,7 +906,7 @@
 			children = (
 				66CD644D273A490800E55C03 /* BottomSheetViewController.swift */,
 				66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */,
-				1DE5E5352738BBAA004F794F /* CoordinatorProtocol.swift */,
+				1DE5E5352738BBAA004F794F /* BaseCoordinator.swift */,
 				1D9DC0A0274A47D50060587B /* DooldaButton.swift */,
 				1DD58BD52754ACA600B93184 /* DiaryPageView.swift */,
 			);
@@ -921,7 +919,6 @@
 				FCCF022E273A12B400EAB00B /* EditPageViewController.swift */,
 				FCCF0232273A719600EAB00B /* PageComponentControlView.swift */,
 				FCCF0230273A145400EAB00B /* EditPageViewCoordinator.swift */,
-				FCE9D3F52739550C0001F155 /* EditPageViewCoordinatorProtocol.swift */,
 				FCE9D3F327391F260001F155 /* EditPageViewModel.swift */,
 				1DD0F3622747B31300FC5E65 /* PhotoPickerScene */,
 				1DD0F3642747B36F00FC5E65 /* TextEditScene */,
@@ -2188,7 +2185,7 @@
 				66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */,
 				66F1761F2754C656006ACB41 /* TextUseCaseProtocol.swift in Sources */,
 				317FB611274A9175005DF3A3 /* SettingsViewCoordinator.swift in Sources */,
-				1DE5E5362738BBAA004F794F /* CoordinatorProtocol.swift in Sources */,
+				1DE5E5362738BBAA004F794F /* BaseCoordinator.swift in Sources */,
 				FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */,
 				66CD645A273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift in Sources */,
 				1D3925B5273B9172003A0B70 /* DateFormatter+Extensions.swift in Sources */,
@@ -2256,7 +2253,6 @@
 				1D3925D0273C1263003A0B70 /* CGFloat+Extensions.swift in Sources */,
 				66F176192754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift in Sources */,
 				66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */,
-				FCE9D3F62739550C0001F155 /* EditPageViewCoordinatorProtocol.swift in Sources */,
 				665303A12743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift in Sources */,
 				1D9DC0A3274B31950060587B /* DiaryBackgroundView.swift in Sources */,
 				66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */,

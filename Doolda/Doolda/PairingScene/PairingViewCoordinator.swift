@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class PairingViewCoordinator: CoordinatorProtocol {
+class PairingViewCoordinator: BaseCoordinator {
     
     // MARK: - Nested enum
     
@@ -20,18 +20,13 @@ class PairingViewCoordinator: CoordinatorProtocol {
         static let user = "user"
     }
     
-    var identifier: UUID
-    var presenter: UINavigationController
-    var children: [UUID : CoordinatorProtocol] = [:]
-    
     private let user: User
 
     private var cancellables: Set<AnyCancellable> = []
     
     init(identifier: UUID, presenter: UINavigationController, user: User) {
-        self.identifier = identifier
-        self.presenter = presenter
         self.user = user
+        super.init(identifier: identifier, presenter: presenter)
         self.bind()
     }
     
@@ -56,6 +51,7 @@ class PairingViewCoordinator: CoordinatorProtocol {
         )
 
         let viewModel = PairingViewModel(
+            sceneId: self.identifier,
             user: user,
             pairUserUseCase: pairUserUseCase,
             refreshUserUseCase: refreshUserUseCase,
@@ -72,8 +68,8 @@ class PairingViewCoordinator: CoordinatorProtocol {
         NotificationCenter.default.publisher(for: Notifications.userDidPaired, object: nil)
             .receive(on: DispatchQueue.main)
             .compactMap { $0.userInfo?[Keys.user] as? User }
-            .sink { user in
-                self.userDidPaired(user: user)
+            .sink { [weak self] user in
+                self?.userDidPaired(user: user)
             }
             .store(in: &self.cancellables)
     }

@@ -11,6 +11,7 @@ import Foundation
 final class SplashViewModel {
     @Published var error: Error?
 
+    private let sceneId: UUID
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
     private let getUserUseCase: GetUserUseCaseProtocol
     private let registerUserUseCase: RegisterUserUseCaseProtocol
@@ -20,11 +21,13 @@ final class SplashViewModel {
     @Published private var user: User?
     
     init(
+        sceneId: UUID,
         getMyIdUseCase: GetMyIdUseCaseProtocol,
         getUserUseCase: GetUserUseCaseProtocol,
         registerUserUseCase: RegisterUserUseCaseProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol
     ) {
+        self.sceneId = sceneId
         self.getMyIdUseCase = getMyIdUseCase
         self.getUserUseCase = getUserUseCase
         self.registerUserUseCase = registerUserUseCase
@@ -91,5 +94,13 @@ final class SplashViewModel {
                 self?.user = user
             }
             .store(in: &self.cancellables)
+    }
+    
+    func deinitRequested() {
+        NotificationCenter.default.post(
+            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
+            object: nil,
+            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
+        )
     }
 }

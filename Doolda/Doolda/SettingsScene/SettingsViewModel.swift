@@ -17,6 +17,7 @@ protocol SettingsViewModelInput {
     func privacyPolicyDidTap()
     func contributorDidTap()
     func unpairButtonDidTap()
+    func deinitRequested()
 }
 
 protocol SettingsViewModelOutput {
@@ -32,6 +33,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     var pushNotificationStatePublisher: Published<Bool?>.Publisher { self.$isPushNotificationOn }
     var selectedFontPublisher: Published<FontType?>.Publisher { self.$selectedFont }
 
+    private let sceneId: UUID
     private let user: User
     private let globalFontUseCase: GlobalFontUseCaseProtocol
     private let unpairUserUseCase: UnpairUserUseCaseProtocol
@@ -44,12 +46,14 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     @Published private var selectedFont: FontType?
 
     init(
+        sceneId: UUID,
         user: User,
         globalFontUseCase: GlobalFontUseCaseProtocol,
         unpairUserUseCase: UnpairUserUseCaseProtocol,
         pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
+        self.sceneId = sceneId
         self.user = user
         self.globalFontUseCase = globalFontUseCase
         self.unpairUserUseCase = unpairUserUseCase
@@ -120,5 +124,13 @@ final class SettingsViewModel: SettingsViewModelProtocol {
                 )
             }
             .store(in: &self.cancellables)
+    }
+    
+    func deinitRequested() {
+        NotificationCenter.default.post(
+            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
+            object: nil,
+            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
+        )
     }
 }

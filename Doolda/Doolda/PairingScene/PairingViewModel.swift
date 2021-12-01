@@ -14,6 +14,7 @@ protocol PairingViewModelInput {
     func pairSkipButtonDidTap()
     func refreshButtonDidTap()
     func userPairedWithFriendNotificationDidReceived()
+    func deinitRequested()
 }
 
 protocol PairingViewModelOutput {
@@ -42,6 +43,7 @@ final class PairingViewModel: PairingViewModelProtocol {
     var isPairedByRefreshPublisher: Published<Bool>.Publisher { self.$isPairedByRefresh }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
 
+    private let sceneId: UUID
     private let user: User
     private let pairUserUseCase: PairUserUseCaseProtocol
     private let refreshUserUseCase: RefreshUserUseCaseProtocol
@@ -53,11 +55,13 @@ final class PairingViewModel: PairingViewModelProtocol {
     @Published private var error: Error?
     
     init(
+        sceneId: UUID,
         user: User,
         pairUserUseCase: PairUserUseCaseProtocol,
         refreshUserUseCase: RefreshUserUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
+        self.sceneId = sceneId
         self.user = user
         self.pairUserUseCase = pairUserUseCase
         self.refreshUserUseCase = refreshUserUseCase
@@ -117,5 +121,13 @@ final class PairingViewModel: PairingViewModelProtocol {
     
     func userPairedWithFriendNotificationDidReceived() {
         self.refreshUserUseCase.refresh(for: self.user)
+    }
+    
+    func deinitRequested() {
+        NotificationCenter.default.post(
+            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
+            object: nil,
+            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
+        )
     }
 }

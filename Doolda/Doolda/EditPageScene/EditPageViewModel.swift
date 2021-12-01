@@ -33,6 +33,7 @@ protocol EditPageViewModelInput {
     func backgroundColorDidChange(_ backgroundColor: BackgroundType)
     func saveEditingPageButtonDidTap()
     func cancelEditingPageButtonDidTap()
+    func deinitRequested()
 }
 
 protocol EditPageViewModelOutput {
@@ -50,10 +51,10 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     var backgroundPublisher: Published<BackgroundType>.Publisher { self.$background }
     var errorPublisher: Published<Error?>.Publisher { self.$error }
 
+    private let sceneId: UUID
     private let user: User
     private let pageEntity: PageEntity?
     private let rawPageEntity: RawPageEntity?
-    private let coordinator: EditPageViewCoordinatorProtocol
     private let editPageUseCase: EditPageUseCaseProtocol
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
@@ -65,17 +66,17 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     @Published private var error: Error?
     
     init(
+        sceneId: UUID,
         user: User,
         pageEntity: PageEntity? = nil,
         rawPageEntity: RawPageEntity? = nil,
-        coordinator: EditPageViewCoordinatorProtocol,
         editPageUseCase: EditPageUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
+        self.sceneId = sceneId
         self.user = user
         self.pageEntity = pageEntity
         self.rawPageEntity = rawPageEntity
-        self.coordinator = coordinator
         self.editPageUseCase = editPageUseCase
         self.firebaseMessageUseCase = firebaseMessageUseCase
         bind()
@@ -102,7 +103,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
                 if let friendId = self.user.friendId, friendId != self.user.id {
                     self.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPostedNewPage)
                 }
-                self.coordinator.editingPageSaved()
+                NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.editPageSaved, object: nil)
             }.store(in: &self.cancellables)
         
         self.editPageUseCase.errorPublisher
@@ -119,7 +120,11 @@ final class EditPageViewModel: EditPageViewModelProtocol {
 
     func componentDidTap() {
         if let selectedComponent = self.selectedComponent as? TextComponentEntity {
-            self.coordinator.editTextComponent(with: selectedComponent)
+            NotificationCenter.default.post(
+                name: EditPageViewCoordinator.Notifications.editTextComponent,
+                object: nil,
+                userInfo: [EditPageViewCoordinator.Keys.textComponent: selectedComponent]
+            )
         }
     }
     
@@ -156,19 +161,19 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func photoComponentAddButtonDidTap() {
-        self.coordinator.addPhotoComponent()
+        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.addPhotoComponent, object: nil)
     }
     
     func textComponentAddButtonDidTap() {
-        self.coordinator.editTextComponent(with: nil)
+        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.editTextComponent, object: nil)
     }
     
     func stickerComponentAddButtonDidTap() {
-        self.coordinator.addStickerComponent()
+        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.addStickerComponent, object: nil)
     }
     
     func backgroundTypeButtonDidTap() {
-        self.coordinator.changeBackgroundType()
+        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.changeBackgroundType, object: nil)
     }
     
     func componentEntityDidAdd(_ component: ComponentEntity) {
@@ -184,6 +189,14 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func cancelEditingPageButtonDidTap() {
-        self.coordinator.editingPageCanceled()
+        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.editingPageCanceled, object: nil)
+    }
+    
+    func deinitRequested() {
+        NotificationCenter.default.post(
+            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
+            object: nil,
+            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
+        )
     }
 }

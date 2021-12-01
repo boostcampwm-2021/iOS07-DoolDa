@@ -74,11 +74,11 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
             self.userRepository.setUser(user),
             self.pairRepository.setPairId(with: user)
         )
-            .sink { completion in
+            .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
-                self.error = error
-            } receiveValue: { user, _ in
-                self.pairedUser = user
+                self?.error = error
+            } receiveValue: { [weak self] user, _ in
+                self?.pairedUser = user
             }
             .store(in: &self.cancellables)
     }
@@ -116,11 +116,11 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                     self.userRepository.setUser(friend),
                     self.pairRepository.setPairId(with: friend)
                 )
-                    .sink { completion in
+                    .sink { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
-                        self.error = error
-                    } receiveValue: { user, _, _ in
-                        self.pairedUser = user
+                        self?.error = error
+                    } receiveValue: { [weak self] user, _, _ in
+                        self?.pairedUser = user
                     }
                     .store(in: &self.cancellables)
             } receiveValue: { [weak self] _ in

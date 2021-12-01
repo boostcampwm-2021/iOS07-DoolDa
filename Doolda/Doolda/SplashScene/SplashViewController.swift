@@ -39,7 +39,7 @@ final class SplashViewController: UIViewController {
 
     // MARK: - Private Properties
     
-    private var viewModel: SplashViewModel?
+    private var viewModel: SplashViewModel!
     private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializers
@@ -48,6 +48,11 @@ final class SplashViewController: UIViewController {
         self.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
     }
+    
+//    deinit {
+//        print(#file, "DEINIT")
+//        self.viewModel.deinitRequested()
+//    }
     
     // MARK: - Lifecycle Methods
     

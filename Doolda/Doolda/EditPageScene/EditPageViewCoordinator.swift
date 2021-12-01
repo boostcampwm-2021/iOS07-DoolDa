@@ -8,14 +8,31 @@
 import Combine
 import UIKit
 
-class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
-    var identifier: UUID
-    var presenter: UINavigationController
-    var children: [UUID : CoordinatorProtocol] = [:]
+final class EditPageViewCoordinator: BaseCoordinator {
+    
+    // MARK: - Nested Enums
+    
+    enum Notifications {
+        static let editPageSaved = Notification.Name("editPageSaved")
+        static let editingPageCanceled = Notification.Name("editingPageCanceled")
+        static let addPhotoComponent = Notification.Name("addPhotoComponent")
+        static let editTextComponent = Notification.Name("editTextComponent")
+        static let addStickerComponent = Notification.Name("addStickerComponent")
+        static let changeBackgroundType = Notification.Name("changeBackgroundType")
+    }
+    
+    enum Keys {
+        static let textComponent = "textComponent"
+    }
+    
+    // MARK: - Private Properties
     
     private let user: User
     private let pageEntity: PageEntity?
     private let rawPageEntity: RawPageEntity?
+    private var cancellables: Set<AnyCancellable> = []
+    
+    // MARK: - Initializers
     
     init(
         identifier: UUID,
@@ -24,12 +41,61 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         pageEntity: PageEntity? = nil,
         rawPageEntity: RawPageEntity? = nil
     ) {
-        self.identifier = identifier
-        self.presenter = presenter
         self.user = user
         self.pageEntity = pageEntity
         self.rawPageEntity = rawPageEntity
+        super.init(identifier: identifier, presenter: presenter)
+        self.bind()
     }
+    
+    // MARK: - Helpers
+    
+    private func bind() {
+        NotificationCenter.default.publisher(for: Notifications.editPageSaved, object: nil)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.editingPageSaved()
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: Notifications.editingPageCanceled, object: nil)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.editingPageCanceled()
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: Notifications.addPhotoComponent, object: nil)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.addPhotoComponent()
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: Notifications.editTextComponent, object: nil)
+            .map { $0.userInfo?[EditPageViewCoordinator.Keys.textComponent] as? TextComponentEntity }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] textComponent in
+                self?.editTextComponent(with: textComponent)
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: Notifications.addStickerComponent, object: nil)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.addStickerComponent()
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: Notifications.changeBackgroundType, object: nil)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.changeBackgroundType()
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    // MARK: - Public Methods
     
     func start() {
         DispatchQueue.main.async {
@@ -71,10 +137,10 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
             )
             
             let editPageViewModel = EditPageViewModel(
+                sceneId: self.identifier,
                 user: self.user,
                 pageEntity: self.pageEntity,
                 rawPageEntity: self.rawPageEntity,
-                coordinator: self,
                 editPageUseCase: editPageUseCase,
                 firebaseMessageUseCase: firebaseMessageUseCase
             )
@@ -84,19 +150,17 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         }
     }
     
-    func editingPageSaved() {
-        DispatchQueue.main.async {
-            self.presenter.popViewController(animated: true)
-        }
+    // MARK: - Private Methods
+    
+    private func editingPageSaved() {
+        self.presenter.popViewController(animated: true)
     }
     
-    func editingPageCanceled() {
-        DispatchQueue.main.async {
-            self.presenter.popViewController(animated: true)
-        }
+    private func editingPageCanceled() {
+        self.presenter.popViewController(animated: true)
     }
     
-    func addPhotoComponent() {
+    private func addPhotoComponent() {
         let fileManagerPersistenceService = FileManagerPersistenceService.shared
         let urlSessionNetworkService = URLSessionNetworkService.shared
         
@@ -118,7 +182,7 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
     
-    func editTextComponent(with textComponent: TextComponentEntity? = nil) {
+    private func editTextComponent(with textComponent: TextComponentEntity? = nil) {
         let delegatedViewController = self.presenter.topViewController as? EditPageViewController
         
         let textEditViewModel = TextEditViewModel(
@@ -134,7 +198,7 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
     
-    func addStickerComponent() {
+    private func addStickerComponent() {
         let stickerUseCase = StickerUseCase()
         let stickerPickerBottomSheetViewModel = StickerPickerBottomSheetViewModel(stickerUseCase: stickerUseCase)
         let delegatedViewController = self.presenter.topViewController as? EditPageViewController
@@ -145,7 +209,7 @@ class EditPageViewCoordinator: EditPageViewCoordinatorProtocol {
         self.presenter.topViewController?.present(viewController, animated: false, completion: nil)
     }
     
-    func changeBackgroundType() {
+    private func changeBackgroundType() {
         let delegatedViewController = self.presenter.topViewController as? EditPageViewController
         let viewController = BackgroundTypePickerViewController(delegate: delegatedViewController)
         
