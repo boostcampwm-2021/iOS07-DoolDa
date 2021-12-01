@@ -5,19 +5,34 @@
 //  Created by Dozzing on 2021/11/02.
 //
 
+import Combine
 import UIKit
 
-class PairingViewCoordinator: PairingViewCoordinatorProtocol {
+class PairingViewCoordinator: CoordinatorProtocol {
+    
+    // MARK: - Nested enum
+    
+    enum Notifications {
+        static let userDidPaired = Notification.Name("userDidPaired")
+    }
+    
+    enum Keys {
+        static let user = "user"
+    }
+    
     var identifier: UUID
     var presenter: UINavigationController
     var children: [UUID : CoordinatorProtocol] = [:]
-
+    
     private let user: User
+
+    private var cancellables: Set<AnyCancellable> = []
     
     init(identifier: UUID, presenter: UINavigationController, user: User) {
         self.identifier = identifier
         self.presenter = presenter
         self.user = user
+        self.bind()
     }
     
     func start() {
@@ -42,7 +57,6 @@ class PairingViewCoordinator: PairingViewCoordinatorProtocol {
 
         let viewModel = PairingViewModel(
             user: user,
-            coordinator: self,
             pairUserUseCase: pairUserUseCase,
             refreshUserUseCase: refreshUserUseCase,
             firebaseMessageUseCase: firebaseMessageUseCase
@@ -54,7 +68,16 @@ class PairingViewCoordinator: PairingViewCoordinatorProtocol {
         }
     }
     
-    func userDidPaired(user: User) {
+    private func bind() {
+        NotificationCenter.default.publisher(for: Notifications.userDidPaired, object: nil)
+            .compactMap { $0.userInfo?[Keys.user] as? User }
+            .sink { user in
+                self.userDidPaired(user: user)
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    private func userDidPaired(user: User) {
         let identifier = UUID()
         let diaryViewCoordinator = DiaryViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
         self.children[identifier] = diaryViewCoordinator

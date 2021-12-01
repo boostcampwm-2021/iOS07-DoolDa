@@ -110,7 +110,6 @@ class DiaryViewModel: DiaryViewModelProtocol {
     private var cancellables: Set<AnyCancellable> = []
     
     private let user: User
-    private let coordinator: DiaryViewCoordinatorProtocol
     private let checkMyTurnUseCase: CheckMyTurnUseCaseProtocol
     private let getPageUseCase: GetPageUseCaseProtocol
     private let getRawPageUseCase: GetRawPageUseCaseProtocol
@@ -118,14 +117,12 @@ class DiaryViewModel: DiaryViewModelProtocol {
     
     init(
         user: User,
-        coordinator: DiaryViewCoordinatorProtocol,
         checkMyTurnUseCase: CheckMyTurnUseCaseProtocol,
         getPageUseCase: GetPageUseCaseProtocol,
         getRawPageUseCase: GetRawPageUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
-        self.coordinator = coordinator
         self.checkMyTurnUseCase = checkMyTurnUseCase
         self.getPageUseCase = getPageUseCase
         self.getRawPageUseCase = getRawPageUseCase
@@ -150,9 +147,13 @@ class DiaryViewModel: DiaryViewModelProtocol {
         return self.getRawPageUseCase.getRawPageEntity(metaData: metaData)
     }
     
-    func pageDidTap(index: Int)  {
+    func pageDidTap(index: Int) {
         let selectedPageEntity = self.pageEntities[index]
-        self.coordinator.pageDetailRequested(pageEntity: selectedPageEntity)
+        NotificationCenter.default.post(
+            name: DiaryViewCoordinator.Notifications.pageDetailRequested,
+            object: nil,
+            userInfo: [DiaryViewCoordinator.Keys.pageEntity: selectedPageEntity]
+        )
     }
 
     func displayModeToggleButtonDidTap() {
@@ -160,7 +161,10 @@ class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func addPageButtonDidTap() {
-        self.coordinator.editPageRequested()
+        NotificationCenter.default.post(
+            name: DiaryViewCoordinator.Notifications.editPageRequested,
+            object: nil
+        )
     }
     
     func refreshButtonDidTap() {
@@ -172,11 +176,18 @@ class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func settingsButtonDidTap() {
-        self.coordinator.settingsPageRequested()
+        NotificationCenter.default.post(
+            name: DiaryViewCoordinator.Notifications.settingsPageRequested,
+            object: nil
+        )
     }
     
     func filterButtonDidTap() {
-        self.coordinator.filteringSheetRequested(authorFilter: self.authorFilter, orderFilter: self.orderFilter)
+        NotificationCenter.default.post(
+            name: DiaryViewCoordinator.Notifications.filteringSheetRequested,
+            object: nil,
+            userInfo: [DiaryViewCoordinator.Keys.authorFilter: self.authorFilter, DiaryViewCoordinator.Keys.authorFilter: self.orderFilter]
+        )
     }
     
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {

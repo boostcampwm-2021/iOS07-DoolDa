@@ -43,7 +43,6 @@ final class PairingViewModel: PairingViewModelProtocol {
     var errorPublisher: Published<Error?>.Publisher { self.$error }
 
     private let user: User
-    private let coordinator: PairingViewCoordinatorProtocol
     private let pairUserUseCase: PairUserUseCaseProtocol
     private let refreshUserUseCase: RefreshUserUseCaseProtocol
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
@@ -55,13 +54,11 @@ final class PairingViewModel: PairingViewModelProtocol {
     
     init(
         user: User,
-        coordinator: PairingViewCoordinatorProtocol,
         pairUserUseCase: PairUserUseCaseProtocol,
         refreshUserUseCase: RefreshUserUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
         self.user = user
-        self.coordinator = coordinator
         self.pairUserUseCase = pairUserUseCase
         self.refreshUserUseCase = refreshUserUseCase
         self.firebaseMessageUseCase = firebaseMessageUseCase
@@ -81,7 +78,11 @@ final class PairingViewModel: PairingViewModelProtocol {
                 if let friendId = user.friendId, friendId != user.id {
                     self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPairedWithFriend)
                 }
-                self?.coordinator.userDidPaired(user: user)
+                NotificationCenter.default.post(
+                    name: PairingViewCoordinator.Notifications.userDidPaired,
+                    object: nil,
+                    userInfo: [PairingViewCoordinator.Keys.user: user]
+                )
             }
             .store(in: &self.cancellables)
         
@@ -89,7 +90,11 @@ final class PairingViewModel: PairingViewModelProtocol {
             .compactMap { $0 }
             .sink { [weak self] user in
                 if user.pairId != nil {
-                    self?.coordinator.userDidPaired(user: user)
+                    NotificationCenter.default.post(
+                        name: PairingViewCoordinator.Notifications.userDidPaired,
+                        object: nil,
+                        userInfo: [PairingViewCoordinator.Keys.user: user]
+                    )
                 } else {
                     self?.isPairedByRefresh = false
                 }
