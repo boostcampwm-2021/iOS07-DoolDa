@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import Accelerate
 
-class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
+final class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
     enum Errors: LocalizedError {
          case invalidUrl
          
@@ -21,15 +21,14 @@ class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
          }
      }
     
-    private let session: URLSession
-    private let decoder: JSONDecoder
+    static let shared: URLSessionNetworkService = URLSessionNetworkService()
+    
+    private let session: URLSession = .shared
+    private let decoder: JSONDecoder = JSONDecoder()
     
     // MARK: - Initializers
     
-    init(session: URLSession = .shared, decoder: JSONDecoder = JSONDecoder()) {
-        self.session = session
-        self.decoder = decoder
-    }
+    private init() {}
     
     func request(_ urlRequest: URLRequestBuilder) -> AnyPublisher<Data, Error> {
         guard let urlRequest = urlRequest.urlRequest else { return Fail(error: Errors.invalidUrl).eraseToAnyPublisher() }

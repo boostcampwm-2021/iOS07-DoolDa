@@ -20,7 +20,7 @@ enum CoreDataPageEntityPersistenceServiceError: LocalizedError {
     }
 }
 
-class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol {
+final class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol {
     private let coreDataPersistenceService: CoreDataPersistenceServiceProtocol
     
     init(coreDataPersistenceService: CoreDataPersistenceServiceProtocol) {
