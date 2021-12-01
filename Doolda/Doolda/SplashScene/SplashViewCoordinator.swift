@@ -7,16 +7,19 @@
 
 import UIKit
 
-class SplashViewCoordinator: SplashViewCoordinatorProtocol {
+final class SplashViewCoordinator: SplashViewCoordinatorProtocol {
+    var identifier: UUID
     var presenter: UINavigationController
-    
-    init(presenter: UINavigationController) {
+    var children: [UUID : CoordinatorProtocol] = [:]
+
+    init(identifier: UUID, presenter: UINavigationController) {
+        self.identifier = identifier
         self.presenter = presenter
     }
     
     func start() {
-        let userDefaultsPersistenceService = UserDefaultsPersistenceService()
-        let urlSessionNetworkService = URLSessionNetworkService()
+        let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
+        let urlSessionNetworkService = URLSessionNetworkService.shared
         
         let userRespository = UserRepository(
             persistenceService: userDefaultsPersistenceService,
@@ -47,15 +50,16 @@ class SplashViewCoordinator: SplashViewCoordinatorProtocol {
     
     func userNotPaired(myId: DDID) {
         let user = User(id: myId)
-        let paringViewCoordinator = PairingViewCoordinator(presenter: self.presenter, user: user)
+        let identifier = UUID()
+        let paringViewCoordinator = PairingViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
+        self.children[identifier] = paringViewCoordinator
         paringViewCoordinator.start()
     }
 
     func userAlreadyPaired(user: User) {
-        // FIXME : should change to diaryViewController
-        let diaryViewCoordinator = DiaryViewCoordinator(presenter: self.presenter, user: user)
+        let identifier = UUID()
+        let diaryViewCoordinator = DiaryViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
+        self.children[identifier] = diaryViewCoordinator
         diaryViewCoordinator.start()
-//        let editPageViewCoordinator = EditPageViewCoordinator(presenter: self.presenter, user: user)
-//        editPageViewCoordinator.start()
     }
 }

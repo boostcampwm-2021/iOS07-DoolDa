@@ -8,18 +8,21 @@
 import UIKit
 
 class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
+    var identifier: UUID
     var presenter: UINavigationController
+    var children: [UUID : CoordinatorProtocol] = [:]
     private let user: User
 
-    init(presenter: UINavigationController, user: User) {
+    init(identifier: UUID, presenter: UINavigationController, user: User) {
+        self.identifier = identifier
         self.presenter = presenter
         self.user = user
     }
 
     func start() {
         DispatchQueue.main.async {
-            let userDefaultsPersistenceService = UserDefaultsPersistenceService()
-            let urlSessionNetworkService = URLSessionNetworkService()
+            let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
+            let urlSessionNetworkService = URLSessionNetworkService.shared
 
             let globalFontRepository = GlobalFontRepository(persistenceService: userDefaultsPersistenceService)
             let pushNotificationStateRepository = PushNotificationStateRepository(persistenceService: userDefaultsPersistenceService)
@@ -73,7 +76,6 @@ class SettingsViewCoordinator: SettingsViewCoordinatorProtocol {
     }
 
     func splashViewRequested() {
-        let coordinator = SplashViewCoordinator(presenter: self.presenter)
-        coordinator.start()
+        NotificationCenter.default.post(name: AppCoordinator.Notifications.appRestartSignal, object: self)
     }
 }
