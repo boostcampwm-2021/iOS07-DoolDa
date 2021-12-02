@@ -14,6 +14,7 @@ enum PhotoFrameType: RawRepresentable, CaseIterable {
     
     case normal
     case polaroid
+    case polaroidLong
     case lifeFourCuts
     
     init?(rawValue: RawValue) {
@@ -24,6 +25,7 @@ enum PhotoFrameType: RawRepresentable, CaseIterable {
         switch self {
         case .normal: return PhotoFrame.normal
         case .polaroid: return PhotoFrame.polaroid
+        case .polaroidLong: return PhotoFrame.polaroidLong
         case .lifeFourCuts: return PhotoFrame.lifeFourCuts
         }
     }
@@ -51,10 +53,17 @@ struct PhotoFrame {
         ]
     )
     static let polaroid = PhotoFrame(
-        displayName: "폴라로이드",
+        displayName: "폴라로이드1",
         baseImageName: "polaroid",
         photoBounds: [
             CGRect(x: 54, y: 60, width: 856, height: 804)
+        ]
+    )
+    static let polaroidLong = PhotoFrame(
+        displayName: "폴라로이드2",
+        baseImageName: "polaroid_long",
+        photoBounds: [
+            CGRect(x: 54, y: 54, width: 856, height: 1070)
         ]
     )
     static let lifeFourCuts = PhotoFrame(

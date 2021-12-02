@@ -257,6 +257,7 @@
 		66CAFF242740F63A00A48DCF /* BackgroundTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */; };
 		66CCB6E6275666AD00E3FD64 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC445A0C27562590004888B9 /* ComponentType.swift */; };
 		66CCB6E7275667EA00E3FD64 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC445A0C27562590004888B9 /* ComponentType.swift */; };
+		66CCB6E92758D02B00E3FD64 /* polaroid_long.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66CCB6E82758D02A00E3FD64 /* polaroid_long.jpg */; };
 		66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644D273A490800E55C03 /* BottomSheetViewController.swift */; };
 		66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */; };
 		66CD6456273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */; };
@@ -550,6 +551,7 @@
 		66C2CAEE275640CA00AFE5EE /* GetRawPageUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCaseTest.swift; sourceTree = "<group>"; };
 		66C482DA2746135500823151 /* GetRawPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCase.swift; sourceTree = "<group>"; };
 		66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTypePickerViewController.swift; sourceTree = "<group>"; };
+		66CCB6E82758D02A00E3FD64 /* polaroid_long.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = polaroid_long.jpg; path = ../../../../../../../../../polaroid_long.jpg; sourceTree = "<group>"; };
 		66CD644D273A490800E55C03 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewController.swift; sourceTree = "<group>"; };
 		66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1345,6 +1347,7 @@
 				66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */,
 				66B4ADFC2742BEFC0021EA27 /* normal.jpg */,
 				66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */,
+				66CCB6E82758D02A00E3FD64 /* polaroid_long.jpg */,
 			);
 			path = PhotoFrames;
 			sourceTree = "<group>";
@@ -1914,6 +1917,7 @@
 				31BEC81F2755B154009AF22A /* Config.xcconfig in Resources */,
 				66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */,
 				66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */,
+				66CCB6E92758D02B00E3FD64 /* polaroid_long.jpg in Resources */,
 				664893CA273007F1009F03E2 /* Assets.xcassets in Resources */,
 				1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */,
 				31BEC80B2754DD74009AF22A /* license.txt in Resources */,
