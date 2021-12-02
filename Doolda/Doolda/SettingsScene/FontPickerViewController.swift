@@ -124,7 +124,7 @@ class FontPickerViewController: BottomSheetViewController {
 
 extension FontPickerViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return self.body.frame.height / 9
+        return 38
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
