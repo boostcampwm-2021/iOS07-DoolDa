@@ -152,7 +152,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func pageDidTap(index: Int) {
-        let selectedPageEntity = self.pageEntities[index]
+        let selectedPageEntity = self.filteredPageEntities[index]
         NotificationCenter.default.post(
             name: DiaryViewCoordinator.Notifications.pageDetailRequested,
             object: nil,
