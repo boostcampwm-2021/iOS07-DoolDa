@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  Doolda
+//
+//  Created by Seunghun Yang on 2021/11/22.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+FCM_SERVER_KEY = AAAABi_vS2s:APA91bGcfkGUsRD4r7ZgONyU987ZQKw5ifuzDIUdk35ohKKN1rROyK8zv_HG899-LZzIKePAtzYukrbYCj8rL_prOlGuqz7J07DJPaUsCTigaLe0yHClseGzaAuSiP-o6gyrmvQwSuNz
