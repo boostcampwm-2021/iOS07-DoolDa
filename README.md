@@ -41,6 +41,17 @@
 
 </br>
 
+## 동작 화면 📱
+<Blockquote>
+둘다의 실제 동작화면 입니다.🦔
+</Blockquote>
+
+| ![](https://github.com/boostcampwm-2021/iOS07-DoolDa/blob/dev/Screenshots/%EB%82%B4%EA%B0%80%20%EC%97%B0%EA%B2%B0%ED%95%98%EB%8A%94%20%EA%B2%BD%EC%9A%B0.gif) | ![](https://github.com/boostcampwm-2021/iOS07-DoolDa/blob/dev/Screenshots/%EC%82%AC%EC%A7%84%20%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.gif) | ![](https://github.com/boostcampwm-2021/iOS07-DoolDa/blob/dev/Screenshots/%ED%85%8D%EC%8A%A4%ED%8A%B8%20%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.gif) | ![](https://github.com/boostcampwm-2021/iOS07-DoolDa/blob/dev/Screenshots/%EC%8A%A4%ED%8B%B0%EC%BB%A4%20%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0.gif) |
+| :-:| :-: | :-: | :-: |
+| `페어링 화면` | `이미지 넣기` | `텍스트 넣기` | `스티커 넣기` |
+| ![](https://github.com/boostcampwm-2021/iOS07-DoolDa/blob/dev/Screenshots/%EB%91%90%EA%B0%80%EC%A7%80%20%EB%B3%B4%EA%B8%B0%20%EB%B0%A9%EC%8B%9D.gif) | ![](https://github.com/boostcampwm-2021/iOS07-DoolDa/blob/dev/Screenshots/%ED%95%84%ED%84%B0%EB%A7%81%20%EC%98%B5%EC%85%98.gif) | ![](https://github.com/boostcampwm-2021/iOS07-DoolDa/blob/dev/Screenshots/%ED%8E%98%EC%9D%B4%EC%A7%80%20%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0.gif) | ![](https://github.com/boostcampwm-2021/iOS07-DoolDa/blob/dev/Screenshots/%EA%B8%B0%EB%B3%B8%20%ED%8F%B0%ED%8A%B8%20%EC%84%A0%ED%83%9D.gif) |
+| `페이지 보기`  | `페이지 필터` | `페이지 수정` | `폰트 변경` |
+
 
 ## 주요 기능 ✨
 
@@ -86,7 +97,7 @@
 둘다에서 사용하고 있는 프로젝트 구조 입니다.
 </Blockquote>
 
-<img width="1188" alt="스크린샷_2021-11-21_오전_11 14 56" src="https://user-images.githubusercontent.com/64180706/143472981-c64c1750-d90e-45ce-b277-bea7a1790bae.png">
+<img width="1188" alt="스크린샷 2021-12-03 오전 12 45 04" src="https://user-images.githubusercontent.com/64180706/144454762-f7674828-703f-4f2c-9fff-37c8f6d098fc.png">
 
 
 ## 기술적 도전 💪
