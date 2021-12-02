@@ -12,12 +12,15 @@ import Photos
 
 enum PhotoPickerBottomSheetViewModelError: LocalizedError {
     case failedToComposeImages
+    case failedToLoadImages
     case photoFrameNotSelected
     
     var errorDescription: String? {
         switch self {
         case .failedToComposeImages:
             return "이미지 합성에 실패했습니다."
+        case .failedToLoadImages:
+            return "이미지 로드에 실패했습니다."
         case .photoFrameNotSelected:
             return "사진 프레임이 선택되지 않았습니다."
         }
@@ -191,19 +194,21 @@ class PhotoPickerBottomSheetViewModel: NSObject, PhotoPickerBottomSheetViewModel
         self.readyToSelectPhotoState = true
     }
     
-    private func convertAssetToCIImage(asset: PHAsset) -> AnyPublisher<CIImage?, Never> {
+    private func convertAssetToCIImage(asset: PHAsset) -> AnyPublisher<CIImage?, Error> {
         let imageRequestOptions = PHImageRequestOptions()
         imageRequestOptions.isNetworkAccessAllowed = true
         imageRequestOptions.deliveryMode = .highQualityFormat
         
-        return Future<CIImage?, Never> { promise in
+        return Future { promise in
             PHImageManager.default().requestImage(
                 for: asset,
                 targetSize: PHImageManagerMaximumSize,
                 contentMode: .aspectFill,
                 options: imageRequestOptions
             ) { image, _ in
-                guard let cgImage = image?.cgImage else { return promise(.success(nil)) }
+                guard let cgImage = image?.cgImage else {
+                    return promise(.failure(PhotoPickerBottomSheetViewModelError.failedToLoadImages))
+                }
                 promise(.success(CIImage(cgImage: cgImage)))
             }
         }
