@@ -67,6 +67,13 @@ class DiaryPageView: UIView {
                 self?.drawComponents(using: components, with: pageBackgroundColor)
             }
             .store(in: &self.cancellables)
+        
+    
+        NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
+            .sink { [weak self] _ in
+                self?.configureFont()
+            }
+            .store(in: &self.cancellables)
     }
     
     // MARK: - Private Methods
@@ -130,5 +137,9 @@ class DiaryPageView: UIView {
         let computedWidth =  size.width  * self.widthRatioFromAbsolute
         let computedHeight = size.height  * self.widthRatioFromAbsolute
         return CGSize(width: computedWidth, height: computedHeight)
+    }
+    
+    private func configureFont() {
+        self.drawComponents(using: self.components, with: self.backgroundColor)
     }
 }
