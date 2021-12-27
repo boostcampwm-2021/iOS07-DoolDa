@@ -16,7 +16,9 @@ protocol SettingsViewModelInput {
     func openSourceLicenseDidTap()
     func privacyPolicyDidTap()
     func contributorDidTap()
+    func signOutButtonDidTap()
     func unpairButtonDidTap()
+    func deleteAccountButtonDidTap()
     func deinitRequested()
 }
 
@@ -37,6 +39,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     private let user: User
     private let globalFontUseCase: GlobalFontUseCaseProtocol
     private let unpairUserUseCase: UnpairUserUseCaseProtocol
+    //private let authenticationUseCase: AuthenticationUseCaseProtocol
     private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
@@ -50,6 +53,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         user: User,
         globalFontUseCase: GlobalFontUseCaseProtocol,
         unpairUserUseCase: UnpairUserUseCaseProtocol,
+        //authenticationUseCase: AuthenticationUseCaseProtocol,
         pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
@@ -57,6 +61,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         self.user = user
         self.globalFontUseCase = globalFontUseCase
         self.unpairUserUseCase = unpairUserUseCase
+        //self.authenticationUseCase = authenticationUseCase
         self.pushNotificationStateUseCase = pushNotificationStateUseCase
         self.firebaseMessageUseCase = firebaseMessageUseCase
     }
@@ -107,6 +112,12 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         )
     }
     
+    // FIXME: NOT IMPLEMENTED
+    func signOutButtonDidTap() {
+        //self.authenticationUseCase.signOut()
+        print(#function)
+    }
+    
     func unpairButtonDidTap() {
         self.unpairUserUseCase.unpair(user: self.user)
             .sink { [weak self] completion in
@@ -124,6 +135,12 @@ final class SettingsViewModel: SettingsViewModelProtocol {
                 )
             }
             .store(in: &self.cancellables)
+    }
+    
+    // FIXME: NOT IMPLEMENTED
+    func deleteAccountButtonDidTap() {
+        //self.authenticationUseCase.delete()
+        print(#function)
     }
     
     func deinitRequested() {
