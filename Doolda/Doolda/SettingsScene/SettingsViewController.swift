@@ -35,12 +35,34 @@ class SettingsViewController: UIViewController {
         tableView.dataSource = self
         return tableView
     }()
-
-    private lazy var disconnectButton: UIButton = {
+    
+    private lazy var signOutButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("로그 아웃", for: .normal)
+        button.setTitleColor(.dooldaLabel, for: .normal)
+        return button
+    }()
+    
+    private lazy var unpairButton: UIButton = {
         let button = UIButton()
         button.setTitle("친구 끊기", for: .normal)
         button.setTitleColor(.dooldaWarning, for: .normal)
         return button
+    }()
+    
+    private lazy var deleteAccountButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("회원 탈퇴", for: .normal)
+        button.setTitleColor(.dooldaWarning, for: .normal)
+        return button
+    }()
+    
+    private lazy var danzerZoneStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [self.signOutButton, self.unpairButton, self.deleteAccountButton])
+        stackView.spacing = 8
+        stackView.distribution = .fillEqually
+        stackView.axis = .horizontal
+        return stackView
     }()
 
     private lazy var settingsSections: [SettingsSection] = {
@@ -129,7 +151,7 @@ class SettingsViewController: UIViewController {
 
     private func configureFont() {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
-        self.disconnectButton.titleLabel?.font = .systemFont(ofSize: 16)
+        self.unpairButton.titleLabel?.font = .systemFont(ofSize: 16)
 
         self.settingsSections.enumerated().forEach { index, section in
             guard let header = self.tableView.headerView(forSection: index) as? SettingsTableViewHeader else { return }
@@ -137,6 +159,11 @@ class SettingsViewController: UIViewController {
 
             section.settingsOptions.forEach { options in
                 options.cell.font = .systemFont(ofSize: 16)
+            }
+            
+            danzerZoneStack.arrangedSubviews.forEach { subview in
+                guard let button = subview as? UIButton else { return }
+                button.titleLabel?.font = .systemFont(ofSize: 16, weight: .heavy)
             }
         }
     }
@@ -169,24 +196,31 @@ class SettingsViewController: UIViewController {
                 self?.present(alert, animated: true, completion: nil)
             }
             .store(in: &self.cancellables)
-
-        self.disconnectButton.publisher(for: .touchUpInside)
+        
+        self.signOutButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                guard let self = self else { return }
-                let alert = UIAlertController.selectAlert(
-                    title: "친구 끊기",
-                    message: "정말 친구와 연결을 끊으시겠습니까?\n모든 데이터가 지워집니다.",
-                    leftActionTitle: "취소",
-                    rightActionTitle: "확인" ) { _ in
-                        self.viewModel.unpairButtonDidTap()
-                    }
-                self.present(alert, animated: true, completion: nil)
+                self?.showSignOutAlert()
+            }
+            .store(in: &self.cancellables)
+
+        self.unpairButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.showUnpairAlert()
+            }
+            .store(in: &self.cancellables)
+        
+        self.deleteAccountButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.showDeleteAcountAlert()
             }
             .store(in: &self.cancellables)
 
         guard let section = self.settingsSections[exist: 0],
               let alertCell = section.settingsOptions[exist: 0]?.cell else { return }
+        
         alertCell.switchControl.publisher(for: .valueChanged)
             .sink { [weak self] _ in
                 self?.viewModel.pushNotificationDidToggle(alertCell.switchControl.isOn)
@@ -198,6 +232,39 @@ class SettingsViewController: UIViewController {
                 self?.configureFont()
             }
             .store(in: &self.cancellables)
+    }
+    
+    private func showSignOutAlert() {
+        let alert = UIAlertController.selectAlert(
+            title: "로그 아웃",
+            message: "정말 로그아웃 하시겠습니까?\n로그 아웃 하더라도 친구와 함께한 다이어리는 유지됩니다.",
+            leftActionTitle: "취소",
+            rightActionTitle: "확인" ) { _ in
+                self.viewModel.unpairButtonDidTap()
+            }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func showUnpairAlert() {
+        let alert = UIAlertController.selectAlert(
+            title: "친구 끊기",
+            message: "정말 친구와 연결을 끊으시겠습니까?\n친구와 함께한 모든 다이어리가 지워집니다.",
+            leftActionTitle: "취소",
+            rightActionTitle: "확인" ) { _ in
+                self.viewModel.unpairButtonDidTap()
+            }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func showDeleteAcountAlert() {
+        let alert = UIAlertController.selectAlert(
+            title: "회원 탈퇴",
+            message: "정말 회원 탈퇴하시겠습니까?\n회원님의 모든 데이터가 지워집니다.",
+            leftActionTitle: "취소",
+            rightActionTitle: "확인" ) { _ in
+                self.viewModel.unpairButtonDidTap()
+            }
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -223,7 +290,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == self.settingsSections.count - 1 { return 65 }
+        if section == self.settingsSections.count - 1 { return 100 }
         return 0
     }
 
@@ -238,7 +305,7 @@ extension SettingsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == self.settingsSections.count - 1 {
-            return self.disconnectButton
+            return self.danzerZoneStack
         }
         return nil
     }
