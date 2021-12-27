@@ -55,6 +55,7 @@
 		1D77EDF82779ED000007BFF3 /* AuthenticationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D77EDF72779ED000007BFF3 /* AuthenticationUseCaseProtocol.swift */; };
 		1D77EDFB2779EFB70007BFF3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1D77EDFA2779EFB70007BFF3 /* FirebaseAuth */; };
 		1D77EDFD2779EFB70007BFF3 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D77EDFC2779EFB70007BFF3 /* FirebaseMessaging */; };
+		1D77EDFF2779F9B90007BFF3 /* AuthenticationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D77EDFE2779F9B90007BFF3 /* AuthenticationUseCase.swift */; };
 		1D8646A3274D2DB600C4511D /* PushMessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */; };
 		1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
 		1D8BE07B2742A3DB00201E3E /* DiaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */; };
@@ -444,6 +445,7 @@
 		1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		1D77EDF72779ED000007BFF3 /* AuthenticationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseProtocol.swift; sourceTree = "<group>"; };
+		1D77EDFE2779F9B90007BFF3 /* AuthenticationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCase.swift; sourceTree = "<group>"; };
 		1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushMessageEntity.swift; sourceTree = "<group>"; };
 		1D8BE0782740FE5E00201E3E /* PageDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDocument.swift; sourceTree = "<group>"; };
 		1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1203,6 +1205,7 @@
 				66C482DA2746135500823151 /* GetRawPageUseCase.swift */,
 				1D999461274CA94600C72273 /* FCMTokenUseCase.swift */,
 				1D99946D274CEFC500C72273 /* FirebaseMessageUseCase.swift */,
+				1D77EDFE2779F9B90007BFF3 /* AuthenticationUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2221,6 +2224,7 @@
 				FC822FAA2736088100C918A0 /* URLSessionNetworkService.swift in Sources */,
 				FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */,
 				310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */,
+				1D77EDFF2779F9B90007BFF3 /* AuthenticationUseCase.swift in Sources */,
 				319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */,
 				6669A6A827D8E00D007075C3 /* FirebaseNetworkService.swift in Sources */,
 				FC7AA339274345280059D0CD /* StickerUseCase.swift in Sources */,
