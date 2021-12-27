@@ -240,7 +240,7 @@ class SettingsViewController: UIViewController {
             message: "정말 로그아웃 하시겠습니까?\n로그 아웃 하더라도 친구와 함께한 다이어리는 유지됩니다.",
             leftActionTitle: "취소",
             rightActionTitle: "확인" ) { _ in
-                self.viewModel.unpairButtonDidTap()
+                self.viewModel.signOutButtonDidTap()
             }
         self.present(alert, animated: true, completion: nil)
     }
@@ -262,7 +262,7 @@ class SettingsViewController: UIViewController {
             message: "정말 회원 탈퇴하시겠습니까?\n회원님의 모든 데이터가 지워집니다.",
             leftActionTitle: "취소",
             rightActionTitle: "확인" ) { _ in
-                self.viewModel.unpairButtonDidTap()
+                self.viewModel.deleteAccountButtonDidTap()
             }
         self.present(alert, animated: true, completion: nil)
     }
