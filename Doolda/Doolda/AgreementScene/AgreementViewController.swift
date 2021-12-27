@@ -42,6 +42,8 @@ final class AgreementViewController: UIViewController {
     private lazy var serviceAgreementTextView: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .dooldaTextViewBackground
+        textView.text = "Sample1"
+        textView.textColor = .black
         textView.isEditable = false
         return textView
     }()
@@ -56,6 +58,8 @@ final class AgreementViewController: UIViewController {
     private lazy var privacyPolicyTextView: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .dooldaTextViewBackground
+        textView.text = "Sample2"
+        textView.textColor = .black
         textView.isEditable = false
         return textView
     }()
