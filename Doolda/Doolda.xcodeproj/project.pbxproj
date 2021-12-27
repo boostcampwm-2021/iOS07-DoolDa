@@ -205,6 +205,7 @@
 		6669A6A627D8D95B007075C3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6669A6A527D8D95B007075C3 /* FirebaseStorage */; };
 		6669A6A827D8E00D007075C3 /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6669A6A727D8E00D007075C3 /* FirebaseNetworkService.swift */; };
 		6669A6AA27D8E81B007075C3 /* FirebaseNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6669A6A927D8E81B007075C3 /* FirebaseNetworkServiceProtocol.swift */; };
+		6660E3EB2779D94100C2A445 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660E3EA2779D94100C2A445 /* AgreementViewController.swift */; };
 		66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFC2742BEFC0021EA27 /* normal.jpg */; };
 		66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */; };
 		66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */; };
@@ -556,6 +557,7 @@
 		665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		6669A6A727D8E00D007075C3 /* FirebaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkService.swift; sourceTree = "<group>"; };
 		6669A6A927D8E81B007075C3 /* FirebaseNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		6660E3EA2779D94100C2A445 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
 		66B4ADFC2742BEFC0021EA27 /* normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = normal.jpg; sourceTree = "<group>"; };
 		66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = polaroid.jpg; sourceTree = "<group>"; };
 		66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lifeFourCuts.jpg; sourceTree = "<group>"; };
@@ -1083,6 +1085,7 @@
 				664893E927300B59009F03E2 /* Support */,
 				1DD0F3602747B10000FC5E65 /* Common */,
 				1DD0F35A2747AE8600FC5E65 /* SplashScene */,
+				6660E3E92779D91300C2A445 /* AgreementScene */,
 				A40AA69E27F35BE500754E4F /* AuthenticationScene */,
 				1DD0F35E2747AF5A00FC5E65 /* PairingScene */,
 				1DD0F35F2747AFC800FC5E65 /* DiaryScene */,
@@ -1323,6 +1326,14 @@
 				6653039F2743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		6660E3E92779D91300C2A445 /* AgreementScene */ = {
+			isa = PBXGroup;
+			children = (
+				6660E3EA2779D94100C2A445 /* AgreementViewController.swift */,
+			);
+			path = AgreementScene;
 			sourceTree = "<group>";
 		};
 		66C2CA862755E9F200AFE5EE /* PairUserUseCaseTest */ = {
@@ -2327,6 +2338,7 @@
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
 				1D04F41C273957E600CFCC3A /* BackgroundType.swift in Sources */,
 				FCC803FC27451C9600FFE4DC /* TextEditViewModel.swift in Sources */,
+				6660E3EB2779D94100C2A445 /* AgreementViewController.swift in Sources */,
 				664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */,
 				66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */,
 				66F1760D2754C2CF006ACB41 /* GetUserUseCaseProtocol.swift in Sources */,
