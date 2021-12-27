@@ -72,7 +72,7 @@ class SettingsViewController: UIViewController {
 
         let fontCell = SettingsTableViewCell(style: .detail)
         fontCell.title = "폰트 설정"
-        let fontOption = SettingsOptions(cell: fontCell, handler: self.viewModel.fontTypeDidTap)
+        let fontOption = SettingsOptions(cell: fontCell, handler: self.viewModel.fontCellDidTap)
 
         let versionCell = SettingsTableViewCell(style: .detail)
         versionCell.title = "앱 현재 버전"
@@ -81,15 +81,15 @@ class SettingsViewController: UIViewController {
 
         let openSourceCell = SettingsTableViewCell(style: .disclosure)
         openSourceCell.title = "Open Source License"
-        let openSourceOption = SettingsOptions(cell: openSourceCell, handler: self.viewModel.openSourceLicenseDidTap)
+        let openSourceOption = SettingsOptions(cell: openSourceCell, handler: self.viewModel.openSourceCellDidTap)
 
         let privacyCell = SettingsTableViewCell(style: .disclosure)
         privacyCell.title = "개인 정보 처리 방침"
-        let privacyOption = SettingsOptions(cell: privacyCell, handler: self.viewModel.privacyPolicyDidTap)
+        let privacyOption = SettingsOptions(cell: privacyCell, handler: self.viewModel.privacyCellDidTap)
 
         let contributorCell = SettingsTableViewCell(style: .disclosure)
         contributorCell.title = "만든 사람들"
-        let contributorsOption = SettingsOptions(cell: contributorCell, handler: self.viewModel.contributorDidTap)
+        let contributorsOption = SettingsOptions(cell: contributorCell, handler: self.viewModel.contributorCellDidTap)
 
         let appSection = SettingsSection(title: "앱 설정", settingsOptions: [alertOption, fontOption])
         let serviceSection = SettingsSection(
