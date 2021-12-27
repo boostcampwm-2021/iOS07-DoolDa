@@ -179,6 +179,8 @@
 		31BEC8402755ED64009AF22A /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
 		31BEC8412755EF02009AF22A /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
 		31BEC8422755F4F2009AF22A /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
+		31F45A6F277A1C6700C91B91 /* AuthenticationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F45A6E277A1C6700C91B91 /* AuthenticationUseCaseProtocol.swift */; };
+		31F45A71277A1D8B00C91B91 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 31F45A70277A1D8B00C91B91 /* FirebaseAuth */; };
 		661A840427434FE10077E0E3 /* GetPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A840327434FE10077E0E3 /* GetPageUseCase.swift */; };
 		661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
@@ -523,6 +525,7 @@
 		31BEC8312755EA89009AF22A /* ImageUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31BEC8332755EA89009AF22A /* ImageUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUseCaseTest.swift; sourceTree = "<group>"; };
 		31BEC8392755EBB7009AF22A /* DummyImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyImageRepository.swift; sourceTree = "<group>"; };
+		31F45A6E277A1C6700C91B91 /* AuthenticationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseProtocol.swift; sourceTree = "<group>"; };
 		661A840327434FE10077E0E3 /* GetPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPageUseCase.swift; sourceTree = "<group>"; };
 		661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyTurnUseCase.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -708,6 +711,7 @@
 				1D3BAC0F274E307A00CD23EE /* Kingfisher in Frameworks */,
 				1D77EDFB2779EFB70007BFF3 /* FirebaseAuth in Frameworks */,
 				1D3BAC0B274E2F6500CD23EE /* SnapKit in Frameworks */,
+				31F45A71277A1D8B00C91B91 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1031,6 +1035,13 @@
 			path = ../ImageUseCaseTest;
 			sourceTree = "<group>";
 		};
+		31F45A6D277A1B7100C91B91 /* AuthenticationScene */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AuthenticationScene;
+			sourceTree = "<group>";
+		};
 		664893B4273007ED009F03E2 = {
 			isa = PBXGroup;
 			children = (
@@ -1077,6 +1088,8 @@
 				1DD0F35A2747AE8600FC5E65 /* SplashScene */,
 				6660E3E92779D91300C2A445 /* AgreementScene */,
 				1DD0F35E2747AF5A00FC5E65 /* PairingScene */,
+				31F45A6D277A1B7100C91B91 /* AuthenticationScene */,
+				6660E3EE277A295400C2A445 /* AgreementScene */,
 				1DD0F35F2747AFC800FC5E65 /* DiaryScene */,
 				318D9F6E274E129C00AA6F0E /* PageDetailScene */,
 				1DD0F3612747B14500FC5E65 /* EditPageScene */,
@@ -1409,7 +1422,7 @@
 				66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */,
 				66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */,
 				66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */,
-				1D77EDF72779ED000007BFF3 /* AuthenticationUseCaseProtocol.swift */,
+				31F45A6E277A1C6700C91B91 /* AuthenticationUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1605,7 +1618,7 @@
 			packageProductDependencies = (
 				1D3BAC0A274E2F6500CD23EE /* SnapKit */,
 				1D3BAC0E274E307A00CD23EE /* Kingfisher */,
-				1D77EDFA2779EFB70007BFF3 /* FirebaseAuth */,
+				31F45A70277A1D8B00C91B91 /* FirebaseAuth */,
 				1D77EDFC2779EFB70007BFF3 /* FirebaseMessaging */,
 			);
 			productName = Doolda;
@@ -2215,7 +2228,7 @@
 				FCD24D7A2743AACE000203F7 /* PushNotificationStateRepository.swift in Sources */,
 				66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */,
 				1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */,
-				1D77EDF82779ED000007BFF3 /* AuthenticationUseCaseProtocol.swift in Sources */,
+				31F45A6F277A1C6700C91B91 /* AuthenticationUseCaseProtocol.swift in Sources */,
 				66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */,
 				66F1761F2754C656006ACB41 /* TextUseCaseProtocol.swift in Sources */,
 				317FB611274A9175005DF3A3 /* SettingsViewCoordinator.swift in Sources */,
@@ -3661,9 +3674,9 @@
 			package = 1D3BAC0D274E307A00CD23EE /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		1D77EDFA2779EFB70007BFF3 /* FirebaseAuth */ = {
+		31F45A70277A1D8B00C91B91 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1D77EDF92779EFB70007BFF3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1D3BAC06274E2F3B00CD23EE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
 		1D77EDFC2779EFB70007BFF3 /* FirebaseMessaging */ = {
