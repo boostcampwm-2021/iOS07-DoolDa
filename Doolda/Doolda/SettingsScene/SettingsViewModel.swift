@@ -10,12 +10,12 @@ import Foundation
 
 protocol SettingsViewModelInput {
     func settingsViewDidLoad()
-    func fontTypeDidTap()
+    func fontCellDidTap()
     func fontTypeDidChanged(_ fontName: String)
     func pushNotificationDidToggle(_ isOn: Bool)
-    func openSourceLicenseDidTap()
-    func privacyPolicyDidTap()
-    func contributorDidTap()
+    func openSourceCellDidTap()
+    func privacyCellDidTap()
+    func contributorCellDidTap()
     func signOutButtonDidTap()
     func unpairButtonDidTap()
     func deleteAccountButtonDidTap()
@@ -71,7 +71,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         self.selectedFont = self.globalFontUseCase.getGlobalFont()
     }
 
-    func fontTypeDidTap() {
+    func fontCellDidTap() {
         NotificationCenter.default.post(
             name: SettingsViewCoordinator.Notifications.fontPickerSheetRequested,
             object: nil
@@ -88,7 +88,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         self.pushNotificationStateUseCase.setPushNotificationState(as: isOn)
     }
 
-    func openSourceLicenseDidTap() {
+    func openSourceCellDidTap() {
         NotificationCenter.default.post(
             name: SettingsViewCoordinator.Notifications.informationViewRequested,
             object: nil,
@@ -96,7 +96,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         )
     }
 
-    func privacyPolicyDidTap() {
+    func privacyCellDidTap() {
         NotificationCenter.default.post(
             name: SettingsViewCoordinator.Notifications.informationViewRequested,
             object: nil,
@@ -104,7 +104,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         )
     }
 
-    func contributorDidTap() {
+    func contributorCellDidTap() {
         NotificationCenter.default.post(
             name: SettingsViewCoordinator.Notifications.informationViewRequested,
             object: nil,
