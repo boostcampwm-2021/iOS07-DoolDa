@@ -15,7 +15,12 @@ final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
         self.userRepository = userRepository
     }
     
+    // FIXME: Deprecated
     func getMyId() -> AnyPublisher<DDID?, Never> {
         return userRepository.getMyId()
+    }
+    
+    func getMyId(for uid: String) -> AnyPublisher<DDID?, Never> {
+        return userRepository.getMyId(for: uid)
     }
 }
