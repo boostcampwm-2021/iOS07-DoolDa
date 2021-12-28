@@ -77,12 +77,12 @@ final class AgreementViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private var viewModel: AgreementViewModel!
+    private var viewModel: AgreementViewModelProtocol!
     private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializers
     
-    convenience init(viewModel: AgreementViewModel) {
+    convenience init(viewModel: AgreementViewModelProtocol) {
         self.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
     }
