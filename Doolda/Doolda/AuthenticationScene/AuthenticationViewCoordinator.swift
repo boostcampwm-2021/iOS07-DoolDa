@@ -26,7 +26,7 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
 
     func start() {
         let authenticationUseCase = AuthenticationUseCase()
-        let viewModel = AuthenticationViewModel(authenticationUseCase: authenticationUseCase)
+        let viewModel = AuthenticationViewModel(sceneId: self.identifier, authenticationUseCase: authenticationUseCase)
         let viewController = AuthenticationViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
     }
