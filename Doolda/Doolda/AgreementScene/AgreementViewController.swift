@@ -43,8 +43,6 @@ final class AgreementViewController: UIViewController {
     private lazy var serviceAgreementTextView: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .dooldaTextViewBackground
-        // FIXME: viewModel bind완료 후 text 제거
-        textView.text = "Sample1"
         textView.textColor = .black
         textView.isEditable = false
         return textView
@@ -60,14 +58,12 @@ final class AgreementViewController: UIViewController {
     private lazy var privacyPolicyTextView: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .dooldaTextViewBackground
-        // FIXME: viewModel bind완료 후 text 제거
-        textView.text = "Sample2"
         textView.textColor = .black
         textView.isEditable = false
         return textView
     }()
     
-    private lazy var nextButton: DooldaButton = {
+    private lazy var agreementButton: DooldaButton = {
         let button = DooldaButton()
         button.setTitle("동의하고 친구 연결하기", for: .normal)
         button.setTitleColor(.dooldaLabel, for: .normal)
@@ -88,7 +84,7 @@ final class AgreementViewController: UIViewController {
     }
     
     deinit {
-        // FIXME: ViewModel의 Deinit Input 연결
+        self.viewModel.deinitRequested()
     }
     
     // MARK: - Lifecycle Methods
@@ -98,6 +94,7 @@ final class AgreementViewController: UIViewController {
         configureUI()
         configureFont()
         bindUI()
+        self.viewModel.viewDidLoad()
     }
     
     // MARK: - Helpers
@@ -161,8 +158,8 @@ final class AgreementViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
         }
         
-        self.contentView.addSubview(self.nextButton)
-        self.nextButton.snp.makeConstraints { make in
+        self.contentView.addSubview(self.agreementButton)
+        self.agreementButton.snp.makeConstraints { make in
             make.top.equalTo(self.privacyPolicyTextView.snp.bottom).offset(20)
             make.height.equalTo(44)
             make.leading.equalToSuperview().offset(16)
@@ -176,10 +173,43 @@ final class AgreementViewController: UIViewController {
         self.subtitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 18)
         self.serviceAgreementTitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.privacyPolicyTitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
-        self.nextButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
+        self.agreementButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
     }
     
     private func bindUI() {
-        // FIXME: ViewModel과 병합 후 작성
+        self.viewModel.privacyPolicyPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] privacyPolicy in
+                self?.privacyPolicyTextView.text = privacyPolicy
+            }
+            .store(in: &self.cancellables)
+        
+        self.viewModel.serviceAgreementPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] serviceAgreement in
+                self?.serviceAgreementTextView.text = serviceAgreement
+            }
+            .store(in: &self.cancellables)
+        
+        self.viewModel.errorPublisher
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                self?.showErrorAlert(message: error.localizedDescription)
+            }
+            .store(in: &self.cancellables)
+        
+        self.agreementButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                self?.viewModel.agreementButtonDidTap()
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController.defaultAlert(title: "오류", message: message, handler: { _ in })
+        self.present(alert, animated: true)
     }
 }
