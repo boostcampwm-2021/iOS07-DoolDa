@@ -21,7 +21,7 @@ enum AuthenticationUseCaseError: LocalizedError {
     }
 }
 
-class AuthenticationUseCase: AuthenticationUseCaseProtocol {
+final class AuthenticationUseCase: AuthenticationUseCaseProtocol {
     func getCurrentUser() -> FirebaseAuth.User? {
         return Auth.auth().currentUser
     }
