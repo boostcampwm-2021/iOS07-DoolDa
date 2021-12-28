@@ -5,15 +5,15 @@
 //  Created by Dozzing on 2021/12/28.
 //
 
+import AuthenticationServices
 import Combine
 import CryptoKit
 import Foundation
 
-import AuthenticationServices
 import FirebaseAuth
 
 protocol AuthenticationViewModelInput {
-    func apppleLoginButtonDidTap()
+    func appleLoginButtonDidTap()
     func signIn(authorization: ASAuthorization)
 }
 
@@ -48,7 +48,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         self.authenticationUseCase = authenticationUseCase
     }
 
-    func apppleLoginButtonDidTap() {
+    func appleLoginButtonDidTap() {
         let randomNonce = self.randomNonceString()
         self.nonce = sha256(randomNonce)
     }
