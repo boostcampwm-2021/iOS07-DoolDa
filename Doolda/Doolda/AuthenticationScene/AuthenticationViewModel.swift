@@ -10,9 +10,11 @@ import CryptoKit
 import Foundation
 
 import AuthenticationServices
+import FirebaseAuth
 
 protocol AuthenticationViewModelInput {
     func apppleLoginButtonDidTap()
+    func signIn(credential: AuthCredential)
 }
 
 protocol AuthenticationViewModelOutput {
@@ -22,7 +24,6 @@ protocol AuthenticationViewModelOutput {
 typealias AuthenticationViewModelProtocol = AuthenticationViewModelInput & AuthenticationViewModelOutput
 
 final class AuthenticationViewModel: AuthenticationViewModelProtocol {
-    
     var noncePublisher: AnyPublisher<String, Never> { self.$nonce.eraseToAnyPublisher() }
     
     @Published private var nonce: String = ""
@@ -32,6 +33,10 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         self.nonce = sha256(randomNonce)
     }
 
+    func signIn(credential: AuthCredential) {
+        // FIXME: UseCase 사용
+    }
+
     private func createAppleIDRequest() -> ASAuthorizationAppleIDRequest {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -39,10 +44,6 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         request.requestedScopes = [.fullName, .email]
         request.nonce = sha256(nonce)
         return request
-//        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-//        authorizationController.delegate = self
-//        authorizationController.presentationContextProvider = self
-//        authorizationController.performRequests()
     }
 
     private func sha256(_ input: String) -> String {
