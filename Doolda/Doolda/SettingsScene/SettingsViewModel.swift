@@ -16,7 +16,6 @@ protocol SettingsViewModelInput {
     func openSourceCellDidTap()
     func privacyCellDidTap()
     func contributorCellDidTap()
-    func signOutButtonDidTap()
     func unpairButtonDidTap()
     func deleteAccountButtonDidTap()
     func deinitRequested()
@@ -110,12 +109,6 @@ final class SettingsViewModel: SettingsViewModelProtocol {
             object: nil,
             userInfo: [SettingsViewCoordinator.Keys.infoType: DooldaInfoType.contributor]
         )
-    }
-    
-    // FIXME: NOT IMPLEMENTED
-    func signOutButtonDidTap() {
-        //self.authenticationUseCase.signOut()
-        print(#function)
     }
     
     func unpairButtonDidTap() {
