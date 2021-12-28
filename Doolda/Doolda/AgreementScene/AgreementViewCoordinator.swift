@@ -25,4 +25,18 @@ final class AgreementViewCoordinator: BaseCoordinator {
     override init(identifier: UUID, presenter: UINavigationController) {
         super.init(identifier: identifier, presenter: presenter)
     }
+    
+    func start() {
+        let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
+        let urlSessionNetworkService = URLSessionNetworkService.shared
+        
+        let userRespository = UserRepository(
+            persistenceService: userDefaultsPersistenceService,
+            networkService: urlSessionNetworkService
+        )
+        
+        let registerUserUseCase = RegisterUserUseCase(userRepository: userRespository)
+        
+        // FIXME: ViewModel, ViewController 생성 및 화면 전환
+    }
 }
