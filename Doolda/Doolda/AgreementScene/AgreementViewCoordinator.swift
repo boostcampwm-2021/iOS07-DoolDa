@@ -10,7 +10,7 @@ import UIKit
 
 final class AgreementViewCoordinator: BaseCoordinator {
     
-    //MARK: - Nested enum
+    // MARK: - Nested enum
     
     enum Notifications {
         static let userDidApproveApplicationServicePolicy = Notification.Name("userDidApproveApplicationServicePolicy")
