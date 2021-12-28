@@ -27,7 +27,7 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     var serviceAgreementPublisher: AnyPublisher<String?, Never> { self.$serviceAgreement.eraseToAnyPublisher() }
     var privacyPolicyPublisher: AnyPublisher<String?, Never> { self.$privacyPolicy.eraseToAnyPublisher() }
     
-    private let sceneID: UUID
+    private let sceneId: UUID
     private let registerUserUseCase: RegisterUserUseCaseProtocol
     
     private var cancellables: Set<AnyCancellable> = []
@@ -38,7 +38,7 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     
     init(sceneId: UUID,
          registerUserUseCase: RegisterUserUseCaseProtocol) {
-        self.sceneID = sceneId
+        self.sceneId = sceneId
         self.registerUserUseCase = registerUserUseCase
         bind()
     }
