@@ -15,6 +15,7 @@ import FirebaseAuth
 protocol AuthenticationViewModelInput {
     func appleLoginButtonDidTap()
     func signIn(authorization: ASAuthorization)
+    func deinitRequested()
 }
 
 protocol AuthenticationViewModelOutput {
@@ -42,9 +43,11 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     @Published private var nonce: String = ""
     @Published private var error: Error?
 
+    private let sceneId: UUID
     private let authenticationUseCase: AuthenticationUseCaseProtocol
 
-    init(authenticationUseCase: AuthenticationUseCaseProtocol) {
+    init(sceneId: UUID, authenticationUseCase: AuthenticationUseCaseProtocol) {
+        self.sceneId = sceneId
         self.authenticationUseCase = authenticationUseCase
     }
 
@@ -72,6 +75,14 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
                 )
             }
         }
+    }
+
+    func deinitRequested() {
+        NotificationCenter.default.post(
+            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
+            object: nil
+            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
+        )
     }
 
     private func createAppleIDRequest() -> ASAuthorizationAppleIDRequest {

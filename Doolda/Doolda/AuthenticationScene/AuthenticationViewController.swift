@@ -62,6 +62,10 @@ class AuthenticationViewController: UIViewController {
         self.viewModel = viewModel
     }
 
+    deinit {
+        self.viewModel.deinitRequested()
+    }
+
     // MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
