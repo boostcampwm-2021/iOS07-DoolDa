@@ -52,18 +52,26 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     }
     
     func deinitRequested() {
-        // FIXME: 코디네이터 구현 후 Notification 작성
+        NotificationCenter.default.post(
+            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
+            object: nil,
+            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
+        )
     }
     
     private func bind() {
         self.registerUserUseCase.registeredUserPublisher
             .compactMap { $0 }
-            .sink(receiveValue: { [weak self] in
-                // FIXME: 코디네이터 구현 후 Notification 작성
+            .sink(receiveValue: { [weak self] user in
+                NotificationCenter.default.post(
+                    name: AgreementViewCoordinator.Notifications.userDidApproveApplicationServicePolicy,
+                    object: self,
+                    userInfo: [AgreementViewCoordinator.Keys.myId: user.id]
+                )
             })
             .store(in: &self.cancellables)
 
         self.registerUserUseCase.errorPublisher
-            .assign(to: &$error)
+            .assign(to: &self.$error)
     }
 }
