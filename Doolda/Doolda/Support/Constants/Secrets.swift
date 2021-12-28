@@ -9,4 +9,5 @@ import Foundation
 
 enum Secrets {
     static let fcmServerKey = Bundle.main.infoDictionary?["FCM_SERVER_KEY"] as? String
+    static var idToken: String?
 }
