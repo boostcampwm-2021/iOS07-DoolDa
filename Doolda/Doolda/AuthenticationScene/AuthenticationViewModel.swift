@@ -28,13 +28,23 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     
     @Published private var nonce: String = ""
 
+    private let authenticationUseCase: AuthenticationUseCaseProtocol
+
+    init(authenticationUseCase: AuthenticationUseCaseProtocol) {
+        self.authenticationUseCase = authenticationUseCase
+    }
+
     func apppleLoginButtonDidTap() {
         let randomNonce = self.randomNonceString()
         self.nonce = sha256(randomNonce)
     }
 
     func signIn(credential: AuthCredential) {
-        // FIXME: UseCase 사용
+        self.authenticationUseCase.signIn(credential: credential) { data, _ in
+            if let user = data?.user {
+                // FIXME: Coordinator와 연결
+            }
+        }
     }
 
     private func createAppleIDRequest() -> ASAuthorizationAppleIDRequest {
@@ -58,8 +68,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
 
     private func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
-        let charset: Array<Character> =
-        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        let charset: Array<Character> = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
         var result = ""
         var remainingLength = length
 
