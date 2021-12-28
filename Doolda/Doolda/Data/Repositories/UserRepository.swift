@@ -50,6 +50,10 @@ class UserRepository: UserRepositoryProtocol {
         return Just(DDID(from: userIdString)).eraseToAnyPublisher()
     }
     
+    func getMyId(uid: String) -> AnyPublisher<DDID?, Never> {
+        return self.getMyId()
+    }
+    
     func setUser(_ user: User) -> AnyPublisher<User, Error> {
         guard let pairId = user.pairId else {
             let publisher: AnyPublisher<UserDocument, Error> =

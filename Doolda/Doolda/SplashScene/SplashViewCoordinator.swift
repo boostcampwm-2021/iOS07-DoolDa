@@ -94,18 +94,18 @@ final class SplashViewCoordinator: BaseCoordinator {
     
     // FIXME: NOT IMPLEMENTED
     private func userNotLoggedIn() {
-        // let identifier = UUID()
-        // let authenticationViewCoordinator = AuthenticationViewCoordinator()
-        // self.children[identifier] = authenticationViewCoordinator
-        // authenticationViewCoordinator.start()
+        let identifier = UUID()
+        let authenticationViewCoordinator = AuthenticationViewCoordinator(identifier: identifier, presenter: self.presenter)
+        self.children[identifier] = authenticationViewCoordinator
+        authenticationViewCoordinator.start()
     }
     
     // FIXME: NOT IMPLEMENTED
     private func userNotExists() {
-        // let identifier = UUID()
-        // let agreementViewCoordinator = AgreementViewCoordinator()
-        // self.children[identifier] = agreementViewCoordinator
-        // agreementViewCoordinator.start()
+        let identifier = UUID()
+        let agreementViewCoordinator = AgreementViewCoordinator(identifier: identifier, presenter: self.presenter)
+        self.children[identifier] = agreementViewCoordinator
+        agreementViewCoordinator.start()
     }
     
     private func userNotPaired(myId: DDID) {

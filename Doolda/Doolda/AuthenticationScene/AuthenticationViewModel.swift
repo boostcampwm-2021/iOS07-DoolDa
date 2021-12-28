@@ -80,7 +80,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     func deinitRequested() {
         NotificationCenter.default.post(
             name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
-            object: nil
+            object: nil,
             userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
         )
     }
