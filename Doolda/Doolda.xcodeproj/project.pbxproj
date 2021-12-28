@@ -1045,8 +1045,8 @@
 			isa = PBXGroup;
 			children = (
 				31F45A72277A25CC00C91B91 /* AuthenticationViewController.swift */,
-				31F45A74277AEBB000C91B91 /* AuthenticationViewModel.swift */,
 				31F45A76277B0BB100C91B91 /* AuthenticationViewCoordinator.swift */,
+				31F45A74277AEBB000C91B91 /* AuthenticationViewModel.swift */,
 			);
 			path = AuthenticationScene;
 			sourceTree = "<group>";
