@@ -38,7 +38,10 @@ final class AgreementViewCoordinator: BaseCoordinator {
         
         let registerUserUseCase = RegisterUserUseCase(userRepository: userRespository)
         
-        // FIXME: ViewModel, ViewController 생성 및 화면 전환
+        let viewModel = AgreementViewModel(sceneId: self.identifier, registerUserUseCase: registerUserUseCase)
+        
+        let viewController = AgreementViewController(viewModel: viewModel)
+        self.presenter.pushViewController(viewController, animated: false)
     }
     
     private func bind() {
