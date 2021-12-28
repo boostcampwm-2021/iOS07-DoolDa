@@ -54,7 +54,6 @@ class AuthenticationViewController: UIViewController {
 
     private var viewModel: AuthenticationViewModelProtocol!
     private var cancellables: Set<AnyCancellable> = []
-    private var nonce: String?
 
     // MARK: - Initializers
 
@@ -119,8 +118,7 @@ class AuthenticationViewController: UIViewController {
         self.viewModel.noncePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] nonce in
-                self?.nonce = nonce
-                self?.performSignIn()
+                self?.performSignIn(with: nonce)
             }
             .store(in: &self.cancellables)
 
@@ -133,16 +131,15 @@ class AuthenticationViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func performSignIn() {
-        guard let request = self.createAppleIDRequest() else { return }
+    private func performSignIn(with nonce: String) {
+        guard let request = self.createAppleIDRequest(with: nonce) else { return }
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
 
-    private func createAppleIDRequest() -> ASAuthorizationAppleIDRequest? {
-        guard let nonce = self.nonce else { return nil }
+    private func createAppleIDRequest(with nonce: String) -> ASAuthorizationAppleIDRequest? {
         if nonce.isEmpty { return nil }
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -155,13 +152,7 @@ class AuthenticationViewController: UIViewController {
 
 extension AuthenticationViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let nonce = self.nonce else { fatalError("NONCE ERROR") }
-            guard let appleIDToken = appleIDCredential.identityToken else { fatalError("TOKEN ERROR") }
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else { fatalError("TOKEN STRING ERROR") }
-            let appleCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
-            self.viewModel.signIn(credential: appleCredential)
-        }
+        self.viewModel.signIn(authorization: authorization)
     }
 }
 

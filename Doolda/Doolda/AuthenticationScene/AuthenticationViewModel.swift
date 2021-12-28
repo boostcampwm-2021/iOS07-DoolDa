@@ -14,19 +14,33 @@ import FirebaseAuth
 
 protocol AuthenticationViewModelInput {
     func apppleLoginButtonDidTap()
-    func signIn(credential: AuthCredential)
+    func signIn(authorization: ASAuthorization)
 }
 
 protocol AuthenticationViewModelOutput {
     var noncePublisher: AnyPublisher<String, Never> { get }
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
 }
 
 typealias AuthenticationViewModelProtocol = AuthenticationViewModelInput & AuthenticationViewModelOutput
 
+enum AuthenticatoinError: LocalizedError {
+    case failToInitCredential
+
+    var errorDescription: String? {
+        switch self {
+        case .failToInitCredential:
+            return "fail to init credential"
+        }
+    }
+}
+
 final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     var noncePublisher: AnyPublisher<String, Never> { self.$nonce.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     
     @Published private var nonce: String = ""
+    @Published private var error: Error?
 
     private let authenticationUseCase: AuthenticationUseCaseProtocol
 
@@ -39,8 +53,18 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         self.nonce = sha256(randomNonce)
     }
 
-    func signIn(credential: AuthCredential) {
-        self.authenticationUseCase.signIn(credential: credential) { data, _ in
+    func signIn(authorization: ASAuthorization) {
+        if self.nonce.isEmpty { return }
+        guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
+              let appleIDToken = appleIDCredential.identityToken,
+              let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                  self.error = AuthenticatoinError.failToInitCredential
+                  return
+              }
+
+        let appleCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: self.nonce)
+
+        self.authenticationUseCase.signIn(credential: appleCredential) { data, _ in
             if let user = data?.user {
                 // FIXME: Coordinator와 연결
             }
