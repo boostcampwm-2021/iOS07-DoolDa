@@ -74,6 +74,12 @@ final class AgreementViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Initializers
+    
+    deinit {
+        // FIXME: ViewModel의 Deinit Input 연결
+    }
+    
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
