@@ -197,8 +197,8 @@
 		665303A62743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */; };
 		665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A72744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift */; };
 		665303AA2744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */; };
-		6660E3F0277A296B00C2A445 /* AgreementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660E3EF277A296B00C2A445 /* AgreementViewModel.swift */; };
 		6660E3EB2779D94100C2A445 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660E3EA2779D94100C2A445 /* AgreementViewController.swift */; };
+		6660E3F0277A296B00C2A445 /* AgreementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660E3EF277A296B00C2A445 /* AgreementViewModel.swift */; };
 		66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFC2742BEFC0021EA27 /* normal.jpg */; };
 		66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */; };
 		66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */; };
@@ -543,8 +543,8 @@
 		665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		665303A72744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceService.swift; sourceTree = "<group>"; };
 		665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
-		6660E3EF277A296B00C2A445 /* AgreementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewModel.swift; sourceTree = "<group>"; };
 		6660E3EA2779D94100C2A445 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
+		6660E3EF277A296B00C2A445 /* AgreementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewModel.swift; sourceTree = "<group>"; };
 		66B4ADFC2742BEFC0021EA27 /* normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = normal.jpg; sourceTree = "<group>"; };
 		66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = polaroid.jpg; sourceTree = "<group>"; };
 		66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lifeFourCuts.jpg; sourceTree = "<group>"; };
@@ -1077,7 +1077,6 @@
 				1DD0F35A2747AE8600FC5E65 /* SplashScene */,
 				6660E3E92779D91300C2A445 /* AgreementScene */,
 				1DD0F35E2747AF5A00FC5E65 /* PairingScene */,
-				6660E3EE277A295400C2A445 /* AgreementScene */,
 				1DD0F35F2747AFC800FC5E65 /* DiaryScene */,
 				318D9F6E274E129C00AA6F0E /* PageDetailScene */,
 				1DD0F3612747B14500FC5E65 /* EditPageScene */,
@@ -1314,18 +1313,11 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		6660E3EE277A295400C2A445 /* AgreementScene */ = {
-			isa = PBXGroup;
-			children = (
-				6660E3EF277A296B00C2A445 /* AgreementViewModel.swift */,
-			);
-			path = AgreementScene;
-			sourceTree = "<group>";
-		};
 		6660E3E92779D91300C2A445 /* AgreementScene */ = {
 			isa = PBXGroup;
 			children = (
 				6660E3EA2779D94100C2A445 /* AgreementViewController.swift */,
+				6660E3EF277A296B00C2A445 /* AgreementViewModel.swift */,
 			);
 			path = AgreementScene;
 			sourceTree = "<group>";
