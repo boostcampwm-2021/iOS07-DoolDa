@@ -65,8 +65,11 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         let appleCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: self.nonce)
 
         self.authenticationUseCase.signIn(credential: appleCredential) { data, _ in
-            if let user = data?.user {
-                // FIXME: Coordinator와 연결
+            if let _ = data?.user {
+                NotificationCenter.default.post(
+                    name: AuthenticationViewCoordinator.Notifications.userDidSignIn,
+                    object: nil
+                )
             }
         }
     }
