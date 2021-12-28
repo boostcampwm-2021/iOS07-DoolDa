@@ -9,6 +9,7 @@ import Combine
 import UIKit
 
 import AuthenticationServices
+import FirebaseAuth
 import SnapKit
 
 class AuthenticationViewController: UIViewController {
@@ -53,11 +54,21 @@ class AuthenticationViewController: UIViewController {
 
     private var viewModel: AuthenticationViewModelProtocol!
     private var cancellables: Set<AnyCancellable> = []
+    private var nonce: String?
+
+    // MARK: - Initializers
+
+    convenience init(viewModel: AuthenticationViewModelProtocol) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
 
     // MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // FIXME: - 임시 코드
+        self.viewModel = AuthenticationViewModel()
         self.configureUI()
         self.bindUI()
     }
@@ -108,7 +119,8 @@ class AuthenticationViewController: UIViewController {
         self.viewModel.noncePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] nonce in
-                self?.performSignIn(with: nonce)
+                self?.nonce = nonce
+                self?.performSignIn()
             }
             .store(in: &self.cancellables)
 
@@ -121,15 +133,17 @@ class AuthenticationViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func performSignIn(with nonce: String) {
-        let request = self.createAppleIDRequest(with: nonce)
+    private func performSignIn() {
+        guard let request = self.createAppleIDRequest() else { return }
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
 
-    private func createAppleIDRequest(with nonce: String) -> ASAuthorizationAppleIDRequest {
+    private func createAppleIDRequest() -> ASAuthorizationAppleIDRequest? {
+        guard let nonce = self.nonce else { return nil }
+        if nonce.isEmpty { return nil }
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -137,4 +151,22 @@ class AuthenticationViewController: UIViewController {
         return request
     }
 
+}
+
+extension AuthenticationViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let nonce = self.nonce else { fatalError("NONCE ERROR") }
+            guard let appleIDToken = appleIDCredential.identityToken else { fatalError("TOKEN ERROR") }
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else { fatalError("TOKEN STRING ERROR") }
+            let appleCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            self.viewModel.signIn(credential: appleCredential)
+        }
+    }
+}
+
+extension AuthenticationViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
 }
