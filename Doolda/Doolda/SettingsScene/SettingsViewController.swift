@@ -36,13 +36,6 @@ class SettingsViewController: UIViewController {
         return tableView
     }()
     
-    private lazy var signOutButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("로그 아웃", for: .normal)
-        button.setTitleColor(.dooldaLabel, for: .normal)
-        return button
-    }()
-    
     private lazy var unpairButton: UIButton = {
         let button = UIButton()
         button.setTitle("친구 끊기", for: .normal)
@@ -58,8 +51,7 @@ class SettingsViewController: UIViewController {
     }()
     
     private lazy var danzerZoneStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.signOutButton, self.unpairButton, self.deleteAccountButton])
-        stackView.spacing = 8
+        let stackView = UIStackView(arrangedSubviews: [self.unpairButton, self.deleteAccountButton])
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
         return stackView
@@ -197,13 +189,6 @@ class SettingsViewController: UIViewController {
             }
             .store(in: &self.cancellables)
         
-        self.signOutButton.publisher(for: .touchUpInside)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.showSignOutAlert()
-            }
-            .store(in: &self.cancellables)
-
         self.unpairButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -232,17 +217,6 @@ class SettingsViewController: UIViewController {
                 self?.configureFont()
             }
             .store(in: &self.cancellables)
-    }
-    
-    private func showSignOutAlert() {
-        let alert = UIAlertController.selectAlert(
-            title: "로그 아웃",
-            message: "정말 로그아웃 하시겠습니까?\n로그 아웃 하더라도 친구와 함께한 다이어리는 유지됩니다.",
-            leftActionTitle: "취소",
-            rightActionTitle: "확인" ) { _ in
-                self.viewModel.signOutButtonDidTap()
-            }
-        self.present(alert, animated: true, completion: nil)
     }
     
     private func showUnpairAlert() {
