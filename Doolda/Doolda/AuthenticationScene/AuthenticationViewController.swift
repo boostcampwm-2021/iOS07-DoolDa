@@ -5,10 +5,10 @@
 //  Created by Dozzing on 2021/12/28.
 //
 
+import AuthenticationServices
 import Combine
 import UIKit
 
-import AuthenticationServices
 import FirebaseAuth
 import SnapKit
 
@@ -124,7 +124,7 @@ class AuthenticationViewController: UIViewController {
 
         self.appleLoginButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
-                self?.viewModel.apppleLoginButtonDidTap()
+                self?.viewModel.appleLoginButtonDidTap()
             }
             .store(in: &self.cancellables)
     }
@@ -158,6 +158,6 @@ extension AuthenticationViewController: ASAuthorizationControllerDelegate {
 
 extension AuthenticationViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
+        return self.view.window ?? ASPresentationAnchor()
     }
 }
