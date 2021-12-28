@@ -5,6 +5,7 @@
 //  Created by 정지승 on 2021/12/27.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -74,7 +75,17 @@ final class AgreementViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Private Properties
+    
+    private var viewModel: AgreementViewModel!
+    private var cancellables: Set<AnyCancellable> = []
+    
     // MARK: - Initializers
+    
+    convenience init(viewModel: AgreementViewModel) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
     
     deinit {
         // FIXME: ViewModel의 Deinit Input 연결
