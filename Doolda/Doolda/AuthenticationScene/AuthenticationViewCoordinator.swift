@@ -25,14 +25,22 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
     }
 
     func start() {
-
+        let authenticationUseCase = AuthenticationUseCase()
+        let viewModel = AuthenticationViewModel(authenticationUseCase: authenticationUseCase)
+        let viewController = AuthenticationViewController(viewModel: viewModel)
+        self.presenter.pushViewController(viewController, animated: false)
     }
 
     private func bind() {
-
+        NotificationCenter.default.publisher(for: Notifications.userDidSignIn, object: nil)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.userDidSignIn()
+            }
+            .store(in: &self.cancellables)
     }
 
     private func userDidSignIn() {
-        
+
     }
 }
