@@ -105,11 +105,36 @@ class AuthenticationViewController: UIViewController {
     }
 
     private func bindUI() {
+        self.viewModel.noncePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] nonce in
+                self?.performSignIn(with: nonce)
+            }
+            .store(in: &self.cancellables)
+
         self.appleLoginButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 self?.viewModel.apppleLoginButtonDidTap()
             }
             .store(in: &self.cancellables)
+    }
+
+    // MARK: - Private Methods
+
+    private func performSignIn(with nonce: String) {
+        let request = self.createAppleIDRequest(with: nonce)
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+
+    private func createAppleIDRequest(with nonce: String) -> ASAuthorizationAppleIDRequest {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = nonce
+        return request
     }
 
 }
