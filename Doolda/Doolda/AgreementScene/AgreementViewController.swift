@@ -42,6 +42,7 @@ final class AgreementViewController: UIViewController {
     private lazy var serviceAgreementTextView: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .dooldaTextViewBackground
+        // FIXME: viewModel bind완료 후 text 제거
         textView.text = "Sample1"
         textView.textColor = .black
         textView.isEditable = false
@@ -58,6 +59,7 @@ final class AgreementViewController: UIViewController {
     private lazy var privacyPolicyTextView: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .dooldaTextViewBackground
+        // FIXME: viewModel bind완료 후 text 제거
         textView.text = "Sample2"
         textView.textColor = .black
         textView.isEditable = false
@@ -78,6 +80,7 @@ final class AgreementViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureFont()
+        bindUI()
     }
     
     // MARK: - Helpers
@@ -157,5 +160,9 @@ final class AgreementViewController: UIViewController {
         self.serviceAgreementTitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.privacyPolicyTitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.nextButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
+    }
+    
+    private func bindUI() {
+        // FIXME: ViewModel과 병합 후 작성
     }
 }
