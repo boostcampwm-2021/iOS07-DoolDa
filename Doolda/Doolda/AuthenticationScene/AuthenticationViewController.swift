@@ -51,6 +51,7 @@ class AuthenticationViewController: UIViewController {
 
     // MARK: - Private Properties
 
+    private var viewModel: AuthenticationViewModelProtocol!
     private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - Lifecycle Methods
@@ -58,6 +59,7 @@ class AuthenticationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+        self.bindUI()
     }
 
     // MARK: - Helpers
@@ -105,7 +107,7 @@ class AuthenticationViewController: UIViewController {
     private func bindUI() {
         self.appleLoginButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
-                
+                self?.viewModel.apppleLoginButtonDidTap()
             }
             .store(in: &self.cancellables)
     }
