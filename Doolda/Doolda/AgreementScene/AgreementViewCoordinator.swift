@@ -24,6 +24,7 @@ final class AgreementViewCoordinator: BaseCoordinator {
     
     override init(identifier: UUID, presenter: UINavigationController) {
         super.init(identifier: identifier, presenter: presenter)
+        self.bind()
     }
     
     func start() {
@@ -38,5 +39,23 @@ final class AgreementViewCoordinator: BaseCoordinator {
         let registerUserUseCase = RegisterUserUseCase(userRepository: userRespository)
         
         // FIXME: ViewModel, ViewController 생성 및 화면 전환
+    }
+    
+    private func bind() {
+        NotificationCenter.default.publisher(for: Notifications.userDidApproveApplicationServicePolicy, object: nil)
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0.userInfo?[Keys.myId] as? DDID }
+            .sink { [weak self] myId in
+                self?.userDidApproveApplicationServicePolicy(myId: myId)
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    private func userDidApproveApplicationServicePolicy(myId: DDID) {
+        let user = User(id: myId)
+        let identifier = UUID()
+        let paringViewCoordinator = PairingViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
+        self.children[identifier] = paringViewCoordinator
+        paringViewCoordinator.start()
     }
 }
