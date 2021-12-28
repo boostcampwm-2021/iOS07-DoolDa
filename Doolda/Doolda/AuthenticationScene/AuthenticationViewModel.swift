@@ -16,6 +16,7 @@ protocol AuthenticationViewModelInput {
     func appleLoginButtonDidTap()
     func signIn(authorization: ASAuthorization)
     func deinitRequested()
+    func sha256(_ input: String) -> String
 }
 
 protocol AuthenticationViewModelOutput {
@@ -44,16 +45,15 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     @Published private var error: Error?
 
     private let sceneId: UUID
-    private let authenticationUseCase: AuthenticationUseCaseProtocol
 
-    init(sceneId: UUID, authenticationUseCase: AuthenticationUseCaseProtocol) {
+    init(sceneId: UUID) {
         self.sceneId = sceneId
-        self.authenticationUseCase = authenticationUseCase
     }
 
     func appleLoginButtonDidTap() {
         let randomNonce = self.randomNonceString()
-        self.nonce = sha256(randomNonce)
+//        self.nonce = sha256(randomNonce)
+        self.nonce = randomNonce
     }
 
     func signIn(authorization: ASAuthorization) {
@@ -67,8 +67,8 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
 
         let appleCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: self.nonce)
 
-        self.authenticationUseCase.signIn(credential: appleCredential) { data, _ in
-            if let _ = data?.user {
+        AuthenticationService.shared.signIn(credential: appleCredential) { data, _ in
+            if data?.user != nil {
                 NotificationCenter.default.post(
                     name: AuthenticationViewCoordinator.Notifications.userDidSignIn,
                     object: nil
@@ -94,7 +94,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         return request
     }
 
-    private func sha256(_ input: String) -> String {
+    func sha256(_ input: String) -> String {
         let inputData = Data(input.utf8)
         let hashedData = SHA256.hash(data: inputData)
         let hashString = hashedData.compactMap {

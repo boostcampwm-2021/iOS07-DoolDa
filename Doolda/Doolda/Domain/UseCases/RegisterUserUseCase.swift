@@ -30,14 +30,6 @@ final class RegisterUserUseCase: RegisterUserUseCaseProtocol {
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
             } receiveValue: { [weak self] user in
-                self?.save(user: user)
-            }
-            .store(in: &self.cancellables)
-    }
-    
-    private func save(user: User) {
-        self.userRepository.setMyId(user.id)
-            .sink { [weak self] _ in
                 self?.registeredUser = user
             }
             .store(in: &self.cancellables)

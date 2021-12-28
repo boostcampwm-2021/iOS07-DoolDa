@@ -9,7 +9,7 @@ import Foundation
 
 
 enum FirebaseAPIs: URLRequestBuilder {
-    case getUserDocuement(String)
+    case getUserDocuement
     case createUserDocument(String)
     case patchUserDocument(String, String, String)
     
@@ -47,8 +47,9 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var path: String? {
         switch self {
-        case .getUserDocuement(let userId), .patchUserDocument(let userId, _, _):
-            return "documents/user/\(userId)"
+        case .getUserDocuement, .patchUserDocument(_, _, _):
+            guard let uid = AuthenticationService.shared.currentUser?.uid else { return nil }
+            return "documents/user/\(uid)"
         case .createUserDocument:
             return "documents/user"
         case .getPairDocument(let pairId), .patchPairDocument(let pairId, _), .deletePairDocument(let pairId):
@@ -79,8 +80,11 @@ extension FirebaseAPIs {
              .patchFCMTokenDocument,
              .deletePairDocument:
             return nil
-        case .createUserDocument(let id), .createPairDocument(let id, _):
-            return ["documentId": id]
+        case .createUserDocument:
+            guard let uid = AuthenticationService.shared.currentUser?.uid else { return nil }
+            return ["documentId": uid]
+        case .createPairDocument(let pairId, _):
+            return ["documentId": pairId]
         case .createPageDocument(_, _, _, let jsonPath, let pairId):
             return ["documentId": pairId + jsonPath]
         case .patchUserDocument, .patchPairDocument, .patchPageDocument:
@@ -109,6 +113,8 @@ extension FirebaseAPIs {
 extension FirebaseAPIs {
     var headers: [String : String]? {
         switch self {
+        case .downloadDataFile:
+            return nil
         case .uploadDataFile:
             return ["Content-Type": "application/octet-stream"]
         case .sendFirebaseMessage:
@@ -167,12 +173,14 @@ extension FirebaseAPIs {
                 ]
             ]
         case .createUserDocument(let userId):
-            let userDocument = UserDocument(userId: userId, pairId: "", friendId: "")
+            guard let uid = AuthenticationService.shared.currentUser?.uid else { return nil }
+            let userDocument = UserDocument(uid: uid, userId: userId, pairId: "", friendId: "")
             return [
                 "fields": userDocument.fields
             ]
         case .patchUserDocument(let userId, let pairId, let friendId):
-            let userDocument = UserDocument(userId: userId, pairId: pairId, friendId: friendId)
+            guard let uid = AuthenticationService.shared.currentUser?.uid else { return nil }
+            let userDocument = UserDocument(uid: uid, userId: userId, pairId: pairId, friendId: friendId)
             return [
                 "fields": userDocument.fields
             ]

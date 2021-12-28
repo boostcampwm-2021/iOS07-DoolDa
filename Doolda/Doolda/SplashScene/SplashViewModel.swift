@@ -25,7 +25,6 @@ final class SplashViewModel: SplashViewModelProtocol {
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     
     private let sceneId: UUID
-    private let authenticationUseCase: AuthenticationUseCaseProtocol
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
     private let getUserUseCase: GetUserUseCaseProtocol
     private let globalFontUseCase: GlobalFontUseCaseProtocol
@@ -35,13 +34,11 @@ final class SplashViewModel: SplashViewModelProtocol {
     
     init(
         sceneId: UUID,
-        authenticationUseCase: AuthenticationUseCaseProtocol,
         getMyIdUseCase: GetMyIdUseCaseProtocol,
         getUserUseCase: GetUserUseCaseProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol
     ) {
         self.sceneId = sceneId
-        self.authenticationUseCase = authenticationUseCase
         self.getMyIdUseCase = getMyIdUseCase
         self.getUserUseCase = getUserUseCase
         self.globalFontUseCase = globalFontUseCase
@@ -57,7 +54,7 @@ final class SplashViewModel: SplashViewModelProtocol {
     }
     
     func validateAccount() {
-        if let currentUser = self.authenticationUseCase.getCurrentUser() {
+        if let currentUser = AuthenticationService.shared.currentUser {
             self.validateUserId(user: currentUser)
         } else {
             NotificationCenter.default.post(
@@ -68,7 +65,7 @@ final class SplashViewModel: SplashViewModelProtocol {
     }
     
     private func validateUserId(user: FirebaseAuth.User) {
-        self.getMyIdUseCase.getMyId(for: user.uid)
+        self.getMyIdUseCase.getMyId()
             .sink { [weak self] ddid in
                 if let userId = ddid {
                     self?.validateAgreement(userId: userId)

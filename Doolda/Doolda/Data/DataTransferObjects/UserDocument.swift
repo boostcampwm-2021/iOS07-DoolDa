@@ -8,8 +8,11 @@
 import Foundation
 
 struct UserDocument: Codable {
-    var userId: String? {
+    var uid: String? {
         return name.components(separatedBy: "/").last
+    }
+    var userId: String? {
+        return self.fields["id"]?["stringValue"]
     }
     var pairId: String? {
         return self.fields["pairId"]?["stringValue"]
@@ -21,9 +24,12 @@ struct UserDocument: Codable {
     let name: String
     let fields: [String: [String: String]]
     
-    init(userId: String, pairId: String, friendId: String) {
-        self.name = userId
+    init(uid: String, userId: String, pairId: String, friendId: String) {
+        self.name = uid
         self.fields = [
+            "id": [
+                "stringValue": userId
+            ],
             "pairId": [
                 "stringValue": pairId
             ],

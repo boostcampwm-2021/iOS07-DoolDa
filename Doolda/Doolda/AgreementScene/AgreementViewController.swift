@@ -83,9 +83,9 @@ final class AgreementViewController: UIViewController {
         self.viewModel = viewModel
     }
     
-    deinit {
-        self.viewModel.deinitRequested()
-    }
+//    deinit {
+//        self.viewModel.deinitRequested()
+//    }
     
     // MARK: - Lifecycle Methods
     

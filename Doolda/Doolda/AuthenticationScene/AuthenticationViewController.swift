@@ -62,9 +62,9 @@ class AuthenticationViewController: UIViewController {
         self.viewModel = viewModel
     }
 
-    deinit {
-        self.viewModel.deinitRequested()
-    }
+//    deinit {
+//        self.viewModel.deinitRequested()
+//    }
 
     // MARK: - Lifecycle Methods
 
@@ -146,7 +146,7 @@ class AuthenticationViewController: UIViewController {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
-        request.nonce = nonce
+        request.nonce = self.viewModel.sha256(nonce)
         return request
     }
 

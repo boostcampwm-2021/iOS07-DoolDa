@@ -45,19 +45,23 @@ final class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
                }
            }.eraseToAnyPublisher()
                .sink { completion in
-                   print(completion)
+                   guard case .failure(let error) = completion else { return }
+                   print(error.localizedDescription)
                } receiveValue: { token in
                    Secrets.idToken = token
-                   guard let urlRequest = urlRequest.urlRequest else { return promise(.failure(Errors.invalidUrl))}
+                   guard let urlRequest = urlRequest.urlRequest else { return promise(.failure(Errors.invalidUrl)) }
                    self.session.dataTaskPublisher(for: urlRequest)
                        .sink(receiveCompletion: { completion in
-                           print(completion)
+                           guard case .failure(let error) = completion else { return }
+                           print(error.localizedDescription)
                        }, receiveValue: { data, response in
                            guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
                                switch (response as? HTTPURLResponse)?.statusCode {
                                case .some(404):
                                    promise(.failure(Errors.invalidUrl))
                                default:
+                                   let something = String(data: data, encoding: .utf8)
+                                   print(something)
                                    promise(.failure(Errors.invalidUrl))
                                }
                                return

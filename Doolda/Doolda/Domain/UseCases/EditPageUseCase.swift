@@ -182,7 +182,6 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
                     .sink { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
                         self?.error = error
-                        print(String(describing: error.localizedDescription))
                     } receiveValue: { [weak self] _ in
                         self?.result = true
                     }

@@ -58,13 +58,12 @@ class RawPageRepository: RawPageRepositoryProtocol {
         guard let folder = metaData.author.pairId?.ddidString else {
             return Fail(error: RawPageRepositoryError.failedToFetchRawPage).eraseToAnyPublisher()
         }
+        
         let name = metaData.jsonPath
         let fileName = "\(folder)\(name)"
         
         return Future { [weak self] promise in
-            guard let self = self else {
-                return promise(.failure(RawPageRepositoryError.failedToFetchRawPage))
-            }
+            guard let self = self else { return promise(.failure(RawPageRepositoryError.failedToFetchRawPage)) }
             
             self.coreDataPageEntityPersistenceService.isPageEntityUpToDate(metaData)
                 .sink { completion in

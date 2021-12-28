@@ -8,6 +8,7 @@ import Combine
 import Foundation
 
 enum UserRepositoryError: LocalizedError {
+    case userNotLoggedIn
     case nilUserId
     case nilFriendId
     case DTOInitError
@@ -15,6 +16,8 @@ enum UserRepositoryError: LocalizedError {
     
     var errorDescription: String? {
         switch self {
+        case .userNotLoggedIn:
+            return "유저가 로그인되어있지 않습니다."
         case .nilUserId:
             return "유저의 아이디가 존재하지 않습니다."
         case .nilFriendId:
@@ -38,20 +41,13 @@ class UserRepository: UserRepositoryProtocol {
         self.urlSessionNetworkService = networkService
     }
     
-    func setMyId(_ id: DDID) -> AnyPublisher<DDID, Never> {
-        self.userDefaultsPersistenceService.set(key: UserDefaults.Keys.userId, value: id.ddidString)
-        return Just(id).eraseToAnyPublisher()
-    }
-    
     func getMyId() -> AnyPublisher<DDID?, Never> {
-        guard let userIdString: String = self.userDefaultsPersistenceService.get(key: UserDefaults.Keys.userId) else {
-            return Just(nil).eraseToAnyPublisher()
-        }
-        return Just(DDID(from: userIdString)).eraseToAnyPublisher()
-    }
-    
-    func getMyId(uid: String) -> AnyPublisher<DDID?, Never> {
-        return self.getMyId()
+        return self.fetchUser(DDID())
+            .catch { _ in Just(nil).eraseToAnyPublisher() }
+            .compactMap { user in
+                user?.id
+            }
+            .eraseToAnyPublisher()
     }
     
     func setUser(_ user: User) -> AnyPublisher<User, Error> {
@@ -92,9 +88,10 @@ class UserRepository: UserRepositoryProtocol {
     }
     
     func fetchUser(_ id: DDID) -> AnyPublisher<User?, Error> {
-        let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.getUserDocuement(id.ddidString))
+        let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.getUserDocuement)
         return publisher.tryMap { userDocument in
-            return userDocument.toUser()
+            let user = userDocument.toUser()
+            return user
         }
         .eraseToAnyPublisher()
     }

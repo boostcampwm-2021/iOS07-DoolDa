@@ -12,7 +12,8 @@ struct PairDocument: Codable {
     let fields: [String: [String: String]]
     
     var pairId: String? {
-        return name.components(separatedBy: "/").last
+        let something = name.components(separatedBy: "/").last
+        return something
     }
     var recentlyEditedUser: String? {
         return self.fields["recentlyEditedUser"]?["stringValue"]

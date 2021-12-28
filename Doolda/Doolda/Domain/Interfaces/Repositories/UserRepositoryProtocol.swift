@@ -9,7 +9,6 @@ import Combine
 import Foundation
 
 protocol UserRepositoryProtocol {
-    func setMyId(_ id: DDID) -> AnyPublisher<DDID, Never>
     func getMyId() -> AnyPublisher<DDID?, Never>
 
     func setUser(_ user: User) -> AnyPublisher<User, Error>
