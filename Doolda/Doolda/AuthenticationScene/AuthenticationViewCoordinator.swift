@@ -41,6 +41,9 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
     }
 
     private func userDidSignIn() {
-
+        let identifier = UUID()
+        let agreementViewCoordinator = AgreementViewCoordinator(identifier: identifier, presenter: self.presenter)
+        self.children[identifier] = agreementViewCoordinator
+        agreementViewCoordinator.start()
     }
 }
