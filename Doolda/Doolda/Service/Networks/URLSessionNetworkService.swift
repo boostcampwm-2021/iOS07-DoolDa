@@ -36,7 +36,7 @@ final class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
         let currentUser = Auth.auth().currentUser
         return Future<Data,Error> { promise in
             Future<String, Error>.init { tokenPromise in
-               currentUser?.getIDToken { idToken, error in
+               currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
                    if let error = error {
                        tokenPromise(.failure(error))
                        return
@@ -54,9 +54,6 @@ final class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
                            print(completion)
                        }, receiveValue: { data, response in
                            guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-                               if let httpResponse = response as? HTTPURLResponse {
-                                   print(httpResponse.statusCode)
-                               }
                                switch (response as? HTTPURLResponse)?.statusCode {
                                case .some(404):
                                    promise(.failure(Errors.invalidUrl))

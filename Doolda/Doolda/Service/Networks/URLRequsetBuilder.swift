@@ -60,10 +60,7 @@ extension URLRequestBuilder {
         }
 
         switch method {
-        case .get:
-            return urlRequest
-
-        case .post, .put, .delete, .patch:
+        case .get, .post, .put, .delete, .patch:
             urlRequest.httpMethod = method.rawValue
             
             if let httpbody = self.body {
