@@ -182,6 +182,7 @@
 		31F45A6F277A1C6700C91B91 /* AuthenticationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F45A6E277A1C6700C91B91 /* AuthenticationUseCaseProtocol.swift */; };
 		31F45A71277A1D8B00C91B91 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 31F45A70277A1D8B00C91B91 /* FirebaseAuth */; };
 		31F45A73277A25CC00C91B91 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F45A72277A25CC00C91B91 /* AuthenticationViewController.swift */; };
+		31F45A75277AEBB000C91B91 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F45A74277AEBB000C91B91 /* AuthenticationViewModel.swift */; };
 		661A840427434FE10077E0E3 /* GetPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A840327434FE10077E0E3 /* GetPageUseCase.swift */; };
 		661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
@@ -528,6 +529,7 @@
 		31BEC8392755EBB7009AF22A /* DummyImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyImageRepository.swift; sourceTree = "<group>"; };
 		31F45A6E277A1C6700C91B91 /* AuthenticationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseProtocol.swift; sourceTree = "<group>"; };
 		31F45A72277A25CC00C91B91 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		31F45A74277AEBB000C91B91 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		661A840327434FE10077E0E3 /* GetPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPageUseCase.swift; sourceTree = "<group>"; };
 		661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyTurnUseCase.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1041,6 +1043,7 @@
 			isa = PBXGroup;
 			children = (
 				31F45A72277A25CC00C91B91 /* AuthenticationViewController.swift */,
+				31F45A74277AEBB000C91B91 /* AuthenticationViewModel.swift */,
 			);
 			path = AuthenticationScene;
 			sourceTree = "<group>";
@@ -2257,6 +2260,7 @@
 				1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */,
 				1D6232F327313D7400A9AD6B /* UIGestureRecognizer+Extensions.swift in Sources */,
 				66C482DB2746135500823151 /* GetRawPageUseCase.swift in Sources */,
+				31F45A75277AEBB000C91B91 /* AuthenticationViewModel.swift in Sources */,
 				31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */,
 				1DE5E5422739352B004F794F /* RawPageRepositoryProtocol.swift in Sources */,
 				66ECCD3C273F7C9F003990EE /* CustomActivityIndicator.swift in Sources */,
