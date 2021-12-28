@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 enum FirebaseAPIs: URLRequestBuilder {
     case getUserDocuement(String)
     case createUserDocument(String)
@@ -113,7 +114,7 @@ extension FirebaseAPIs {
         case .sendFirebaseMessage:
             return ["Content-Type": "application/json", "Authorization": "key=\(Secrets.fcmServerKey ?? "")"]
         default :
-            return ["Content-Type": "application/json", "Accept": "application/json"]
+            return ["Content-Type": "application/json", "Accept": "application/json", "Authorization": "Bearer \(Secrets.idToken ?? "")"]
         }
     }
 }
