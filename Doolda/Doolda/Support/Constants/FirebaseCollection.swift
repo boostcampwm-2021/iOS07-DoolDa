@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum FirebaseCollection {
-    static let user = "user"
-    static let pair = "pair"
-    static let page = "page"
+enum FirebaseCollection: String {
+    case user
+    case pair
+    case page
 }
