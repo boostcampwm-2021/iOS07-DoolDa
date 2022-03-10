@@ -13,12 +13,14 @@ enum PageRepositoryError: LocalizedError {
     case userNotPaired
     case failedToFetchPages
     case failedToUpdatePage
+    case failedToSavePage
     
     var errorDescription: String? {
         switch self {
         case .userNotPaired: return "페어링 된 유저가 없습니다."
         case .failedToFetchPages: return "페이지 패치에 실패했습니다."
         case .failedToUpdatePage: return "페이지 업데이트에 실패했습니다."
+        case .failedToSavePage: return "페이지 저장에 실패했습니다."
         }
     }
 }
