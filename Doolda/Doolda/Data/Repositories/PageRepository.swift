@@ -28,6 +28,7 @@ enum PageRepositoryError: LocalizedError {
 class PageRepository: PageRepositoryProtocol {
     private let urlSessionNetworkService: URLSessionNetworkServiceProtocol
     private let pageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol
+    private let firebaseNetworkService: FirebaseNetworkServiceProtocol
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -35,18 +36,37 @@ class PageRepository: PageRepositoryProtocol {
         urlSessionNetworkService: URLSessionNetworkServiceProtocol,
         pageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol
     ) {
+        // FIXME: - 외부에서 주입하도록 수정
+        self.firebaseNetworkService = FirebaseNetworkService()
         self.urlSessionNetworkService = urlSessionNetworkService
         self.pageEntityPersistenceService = pageEntityPersistenceService
     }
     
     func savePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
         guard let pairId = page.author.pairId?.ddidString else { return Fail(error: PageRepositoryError.userNotPaired).eraseToAnyPublisher() }
-        let request = FirebaseAPIs.createPageDocument(page.author.id.ddidString, page.createdTime, page.updatedTime, page.jsonPath, pairId)
-        let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService.request(request)
+
+        // FIXME: - DataTransferable한 Page만들어서 사용하는게 좋을것 같다.
+        let pageData: [String : Any] = [
+            "author": page.author.id.ddidString,
+            "createdTime": page.createdTime,
+            "updatedTime": page.updatedTime,
+            "jsonPath": page.jsonPath,
+            "pairId": pairId
+        ]
         
-        return publisher
-            .map { _ in page }
-            .eraseToAnyPublisher()
+        return Future { [weak self] promise in
+            guard let self = self else { return promise(.failure(PageRepositoryError.failedToSavePage)) }
+            
+            self.firebaseNetworkService.setDocument(collection: .page, document: pairId, dictionary: pageData)
+                .sink { completion in
+                    guard case .failure(let error) = completion else { return }
+                    promise(.failure(error))
+                } receiveValue: { _ in
+                    promise(.success(page))
+                }
+                .store(in: &self.cancellables)
+        }
+        .eraseToAnyPublisher()
     }
     
     func updatePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
