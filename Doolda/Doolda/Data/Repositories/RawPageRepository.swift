@@ -68,47 +68,30 @@ class RawPageRepository: RawPageRepositoryProtocol {
         guard let folder = metaData.author.pairId?.ddidString else {
             return Fail(error: RawPageRepositoryError.failedToFetchRawPage).eraseToAnyPublisher()
         }
+        
         let name = metaData.jsonPath
-        let fileName = "\(folder)\(name)"
+        let isFileExists = self.fileManagerPersistenceService.isFileExists(at: .cache, fileName: "\(folder)\(name)")
         
         return Future { [weak self] promise in
-            guard let self = self else {
-                return promise(.failure(RawPageRepositoryError.failedToFetchRawPage))
-            }
-            
+            guard let self = self else { return }
             self.coreDataPageEntityPersistenceService.isPageEntityUpToDate(metaData)
                 .sink { completion in
                     guard case .failure(let error) = completion else { return }
-                    promise(.failure(error))
-                } receiveValue: { [weak self] isUpToDate in
-                    guard let self = self else {
-                        return promise(.failure(RawPageRepositoryError.failedToFetchRawPage))
-                    }
+                    return promise(.failure(error))
+                } receiveValue: { isUpToDate in
+                    let rawPageEntityPublisher = isUpToDate && isFileExists
+                    ? self.fetchRawPageEntityFromCache(fileName: "\(folder)\(name)")
+                    : self.fetchRawPageEntityFromServer(at: folder, with: name)
                     
-                    let fetchPublisher: AnyPublisher<RawPageEntity, Error>
-                    
-                    if self.fileManagerPersistenceService.isFileExists(at: .cache, fileName: fileName),
-                       isUpToDate {
-                        fetchPublisher = self.fileManagerPersistenceService.fetch(at: .cache, fileName: fileName)
-                            .decode(type: RawPageEntity.self, decoder: JSONDecoder())
-                            .eraseToAnyPublisher()
-                    } else {
-                        fetchPublisher = self.fetchRawPageEntityFromServer(at: folder, with: name)
-                            .map { [weak self] rawPageEntity in
-                                self?.saveRawPageEntityToCache(rawPageEntity: rawPageEntity, fileName: fileName)
-                                return rawPageEntity
-                            }
-                            .eraseToAnyPublisher()
-                    }
-                    
-                    fetchPublisher.sink { completion in
-                        guard case .failure(let error) = completion else { return }
-                        promise(.failure(error))
-                    } receiveValue: { [weak self] rawPageEntity in
-                        self?.setIsUpToDateFlag(medaData: metaData)
-                        promise(.success(rawPageEntity))
-                    }
-                    .store(in: &self.cancellables)
+                    rawPageEntityPublisher
+                        .sink { completion in
+                            guard case .failure(let error) = completion else { return }
+                            return promise(.failure(error))
+                        } receiveValue: { [weak self] entity in
+                            self?.setIsUpToDateFlag(medaData: metaData)
+                            return promise(.success(entity))
+                        }
+                        .store(in: &self.cancellables)
                 }
                 .store(in: &self.cancellables)
         }
@@ -117,39 +100,37 @@ class RawPageRepository: RawPageRepositoryProtocol {
     
     private func fetchRawPageEntityFromServer(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
         return Future { [weak self] promise in
-            guard let self = self else { return promise(.failure(RawPageRepositoryError.failedToFetchRawPage)) }
+            guard let self = self else { return }
             self.networkService.donwloadData(path: folder, fileName: name)
-                .decode(type: RawPageEntity.self.self, decoder: self.decoder)
                 .sink { completion in
                     guard case .failure(let error) = completion else { return }
                     return promise(.failure(error))
-                } receiveValue: { entity in
-                    return promise(.success(entity))
+                } receiveValue: { [weak self] data in
+                    guard let self = self else { return }
+                    self.fileManagerPersistenceService.save(data: data, at: .cache, fileName: "\(folder)\(name)")
+                        .sink { _ in } receiveValue: { _ in }
+                        .store(in: &self.cancellables)
+                    do {
+                        let entity = try self.decoder.decode(RawPageEntity.self, from: data)
+                        return promise(.success(entity))
+                    } catch {
+                        return promise(.failure(error))
+                    }
                 }
                 .store(in: &self.cancellables)
         }
         .eraseToAnyPublisher()
     }
     
-    private func saveRawPageEntityToCache(rawPageEntity: RawPageEntity, fileName: String) {
-        guard let data = try? JSONEncoder().encode(rawPageEntity) else {
-            return os_log("RawPageEntity caching failure", type: .fault)
-        }
-        
-        self.fileManagerPersistenceService.save(data: data, at: .cache, fileName: fileName)
-            .sink { completion in
-                guard case .failure = completion else { return }
-                os_log("RawPageEntity caching failure", type: .fault)
-            } receiveValue: { _ in }
-            .store(in: &self.cancellables)
+    private func fetchRawPageEntityFromCache(fileName: String) -> AnyPublisher<RawPageEntity, Error> {
+        return self.fileManagerPersistenceService.fetch(at: .cache, fileName: fileName)
+            .decode(type: RawPageEntity.self, decoder: self.decoder)
+            .eraseToAnyPublisher()
     }
     
     private func setIsUpToDateFlag(medaData: PageEntity) {
         self.coreDataPageEntityPersistenceService.savePageEntity(medaData)
-            .sink { completion in
-                guard case .failure = completion else { return }
-                os_log("RawPageEntity caching failure", type: .fault)
-            } receiveValue: { _ in }
+            .sink { _ in } receiveValue: { _ in }
             .store(in: &self.cancellables)
     }
 }
