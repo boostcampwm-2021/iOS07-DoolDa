@@ -56,7 +56,7 @@ final class PageDetailViewCoordinator: BaseCoordinator {
         let fileManagerPersistenceService = FileManagerPersistenceService.shared
 
         let rawPageRepository = RawPageRepository(
-            networkService: networkService,
+            networkService: FirebaseNetworkService.shared,
             coreDataPageEntityPersistenceService: coreDataPageEntityPersistenceService,
             fileManagerPersistenceService: fileManagerPersistenceService
         )

@@ -48,7 +48,7 @@ final class DiaryViewCoordinator: BaseCoordinator {
         )
         
         let rawPageRepository = RawPageRepository(
-            networkService: urlSessionNetworkService,
+            networkService: FirebaseNetworkService.shared,
             coreDataPageEntityPersistenceService: coreDataPageEntityPersistenceService,
             fileManagerPersistenceService: fileManagerPersistenceService
         )
