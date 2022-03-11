@@ -21,37 +21,47 @@ enum RawPageRepositoryError: LocalizedError {
 }
 
 class RawPageRepository: RawPageRepositoryProtocol {
-    private let networkService: URLSessionNetworkServiceProtocol
+    private let networkService: FirebaseNetworkServiceProtocol
     private let coreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol
     private let fileManagerPersistenceService: FileManagerPersistenceServiceProtocol
     private let encoder: JSONEncoder
+    private let decoder: JSONDecoder
     
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        networkService: URLSessionNetworkServiceProtocol,
+        networkService: FirebaseNetworkServiceProtocol,
         coreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol,
         fileManagerPersistenceService: FileManagerPersistenceServiceProtocol,
-        encoder: JSONEncoder = JSONEncoder()
+        encoder: JSONEncoder = JSONEncoder(),
+        decoder: JSONDecoder = JSONDecoder()
     ) {
         self.networkService = networkService
         self.coreDataPageEntityPersistenceService = coreDataPageEntityPersistenceService
         self.fileManagerPersistenceService = fileManagerPersistenceService
         self.encoder = encoder
+        self.decoder = decoder
     }
     
     func save(rawPage: RawPageEntity, at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
-        do {
-            let data = try self.encoder.encode(rawPage)
-            let request = FirebaseAPIs.uploadDataFile(folder, name, data)
-            let publisher: AnyPublisher<[String:String], Error> = self.networkService.request(request)
-            
-            return publisher
-                .map { _ in rawPage }
-                .eraseToAnyPublisher()
-        } catch(let error) {
-            return Fail(error: error).eraseToAnyPublisher()
+        return Future<RawPageEntity, Error> { [weak self] promise in
+            do {
+                guard let self = self else { return }
+                let data = try self.encoder.encode(rawPage)
+        
+                self.networkService.uploadData(path: folder, fileName: name, data: data)
+                    .sink { completion in
+                        guard case .failure(let error) = completion else { return }
+                        return promise(.failure(error))
+                    } receiveValue: { _ in
+                        return promise(.success(rawPage))
+                    }
+                    .store(in: &self.cancellables)
+            } catch {
+                return promise(.failure(error))
+            }
         }
+        .eraseToAnyPublisher()
     }
     
     func fetch(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error> {
@@ -108,16 +118,15 @@ class RawPageRepository: RawPageRepositoryProtocol {
     private func fetchRawPageEntityFromServer(at folder: String, with name: String) -> AnyPublisher<RawPageEntity, Error> {
         return Future { [weak self] promise in
             guard let self = self else { return promise(.failure(RawPageRepositoryError.failedToFetchRawPage)) }
-            
-            let request = FirebaseAPIs.downloadDataFile(folder, name)
-            let publisher: AnyPublisher<RawPageEntity, Error> = self.networkService.request(request)
-            publisher.sink { completion in
-                guard case .failure(let error) = completion else { return }
-                promise(.failure(error))
-            } receiveValue: { rawPageEntity in
-                promise(.success(rawPageEntity))
-            }
-            .store(in: &self.cancellables)
+            self.networkService.donwloadData(path: folder, fileName: name)
+                .decode(type: RawPageEntity.self.self, decoder: self.decoder)
+                .sink { completion in
+                    guard case .failure(let error) = completion else { return }
+                    return promise(.failure(error))
+                } receiveValue: { entity in
+                    return promise(.success(entity))
+                }
+                .store(in: &self.cancellables)
         }
         .eraseToAnyPublisher()
     }

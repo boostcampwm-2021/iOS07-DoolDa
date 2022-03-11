@@ -117,7 +117,7 @@ final class EditPageViewCoordinator: BaseCoordinator {
                 pageEntityPersistenceService: coreDataPageEntityPersistenceService
             )
             let rawPageRepository = RawPageRepository(
-                networkService: urlSessionNetworkService,
+                networkService: FirebaseNetworkService.shared,
                 coreDataPageEntityPersistenceService: coreDataPageEntityPersistenceService,
                 fileManagerPersistenceService: fileManagerPersistenceService
             )
