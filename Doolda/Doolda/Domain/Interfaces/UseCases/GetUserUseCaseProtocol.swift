@@ -9,5 +9,5 @@ import Combine
 import Foundation
 
 protocol GetUserUseCaseProtocol {
-    func getUser(for id: DDID) -> AnyPublisher<User?, Error>
+    func getUser(for id: DDID) -> AnyPublisher<User, Error>
 }
