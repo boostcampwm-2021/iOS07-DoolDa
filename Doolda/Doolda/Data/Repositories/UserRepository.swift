@@ -69,14 +69,12 @@ class UserRepository: UserRepositoryProtocol {
         .eraseToAnyPublisher()
     }
     
-    func fetchUser(_ id: DDID) -> AnyPublisher<User?, Error> {
-        let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.getUserDocuement(id.ddidString))
-        return publisher.tryMap { userDocument in
-            return userDocument.toUser()
-        .eraseToAnyPublisher()
+    func fetchUser(_ id: DDID) -> AnyPublisher<User, Error> {
+        let publisher: AnyPublisher<User, Error> = self.firebaseNetworkService.getDocument(collection: .user, document: id.ddidString)
+        return publisher
     }
     
-    func fetchUser(_ user: User) -> AnyPublisher<User?, Error> {
+    func fetchUser(_ user: User) -> AnyPublisher<User, Error> {
         return self.fetchUser(user.id)
     }
 }

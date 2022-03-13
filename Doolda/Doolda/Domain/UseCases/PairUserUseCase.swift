@@ -55,10 +55,6 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                 self?.error = error
             } receiveValue: { [weak self] user, friend in
                 guard let self = self else { return }
-                guard let user = user,
-                      let friend = friend else {
-                          return self.error = PairUserUseCaseError.userNotExists
-                      }
                 
                 if self.isItPossibleToPair(user: user, with: friend) {
                     self.setUserPairId(user: user, friend: friend)

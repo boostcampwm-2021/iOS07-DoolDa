@@ -15,7 +15,7 @@ final class GetUserUseCase: GetUserUseCaseProtocol {
         self.userRepository = userRepository
     }
     
-    func getUser(for id: DDID) -> AnyPublisher<User?, Error> {
+    func getUser(for id: DDID) -> AnyPublisher<User, Error> {
         return self.userRepository.fetchUser(id)
     }
 }
