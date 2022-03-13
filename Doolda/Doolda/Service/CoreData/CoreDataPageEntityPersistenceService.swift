@@ -21,6 +21,7 @@ enum CoreDataPageEntityPersistenceServiceError: LocalizedError {
 }
 
 final class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol {
+    
     private let coreDataPersistenceService: CoreDataPersistenceServiceProtocol
     
     init(coreDataPersistenceService: CoreDataPersistenceServiceProtocol) {
@@ -34,18 +35,16 @@ final class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceS
         
         return Future { promise in
             context.perform {
+                let fetchRequest = CoreDataPageEntity.fetchRequest()
+                fetchRequest.predicate = NSPredicate(
+                    format: "%K == %@",
+                    #keyPath(CoreDataPageEntity.jsonPath),
+                    pageEntity.jsonPath
+                )
+                
                 do {
-                    let fetchRequest = CoreDataPageEntity.fetchRequest()
-                    fetchRequest.predicate = NSPredicate(
-                        format: "%K == %@",
-                        #keyPath(CoreDataPageEntity.createdTime),
-                        pageEntity.createdTime as NSDate
-                    )
-                    
-                    guard let fetchResult = try context.fetch(fetchRequest).first else {
-                        return promise(.failure(RawPageRepositoryError.failedToFetchRawPage))
-                    }
-                    promise(.success(fetchResult.isUpToDate))
+                    guard let fetchResult = try context.fetch(fetchRequest).first else { return promise(.success(false)) }
+                    return promise(.success(fetchResult.isUpToDate))
                 } catch {
                     promise(.failure(error))
                 }
@@ -61,13 +60,12 @@ final class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceS
         
         return Future { promise in
             context.perform {
+                let fetchRequest = CoreDataPageEntity.fetchRequest()
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdTime", ascending: false)]
+                
                 do {
-                    let fetchRequest = CoreDataPageEntity.fetchRequest()
-                    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdTime", ascending: false)]
                     let fetchResult = try context.fetch(fetchRequest)
-                    let pageEntities = fetchResult.compactMap { $0.toPageEntity() }
-                    
-                    promise(.success(pageEntities))
+                    promise(.success(fetchResult.compactMap { $0.toPageEntity() }))
                 } catch {
                     promise(.failure(error))
                 }
@@ -84,26 +82,26 @@ final class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceS
         
         return Future { promise in
             context.perform {
+                let fetchRequest = CoreDataPageEntity.fetchRequest()
+                fetchRequest.predicate = NSPredicate(
+                    format: "%K == %@",
+                    #keyPath(CoreDataPageEntity.jsonPath),
+                    pageEntity.jsonPath
+                )
+                
                 do {
-                    let fetchRequest = CoreDataPageEntity.fetchRequest()
-                    fetchRequest.predicate = NSPredicate(
-                        format: "%K == %@",
-                        #keyPath(CoreDataPageEntity.createdTime),
-                        pageEntity.createdTime as NSDate
-                    )
-                    let fetchResult = try context.fetch(fetchRequest)
+                    let fetchResults = try context.fetch(fetchRequest)
                     
-                    if let cachedCoreDataPage = fetchResult.first,
-                       cachedCoreDataPage.updatedTime != pageEntity.updatedTime {
-                        cachedCoreDataPage.update(pageEntity)
-                    } else if fetchResult.isEmpty,
-                              let coreDataPage = NSManagedObject(entity: coreDataPageEntity, insertInto: context) as? CoreDataPageEntity {
+                    if let fetchResult = fetchResults.first {
+                        switch fetchResult.updatedTime {
+                        case .some(let updatedTime): fetchResult.update(pageEntity, isUpToDate: updatedTime == pageEntity.updatedTime)
+                        case .none: fetchResult.update(pageEntity)
+                        }
+                    } else if let coreDataPage = NSManagedObject(entity: coreDataPageEntity, insertInto: context) as? CoreDataPageEntity {
                         coreDataPage.update(pageEntity)
                     }
                     
-                    if context.hasChanges {
-                        try context.save()
-                    }
+                    if context.hasChanges { try context.save() }
                     promise(.success(pageEntity))
                 } catch {
                     promise(.failure(error))
@@ -123,7 +121,7 @@ final class CoreDataPageEntityPersistenceService: CoreDataPageEntityPersistenceS
                 do {
                     let fetchRequest = CoreDataPageEntity.fetchRequest()
                     let fetchResult = try context.fetch(fetchRequest)
-                    
+    
                     fetchResult.forEach { context.delete($0) }
                     try context.save()
                     return promise(.success(()))

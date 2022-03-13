@@ -36,12 +36,12 @@ extension CoreDataPageEntity {
         )
     }
     
-    func update(_ pageEntity: PageEntity) {
+    func update(_ pageEntity: PageEntity, isUpToDate: Bool = false) {
         self.id = pageEntity.author.id.ddidString
         self.pairId = pageEntity.author.pairId?.ddidString
         self.jsonPath = pageEntity.jsonPath
         self.createdTime = pageEntity.createdTime
-        self.isUpToDate = self.updatedTime == pageEntity.updatedTime
+        self.isUpToDate = isUpToDate
         self.updatedTime = pageEntity.updatedTime
     }
 }
