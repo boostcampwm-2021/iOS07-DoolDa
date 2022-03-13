@@ -2957,7 +2957,7 @@
 				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DEVELOPMENT_TEAM = S24Z36WLLR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doolda/Resources/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -2989,7 +2989,7 @@
 				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DEVELOPMENT_TEAM = S24Z36WLLR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doolda/Resources/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
