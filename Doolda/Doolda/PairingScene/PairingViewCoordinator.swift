@@ -33,13 +33,14 @@ class PairingViewCoordinator: BaseCoordinator {
     func start() {
         let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
         let urlSessionNetworkService = URLSessionNetworkService.shared
+        let firebaseNetworkService = FirebaseNetworkService.shared
         
         let userRepository = UserRepository(
             persistenceService: userDefaultsPersistenceService,
             networkService: urlSessionNetworkService
         )
         
-        let pairRepository = PairRepository(networkService: urlSessionNetworkService)
+        let pairRepository = PairRepository(networkService: firebaseNetworkService)
         let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
         let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 

@@ -100,13 +100,14 @@ final class EditPageViewCoordinator: BaseCoordinator {
     func start() {
         DispatchQueue.main.async {
             let fileManagerPersistenceService = FileManagerPersistenceService.shared
+            let firebaseNetworkService = FirebaseNetworkService.shared
             let urlSessionNetworkService = URLSessionNetworkService.shared
             let coreDataPersistenceService = CoreDataPersistenceService.shared
             let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(
                 coreDataPersistenceService: coreDataPersistenceService
             )
             
-            let pairRepository = PairRepository(networkService: urlSessionNetworkService)
+            let pairRepository = PairRepository(networkService: firebaseNetworkService)
             let imageRepository = ImageRepository(
                 fileManagerService: fileManagerPersistenceService,
                 networkService: urlSessionNetworkService

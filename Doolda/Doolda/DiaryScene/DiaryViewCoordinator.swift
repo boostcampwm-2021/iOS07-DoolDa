@@ -36,11 +36,12 @@ final class DiaryViewCoordinator: BaseCoordinator {
     
     func start() {
         let urlSessionNetworkService = URLSessionNetworkService.shared
+        let firebaseNetworkService = FirebaseNetworkService.shared
         let coreDataPersistenceService = CoreDataPersistenceService.shared
         let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(coreDataPersistenceService: coreDataPersistenceService)
         let fileManagerPersistenceService = FileManagerPersistenceService.shared
         
-        let pairRepository = PairRepository(networkService: urlSessionNetworkService)
+        let pairRepository = PairRepository(networkService: firebaseNetworkService)
         let pageRepository = PageRepository(
             urlSessionNetworkService: urlSessionNetworkService,
             pageEntityPersistenceService: coreDataPageEntityPersistenceService
