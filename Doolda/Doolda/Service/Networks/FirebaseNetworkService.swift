@@ -53,6 +53,39 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
             .eraseToAnyPublisher()
     }
     
+    func getDocuments(collection: FirebaseCollection, conditions: [String: Any]?) -> AnyPublisher<[[String: Any]], Error> {
+        var pageSearchQuery: Query = Firestore.firestore().collection(collection.rawValue)
+        
+        conditions?.forEach { field, condition in
+            pageSearchQuery = pageSearchQuery.whereField(field, isEqualTo: condition)
+        }
+        
+        return Future { promise in
+            pageSearchQuery.getDocuments { snapshot, error in
+                if let error = error { return promise(.failure(error)) }
+                if let dictionaries = snapshot?.documents.map({ queryDocumentSnapshot in queryDocumentSnapshot.data() }) {
+                    return promise(.success(dictionaries))
+                } else {
+                    return promise(.failure(Errors.invalidDocumentSnapshot))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func getDocuments<T: DataTransferable>(collection: FirebaseCollection, conditions: [String: Any]?) -> AnyPublisher<[T], Error> {
+        return getDocuments(collection: collection, conditions: conditions)
+            .tryMap { dictionaries in
+                var result: [T] = []
+                for dictionary in dictionaries {
+                    guard let decoded = T(dictionary: dictionary) else { throw Errors.snapshotNotDecodable }
+                    result.append(decoded)
+                }
+                return result
+            }
+            .eraseToAnyPublisher()
+    }
+    
     func setDocument(collection: FirebaseCollection, document: String, dictionary: [String: Any]) -> AnyPublisher<Void, Error> {
         return Future { promise in
             Firestore.firestore().collection(collection.rawValue)
