@@ -27,6 +27,10 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
         }
     }
     
+    static let shared: FirebaseNetworkService = FirebaseNetworkService()
+    
+    private init() { }
+     
     func getDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<[String: Any], Error> {
         return Future { promise in
             Firestore.firestore().collection(collection.rawValue)
@@ -64,6 +68,18 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
     func setDocument<T: DataTransferable>(collection: FirebaseCollection, document: String, transferable: T) -> AnyPublisher<Void, Error> {
         let dictionary = transferable.dictionary
         return setDocument(collection: collection, document: document, dictionary: dictionary)
+    }
+    
+    func deleteDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<Void, Error> {
+        return Future { promise in
+            Firestore.firestore().collection(collection.rawValue)
+                .document(document)
+                .delete { error in
+                    if let error = error { return promise(.failure(error)) }
+                    return promise(.success(()))
+                }
+        }
+        .eraseToAnyPublisher()
     }
     
     func uploadData(path: String, fileName: String, data: Data) -> AnyPublisher<URL, Error> {
