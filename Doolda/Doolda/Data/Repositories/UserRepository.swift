@@ -29,13 +29,13 @@ enum UserRepositoryError: LocalizedError {
 
 class UserRepository: UserRepositoryProtocol {
     private let userDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol
-    private let urlSessionNetworkService: URLSessionNetworkServiceProtocol
+    private let firebaseNetworkService: FirebaseNetworkServiceProtocol
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(persistenceService: UserDefaultsPersistenceServiceProtocol, networkService: URLSessionNetworkServiceProtocol) {
+    init(persistenceService: UserDefaultsPersistenceServiceProtocol, networkService: FirebaseNetworkServiceProtocol) {
         self.userDefaultsPersistenceService = persistenceService
-        self.urlSessionNetworkService = networkService
+        self.firebaseNetworkService = networkService
     }
     
     func setMyId(_ id: DDID) -> AnyPublisher<DDID, Never> {
@@ -51,38 +51,20 @@ class UserRepository: UserRepositoryProtocol {
     }
     
     func setUser(_ user: User) -> AnyPublisher<User, Error> {
-        guard let pairId = user.pairId else {
-            let publisher: AnyPublisher<UserDocument, Error> =
-            self.urlSessionNetworkService.request(FirebaseAPIs.createUserDocument(user.id.ddidString))
-            return publisher.tryMap { userDocument in
-                guard let newUser = userDocument.toUser() else {
-                    throw UserRepositoryError.nilUserId
-                }
-                return newUser
+        guard user.friendId != nil else { return Fail(error: UserRepositoryError.nilFriendId).eraseToAnyPublisher() }
+            let publisher = self.firebaseNetworkService.setDocument(collection: .user, document: user.id.ddidString, transferable: user)
+            return publisher.tryMap { _ in
+                return user
             }
             .eraseToAnyPublisher()
-        }
-        
-        guard let friendId = user.friendId else { return Fail(error: UserRepositoryError.nilFriendId).eraseToAnyPublisher() }
-        let publisher: AnyPublisher<UserDocument, Error> =
-        self.urlSessionNetworkService.request(FirebaseAPIs.patchUserDocument(user.id.ddidString, pairId.ddidString, friendId.ddidString))
-        return publisher.tryMap { userDocument in
-            guard let newUser = userDocument.toUser() else {
-                throw UserRepositoryError.nilUserId
-            }
-            return newUser
-        }
-        .eraseToAnyPublisher()
     }
     
     func resetUser(_ user: User) -> AnyPublisher<User, Error> {
-        let publisher: AnyPublisher<UserDocument, Error> =
-        self.urlSessionNetworkService.request(FirebaseAPIs.patchUserDocument(user.id.ddidString, "", ""))
-        return publisher.tryMap { userDocument in
-            guard let user = userDocument.toUser() else {
-                throw UserRepositoryError.nilUserId
-            }
-            return user
+        let resetedUser = User(id: user.id)
+        let publisher = self.firebaseNetworkService.setDocument(collection: .user, document: user.id.ddidString, transferable: resetedUser)
+
+        return publisher.tryMap { _ in
+            return resetedUser
         }
         .eraseToAnyPublisher()
     }
@@ -91,7 +73,6 @@ class UserRepository: UserRepositoryProtocol {
         let publisher: AnyPublisher<UserDocument, Error> = self.urlSessionNetworkService.request(FirebaseAPIs.getUserDocuement(id.ddidString))
         return publisher.tryMap { userDocument in
             return userDocument.toUser()
-        }
         .eraseToAnyPublisher()
     }
     
