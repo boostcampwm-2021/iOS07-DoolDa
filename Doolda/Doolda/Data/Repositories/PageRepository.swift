@@ -44,20 +44,11 @@ class PageRepository: PageRepositoryProtocol {
     
     func savePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
         guard let pairId = page.author.pairId?.ddidString else { return Fail(error: PageRepositoryError.userNotPaired).eraseToAnyPublisher() }
-
-        // FIXME: - DataTransferable한 Page만들어서 사용하는게 좋을것 같다.
-        let pageData: [String : Any] = [
-            "author": page.author.id.ddidString,
-            "createdTime": page.createdTime,
-            "updatedTime": page.updatedTime,
-            "jsonPath": page.jsonPath,
-            "pairId": pairId
-        ]
         
         return Future { [weak self] promise in
             guard let self = self else { return promise(.failure(PageRepositoryError.failedToSavePage)) }
             
-            self.firebaseNetworkService.setDocument(collection: .page, document: pairId, dictionary: pageData)
+            self.firebaseNetworkService.setDocument(collection: .page, document: pairId + page.jsonPath, transferable: page)
                 .sink { completion in
                     guard case .failure(let error) = completion else { return }
                     promise(.failure(error))
@@ -70,27 +61,20 @@ class PageRepository: PageRepositoryProtocol {
     }
     
     func updatePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error> {
+        guard let pairId = page.author.pairId?.ddidString else { return Fail(error: PageRepositoryError.userNotPaired).eraseToAnyPublisher() }
+        
         return Future { [weak self] promise in
-            guard let pairId = page.author.pairId?.ddidString else {
-                return promise(.failure(PageRepositoryError.userNotPaired))
-            }
+            guard let self = self else { return promise(.failure(PageRepositoryError.failedToUpdatePage)) }
             
-            guard let self = self else {
-                return promise(.failure(PageRepositoryError.failedToUpdatePage))
-            }
-            
-            let request = FirebaseAPIs.patchPageDocument(page.author.id.ddidString, page.createdTime, page.updatedTime, page.jsonPath, pairId)
-            let publisher: AnyPublisher<[String: Any], Error> = self.urlSessionNetworkService.request(request)
-            
-            publisher
+            self.firebaseNetworkService.setDocument(collection: .page, document: pairId + page.jsonPath, transferable: page)
                 .sink { completion in
                     guard case .failure(let error) = completion else { return }
                     promise(.failure(error))
                 } receiveValue: { [weak self] _ in
-                    guard let self = self else {
-                        return promise(.failure(PageRepositoryError.failedToUpdatePage))
-                    }
+                    guard let self = self else { return promise(.failure(PageRepositoryError.failedToUpdatePage)) }
                     
+                    // FIXME: - Firebase 내부적으로 Offline Data Access를 위해 캐싱 처리를 하는것 같아 보입니다. 따라서, PageEntity에 대한 추가적인 캐싱이 불필요해보여요
+                    // https://firebase.google.com/docs/firestore/manage-data/enable-offline
                     self.savePageToCache(pages: [page])
                         .sink { completion in
                             guard case .failure(let error) = completion else { return }
@@ -107,29 +91,31 @@ class PageRepository: PageRepositoryProtocol {
     
     func fetchPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error> {
         return Future { [weak self] promise in
-            guard let self = self else {
-                return promise(.failure(PageRepositoryError.failedToFetchPages))
+            guard let self = self else { return promise(.failure(PageRepositoryError.failedToFetchPages)) }
+            let conditions = ["pairId": pair.ddidString]
+            
+            let firebaseNetworkServicePublisher: AnyPublisher<[PageEntity], Error> = self.firebaseNetworkService.getDocuments(collection: .page, conditions: conditions)
+            
+            firebaseNetworkServicePublisher.sink { completion in
+                guard case .failure(let error) = completion else { return }
+                promise(.failure(error))
+            } receiveValue: { [weak self] pages in
+                guard let self = self else {
+                    return promise(.failure(PageRepositoryError.failedToFetchPages))
+                }
+
+                // FIXME: - Firebase 내부적으로 Offline Data Access를 위해 캐싱 처리를 하는것 같아  보입니다. 따라서, PageEntity에 대한 추가적인 캐싱이 불필요해보여요
+                // https://firebase.google.com/docs/firestore/manage-data/enable-offline
+                self.savePageToCache(pages: pages)
+                    .sink(receiveCompletion: { completion in
+                        guard case .failure(let error) = completion else { return }
+                        promise(.failure(error))
+                    }, receiveValue: { _ in
+                        promise(.success(pages))
+                    })
+                    .store(in: &self.cancellables)
             }
-
-            self.fetchPageFromServer(pairId: pair, after: nil)
-                .sink(receiveCompletion: { completion in
-                    guard case .failure(let error) = completion else { return }
-                    promise(.failure(error))
-                }, receiveValue: { [weak self] pages in
-                    guard let self = self else {
-                        return promise(.failure(PageRepositoryError.failedToFetchPages))
-                    }
-
-                    self.savePageToCache(pages: pages)
-                        .sink(receiveCompletion: { completion in
-                            guard case .failure(let error) = completion else { return }
-                            promise(.failure(error))
-                        }, receiveValue: { _ in
-                            promise(.success(pages))
-                        })
-                        .store(in: &self.cancellables)
-                })
-                .store(in: &self.cancellables)
+            .store(in: &self.cancellables)
         }
         .eraseToAnyPublisher()
     }
