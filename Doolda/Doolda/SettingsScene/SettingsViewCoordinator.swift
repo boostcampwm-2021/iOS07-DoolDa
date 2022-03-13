@@ -61,6 +61,7 @@ class SettingsViewCoordinator: BaseCoordinator {
         DispatchQueue.main.async {
             let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
             let urlSessionNetworkService = URLSessionNetworkService.shared
+            let firebaseNetworkService = FirebaseNetworkService.shared
 
             let globalFontRepository = GlobalFontRepository(persistenceService: userDefaultsPersistenceService)
             let pushNotificationStateRepository = PushNotificationStateRepository(persistenceService: userDefaultsPersistenceService)
@@ -68,7 +69,7 @@ class SettingsViewCoordinator: BaseCoordinator {
                 persistenceService: userDefaultsPersistenceService,
                 networkService: urlSessionNetworkService
             )
-            let pairRepository = PairRepository(networkService: urlSessionNetworkService)
+            let pairRepository = PairRepository(networkService: firebaseNetworkService)
             let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
             let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 
