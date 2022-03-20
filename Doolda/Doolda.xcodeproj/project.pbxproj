@@ -99,6 +99,7 @@
 		1DAEB04B27561E220040E8C1 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
 		1DAEB04C27561E790040E8C1 /* FirebaseMessageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */; };
 		1DAEB04D2756228F0040E8C1 /* FCMTokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */; };
+		1DBAA7F327E6B64200956C82 /* FCMToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBAA7F227E6B64200956C82 /* FCMToken.swift */; };
 		1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
 		1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */; };
 		1DD0F34D2747AABA00FC5E65 /* FontColorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF5714273A2C5100D28F5E /* FontColorType.swift */; };
@@ -468,6 +469,7 @@
 		1DAEB03A275617010040E8C1 /* FirebaseMessageUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FirebaseMessageUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DAEB03C275617010040E8C1 /* FirebaseMessageUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageUseCaseTest.swift; sourceTree = "<group>"; };
 		1DAEB044275617A40040E8C1 /* DummyFirebaseMessageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyFirebaseMessageRepository.swift; sourceTree = "<group>"; };
+		1DBAA7F227E6B64200956C82 /* FCMToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMToken.swift; sourceTree = "<group>"; };
 		1DBF5714273A2C5100D28F5E /* FontColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorType.swift; sourceTree = "<group>"; };
 		1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameType.swift; sourceTree = "<group>"; };
 		1DD58BD52754ACA600B93184 /* DiaryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPageView.swift; sourceTree = "<group>"; };
@@ -1220,6 +1222,7 @@
 				317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */,
 				1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */,
 				FC445A0C27562590004888B9 /* ComponentType.swift */,
+				1DBAA7F227E6B64200956C82 /* FCMToken.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -2305,6 +2308,7 @@
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */,
 				FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */,
+				1DBAA7F327E6B64200956C82 /* FCMToken.swift in Sources */,
 				1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */,
 				318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */,
 				66F176152754C413006ACB41 /* ImageComposeUseCaseProtocol.swift in Sources */,

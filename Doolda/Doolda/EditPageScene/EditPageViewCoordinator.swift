@@ -100,8 +100,8 @@ final class EditPageViewCoordinator: BaseCoordinator {
     func start() {
         DispatchQueue.main.async {
             let fileManagerPersistenceService = FileManagerPersistenceService.shared
-            let firebaseNetworkService = FirebaseNetworkService.shared
             let urlSessionNetworkService = URLSessionNetworkService.shared
+            let firebaseNetworkService = FirebaseNetworkService.shared
             let coreDataPersistenceService = CoreDataPersistenceService.shared
             let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(
                 coreDataPersistenceService: coreDataPersistenceService
@@ -121,7 +121,7 @@ final class EditPageViewCoordinator: BaseCoordinator {
                 coreDataPageEntityPersistenceService: coreDataPageEntityPersistenceService,
                 fileManagerPersistenceService: fileManagerPersistenceService
             )
-            let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
+            let fcmTokenRepository = FCMTokenRepository(firebaseNetworkService: firebaseNetworkService)
             let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
             
             let imageUseCase = ImageUseCase(imageRepository: imageRepository)

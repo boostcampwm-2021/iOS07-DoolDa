@@ -11,4 +11,5 @@ enum FirebaseCollection: String {
     case user
     case pair
     case page
+    case fcmToken
 }
