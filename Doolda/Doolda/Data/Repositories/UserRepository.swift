@@ -51,8 +51,7 @@ class UserRepository: UserRepositoryProtocol {
     }
     
     func setUser(_ user: User) -> AnyPublisher<User, Error> {
-        guard user.friendId != nil else { return Fail(error: UserRepositoryError.nilFriendId).eraseToAnyPublisher() }
-            let publisher = self.firebaseNetworkService.setDocument(collection: .user, document: user.id.ddidString, transferable: user)
+        let publisher = self.firebaseNetworkService.setDocument(collection: .user, document: user.id.ddidString, dictionary: user.dictionary)
             return publisher.tryMap { _ in
                 return user
             }
@@ -61,7 +60,7 @@ class UserRepository: UserRepositoryProtocol {
     
     func resetUser(_ user: User) -> AnyPublisher<User, Error> {
         let resetedUser = User(id: user.id)
-        let publisher = self.firebaseNetworkService.setDocument(collection: .user, document: user.id.ddidString, transferable: resetedUser)
+        let publisher = self.firebaseNetworkService.setDocument(collection: .user, document: user.id.ddidString, dictionary: resetedUser.dictionary)
 
         return publisher.tryMap { _ in
             return resetedUser
@@ -70,8 +69,10 @@ class UserRepository: UserRepositoryProtocol {
     }
     
     func fetchUser(_ id: DDID) -> AnyPublisher<User, Error> {
-        let publisher: AnyPublisher<User, Error> = self.firebaseNetworkService.getDocument(collection: .user, document: id.ddidString)
+        let publisher: AnyPublisher<UserDataTransferObject, Error> = self.firebaseNetworkService.getDocument(collection: .user, document: id.ddidString)
         return publisher
+            .map { $0.toUser(id: id) }
+            .eraseToAnyPublisher()
     }
     
     func fetchUser(_ user: User) -> AnyPublisher<User, Error> {
