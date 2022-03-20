@@ -92,10 +92,11 @@ extension AppDelegate: MessagingDelegate {
         guard let token = fcmToken else { return }
         
         // FIXME: 더 좋은 방법 찾아보기
-        let networkService = URLSessionNetworkService.shared
+        let urlSessionNetworkService = URLSessionNetworkService.shared
+        let firebaseNetworkService = FirebaseNetworkService.shared
         let persistenceService = UserDefaultsPersistenceService.shared
-        let userRepository: UserRepository = UserRepository(persistenceService: persistenceService, networkService: networkService)
-        let fcmTokenRepository: FCMTokenRepository = FCMTokenRepository(urlSessionNetworkService: networkService)
+        let userRepository: UserRepository = UserRepository(persistenceService: persistenceService, networkService: firebaseNetworkService)
+        let fcmTokenRepository: FCMTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
         let getMyIdUseCase: GetMyIdUseCase = GetMyIdUseCase(userRepository: userRepository)
         let fcmTokenUseCase: FCMTokenUseCase = FCMTokenUseCase(fcmTokenRepository: fcmTokenRepository)
         

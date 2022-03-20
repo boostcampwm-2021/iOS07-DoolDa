@@ -32,10 +32,11 @@ final class SplashViewCoordinator: BaseCoordinator {
     func start() {
         let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
         let urlSessionNetworkService = URLSessionNetworkService.shared
-        
+        let firebaseNetworkService = FirebaseNetworkService.shared
+
         let userRespository = UserRepository(
             persistenceService: userDefaultsPersistenceService,
-            networkService: urlSessionNetworkService
+            networkService: firebaseNetworkService
         )
         let globalFontRepository = GlobalFontRepository(
             persistenceService: userDefaultsPersistenceService

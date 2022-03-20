@@ -67,7 +67,7 @@ class SettingsViewCoordinator: BaseCoordinator {
             let pushNotificationStateRepository = PushNotificationStateRepository(persistenceService: userDefaultsPersistenceService)
             let userRepository = UserRepository(
                 persistenceService: userDefaultsPersistenceService,
-                networkService: urlSessionNetworkService
+                networkService: firebaseNetworkService
             )
             let pairRepository = PairRepository(networkService: firebaseNetworkService)
             let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
