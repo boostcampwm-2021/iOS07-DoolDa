@@ -353,6 +353,7 @@
 		FC822FB22736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */; };
 		FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */; };
 		FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
+		FCB7CD7F27E6B87700EDE386 /* UserDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB7CD7E27E6B87700EDE386 /* UserDataTransferObject.swift */; };
 		FCC803F62744C22F00FFE4DC /* FontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F52744C22F00FFE4DC /* FontType.swift */; };
 		FCC803FA27451A8000FFE4DC /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803F927451A8000FFE4DC /* TextEditViewController.swift */; };
 		FCC803FC27451C9600FFE4DC /* TextEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC803FB27451C9600FFE4DC /* TextEditViewModel.swift */; };
@@ -628,6 +629,7 @@
 		FC822FB12736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCase.swift; sourceTree = "<group>"; };
 		FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryProtocol.swift; sourceTree = "<group>"; };
+		FCB7CD7E27E6B87700EDE386 /* UserDataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataTransferObject.swift; sourceTree = "<group>"; };
 		FCC803F52744C22F00FFE4DC /* FontType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontType.swift; sourceTree = "<group>"; };
 		FCC803F927451A8000FFE4DC /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		FCC803FB27451C9600FFE4DC /* TextEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewModel.swift; sourceTree = "<group>"; };
@@ -1132,6 +1134,7 @@
 			isa = PBXGroup;
 			children = (
 				FC5FB78F27325C4D008AC3D2 /* UserDocument.swift */,
+				FCB7CD7E27E6B87700EDE386 /* UserDataTransferObject.swift */,
 				FC5FB7942732627C008AC3D2 /* PairDocument.swift */,
 				66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */,
 				1D8BE0782740FE5E00201E3E /* PageDocument.swift */,
@@ -2257,6 +2260,7 @@
 				3161EE942742A44100B922DD /* StickerPickerBottomSheetViewController.swift in Sources */,
 				FCC803F62744C22F00FFE4DC /* FontType.swift in Sources */,
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
+				FCB7CD7F27E6B87700EDE386 /* UserDataTransferObject.swift in Sources */,
 				317FB613274AA879005DF3A3 /* SettingsTableViewCell.swift in Sources */,
 				318D9F5B274CC77800AA6F0E /* FontPickerViewController.swift in Sources */,
 				1DD58BD62754ACA600B93184 /* DiaryPageView.swift in Sources */,
@@ -2957,7 +2961,7 @@
 				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S24Z36WLLR;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doolda/Resources/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -2989,7 +2993,7 @@
 				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S24Z36WLLR;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doolda/Resources/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";

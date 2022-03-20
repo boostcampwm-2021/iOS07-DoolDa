@@ -37,7 +37,7 @@ class PairingViewCoordinator: BaseCoordinator {
         
         let userRepository = UserRepository(
             persistenceService: userDefaultsPersistenceService,
-            networkService: urlSessionNetworkService
+            networkService: firebaseNetworkService
         )
         
         let pairRepository = PairRepository(networkService: firebaseNetworkService)
