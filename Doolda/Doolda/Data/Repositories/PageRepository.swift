@@ -120,24 +120,6 @@ class PageRepository: PageRepositoryProtocol {
         .eraseToAnyPublisher()
     }
     
-    private func fetchPageFromServer(pairId: DDID, after: Date?) -> AnyPublisher<[PageEntity], Error> {
-        let request = FirebaseAPIs.getPageDocuments(pairId.ddidString, after)
-        let publisher: AnyPublisher<[[String: Any]], Error> = self.urlSessionNetworkService.request(request)
-        return publisher
-            .map({ dictionaries in
-                var documents: [PageEntity] = []
-                dictionaries.forEach { dictionary in
-                    guard let documentDictionary = dictionary["document"] as? [String: Any],
-                          let fieldsDictionary = documentDictionary["fields"] as? [String: [String: String]],
-                          let pageDocument = PageDocument(document: fieldsDictionary),
-                          let pageEntity = pageDocument.toPageEntity() else { return }
-                    documents.append(pageEntity)
-                }
-                return documents
-            })
-            .eraseToAnyPublisher()
-    }
-    
     private func savePageToCache(pages: [PageEntity]) -> AnyPublisher<Void, Error> {
         let savePublishers = pages.map { self.pageEntityPersistenceService.savePageEntity($0) }
         
