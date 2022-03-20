@@ -70,7 +70,7 @@ class SettingsViewCoordinator: BaseCoordinator {
                 networkService: firebaseNetworkService
             )
             let pairRepository = PairRepository(networkService: firebaseNetworkService)
-            let fcmTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
+            let fcmTokenRepository = FCMTokenRepository(firebaseNetworkService: firebaseNetworkService)
             let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 
             let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)

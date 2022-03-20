@@ -9,25 +9,24 @@ import Combine
 import Foundation
 
 class FCMTokenRepository: FCMTokenRepositoryProtocol {
-    private let urlSessionNetworkService: URLSessionNetworkServiceProtocol
+    private let firebaseNetworkService: FirebaseNetworkServiceProtocol
     
-    init(urlSessionNetworkService: URLSessionNetworkServiceProtocol) {
-        self.urlSessionNetworkService = urlSessionNetworkService
+    init(firebaseNetworkService: FirebaseNetworkServiceProtocol) {
+        self.firebaseNetworkService = firebaseNetworkService
     }
     
     func saveToken(for userId: DDID, with token: String) -> AnyPublisher<String, Error> {
-        let request = FirebaseAPIs.patchFCMTokenDocument(userId.ddidString, token)
-        let publisher: AnyPublisher<FCMTokenDocument, Error> = self.urlSessionNetworkService.request(request)
-        return publisher
-            .compactMap { $0.token }
+        let fcmToken = FCMToken(token: token)
+        return firebaseNetworkService
+            .setDocument(collection: .fcmToken, document: userId.ddidString, dictionary: fcmToken.dictionary)
+            .map { token }
             .eraseToAnyPublisher()
     }
     
     func fetchToken(for userId: DDID) -> AnyPublisher<String, Error> {
-        let request = FirebaseAPIs.getFCMTokenDocument(userId.ddidString)
-        let publisher: AnyPublisher<FCMTokenDocument, Error> = self.urlSessionNetworkService.request(request)
+        let publisher: AnyPublisher<FCMToken, Error> = firebaseNetworkService.getDocument(collection: .fcmToken, document: userId.ddidString)
         return publisher
-            .compactMap { $0.token }
+            .map { $0.token }
             .eraseToAnyPublisher()
     }
 }

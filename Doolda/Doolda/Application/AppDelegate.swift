@@ -96,7 +96,7 @@ extension AppDelegate: MessagingDelegate {
         let firebaseNetworkService = FirebaseNetworkService.shared
         let persistenceService = UserDefaultsPersistenceService.shared
         let userRepository: UserRepository = UserRepository(persistenceService: persistenceService, networkService: firebaseNetworkService)
-        let fcmTokenRepository: FCMTokenRepository = FCMTokenRepository(urlSessionNetworkService: urlSessionNetworkService)
+        let fcmTokenRepository: FCMTokenRepository = FCMTokenRepository(firebaseNetworkService: firebaseNetworkService)
         let getMyIdUseCase: GetMyIdUseCase = GetMyIdUseCase(userRepository: userRepository)
         let fcmTokenUseCase: FCMTokenUseCase = FCMTokenUseCase(fcmTokenRepository: fcmTokenRepository)
         
