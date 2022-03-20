@@ -26,19 +26,16 @@ enum PageRepositoryError: LocalizedError {
 }
 
 class PageRepository: PageRepositoryProtocol {
-    private let urlSessionNetworkService: URLSessionNetworkServiceProtocol
     private let pageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol
     private let firebaseNetworkService: FirebaseNetworkServiceProtocol
     
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        urlSessionNetworkService: URLSessionNetworkServiceProtocol,
+        networkService: FirebaseNetworkServiceProtocol,
         pageEntityPersistenceService: CoreDataPageEntityPersistenceServiceProtocol
     ) {
-        // FIXME: - 외부에서 주입하도록 수정
-        self.firebaseNetworkService = FirebaseNetworkService()
-        self.urlSessionNetworkService = urlSessionNetworkService
+        self.firebaseNetworkService = networkService
         self.pageEntityPersistenceService = pageEntityPersistenceService
     }
     
@@ -94,7 +91,10 @@ class PageRepository: PageRepositoryProtocol {
             guard let self = self else { return promise(.failure(PageRepositoryError.failedToFetchPages)) }
             let conditions = ["pairId": pair.ddidString]
             
-            let firebaseNetworkServicePublisher: AnyPublisher<[PageEntity], Error> = self.firebaseNetworkService.getDocuments(collection: .page, conditions: conditions)
+            let firebaseNetworkServicePublisher: AnyPublisher<[PageEntity], Error> = self.firebaseNetworkService.getDocuments(
+                collection: .page,
+                conditions: conditions
+            )
             
             firebaseNetworkServicePublisher.sink { completion in
                 guard case .failure(let error) = completion else { return }

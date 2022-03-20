@@ -113,7 +113,7 @@ final class EditPageViewCoordinator: BaseCoordinator {
                 networkService: urlSessionNetworkService
             )
             let pageRepository = PageRepository(
-                urlSessionNetworkService: urlSessionNetworkService,
+                networkService: FirebaseNetworkService.shared,
                 pageEntityPersistenceService: coreDataPageEntityPersistenceService
             )
             let rawPageRepository = RawPageRepository(

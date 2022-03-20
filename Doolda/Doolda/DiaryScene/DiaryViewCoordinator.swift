@@ -43,7 +43,7 @@ final class DiaryViewCoordinator: BaseCoordinator {
         
         let pairRepository = PairRepository(networkService: firebaseNetworkService)
         let pageRepository = PageRepository(
-            urlSessionNetworkService: urlSessionNetworkService,
+            networkService: FirebaseNetworkService.shared,
             pageEntityPersistenceService: coreDataPageEntityPersistenceService
         )
         
