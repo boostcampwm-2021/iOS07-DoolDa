@@ -44,6 +44,8 @@ final class AgreementViewController: UIViewController {
         textView.backgroundColor = .dooldaTextViewBackground
         // FIXME: viewModel bind완료 후 text 제거
         textView.text = "Sample1"
+        textView.layer.cornerRadius = 4
+        textView.clipsToBounds = true
         textView.textColor = .black
         textView.isEditable = false
         return textView
@@ -61,6 +63,8 @@ final class AgreementViewController: UIViewController {
         textView.backgroundColor = .dooldaTextViewBackground
         // FIXME: viewModel bind완료 후 text 제거
         textView.text = "Sample2"
+        textView.layer.cornerRadius = 4
+        textView.clipsToBounds = true
         textView.textColor = .black
         textView.isEditable = false
         return textView
