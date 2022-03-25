@@ -5,11 +5,14 @@
 //  Created by 정지승 on 2021/12/27.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
 final class AgreementViewController: UIViewController {
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Subviews
     
@@ -32,11 +35,12 @@ final class AgreementViewController: UIViewController {
         return label
     }()
     
-    private lazy var serviceAgreementTitleLabel: UILabel = {
-        var label = UILabel()
-        label.text = "서비스 이용 약관"
-        label.textColor = .dooldaSublabel
-        return label
+    private lazy var serviceAgreementCheckBox: DooldaCheckBox = {
+        var checkBox = DooldaCheckBox()
+        checkBox.text = "서비스 이용 약관(필수)"
+        checkBox.textColor = .dooldaSublabel
+        checkBox.spacing = 8
+        return checkBox
     }()
     
     private lazy var serviceAgreementTextView: UITextView = {
@@ -51,11 +55,12 @@ final class AgreementViewController: UIViewController {
         return textView
     }()
     
-    private lazy var privacyPolicyTitleLabel: UILabel = {
-        var label = UILabel()
-        label.text = "개인정보 처리 방침"
-        label.textColor = .dooldaSublabel
-        return label
+    private lazy var privacyPolicyCheckBox: DooldaCheckBox = {
+        var checkBox = DooldaCheckBox()
+        checkBox.text = "개인정보 처리 방침(필수)"
+        checkBox.textColor = .dooldaSublabel
+        checkBox.spacing = 8
+        return checkBox
     }()
     
     private lazy var privacyPolicyTextView: UITextView = {
@@ -72,9 +77,10 @@ final class AgreementViewController: UIViewController {
     
     private lazy var nextButton: DooldaButton = {
         let button = DooldaButton()
-        button.setTitle("동의하고 친구 연결하기", for: .normal)
+        button.setTitle("친구 연결하기", for: .normal)
         button.setTitleColor(.dooldaLabel, for: .normal)
         button.backgroundColor = .dooldaHighlighted
+        button.isEnabled = false
         return button
     }()
     
@@ -126,29 +132,31 @@ final class AgreementViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        self.contentView.addSubview(self.serviceAgreementTitleLabel)
-        self.serviceAgreementTitleLabel.snp.makeConstraints { make in
+        self.contentView.addSubview(self.serviceAgreementCheckBox)
+        self.serviceAgreementCheckBox.snp.makeConstraints { make in
             make.top.equalTo(self.subtitleLabel.snp.bottom).offset(50)
             make.leading.equalToSuperview().offset(16)
+            make.height.equalTo(20)
         }
         
         self.contentView.addSubview(self.serviceAgreementTextView)
         self.serviceAgreementTextView.snp.makeConstraints { make in
-            make.top.equalTo(self.serviceAgreementTitleLabel.snp.bottom).offset(7)
+            make.top.equalTo(self.serviceAgreementCheckBox.snp.bottom).offset(7)
             make.height.equalTo(180)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         }
         
-        self.contentView.addSubview(self.privacyPolicyTitleLabel)
-        self.privacyPolicyTitleLabel.snp.makeConstraints { make in
+        self.contentView.addSubview(self.privacyPolicyCheckBox)
+        self.privacyPolicyCheckBox.snp.makeConstraints { make in
             make.top.equalTo(self.serviceAgreementTextView.snp.bottom).offset(18)
             make.leading.equalToSuperview().offset(16)
+            make.height.equalTo(20)
         }
         
         self.contentView.addSubview(self.privacyPolicyTextView)
         self.privacyPolicyTextView.snp.makeConstraints { make in
-            make.top.equalTo(self.privacyPolicyTitleLabel.snp.bottom).offset(7)
+            make.top.equalTo(self.privacyPolicyCheckBox.snp.bottom).offset(7)
             make.height.equalTo(180)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
@@ -167,12 +175,17 @@ final class AgreementViewController: UIViewController {
     private func configureFont() {
         self.titleLabel.font = UIFont(name: FontType.dovemayo.name, size: 72)
         self.subtitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 18)
-        self.serviceAgreementTitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
-        self.privacyPolicyTitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
+        self.serviceAgreementCheckBox.font = UIFont(name: FontType.dovemayo.name, size: 14)
+        self.privacyPolicyCheckBox.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.nextButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
     }
     
     private func bindUI() {
         // FIXME: ViewModel과 병합 후 작성
+        Publishers.CombineLatest(self.privacyPolicyCheckBox.$value, self.serviceAgreementCheckBox.$value)
+            .sink { (privacyPolicy, serviceAgreement) in
+                self.nextButton.isEnabled = privacyPolicy && serviceAgreement
+            }
+            .store(in: &self.cancellables)
     }
 }

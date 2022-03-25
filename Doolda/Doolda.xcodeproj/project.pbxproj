@@ -199,6 +199,7 @@
 		665303A62743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */; };
 		665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A72744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift */; };
 		665303AA2744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */; };
+		6660E3EB2779D94100C2A445 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660E3EA2779D94100C2A445 /* AgreementViewController.swift */; };
 		6669A69E27D8D95B007075C3 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6669A69D27D8D95B007075C3 /* FirebaseAnalytics */; };
 		6669A6A027D8D95B007075C3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6669A69F27D8D95B007075C3 /* FirebaseAuth */; };
 		6669A6A227D8D95B007075C3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6669A6A127D8D95B007075C3 /* FirebaseFirestore */; };
@@ -206,7 +207,6 @@
 		6669A6A627D8D95B007075C3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6669A6A527D8D95B007075C3 /* FirebaseStorage */; };
 		6669A6A827D8E00D007075C3 /* FirebaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6669A6A727D8E00D007075C3 /* FirebaseNetworkService.swift */; };
 		6669A6AA27D8E81B007075C3 /* FirebaseNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6669A6A927D8E81B007075C3 /* FirebaseNetworkServiceProtocol.swift */; };
-		6660E3EB2779D94100C2A445 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660E3EA2779D94100C2A445 /* AgreementViewController.swift */; };
 		66B4ADFF2742BEFC0021EA27 /* normal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFC2742BEFC0021EA27 /* normal.jpg */; };
 		66B4AE002742BEFC0021EA27 /* polaroid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */; };
 		66B4AE012742BEFC0021EA27 /* lifeFourCuts.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */; };
@@ -557,9 +557,9 @@
 		665303A52743E09A00E3075C /* CoreDataPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
 		665303A72744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceService.swift; sourceTree = "<group>"; };
 		665303A92744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPageEntityPersistenceServiceProtocol.swift; sourceTree = "<group>"; };
+		6660E3EA2779D94100C2A445 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
 		6669A6A727D8E00D007075C3 /* FirebaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkService.swift; sourceTree = "<group>"; };
 		6669A6A927D8E81B007075C3 /* FirebaseNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkServiceProtocol.swift; sourceTree = "<group>"; };
-		6660E3EA2779D94100C2A445 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
 		66B4ADFC2742BEFC0021EA27 /* normal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = normal.jpg; sourceTree = "<group>"; };
 		66B4ADFD2742BEFC0021EA27 /* polaroid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = polaroid.jpg; sourceTree = "<group>"; };
 		66B4ADFE2742BEFC0021EA27 /* lifeFourCuts.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lifeFourCuts.jpg; sourceTree = "<group>"; };
