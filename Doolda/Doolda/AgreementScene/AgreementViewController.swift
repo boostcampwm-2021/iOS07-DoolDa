@@ -12,8 +12,6 @@ import SnapKit
 
 final class AgreementViewController: UIViewController {
     
-    private var cancellables: Set<AnyCancellable> = []
-    
     // MARK: - Subviews
     
     private lazy var scrollView: UIScrollView = UIScrollView()
