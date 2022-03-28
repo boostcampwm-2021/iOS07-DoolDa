@@ -44,8 +44,6 @@ final class AgreementViewController: UIViewController {
     private lazy var serviceAgreementTextView: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .dooldaTextViewBackground
-        // FIXME: viewModel bind완료 후 text 제거
-        textView.text = "Sample1"
         textView.layer.cornerRadius = 4
         textView.clipsToBounds = true
         textView.textColor = .black
@@ -64,8 +62,6 @@ final class AgreementViewController: UIViewController {
     private lazy var privacyPolicyTextView: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .dooldaTextViewBackground
-        // FIXME: viewModel bind완료 후 text 제거
-        textView.text = "Sample2"
         textView.layer.cornerRadius = 4
         textView.clipsToBounds = true
         textView.textColor = .black
@@ -95,7 +91,7 @@ final class AgreementViewController: UIViewController {
     }
     
     deinit {
-        // FIXME: ViewModel의 Deinit Input 연결
+        self.viewModel.deinitRequested()
     }
     
     // MARK: - Lifecycle Methods
@@ -105,6 +101,7 @@ final class AgreementViewController: UIViewController {
         configureUI()
         configureFont()
         bindUI()
+        self.viewModel.viewDidLoad()
     }
     
     // MARK: - Helpers
@@ -189,11 +186,45 @@ final class AgreementViewController: UIViewController {
     }
     
     private func bindUI() {
-        // FIXME: ViewModel과 병합 후 작성
         Publishers.CombineLatest(self.privacyPolicyCheckBox.$value, self.serviceAgreementCheckBox.$value)
             .sink { (privacyPolicy, serviceAgreement) in
                 self.nextButton.isEnabled = privacyPolicy && serviceAgreement
             }
             .store(in: &self.cancellables)
+        
+        self.viewModel.privacyPolicyPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] privacyPolicy in
+                self?.privacyPolicyTextView.text = privacyPolicy
+            }
+            .store(in: &self.cancellables)
+        
+        self.viewModel.serviceAgreementPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] serviceAgreement in
+                self?.serviceAgreementTextView.text = serviceAgreement
+            }
+            .store(in: &self.cancellables)
+        
+        self.nextButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                self?.viewModel.pairButtonDidTap()
+            }
+            .store(in: &self.cancellables)
+        
+        self.viewModel.errorPublisher
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                self?.showErrorAlert(message: error.localizedDescription)
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController.defaultAlert(title: "오류", message: message, handler: { _ in })
+        self.present(alert, animated: true)
     }
 }
