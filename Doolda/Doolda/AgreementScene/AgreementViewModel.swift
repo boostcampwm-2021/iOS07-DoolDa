@@ -11,6 +11,7 @@ import Foundation
 protocol AgreementViewModelInput {
     func viewDidLoad()
     func pairButtonDidTap()
+    func deinitRequested()
 }
 
 protocol AgreementViewModelOutput {
