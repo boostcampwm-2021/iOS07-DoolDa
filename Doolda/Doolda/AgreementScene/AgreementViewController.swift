@@ -69,7 +69,7 @@ final class AgreementViewController: UIViewController {
         return textView
     }()
     
-    private lazy var nextButton: DooldaButton = {
+    private lazy var pairButton: DooldaButton = {
         let button = DooldaButton()
         button.setTitle("친구 연결하기", for: .normal)
         button.setTitleColor(.dooldaLabel, for: .normal)
@@ -167,8 +167,8 @@ final class AgreementViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
         }
         
-        self.contentView.addSubview(self.nextButton)
-        self.nextButton.snp.makeConstraints { make in
+        self.contentView.addSubview(self.pairButton)
+        self.pairButton.snp.makeConstraints { make in
             make.top.equalTo(self.privacyPolicyTextView.snp.bottom).offset(20)
             make.height.equalTo(44)
             make.leading.equalToSuperview().offset(16)
@@ -182,13 +182,13 @@ final class AgreementViewController: UIViewController {
         self.subtitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 18)
         self.serviceAgreementCheckBox.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.privacyPolicyCheckBox.font = UIFont(name: FontType.dovemayo.name, size: 14)
-        self.nextButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
+        self.pairButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
     }
     
     private func bindUI() {
         Publishers.CombineLatest(self.privacyPolicyCheckBox.$value, self.serviceAgreementCheckBox.$value)
             .sink { (privacyPolicy, serviceAgreement) in
-                self.nextButton.isEnabled = privacyPolicy && serviceAgreement
+                self.pairButton.isEnabled = privacyPolicy && serviceAgreement
             }
             .store(in: &self.cancellables)
         
@@ -206,7 +206,7 @@ final class AgreementViewController: UIViewController {
             }
             .store(in: &self.cancellables)
         
-        self.nextButton.publisher(for: .touchUpInside)
+        self.pairButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 self?.viewModel.pairButtonDidTap()
             }
