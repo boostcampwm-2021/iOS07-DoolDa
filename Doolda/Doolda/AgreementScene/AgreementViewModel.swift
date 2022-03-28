@@ -10,7 +10,7 @@ import Foundation
 
 protocol AgreementViewModelInput {
     func viewDidLoad()
-    func nextButtonDidTap()
+    func pairButtonDidTap()
 }
 
 protocol AgreementViewModelOutput {
@@ -46,8 +46,8 @@ final class AgreementViewModel: AgreementViewModelProtocol {
         // FIXME: 서비스 정책 및 개인정보 정책에 관한 데이터 어떻게 로드할지 결정 후 작성
     }
     
-    func nextButtonDidTap() {
-        // FIXME: 코디네이터 생성 후 연결
+    func pairButtonDidTap() {
+        self.registerUserUseCase.register()
     }
     
     func deinitRequested() {
