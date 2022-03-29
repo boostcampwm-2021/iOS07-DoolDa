@@ -74,7 +74,6 @@ class AuthenticationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // FIXME: - Coordinator 구현 전 임시 코드
-        self.viewModel = AuthenticationViewModel(authenticationUseCase: AuthenticationUseCase())
         self.configureUI()
         self.bindUI()
     }
