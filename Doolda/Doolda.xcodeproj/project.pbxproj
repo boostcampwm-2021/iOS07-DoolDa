@@ -303,6 +303,7 @@
 		66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9370273671910036CED2 /* PairUserUseCase.swift */; };
 		66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */; };
 		66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */; };
+		A40AA69D27F3595400754E4F /* AuthenticationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA69C27F3595400754E4F /* AuthenticationUseCaseProtocol.swift */; };
 		FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */; };
 		FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */; };
 		FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
@@ -601,6 +602,7 @@
 		66FE9370273671910036CED2 /* PairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCase.swift; sourceTree = "<group>"; };
 		66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserUseCase.swift; sourceTree = "<group>"; };
 		66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
+		A40AA69C27F3595400754E4F /* AuthenticationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseProtocol.swift; sourceTree = "<group>"; };
 		FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailViewController.swift; sourceTree = "<group>"; };
 		FC28CB31274609F300BA47BB /* TextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCase.swift; sourceTree = "<group>"; };
@@ -2282,6 +2284,7 @@
 				FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */,
 				6653039B2743B3FF00E3075C /* CoreDataModel.xcdatamodeld in Sources */,
 				FCD24D75274392AB000203F7 /* GlobalFontRepositoryProtocol.swift in Sources */,
+				A40AA69D27F3595400754E4F /* AuthenticationUseCaseProtocol.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
 				1D3925D0273C1263003A0B70 /* CGFloat+Extensions.swift in Sources */,
 				66F176192754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift in Sources */,
