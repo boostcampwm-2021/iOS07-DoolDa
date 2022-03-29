@@ -307,6 +307,7 @@
 		A40AA6A027F35C0C00754E4F /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */; };
 		A40AA6A227F362A100754E4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */; };
 		A40AA6A427F3651200754E4F /* AuthenticationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A327F3651200754E4F /* AuthenticationUseCase.swift */; };
+		A40AA6A627F369EA00754E4F /* AuthenticationViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */; };
 		FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */; };
 		FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */; };
 		FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
@@ -609,6 +610,7 @@
 		A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		A40AA6A327F3651200754E4F /* AuthenticationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCase.swift; sourceTree = "<group>"; };
+		A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewCoordinator.swift; sourceTree = "<group>"; };
 		FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailViewController.swift; sourceTree = "<group>"; };
 		FC28CB31274609F300BA47BB /* TextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCase.swift; sourceTree = "<group>"; };
@@ -1420,6 +1422,7 @@
 			children = (
 				A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */,
 				A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */,
+				A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */,
 			);
 			path = AuthenticationScene;
 			sourceTree = "<group>";
@@ -2298,6 +2301,7 @@
 				1DD58BD62754ACA600B93184 /* DiaryPageView.swift in Sources */,
 				317FB60D274A8F59005DF3A3 /* SettingsViewController.swift in Sources */,
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
+				A40AA6A627F369EA00754E4F /* AuthenticationViewCoordinator.swift in Sources */,
 				FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */,
 				6653039B2743B3FF00E3075C /* CoreDataModel.xcdatamodeld in Sources */,
 				FCD24D75274392AB000203F7 /* GlobalFontRepositoryProtocol.swift in Sources */,
