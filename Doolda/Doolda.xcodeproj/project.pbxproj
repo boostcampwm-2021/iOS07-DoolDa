@@ -304,6 +304,9 @@
 		66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */; };
 		66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */; };
 		A40AA69D27F3595400754E4F /* AuthenticationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA69C27F3595400754E4F /* AuthenticationUseCaseProtocol.swift */; };
+		A40AA6A027F35C0C00754E4F /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */; };
+		A40AA6A227F362A100754E4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */; };
+		A40AA6A427F3651200754E4F /* AuthenticationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A327F3651200754E4F /* AuthenticationUseCase.swift */; };
 		FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */; };
 		FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */; };
 		FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
@@ -603,6 +606,9 @@
 		66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserUseCase.swift; sourceTree = "<group>"; };
 		66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		A40AA69C27F3595400754E4F /* AuthenticationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseProtocol.swift; sourceTree = "<group>"; };
+		A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		A40AA6A327F3651200754E4F /* AuthenticationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCase.swift; sourceTree = "<group>"; };
 		FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailViewController.swift; sourceTree = "<group>"; };
 		FC28CB31274609F300BA47BB /* TextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCase.swift; sourceTree = "<group>"; };
@@ -1075,6 +1081,7 @@
 				664893E927300B59009F03E2 /* Support */,
 				1DD0F3602747B10000FC5E65 /* Common */,
 				1DD0F35A2747AE8600FC5E65 /* SplashScene */,
+				A40AA69E27F35BE500754E4F /* AuthenticationScene */,
 				1DD0F35E2747AF5A00FC5E65 /* PairingScene */,
 				1DD0F35F2747AFC800FC5E65 /* DiaryScene */,
 				318D9F6E274E129C00AA6F0E /* PageDetailScene */,
@@ -1406,6 +1413,15 @@
 				1D77EDF72779ED000007BFF3 /* AuthenticationUseCaseProtocol.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		A40AA69E27F35BE500754E4F /* AuthenticationScene */ = {
+			isa = PBXGroup;
+			children = (
+				A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */,
+				A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */,
+			);
+			path = AuthenticationScene;
 			sourceTree = "<group>";
 		};
 		FC44599A2755DF04004888B9 /* Dummies */ = {
@@ -2223,6 +2239,7 @@
 				66F176212754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift in Sources */,
 				FCC803FA27451A8000FFE4DC /* TextEditViewController.swift in Sources */,
 				1D99946A274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift in Sources */,
+				A40AA6A027F35C0C00754E4F /* AuthenticationViewController.swift in Sources */,
 				FC822FAA2736088100C918A0 /* URLSessionNetworkService.swift in Sources */,
 				FC822FAC27360F8600C918A0 /* URLRequsetBuilder.swift in Sources */,
 				310125922738325800E43160 /* UIAlertController+Extensions.swift in Sources */,
@@ -2314,6 +2331,7 @@
 				1D99946C274CEF2900C72273 /* FirebaseMessageRepository.swift in Sources */,
 				FCD24D7327439268000203F7 /* GlobalFontRepository.swift in Sources */,
 				FC5FB7DC2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */,
+				A40AA6A427F3651200754E4F /* AuthenticationUseCase.swift in Sources */,
 				318D9F76274E258D00AA6F0E /* PageDetailViewController.swift in Sources */,
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
 				FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */,
@@ -2334,6 +2352,7 @@
 				66F176252754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift in Sources */,
 				66ECCD3A273E5342003990EE /* CarouselView.swift in Sources */,
 				66CAFF242740F63A00A48DCF /* BackgroundTypePickerViewController.swift in Sources */,
+				A40AA6A227F362A100754E4F /* AuthenticationViewModel.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
 				1D99946E274CEFC500C72273 /* FirebaseMessageUseCase.swift in Sources */,
 				665303A02743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift in Sources */,
