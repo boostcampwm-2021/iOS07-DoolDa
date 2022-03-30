@@ -27,7 +27,6 @@ class PairingViewCoordinator: BaseCoordinator {
     init(identifier: UUID, presenter: UINavigationController, user: User) {
         self.user = user
         super.init(identifier: identifier, presenter: presenter)
-        self.bind()
     }
     
     func start() {
@@ -58,23 +57,20 @@ class PairingViewCoordinator: BaseCoordinator {
             refreshUserUseCase: refreshUserUseCase,
             firebaseMessageUseCase: firebaseMessageUseCase
         )
+        
+        viewModel.pairedUserPublisher
+            .compactMap { $0 }
+            .sink { [weak self] user in
+                self?.userDidPaired(user: user)
+            }
+            .store(in: &self.cancellables)
 
         DispatchQueue.main.async {
             let viewController = PairingViewController(viewModel: viewModel)
             self.presenter.setViewControllers([viewController], animated: false)
         }
     }
-    
-    private func bind() {
-        NotificationCenter.default.publisher(for: Notifications.userDidPaired, object: nil)
-            .receive(on: DispatchQueue.main)
-            .compactMap { $0.userInfo?[Keys.user] as? User }
-            .sink { [weak self] user in
-                self?.userDidPaired(user: user)
-            }
-            .store(in: &self.cancellables)
-    }
-    
+
     private func userDidPaired(user: User) {
         let identifier = UUID()
         let diaryViewCoordinator = DiaryViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
