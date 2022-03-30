@@ -9,6 +9,9 @@ import Combine
 import Foundation
 
 import FirebaseAuth
+final class SplashViewModel {
+    @Published var error: Error?
+    @Published private(set) var user: User?
 
 protocol SplashViewModelInput {
     func validateAccount()
@@ -31,7 +34,6 @@ final class SplashViewModel: SplashViewModelProtocol {
     private let globalFontUseCase: GlobalFontUseCaseProtocol
 
     private var cancellables: Set<AnyCancellable> = []
-    @Published private var error: Error?
     
     init(
         sceneId: UUID,
@@ -66,49 +68,15 @@ final class SplashViewModel: SplashViewModelProtocol {
             )
         }
     }
-    
-    private func validateUserId(user: FirebaseAuth.User) {
-        self.getMyIdUseCase.getMyId(for: user.uid)
-            .sink { [weak self] ddid in
-                if let userId = ddid {
-                    self?.validateAgreement(userId: userId)
-                } else {
-                    NotificationCenter.default.post(
-                        name: SplashViewCoordinator.Notifications.userNotExists,
-                        object: self
-                    )
-                }
-            }
+
+    private func bind() {
+        self.registerUserUseCase.registeredUserPublisher
+            .compactMap { $0 }
+            .sink(receiveValue: { [weak self] in self?.user = $0 })
             .store(in: &self.cancellables)
-    }
-    
-    private func validateAgreement(userId: DDID) {
-        self.getUserUseCase.getUser(for: userId)
-            .sink { completion in
-                guard case .failure(let error) = completion else { return }
-                // TODO: - error를 식별해 처리해야함.
-                print(error)
-                NotificationCenter.default.post(
-                    name: SplashViewCoordinator.Notifications.userNotExists,
-                    object: self
-                )
-                self.error = error
-            } receiveValue: { user in
-                if user.pairId?.ddidString.isEmpty == false {
-                    NotificationCenter.default.post(
-                        name: SplashViewCoordinator.Notifications.userAlreadyPaired,
-                        object: self,
-                        userInfo: [SplashViewCoordinator.Keys.user: user]
-                    )
-                } else {
-                    NotificationCenter.default.post(
-                        name: SplashViewCoordinator.Notifications.userNotPaired,
-                        object: self,
-                        userInfo: [SplashViewCoordinator.Keys.myId: user.id]
-                    )
-                }
-            }
-            .store(in: &self.cancellables)
+
+        self.registerUserUseCase.errorPublisher
+            .assign(to: &$error)
     }
 
     private func applyGlobalFont() {
