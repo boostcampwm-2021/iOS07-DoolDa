@@ -79,14 +79,10 @@ final class PairingViewModel: PairingViewModelProtocol {
         self.pairUserUseCase.pairedUserPublisher
             .compactMap { $0 }
             .sink { [weak self] user in
+                self?.pairedUser = user
                 if let friendId = user.friendId, friendId != user.id {
                     self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPairedWithFriend)
                 }
-                NotificationCenter.default.post(
-                    name: PairingViewCoordinator.Notifications.userDidPaired,
-                    object: nil,
-                    userInfo: [PairingViewCoordinator.Keys.user: user]
-                )
             }
             .store(in: &self.cancellables)
         
@@ -94,11 +90,8 @@ final class PairingViewModel: PairingViewModelProtocol {
             .compactMap { $0 }
             .sink { [weak self] user in
                 if user.pairId != nil {
-                    NotificationCenter.default.post(
-                        name: PairingViewCoordinator.Notifications.userDidPaired,
-                        object: nil,
-                        userInfo: [PairingViewCoordinator.Keys.user: user]
-                    )
+                    self?.pairedUser = user
+
                 } else {
                     self?.isPairedByRefresh = false
                 }
