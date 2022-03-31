@@ -50,6 +50,13 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     var componentsPublisher: AnyPublisher<[ComponentEntity], Never> { self.$components.eraseToAnyPublisher() }
     var backgroundPublisher: AnyPublisher<BackgroundType, Never> { self.$background.eraseToAnyPublisher() }
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
+    
+    var editPageSaved = PassthroughSubject<Void, Never>()
+    var editPageCanceled = PassthroughSubject<Void, Never>()
+    var addPhotoComponent = PassthroughSubject<Void, Never>()
+    var editTextComponent = PassthroughSubject<TextComponentEntity?, Never>()
+    var addStrickerComponent = PassthroughSubject<Void, Never>()
+    var changeBackGroundType = PassthroughSubject<Void, Never>()
 
     private let sceneId: UUID
     private let user: User
@@ -60,7 +67,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published private var selectedComponent: ComponentEntity? = nil
+    @Published private var selectedComponent: ComponentEntity?
     @Published private var components: [ComponentEntity] = []
     @Published private var background: BackgroundType = .dooldaBackground
     @Published private var error: Error?
@@ -103,7 +110,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
                 if let friendId = self.user.friendId, friendId != self.user.id {
                     self.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPostedNewPage)
                 }
-                NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.editPageSaved, object: nil)
+                self.editPageSaved.send()
             }.store(in: &self.cancellables)
         
         self.editPageUseCase.errorPublisher
@@ -161,19 +168,19 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func photoComponentAddButtonDidTap() {
-        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.addPhotoComponent, object: nil)
+        self.addPhotoComponent.send()
     }
     
     func textComponentAddButtonDidTap() {
-        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.editTextComponent, object: nil)
+        self.editTextComponent.send(nil)
     }
     
     func stickerComponentAddButtonDidTap() {
-        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.addStickerComponent, object: nil)
+        self.addStrickerComponent.send()
     }
     
     func backgroundTypeButtonDidTap() {
-        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.changeBackgroundType, object: nil)
+        self.changeBackGroundType.send()
     }
     
     func componentEntityDidAdd(_ component: ComponentEntity) {
@@ -189,7 +196,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func cancelEditingPageButtonDidTap() {
-        NotificationCenter.default.post(name: EditPageViewCoordinator.Notifications.editingPageCanceled, object: nil)
+        self.editPageCanceled.send()
     }
     
     func deinitRequested() {
