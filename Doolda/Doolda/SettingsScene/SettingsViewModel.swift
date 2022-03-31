@@ -33,6 +33,9 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     var pushNotificationStatePublisher: AnyPublisher<Bool?, Never> { self.$isPushNotificationOn.eraseToAnyPublisher() }
     var selectedFontPublisher: AnyPublisher<FontType?, Never> { self.$selectedFont.eraseToAnyPublisher() }
+    
+    var fontPickerSheetRequested = PassthroughSubject<Void, Never>()
+    var informationViewRequested = PassthroughSubject<DooldaInfoType, Never>()
 
     private let sceneId: UUID
     private let user: User
@@ -70,11 +73,8 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         self.selectedFont = self.globalFontUseCase.getGlobalFont()
     }
 
-    func fontCellDidTap() {
-        NotificationCenter.default.post(
-            name: SettingsViewCoordinator.Notifications.fontPickerSheetRequested,
-            object: nil
-        )
+    func fontTypeDidTap() {
+        self.fontPickerSheetRequested.send()
     }
 
     func fontTypeDidChanged(_ fontName: String) {
@@ -87,28 +87,16 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         self.pushNotificationStateUseCase.setPushNotificationState(as: isOn)
     }
 
-    func openSourceCellDidTap() {
-        NotificationCenter.default.post(
-            name: SettingsViewCoordinator.Notifications.informationViewRequested,
-            object: nil,
-            userInfo: [SettingsViewCoordinator.Keys.infoType: DooldaInfoType.openSourceLicense]
-        )
+    func openSourceLicenseDidTap() {
+        self.informationViewRequested.send(DooldaInfoType.openSourceLicense)
     }
 
-    func privacyCellDidTap() {
-        NotificationCenter.default.post(
-            name: SettingsViewCoordinator.Notifications.informationViewRequested,
-            object: nil,
-            userInfo: [SettingsViewCoordinator.Keys.infoType: DooldaInfoType.privacyPolicy]
-        )
+    func privacyPolicyDidTap() {
+        self.informationViewRequested.send(DooldaInfoType.privacyPolicy)
     }
 
-    func contributorCellDidTap() {
-        NotificationCenter.default.post(
-            name: SettingsViewCoordinator.Notifications.informationViewRequested,
-            object: nil,
-            userInfo: [SettingsViewCoordinator.Keys.infoType: DooldaInfoType.contributor]
-        )
+    func contributorDidTap() {
+        self.informationViewRequested.send(DooldaInfoType.contributor)
     }
     
     func unpairButtonDidTap() {
