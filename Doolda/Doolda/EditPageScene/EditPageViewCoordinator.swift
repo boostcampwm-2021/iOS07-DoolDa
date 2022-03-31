@@ -51,46 +51,11 @@ final class EditPageViewCoordinator: BaseCoordinator {
     // MARK: - Helpers
     
     private func bind() {
-        NotificationCenter.default.publisher(for: Notifications.editPageSaved, object: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.editingPageSaved()
-            }
-            .store(in: &self.cancellables)
-        
-        NotificationCenter.default.publisher(for: Notifications.editingPageCanceled, object: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.editingPageCanceled()
-            }
-            .store(in: &self.cancellables)
-        
-        NotificationCenter.default.publisher(for: Notifications.addPhotoComponent, object: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.addPhotoComponent()
-            }
-            .store(in: &self.cancellables)
-        
         NotificationCenter.default.publisher(for: Notifications.editTextComponent, object: nil)
             .map { $0.userInfo?[EditPageViewCoordinator.Keys.textComponent] as? TextComponentEntity }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] textComponent in
                 self?.editTextComponent(with: textComponent)
-            }
-            .store(in: &self.cancellables)
-        
-        NotificationCenter.default.publisher(for: Notifications.addStickerComponent, object: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.addStickerComponent()
-            }
-            .store(in: &self.cancellables)
-        
-        NotificationCenter.default.publisher(for: Notifications.changeBackgroundType, object: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.changeBackgroundType()
             }
             .store(in: &self.cancellables)
     }
@@ -145,6 +110,42 @@ final class EditPageViewCoordinator: BaseCoordinator {
                 editPageUseCase: editPageUseCase,
                 firebaseMessageUseCase: firebaseMessageUseCase
             )
+            
+            editPageViewModel.editPageSaved
+                .sink { [weak self] _ in
+                    self?.editingPageSaved()
+                }
+                .store(in: &self.cancellables)
+            
+            editPageViewModel.editPageCanceled
+                .sink { [weak self] _ in
+                    self?.editingPageCanceled()
+                }
+                .store(in: &self.cancellables)
+            
+            editPageViewModel.addPhotoComponent
+                .sink { [weak self] _ in
+                    self?.addPhotoComponent()
+                }
+                .store(in: &self.cancellables)
+            
+            editPageViewModel.editTextComponent
+                .sink { [weak self] textComponentEntity in
+                    self?.editTextComponent(with: textComponentEntity)
+                }
+                .store(in: &self.cancellables)
+            
+            editPageViewModel.addStrickerComponent
+                .sink { [weak self] _ in
+                    self?.addStickerComponent()
+                }
+                .store(in: &self.cancellables)
+            
+            editPageViewModel.changeBackGroundType
+                .sink { [weak self] _ in
+                    self?.changeBackgroundType()
+                }
+                .store(in: &self.cancellables)
             
             let viewController = EditPageViewController(viewModel: editPageViewModel)
             self.presenter.pushViewController(viewController, animated: true)
