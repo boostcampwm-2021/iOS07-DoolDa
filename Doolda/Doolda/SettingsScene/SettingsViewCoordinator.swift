@@ -21,7 +21,6 @@ class SettingsViewCoordinator: BaseCoordinator {
         static let infoType = "infoType"
     }
 
-
     // MARK: - Private Properties
 
     private let user: User
@@ -33,26 +32,6 @@ class SettingsViewCoordinator: BaseCoordinator {
     init(identifier: UUID, presenter: UINavigationController, user: User) {
         self.user = user
         super.init(identifier: identifier, presenter: presenter)
-        self.bind()
-    }
-
-    // MARK: - Helpers
-
-    private func bind() {
-        NotificationCenter.default.publisher(for: Notifications.fontPickerSheetRequested, object: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.fontPickerSheetRequested()
-            }
-            .store(in: &self.cancellables)
-
-        NotificationCenter.default.publisher(for: Notifications.informationViewRequested, object: nil)
-            .receive(on: DispatchQueue.main)
-            .compactMap { $0.userInfo?[Keys.infoType] as? DooldaInfoType }
-            .sink { [weak self] infoType in
-                self?.informationViewRequested(for: infoType)
-            }
-            .store(in: &self.cancellables)
     }
 
     // MARK: - Public Methods
@@ -89,6 +68,19 @@ class SettingsViewCoordinator: BaseCoordinator {
                 pushNotificationStateUseCase: pushNotificationStateUseCase,
                 firebaseMessageUseCase: firebaseMessageUseCase
             )
+            
+            viewModel.fontPickerSheetRequested
+                .sink { [weak self] _ in
+                    self?.fontPickerSheetRequested()
+                }
+                .store(in: &self.cancellables)
+            
+            viewModel.informationViewRequested
+                .sink { [weak self] infoType in
+                    self?.informationViewRequested(for: infoType)
+                }
+                .store(in: &self.cancellables)
+
             let viewController = SettingsViewController(viewModel: viewModel)
             self.presenter.pushViewController(viewController, animated: true)
         }
@@ -114,5 +106,4 @@ class SettingsViewCoordinator: BaseCoordinator {
         }
         self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
     }
-
 }
