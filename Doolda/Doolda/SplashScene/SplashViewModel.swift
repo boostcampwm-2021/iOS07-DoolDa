@@ -86,26 +86,25 @@ final class SplashViewModel: SplashViewModelProtocol {
         self.getUserUseCase.getUser(for: userId)
             .sink { completion in
                 guard case .failure(let error) = completion else { return }
+                // TODO: - error를 식별해 처리해야함.
+                print(error)
+                NotificationCenter.default.post(
+                    name: SplashViewCoordinator.Notifications.userNotExists,
+                    object: self
+                )
                 self.error = error
-            } receiveValue: { dooldaUser in
-                if let user = dooldaUser {
-                    if user.pairId?.ddidString.isEmpty == false {
-                        NotificationCenter.default.post(
-                            name: SplashViewCoordinator.Notifications.userAlreadyPaired,
-                            object: self,
-                            userInfo: [SplashViewCoordinator.Keys.user: user]
-                        )
-                    } else {
-                        NotificationCenter.default.post(
-                            name: SplashViewCoordinator.Notifications.userNotPaired,
-                            object: self,
-                            userInfo: [SplashViewCoordinator.Keys.myId: user.id]
-                        )
-                    }
+            } receiveValue: { user in
+                if user.pairId?.ddidString.isEmpty == false {
+                    NotificationCenter.default.post(
+                        name: SplashViewCoordinator.Notifications.userAlreadyPaired,
+                        object: self,
+                        userInfo: [SplashViewCoordinator.Keys.user: user]
+                    )
                 } else {
                     NotificationCenter.default.post(
-                        name: SplashViewCoordinator.Notifications.userNotExists,
-                        object: self
+                        name: SplashViewCoordinator.Notifications.userNotPaired,
+                        object: self,
+                        userInfo: [SplashViewCoordinator.Keys.myId: user.id]
                     )
                 }
             }
