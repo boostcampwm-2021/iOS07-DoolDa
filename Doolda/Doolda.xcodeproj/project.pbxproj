@@ -53,8 +53,6 @@
 		1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F6273140CF00A9AD6B /* CopyableLabel.swift */; };
 		1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */; };
 		1D77EDF82779ED000007BFF3 /* AuthenticationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D77EDF72779ED000007BFF3 /* AuthenticationUseCaseProtocol.swift */; };
-		1D77EDFB2779EFB70007BFF3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1D77EDFA2779EFB70007BFF3 /* FirebaseAuth */; };
-		1D77EDFD2779EFB70007BFF3 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D77EDFC2779EFB70007BFF3 /* FirebaseMessaging */; };
 		1D77EDFF2779F9B90007BFF3 /* AuthenticationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D77EDFE2779F9B90007BFF3 /* AuthenticationUseCase.swift */; };
 		1D8646A3274D2DB600C4511D /* PushMessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */; };
 		1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
@@ -307,10 +305,8 @@
 		66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9370273671910036CED2 /* PairUserUseCase.swift */; };
 		66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */; };
 		66FE93CC27396B960036CED2 /* PhotoPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */; };
-		A40AA69D27F3595400754E4F /* AuthenticationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA69C27F3595400754E4F /* AuthenticationUseCaseProtocol.swift */; };
 		A40AA6A027F35C0C00754E4F /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */; };
 		A40AA6A227F362A100754E4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */; };
-		A40AA6A427F3651200754E4F /* AuthenticationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A327F3651200754E4F /* AuthenticationUseCase.swift */; };
 		A40AA6A627F369EA00754E4F /* AuthenticationViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */; };
 		FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */; };
 		FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */; };
@@ -614,10 +610,8 @@
 		66FE9370273671910036CED2 /* PairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCase.swift; sourceTree = "<group>"; };
 		66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserUseCase.swift; sourceTree = "<group>"; };
 		66FE93CB27396B950036CED2 /* PhotoPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
-		A40AA69C27F3595400754E4F /* AuthenticationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCaseProtocol.swift; sourceTree = "<group>"; };
 		A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
-		A40AA6A327F3651200754E4F /* AuthenticationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUseCase.swift; sourceTree = "<group>"; };
 		A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewCoordinator.swift; sourceTree = "<group>"; };
 		FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailViewController.swift; sourceTree = "<group>"; };
@@ -2327,7 +2321,6 @@
 				FCCF022F273A12B400EAB00B /* EditPageViewController.swift in Sources */,
 				6653039B2743B3FF00E3075C /* CoreDataModel.xcdatamodeld in Sources */,
 				FCD24D75274392AB000203F7 /* GlobalFontRepositoryProtocol.swift in Sources */,
-				A40AA69D27F3595400754E4F /* AuthenticationUseCaseProtocol.swift in Sources */,
 				1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */,
 				1D3925D0273C1263003A0B70 /* CGFloat+Extensions.swift in Sources */,
 				66F176192754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift in Sources */,
@@ -2359,7 +2352,6 @@
 				1D99946C274CEF2900C72273 /* FirebaseMessageRepository.swift in Sources */,
 				FCD24D7327439268000203F7 /* GlobalFontRepository.swift in Sources */,
 				FC5FB7DC2733A4AA008AC3D2 /* UserDefaults+Extensions.swift in Sources */,
-				A40AA6A427F3651200754E4F /* AuthenticationUseCase.swift in Sources */,
 				318D9F76274E258D00AA6F0E /* PageDetailViewController.swift in Sources */,
 				FC5FB793273260C3008AC3D2 /* UserRepository.swift in Sources */,
 				FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */,
