@@ -73,7 +73,6 @@ class AuthenticationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // FIXME: - Coordinator 구현 전 임시 코드
         self.configureUI()
         self.bindUI()
     }
@@ -121,39 +120,15 @@ class AuthenticationViewController: UIViewController {
     }
 
     private func bindUI() {
-        self.viewModel.noncePublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] nonce in
-                self?.performSignIn(with: nonce)
-            }
-            .store(in: &self.cancellables)
-
         self.appleLoginButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
-                self?.viewModel.appleLoginButtonDidTap()
+                self?.viewModel.appleLoginButtonDidTap(
+                    authControllerDelegate: self,
+                    authControllerPresentationProvider: self
+                )
             }
             .store(in: &self.cancellables)
     }
-
-    // MARK: - Private Methods
-
-    private func performSignIn(with nonce: String) {
-        guard let request = self.createAppleIDRequest(with: nonce) else { return }
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
-    }
-
-    private func createAppleIDRequest(with nonce: String) -> ASAuthorizationAppleIDRequest? {
-        if nonce.isEmpty { return nil }
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = nonce
-        return request
-    }
-
 }
 
 extension AuthenticationViewController: ASAuthorizationControllerDelegate {

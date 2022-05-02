@@ -13,13 +13,15 @@ import Foundation
 import FirebaseAuth
 
 protocol AuthenticationViewModelInput {
-    func appleLoginButtonDidTap()
+    func appleLoginButtonDidTap(
+        authControllerDelegate: ASAuthorizationControllerDelegate?,
+        authControllerPresentationProvider: ASAuthorizationControllerPresentationContextProviding?
+    )
     func signIn(authorization: ASAuthorization)
     func deinitRequested()
 }
 
 protocol AuthenticationViewModelOutput {
-    var noncePublisher: AnyPublisher<String, Never> { get }
     var errorPublisher: AnyPublisher<Error?, Never> { get }
 }
 
@@ -37,27 +39,25 @@ enum AuthenticatoinError: LocalizedError {
 }
 
 final class AuthenticationViewModel: AuthenticationViewModelProtocol {
-    var noncePublisher: AnyPublisher<String, Never> { self.$nonce.eraseToAnyPublisher() }
+    enum AuthProviders {
+        static let apple = "apple.com"
+    }
+    
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     
-    @Published private var nonce: String = ""
     @Published private var error: Error?
 
     private let sceneId: UUID
     private let authenticationUseCase: AuthenticationUseCaseProtocol
+    
+    private var rawNonce: String?
 
     init(sceneId: UUID, authenticationUseCase: AuthenticationUseCaseProtocol) {
         self.sceneId = sceneId
         self.authenticationUseCase = authenticationUseCase
     }
-
-    func appleLoginButtonDidTap() {
-        let randomNonce = self.randomNonceString()
-        self.nonce = sha256(randomNonce)
-    }
-
+    
     func signIn(authorization: ASAuthorization) {
-        if self.nonce.isEmpty { return }
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
               let appleIDToken = appleIDCredential.identityToken,
               let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
@@ -65,10 +65,19 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
                   return
               }
 
-        let appleCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: self.nonce)
+        let appleCredential = OAuthProvider.credential(
+            withProviderID: AuthProviders.apple,
+            idToken: idTokenString,
+            rawNonce: self.rawNonce
+        )
 
-        self.authenticationUseCase.signIn(credential: appleCredential) { data, _ in
-            if let _ = data?.user {
+        self.authenticationUseCase.signIn(credential: appleCredential) { [weak self] data, error in
+            if let error = error {
+                self?.error = error
+                return
+            }
+            
+            if data?.user != nil {
                 NotificationCenter.default.post(
                     name: AuthenticationViewCoordinator.Notifications.userDidSignIn,
                     object: nil
@@ -84,54 +93,36 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
             userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
         )
     }
-
-    private func createAppleIDRequest() -> ASAuthorizationAppleIDRequest {
+    
+    // TODO: Create addtional usecase for apple authentication
+    
+    func appleLoginButtonDidTap(
+        authControllerDelegate: ASAuthorizationControllerDelegate?,
+        authControllerPresentationProvider: ASAuthorizationControllerPresentationContextProviding?
+    ) {
+        let rawNonce = self.randomNonceString()
+        self.rawNonce = rawNonce
+        
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        let nonce = self.randomNonceString()
         request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(nonce)
-        return request
+        request.nonce = sha256(rawNonce)
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = authControllerDelegate
+        authorizationController.presentationContextProvider = authControllerPresentationProvider
+        authorizationController.performRequests()
     }
 
     private func sha256(_ input: String) -> String {
         let inputData = Data(input.utf8)
         let hashedData = SHA256.hash(data: inputData)
-        let hashString = hashedData.compactMap {
-            return String(format: "%02x", $0)
-        }.joined()
-
-        return hashString
+        return hashedData.compactMap { String(format: "%02x", $0) }.joined()
     }
 
-    private func randomNonceString(length: Int = 32) -> String {
-        precondition(length > 0)
-        let charset: Array<Character> = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-        var result = ""
-        var remainingLength = length
-
-        while remainingLength > 0 {
-            let randoms: [UInt8] = (0 ..< 16).map { _ in
-                var random: UInt8 = 0
-                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
-                if errorCode != errSecSuccess {
-                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
-                }
-                return random
-            }
-
-            randoms.forEach { random in
-                if remainingLength == 0 {
-                    return
-                }
-
-                if random < charset.count {
-                    result.append(charset[Int(random)])
-                    remainingLength -= 1
-                }
-            }
-        }
-
-        return result
+    private func randomNonceString(with length: Int = 32) -> String {
+        String((0..<length).compactMap { _ in
+            "0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._".randomElement()
+        })
     }
 }
