@@ -9,9 +9,6 @@ import Combine
 import Foundation
 
 import FirebaseAuth
-final class SplashViewModel {
-    @Published var error: Error?
-    @Published private(set) var user: User?
 
 protocol SplashViewModelInput {
     func validateAccount()
@@ -26,12 +23,18 @@ typealias SplashViewModelProtocol = SplashViewModelInput & SplashViewModelOutput
 
 final class SplashViewModel: SplashViewModelProtocol {
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
+    @Published var error: Error?
+    @Published private(set) var user: User?
     
     private let sceneId: UUID
     private let authenticationUseCase: AuthenticationUseCaseProtocol
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
     private let getUserUseCase: GetUserUseCaseProtocol
     private let globalFontUseCase: GlobalFontUseCaseProtocol
+    
+    var loginPageRequested = PassthroughSubject<Void, Never>()
+    var agreementPageRequested = PassthroughSubject<String, Never>()
+
 
     private var cancellables: Set<AnyCancellable> = []
     
@@ -62,22 +65,31 @@ final class SplashViewModel: SplashViewModelProtocol {
         if let currentUser = self.authenticationUseCase.getCurrentUser() {
             self.validateUserId(user: currentUser)
         } else {
-            NotificationCenter.default.post(
-                name: SplashViewCoordinator.Notifications.userNotLoggedIn,
-                object: self
-            )
+            self.loginPageRequested.send()
         }
     }
-
-    private func bind() {
-        self.registerUserUseCase.registeredUserPublisher
-            .compactMap { $0 }
-            .sink(receiveValue: { [weak self] in self?.user = $0 })
-            .store(in: &self.cancellables)
-
-        self.registerUserUseCase.errorPublisher
-            .assign(to: &$error)
-    }
+    
+    private func validateUserId(user: FirebaseAuth.User) {
+         self.getMyIdUseCase.getMyId(for: user.uid)
+             .sink { [weak self] ddid in
+                 if let userId = ddid {
+                     self?.validateAgreement(userId: userId)
+                 } else {
+                     self?.agreementPageRequested.send(user.uid)
+                 }
+             }
+             .store(in: &self.cancellables)
+     }
+    
+    private func validateAgreement(userId: DDID) {
+        self.getUserUseCase.getUser(for: userId)
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                self.error = error
+            } receiveValue: { [weak self] dooldaUser in
+                    self?.user = dooldaUser
+            }.store(in: &self.cancellables)
+     }
 
     private func applyGlobalFont() {
         guard let globalFont = self.globalFontUseCase.getGlobalFont() else { return }

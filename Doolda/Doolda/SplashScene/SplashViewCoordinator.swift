@@ -55,9 +55,22 @@ final class SplashViewCoordinator: BaseCoordinator {
             globalFontUseCase: globalFontUseCase
         )
         
+        viewModel.loginPageRequested
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.loginPageRequest()
+            }.store(in: &self.cancellables)
+        
+        viewModel.agreementPageRequested
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] uid in
+            self?.agreementPageRequest(uid: uid)
+        }.store(in: &self.cancellables)
+        
         viewModel.$user
             .compactMap { $0 }
-            .sink (receiveValue: {[weak self] user in
+            .receive(on: DispatchQueue.main)
+            .sink (receiveValue: { [weak self] user in
                 if user.pairId?.ddidString.isEmpty == false {
                     self?.userAlreadyPaired(user: user)
                 } else {
@@ -68,6 +81,22 @@ final class SplashViewCoordinator: BaseCoordinator {
 
         let viewController = SplashViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
+    }
+    
+    // FIXME: NOT IMPLEMENTED
+     private func loginPageRequest() {
+         let identifier = UUID()
+         let authenticationViewCoordinator = AuthenticationViewCoordinator(identifier: identifier, presenter: self.presenter)
+         self.children[identifier] = authenticationViewCoordinator
+         authenticationViewCoordinator.start()
+     }
+     
+    // FIXME: NOT IMPLEMENTED
+    private func agreementPageRequest(uid: String) {
+        print("your uid is \(uid)")
+        let agreementViewCoordinator = AgreementViewCoordinator(identifier: UUID(), presenter: self.presenter)
+        self.children[identifier] = agreementViewCoordinator
+        agreementViewCoordinator.start()
     }
     
     private func userNotPaired(myId: DDID) {

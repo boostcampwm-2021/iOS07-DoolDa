@@ -45,4 +45,3 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
         print("Present Agreement ViewController")
     }
 }
-
