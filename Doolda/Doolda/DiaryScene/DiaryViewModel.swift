@@ -98,7 +98,12 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     var isRefreshingPublisher: AnyPublisher<Bool, Never> { self.$isRefreshing.eraseToAnyPublisher() }
     var filteredPageEntitiesPublisher: AnyPublisher<[PageEntity], Never> { self.$filteredPageEntities.eraseToAnyPublisher() }
     var filteredEntityCount: Int { self.filteredPageEntities.count }
-  
+    
+    var addPageRequested = PassthroughSubject<Void, Never>()
+    var settingsPageRequested = PassthroughSubject<Void, Never>()
+    var pageDetailRequested = PassthroughSubject<PageEntity, Never>()
+    var filteringSheetRequested = PassthroughSubject<(DiaryAuthorFilter, DiaryOrderFilter), Never>()
+    
     @Published var displayMode: DiaryDisplayMode = .carousel
     @Published private var error: Error?
     @Published private var isRefreshing: Bool = false
@@ -153,11 +158,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     
     func pageDidTap(index: Int) {
         let selectedPageEntity = self.filteredPageEntities[index]
-        NotificationCenter.default.post(
-            name: DiaryViewCoordinator.Notifications.pageDetailRequested,
-            object: nil,
-            userInfo: [DiaryViewCoordinator.Keys.pageEntity: selectedPageEntity]
-        )
+        self.pageDetailRequested.send(selectedPageEntity)
     }
 
     func displayModeToggleButtonDidTap() {
@@ -165,10 +166,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func addPageButtonDidTap() {
-        NotificationCenter.default.post(
-            name: DiaryViewCoordinator.Notifications.addPageRequested,
-            object: nil
-        )
+        self.addPageRequested.send()
     }
     
     func refreshButtonDidTap() {
@@ -180,21 +178,11 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func settingsButtonDidTap() {
-        NotificationCenter.default.post(
-            name: DiaryViewCoordinator.Notifications.settingsPageRequested,
-            object: nil
-        )
+        self.settingsPageRequested.send()
     }
     
     func filterButtonDidTap() {
-        NotificationCenter.default.post(
-            name: DiaryViewCoordinator.Notifications.filteringSheetRequested,
-            object: nil,
-            userInfo: [
-                DiaryViewCoordinator.Keys.authorFilter: self.authorFilter,
-                DiaryViewCoordinator.Keys.orderFilter: self.orderFilter
-            ]
-        )
+        self.filteringSheetRequested.send((self.authorFilter, self.orderFilter))
     }
     
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {

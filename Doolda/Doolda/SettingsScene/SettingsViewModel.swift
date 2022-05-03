@@ -73,7 +73,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         self.selectedFont = self.globalFontUseCase.getGlobalFont()
     }
 
-    func fontTypeDidTap() {
+    func fontCellDidTap() {
         self.fontPickerSheetRequested.send()
     }
 
@@ -87,15 +87,15 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         self.pushNotificationStateUseCase.setPushNotificationState(as: isOn)
     }
 
-    func openSourceLicenseDidTap() {
+    func openSourceCellDidTap() {
         self.informationViewRequested.send(DooldaInfoType.openSourceLicense)
     }
 
-    func privacyPolicyDidTap() {
+    func privacyCellDidTap() {
         self.informationViewRequested.send(DooldaInfoType.privacyPolicy)
     }
 
-    func contributorDidTap() {
+    func contributorCellDidTap() {
         self.informationViewRequested.send(DooldaInfoType.contributor)
     }
     
