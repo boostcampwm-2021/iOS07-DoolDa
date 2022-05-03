@@ -31,7 +31,6 @@ final class DiaryViewCoordinator: BaseCoordinator {
     init(identifier: UUID, presenter: UINavigationController, user: User) {
         self.user = user
         super.init(identifier: identifier, presenter: presenter)
-        self.bind()
     }
     
     func start() {
@@ -73,42 +72,32 @@ final class DiaryViewCoordinator: BaseCoordinator {
             firebaseMessageUseCase: firebaseMessageUseCase
         )
         
-        let viewController = DiaryViewController(viewModel: viewModel)
-        self.presenter.setViewControllers([viewController], animated: false)
-    }
-    
-    private func bind() {
-        NotificationCenter.default.publisher(for: Notifications.addPageRequested, object: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+        viewModel.addPageRequested
+            .sink { [weak self]_ in
                 self?.editPageRequested()
             }
             .store(in: &self.cancellables)
         
-        NotificationCenter.default.publisher(for: Notifications.settingsPageRequested, object: nil)
-            .receive(on: DispatchQueue.main)
+        viewModel.settingsPageRequested
             .sink { [weak self] _ in
                 self?.settingsPageRequested()
             }
             .store(in: &self.cancellables)
-        
-        NotificationCenter.default.publisher(for: Notifications.pageDetailRequested, object: nil)
-            .receive(on: DispatchQueue.main)
-            .compactMap { $0.userInfo?[Keys.pageEntity] as? PageEntity }
+
+        viewModel.pageDetailRequested
             .sink { [weak self] pageEntity in
                 self?.pageDetailRequested(pageEntity: pageEntity)
             }
             .store(in: &self.cancellables)
         
-        NotificationCenter.default.publisher(for: Notifications.filteringSheetRequested, object: nil)
-            .receive(on: DispatchQueue.main)
-            .compactMap { ($0.userInfo?[Keys.authorFilter] as? DiaryAuthorFilter, $0.userInfo?[Keys.orderFilter] as? DiaryOrderFilter) }
-            .sink { [weak self] filters in
-                guard let authorFilter = filters.0,
-                      let orderFilter = filters.1 else { return }
+        viewModel.filteringSheetRequested
+            .sink { [weak self] authorFilter, orderFilter in
                 self?.filteringSheetRequested(authorFilter: authorFilter, orderFilter: orderFilter)
             }
             .store(in: &self.cancellables)
+
+        let viewController = DiaryViewController(viewModel: viewModel)
+        self.presenter.setViewControllers([viewController], animated: false)
     }
     
     private func editPageRequested() {
