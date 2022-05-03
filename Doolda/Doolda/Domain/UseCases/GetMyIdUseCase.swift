@@ -23,6 +23,6 @@ final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
     // FIXME: NOT IMPLEMENTED
     func getMyId(for uid: String) -> AnyPublisher<DDID?, Never> {
 //        return userRepository.getMyId(for: uid)
-        return Just(DDID()).eraseToAnyPublisher()
+        return Just(nil).eraseToAnyPublisher()
     }
 }
