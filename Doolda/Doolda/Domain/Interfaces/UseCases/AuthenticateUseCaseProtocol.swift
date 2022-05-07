@@ -1,5 +1,5 @@
 //
-//  AuthenticationUseCaseProtocol.swift
+//  AuthenticateUseCaseProtocol.swift
 //  Doolda
 //
 //  Created by Seunghun Yang on 2021/12/27.
@@ -11,9 +11,10 @@ import Foundation
 
 import FirebaseAuth
 
-protocol AuthenticationUseCaseProtocol {
+protocol AuthenticateUseCaseProtocol {
     func getCurrentUser() -> FirebaseAuth.User?
-    func signIn(credential: AuthCredential, completion: ((AuthDataResult?, Error?) -> Void)?)
+    func signIn(credential: AuthCredential) -> AnyPublisher<AuthDataResult?, Error>
+    func signIn(withEmail email: String, password: String) -> AnyPublisher<AuthDataResult?, Error>
     func signOut() throws
     func delete() -> AnyPublisher<Void, Error>
 }
