@@ -210,15 +210,16 @@ final class SignUpViewController: UIViewController {
         
         self.scrollView.addSubview(self.contentView)
         self.contentView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(130)
+            make.leading.trailing.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().priority(.low)
             make.centerY.equalToSuperview().priority(.low)
+            make.bottom.equalToSuperview().priority(.low)
         }
         
         self.contentView.addSubview(self.titleLabel)
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(self.view.frame.height * 0.20)
+            make.top.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         }
