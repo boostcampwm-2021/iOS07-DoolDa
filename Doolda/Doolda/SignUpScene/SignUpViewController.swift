@@ -48,8 +48,6 @@ final class SignUpViewController: UIViewController {
     
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 0))
-        textField.leftViewMode = .always
         textField.textColor = .dooldaLabel
         return textField
     }()
@@ -72,8 +70,6 @@ final class SignUpViewController: UIViewController {
         let textField = UITextField()
         textField.textContentType = .password
         textField.isSecureTextEntry = true
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 0))
-        textField.leftViewMode = .always
         textField.textColor = .dooldaLabel
         return textField
     }()
@@ -96,8 +92,6 @@ final class SignUpViewController: UIViewController {
         let textField = UITextField()
         textField.textContentType = .password
         textField.isSecureTextEntry = true
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 0))
-        textField.leftViewMode = .always
         textField.textColor = .dooldaLabel
         return textField
     }()
@@ -240,18 +234,6 @@ final class SignUpViewController: UIViewController {
             make.top.equalTo(self.subtitleLabel.snp.bottom).offset(42)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-        }
-        
-        self.emailTextField.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-30)
-        }
-        
-        self.passwordTextField.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-30)
-        }
-        
-        self.passwordCheckTextField.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-30)
         }
         
         self.emailDivider.snp.makeConstraints { make in
