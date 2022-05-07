@@ -13,6 +13,9 @@ final class SignUpViewController: UIViewController {
     
     // MARK: - Subviews
     
+    private lazy var scrollView: UIScrollView = UIScrollView()
+    private lazy var contentView: UIView = UIView()
+    
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
         label.text = "둘다"
@@ -206,20 +209,33 @@ final class SignUpViewController: UIViewController {
         self.view.backgroundColor = .dooldaBackground
         self.navigationController?.navigationBar.isHidden = true
         
-        self.view.addSubview(self.titleLabel)
+        self.view.addSubview(self.scrollView)
+        self.scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        self.scrollView.addSubview(self.contentView)
+        self.contentView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().priority(.low)
+            make.centerY.equalToSuperview().priority(.low)
+        }
+        
+        self.contentView.addSubview(self.titleLabel)
         self.titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(self.view.frame.height * 0.20)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         }
         
-        self.view.addSubview(self.subtitleLabel)
+        self.contentView.addSubview(self.subtitleLabel)
         self.subtitleLabel.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(18)
             make.centerX.equalToSuperview()
         }
         
-        self.view.addSubview(self.signUpInfoStackView)
+        self.contentView.addSubview(self.signUpInfoStackView)
         self.signUpInfoStackView.snp.makeConstraints { make in
             make.top.equalTo(self.subtitleLabel.snp.bottom).offset(42)
             make.leading.equalToSuperview().offset(16)
@@ -250,7 +266,7 @@ final class SignUpViewController: UIViewController {
             make.height.equalTo(1)
         }
         
-        self.view.addSubview(self.signUpButton)
+        self.contentView.addSubview(self.signUpButton)
         self.signUpButton.snp.makeConstraints { make in
             make.top.equalTo(self.signUpInfoStackView.snp.bottom).offset(44)
             make.height.equalTo(44)
@@ -258,12 +274,13 @@ final class SignUpViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
         }
         
-        self.view.addSubview(self.backButton)
+        self.contentView.addSubview(self.backButton)
         self.backButton.snp.makeConstraints { make in
             make.top.equalTo(self.signUpButton.snp.bottom).offset(24)
             make.height.equalTo(44)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-20)
         }
     }
     
