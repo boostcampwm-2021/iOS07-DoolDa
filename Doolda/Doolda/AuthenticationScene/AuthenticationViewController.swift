@@ -133,7 +133,7 @@ class AuthenticationViewController: UIViewController {
 
 extension AuthenticationViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        self.viewModel.signIn(authorization: authorization)
+        self.viewModel.signIn(withApple: authorization)
     }
 }
 
