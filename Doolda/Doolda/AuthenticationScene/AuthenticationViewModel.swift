@@ -7,7 +7,6 @@
 
 import AuthenticationServices
 import Combine
-import CryptoKit
 import Foundation
 
 import FirebaseAuth
@@ -17,7 +16,7 @@ protocol AuthenticationViewModelInput {
         authControllerDelegate: ASAuthorizationControllerDelegate?,
         authControllerPresentationProvider: ASAuthorizationControllerPresentationContextProviding?
     )
-    func signIn(authorization: ASAuthorization)
+    func signIn(withApple authorization: ASAuthorization)
     func deinitRequested()
 }
 
@@ -49,31 +48,31 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
 
     private let sceneId: UUID
     private let authenticateUseCase: AuthenticateUseCaseProtocol
-    
-    private var rawNonce: String?
+    private let appleAuthProvider: AppleAuthProvider
     
     private var cancellables: Set<AnyCancellable> = []
 
-    init(sceneId: UUID, authenticateUseCase: AuthenticateUseCaseProtocol) {
+    init(
+        sceneId: UUID,
+        authenticateUseCase: AuthenticateUseCaseProtocol,
+        appleAuthProvider: AppleAuthProvider
+    ) {
         self.sceneId = sceneId
         self.authenticateUseCase = authenticateUseCase
+        self.appleAuthProvider = appleAuthProvider
     }
     
-    func signIn(authorization: ASAuthorization) {
-        guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
-              let appleIDToken = appleIDCredential.identityToken,
-              let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                  self.error = AuthenticatoinError.failToInitCredential
-                  return
-              }
-
-        let appleCredential = OAuthProvider.credential(
-            withProviderID: AuthProviders.apple,
-            idToken: idTokenString,
-            rawNonce: self.rawNonce
-        )
-        
-        self.authenticateUseCase.signIn(credential: appleCredential)
+    func signIn(withApple authorization: ASAuthorization) {
+        do {
+            let credential = try appleAuthProvider.getFirebaseCredential(with: authorization)
+            self.signIn(credential: credential)
+        } catch {
+            self.error = error
+        }
+    }
+    
+    private func signIn(credential: AuthCredential) {
+        self.authenticateUseCase.signIn(credential: credential)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
@@ -96,35 +95,12 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         )
     }
     
-    // TODO: Create addtional usecase for apple authentication
-    
     func appleLoginButtonDidTap(
         authControllerDelegate: ASAuthorizationControllerDelegate?,
         authControllerPresentationProvider: ASAuthorizationControllerPresentationContextProviding?
     ) {
-        let rawNonce = self.randomNonceString()
-        self.rawNonce = rawNonce
-        
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(rawNonce)
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = authControllerDelegate
-        authorizationController.presentationContextProvider = authControllerPresentationProvider
-        authorizationController.performRequests()
-    }
-
-    private func sha256(_ input: String) -> String {
-        let inputData = Data(input.utf8)
-        let hashedData = SHA256.hash(data: inputData)
-        return hashedData.compactMap { String(format: "%02x", $0) }.joined()
-    }
-
-    private func randomNonceString(with length: Int = 32) -> String {
-        String((0..<length).compactMap { _ in
-            "0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._".randomElement()
-        })
+        self.appleAuthProvider.delegate = authControllerDelegate
+        self.appleAuthProvider.presentationProvider = authControllerPresentationProvider
+        self.appleAuthProvider.performRequest()
     }
 }
