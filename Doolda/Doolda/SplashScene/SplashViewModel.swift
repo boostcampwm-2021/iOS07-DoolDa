@@ -27,7 +27,7 @@ final class SplashViewModel: SplashViewModelProtocol {
     @Published private(set) var user: User?
     
     private let sceneId: UUID
-    private let authenticationUseCase: AuthenticationUseCaseProtocol
+    private let authenticateUseCase: AuthenticateUseCaseProtocol
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
     private let getUserUseCase: GetUserUseCaseProtocol
     private let globalFontUseCase: GlobalFontUseCaseProtocol
@@ -35,18 +35,17 @@ final class SplashViewModel: SplashViewModelProtocol {
     var loginPageRequested = PassthroughSubject<Void, Never>()
     var agreementPageRequested = PassthroughSubject<String, Never>()
 
-
     private var cancellables: Set<AnyCancellable> = []
     
     init(
         sceneId: UUID,
-        authenticationUseCase: AuthenticationUseCaseProtocol,
+        authenticateUseCase: AuthenticateUseCaseProtocol,
         getMyIdUseCase: GetMyIdUseCaseProtocol,
         getUserUseCase: GetUserUseCaseProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol
     ) {
         self.sceneId = sceneId
-        self.authenticationUseCase = authenticationUseCase
+        self.authenticateUseCase = authenticateUseCase
         self.getMyIdUseCase = getMyIdUseCase
         self.getUserUseCase = getUserUseCase
         self.globalFontUseCase = globalFontUseCase
@@ -62,7 +61,7 @@ final class SplashViewModel: SplashViewModelProtocol {
     }
     
     func validateAccount() {
-        if let currentUser = self.authenticationUseCase.getCurrentUser() {
+        if let currentUser = self.authenticateUseCase.getCurrentUser() {
             self.validateUserId(user: currentUser)
         } else {
             self.loginPageRequested.send()

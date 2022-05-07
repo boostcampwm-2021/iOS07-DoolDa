@@ -42,14 +42,14 @@ final class SplashViewCoordinator: BaseCoordinator {
             persistenceService: userDefaultsPersistenceService
         )
         
-        let authenticationUseCase = AuthenticationUseCase()
+        let authenticateUseCase = AuthenticateUseCase()
         let getMyIdUseCase = GetMyIdUseCase(userRepository: userRespository)
         let getUserUseCase = GetUserUseCase(userRepository: userRespository)
         let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)
         
         let viewModel = SplashViewModel(
             sceneId: self.identifier,
-            authenticationUseCase: authenticationUseCase,
+            authenticateUseCase: authenticateUseCase,
             getMyIdUseCase: getMyIdUseCase,
             getUserUseCase: getUserUseCase,
             globalFontUseCase: globalFontUseCase

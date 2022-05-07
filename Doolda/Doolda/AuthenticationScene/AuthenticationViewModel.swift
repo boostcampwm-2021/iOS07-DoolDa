@@ -48,13 +48,15 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     @Published private var error: Error?
 
     private let sceneId: UUID
-    private let authenticationUseCase: AuthenticationUseCaseProtocol
+    private let authenticateUseCase: AuthenticateUseCaseProtocol
     
     private var rawNonce: String?
+    
+    private var cancellables: Set<AnyCancellable> = []
 
-    init(sceneId: UUID, authenticationUseCase: AuthenticationUseCaseProtocol) {
+    init(sceneId: UUID, authenticateUseCase: AuthenticateUseCaseProtocol) {
         self.sceneId = sceneId
-        self.authenticationUseCase = authenticationUseCase
+        self.authenticateUseCase = authenticateUseCase
     }
     
     func signIn(authorization: ASAuthorization) {
@@ -70,20 +72,20 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
             idToken: idTokenString,
             rawNonce: self.rawNonce
         )
-
-        self.authenticationUseCase.signIn(credential: appleCredential) { [weak self] data, error in
-            if let error = error {
+        
+        self.authenticateUseCase.signIn(credential: appleCredential)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
                 self?.error = error
-                return
+            } receiveValue: { data in
+                if data?.user != nil {
+                    NotificationCenter.default.post(
+                        name: AuthenticationViewCoordinator.Notifications.userDidSignIn,
+                        object: nil
+                    )
+                }
             }
-            
-            if data?.user != nil {
-                NotificationCenter.default.post(
-                    name: AuthenticationViewCoordinator.Notifications.userDidSignIn,
-                    object: nil
-                )
-            }
-        }
+            .store(in: &cancellables)
     }
 
     func deinitRequested() {
