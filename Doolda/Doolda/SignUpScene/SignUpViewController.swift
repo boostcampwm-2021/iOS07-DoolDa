@@ -184,6 +184,14 @@ final class SignUpViewController: UIViewController {
         return button
     }()
     
+    private lazy var backButton: DooldaButton = {
+        let button = DooldaButton()
+        button.setTitle("돌아가기", for: .normal)
+        button.setTitleColor(.dooldaLabel, for: .normal)
+        button.backgroundColor = .dooldaHighlighted
+        return button
+    }()
+    
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -249,6 +257,14 @@ final class SignUpViewController: UIViewController {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         }
+        
+        self.view.addSubview(self.backButton)
+        self.backButton.snp.makeConstraints { make in
+            make.top.equalTo(self.signUpButton.snp.bottom).offset(24)
+            make.height.equalTo(44)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+        }
     }
     
     private func configureFont() {
@@ -264,5 +280,6 @@ final class SignUpViewController: UIViewController {
         self.passwordCheckStateLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.passwordCheckTextField.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.signUpButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
+        self.backButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
     }
 }
