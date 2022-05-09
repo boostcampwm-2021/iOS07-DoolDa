@@ -12,7 +12,7 @@ import Foundation
 
 import FirebaseAuth
 
-final class AppleAuthProvider {
+final class AppleAuthProvideUseCase {
     static let identifier = "apple.com"
     
     weak var delegate: ASAuthorizationControllerDelegate?

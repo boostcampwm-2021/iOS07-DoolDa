@@ -45,7 +45,7 @@
 		1D3BAC0B274E2F6500CD23EE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1D3BAC0A274E2F6500CD23EE /* SnapKit */; };
 		1D3BAC0F274E307A00CD23EE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1D3BAC0E274E307A00CD23EE /* Kingfisher */; };
 		1D56F08D281D68A50051BB07 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D56F08C281D68A40051BB07 /* GoogleService-Info.plist */; };
-		1D5DDFD628267E4E0050C211 /* AppleAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5DDFD528267E4E0050C211 /* AppleAuthProvider.swift */; };
+		1D5DDFD628267E4E0050C211 /* AppleAuthProvideUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5DDFD528267E4E0050C211 /* AppleAuthProvideUseCase.swift */; };
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */; };
 		1D6232ED27310EE300A9AD6B /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */; };
@@ -444,7 +444,8 @@
 		1D3925BA273BB4BE003A0B70 /* EditPageUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditPageUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D3925BC273BB4BE003A0B70 /* EditPageUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCaseTest.swift; sourceTree = "<group>"; };
 		1D3925CF273C1263003A0B70 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
-		1D5DDFD528267E4E0050C211 /* AppleAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthProvider.swift; sourceTree = "<group>"; };
+		1D56F08C281D68A40051BB07 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1D5DDFD528267E4E0050C211 /* AppleAuthProvideUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthProvideUseCase.swift; sourceTree = "<group>"; };
 		1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewController.swift; sourceTree = "<group>"; };
 		1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		1D6232EC27310EE300A9AD6B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
@@ -1227,7 +1228,7 @@
 				1D999461274CA94600C72273 /* FCMTokenUseCase.swift */,
 				1D99946D274CEFC500C72273 /* FirebaseMessageUseCase.swift */,
 				1D77EDFE2779F9B90007BFF3 /* AuthenticateUseCase.swift */,
-				1D5DDFD528267E4E0050C211 /* AppleAuthProvider.swift */,
+				1D5DDFD528267E4E0050C211 /* AppleAuthProvideUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2290,7 +2291,7 @@
 				FC822FB22736BF8400C918A0 /* URLSessionNetworkServiceProtocol.swift in Sources */,
 				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
 				FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
-				1D5DDFD628267E4E0050C211 /* AppleAuthProvider.swift in Sources */,
+				1D5DDFD628267E4E0050C211 /* AppleAuthProvideUseCase.swift in Sources */,
 				1D8BE07D2743437600201E3E /* DiaryViewModel.swift in Sources */,
 				FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */,
 				6669A6AA27D8E81B007075C3 /* FirebaseNetworkServiceProtocol.swift in Sources */,

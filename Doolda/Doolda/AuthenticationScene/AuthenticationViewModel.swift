@@ -48,14 +48,14 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
 
     private let sceneId: UUID
     private let authenticateUseCase: AuthenticateUseCaseProtocol
-    private let appleAuthProvider: AppleAuthProvider
+    private let appleAuthProvider: AppleAuthProvideUseCase
     
     private var cancellables: Set<AnyCancellable> = []
 
     init(
         sceneId: UUID,
         authenticateUseCase: AuthenticateUseCaseProtocol,
-        appleAuthProvider: AppleAuthProvider
+        appleAuthProvider: AppleAuthProvideUseCase
     ) {
         self.sceneId = sceneId
         self.authenticateUseCase = authenticateUseCase
