@@ -49,6 +49,16 @@ class DooldaTextField: UIView {
         set { self.textField.placeholder = newValue }
     }
     
+    var textContentType: UITextContentType {
+        get { return self.textField.textContentType }
+        set { self.textField.textContentType = newValue }
+    }
+    
+    var isSecureTextEntry: Bool {
+        get { return self.textField.isSecureTextEntry }
+        set { self.textField.isSecureTextEntry = newValue } 
+    }
+    
     // MARK: - Initializers
     
     override init(frame: CGRect) {
