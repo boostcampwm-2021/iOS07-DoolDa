@@ -26,7 +26,7 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
 
     func start() {
         let authenticateUseCase = AuthenticateUseCase()
-        let appleAuthProvider = AppleAuthProvider()
+        let appleAuthProvider = AppleAuthProvideUseCase()
         let viewModel = AuthenticationViewModel(
             sceneId: self.identifier,
             authenticateUseCase: authenticateUseCase,
