@@ -36,6 +36,7 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     
     private let sceneId: UUID
     private let registerUserUseCase: RegisterUserUseCaseProtocol
+    private let agreementUseCase: AgreementUseCaseProtocol
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -45,9 +46,12 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     @Published private var isPossibleToSignUp: Bool = false
     
     init(sceneId: UUID,
-         registerUserUseCase: RegisterUserUseCaseProtocol) {
+         registerUserUseCase: RegisterUserUseCaseProtocol,
+         agreementUseCase: AgreementUseCaseProtocol
+    ) {
         self.sceneId = sceneId
         self.registerUserUseCase = registerUserUseCase
+        self.agreementUseCase = agreementUseCase
         bind()
     }
     
@@ -71,13 +75,21 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     private func bind() {
         self.registerUserUseCase.registeredUserPublisher
             .compactMap { $0 }
-            .sink(receiveValue: { [weak self] user in
-                NotificationCenter.default.post(
-                    name: AgreementViewCoordinator.Notifications.userDidApproveApplicationServicePolicy,
-                    object: self,
-                    userInfo: [AgreementViewCoordinator.Keys.myId: user.id]
-                )
-            })
+            .sink { [weak self] user in
+                guard let self = self else { return }
+                self.agreementUseCase.setAgreementInfo(with: user)
+                    .sink { [weak self] completion in
+                        guard case .failure(let error) = completion else { return }
+                        self?.error = error
+                    } receiveValue: { [weak self] in
+                        NotificationCenter.default.post(
+                            name: AgreementViewCoordinator.Notifications.userDidApproveApplicationServicePolicy,
+                            object: self,
+                            userInfo: [AgreementViewCoordinator.Keys.myId: user.id]
+                        )
+                    }
+                    .store(in: &self.cancellables)
+            }
             .store(in: &self.cancellables)
         
         Publishers.CombineLatest(self.$privacyPolicyCheckBoxInput, self.$serviceAgreementCheckBoxInput)
