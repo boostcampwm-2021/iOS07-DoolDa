@@ -12,20 +12,27 @@ protocol AgreementViewModelInput {
     func viewDidLoad()
     func pairButtonDidTap()
     func deinitRequested()
+    var serviceAgreementCheckBoxInput: Bool { get set }
+    var privacyPolicyCheckBoxInput: Bool { get set }
 }
 
 protocol AgreementViewModelOutput {
     var errorPublisher: AnyPublisher<Error?, Never> { get }
     var serviceAgreementPublisher: AnyPublisher<String?, Never> { get }
     var privacyPolicyPublisher: AnyPublisher<String?, Never> { get }
+    var isPossibleToSignUpPublisher: AnyPublisher<Bool, Never> { get }
 }
 
 typealias AgreementViewModelProtocol = AgreementViewModelInput & AgreementViewModelOutput
 
 final class AgreementViewModel: AgreementViewModelProtocol {
+    @Published var serviceAgreementCheckBoxInput: Bool = false
+    @Published var privacyPolicyCheckBoxInput: Bool = false
+    
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     var serviceAgreementPublisher: AnyPublisher<String?, Never> { self.$serviceAgreement.eraseToAnyPublisher() }
     var privacyPolicyPublisher: AnyPublisher<String?, Never> { self.$privacyPolicy.eraseToAnyPublisher() }
+    var isPossibleToSignUpPublisher: AnyPublisher<Bool, Never> { self.$isPossibleToSignUp.eraseToAnyPublisher() }
     
     private let sceneId: UUID
     private let registerUserUseCase: RegisterUserUseCaseProtocol
@@ -35,6 +42,7 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     @Published private var error: Error?
     @Published private var serviceAgreement: String?
     @Published private var privacyPolicy: String?
+    @Published private var isPossibleToSignUp: Bool = false
     
     init(sceneId: UUID,
          registerUserUseCase: RegisterUserUseCaseProtocol) {
@@ -69,6 +77,12 @@ final class AgreementViewModel: AgreementViewModelProtocol {
                     userInfo: [AgreementViewCoordinator.Keys.myId: user.id]
                 )
             })
+            .store(in: &self.cancellables)
+        
+        Publishers.CombineLatest(self.$privacyPolicyCheckBoxInput, self.$serviceAgreementCheckBoxInput)
+            .sink { (privacyPolicyInput, serviceAgreementInput) in
+                self.isPossibleToSignUp = privacyPolicyInput && serviceAgreementInput
+            }
             .store(in: &self.cancellables)
 
         self.registerUserUseCase.errorPublisher
