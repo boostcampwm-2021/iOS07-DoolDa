@@ -31,14 +31,13 @@ final class AgreementViewCoordinator: BaseCoordinator {
         let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
         let firebaseNetworkService = FirebaseNetworkService.shared
         
-        let userRespository = UserRepository(
+        let userRepository = UserRepository(
             persistenceService: userDefaultsPersistenceService,
             networkService: firebaseNetworkService
         )
-        let agreementRepository = AgreementRepository(firebaseNetworkService: firebaseNetworkService)
         
-        let registerUserUseCase = RegisterUserUseCase(userRepository: userRespository)
-        let agreementUseCase = AgreementUseCase(agreementRepository: agreementRepository)
+        let registerUserUseCase = RegisterUserUseCase(userRepository: userRepository)
+        let agreementUseCase = AgreementUseCase(userRepository: userRepository)
         
         let viewModel = AgreementViewModel(
             sceneId: self.identifier,
