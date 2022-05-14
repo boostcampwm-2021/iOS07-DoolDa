@@ -11,6 +11,7 @@ enum DooldaInfoType: String {
     case appVersion
     case openSourceLicense
     case privacyPolicy
+    case serviceAgreement
     case contributor
 
     var rawValue: String {
@@ -21,6 +22,8 @@ enum DooldaInfoType: String {
             return "오픈소스 라이센스"
         case .privacyPolicy:
             return "개인정보 처리방침"
+        case .serviceAgreement:
+            return "서비스 이용 약관"
         case .contributor:
             return "만든 사람들"
         }
@@ -36,6 +39,8 @@ extension DooldaInfoType {
             return "Open Source License"
         case .privacyPolicy:
             return "개인 정보 처리 방침"
+        case .serviceAgreement:
+            return "서비스 이용 약관"
         case .contributor:
             return "만든 사람들"
         }
@@ -50,7 +55,13 @@ extension DooldaInfoType {
                   let text = try? String(contentsOfFile: path) else { return "" }
             return text
         case .privacyPolicy:
-            return "개인 정보 처리 방침"
+            guard let path =  Bundle.main.path(forResource: "privacyPolicy", ofType: "txt"),
+                  let text = try? String(contentsOfFile: path) else { return "" }
+            return text
+        case .serviceAgreement:
+            guard let path =  Bundle.main.path(forResource: "serviceAgreement", ofType: "txt"),
+                  let text = try? String(contentsOfFile: path) else { return "" }
+            return text
         case .contributor:
             return ""
         }
