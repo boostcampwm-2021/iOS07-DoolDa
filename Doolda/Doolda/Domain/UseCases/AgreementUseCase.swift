@@ -9,13 +9,14 @@ import Combine
 import Foundation
 
 final class AgreementUseCase: AgreementUseCaseProtocol {
-    private let agreementRepository: AgreementRepositoryProtocol
+    private let userRepository: UserRepositoryProtocol
     
-    init(agreementRepository: AgreementRepositoryProtocol) {
-        self.agreementRepository = agreementRepository
+    init(userRepository: UserRepositoryProtocol) {
+        self.userRepository = userRepository
     }
     
-    func setAgreementInfo(with user: User) -> AnyPublisher<Void, Error> {
-        agreementRepository.setAgreementInfo(with: user)
+    func setAgreementInfo(with user: User) -> AnyPublisher<User, Error> {
+        let agreedUser = user.agreed()
+        return userRepository.setUser(agreedUser)
     }
 }

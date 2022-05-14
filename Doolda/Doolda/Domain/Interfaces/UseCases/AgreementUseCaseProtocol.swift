@@ -9,5 +9,5 @@ import Combine
 import Foundation
 
 protocol AgreementUseCaseProtocol {
-    func setAgreementInfo(with user: User) -> AnyPublisher<Void, Error>
+    func setAgreementInfo(with user: User) -> AnyPublisher<User, Error>
 }

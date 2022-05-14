@@ -81,11 +81,11 @@ final class AgreementViewModel: AgreementViewModelProtocol {
                     .sink { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
                         self?.error = error
-                    } receiveValue: { [weak self] in
+                    } receiveValue: { [weak self] agreedUser in
                         NotificationCenter.default.post(
                             name: AgreementViewCoordinator.Notifications.userDidApproveApplicationServicePolicy,
                             object: self,
-                            userInfo: [AgreementViewCoordinator.Keys.myId: user.id]
+                            userInfo: [AgreementViewCoordinator.Keys.myId: agreedUser.id]
                         )
                     }
                     .store(in: &self.cancellables)
