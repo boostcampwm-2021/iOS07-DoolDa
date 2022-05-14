@@ -186,9 +186,21 @@ final class AgreementViewController: UIViewController {
     }
     
     private func bindUI() {
-        Publishers.CombineLatest(self.privacyPolicyCheckBox.$value, self.serviceAgreementCheckBox.$value)
-            .sink { (privacyPolicy, serviceAgreement) in
-                self.pairButton.isEnabled = privacyPolicy && serviceAgreement
+        self.privacyPolicyCheckBox.$value
+            .sink { [weak self] isChecked in
+                self?.viewModel.privacyPolicyCheckBoxInput = isChecked
+            }
+            .store(in: &self.cancellables)
+        
+        self.serviceAgreementCheckBox.$value
+            .sink { [weak self] isChecked in
+                self?.viewModel.serviceAgreementCheckBoxInput = isChecked
+            }
+            .store(in: &self.cancellables)
+        
+        self.viewModel.isPossibleToSignUpPublisher
+            .sink { isPossibleToSignUp in
+                self.pairButton.isEnabled = isPossibleToSignUp
             }
             .store(in: &self.cancellables)
         
