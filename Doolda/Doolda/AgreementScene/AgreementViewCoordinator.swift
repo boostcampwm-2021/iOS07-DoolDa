@@ -35,10 +35,16 @@ final class AgreementViewCoordinator: BaseCoordinator {
             persistenceService: userDefaultsPersistenceService,
             networkService: firebaseNetworkService
         )
+        let agreementRepository = AgreementRepository(firebaseNetworkService: firebaseNetworkService)
         
         let registerUserUseCase = RegisterUserUseCase(userRepository: userRespository)
+        let agreementUseCase = AgreementUseCase(agreementRepository: agreementRepository)
         
-        let viewModel = AgreementViewModel(sceneId: self.identifier, registerUserUseCase: registerUserUseCase)
+        let viewModel = AgreementViewModel(
+            sceneId: self.identifier,
+            registerUserUseCase: registerUserUseCase,
+            agreementUseCase: agreementUseCase
+        )
         
         let viewController = AgreementViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)

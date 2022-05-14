@@ -61,6 +61,10 @@
 		1D8BE07B2742A3DB00201E3E /* DiaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */; };
 		1D8BE07D2743437600201E3E /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07C2743437600201E3E /* DiaryViewModel.swift */; };
 		1D8BE07F2743846A00201E3E /* DiaryCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07E2743846A00201E3E /* DiaryCollectionViewHeader.swift */; };
+		1D93999B282F71B100D547A2 /* AgreementUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93999A282F71B100D547A2 /* AgreementUseCaseProtocol.swift */; };
+		1D93999D282F71D700D547A2 /* AgreementRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93999C282F71D700D547A2 /* AgreementRepositoryProtocol.swift */; };
+		1D93999F282F71FA00D547A2 /* AgreementUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93999E282F71FA00D547A2 /* AgreementUseCase.swift */; };
+		1D9399A1282F722F00D547A2 /* AgreementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9399A0282F722F00D547A2 /* AgreementRepository.swift */; };
 		1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D992B41273D0EAB00B63954 /* PageRepository.swift */; };
 		1D992E332755E8EC002C4457 /* GetUserUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D992E322755E8EC002C4457 /* GetUserUseCaseTest.swift */; };
 		1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999461274CA94600C72273 /* FCMTokenUseCase.swift */; };
@@ -466,6 +470,10 @@
 		1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		1D8BE07C2743437600201E3E /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		1D8BE07E2743846A00201E3E /* DiaryCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCollectionViewHeader.swift; sourceTree = "<group>"; };
+		1D93999A282F71B100D547A2 /* AgreementUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementUseCaseProtocol.swift; sourceTree = "<group>"; };
+		1D93999C282F71D700D547A2 /* AgreementRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementRepositoryProtocol.swift; sourceTree = "<group>"; };
+		1D93999E282F71FA00D547A2 /* AgreementUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementUseCase.swift; sourceTree = "<group>"; };
+		1D9399A0282F722F00D547A2 /* AgreementRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementRepository.swift; sourceTree = "<group>"; };
 		1D992B41273D0EAB00B63954 /* PageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepository.swift; sourceTree = "<group>"; };
 		1D992E302755E8EC002C4457 /* GetUserUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetUserUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D992E322755E8EC002C4457 /* GetUserUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCaseTest.swift; sourceTree = "<group>"; };
@@ -1179,6 +1187,7 @@
 				FCD24D7227439268000203F7 /* GlobalFontRepository.swift */,
 				1D999465274CAB8900C72273 /* FCMTokenRepository.swift */,
 				1D99946B274CEF2900C72273 /* FirebaseMessageRepository.swift */,
+				1D9399A0282F722F00D547A2 /* AgreementRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1252,6 +1261,7 @@
 				1D99946D274CEFC500C72273 /* FirebaseMessageUseCase.swift */,
 				1D77EDFE2779F9B90007BFF3 /* AuthenticateUseCase.swift */,
 				1D5DDFD528267E4E0050C211 /* AppleAuthProvideUseCase.swift */,
+				1D93999E282F71FA00D547A2 /* AgreementUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1425,6 +1435,7 @@
 			isa = PBXGroup;
 			children = (
 				FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */,
+				1D93999C282F71D700D547A2 /* AgreementRepositoryProtocol.swift */,
 				FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */,
 				1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */,
 				1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */,
@@ -1458,6 +1469,7 @@
 				66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */,
 				66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */,
 				1D77EDF72779ED000007BFF3 /* AuthenticateUseCaseProtocol.swift */,
+				1D93999A282F71B100D547A2 /* AgreementUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2287,6 +2299,7 @@
 				1DE5E5362738BBAA004F794F /* BaseCoordinator.swift in Sources */,
 				FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */,
 				66CD645A273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift in Sources */,
+				1D93999F282F71FA00D547A2 /* AgreementUseCase.swift in Sources */,
 				1D3925B5273B9172003A0B70 /* DateFormatter+Extensions.swift in Sources */,
 				66F176212754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift in Sources */,
 				FCC803FA27451A8000FFE4DC /* TextEditViewController.swift in Sources */,
@@ -2321,6 +2334,7 @@
 				1D8BE07D2743437600201E3E /* DiaryViewModel.swift in Sources */,
 				FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */,
 				6669A6AA27D8E81B007075C3 /* FirebaseNetworkServiceProtocol.swift in Sources */,
+				1D93999B282F71B100D547A2 /* AgreementUseCaseProtocol.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
 				662A7085277AF51D008AF946 /* AgreementViewCoordinator.swift in Sources */,
 				66FE9373273688E10036CED2 /* RefreshUserUseCase.swift in Sources */,
@@ -2329,6 +2343,7 @@
 				FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */,
 				6660E3F0277A296B00C2A445 /* AgreementViewModel.swift in Sources */,
 				665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */,
+				1D93999D282F71D700D547A2 /* AgreementRepositoryProtocol.swift in Sources */,
 				1D9DC0A5274B8A890060587B /* Collection+Extensions.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
 				1D8646A3274D2DB600C4511D /* PushMessageEntity.swift in Sources */,
@@ -2362,6 +2377,7 @@
 				1D3925D0273C1263003A0B70 /* CGFloat+Extensions.swift in Sources */,
 				66F176192754C547006ACB41 /* CheckMyTurnUseCaseProtocol.swift in Sources */,
 				66FE936D2735655C0036CED2 /* DDIDDataTransferObject.swift in Sources */,
+				1D9399A1282F722F00D547A2 /* AgreementRepository.swift in Sources */,
 				665303A12743B7FE00E3075C /* CoreDataPageEntity+CoreDataProperties.swift in Sources */,
 				1D9DC0A3274B31950060587B /* DiaryBackgroundView.swift in Sources */,
 				66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */,
