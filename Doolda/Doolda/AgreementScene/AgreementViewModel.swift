@@ -52,7 +52,8 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     }
     
     func viewDidLoad() {
-        // FIXME: 서비스 정책 및 개인정보 정책에 관한 데이터 어떻게 로드할지 결정 후 작성
+        self.serviceAgreement = DooldaInfoType.serviceAgreement.content
+        self.privacyPolicy = DooldaInfoType.privacyPolicy.content
     }
     
     func pairButtonDidTap() {
