@@ -5,16 +5,20 @@
 //  Created by 정지승 on 2022/05/07.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
 final class SignUpViewController: UIViewController {
     
+    // MARK: - Private Properties
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
     // MARK: - Subviews
     
     private lazy var scrollView: UIScrollView = UIScrollView()
-    private lazy var contentView: UIView = UIView()
     
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
@@ -35,6 +39,7 @@ final class SignUpViewController: UIViewController {
     private lazy var emailTextField: DooldaTextField = {
         let textField = DooldaTextField()
         textField.titleText = "이메일"
+        textField.returnKeyType = .next
         textField.textContentType = .emailAddress
         return textField
     }()
@@ -49,6 +54,7 @@ final class SignUpViewController: UIViewController {
     private lazy var passwordTextField: DooldaTextField = {
         let textField = DooldaTextField()
         textField.titleText = "비밀번호"
+        textField.returnKeyType = .next
         textField.textContentType = .password
         textField.isSecureTextEntry = true
         return textField
@@ -64,6 +70,7 @@ final class SignUpViewController: UIViewController {
     private lazy var passwordCheckTextField: DooldaTextField = {
         let textField = DooldaTextField()
         textField.titleText = "비밀번호 확인"
+        textField.returnKeyType = .done
         textField.textContentType = .password
         textField.isSecureTextEntry = true
         return textField
@@ -143,6 +150,7 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureFont()
+        bindUI()
     }
     
     // MARK: - Helpers
@@ -155,49 +163,44 @@ final class SignUpViewController: UIViewController {
         self.view.addSubview(self.signInButton)
         self.scrollView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(self.signInButton.snp.top).offset(-12)
         }
         
         self.signInButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
+            make.top.equalTo(self.scrollView.snp.bottom).offset(12)
             make.bottom.equalToSuperview().offset(-38)
         }
         
-        self.scrollView.addSubview(self.contentView)
-        self.contentView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(130)
-            make.leading.trailing.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().priority(.low)
-            make.bottom.equalToSuperview().priority(.low)
-        }
-        
-        self.contentView.addSubview(self.titleLabel)
+        self.scrollView.addSubview(self.titleLabel)
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(130)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
+            make.centerX.equalToSuperview()
         }
         
-        self.contentView.addSubview(self.subtitleLabel)
+        self.scrollView.addSubview(self.subtitleLabel)
         self.subtitleLabel.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(18)
             make.centerX.equalToSuperview()
         }
         
-        self.contentView.addSubview(self.signUpInfoStackView)
+        self.scrollView.addSubview(self.signUpInfoStackView)
         self.signUpInfoStackView.snp.makeConstraints { make in
             make.top.equalTo(self.subtitleLabel.snp.bottom).offset(42)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
+            make.centerX.equalToSuperview()
         }
         
-        self.contentView.addSubview(self.signUpButton)
+        self.scrollView.addSubview(self.signUpButton)
         self.signUpButton.snp.makeConstraints { make in
             make.top.equalTo(self.signUpInfoStackView.snp.bottom).offset(44)
             make.height.equalTo(44)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-16)
+            make.centerX.equalToSuperview()
         }
     }
     
@@ -209,5 +212,53 @@ final class SignUpViewController: UIViewController {
         self.passwordCheckStateLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.signUpButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.signInButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 16)
+    }
+    
+    private func bindUI() {
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+            .sink { [weak self] in
+                guard let keyboardFrameInfo = $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+                self?.updateScrollView(with: keyboardFrameInfo.cgRectValue.height)
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+            .sink { [weak self] _ in
+                self?.updateScrollView(with: 0)
+            }
+            .store(in: &self.cancellables)
+        
+        self.view.publisher(for: UITapGestureRecognizer())
+            .sink { [weak self] _ in
+                self?.view.endEditing(true)
+            }
+            .store(in: &self.cancellables)
+        
+        self.emailTextField.returnPublisher
+            .sink { [weak self] _ in
+                self?.passwordTextField.becomeFirstResponder()
+            }
+            .store(in: &self.cancellables)
+        
+        self.passwordTextField.returnPublisher
+            .sink { [weak self] _ in
+                self?.passwordCheckTextField.becomeFirstResponder()
+            }
+            .store(in: &self.cancellables)
+        
+        self.passwordCheckTextField.returnPublisher
+            .sink { control in
+                control.resignFirstResponder()
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    private func updateScrollView(with keyboardHeight: CGFloat) {
+        self.scrollView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardHeight, right: 0.0)
+        self.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardHeight, right: 0.0)
+        
+        if keyboardHeight != 0 {
+            self.scrollView.contentOffset = CGPoint(x: 0, y: (keyboardHeight + self.scrollView.frame.height - 130) - self.view.frame.height + 30)
+        }
     }
 }
