@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-class DooldaTextField: UIView {
+class DooldaTextField: UIControl {
     
     // MARK: - Subviews
     
@@ -38,25 +38,33 @@ class DooldaTextField: UIView {
     }()
     
     // MARK: - Public Properties
+
+    var returnPublisher: AnyPublisher<UIControl, Never> {
+        self.textField.publisher(for: .editingDidEndOnExit).eraseToAnyPublisher()
+    }
+
+    var text: String? {
+        get { return self.textField.text }
+    }
     
     var titleText: String? {
         get { return self.titleLable.text }
         set { self.titleLable.text = newValue }
     }
-     
+
     var placeholder: String? {
         get { return self.textField.placeholder }
         set { self.textField.placeholder = newValue }
     }
-    
+
     var textContentType: UITextContentType {
         get { return self.textField.textContentType }
         set { self.textField.textContentType = newValue }
     }
-    
+
     var isSecureTextEntry: Bool {
         get { return self.textField.isSecureTextEntry }
-        set { self.textField.isSecureTextEntry = newValue } 
+        set { self.textField.isSecureTextEntry = newValue }
     }
     
     // MARK: - Initializers
@@ -80,7 +88,8 @@ class DooldaTextField: UIView {
         
         self.addSubview(self.titleLable)
         self.titleLable.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.equalTo(self)
+            make.leading.trailing.equalToSuperview()
         }
         
         self.addSubview(self.textField)
@@ -91,10 +100,11 @@ class DooldaTextField: UIView {
         
         self.addSubview(self.divider)
         self.divider.snp.makeConstraints { make in
-            make.bottom.equalTo(self.textField).offset(6)
+            make.bottom.equalTo(self)
             make.leading.trailing.equalTo(self.titleLable)
             make.height.equalTo(1)
         }
+
     }
     
 }
