@@ -32,11 +32,11 @@ final class SignUpViewController: UIViewController {
         return label
     }()
     
-    private lazy var emailLabel: UILabel = {
-        let label = UILabel()
-        label.text = "이메일"
-        label.textColor = .dooldaSublabel
-        return label
+    private lazy var emailTextField: DooldaTextField = {
+        let textField = DooldaTextField()
+        textField.titleText = "이메일"
+        textField.textContentType = .emailAddress
+        return textField
     }()
     
     private lazy var emailStateLabel: UILabel = {
@@ -46,17 +46,12 @@ final class SignUpViewController: UIViewController {
         return label
     }()
     
-    private lazy var emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.textColor = .dooldaLabel
+    private lazy var passwordTextField: DooldaTextField = {
+        let textField = DooldaTextField()
+        textField.titleText = "비밀번호"
+        textField.textContentType = .password
+        textField.isSecureTextEntry = true
         return textField
-    }()
-    
-    private lazy var passwordLabel: UILabel = {
-        let label = UILabel()
-        label.text = "비밀번호"
-        label.textColor = .dooldaSublabel
-        return label
     }()
     
     private lazy var passwordStateLabel: UILabel = {
@@ -66,19 +61,12 @@ final class SignUpViewController: UIViewController {
         return label
     }()
     
-    private lazy var passwordTextField: UITextField = {
-        let textField = UITextField()
+    private lazy var passwordCheckTextField: DooldaTextField = {
+        let textField = DooldaTextField()
+        textField.titleText = "비밀번호 확인"
         textField.textContentType = .password
         textField.isSecureTextEntry = true
-        textField.textColor = .dooldaLabel
         return textField
-    }()
-    
-    private lazy var passwordCheckLabel: UILabel = {
-        let label = UILabel()
-        label.text = "비밀번호 확인"
-        label.textColor = .dooldaSublabel
-        return label
     }()
     
     private lazy var passwordCheckStateLabel: UILabel = {
@@ -88,74 +76,33 @@ final class SignUpViewController: UIViewController {
         return label
     }()
     
-    private lazy var passwordCheckTextField: UITextField = {
-        let textField = UITextField()
-        textField.textContentType = .password
-        textField.isSecureTextEntry = true
-        textField.textColor = .dooldaLabel
-        return textField
-    }()
-    
-    private lazy var emailDivider: UIView = {
-        let view = UIView()
-        view.backgroundColor = .dooldaSublabel
-        return view
-    }()
-    
     private lazy var emailInfoStack: UIStackView = {
-        let titleStackView = UIStackView(arrangedSubviews: [self.emailLabel, self.emailStateLabel])
-        titleStackView.distribution = .equalSpacing
-        titleStackView.axis = .horizontal
         let stackView = UIStackView(arrangedSubviews: [
-            titleStackView,
-            emailTextField,
-            self.emailDivider
+            self.emailTextField,
+            self.emailStateLabel
         ])
         stackView.axis = .vertical
-        stackView.spacing = 24
-        stackView.setCustomSpacing(6, after: self.emailTextField)
+        stackView.spacing = 7
         return stackView
     }()
-    
-    private lazy var passwordDivider: UIView = {
-        let view = UIView()
-        view.backgroundColor = .dooldaSublabel
-        return view
-    }()
-    
+
     private lazy var passwordInfoStack: UIStackView = {
-        let titleStackView = UIStackView(arrangedSubviews: [self.passwordLabel, self.passwordStateLabel])
-        titleStackView.distribution = .equalSpacing
-        titleStackView.axis = .horizontal
         let stackView = UIStackView(arrangedSubviews: [
-            titleStackView,
             self.passwordTextField,
-            self.passwordDivider
+            self.passwordStateLabel
         ])
         stackView.axis = .vertical
-        stackView.spacing = 24
-        stackView.setCustomSpacing(6, after: self.passwordTextField)
+        stackView.spacing = 7
         return stackView
     }()
-    
-    private lazy var passwordCheckDivider: UIView = {
-        let view = UIView()
-        view.backgroundColor = .dooldaSublabel
-        return view
-    }()
-    
+
     private lazy var passwordCheckInfoStack: UIStackView = {
-        let titleStackView = UIStackView(arrangedSubviews: [self.passwordCheckLabel, self.passwordCheckStateLabel])
-        titleStackView.distribution = .equalSpacing
-        titleStackView.axis = .horizontal
         let stackView = UIStackView(arrangedSubviews: [
-            titleStackView,
             self.passwordCheckTextField,
-            self.passwordCheckDivider
+            self.passwordCheckStateLabel
         ])
         stackView.axis = .vertical
-        stackView.spacing = 24
-        stackView.setCustomSpacing(6, after: self.passwordCheckTextField)
+        stackView.spacing = 7
         return stackView
     }()
     
@@ -181,11 +128,12 @@ final class SignUpViewController: UIViewController {
         return button
     }()
     
-    private lazy var backButton: DooldaButton = {
-        let button = DooldaButton()
-        button.setTitle("돌아가기", for: .normal)
+    private lazy var signInButton: UIButton = {
+        var button = UIButton()
+        let attributes: [NSAttributedString.Key: Any] = [.underlineStyle: NSUnderlineStyle.single.rawValue]
+        let attributeString = NSMutableAttributedString(string: "이미 계정이 있으신가요?", attributes: attributes)
+        button.setAttributedTitle(attributeString, for: .normal)
         button.setTitleColor(.dooldaLabel, for: .normal)
-        button.backgroundColor = .dooldaHighlighted
         return button
     }()
     
@@ -204,8 +152,15 @@ final class SignUpViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         self.view.addSubview(self.scrollView)
+        self.view.addSubview(self.signInButton)
         self.scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.signInButton.snp.top).offset(-12)
+        }
+        
+        self.signInButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-38)
         }
         
         self.scrollView.addSubview(self.contentView)
@@ -237,18 +192,6 @@ final class SignUpViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
         }
         
-        self.emailDivider.snp.makeConstraints { make in
-            make.height.equalTo(1)
-        }
-        
-        self.passwordDivider.snp.makeConstraints { make in
-            make.height.equalTo(1)
-        }
-        
-        self.passwordCheckDivider.snp.makeConstraints { make in
-            make.height.equalTo(1)
-        }
-        
         self.contentView.addSubview(self.signUpButton)
         self.signUpButton.snp.makeConstraints { make in
             make.top.equalTo(self.signUpInfoStackView.snp.bottom).offset(44)
@@ -256,30 +199,15 @@ final class SignUpViewController: UIViewController {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
         }
-        
-        self.contentView.addSubview(self.backButton)
-        self.backButton.snp.makeConstraints { make in
-            make.top.equalTo(self.signUpButton.snp.bottom).offset(24)
-            make.height.equalTo(44)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalToSuperview().offset(-20)
-        }
     }
     
     private func configureFont() {
         self.titleLabel.font = UIFont(name: FontType.dovemayo.name, size: 72)
         self.subtitleLabel.font = UIFont(name: FontType.dovemayo.name, size: 18)
-        self.emailLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.emailStateLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
-        self.emailTextField.font = UIFont(name: FontType.dovemayo.name, size: 14)
-        self.passwordLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.passwordStateLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
-        self.passwordTextField.font = UIFont(name: FontType.dovemayo.name, size: 14)
-        self.passwordCheckLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.passwordCheckStateLabel.font = UIFont(name: FontType.dovemayo.name, size: 14)
-        self.passwordCheckTextField.font = UIFont(name: FontType.dovemayo.name, size: 14)
         self.signUpButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
-        self.backButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 14)
+        self.signInButton.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 16)
     }
 }
