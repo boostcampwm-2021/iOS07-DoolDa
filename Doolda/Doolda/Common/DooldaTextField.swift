@@ -56,6 +56,11 @@ class DooldaTextField: UIControl {
         get { return self.textField.placeholder }
         set { self.textField.placeholder = newValue }
     }
+    
+    var returnKeyType: UIReturnKeyType {
+        get { return self.textField.returnKeyType }
+        set { self.textField.returnKeyType = newValue}
+    }
 
     var textContentType: UITextContentType {
         get { return self.textField.textContentType }
