@@ -10,7 +10,7 @@ import UIKit
 
 final class SplashViewCoordinator: BaseCoordinator {
     
-    //MARK: - Nested enum
+    // MARK: - Nested enum
 
     enum Notifications {
         static let userNotLoggedIn = Notification.Name("userNotLoggedIn")

@@ -151,6 +151,7 @@ class AuthenticationViewController: UIViewController {
                 )
             }
             .store(in: &self.cancellables)
+
     }
 }
 
