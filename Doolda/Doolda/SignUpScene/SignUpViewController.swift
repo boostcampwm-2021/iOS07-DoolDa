@@ -260,11 +260,19 @@ final class SignUpViewController: UIViewController {
                 self?.passwordCheckTextField.becomeFirstResponder()
             }
             .store(in: &self.cancellables)
+
+        self.passwordTextField.textPublisher
+            .assign(to: \.passwordInput, on: viewModel)
+            .store(in: &self.cancellables)
         
         self.passwordCheckTextField.returnPublisher
             .sink { control in
                 control.resignFirstResponder()
             }
+            .store(in: &self.cancellables)
+
+        self.passwordCheckTextField.textPublisher
+            .assign(to: \.passwordCheckInput, on: viewModel)
             .store(in: &self.cancellables)
     }
 
@@ -276,6 +284,24 @@ final class SignUpViewController: UIViewController {
                 self?.emailStateLabel.isHidden = true
             } else {
                 self?.emailStateLabel.isHidden = false
+            }
+        }
+        .store(in: &self.cancellables)
+
+        viewModel.isPasswordValidPublisher.sink { [weak self] isValid in
+            if isValid {
+                self?.passwordStateLabel.isHidden = true
+            } else {
+                self?.passwordStateLabel.isHidden = false
+            }
+        }
+        .store(in: &self.cancellables)
+
+        viewModel.isPasswordCheckValidPublisher.sink { [weak self] isValid in
+            if isValid {
+                self?.passwordCheckStateLabel.isHidden = true
+            } else {
+                self?.passwordCheckStateLabel.isHidden = false
             }
         }
         .store(in: &self.cancellables)
