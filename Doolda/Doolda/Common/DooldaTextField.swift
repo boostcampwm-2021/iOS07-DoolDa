@@ -43,6 +43,12 @@ class DooldaTextField: UIControl {
         self.textField.publisher(for: .editingDidEndOnExit).eraseToAnyPublisher()
     }
 
+    var textPublisher: AnyPublisher<String, Never> {
+        self.textField.publisher(for: .editingChanged)
+            .compactMap {($0 as? UITextField)?.text}
+            .eraseToAnyPublisher()
+    }
+
     var text: String? {
         get { return self.textField.text }
     }

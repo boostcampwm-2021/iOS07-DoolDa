@@ -46,7 +46,10 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
     }
 
     private func signUpPageRequest() {
-        print("signUp Page ViewController")
+        let identifier = UUID()
+        let signUpViewCoordinator = SignUpViewCoordinator(identifier: identifier, presenter: self.presenter)
+        self.children[identifier] = signUpViewCoordinator
+        signUpViewCoordinator.start()
     }
 
     private func userDidSignIn() {
