@@ -314,6 +314,8 @@
 		A40AA6A227F362A100754E4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */; };
 		A40AA6A627F369EA00754E4F /* AuthenticationViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */; };
 		A4527A7E2829175700760AB0 /* DooldaTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4527A7D2829175700760AB0 /* DooldaTextField.swift */; };
+		CE935E0228313C290033EE07 /* SignUpViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE935E0128313C290033EE07 /* SignUpViewCoordinator.swift */; };
+		CE935E0428313DCE0033EE07 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE935E0328313DCE0033EE07 /* SignUpViewModel.swift */; };
 		FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */; };
 		FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */; };
 		FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
@@ -625,6 +627,8 @@
 		A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewCoordinator.swift; sourceTree = "<group>"; };
 		A4527A7D2829175700760AB0 /* DooldaTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaTextField.swift; sourceTree = "<group>"; };
+		CE935E0128313C290033EE07 /* SignUpViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewCoordinator.swift; sourceTree = "<group>"; };
+		CE935E0328313DCE0033EE07 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailViewController.swift; sourceTree = "<group>"; };
 		FC28CB31274609F300BA47BB /* TextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCase.swift; sourceTree = "<group>"; };
@@ -1060,6 +1064,8 @@
 			isa = PBXGroup;
 			children = (
 				663F4AB82826995B00B18B52 /* SignUpViewController.swift */,
+				CE935E0328313DCE0033EE07 /* SignUpViewModel.swift */,
+				CE935E0128313C290033EE07 /* SignUpViewCoordinator.swift */,
 			);
 			path = SignUpScene;
 			sourceTree = "<group>";
@@ -2342,6 +2348,7 @@
 				FCC803F62744C22F00FFE4DC /* FontType.swift in Sources */,
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
 				FCB7CD7F27E6B87700EDE386 /* UserDataTransferObject.swift in Sources */,
+				CE935E0428313DCE0033EE07 /* SignUpViewModel.swift in Sources */,
 				317FB613274AA879005DF3A3 /* SettingsTableViewCell.swift in Sources */,
 				318D9F5B274CC77800AA6F0E /* FontPickerViewController.swift in Sources */,
 				1DD58BD62754ACA600B93184 /* DiaryPageView.swift in Sources */,
@@ -2414,6 +2421,7 @@
 				1D999466274CAB8900C72273 /* FCMTokenRepository.swift in Sources */,
 				FC5FB7952732627C008AC3D2 /* PairDocument.swift in Sources */,
 				66F1761D2754C5FF006ACB41 /* StickerUseCaseProtocol.swift in Sources */,
+				CE935E0228313C290033EE07 /* SignUpViewCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3047,7 +3055,7 @@
 				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DEVELOPMENT_TEAM = 9DGN7522H6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doolda/Resources/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -3055,13 +3063,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda;
+				PRODUCT_BUNDLE_IDENTIFIER = minglely.com.doolda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -3079,7 +3087,7 @@
 				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DEVELOPMENT_TEAM = 9DGN7522H6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doolda/Resources/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -3087,13 +3095,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kr.codesquad.doolda;
+				PRODUCT_BUNDLE_IDENTIFIER = minglely.com.doolda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
