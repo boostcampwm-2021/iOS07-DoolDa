@@ -13,8 +13,16 @@ import SnapKit
 final class SignUpViewController: UIViewController {
     
     // MARK: - Private Properties
-    
+
+    private var viewModel: SignUpViewModel!
     private var cancellables: Set<AnyCancellable> = []
+
+    // MARK: - Initializers
+
+    convenience init(viewModel: SignUpViewModel) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
     
     // MARK: - Subviews
     
@@ -151,6 +159,7 @@ final class SignUpViewController: UIViewController {
         configureUI()
         configureFont()
         bindUI()
+        bindViewModel()
     }
     
     // MARK: - Helpers
@@ -215,6 +224,8 @@ final class SignUpViewController: UIViewController {
     }
     
     private func bindUI() {
+        guard let viewModel = self.viewModel else { return }
+
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
             .sink { [weak self] in
                 guard let keyboardFrameInfo = $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
@@ -239,6 +250,10 @@ final class SignUpViewController: UIViewController {
                 self?.passwordTextField.becomeFirstResponder()
             }
             .store(in: &self.cancellables)
+
+        self.emailTextField.textPublisher
+            .assign(to: \.emailInput, on: viewModel)
+            .store(in: &self.cancellables)
         
         self.passwordTextField.returnPublisher
             .sink { [weak self] _ in
@@ -251,6 +266,20 @@ final class SignUpViewController: UIViewController {
                 control.resignFirstResponder()
             }
             .store(in: &self.cancellables)
+    }
+
+    private func bindViewModel() {
+        guard let viewModel = self.viewModel else { return }
+
+        viewModel.isEmailValidPublisher.sink { [weak self] isValid in
+            if isValid {
+                self?.emailStateLabel.isHidden = true
+            } else {
+                self?.emailStateLabel.isHidden = false
+            }
+        }
+        .store(in: &self.cancellables)
+
     }
     
     private func updateScrollView(with keyboardHeight: CGFloat) {
