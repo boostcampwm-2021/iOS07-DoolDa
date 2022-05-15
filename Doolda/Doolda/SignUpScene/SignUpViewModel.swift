@@ -33,9 +33,13 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     var isPasswordValidPublisher = PassthroughSubject<Bool, Never>()
     var isPasswordCheckValidPublisher = PassthroughSubject<Bool, Never>()
 
-
-
     private var cancellables: Set<AnyCancellable> = []
+    private let signUpUseCase: SignUpUseCaseProtocol
+
+    init(signUpUseCase: SignUpUseCaseProtocol) {
+        self.signUpUseCase = signUpUseCase
+        bind()
+    }
     
     init() {
         bind()
