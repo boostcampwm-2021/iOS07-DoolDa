@@ -19,7 +19,8 @@ final class SignUpViewCoordinator: BaseCoordinator {
     }
 
     func start() {
-        let viewModel = SignUpViewModel()
+        let singUpUseCase = SignUpUseCase()
+        let viewModel = SignUpViewModel(signUpUseCase: singUpUseCase)
         let viewController = SignUpViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
     }
