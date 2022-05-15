@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-final class DooldaCheckBox: UIView {
+final class DooldaCheckBox: UIControl {
     
     // MARK: - Subviews
     
