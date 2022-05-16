@@ -143,6 +143,12 @@ class AuthenticationViewController: UIViewController {
     }
 
     private func bindUI() {
+        self.createAccountButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                self?.viewModel.createAccountButtonDidTap()
+            }
+            .store(in: &self.cancellables)
+        
         self.appleLoginButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 self?.viewModel.appleLoginButtonDidTap(
@@ -151,7 +157,6 @@ class AuthenticationViewController: UIViewController {
                 )
             }
             .store(in: &self.cancellables)
-
     }
 }
 

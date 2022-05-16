@@ -45,6 +45,10 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
             .store(in: &self.cancellables)
     }
 
+    private func signUpPageRequest() {
+        print("signUp Page ViewController")
+    }
+
     private func userDidSignIn() {
         // FIXME: 미구현
         print("Present Agreement ViewController")

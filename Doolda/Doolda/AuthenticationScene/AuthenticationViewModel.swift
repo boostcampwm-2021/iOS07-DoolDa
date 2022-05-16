@@ -12,6 +12,7 @@ import Foundation
 import FirebaseAuth
 
 protocol AuthenticationViewModelInput {
+    func createAccountButtonDidTap()
     func appleLoginButtonDidTap(
         authControllerDelegate: ASAuthorizationControllerDelegate?,
         authControllerPresentationProvider: ASAuthorizationControllerPresentationContextProviding?
@@ -43,7 +44,8 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     }
     
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
-    
+    var signUpPageRequested = PassthroughSubject<Void, Never>()
+
     @Published private var error: Error?
 
     private let sceneId: UUID
@@ -94,6 +96,12 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
             userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
         )
     }
+
+    func createAccountButtonDidTap() {
+        self.signUpPageRequested.send()
+    }
+
+    // TODO: Create addtional usecase for apple authentication
     
     func appleLoginButtonDidTap(
         authControllerDelegate: ASAuthorizationControllerDelegate?,
