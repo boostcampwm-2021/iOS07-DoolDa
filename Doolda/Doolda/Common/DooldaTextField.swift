@@ -42,6 +42,10 @@ class DooldaTextField: UIControl {
     var returnPublisher: AnyPublisher<UIControl, Never> {
         self.textField.publisher(for: .editingDidEndOnExit).eraseToAnyPublisher()
     }
+    
+    var textPublisher: AnyPublisher<String?, Never> {
+        self.textField.publisher(for: \.text).eraseToAnyPublisher()
+    }
 
     var textPublisher: AnyPublisher<String, Never> {
         self.textField.publisher(for: .editingChanged)
@@ -116,6 +120,14 @@ class DooldaTextField: UIControl {
             make.height.equalTo(1)
         }
 
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        return self.textField.becomeFirstResponder()
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        return self.textField.resignFirstResponder()
     }
     
 }
