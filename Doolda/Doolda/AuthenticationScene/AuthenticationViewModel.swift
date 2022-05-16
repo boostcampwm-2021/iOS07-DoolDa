@@ -17,6 +17,7 @@ protocol AuthenticationViewModelInput {
         authControllerDelegate: ASAuthorizationControllerDelegate?,
         authControllerPresentationProvider: ASAuthorizationControllerPresentationContextProviding?
     )
+    func emailLoginButtonDidTap(email: String, password: String)
     func signIn(withApple authorization: ASAuthorization)
     func deinitRequested()
 }
@@ -52,6 +53,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     private let authenticateUseCase: AuthenticateUseCaseProtocol
     private let appleAuthProvider: AppleAuthProvideUseCase
     
+    private var rawNonce: String?
     private var cancellables: Set<AnyCancellable> = []
 
     init(
@@ -111,4 +113,16 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         self.appleAuthProvider.presentationProvider = authControllerPresentationProvider
         self.appleAuthProvider.performRequest()
     }
+    
+    func emailLoginButtonDidTap(email: String, password: String) {
+        self.authenticationUseCase.signIn(email: email, password: password)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { authDataResult in
+                // FIXME: Coordinator 연결 필요
+            }
+            .store(in: &self.cancellables)
+    }
+    
 }
