@@ -274,6 +274,14 @@ final class SignUpViewController: UIViewController {
         self.passwordCheckTextField.textPublisher
             .assign(to: \.passwordCheckInput, on: viewModel)
             .store(in: &self.cancellables)
+
+        self.signUpButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                print("signup")
+                self?.viewModel.signUpButtonDidTap()
+            }
+            .store(in: &self.cancellables)
     }
 
     private func bindViewModel() {
