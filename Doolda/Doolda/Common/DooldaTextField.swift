@@ -42,10 +42,6 @@ class DooldaTextField: UIControl {
     var returnPublisher: AnyPublisher<UIControl, Never> {
         self.textField.publisher(for: .editingDidEndOnExit).eraseToAnyPublisher()
     }
-    
-    var textPublisher: AnyPublisher<String?, Never> {
-        self.textField.publisher(for: \.text).eraseToAnyPublisher()
-    }
 
     var textPublisher: AnyPublisher<String, Never> {
         self.textField.publisher(for: .editingChanged)

@@ -44,7 +44,6 @@
 		1D3925D1273C12A8003A0B70 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3925CF273C1263003A0B70 /* CGFloat+Extensions.swift */; };
 		1D3BAC0B274E2F6500CD23EE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1D3BAC0A274E2F6500CD23EE /* SnapKit */; };
 		1D3BAC0F274E307A00CD23EE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1D3BAC0E274E307A00CD23EE /* Kingfisher */; };
-		1D56F08D281D68A50051BB07 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D56F08C281D68A40051BB07 /* GoogleService-Info.plist */; };
 		1D5DDFD628267E4E0050C211 /* AppleAuthProvideUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5DDFD528267E4E0050C211 /* AppleAuthProvideUseCase.swift */; };
 		1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */; };
 		1D6232E92730FA3900A9AD6B /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */; };
@@ -152,6 +151,8 @@
 		317FB617274BAAEC005DF3A3 /* DooldaInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */; };
 		317FB619274BBC9D005DF3A3 /* SettingsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */; };
 		317FB61B274BCE68005DF3A3 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FB61A274BCE68005DF3A3 /* InformationViewController.swift */; };
+		318AD50E28327BBE00FDB630 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD50D28327BBE00FDB630 /* SignUpUseCase.swift */; };
+		318AD51028327BD100FDB630 /* SignUpUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AD50F28327BD100FDB630 /* SignUpUseCaseProtocol.swift */; };
 		318D9F5B274CC77800AA6F0E /* FontPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D9F5A274CC77800AA6F0E /* FontPickerViewController.swift */; };
 		318D9F62274CFF9E00AA6F0E /* uhBeeMysen.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F5D274CFBA100AA6F0E /* uhBeeMysen.ttf */; };
 		318D9F63274CFFA000AA6F0E /* dungGeunMo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 318D9F5E274CFBEA00AA6F0E /* dungGeunMo.otf */; };
@@ -185,9 +186,9 @@
 		661A840427434FE10077E0E3 /* GetPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A840327434FE10077E0E3 /* GetPageUseCase.swift */; };
 		661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */; };
 		662A7085277AF51D008AF946 /* AgreementViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662A7084277AF51D008AF946 /* AgreementViewCoordinator.swift */; };
+		663F4AB92826995B00B18B52 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663F4AB82826995B00B18B52 /* SignUpViewController.swift */; };
 		663F4ABB282F9CA800B18B52 /* privacyPolicy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 663F4ABA282F9CA800B18B52 /* privacyPolicy.txt */; };
 		663F4ABD282F9D0B00B18B52 /* serviceAgreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = 663F4ABC282F9D0B00B18B52 /* serviceAgreement.txt */; };
-		663F4AB92826995B00B18B52 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663F4AB82826995B00B18B52 /* SignUpViewController.swift */; };
 		664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C0273007ED009F03E2 /* AppDelegate.swift */; };
 		664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893C2273007ED009F03E2 /* SceneDelegate.swift */; };
 		664893CA273007F1009F03E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664893C9273007F1009F03E2 /* Assets.xcassets */; };
@@ -451,7 +452,6 @@
 		1D3925BA273BB4BE003A0B70 /* EditPageUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditPageUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D3925BC273BB4BE003A0B70 /* EditPageUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCaseTest.swift; sourceTree = "<group>"; };
 		1D3925CF273C1263003A0B70 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
-		1D56F08C281D68A40051BB07 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1D5DDFD528267E4E0050C211 /* AppleAuthProvideUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthProvideUseCase.swift; sourceTree = "<group>"; };
 		1D6232E62730F0DF00A9AD6B /* PairingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewController.swift; sourceTree = "<group>"; };
 		1D6232E82730FA3900A9AD6B /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -528,6 +528,8 @@
 		317FB616274BAAEB005DF3A3 /* DooldaInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaInfoType.swift; sourceTree = "<group>"; };
 		317FB618274BBC9D005DF3A3 /* SettingsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewHeader.swift; sourceTree = "<group>"; };
 		317FB61A274BCE68005DF3A3 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		318AD50D28327BBE00FDB630 /* SignUpUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
+		318AD50F28327BD100FDB630 /* SignUpUseCaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUseCaseProtocol.swift; sourceTree = "<group>"; };
 		318D9F5A274CC77800AA6F0E /* FontPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerViewController.swift; sourceTree = "<group>"; };
 		318D9F5D274CFBA100AA6F0E /* uhBeeMysen.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = uhBeeMysen.ttf; sourceTree = "<group>"; };
 		318D9F5E274CFBEA00AA6F0E /* dungGeunMo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dungGeunMo.otf; sourceTree = "<group>"; };
@@ -551,9 +553,9 @@
 		661A840327434FE10077E0E3 /* GetPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPageUseCase.swift; sourceTree = "<group>"; };
 		661A8405274351230077E0E3 /* CheckMyTurnUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMyTurnUseCase.swift; sourceTree = "<group>"; };
 		662A7084277AF51D008AF946 /* AgreementViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewCoordinator.swift; sourceTree = "<group>"; };
+		663F4AB82826995B00B18B52 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		663F4ABA282F9CA800B18B52 /* privacyPolicy.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = privacyPolicy.txt; sourceTree = "<group>"; };
 		663F4ABC282F9D0B00B18B52 /* serviceAgreement.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = serviceAgreement.txt; sourceTree = "<group>"; };
-		663F4AB82826995B00B18B52 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		664893BD273007ED009F03E2 /* Doolda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doolda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664893C0273007ED009F03E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		664893C2273007ED009F03E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1236,6 +1238,7 @@
 		664893E327300AA7009F03E2 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				318AD50D28327BBE00FDB630 /* SignUpUseCase.swift */,
 				FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */,
 				66FE9370273671910036CED2 /* PairUserUseCase.swift */,
 				66F1760427548260006ACB41 /* UnpairUserUseCase.swift */,
@@ -1445,6 +1448,7 @@
 		66F176072754C1D1006ACB41 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				318AD50F28327BD100FDB630 /* SignUpUseCaseProtocol.swift */,
 				66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */,
 				66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */,
 				66F1760C2754C2CE006ACB41 /* GetUserUseCaseProtocol.swift */,
@@ -2266,6 +2270,7 @@
 				1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */,
 				66F1760F2754C334006ACB41 /* RefreshUserUseCaseProtocol.swift in Sources */,
 				1DDADCB4274BCE63000330C9 /* Secrets.swift in Sources */,
+				318AD50E28327BBE00FDB630 /* SignUpUseCase.swift in Sources */,
 				3161EE9827436EC600B922DD /* StickerPickerView.swift in Sources */,
 				A4527A7E2829175700760AB0 /* DooldaTextField.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
@@ -2306,6 +2311,7 @@
 				319C21CE273BA6D8009CE65C /* ImageRepositoryProtocol.swift in Sources */,
 				6669A6A827D8E00D007075C3 /* FirebaseNetworkService.swift in Sources */,
 				FC7AA339274345280059D0CD /* StickerUseCase.swift in Sources */,
+				318AD51028327BD100FDB630 /* SignUpUseCaseProtocol.swift in Sources */,
 				661A840427434FE10077E0E3 /* GetPageUseCase.swift in Sources */,
 				1DE5E53E273929CE004F794F /* EditPageUseCase.swift in Sources */,
 				664893F4273023D3009F03E2 /* SplashViewController.swift in Sources */,
