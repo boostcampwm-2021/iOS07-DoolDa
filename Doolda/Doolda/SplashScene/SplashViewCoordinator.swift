@@ -64,8 +64,8 @@ final class SplashViewCoordinator: BaseCoordinator {
         
         viewModel.agreementPageRequested
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] uid in
-                self?.agreementPageRequest(uid: uid)
+            .sink { [weak self] _ in
+                self?.agreementPageRequest()
             }
             .store(in: &self.cancellables)
 
@@ -96,8 +96,7 @@ final class SplashViewCoordinator: BaseCoordinator {
      }
      
     // FIXME: NOT IMPLEMENTED
-    private func agreementPageRequest(uid: String) {
-        print("your uid is \(uid)")
+    private func agreementPageRequest() {
         let agreementViewCoordinator = AgreementViewCoordinator(identifier: UUID(), presenter: self.presenter)
         self.children[identifier] = agreementViewCoordinator
         agreementViewCoordinator.start()

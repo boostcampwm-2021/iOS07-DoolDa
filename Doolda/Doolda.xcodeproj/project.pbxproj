@@ -55,6 +55,8 @@
 		1D6232F9273173E300A9AD6B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */; };
 		1D77EDF82779ED000007BFF3 /* AuthenticateUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D77EDF72779ED000007BFF3 /* AuthenticateUseCaseProtocol.swift */; };
 		1D77EDFF2779F9B90007BFF3 /* AuthenticateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D77EDFE2779F9B90007BFF3 /* AuthenticateUseCase.swift */; };
+		1D7F56FD28328CD50084EFA5 /* CreateUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7F56FC28328CD50084EFA5 /* CreateUserUseCaseProtocol.swift */; };
+		1D7F56FF283291950084EFA5 /* CreateUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7F56FE283291950084EFA5 /* CreateUserUseCase.swift */; };
 		1D8646A3274D2DB600C4511D /* PushMessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */; };
 		1D8BE0792740FE5E00201E3E /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
 		1D8BE07B2742A3DB00201E3E /* DiaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */; };
@@ -463,6 +465,9 @@
 		1D6232F8273173E300A9AD6B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		1D77EDF72779ED000007BFF3 /* AuthenticateUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateUseCaseProtocol.swift; sourceTree = "<group>"; };
 		1D77EDFE2779F9B90007BFF3 /* AuthenticateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateUseCase.swift; sourceTree = "<group>"; };
+		1D7F56FB28327E500084EFA5 /* DooldaDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DooldaDebug.entitlements; sourceTree = "<group>"; };
+		1D7F56FC28328CD50084EFA5 /* CreateUserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserUseCaseProtocol.swift; sourceTree = "<group>"; };
+		1D7F56FE283291950084EFA5 /* CreateUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserUseCase.swift; sourceTree = "<group>"; };
 		1D8646A2274D2DB600C4511D /* PushMessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushMessageEntity.swift; sourceTree = "<group>"; };
 		1D8BE0782740FE5E00201E3E /* PageDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDocument.swift; sourceTree = "<group>"; };
 		1D8BE07A2742A3DB00201E3E /* DiaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1113,6 +1118,7 @@
 		664893BF273007ED009F03E2 /* Doolda */ = {
 			isa = PBXGroup;
 			children = (
+				1D7F56FB28327E500084EFA5 /* DooldaDebug.entitlements */,
 				1D99945E274C8BF600C72273 /* Doolda.entitlements */,
 				664893D4273008C2009F03E2 /* Application */,
 				664893D52730090B009F03E2 /* Resources */,
@@ -1260,6 +1266,7 @@
 				1D77EDFE2779F9B90007BFF3 /* AuthenticateUseCase.swift */,
 				1D5DDFD528267E4E0050C211 /* AppleAuthProvideUseCase.swift */,
 				1D93999E282F71FA00D547A2 /* AgreementUseCase.swift */,
+				1D7F56FE283291950084EFA5 /* CreateUserUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1468,6 +1475,7 @@
 				66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */,
 				1D77EDF72779ED000007BFF3 /* AuthenticateUseCaseProtocol.swift */,
 				1D93999A282F71B100D547A2 /* AgreementUseCaseProtocol.swift */,
+				1D7F56FC28328CD50084EFA5 /* CreateUserUseCaseProtocol.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -2260,6 +2268,7 @@
 				661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */,
 				66F176092754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift in Sources */,
 				317FB617274BAAEC005DF3A3 /* DooldaInfoType.swift in Sources */,
+				1D7F56FF283291950084EFA5 /* CreateUserUseCase.swift in Sources */,
 				66F176232754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift in Sources */,
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
 				FCD24D7827439717000203F7 /* GlobalFontUseCase.swift in Sources */,
@@ -2429,6 +2438,7 @@
 				665303A02743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift in Sources */,
 				31012596273842B300E43160 /* StickerComponentEntity.swift in Sources */,
 				1D6232E72730F0DF00A9AD6B /* PairingViewController.swift in Sources */,
+				1D7F56FD28328CD50084EFA5 /* CreateUserUseCaseProtocol.swift in Sources */,
 				66CD6456273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift in Sources */,
 				1DBF5715273A2C5100D28F5E /* FontColorType.swift in Sources */,
 				664893C3273007ED009F03E2 /* SceneDelegate.swift in Sources */,
@@ -3066,10 +3076,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Doolda/Doolda.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Doolda/DooldaDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9DGN7522H6;
+				DEVELOPMENT_TEAM = 5HZQ3M82FA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doolda/Resources/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
@@ -3083,7 +3093,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = minglely.com.doolda;
+				PRODUCT_BUNDLE_IDENTIFIER = com.seunghun.doolda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

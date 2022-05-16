@@ -20,7 +20,8 @@ final class GetMyIdUseCase: GetMyIdUseCaseProtocol {
         return userRepository.getMyId()
     }
     
-    // FIXME: NOT IMPLEMENTED
+    // TODO: [승지] uid로 DDID 가져오도록 바꾸기 (repository도 포함)
+    // uid 에 대응되는 DDID를 올리는건 Dozzing이 한다.
     func getMyId(for uid: String) -> AnyPublisher<DDID?, Never> {
 //        return userRepository.getMyId(for: uid)
         return Just(nil).eraseToAnyPublisher()

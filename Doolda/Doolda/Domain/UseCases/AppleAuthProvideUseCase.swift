@@ -33,6 +33,7 @@ final class AppleAuthProvideUseCase {
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self.delegate
         authorizationController.presentationContextProvider = self.presentationProvider
+        authorizationController.performRequests()
     }
     
     func getFirebaseCredential(with authorization: ASAuthorization) throws -> AuthCredential {

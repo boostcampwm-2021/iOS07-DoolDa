@@ -24,17 +24,22 @@ protocol AuthenticationViewModelInput {
 
 protocol AuthenticationViewModelOutput {
     var errorPublisher: AnyPublisher<Error?, Never> { get }
+    var signUpPageRequested: PassthroughSubject<Void, Never> { get }
+    var agreementPageRequested: PassthroughSubject<Void, Never> { get }
+    var pairingPageRequested: PassthroughSubject<DDID, Never> { get }
+    var diaryPageRequested: PassthroughSubject<User, Never> { get }
 }
 
 typealias AuthenticationViewModelProtocol = AuthenticationViewModelInput & AuthenticationViewModelOutput
 
 enum AuthenticatoinError: LocalizedError {
     case failToInitCredential
+    case missingAuthDataResult
 
     var errorDescription: String? {
         switch self {
-        case .failToInitCredential:
-            return "fail to init credential"
+        case .failToInitCredential: return "fail to init credential"
+        case .missingAuthDataResult: return "인증 결과가 누락되었습니다."
         }
     }
 }
@@ -46,12 +51,18 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     var signUpPageRequested = PassthroughSubject<Void, Never>()
+    var agreementPageRequested = PassthroughSubject<Void, Never>()
+    var pairingPageRequested = PassthroughSubject<DDID, Never>()
+    var diaryPageRequested = PassthroughSubject<User, Never>()
 
     @Published private var error: Error?
 
     private let sceneId: UUID
     private let authenticateUseCase: AuthenticateUseCaseProtocol
     private let appleAuthProvider: AppleAuthProvideUseCase
+    private let getMyIdUseCase: GetMyIdUseCaseProtocol
+    private let getUserUseCase: GetUserUseCaseProtocol
+    private let createUserUseCase: CreateUserUseCaseProtocol
     
     private var rawNonce: String?
     private var cancellables: Set<AnyCancellable> = []
@@ -59,11 +70,42 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     init(
         sceneId: UUID,
         authenticateUseCase: AuthenticateUseCaseProtocol,
-        appleAuthProvider: AppleAuthProvideUseCase
+        appleAuthProvider: AppleAuthProvideUseCase,
+        getMyIdUseCase: GetMyIdUseCaseProtocol,
+        getUserUseCase: GetUserUseCaseProtocol,
+        createUserUseCase: CreateUserUseCaseProtocol
     ) {
         self.sceneId = sceneId
         self.authenticateUseCase = authenticateUseCase
         self.appleAuthProvider = appleAuthProvider
+        self.getMyIdUseCase = getMyIdUseCase
+        self.getUserUseCase = getUserUseCase
+        self.createUserUseCase = createUserUseCase
+    }
+    
+    func deinitRequested() {
+        NotificationCenter.default.post(
+            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
+            object: nil,
+            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
+        )
+    }
+
+    func appleLoginButtonDidTap(
+        authControllerDelegate: ASAuthorizationControllerDelegate?,
+        authControllerPresentationProvider: ASAuthorizationControllerPresentationContextProviding?
+    ) {
+        self.appleAuthProvider.delegate = authControllerDelegate
+        self.appleAuthProvider.presentationProvider = authControllerPresentationProvider
+        self.appleAuthProvider.performRequest()
+    }
+    
+    func emailLoginButtonDidTap(email: String, password: String) {
+        self.signIn(email: email, password: password)
+    }
+    
+    func createAccountButtonDidTap() {
+        self.signUpPageRequested.send()
     }
     
     func signIn(withApple authorization: ASAuthorization) {
@@ -80,49 +122,57 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
-            } receiveValue: { data in
-                if data?.user != nil {
-                    NotificationCenter.default.post(
-                        name: AuthenticationViewCoordinator.Notifications.userDidSignIn,
-                        object: nil
-                    )
-                }
-            }
-            .store(in: &cancellables)
-    }
-
-    func deinitRequested() {
-        NotificationCenter.default.post(
-            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
-            object: nil,
-            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
-        )
-    }
-
-    func createAccountButtonDidTap() {
-        self.signUpPageRequested.send()
-    }
-
-    // TODO: Create addtional usecase for apple authentication
-    
-    func appleLoginButtonDidTap(
-        authControllerDelegate: ASAuthorizationControllerDelegate?,
-        authControllerPresentationProvider: ASAuthorizationControllerPresentationContextProviding?
-    ) {
-        self.appleAuthProvider.delegate = authControllerDelegate
-        self.appleAuthProvider.presentationProvider = authControllerPresentationProvider
-        self.appleAuthProvider.performRequest()
-    }
-    
-    func emailLoginButtonDidTap(email: String, password: String) {
-        self.authenticateUseCase.signIn(withEmail: email, password: password)
-            .sink { [weak self] completion in
-                guard case .failure(let error) = completion else { return }
-                self?.error = error
-            } receiveValue: { authDataResult in
-                // FIXME: Coordinator 연결 필요
+            } receiveValue: { [weak self] authDataResult in
+                self?.validateUser(with: authDataResult)
             }
             .store(in: &self.cancellables)
     }
     
+    private func signIn(email: String, password: String) {
+        self.authenticateUseCase.signIn(withEmail: email, password: password)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] authDataResult in
+                self?.validateUser(with: authDataResult)
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    private func validateUser(with authDataResult: AuthDataResult?) {
+        guard let user = authDataResult?.user else { return self.error = AuthenticatoinError.missingAuthDataResult }
+        self.getMyIdUseCase.getMyId(for: user.uid)
+            .sink { [weak self] ddid in
+                guard let self = self else { return }
+                guard let ddid = ddid else {
+                    self.createUserUseCase.create(uid: user.uid)
+                        .sink { [weak self] completion in
+                            guard case .failure(let error) = completion else { return }
+                            self?.error = error
+                        } receiveValue: { [weak self] dooldaUser in
+                            self?.validateUser(with: dooldaUser)
+                        }
+                        .store(in: &self.cancellables)
+                    return
+                }
+                self.getUserUseCase.getUser(for: ddid)
+                    .sink { completion in
+                        guard case .failure(let error) = completion else { return }
+                        self.error = error
+                    } receiveValue: { [weak self] dooldaUser in
+                        self?.validateUser(with: dooldaUser)
+                    }.store(in: &self.cancellables)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func validateUser(with dooldaUser: User) {
+        if dooldaUser.isAgreed == false {
+            self.agreementPageRequested.send()
+        } else if dooldaUser.pairId?.ddidString.isEmpty == false {
+            self.diaryPageRequested.send(dooldaUser)
+        } else {
+            self.pairingPageRequested.send(dooldaUser.id)
+        }
+    }
 }

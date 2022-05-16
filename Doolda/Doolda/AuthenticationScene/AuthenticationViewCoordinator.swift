@@ -25,13 +25,28 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
     }
 
     func start() {
+        let userDefaultService = UserDefaultsPersistenceService.shared
+        let networkService = FirebaseNetworkService.shared
+        
+        let userRepository = UserRepository(persistenceService: userDefaultService, networkService: networkService)
+        
         let authenticateUseCase = AuthenticateUseCase()
         let appleAuthProvider = AppleAuthProvideUseCase()
+        let getMyIdUseCase = GetMyIdUseCase(userRepository: userRepository)
+        let getUserUseCase = GetUserUseCase(userRepository: userRepository)
+        let createUserUseCase = CreateUserUseCase()
+        
         let viewModel = AuthenticationViewModel(
             sceneId: self.identifier,
             authenticateUseCase: authenticateUseCase,
-            appleAuthProvider: appleAuthProvider
+            appleAuthProvider: appleAuthProvider,
+            getMyIdUseCase: getMyIdUseCase,
+            getUserUseCase: getUserUseCase,
+            createUserUseCase: createUserUseCase
         )
+        
+        // TODO: [주민] Coordinator 구현 ViewModel과 연결하시오
+        
         let viewController = AuthenticationViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
     }
@@ -53,7 +68,6 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
     }
 
     private func userDidSignIn() {
-        // FIXME: 미구현
         print("Present Agreement ViewController")
     }
 }
