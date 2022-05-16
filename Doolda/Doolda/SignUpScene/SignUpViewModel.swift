@@ -18,20 +18,22 @@ protocol SignUpViewModelOutput {
     var isEmailValidPublisher: PassthroughSubject<Bool, Never> { get }
     var isPasswordValidPublisher: PassthroughSubject<Bool, Never> { get }
     var isPasswordCheckValidPublisher: PassthroughSubject<Bool, Never> { get }
-
+    var errorPublisher: AnyPublisher<Error?, Never> { get }
 }
 
 typealias SignUpViewModelProtocol = SignUpViewModelInput & SignUpViewModelOutput
 
 final class SignUpViewModel: SignUpViewModelProtocol {
 
-    @Published var emailInput: String = ""
-    @Published var passwordInput: String = ""
-    @Published var passwordCheckInput: String = ""
-
     var isEmailValidPublisher = PassthroughSubject<Bool, Never>()
     var isPasswordValidPublisher = PassthroughSubject<Bool, Never>()
     var isPasswordCheckValidPublisher = PassthroughSubject<Bool, Never>()
+    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
+
+    @Published var emailInput: String = ""
+    @Published var passwordInput: String = ""
+    @Published var passwordCheckInput: String = ""
+    @Published private var error: Error?
 
     private var cancellables: Set<AnyCancellable> = []
     private let signUpUseCase: SignUpUseCaseProtocol
@@ -40,9 +42,14 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         self.signUpUseCase = signUpUseCase
         bind()
     }
-    
-    init() {
-        bind()
+
+    func signUpButtonDidTap() {
+        self.signUpUseCase.signUp(email: self.emailInput, password: self.passwordInput) { [weak self] authDataResult, error in
+            if let error = error {
+                self?.error = error
+                return
+            }
+        }
     }
 
     private func bind() {
