@@ -34,6 +34,8 @@ final class SplashViewModel: SplashViewModelProtocol {
     
     var loginPageRequested = PassthroughSubject<Void, Never>()
     var agreementPageRequested = PassthroughSubject<String, Never>()
+    var pairingPageRequested = PassthroughSubject<DDID, Never>()
+    var diaryPageRequested = PassthroughSubject<User, Never>()
 
     private var cancellables: Set<AnyCancellable> = []
     
@@ -86,7 +88,12 @@ final class SplashViewModel: SplashViewModelProtocol {
                 guard case .failure(let error) = completion else { return }
                 self.error = error
             } receiveValue: { [weak self] dooldaUser in
-                    self?.user = dooldaUser
+                self?.user = dooldaUser
+                if dooldaUser.pairId?.ddidString.isEmpty == false {
+                    self?.diaryPageRequested.send(dooldaUser)
+                } else {
+                    self?.pairingPageRequested.send(dooldaUser.id)
+                }
             }.store(in: &self.cancellables)
      }
 
