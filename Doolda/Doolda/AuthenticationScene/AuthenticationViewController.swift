@@ -66,6 +66,7 @@ class AuthenticationViewController: UIViewController {
         button.setTitleColor(.dooldaLabel, for: .normal)
         button.backgroundColor = .dooldaHighlighted
         button.titleLabel?.font = UIFont(name: FontType.dovemayo.name, size: 16)
+        button.isEnabled = false
         return button
     }()
 
@@ -149,6 +150,13 @@ class AuthenticationViewController: UIViewController {
             }
             .store(in: &self.cancellables)
         
+        self.viewModel.errorPublisher
+            .sink { [weak self] error in
+                guard let error = error else { return }
+                self?.showLoginErrorAlert(error: error)
+            }
+            .store(in: &self.cancellables)
+        
         self.appleLoginButton.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 self?.viewModel.appleLoginButtonDidTap(
@@ -157,6 +165,47 @@ class AuthenticationViewController: UIViewController {
                 )
             }
             .store(in: &self.cancellables)
+        
+        self.emailLoginButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                guard let email = self?.emailTextField.text,
+                      let password = self?.passwordTextField.text else { return }
+                self?.viewModel.emailLoginButtonDidTap(email: email, password: password)
+            }
+            .store(in: &self.cancellables)
+        
+        self.emailTextField.returnPublisher
+            .sink { [weak self] _ in
+                _ = self?.emailTextField.resignFirstResponder()
+                _ = self?.passwordTextField.becomeFirstResponder()
+            }
+            .store(in: &self.cancellables)
+        
+        self.passwordTextField.returnPublisher
+            .sink { [weak self] _ in
+                _ = self?.passwordTextField.resignFirstResponder()
+            }
+            .store(in: &self.cancellables)
+        
+        Publishers
+            .CombineLatest(self.emailTextField.textPublisher, self.passwordTextField.textPublisher)
+            .sink { [weak self] email, password in
+                guard let email = email,
+                      let password = password,
+                      !email.isEmpty && !password.isEmpty else {
+                          self?.emailLoginButton.isEnabled = false
+                          return
+                      }
+                self?.emailLoginButton.isEnabled = true
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func showLoginErrorAlert(error: Error) {
+        let alert = UIAlertController.defaultAlert(title: "로그인 실패", message: error.localizedDescription) { _ in }
+        self.present(alert, animated: true)
     }
 }
 
