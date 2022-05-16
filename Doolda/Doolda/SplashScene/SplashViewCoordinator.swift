@@ -59,24 +59,28 @@ final class SplashViewCoordinator: BaseCoordinator {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.loginPageRequest()
-            }.store(in: &self.cancellables)
+            }
+            .store(in: &self.cancellables)
         
         viewModel.agreementPageRequested
             .receive(on: DispatchQueue.main)
             .sink { [weak self] uid in
-            self?.agreementPageRequest(uid: uid)
-        }.store(in: &self.cancellables)
-        
-        viewModel.$user
-            .compactMap { $0 }
+                self?.agreementPageRequest(uid: uid)
+            }
+            .store(in: &self.cancellables)
+
+        viewModel.pairingPageRequested
             .receive(on: DispatchQueue.main)
-            .sink (receiveValue: { [weak self] user in
-                if user.pairId?.ddidString.isEmpty == false {
-                    self?.userAlreadyPaired(user: user)
-                } else {
-                    self?.userNotPaired(myId: user.id)
-                }
-            })
+            .sink { [weak self] myId in
+                self?.userNotPaired(myId: myId)
+            }
+            .store(in: &self.cancellables)
+
+        viewModel.diaryPageRequested
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.userAlreadyPaired(user: user)
+            }
             .store(in: &self.cancellables)
 
         let viewController = SplashViewController(viewModel: viewModel)
