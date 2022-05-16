@@ -115,7 +115,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     }
     
     func emailLoginButtonDidTap(email: String, password: String) {
-        self.authenticationUseCase.signIn(email: email, password: password)
+        self.authenticateUseCase.signIn(withEmail: email, password: password)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
