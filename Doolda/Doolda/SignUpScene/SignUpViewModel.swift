@@ -12,6 +12,8 @@ protocol SignUpViewModelInput {
     var emailInput: String { get set }
     var passwordInput: String { get set }
     var passwordCheckInput: String { get set }
+    func signInButtonDidTap()
+
 }
 
 protocol SignUpViewModelOutput {
@@ -19,16 +21,17 @@ protocol SignUpViewModelOutput {
     var isPasswordValidPublisher: PassthroughSubject<Bool, Never> { get }
     var isPasswordCheckValidPublisher: PassthroughSubject<Bool, Never> { get }
     var errorPublisher: AnyPublisher<Error?, Never> { get }
+    var signInPageRequested: PassthroughSubject<Void, Never> { get }
 }
 
 typealias SignUpViewModelProtocol = SignUpViewModelInput & SignUpViewModelOutput
 
 final class SignUpViewModel: SignUpViewModelProtocol {
-
     var isEmailValidPublisher = PassthroughSubject<Bool, Never>()
     var isPasswordValidPublisher = PassthroughSubject<Bool, Never>()
     var isPasswordCheckValidPublisher = PassthroughSubject<Bool, Never>()
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
+    var signInPageRequested = PassthroughSubject<Void, Never>()
 
     @Published var emailInput: String = ""
     @Published var passwordInput: String = ""
@@ -41,6 +44,10 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     init(signUpUseCase: SignUpUseCaseProtocol) {
         self.signUpUseCase = signUpUseCase
         bind()
+    }
+
+    func signInButtonDidTap() {
+        self.signInPageRequested.send()
     }
 
     func signUpButtonDidTap() {
@@ -72,7 +79,6 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             self.isPasswordCheckValidPublisher.send(self.checkPasswordCheckVaild(passwordCheckInput))
         }
         .store(in: &self.cancellables)
-
     }
 
     private func checkEamilVaild(_ email: String) -> Bool {
