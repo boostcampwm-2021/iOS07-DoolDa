@@ -11,13 +11,6 @@ import UIKit
 final class SplashViewCoordinator: BaseCoordinator {
     
     // MARK: - Nested enum
-
-    enum Notifications {
-        static let userNotLoggedIn = Notification.Name("userNotLoggedIn")
-        static let userNotExists = Notification.Name("userNotExists")
-        static let userNotPaired = Notification.Name("userNotPaired")
-        static let userAlreadyPaired = Notification.Name("userAlreadyPaired")
-    }
     
     enum Keys {
         static let user = "user"
@@ -72,14 +65,14 @@ final class SplashViewCoordinator: BaseCoordinator {
         viewModel.pairingPageRequested
             .receive(on: DispatchQueue.main)
             .sink { [weak self] myId in
-                self?.userNotPaired(myId: myId)
+                self?.paringPageRequest(myId: myId)
             }
             .store(in: &self.cancellables)
 
         viewModel.diaryPageRequested
             .receive(on: DispatchQueue.main)
             .sink { [weak self] user in
-                self?.userAlreadyPaired(user: user)
+                self?.diaryPageRequest(user: user)
             }
             .store(in: &self.cancellables)
 
@@ -87,7 +80,6 @@ final class SplashViewCoordinator: BaseCoordinator {
         self.presenter.pushViewController(viewController, animated: false)
     }
     
-    // FIXME: NOT IMPLEMENTED
      private func loginPageRequest() {
          let identifier = UUID()
          let authenticationViewCoordinator = AuthenticationViewCoordinator(identifier: identifier, presenter: self.presenter)
@@ -95,14 +87,13 @@ final class SplashViewCoordinator: BaseCoordinator {
          authenticationViewCoordinator.start()
      }
      
-    // FIXME: NOT IMPLEMENTED
     private func agreementPageRequest() {
         let agreementViewCoordinator = AgreementViewCoordinator(identifier: UUID(), presenter: self.presenter)
         self.children[identifier] = agreementViewCoordinator
         agreementViewCoordinator.start()
     }
     
-    private func userNotPaired(myId: DDID) {
+    private func paringPageRequest(myId: DDID) {
         let user = User(id: myId)
         let identifier = UUID()
         let paringViewCoordinator = PairingViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
@@ -110,7 +101,7 @@ final class SplashViewCoordinator: BaseCoordinator {
         paringViewCoordinator.start()
     }
 
-    private func userAlreadyPaired(user: User) {
+    private func diaryPageRequest(user: User) {
         let identifier = UUID()
         let diaryViewCoordinator = DiaryViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
         self.children[identifier] = diaryViewCoordinator
