@@ -13,15 +13,10 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
 
     // MARK: - Nested enum
 
-    enum Notifications {
-        static let userDidSignIn = Notification.Name("userDidSignIn")
-    }
-
     private var cancellables: Set<AnyCancellable> = []
 
     override init(identifier: UUID, presenter: UINavigationController) {
         super.init(identifier: identifier, presenter: presenter)
-        self.bind()
     }
 
     func start() {
@@ -45,19 +40,36 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
             createUserUseCase: createUserUseCase
         )
         
-        // TODO: [주민] Coordinator 구현 ViewModel과 연결하시오
+        viewModel.signUpPageRequested
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.signUpPageRequest()
+            }
+            .store(in: &self.cancellables)
+
+        viewModel.agreementPageRequested
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.agreementPageRequest()
+            }
+            .store(in: &self.cancellables)
+
+        viewModel.pairingPageRequested
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] myId in
+                self?.paringPageRequest(myId: myId)
+            }
+            .store(in: &self.cancellables)
+
+        viewModel.diaryPageRequested
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.diaryPageRequest(user: user)
+            }
+            .store(in: &self.cancellables)
         
         let viewController = AuthenticationViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
-    }
-
-    private func bind() {
-        NotificationCenter.default.publisher(for: Notifications.userDidSignIn, object: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.userDidSignIn()
-            }
-            .store(in: &self.cancellables)
     }
 
     private func signUpPageRequest() {
@@ -67,7 +79,24 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
         signUpViewCoordinator.start()
     }
 
-    private func userDidSignIn() {
-        print("Present Agreement ViewController")
+    private func agreementPageRequest() {
+        let agreementViewCoordinator = AgreementViewCoordinator(identifier: UUID(), presenter: self.presenter)
+        self.children[identifier] = agreementViewCoordinator
+        agreementViewCoordinator.start()
+    }
+
+    private func paringPageRequest(myId: DDID) {
+        let user = User(id: myId)
+        let identifier = UUID()
+        let paringViewCoordinator = PairingViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
+        self.children[identifier] = paringViewCoordinator
+        paringViewCoordinator.start()
+    }
+
+    private func diaryPageRequest(user: User) {
+        let identifier = UUID()
+        let diaryViewCoordinator = DiaryViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
+        self.children[identifier] = diaryViewCoordinator
+        diaryViewCoordinator.start()
     }
 }
