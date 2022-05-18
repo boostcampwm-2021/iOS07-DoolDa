@@ -278,8 +278,14 @@ final class SignUpViewController: UIViewController {
         self.signUpButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                print("signup")
                 self?.viewModel.signUpButtonDidTap()
+            }
+            .store(in: &self.cancellables)
+
+        self.signInButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.viewModel.signInButtonDidTap()
             }
             .store(in: &self.cancellables)
     }

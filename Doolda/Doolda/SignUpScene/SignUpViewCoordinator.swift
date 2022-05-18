@@ -21,7 +21,17 @@ final class SignUpViewCoordinator: BaseCoordinator {
     func start() {
         let singUpUseCase = SignUpUseCase()
         let viewModel = SignUpViewModel(signUpUseCase: singUpUseCase)
+
+        viewModel.signInPageRequested.sink { [weak self] _ in
+            self?.loginPageRequested()
+        }
+        .store(in: &self.cancellables)
+
         let viewController = SignUpViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
+    }
+
+    private func loginPageRequested() {
+        self.presenter.popViewController(animated: true)
     }
 }
