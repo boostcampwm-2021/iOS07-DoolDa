@@ -62,6 +62,20 @@ class UserRepository: UserRepositoryProtocol {
         return Just(DDID(from: userIdString)).eraseToAnyPublisher()
     }
     
+    
+    // FIXME: uid to ddid 맵핑 컬랙션을 정의 후 수정해야함.
+    func getMyId(for uid: String) -> AnyPublisher<DDID?, Error> {
+        let conditions = ["uid": uid]
+        
+        return self.firebaseNetworkService.getDocuments(collection: .user, conditions: conditions)
+            .map { data -> DDID? in
+                guard let ddidString = data.first?["ddid"] as? String,
+                      let ddid = DDID(from: ddidString) else { return nil }
+                return ddid
+            }
+            .eraseToAnyPublisher()
+    }
+    
     func setUser(_ user: User) -> AnyPublisher<User, Error> {
         let publisher = self.firebaseNetworkService.setDocument(collection: .user, document: user.id.ddidString, dictionary: user.dictionary)
             return publisher.tryMap { _ in
