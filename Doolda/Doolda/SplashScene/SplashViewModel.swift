@@ -70,21 +70,24 @@ final class SplashViewModel: SplashViewModelProtocol {
         }
     }
     
-    private func validateUser(user: FirebaseAuth.User) {
-         self.getMyIdUseCase.getMyId(for: user.uid)
-             .sink { [weak self] ddid in
-                 guard let self = self else { return }
-                 guard let ddid = ddid else { return } // 에러 처리
-                 self.getUserUseCase.getUser(for: ddid)
-                     .sink { completion in
-                         guard case .failure(let error) = completion else { return }
-                         self.error = error
-                     } receiveValue: { [weak self] dooldaUser in
-                         self?.user = dooldaUser
-                         self?.validateUser(with: dooldaUser)
-                     }.store(in: &self.cancellables)
-             }
-             .store(in: &self.cancellables)
+    private func validateUser(user: FirebaseAuth.User) {        
+        self.getMyIdUseCase.getMyId(for: user.uid)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] ddid in
+                guard let self = self else { return }
+                guard let ddid = ddid else { return } // 에러 처리
+                self.getUserUseCase.getUser(for: ddid)
+                    .sink { completion in
+                        guard case .failure(let error) = completion else { return }
+                        self.error = error
+                    } receiveValue: { [weak self] dooldaUser in
+                        self?.user = dooldaUser
+                        self?.validateUser(with: dooldaUser)
+                    }.store(in: &self.cancellables)
+            }
+            .store(in: &self.cancellables)
      }
     
     private func validateUser(with dooldaUser: User) {

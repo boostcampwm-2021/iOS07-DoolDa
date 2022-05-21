@@ -141,8 +141,12 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     
     private func validateUser(with authDataResult: AuthDataResult?) {
         guard let user = authDataResult?.user else { return self.error = AuthenticatoinError.missingAuthDataResult }
+        
         self.getMyIdUseCase.getMyId(for: user.uid)
-            .sink { [weak self] ddid in
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] ddid in
                 guard let self = self else { return }
                 guard let ddid = ddid else {
                     self.createUserUseCase.create(uid: user.uid)
