@@ -67,7 +67,7 @@ class UserRepository: UserRepositoryProtocol {
     func getMyId(for uid: String) -> AnyPublisher<DDID?, Error> {
         let conditions = ["uid": uid]
         
-        return self.firebaseNetworkService.getDocuments(collection: .user, conditions: conditions)
+        return self.firebaseNetworkService.getDocuments(collection: .ddidDictionary, conditions: conditions)
             .map { data -> DDID? in
                 guard let ddidString = data.first?["ddid"] as? String,
                       let ddid = DDID(from: ddidString) else { return nil }
