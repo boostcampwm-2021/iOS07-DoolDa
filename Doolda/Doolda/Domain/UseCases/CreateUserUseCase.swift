@@ -8,15 +8,7 @@
 import Combine
 import Foundation
 
-// 이름이 DDID, 내용이 User
-// 이름이 uid, 내용이 DDID (이걸 승지가, getMyId(for uid: String) -> AnyPublisher<DDID?, Never> 로 가져옴)
-
-// uid에 대응되는 DDID를 올리자
-
 final class CreateUserUseCase: CreateUserUseCaseProtocol {
-    // TODO: [Dozzing] 여기 + UserRepository (uid 를 DDID로 매핑해주는것도 신경쓰셔야합니다)
-    // 이름이 DDID 내용이 User, uid를 이름으로하고 DDID값을 가지는 추가 컬렉션을 만들어서 중간에 매핑하게하자. <- 중간에 매핑하는거는 승지가 한다.
-
     enum Errors: LocalizedError {
         case failToSetUser
 
@@ -35,8 +27,6 @@ final class CreateUserUseCase: CreateUserUseCaseProtocol {
     }
 
     func create(uid: String) -> AnyPublisher<User, Error> {
-        // uid -> DDID 매핑해서 파베에 올리고 (ddidDictionary)
-        // DDID -> User 만들어서 파베에 올리기
         let ddid = DDID()
         return self.userRepository.setMyId(uid: uid, ddid: ddid)
             .flatMap { [weak self] ddid -> AnyPublisher<User, Error> in
