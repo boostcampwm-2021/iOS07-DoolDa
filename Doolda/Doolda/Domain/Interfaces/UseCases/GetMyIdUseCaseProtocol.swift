@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 protocol GetMyIdUseCaseProtocol {
-    // FIXME: Deprecated
+    @available(*, deprecated, message: "getMyId(for uid: String) -> AnyPublisher<DDID?, Never>를 사용하세요")
     func getMyId() -> AnyPublisher<DDID?, Never>
     
-    func getMyId(for uid: String) -> AnyPublisher<DDID?, Never>
+    func getMyId(for uid: String) -> AnyPublisher<DDID?, Error>
 }
