@@ -44,7 +44,11 @@ class UserRepository: UserRepositoryProtocol {
     }
 
     func setMyId(uid: String, ddid: DDID) -> AnyPublisher<DDID, Error> {
-        let publisher = self.firebaseNetworkService.setDocument(collection: .ddidDictionary, document: uid, dictionary: ["ddid": ddid.ddidString])
+        let publisher = self.firebaseNetworkService.setDocument(
+            collection: .ddidDictionary,
+            document: uid,
+            dictionary: ["ddid": ddid.ddidString]
+        )
         return publisher.tryMap { _ in
             return ddid
         }
