@@ -199,6 +199,10 @@ class AuthenticationViewController: UIViewController {
             .store(in: &self.cancellables)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     // MARK: - Private Methods
     
     private func showLoginErrorAlert(error: Error) {
