@@ -176,14 +176,14 @@ class AuthenticationViewController: UIViewController {
         
         self.emailTextField.returnPublisher
             .sink { [weak self] _ in
-                _ = self?.emailTextField.resignFirstResponder()
-                _ = self?.passwordTextField.becomeFirstResponder()
+                self?.emailTextField.resignFirstResponder()
+                self?.passwordTextField.becomeFirstResponder()
             }
             .store(in: &self.cancellables)
         
         self.passwordTextField.returnPublisher
             .sink { [weak self] _ in
-                _ = self?.passwordTextField.resignFirstResponder()
+                self?.passwordTextField.resignFirstResponder()
             }
             .store(in: &self.cancellables)
         

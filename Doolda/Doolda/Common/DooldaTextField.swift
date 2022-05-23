@@ -118,10 +118,12 @@ class DooldaTextField: UIControl {
 
     }
     
+    @discardableResult
     override func becomeFirstResponder() -> Bool {
         return self.textField.becomeFirstResponder()
     }
     
+    @discardableResult
     override func resignFirstResponder() -> Bool {
         return self.textField.resignFirstResponder()
     }
