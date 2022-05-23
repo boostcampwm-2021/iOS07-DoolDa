@@ -19,12 +19,13 @@ final class AgreementViewCoordinator: BaseCoordinator {
     enum Keys {
         static let myId = "myId"
     }
-    
+
+    private let user: User
     private var cancellables: Set<AnyCancellable> = []
     
-    override init(identifier: UUID, presenter: UINavigationController) {
+    init(identifier: UUID, presenter: UINavigationController, user: User) {
+        self.user = user
         super.init(identifier: identifier, presenter: presenter)
-        self.bind()
     }
     
     func start() {
@@ -40,27 +41,23 @@ final class AgreementViewCoordinator: BaseCoordinator {
         let agreementUseCase = AgreementUseCase(userRepository: userRepository)
         
         let viewModel = AgreementViewModel(
+            user: self.user,
             sceneId: self.identifier,
             registerUserUseCase: registerUserUseCase,
             agreementUseCase: agreementUseCase
         )
+
+        viewModel.pairingPageRequested.sink { [weak self] user in
+            self?.userDidApproveApplicationServicePolicy(user: user)
+        }
+        .store(in: &self.cancellables)
         
         let viewController = AgreementViewController(viewModel: viewModel)
         self.presenter.pushViewController(viewController, animated: false)
     }
+
     
-    private func bind() {
-        NotificationCenter.default.publisher(for: Notifications.userDidApproveApplicationServicePolicy, object: nil)
-            .receive(on: DispatchQueue.main)
-            .compactMap { $0.userInfo?[Keys.myId] as? DDID }
-            .sink { [weak self] myId in
-                self?.userDidApproveApplicationServicePolicy(myId: myId)
-            }
-            .store(in: &self.cancellables)
-    }
-    
-    private func userDidApproveApplicationServicePolicy(myId: DDID) {
-        let user = User(id: myId)
+    private func userDidApproveApplicationServicePolicy(user: User) {
         let identifier = UUID()
         let paringViewCoordinator = PairingViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
         self.children[identifier] = paringViewCoordinator

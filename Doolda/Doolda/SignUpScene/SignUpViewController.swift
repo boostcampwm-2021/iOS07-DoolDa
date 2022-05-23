@@ -139,7 +139,7 @@ final class SignUpViewController: UIViewController {
         button.setTitle("회원가입", for: .normal)
         button.setTitleColor(.dooldaLabel, for: .normal)
         button.backgroundColor = .dooldaHighlighted
-        button.isEnabled = false
+        button.isEnabled = true
         return button
     }()
     

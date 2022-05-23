@@ -13,6 +13,6 @@ import FirebaseAuth
 
 final class SignUpUseCase: SignUpUseCaseProtocol {
     func signUp(email: String, password: String, completion: ((AuthDataResult?, Error?) -> Void)?) {
-        Auth.auth().createUser(withEmail: email, password: password)
+        Auth.auth().createUser(withEmail: email, password: password, completion: completion)
     }
 }

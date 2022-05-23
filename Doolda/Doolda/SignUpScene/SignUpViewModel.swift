@@ -22,6 +22,7 @@ protocol SignUpViewModelOutput {
     var isPasswordCheckValidPublisher: PassthroughSubject<Bool, Never> { get }
     var errorPublisher: AnyPublisher<Error?, Never> { get }
     var signInPageRequested: PassthroughSubject<Void, Never> { get }
+    var agreementPageRequested: PassthroughSubject<User, Never> { get }
 }
 
 typealias SignUpViewModelProtocol = SignUpViewModelInput & SignUpViewModelOutput
@@ -32,6 +33,8 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     var isPasswordCheckValidPublisher = PassthroughSubject<Bool, Never>()
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     var signInPageRequested = PassthroughSubject<Void, Never>()
+    var agreementPageRequested = PassthroughSubject<User, Never>()
+
 
     @Published var emailInput: String = ""
     @Published var passwordInput: String = ""
@@ -40,9 +43,13 @@ final class SignUpViewModel: SignUpViewModelProtocol {
 
     private var cancellables: Set<AnyCancellable> = []
     private let signUpUseCase: SignUpUseCaseProtocol
+    private let createUserUseCase: CreateUserUseCase
 
-    init(signUpUseCase: SignUpUseCaseProtocol) {
+    init(
+        signUpUseCase: SignUpUseCaseProtocol,
+        createUserUseCase: CreateUserUseCase) {
         self.signUpUseCase = signUpUseCase
+        self.createUserUseCase = createUserUseCase
         bind()
     }
 
@@ -52,10 +59,21 @@ final class SignUpViewModel: SignUpViewModelProtocol {
 
     func signUpButtonDidTap() {
         self.signUpUseCase.signUp(email: self.emailInput, password: self.passwordInput) { [weak self] authDataResult, error in
+            guard let self = self else { return }
             if let error = error {
-                self?.error = error
+                self.error = error
                 return
             }
+            guard let uid = authDataResult?.user.uid else {
+                // 에러처리하기 ㅎㅎ
+                return }
+
+            self.createUserUseCase.create(uid: uid).sink(receiveCompletion: { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            }, receiveValue: { [weak self] user in
+                self?.agreementPageRequested.send(user)
+            }).store(in: &self.cancellables)
         }
     }
 

@@ -21,6 +21,7 @@ protocol AgreementViewModelOutput {
     var serviceAgreementPublisher: AnyPublisher<String?, Never> { get }
     var privacyPolicyPublisher: AnyPublisher<String?, Never> { get }
     var isPossibleToSignUpPublisher: AnyPublisher<Bool, Never> { get }
+    var pairingPageRequested: PassthroughSubject<User, Never> { get }
 }
 
 typealias AgreementViewModelProtocol = AgreementViewModelInput & AgreementViewModelOutput
@@ -33,8 +34,10 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     var serviceAgreementPublisher: AnyPublisher<String?, Never> { self.$serviceAgreement.eraseToAnyPublisher() }
     var privacyPolicyPublisher: AnyPublisher<String?, Never> { self.$privacyPolicy.eraseToAnyPublisher() }
     var isPossibleToSignUpPublisher: AnyPublisher<Bool, Never> { self.$isPossibleToSignUp.eraseToAnyPublisher() }
+    var pairingPageRequested = PassthroughSubject<User, Never>()
     
     private let sceneId: UUID
+    private let user: User
     private let registerUserUseCase: RegisterUserUseCaseProtocol
     private let agreementUseCase: AgreementUseCaseProtocol
     
@@ -45,10 +48,12 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     @Published private var privacyPolicy: String?
     @Published private var isPossibleToSignUp: Bool = false
     
-    init(sceneId: UUID,
+    init(user: User,
+         sceneId: UUID,
          registerUserUseCase: RegisterUserUseCaseProtocol,
          agreementUseCase: AgreementUseCaseProtocol
     ) {
+        self.user = user
         self.sceneId = sceneId
         self.registerUserUseCase = registerUserUseCase
         self.agreementUseCase = agreementUseCase
@@ -61,7 +66,15 @@ final class AgreementViewModel: AgreementViewModelProtocol {
     }
     
     func pairButtonDidTap() {
-        self.registerUserUseCase.register()
+        self.agreementUseCase.setAgreementInfo(with: self.user)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] user in
+                self?.pairingPageRequested.send(user)
+            }
+            .store(in: &self.cancellables)
+
     }
     
     func deinitRequested() {

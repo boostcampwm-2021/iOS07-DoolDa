@@ -33,7 +33,7 @@ final class SplashViewModel: SplashViewModelProtocol {
     private let globalFontUseCase: GlobalFontUseCaseProtocol
     
     var loginPageRequested = PassthroughSubject<Void, Never>()
-    var agreementPageRequested = PassthroughSubject<Void, Never>()
+    var agreementPageRequested = PassthroughSubject<User, Never>()
     var pairingPageRequested = PassthroughSubject<DDID, Never>()
     var diaryPageRequested = PassthroughSubject<User, Never>()
 
@@ -92,7 +92,7 @@ final class SplashViewModel: SplashViewModelProtocol {
     
     private func validateUser(with dooldaUser: User) {
         if dooldaUser.isAgreed == false {
-            self.agreementPageRequested.send()
+            self.agreementPageRequested.send(dooldaUser)
         } else if dooldaUser.pairId?.ddidString.isEmpty == false {
             self.diaryPageRequested.send(dooldaUser)
         } else {

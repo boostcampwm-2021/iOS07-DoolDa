@@ -57,8 +57,8 @@ final class SplashViewCoordinator: BaseCoordinator {
         
         viewModel.agreementPageRequested
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.agreementPageRequest()
+            .sink { [weak self] user in
+                self?.agreementPageRequest(user: user)
             }
             .store(in: &self.cancellables)
 
@@ -87,8 +87,8 @@ final class SplashViewCoordinator: BaseCoordinator {
          authenticationViewCoordinator.start()
      }
      
-    private func agreementPageRequest() {
-        let agreementViewCoordinator = AgreementViewCoordinator(identifier: UUID(), presenter: self.presenter)
+    private func agreementPageRequest(user: User) {
+        let agreementViewCoordinator = AgreementViewCoordinator(identifier: UUID(), presenter: self.presenter, user: user)
         self.children[identifier] = agreementViewCoordinator
         agreementViewCoordinator.start()
     }

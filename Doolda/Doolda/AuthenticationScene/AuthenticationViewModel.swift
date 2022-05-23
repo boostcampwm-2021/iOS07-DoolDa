@@ -25,7 +25,7 @@ protocol AuthenticationViewModelInput {
 protocol AuthenticationViewModelOutput {
     var errorPublisher: AnyPublisher<Error?, Never> { get }
     var signUpPageRequested: PassthroughSubject<Void, Never> { get }
-    var agreementPageRequested: PassthroughSubject<Void, Never> { get }
+    var agreementPageRequested: PassthroughSubject<User, Never> { get }
     var pairingPageRequested: PassthroughSubject<DDID, Never> { get }
     var diaryPageRequested: PassthroughSubject<User, Never> { get }
 }
@@ -51,7 +51,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     var signUpPageRequested = PassthroughSubject<Void, Never>()
-    var agreementPageRequested = PassthroughSubject<Void, Never>()
+    var agreementPageRequested = PassthroughSubject<User, Never>()
     var pairingPageRequested = PassthroughSubject<DDID, Never>()
     var diaryPageRequested = PassthroughSubject<User, Never>()
 
@@ -172,7 +172,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     
     private func validateUser(with dooldaUser: User) {
         if dooldaUser.isAgreed == false {
-            self.agreementPageRequested.send()
+            self.agreementPageRequested.send(dooldaUser)
         } else if dooldaUser.pairId?.ddidString.isEmpty == false {
             self.diaryPageRequested.send(dooldaUser)
         } else {

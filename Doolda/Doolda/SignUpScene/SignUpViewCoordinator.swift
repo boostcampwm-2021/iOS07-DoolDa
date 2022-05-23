@@ -19,11 +19,22 @@ final class SignUpViewCoordinator: BaseCoordinator {
     }
 
     func start() {
-        let singUpUseCase = SignUpUseCase()
-        let viewModel = SignUpViewModel(signUpUseCase: singUpUseCase)
+        let signUpUseCase = SignUpUseCase()
+        let userRepository = UserRepository(
+            persistenceService: UserDefaultsPersistenceService.shared,
+            networkService: FirebaseNetworkService.shared)
+        let createUserUseCase = CreateUserUseCase(userRepository: userRepository)
+        let viewModel = SignUpViewModel(
+            signUpUseCase: signUpUseCase,
+            createUserUseCase: createUserUseCase)
 
         viewModel.signInPageRequested.sink { [weak self] _ in
             self?.loginPageRequested()
+        }
+        .store(in: &self.cancellables)
+
+        viewModel.agreementPageRequested.sink { [weak self] user in
+            self?.agreementPageRequest(user: user)
         }
         .store(in: &self.cancellables)
 
@@ -33,5 +44,11 @@ final class SignUpViewCoordinator: BaseCoordinator {
 
     private func loginPageRequested() {
         self.presenter.popViewController(animated: true)
+    }
+
+    private func agreementPageRequest(user: User) {
+        let agreementViewCoordinator = AgreementViewCoordinator(identifier: UUID(), presenter: self.presenter, user: user)
+        self.children[identifier] = agreementViewCoordinator
+        agreementViewCoordinator.start()
     }
 }
