@@ -51,11 +51,6 @@ final class SplashViewController: UIViewController {
         self.viewModel = viewModel
     }
     
-//    deinit {
-//        print(#file, "DEINIT")
-//        self.viewModel.deinitRequested()
-//    }
-    
     // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
