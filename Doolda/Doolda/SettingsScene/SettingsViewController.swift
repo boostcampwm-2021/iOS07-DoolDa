@@ -206,7 +206,7 @@ class SettingsViewController: UIViewController {
         self.logoutButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                // FIXME: - ViewModel 연결 필요
+                self?.showLogoutAlert()
             }
             .store(in: &self.cancellables)
 
@@ -243,7 +243,18 @@ class SettingsViewController: UIViewController {
             }
         self.present(alert, animated: true, completion: nil)
     }
-    
+
+    private func showLogoutAlert() {
+        let alert = UIAlertController.selectAlert(
+            title: "로그아웃",
+            message: "정말 로그아웃 하시겠습니까?",
+            leftActionTitle: "취소",
+            rightActionTitle: "확인") { _ in
+                // FIXME: - ViewModel 연결 필요
+            }
+        self.present(alert, animated: true, completion: nil)
+    }
+
     private func showDeleteAcountAlert() {
         let alert = UIAlertController.selectAlert(
             title: "회원 탈퇴",
