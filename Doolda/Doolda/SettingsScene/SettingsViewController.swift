@@ -154,7 +154,6 @@ class SettingsViewController: UIViewController {
         self.settingsSections.enumerated().forEach { index, section in
             guard let header = self.tableView.headerView(forSection: index) as? SettingsTableViewHeader else { return }
             header.font = .systemFont(ofSize: 17)
-            print(UIFont.systemFont(ofSize: 17))
 
             section.settingsOptions.forEach { options in
                 options.cell.font = .systemFont(ofSize: 16)
