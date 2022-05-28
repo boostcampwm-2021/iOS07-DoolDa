@@ -44,6 +44,7 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
         self.pairRepository = pairRepository
     }
     
+    /// pair two users
     func pair(user: User, friendId: DDID) {
         guard user.id != friendId else {
             return self.error = PairUserUseCaseError.myIdAndFriendIdAreTheSame
@@ -63,8 +64,9 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
             .store(in: &cancellables)
     }
 
+    /// pair user him/her self
     func pair(user: User) {
-        let user = User(id: user.id, pairId: user.id, friendId: user.id)
+        let user = user.soloUser()
 
         Publishers.Zip(
             self.userRepository.setUser(user),
@@ -103,9 +105,9 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                 guard let self = self,
                       case .failure = completion else { return }
                 
-                let pairId = DDID()
-                let user = User(id: user.id, pairId: pairId, friendId: friend.id)
-                let friend = User(id: friend.id, pairId: pairId, friendId: user.id)
+                let pair = DDID()
+                let user = user.pairUser(with: friend, as: pair)
+                let friend = friend.pairUser(with: user, as: pair)
                 
                 Publishers.Zip3(
                     self.userRepository.setUser(user),

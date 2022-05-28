@@ -43,4 +43,12 @@ struct User: Hashable {
     func agreed() -> User {
         User(id: id, pairId: pairId, friendId: friendId, isAgreed: true)
     }
+    
+    func soloUser() -> User {
+        User(id: id, pairId: id, friendId: id, isAgreed: isAgreed)
+    }
+    
+    func pairUser(with other: User, as pair: DDID) -> User {
+        User(id: id, pairId: pair, friendId: other.id, isAgreed: isAgreed)
+    }
 }

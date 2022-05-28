@@ -62,42 +62,58 @@ final class SplashViewModel: SplashViewModelProtocol {
         )
     }
     
+    /// validate current firebase user using firebase auth.
+    /// if firebase user is not exist, user need to login first
+    /// if firebase user is exist, validate DDID using firebase user
     func validateAccount() {
-        if let currentUser = self.authenticateUseCase.getCurrentUser() {
-            self.validateUser(user: currentUser)
-        } else {
-            self.loginPageRequested.send()
-        }
+        self.authenticateUseCase.getCurrentUser()
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] currentUser in
+                guard let currentUser = currentUser else {
+                    self?.loginPageRequested.send()
+                    return
+                }
+                self?.validateUser(with: currentUser)
+            }
+            .store(in: &cancellables)
     }
     
-    private func validateUser(user: FirebaseAuth.User) {        
-        self.getMyIdUseCase.getMyId(for: user.uid)
+    /// validate DDID using firebase user.
+    /// if DDID is not exist, user need to login first
+    /// if DDID is exist, validate doolda user using DDID
+    private func validateUser(with firebaseUser: FirebaseAuth.User) {
+        self.getMyIdUseCase.getMyId(for: firebaseUser.uid)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
             } receiveValue: { [weak self] ddid in
                 guard let self = self else { return }
-                guard let ddid = ddid else { return } // 에러 처리
-                self.getUserUseCase.getUser(for: ddid)
-                    .sink { completion in
-                        guard case .failure(let error) = completion else { return }
-                        self.error = error
-                    } receiveValue: { [weak self] dooldaUser in
-                        self?.user = dooldaUser
-                        self?.validateUser(with: dooldaUser)
-                    }.store(in: &self.cancellables)
+                guard let ddid = ddid else { return self.loginPageRequested.send() }
+                self.validateUser(with: ddid)
             }
             .store(in: &self.cancellables)
      }
     
-    private func validateUser(with dooldaUser: User) {
-        if dooldaUser.isAgreed == false {
-            self.agreementPageRequested.send(dooldaUser)
-        } else if dooldaUser.pairId?.ddidString.isEmpty == false {
-            self.diaryPageRequested.send(dooldaUser)
-        } else {
-            self.pairingPageRequested.send(dooldaUser.id)
-        }
+    /// validate doolda user using DDID.
+    /// if doolda user is not agreed, user need to agree first
+    /// if doolda user is agreed but not paired, user need to pair first
+    /// if doolda user is agreed and paired, user can edit diary
+    private func validateUser(with ddid: DDID) {
+        self.getUserUseCase.getUser(for: ddid)
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                self.error = error
+            } receiveValue: { [weak self] dooldaUser in
+                let isAgreed = dooldaUser.isAgreed
+                let isPaired = !(dooldaUser.pairId?.ddidString.isEmpty ?? true)
+                switch (isAgreed, isPaired) {
+                case (false, _): self?.agreementPageRequested.send(dooldaUser)
+                case (true, false): self?.pairingPageRequested.send(ddid)
+                case (true, true): self?.diaryPageRequested.send(dooldaUser)
+                }
+            }.store(in: &self.cancellables)
     }
 
     private func applyGlobalFont() {

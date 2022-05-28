@@ -35,7 +35,6 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     var signInPageRequested = PassthroughSubject<Void, Never>()
     var agreementPageRequested = PassthroughSubject<User, Never>()
 
-
     @Published var emailInput: String = ""
     @Published var passwordInput: String = ""
     @Published var passwordCheckInput: String = ""
