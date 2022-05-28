@@ -65,8 +65,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             } receiveValue: { [weak self] authDataResult in
                 guard let self = self else { return }
                 
-                let uid = authDataResult.user.uid
-                self.createUserUseCase.create(uid: uid)
+                self.createUserUseCase.create(uid: authDataResult.user.uid)
                     .sink(receiveCompletion: { [weak self] completion in
                         guard case .failure(let error) = completion else { return }
                         self?.error = error
