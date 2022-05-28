@@ -80,18 +80,18 @@ final class SplashViewModel: SplashViewModelProtocol {
             .store(in: &cancellables)
     }
     
-    /// get DDID using firebase user.
-    /// if DDID is not exist, user need to login first
-    /// if DDID is exist, validate doolda user using DDID
-    private func getIdAndValidate(with firebaseUser: FirebaseAuth.User) {
-        self.getMyIdUseCase.getMyId(for: firebaseUser.uid)
+    private func validateUser(user: FirebaseAuth.User) {
+        self.getMyIdUseCase.getMyId(for: user.uid)
+            .compactMap { $0 }
+            .flatMap { [weak self] ddid in
+                return self?.getUserUseCase.getUser(for: ddid) ?? Empty<User, Error>(completeImmediately: true).eraseToAnyPublisher()
+            }
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
-            } receiveValue: { [weak self] ddid in
-                guard let self = self else { return }
-                guard let ddid = ddid else { return self.loginPageRequested.send() }
-                self.getUserAndValidate(with: ddid)
+            } receiveValue: { [weak self] dooldaUser in
+                self?.user = dooldaUser
+                self?.validateUser(with: dooldaUser)
             }
             .store(in: &self.cancellables)
      }

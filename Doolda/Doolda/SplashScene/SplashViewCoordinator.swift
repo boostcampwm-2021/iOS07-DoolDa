@@ -12,11 +12,6 @@ final class SplashViewCoordinator: BaseCoordinator {
     
     // MARK: - Nested enum
     
-    enum Keys {
-        static let user = "user"
-        static let myId = "myId"
-    }
-    
     private var cancellables: Set<AnyCancellable> = []
 
     override init(identifier: UUID, presenter: UINavigationController) {
