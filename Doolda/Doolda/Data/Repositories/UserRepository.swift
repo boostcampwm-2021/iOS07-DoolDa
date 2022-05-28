@@ -55,13 +55,6 @@ class UserRepository: UserRepositoryProtocol {
         .eraseToAnyPublisher()
     }
     
-    func getMyId() -> AnyPublisher<DDID?, Never> {
-        guard let userIdString: String = self.userDefaultsPersistenceService.get(key: UserDefaults.Keys.userId) else {
-            return Just(nil).eraseToAnyPublisher()
-        }
-        return Just(DDID(from: userIdString)).eraseToAnyPublisher()
-    }
-    
     func getMyId(for uid: String) -> AnyPublisher<DDID?, Error> {
         return self.firebaseNetworkService.getDocument(collection: .ddidDictionary, document: uid)
             .map { data -> DDID? in

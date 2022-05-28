@@ -10,9 +10,7 @@ import Foundation
 
 protocol UserRepositoryProtocol {
     func setMyId(_ id: DDID) -> AnyPublisher<DDID, Never>
-    @available(*, deprecated, message: "getMyId(for uid: String) -> AnyPublisher<DDID?, Error>를 사용하세요")
     func setMyId(uid: String, ddid: DDID) -> AnyPublisher<DDID, Error>
-    func getMyId() -> AnyPublisher<DDID?, Never>
     func getMyId(for uid: String) -> AnyPublisher<DDID?, Error>
     
     func setUser(_ user: User) -> AnyPublisher<User, Error>
