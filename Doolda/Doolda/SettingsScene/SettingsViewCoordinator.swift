@@ -56,6 +56,7 @@ class SettingsViewCoordinator: BaseCoordinator {
             let pushNotificationStateUseCase = PushNotificationStateUseCase(pushNotificationStateRepository: pushNotificationStateRepository)
             let authenticationUseCase = AuthenticateUseCase()
             let unpairUserUseCase = UnpairUserUseCase(userRepository: userRepository, pairRepository: pairRepository)
+            let authenticateUseCase = AuthenticateUseCase()
             let firebaseMessageUseCase = FirebaseMessageUseCase(
                 fcmTokenRepository: fcmTokenRepository,
                 firebaseMessageRepository: firebaseMessageRepository
@@ -66,7 +67,7 @@ class SettingsViewCoordinator: BaseCoordinator {
                 user: self.user,
                 globalFontUseCase: globalFontUseCase,
                 unpairUserUseCase: unpairUserUseCase,
-                authenticationUseCase: authenticationUseCase,
+                authenticateUseCase: authenticateUseCase,
                 pushNotificationStateUseCase: pushNotificationStateUseCase,
                 firebaseMessageUseCase: firebaseMessageUseCase
             )
