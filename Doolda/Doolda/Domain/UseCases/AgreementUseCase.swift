@@ -16,7 +16,7 @@ final class AgreementUseCase: AgreementUseCaseProtocol {
     }
     
     func setAgreementInfo(with user: User) -> AnyPublisher<User, Error> {
-        let agreedUser = user.agreed()
+        let agreedUser = user.agreedUser()
         return userRepository.setUser(agreedUser)
     }
 }
