@@ -66,11 +66,11 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
 
     /// pair user him/her self
     func pair(user: User) {
-        let user = user.soloUser()
+        let soloUser = user.soloUser()
 
         Publishers.Zip(
-            self.userRepository.setUser(user),
-            self.pairRepository.setPairId(with: user)
+            self.userRepository.setUser(soloUser),
+            self.pairRepository.setPairId(with: soloUser)
         )
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
@@ -106,13 +106,13 @@ final class PairUserUseCase: PairUserUseCaseProtocol {
                       case .failure = completion else { return }
                 
                 let pair = DDID()
-                let user = user.pairUser(with: friend, as: pair)
-                let friend = friend.pairUser(with: user, as: pair)
+                let pairedUser = user.pairedUser(with: friend, as: pair)
+                let pairedFriend = friend.pairedUser(with: user, as: pair)
                 
                 Publishers.Zip3(
-                    self.userRepository.setUser(user),
-                    self.userRepository.setUser(friend),
-                    self.pairRepository.setPairId(with: friend)
+                    self.userRepository.setUser(pairedUser),
+                    self.userRepository.setUser(pairedFriend),
+                    self.pairRepository.setPairId(with: pairedFriend)
                 )
                     .sink { [weak self] completion in
                         guard case .failure(let error) = completion else { return }

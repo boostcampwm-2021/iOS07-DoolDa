@@ -40,7 +40,7 @@ struct User: Hashable {
         hasher.combine(isAgreed)
     }
     
-    func agreed() -> User {
+    func agreedUser() -> User {
         User(id: id, pairId: pairId, friendId: friendId, isAgreed: true)
     }
     
@@ -48,7 +48,7 @@ struct User: Hashable {
         User(id: id, pairId: id, friendId: id, isAgreed: isAgreed)
     }
     
-    func pairUser(with other: User, as pair: DDID) -> User {
+    func pairedUser(with other: User, as pair: DDID) -> User {
         User(id: id, pairId: pair, friendId: other.id, isAgreed: isAgreed)
     }
 }
