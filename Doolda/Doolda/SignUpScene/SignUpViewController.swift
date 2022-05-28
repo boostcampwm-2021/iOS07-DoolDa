@@ -56,6 +56,8 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "이메일 형식이 올바르지 않습니다."
         label.textColor = .red
+        label.isHidden = true
+
         return label
     }()
     
@@ -72,6 +74,7 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "비밀번호 형식이 올바르지 않습니다."
         label.textColor = .red
+        label.isHidden = true
         return label
     }()
     
@@ -88,6 +91,7 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "비밀번호가 일치하지 않습니다."
         label.textColor = .red
+        label.isHidden = true
         return label
     }()
     
@@ -167,9 +171,10 @@ final class SignUpViewController: UIViewController {
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
         self.navigationController?.navigationBar.isHidden = true
+        let naviHeight = self.navigationController?.navigationBar.frame.height ?? 0
         
-        self.view.addSubview(self.scrollView)
         self.view.addSubview(self.signInButton)
+        self.view.addSubview(self.scrollView)
         self.scrollView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
@@ -182,7 +187,7 @@ final class SignUpViewController: UIViewController {
         
         self.scrollView.addSubview(self.titleLabel)
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(130)
+            make.top.equalToSuperview().offset(view.frame.height * 0.20 - naviHeight)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.centerX.equalToSuperview()
