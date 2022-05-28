@@ -22,8 +22,29 @@ enum AuthenticateUseCaseError: LocalizedError {
 }
 
 final class AuthenticateUseCase: AuthenticateUseCaseProtocol {
-    func getCurrentUser() -> FirebaseAuth.User? {
-        return Auth.auth().currentUser
+    private var cancellables: Set<AnyCancellable> = []
+    
+    /// get currently cached FirebaseUser.
+    /// if cached FirebaseUser is not exist, it returns nil
+    /// if cached FirebaseUser ie exist locally, reload it to test it's validity
+    func getCurrentUser() -> AnyPublisher<FirebaseAuth.User?, Error> {
+        return Future<FirebaseAuth.User?, Error> { promise in
+            let cachedUser = Auth.auth().currentUser
+            guard let cachedUser = cachedUser else { return promise(.success(nil)) }
+            cachedUser.reload() { error in
+                if let error = error {
+                    let firebaseError = AuthErrorCode(rawValue: error._code)
+                    switch firebaseError {
+                    case .userNotFound, .userTokenExpired, .invalidUserToken, .userDisabled:
+                        return promise(.success(nil))
+                    default:
+                        return promise(.failure(error))
+                    }
+                }
+                return promise(.success(cachedUser))
+            }
+        }
+        .eraseToAnyPublisher()
     }
     
     func signIn(credential: AuthCredential) -> AnyPublisher<AuthDataResult?, Error> {
@@ -55,14 +76,21 @@ final class AuthenticateUseCase: AuthenticateUseCaseProtocol {
     }
     
     func delete() -> AnyPublisher<Void, Error> {
-        return Future<Void, Error> { promise in
-            guard let currentUser = self.getCurrentUser() else { return promise(.failure(AuthenticateUseCaseError.userNotLoggedIn)) }
-            currentUser.delete { error in
-                if let error = error {
+        return Future<Void, Error> { [weak self] promise in
+            guard let self = self else { return }
+            self.getCurrentUser()
+                .sink { completion in
+                    guard case .failure(let error) = completion else { return }
                     return promise(.failure(error))
+                } receiveValue: { [weak self] currentUser in
+                    currentUser?.delete { error in
+                        if let error = error {
+                            return promise(.failure(error))
+                        }
+                        return promise(.success(()))
+                    }
                 }
-                return promise(.success(()))
-            }
+                .store(in: &self.cancellables)
         }
         .eraseToAnyPublisher()
     }

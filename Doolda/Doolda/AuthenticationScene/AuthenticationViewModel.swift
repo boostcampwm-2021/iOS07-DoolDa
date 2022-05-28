@@ -145,29 +145,37 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         self.getMyIdUseCase.getMyId(for: user.uid)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
-                self?.error = error
+                switch error {
+                case FirebaseNetworkService.Errors.invalidDocumentSnapshot: self?.createUser(with: user.uid)
+                default: self?.error = error
+                }
             } receiveValue: { [weak self] ddid in
                 guard let self = self else { return }
-                guard let ddid = ddid else {
-                    self.createUserUseCase.create(uid: user.uid)
-                        .sink { [weak self] completion in
-                            guard case .failure(let error) = completion else { return }
-                            self?.error = error
-                        } receiveValue: { [weak self] dooldaUser in
-                            self?.validateUser(with: dooldaUser)
-                        }
-                        .store(in: &self.cancellables)
-                    return
-                }
-                self.getUserUseCase.getUser(for: ddid)
-                    .sink { completion in
-                        guard case .failure(let error) = completion else { return }
-                        self.error = error
-                    } receiveValue: { [weak self] dooldaUser in
-                        self?.validateUser(with: dooldaUser)
-                    }.store(in: &self.cancellables)
+                guard let ddid = ddid else { return self.createUser(with: user.uid) }
+                self.getUser(with: ddid)
             }
             .store(in: &cancellables)
+    }
+        
+    private func createUser(with uid: String) {
+        self.createUserUseCase.create(uid: uid)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] dooldaUser in
+                self?.validateUser(with: dooldaUser)
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    private func getUser(with ddid: DDID) {
+        self.getUserUseCase.getUser(for: ddid)
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                self.error = error
+            } receiveValue: { [weak self] dooldaUser in
+                self?.validateUser(with: dooldaUser)
+            }.store(in: &self.cancellables)
     }
     
     private func validateUser(with dooldaUser: User) {

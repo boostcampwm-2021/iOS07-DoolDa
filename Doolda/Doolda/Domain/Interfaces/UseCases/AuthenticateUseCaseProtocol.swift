@@ -12,7 +12,7 @@ import Foundation
 import FirebaseAuth
 
 protocol AuthenticateUseCaseProtocol {
-    func getCurrentUser() -> FirebaseAuth.User?
+    func getCurrentUser() -> AnyPublisher<FirebaseAuth.User?, Error>
     func signIn(credential: AuthCredential) -> AnyPublisher<AuthDataResult?, Error>
     func signIn(withEmail email: String, password: String) -> AnyPublisher<AuthDataResult?, Error>
     func signOut() throws
