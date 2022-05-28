@@ -19,6 +19,7 @@ protocol SettingsViewModelInput {
     func privacyCellDidTap()
     func contributorCellDidTap()
     func unpairButtonDidTap()
+    func logoutButtonDidTap()
     func deleteAccountButtonDidTap()
     func deinitRequested()
 }
@@ -43,7 +44,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     private let user: User
     private let globalFontUseCase: GlobalFontUseCaseProtocol
     private let unpairUserUseCase: UnpairUserUseCaseProtocol
-    private let authenticationUseCase: AuthenticateUseCaseProtocol
+    private let authenticateUseCase: AuthenticateUseCaseProtocol
     private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
@@ -57,7 +58,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         user: User,
         globalFontUseCase: GlobalFontUseCaseProtocol,
         unpairUserUseCase: UnpairUserUseCaseProtocol,
-        authenticationUseCase: AuthenticateUseCaseProtocol,
+        authenticateUseCase: AuthenticateUseCaseProtocol,
         pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
@@ -65,7 +66,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         self.user = user
         self.globalFontUseCase = globalFontUseCase
         self.unpairUserUseCase = unpairUserUseCase
-        self.authenticationUseCase = authenticationUseCase
+        self.authenticateUseCase = authenticateUseCase
         self.pushNotificationStateUseCase = pushNotificationStateUseCase
         self.firebaseMessageUseCase = firebaseMessageUseCase
     }
@@ -118,6 +119,18 @@ final class SettingsViewModel: SettingsViewModelProtocol {
                 )
             }
             .store(in: &self.cancellables)
+    }
+
+    func logoutButtonDidTap() {
+        do {
+            try self.authenticateUseCase.signOut()
+            NotificationCenter.default.post(
+                name: AppCoordinator.Notifications.appRestartSignal,
+                object: nil
+            )
+        } catch(let error) {
+            self.error = error
+        }
     }
     
     // FIXME: NOT IMPLEMENTED
