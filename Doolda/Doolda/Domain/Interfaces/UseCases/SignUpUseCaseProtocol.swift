@@ -11,5 +11,5 @@ import Foundation
 import FirebaseAuth
 
 protocol SignUpUseCaseProtocol {
-    func signUp(email: String, password: String, completion: ((AuthDataResult?, Error?) -> Void)?)
+    func signUp(email: String, password: String) -> AnyPublisher<AuthDataResult, Error>
 }
