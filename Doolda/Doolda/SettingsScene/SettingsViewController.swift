@@ -250,7 +250,7 @@ class SettingsViewController: UIViewController {
             message: "정말 로그아웃 하시겠습니까?",
             leftActionTitle: "취소",
             rightActionTitle: "확인") { _ in
-                // FIXME: - ViewModel 연결 필요
+                self.viewModel.logoutButtonDidTap()
             }
         self.present(alert, animated: true, completion: nil)
     }
