@@ -58,23 +58,24 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     }
 
     func signUpButtonDidTap() {
-        self.signUpUseCase.signUp(email: self.emailInput, password: self.passwordInput) { [weak self] authDataResult, error in
-            guard let self = self else { return }
-            if let error = error {
-                self.error = error
-                return
-            }
-            guard let uid = authDataResult?.user.uid else {
-                // 에러처리하기 ㅎㅎ
-                return }
-
-            self.createUserUseCase.create(uid: uid).sink(receiveCompletion: { [weak self] completion in
+        self.signUpUseCase.signUp(email: self.emailInput, password: self.passwordInput)
+            .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
-            }, receiveValue: { [weak self] user in
-                self?.agreementPageRequested.send(user)
-            }).store(in: &self.cancellables)
-        }
+            } receiveValue: { [weak self] authDataResult in
+                guard let self = self else { return }
+                
+                let uid = authDataResult.user.uid
+                self.createUserUseCase.create(uid: uid)
+                    .sink(receiveCompletion: { [weak self] completion in
+                        guard case .failure(let error) = completion else { return }
+                        self?.error = error
+                    }, receiveValue: { [weak self] user in
+                        self?.agreementPageRequested.send(user)
+                    })
+                    .store(in: &self.cancellables)
+            }
+            .store(in: &self.cancellables)
     }
 
     private func bind() {
