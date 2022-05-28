@@ -89,10 +89,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        guard let token = fcmToken else { return }
+        guard let token = fcmToken,
+              let uid = Firebase.Auth.auth().currentUser?.uid else { return }
         
         // FIXME: 더 좋은 방법 찾아보기
-        let urlSessionNetworkService = URLSessionNetworkService.shared
         let firebaseNetworkService = FirebaseNetworkService.shared
         let persistenceService = UserDefaultsPersistenceService.shared
         let userRepository: UserRepository = UserRepository(persistenceService: persistenceService, networkService: firebaseNetworkService)
@@ -100,11 +100,14 @@ extension AppDelegate: MessagingDelegate {
         let getMyIdUseCase: GetMyIdUseCase = GetMyIdUseCase(userRepository: userRepository)
         let fcmTokenUseCase: FCMTokenUseCase = FCMTokenUseCase(fcmTokenRepository: fcmTokenRepository)
         
-        getMyIdUseCase.getMyId()
+        getMyIdUseCase.getMyId(for: uid)
             .compactMap { $0 }
-            .sink { [weak self] myId in
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                print(error.localizedDescription)
+            } receiveValue: { [weak self] ddid in
                 guard let self = self else { return }
-                fcmTokenUseCase.setToken(for: myId, with: token)
+                fcmTokenUseCase.setToken(for: ddid, with: token)
                     .sink { completion in
                         guard case .failure(let error) = completion else { return }
                         print(error.localizedDescription)
