@@ -42,6 +42,13 @@ class SettingsViewController: UIViewController {
         button.setTitleColor(.dooldaWarning, for: .normal)
         return button
     }()
+
+    private lazy var logoutButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("로그아웃", for: .normal)
+        button.setTitleColor(.dooldaWarning, for: .normal)
+        return button
+    }()
     
     private lazy var deleteAccountButton: UIButton = {
         let button = UIButton()
@@ -51,7 +58,7 @@ class SettingsViewController: UIViewController {
     }()
     
     private lazy var danzerZoneStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.unpairButton, self.deleteAccountButton])
+        let stackView = UIStackView(arrangedSubviews: [self.unpairButton, self.logoutButton, self.deleteAccountButton])
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
         return stackView
@@ -143,11 +150,11 @@ class SettingsViewController: UIViewController {
 
     private func configureFont() {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
-        self.unpairButton.titleLabel?.font = .systemFont(ofSize: 16)
 
         self.settingsSections.enumerated().forEach { index, section in
             guard let header = self.tableView.headerView(forSection: index) as? SettingsTableViewHeader else { return }
             header.font = .systemFont(ofSize: 17)
+            print(UIFont.systemFont(ofSize: 17))
 
             section.settingsOptions.forEach { options in
                 options.cell.font = .systemFont(ofSize: 16)
@@ -155,7 +162,7 @@ class SettingsViewController: UIViewController {
             
             danzerZoneStack.arrangedSubviews.forEach { subview in
                 guard let button = subview as? UIButton else { return }
-                button.titleLabel?.font = .systemFont(ofSize: 16, weight: .heavy)
+                button.titleLabel?.font = .systemFont(ofSize: 16)
             }
         }
     }
@@ -195,7 +202,14 @@ class SettingsViewController: UIViewController {
                 self?.showUnpairAlert()
             }
             .store(in: &self.cancellables)
-        
+
+        self.logoutButton.publisher(for: .touchUpInside)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                // FIXME: - ViewModel 연결 필요
+            }
+            .store(in: &self.cancellables)
+
         self.deleteAccountButton.publisher(for: .touchUpInside)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
