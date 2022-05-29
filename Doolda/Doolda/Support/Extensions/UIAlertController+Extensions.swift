@@ -20,7 +20,7 @@ extension UIAlertController {
         return alert
     }
 
-    static func defaultAlert(title: String?, message: String?, handler: @escaping (UIAlertAction) -> Void) -> UIAlertController {
+    static func defaultAlert(title: String?, message: String?, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "확인", style: .default, handler: handler)
 
