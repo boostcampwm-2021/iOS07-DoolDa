@@ -56,8 +56,8 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
 
         viewModel.pairingPageRequested
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] myId in
-                self?.paringPageRequest(myId: myId)
+            .sink { [weak self] user in
+                self?.paringPageRequest(user: user)
             }
             .store(in: &self.cancellables)
 
@@ -80,13 +80,13 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
     }
 
     private func agreementPageRequest(user: User) {
-        let agreementViewCoordinator = AgreementViewCoordinator(identifier: UUID(), presenter: self.presenter, user: user)
+        let identifier =  UUID()
+        let agreementViewCoordinator = AgreementViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
         self.children[identifier] = agreementViewCoordinator
         agreementViewCoordinator.start()
     }
 
-    private func paringPageRequest(myId: DDID) {
-        let user = User(id: myId)
+    private func paringPageRequest(user: User) {
         let identifier = UUID()
         let paringViewCoordinator = PairingViewCoordinator(identifier: identifier, presenter: self.presenter, user: user)
         self.children[identifier] = paringViewCoordinator
