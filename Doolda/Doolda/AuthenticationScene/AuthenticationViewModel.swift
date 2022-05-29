@@ -26,7 +26,7 @@ protocol AuthenticationViewModelOutput {
     var errorPublisher: AnyPublisher<Error?, Never> { get }
     var signUpPageRequested: PassthroughSubject<Void, Never> { get }
     var agreementPageRequested: PassthroughSubject<User, Never> { get }
-    var pairingPageRequested: PassthroughSubject<DDID, Never> { get }
+    var pairingPageRequested: PassthroughSubject<User, Never> { get }
     var diaryPageRequested: PassthroughSubject<User, Never> { get }
 }
 
@@ -52,7 +52,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     var signUpPageRequested = PassthroughSubject<Void, Never>()
     var agreementPageRequested = PassthroughSubject<User, Never>()
-    var pairingPageRequested = PassthroughSubject<DDID, Never>()
+    var pairingPageRequested = PassthroughSubject<User, Never>()
     var diaryPageRequested = PassthroughSubject<User, Never>()
 
     @Published private var error: Error?
@@ -123,7 +123,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
             } receiveValue: { [weak self] authDataResult in
-                self?.validateUser(with: authDataResult)
+                self?.getUserAndValidate(with: authDataResult)
             }
             .store(in: &self.cancellables)
     }
@@ -134,30 +134,36 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
             } receiveValue: { [weak self] authDataResult in
-                self?.validateUser(with: authDataResult)
+                self?.getUserAndValidate(with: authDataResult)
             }
             .store(in: &self.cancellables)
     }
     
-    private func validateUser(with authDataResult: AuthDataResult?) {
+    private func getUserAndValidate(with authDataResult: AuthDataResult?) {
         guard let user = authDataResult?.user else { return self.error = AuthenticatoinError.missingAuthDataResult }
         
         self.getMyIdUseCase.getMyId(for: user.uid)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 switch error {
-                case FirebaseNetworkService.Errors.invalidDocumentSnapshot: self?.createUser(with: user.uid)
+                case FirebaseNetworkService.Errors.invalidDocumentSnapshot: self?.createUserAndValidate(with: user.uid)
                 default: self?.error = error
                 }
             } receiveValue: { [weak self] ddid in
                 guard let self = self else { return }
-                guard let ddid = ddid else { return self.createUser(with: user.uid) }
-                self.getUser(with: ddid)
+                guard let ddid = ddid else { return self.createUserAndValidate(with: user.uid) }
+                self.getUserUseCase.getUser(for: ddid)
+                    .sink { completion in
+                        guard case .failure(let error) = completion else { return }
+                        self.error = error
+                    } receiveValue: { [weak self] dooldaUser in
+                        self?.validateUser(with: dooldaUser)
+                    }.store(in: &self.cancellables)
             }
             .store(in: &cancellables)
     }
         
-    private func createUser(with uid: String) {
+    private func createUserAndValidate(with uid: String) {
         self.createUserUseCase.create(uid: uid)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
@@ -168,23 +174,11 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
             .store(in: &self.cancellables)
     }
     
-    private func getUser(with ddid: DDID) {
-        self.getUserUseCase.getUser(for: ddid)
-            .sink { completion in
-                guard case .failure(let error) = completion else { return }
-                self.error = error
-            } receiveValue: { [weak self] dooldaUser in
-                self?.validateUser(with: dooldaUser)
-            }.store(in: &self.cancellables)
-    }
-    
     private func validateUser(with dooldaUser: User) {
-        if dooldaUser.isAgreed == false {
-            self.agreementPageRequested.send(dooldaUser)
-        } else if dooldaUser.pairId?.ddidString.isEmpty == false {
-            self.diaryPageRequested.send(dooldaUser)
-        } else {
-            self.pairingPageRequested.send(dooldaUser.id)
+        switch (dooldaUser.isAgreed, dooldaUser.isPaired) {
+        case (false, _): self.agreementPageRequested.send(dooldaUser)
+        case (true, false): self.pairingPageRequested.send(dooldaUser)
+        case (true, true): self.diaryPageRequested.send(dooldaUser)
         }
     }
 }
