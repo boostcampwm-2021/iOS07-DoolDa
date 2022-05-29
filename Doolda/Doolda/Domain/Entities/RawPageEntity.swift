@@ -43,7 +43,7 @@ struct RawPageEntity: Codable {
         self.backgroundType = try container.decode(BackgroundType.self, forKey: CodingKeys.backgroundType)
         var components: [ComponentEntity] = []
         
-        while (typeKeyContainer.isAtEnd && componentsContainer.isAtEnd).toggled {
+        while !(typeKeyContainer.isAtEnd && componentsContainer.isAtEnd) {
             let componentType = try typeKeyContainer
                 .nestedContainer(keyedBy: ComponentTypeKey.self)
                 .decode(ComponentType.self, forKey: ComponentTypeKey.type)

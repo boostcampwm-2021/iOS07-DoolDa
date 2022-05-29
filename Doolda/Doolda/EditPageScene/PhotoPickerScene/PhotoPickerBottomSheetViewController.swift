@@ -196,7 +196,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
         self.viewModel.isPhotoAccessiblePublisher
             .compactMap { $0 }
             .sink { [weak self] result in
-                guard result.toggled else { return }
+                guard !result else { return }
                 self?.requestAuthorization()
             }
             .store(in: &self.cancellables)
@@ -251,7 +251,7 @@ final class PhotoPickerBottomSheetViewController: BottomSheetViewController {
             .sink { [weak self] _, fetchResultChangeDetails in
                 guard let self = self else { return }
                 
-                if let changed = fetchResultChangeDetails?.changedIndexes, changed.isEmpty.toggled {
+                if let changed = fetchResultChangeDetails?.changedIndexes, !changed.isEmpty {
                     self.photoPickerCollectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
                 } else {
                     self.photoPickerCollectionView.reloadData()

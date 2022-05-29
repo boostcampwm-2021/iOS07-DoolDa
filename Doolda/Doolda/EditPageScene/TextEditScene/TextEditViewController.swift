@@ -115,7 +115,7 @@ class TextEditViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        guard self.initialFontColorPickerScrollDone.toggled else { return }
+        guard !self.initialFontColorPickerScrollDone else { return }
         self.initialFontColorPickerScrollDone = true
         self.configureFontColorPicker()
     }

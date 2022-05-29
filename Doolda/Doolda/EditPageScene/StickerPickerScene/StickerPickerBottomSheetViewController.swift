@@ -257,7 +257,7 @@ extension StickerPickerBottomSheetViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        if stickerPack.isUnpacked.toggled {
+        if !stickerPack.isUnpacked {
             return collectionView.dequeueReusableCell(withReuseIdentifier: PackedStickerCollectionViewCell.identifier, for: indexPath)
         }
 
