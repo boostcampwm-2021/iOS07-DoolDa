@@ -9,19 +9,8 @@ import Combine
 import UIKit
 
 class PairingViewCoordinator: BaseCoordinator {
-    
-    // MARK: - Nested enum
-    
-    enum Notifications {
-        static let userDidPaired = Notification.Name("userDidPaired")
-    }
-    
-    enum Keys {
-        static let user = "user"
-    }
-    
-    private let user: User
 
+    private let user: User
     private var cancellables: Set<AnyCancellable> = []
     
     init(identifier: UUID, presenter: UINavigationController, user: User) {

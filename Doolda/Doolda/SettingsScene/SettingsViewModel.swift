@@ -8,6 +8,8 @@
 import Combine
 import Foundation
 
+import FirebaseAuth
+
 protocol SettingsViewModelInput {
     func settingsViewDidLoad()
     func fontCellDidTap()
@@ -41,7 +43,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     private let user: User
     private let globalFontUseCase: GlobalFontUseCaseProtocol
     private let unpairUserUseCase: UnpairUserUseCaseProtocol
-    //private let authenticationUseCase: AuthenticationUseCaseProtocol
+    private let authenticationUseCase: AuthenticateUseCaseProtocol
     private let pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
@@ -55,7 +57,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         user: User,
         globalFontUseCase: GlobalFontUseCaseProtocol,
         unpairUserUseCase: UnpairUserUseCaseProtocol,
-        //authenticationUseCase: AuthenticationUseCaseProtocol,
+        authenticationUseCase: AuthenticateUseCaseProtocol,
         pushNotificationStateUseCase: PushNotificationStateUseCaseProtocol,
         firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     ) {
@@ -63,7 +65,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         self.user = user
         self.globalFontUseCase = globalFontUseCase
         self.unpairUserUseCase = unpairUserUseCase
-        //self.authenticationUseCase = authenticationUseCase
+        self.authenticationUseCase = authenticationUseCase
         self.pushNotificationStateUseCase = pushNotificationStateUseCase
         self.firebaseMessageUseCase = firebaseMessageUseCase
     }
@@ -120,8 +122,18 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     
     // FIXME: NOT IMPLEMENTED
     func deleteAccountButtonDidTap() {
-        //self.authenticationUseCase.delete()
-        print(#function)
+        self.authenticationUseCase.delete()
+            .sink { [weak self] completion in
+            guard case .failure(let error) = completion else { return }
+                try? Auth.auth().signOut()
+            self?.error = error
+        } receiveValue: { _ in
+            NotificationCenter.default.post(
+                name: AppCoordinator.Notifications.appRestartSignal,
+                object: nil
+            )
+        }
+        .store(in: &self.cancellables)
     }
     
     func deinitRequested() {

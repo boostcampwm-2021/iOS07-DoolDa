@@ -15,7 +15,6 @@ protocol SignUpViewModelInput {
     var passwordInput: String { get set }
     var passwordCheckInput: String { get set }
     func signInButtonDidTap()
-
 }
 
 protocol SignUpViewModelOutput {
@@ -74,8 +73,6 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     }
 
     func signUpButtonDidTap() {
-        self.signUpUseCase.signUp(email: self.emailInput, password: self.passwordInput)
-            .sink { [weak self] completion in
         self.signUpUseCase.signUp(email: self.emailInput, password: self.passwordInput)
             .compactMap { $0 }
             .flatMap { [weak self] authRataResult in
