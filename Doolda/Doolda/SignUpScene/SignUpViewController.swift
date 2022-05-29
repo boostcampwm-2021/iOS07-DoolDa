@@ -334,7 +334,14 @@ final class SignUpViewController: UIViewController {
         }
         .store(in: &self.cancellables)
 
-
+       viewModel.errorPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let error = error as? SignUpError else { return }
+                let alert = UIAlertController.defaultAlert(title: "회원가입 실패", message: error.errorDescription)
+                self?.present(alert, animated: true)
+            }
+            .store(in: &cancellables)
     }
     
     private func updateScrollView(with keyboardHeight: CGFloat) {

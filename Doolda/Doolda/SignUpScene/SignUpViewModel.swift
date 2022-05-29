@@ -8,6 +8,8 @@
 import Combine
 import Foundation
 
+import FirebaseAuth
+
 protocol SignUpViewModelInput {
     var emailInput: String { get set }
     var passwordInput: String { get set }
@@ -26,6 +28,20 @@ protocol SignUpViewModelOutput {
 }
 
 typealias SignUpViewModelProtocol = SignUpViewModelInput & SignUpViewModelOutput
+
+enum SignUpError: LocalizedError {
+    case invalidEmail
+    case emailAlreadyInUse
+    case invalidError
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidEmail: return "유효하지 않은 이메일입니다."
+        case .emailAlreadyInUse: return "이미 사용하고 있는 이메일입니다."
+        case .invalidError: return "에러가 발생했습니다. 다시 시도해 주십시오."
+        }
+    }
+}
 
 final class SignUpViewModel: SignUpViewModelProtocol {
     var isEmailValidPublisher = CurrentValueSubject<Bool, Never>(false)
@@ -67,8 +83,18 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             }
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
-                self?.error = error
-                print(error.localizedDescription)
+                if let errCode = AuthErrorCode(rawValue: error._code) {
+                    switch errCode {
+                    case .invalidEmail:
+                        self?.error = SignUpError.invalidEmail
+                    case .emailAlreadyInUse:
+                        self?.error = SignUpError.emailAlreadyInUse
+                    default:
+                        self?.error = SignUpError.invalidError
+                    }
+                } else {
+                    self?.error = error
+                }
             } receiveValue: { [weak self] user in
                 self?.agreementPageRequested.send(user)
             }
