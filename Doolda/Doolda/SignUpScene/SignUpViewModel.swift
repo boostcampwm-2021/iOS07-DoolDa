@@ -17,9 +17,9 @@ protocol SignUpViewModelInput {
 }
 
 protocol SignUpViewModelOutput {
-    var isEmailValidPublisher: PassthroughSubject<Bool, Never> { get }
-    var isPasswordValidPublisher: PassthroughSubject<Bool, Never> { get }
-    var isPasswordCheckValidPublisher: PassthroughSubject<Bool, Never> { get }
+    var isEmailValidPublisher: CurrentValueSubject<Bool, Never> { get }
+    var isPasswordValidPublisher: CurrentValueSubject<Bool, Never> { get }
+    var isPasswordCheckValidPublisher: CurrentValueSubject<Bool, Never> { get }
     var errorPublisher: AnyPublisher<Error?, Never> { get }
     var signInPageRequested: PassthroughSubject<Void, Never> { get }
     var agreementPageRequested: PassthroughSubject<User, Never> { get }
@@ -28,9 +28,10 @@ protocol SignUpViewModelOutput {
 typealias SignUpViewModelProtocol = SignUpViewModelInput & SignUpViewModelOutput
 
 final class SignUpViewModel: SignUpViewModelProtocol {
-    var isEmailValidPublisher = PassthroughSubject<Bool, Never>()
-    var isPasswordValidPublisher = PassthroughSubject<Bool, Never>()
-    var isPasswordCheckValidPublisher = PassthroughSubject<Bool, Never>()
+    var isEmailValidPublisher = CurrentValueSubject<Bool, Never>(false)
+    var isPasswordValidPublisher = CurrentValueSubject<Bool, Never>(false)
+    var isPasswordCheckValidPublisher = CurrentValueSubject<Bool, Never>(false)
+    var allInputIsValidPublisher = CurrentValueSubject<Bool, Never>(false)
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     var signInPageRequested = PassthroughSubject<Void, Never>()
     var agreementPageRequested = PassthroughSubject<User, Never>()
@@ -59,19 +60,17 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     func signUpButtonDidTap() {
         self.signUpUseCase.signUp(email: self.emailInput, password: self.passwordInput)
             .sink { [weak self] completion in
+        self.signUpUseCase.signUp(email: self.emailInput, password: self.passwordInput)
+            .compactMap { $0 }
+            .flatMap { [weak self] authRataResult in
+                return self?.createUserUseCase.create(uid: authRataResult.user.uid) ?? Empty<User, Error>(completeImmediately: true).eraseToAnyPublisher()
+            }
+            .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 self?.error = error
-            } receiveValue: { [weak self] authDataResult in
-                guard let self = self else { return }
-                
-                self.createUserUseCase.create(uid: authDataResult.user.uid)
-                    .sink(receiveCompletion: { [weak self] completion in
-                        guard case .failure(let error) = completion else { return }
-                        self?.error = error
-                    }, receiveValue: { [weak self] user in
-                        self?.agreementPageRequested.send(user)
-                    })
-                    .store(in: &self.cancellables)
+                print(error.localizedDescription)
+            } receiveValue: { [weak self] user in
+                self?.agreementPageRequested.send(user)
             }
             .store(in: &self.cancellables)
     }
@@ -80,6 +79,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         self.$emailInput.sink { [weak self] email in
             guard let self = self else { return }
             self.isEmailValidPublisher.send(self.checkEamilVaild(email))
+            self.checkAllInputVaild()
         }
         .store(in: &self.cancellables)
 
@@ -87,6 +87,8 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             guard let self = self else { return }
             self.isPasswordValidPublisher.send(self.checkPasswordVaild(password))
             self.isPasswordCheckValidPublisher.send(self.checkPasswordCheckVaild(self.passwordCheckInput))
+            self.checkAllInputVaild()
+
         }
         .store(in: &self.cancellables)
 
@@ -94,6 +96,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             guard let self = self else { return }
             self.isPasswordValidPublisher.send(self.checkPasswordVaild(self.passwordInput))
             self.isPasswordCheckValidPublisher.send(self.checkPasswordCheckVaild(passwordCheckInput))
+            self.checkAllInputVaild()
         }
         .store(in: &self.cancellables)
     }
@@ -108,5 +111,13 @@ final class SignUpViewModel: SignUpViewModelProtocol {
 
     private func checkPasswordCheckVaild(_ passwordCheck: String) -> Bool {
         return self.passwordInput == passwordCheck
+    }
+
+    private func checkAllInputVaild() {
+        if self.isEmailValidPublisher.value, self.isPasswordValidPublisher.value, self.isPasswordCheckValidPublisher.value {
+            self.allInputIsValidPublisher.send(true)
+        } else {
+            self.allInputIsValidPublisher.send(false)
+        }
     }
 }
