@@ -57,7 +57,6 @@ final class SignUpViewController: UIViewController {
         label.text = "이메일 형식이 올바르지 않습니다."
         label.textColor = .red
         label.isHidden = true
-
         return label
     }()
     
@@ -143,7 +142,7 @@ final class SignUpViewController: UIViewController {
         button.setTitle("회원가입", for: .normal)
         button.setTitleColor(.dooldaLabel, for: .normal)
         button.backgroundColor = .dooldaHighlighted
-        button.isEnabled = true
+        button.isEnabled = false
         return button
     }()
     
@@ -160,10 +159,10 @@ final class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        configureFont()
         bindUI()
         bindViewModel()
+        configureUI()
+        configureFont()
     }
     
     // MARK: - Helpers
@@ -171,6 +170,7 @@ final class SignUpViewController: UIViewController {
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
         self.navigationController?.navigationBar.isHidden = true
+        self.emailStateLabel.isHidden = true
         let naviHeight = self.navigationController?.navigationBar.frame.height ?? 0
         
         self.view.addSubview(self.signInButton)
@@ -324,6 +324,16 @@ final class SignUpViewController: UIViewController {
             }
         }
         .store(in: &self.cancellables)
+
+        viewModel.allInputIsValidPublisher.sink { [weak self] isValid in
+            if isValid {
+                self?.signUpButton.isEnabled = true
+            } else {
+                self?.signUpButton.isEnabled = false
+            }
+        }
+        .store(in: &self.cancellables)
+
 
     }
     
