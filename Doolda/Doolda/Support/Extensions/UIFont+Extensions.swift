@@ -12,7 +12,7 @@ extension UIFont {
     static var globalFontFamily: String = FontType.dovemayo.name
     
     class func overrideInitialize() {
-        guard self == UIFont.self, self.isOverrided.toggled else { return }
+        guard self == UIFont.self, !self.isOverrided else { return }
 
         self.isOverrided = true
 

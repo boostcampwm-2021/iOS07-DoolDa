@@ -190,7 +190,7 @@ class AuthenticationViewController: UIViewController {
         Publishers
             .CombineLatest(self.emailTextField.textPublisher, self.passwordTextField.textPublisher)
             .sink { [weak self] email, password in
-                guard email.isEmpty.toggled && password.isEmpty.toggled else {
+                guard !email.isEmpty && !password.isEmpty else {
                           self?.emailLoginButton.isEnabled = false
                           return
                       }

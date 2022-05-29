@@ -160,9 +160,9 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
                 switch (isMyTurn, isRefreshing) {
                 case let(isMyTurn, _) where isMyTurn:
                     self?.headerState = .newPageAddable
-                case let(isMyTurn, isRefreshing) where isMyTurn.toggled && isRefreshing.toggled:
+                case let(isMyTurn, isRefreshing) where !isMyTurn && !isRefreshing:
                     self?.headerState = .waitingForOpponent
-                case let(isMyTurn, isRefreshing) where isMyTurn.toggled && isRefreshing:
+                case let(isMyTurn, isRefreshing) where !isMyTurn && isRefreshing:
                     self?.headerState = .refreshing
                 default: break
                 }

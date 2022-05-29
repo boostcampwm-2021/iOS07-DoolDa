@@ -36,7 +36,7 @@ final class ImageComposeUseCase: ImageComposeUseCaseProtocol {
             return Fail(error: ImageComposeUseCaseError.composingImageFailed).eraseToAnyPublisher()
         }
 
-        if self.isComposable(photoFrameType: photoFrameType, numberOfPhotos: images.count).toggled {
+        if !self.isComposable(photoFrameType: photoFrameType, numberOfPhotos: images.count) {
             return Fail(error: ImageComposeUseCaseError.numberOfImageMismatched).eraseToAnyPublisher()
         }
 
