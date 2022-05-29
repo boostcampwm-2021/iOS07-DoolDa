@@ -40,7 +40,7 @@ final class AppleAuthProvideUseCase {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
               let appleIDToken = appleIDCredential.identityToken,
               let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                  throw AuthenticatoinError.failToInitCredential
+                  throw AuthenticationError.failToInitCredential
               }
 
         return OAuthProvider.credential(

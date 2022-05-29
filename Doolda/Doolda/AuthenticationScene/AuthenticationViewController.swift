@@ -106,7 +106,7 @@ class AuthenticationViewController: UIViewController {
         self.titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(130)
+            make.top.equalToSuperview().offset(view.frame.height * 0.20)
         }
         
         self.view.addSubview(self.emailTextField)
@@ -121,25 +121,25 @@ class AuthenticationViewController: UIViewController {
             make.top.equalTo(self.emailTextField.snp.bottom).offset(18)
             make.leading.trailing.equalTo(self.emailTextField)
         }
-        
-        self.view.addSubview(self.createAccountButton)
-        self.createAccountButton.snp.makeConstraints { make in
-            make.top.equalTo(self.passwordTextField.snp.bottom).offset(8)
-            make.leading.equalTo(self.passwordTextField)
-        }
 
         self.view.addSubview(self.emailLoginButton)
         self.emailLoginButton.snp.makeConstraints { make in
-            make.top.equalTo(self.createAccountButton.snp.bottom).offset(17)
+            make.top.equalTo(self.passwordTextField.snp.bottom).offset(44)
             make.height.equalTo(44)
             make.leading.trailing.equalTo(self.emailTextField)
         }
         
         self.view.addSubview(self.appleLoginButton)
         self.appleLoginButton.snp.makeConstraints { make in
-            make.top.equalTo(self.emailLoginButton.snp.bottom).offset(24)
+            make.top.equalTo(self.emailLoginButton.snp.bottom).offset(15)
             make.height.equalTo(48)
             make.leading.trailing.equalTo(self.emailTextField)
+        }
+
+        self.view.addSubview(self.createAccountButton)
+        self.createAccountButton.snp.makeConstraints { make in
+            make.top.equalTo(self.appleLoginButton.snp.bottom).offset(24)
+            make.centerX.equalToSuperview()
         }
     }
 
