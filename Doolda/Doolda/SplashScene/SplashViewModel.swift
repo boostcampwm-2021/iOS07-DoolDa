@@ -80,8 +80,9 @@ final class SplashViewModel: SplashViewModelProtocol {
             .store(in: &cancellables)
     }
     
-    private func validateUser(user: FirebaseAuth.User) {
-        self.getMyIdUseCase.getMyId(for: user.uid)
+    
+    private func getIdAndValidate(with firebaseUser: FirebaseAuth.User) {
+        self.getMyIdUseCase.getMyId(for: firebaseUser.uid)
             .compactMap { $0 }
             .flatMap { [weak self] ddid in
                 return self?.getUserUseCase.getUser(for: ddid) ?? Empty<User, Error>(completeImmediately: true).eraseToAnyPublisher()

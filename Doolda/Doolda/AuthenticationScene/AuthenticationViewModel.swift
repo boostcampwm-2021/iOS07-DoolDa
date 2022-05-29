@@ -130,7 +130,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
             .store(in: &self.cancellables)
     }
     
-    private func validateUser(with authDataResult: AuthDataResult?) {
+    private func getUserAndValidate(with authDataResult: AuthDataResult?) {
         guard let user = authDataResult?.user else { return self.error = AuthenticationError.missingAuthDataResult }
 
         self.getMyIdUseCase.getMyId(for: user.uid)
