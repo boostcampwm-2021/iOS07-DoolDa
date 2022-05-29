@@ -48,7 +48,7 @@ extension URLRequestBuilder {
                 if name.isEmpty { continue }
                 parameter.append(URLQueryItem(name: name, value: value))
             }
-            if !parameter.isEmpty {
+            if parameter.isEmpty.toggled {
                 component?.queryItems = parameter
             }
         }

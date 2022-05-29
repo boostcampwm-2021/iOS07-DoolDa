@@ -177,7 +177,7 @@ class DiaryViewController: UIViewController {
         Publishers.CombineLatest(self.viewModel.filteredPageEntitiesPublisher, self.viewModel.displayModePublisher)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] entities, displayMode in
-                self?.pageCollectionBackgroundView.isHidden = !entities.isEmpty || (displayMode == .carousel)
+                self?.pageCollectionBackgroundView.isHidden = entities.isEmpty.toggled || (displayMode == .carousel)
             }
             .store(in: &self.cancellables)
         

@@ -12,6 +12,10 @@ struct User: Hashable {
     var pairId: DDID?
     var friendId: DDID?
     var isAgreed: Bool = false
+    var isPaired: Bool {
+        guard let pairId = pairId, let friendId = friendId else { return false }
+        return pairId.ddidString.isEmpty.toggled && friendId.ddidString.isEmpty.toggled
+    }
     
     var dictionary: [String : Any] {
         return [

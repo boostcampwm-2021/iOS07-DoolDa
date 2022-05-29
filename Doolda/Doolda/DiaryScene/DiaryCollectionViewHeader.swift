@@ -158,9 +158,12 @@ class DiaryCollectionViewHeader: UICollectionReusableView {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isMyTurn, isRefreshing in
                 switch (isMyTurn, isRefreshing) {
-                case let(isMyTurn, _) where isMyTurn: self?.headerState = .newPageAddable
-                case let(isMyTurn, isRefreshing) where !isMyTurn && !isRefreshing: self?.headerState = .waitingForOpponent
-                case let(isMyTurn, isRefreshing) where !isMyTurn && isRefreshing: self?.headerState = .refreshing
+                case let(isMyTurn, _) where isMyTurn:
+                    self?.headerState = .newPageAddable
+                case let(isMyTurn, isRefreshing) where isMyTurn.toggled && isRefreshing.toggled:
+                    self?.headerState = .waitingForOpponent
+                case let(isMyTurn, isRefreshing) where isMyTurn.toggled && isRefreshing:
+                    self?.headerState = .refreshing
                 default: break
                 }
             }
