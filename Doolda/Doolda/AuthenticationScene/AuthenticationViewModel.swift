@@ -19,7 +19,6 @@ protocol AuthenticationViewModelInput {
     )
     func emailLoginButtonDidTap(email: String, password: String)
     func signIn(withApple authorization: ASAuthorization)
-    func deinitRequested()
 }
 
 protocol AuthenticationViewModelOutput {
@@ -32,7 +31,7 @@ protocol AuthenticationViewModelOutput {
 
 typealias AuthenticationViewModelProtocol = AuthenticationViewModelInput & AuthenticationViewModelOutput
 
-enum AuthenticatoinError: LocalizedError {
+enum AuthenticationError: LocalizedError {
     case failToInitCredential
     case missingAuthDataResult
 
@@ -81,14 +80,6 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         self.getMyIdUseCase = getMyIdUseCase
         self.getUserUseCase = getUserUseCase
         self.createUserUseCase = createUserUseCase
-    }
-    
-    func deinitRequested() {
-        NotificationCenter.default.post(
-            name: BaseCoordinator.Notifications.coordinatorRemoveFromParent,
-            object: nil,
-            userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
-        )
     }
 
     func appleLoginButtonDidTap(
@@ -139,9 +130,9 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
             .store(in: &self.cancellables)
     }
     
-    private func getUserAndValidate(with authDataResult: AuthDataResult?) {
-        guard let user = authDataResult?.user else { return self.error = AuthenticatoinError.missingAuthDataResult }
-        
+    private func validateUser(with authDataResult: AuthDataResult?) {
+        guard let user = authDataResult?.user else { return self.error = AuthenticationError.missingAuthDataResult }
+
         self.getMyIdUseCase.getMyId(for: user.uid)
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
