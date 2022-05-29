@@ -135,7 +135,7 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     
     // FIXME: NOT IMPLEMENTED
     func deleteAccountButtonDidTap() {
-        self.authenticationUseCase.delete()
+        self.authenticateUseCase.delete()
             .sink { [weak self] completion in
             guard case .failure(let error) = completion else { return }
                 try? Auth.auth().signOut()
