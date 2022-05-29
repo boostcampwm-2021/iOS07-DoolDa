@@ -106,9 +106,7 @@ final class SplashViewModel: SplashViewModelProtocol {
                 guard case .failure(let error) = completion else { return }
                 self.error = error
             } receiveValue: { [weak self] dooldaUser in
-                let isAgreed = dooldaUser.isAgreed
-                let isPaired = !(dooldaUser.pairId?.ddidString.isEmpty ?? true)
-                switch (isAgreed, isPaired) {
+                switch (dooldaUser.isAgreed, dooldaUser.isPaired) {
                 case (false, _): self?.agreementPageRequested.send(dooldaUser)
                 case (true, false): self?.pairingPageRequested.send(dooldaUser)
                 case (true, true): self?.diaryPageRequested.send(dooldaUser)

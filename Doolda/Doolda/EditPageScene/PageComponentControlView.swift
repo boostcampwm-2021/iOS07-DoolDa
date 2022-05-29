@@ -218,10 +218,10 @@ class PageComponentControlView: UIView {
         } else {
             self.componentSpaceView.layer.borderWidth = 0
         }
-        self.controlsView.isHidden = !selectedState
-        self.leftTopControl.isHidden = !selectedState
-        self.leftBottomControl.isHidden = !selectedState
-        self.rightTopControl.isHidden = !selectedState
-        self.rightBottomcontrol.isHidden = !selectedState
+        self.controlsView.isHidden = selectedState.toggled
+        self.leftTopControl.isHidden = selectedState.toggled
+        self.leftBottomControl.isHidden = selectedState.toggled
+        self.rightTopControl.isHidden = selectedState.toggled
+        self.rightBottomcontrol.isHidden = selectedState.toggled
     }
 }

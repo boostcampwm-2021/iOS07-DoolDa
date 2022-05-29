@@ -257,19 +257,24 @@ extension StickerPickerBottomSheetViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        if !stickerPack.isUnpacked {
+        if stickerPack.isUnpacked.toggled {
             return collectionView.dequeueReusableCell(withReuseIdentifier: PackedStickerCollectionViewCell.identifier, for: indexPath)
         }
 
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnpackedStickerCollectionViewCell.identifier, for: indexPath) as? UnpackedStickerCollectionViewCell,
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnpackedStickerCollectionViewCell.identifier, for: indexPath)
+        guard let cell = cell as? UnpackedStickerCollectionViewCell,
               let stickerName = self.viewModel.getStickerName(at: indexPath),
-              let stickerImage = UIImage(named: stickerName) else { return UICollectionViewCell() }
+              let stickerImage = UIImage(named: stickerName) else { return cell }
 
         cell.configure(with: stickerImage)
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
         guard let footerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionFooter,
             withReuseIdentifier: StickerPickerCollectionViewFooter.identifier,
