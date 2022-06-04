@@ -29,12 +29,6 @@ final class AppCoordinator: BaseCoordinator {
     }
     
     private func bind() {
-        NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userDisconnected, object: nil)
-            .sink { [weak self] _ in
-                self?.start()
-            }
-            .store(in: &self.cancellables)
-        
         NotificationCenter.default.publisher(for: Notifications.coordinatorDidPop, object: nil)
             .compactMap { $0.userInfo?[Keys.coordinatorIdentifier] as? UUID }
             .sink { [weak self] identifier in

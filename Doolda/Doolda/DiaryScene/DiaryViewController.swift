@@ -220,24 +220,6 @@ class DiaryViewController: UIViewController {
             }
             .store(in: &self.cancellables)
         
-        NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userPostedNewPage, object: nil)
-            .sink { [weak self] _ in
-                self?.hapticGenerator.prepare()
-                self?.hapticGenerator.impactOccurred()
-                self?.scrollToPage(of: 0)
-                self?.viewModel.userPostedNewPageNotificationDidReceived()
-            }
-            .store(in: &self.cancellables)
-        
-        NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userRequestedNewPage, object: nil)
-            .sink { [weak self] _ in
-                self?.hapticGenerator.prepare()
-                self?.hapticGenerator.impactOccurred()
-                self?.scrollToPage(of: 0)
-                self?.viewModel.userRequestedNewPageNotificationDidReceived()
-            }
-            .store(in: &self.cancellables)
-        
         NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
             .sink { [weak self] _ in
                 self?.configureFont()

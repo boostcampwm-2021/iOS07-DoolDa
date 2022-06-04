@@ -287,14 +287,6 @@ class PairingViewController: UIViewController {
             }
             .store(in: &self.cancellables)
         
-        NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.userPairedWithFriend, object: nil)
-            .sink { [weak self] _ in
-                self?.hapticGenerator.prepare()
-                self?.hapticGenerator.impactOccurred()
-                self?.viewModel.userPairedWithFriendNotificationDidReceived()
-            }
-            .store(in: &self.cancellables)
-        
         NotificationCenter.default.publisher(for: GlobalFontUseCase.Notifications.globalFontDidSet, object: nil)
             .sink { [weak self] _ in
                 self?.configureFont()

@@ -24,10 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
         
-        UserDefaults.standard.register(defaults: [
-            UserDefaults.Keys.globalFont: FontType.dovemayo.name,
-            UserDefaults.Keys.pushNotificationState: true
-            ])
+        UserDefaults.standard.register(
+            defaults: [
+                UserDefaults.Keys.globalFont: FontType.dovemayo.name,
+                UserDefaults.Keys.pushNotificationState: true
+            ]
+        )
         
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
@@ -48,42 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse,
-        withCompletionHandler completionHandler: @escaping () -> Void
-    ) {
-        let userInfo = response.notification.request.content.userInfo
-        guard let notification = userInfo["notification"] as? String else { return }
-        
-        switch notification {
-        case "userRequestedNewPage":
-            NotificationCenter.default.post(name: PushMessageEntity.Notifications.userRequestedNewPage, object: nil)
-        default: break
-        }
-    }
-    
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        let userDefaultsPersistenceService = UserDefaultsPersistenceService.shared
-        let pushNotificationStateRepository = PushNotificationStateRepository(persistenceService: userDefaultsPersistenceService)
-        let pushNotificationStateUseCase = PushNotificationStateUseCase(pushNotificationStateRepository: pushNotificationStateRepository)
-        
-        guard let state = pushNotificationStateUseCase.getPushNotificationState(), state else { return }
         completionHandler([.banner, .sound])
-        let userInfo = notification.request.content.userInfo
-        guard let notification = userInfo["notification"] as? String else { return }
-        
-        switch notification {
-        case "userPairedWithFriend":
-            NotificationCenter.default.post(name: PushMessageEntity.Notifications.userPairedWithFriend, object: nil)
-        case "userPostedNewPage":
-            NotificationCenter.default.post(name: PushMessageEntity.Notifications.userPostedNewPage, object: nil)
-        case "userDisconnected":
-            NotificationCenter.default.post(name: PushMessageEntity.Notifications.userDisconnected, object: nil)
-        default: break
-        }
     }
 }
 
