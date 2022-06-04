@@ -29,7 +29,7 @@ class PairingViewCoordinator: BaseCoordinator {
         )
         
         let pairRepository = PairRepository(networkService: firebaseNetworkService)
-        let fcmTokenRepository = FCMTokenRepository(firebaseNetworkService: firebaseNetworkService)
+        let fcmTokenRepository = FCMTokenRepository.shared
         let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 
         let pairUserUseCase = PairUserUseCase(userRepository: userRepository, pairRepository: pairRepository)

@@ -66,7 +66,6 @@
 		1D93999F282F71FA00D547A2 /* AgreementUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D93999E282F71FA00D547A2 /* AgreementUseCase.swift */; };
 		1D992B42273D0EAB00B63954 /* PageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D992B41273D0EAB00B63954 /* PageRepository.swift */; };
 		1D992E332755E8EC002C4457 /* GetUserUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D992E322755E8EC002C4457 /* GetUserUseCaseTest.swift */; };
-		1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999461274CA94600C72273 /* FCMTokenUseCase.swift */; };
 		1D999464274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */; };
 		1D999466274CAB8900C72273 /* FCMTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999465274CAB8900C72273 /* FCMTokenRepository.swift */; };
 		1D999468274CAC4700C72273 /* FCMTokenDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999467274CAC4700C72273 /* FCMTokenDocument.swift */; };
@@ -88,14 +87,11 @@
 		1DAEB01D275609250040E8C1 /* RegisterUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176102754C370006ACB41 /* RegisterUserUseCaseProtocol.swift */; };
 		1DAEB01E2756095C0040E8C1 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
 		1DAEB01F275609610040E8C1 /* UserRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9F105A2730F1B20060FEB7 /* UserRepositoryProtocol.swift */; };
-		1DAEB02727560E8F0040E8C1 /* FCMTokenUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB02627560E8F0040E8C1 /* FCMTokenUseCaseTest.swift */; };
 		1DAEB02D27560EA20040E8C1 /* DummyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44599E2755E0E1004888B9 /* DummyError.swift */; };
 		1DAEB03027560F7A0040E8C1 /* FCMTokenRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */; };
 		1DAEB03127560F960040E8C1 /* DummyFCMTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */; };
 		1DAEB03227560FB80040E8C1 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
 		1DAEB03327560FBB0040E8C1 /* DDIDDataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936C2735655C0036CED2 /* DDIDDataTransferObject.swift */; };
-		1DAEB034275612D30040E8C1 /* FCMTokenUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999461274CA94600C72273 /* FCMTokenUseCase.swift */; };
-		1DAEB035275613EE0040E8C1 /* FCMTokenUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */; };
 		1DAEB03D275617010040E8C1 /* FirebaseMessageUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB03C275617010040E8C1 /* FirebaseMessageUseCaseTest.swift */; };
 		1DAEB043275617940040E8C1 /* FirebaseMessageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D999469274CE5F700C72273 /* FirebaseMessageRepositoryProtocol.swift */; };
 		1DAEB046275617CB0040E8C1 /* DummyFirebaseMessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAEB044275617A40040E8C1 /* DummyFirebaseMessageRepository.swift */; };
@@ -305,7 +301,6 @@
 		66F176212754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */; };
 		66F176232754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */; };
 		66F176252754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */; };
-		66F176272754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */; };
 		66F176292754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */; };
 		66F5D47A2733E88F000FB471 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
 		66F5D47C2733EA32000FB471 /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D47B2733EA32000FB471 /* ComponentEntity.swift */; };
@@ -480,7 +475,6 @@
 		1D992E302755E8EC002C4457 /* GetUserUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetUserUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D992E322755E8EC002C4457 /* GetUserUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserUseCaseTest.swift; sourceTree = "<group>"; };
 		1D99945E274C8BF600C72273 /* Doolda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Doolda.entitlements; sourceTree = "<group>"; };
-		1D999461274CA94600C72273 /* FCMTokenUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenUseCase.swift; sourceTree = "<group>"; };
 		1D999463274CAAAC00C72273 /* FCMTokenRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenRepositoryProtocol.swift; sourceTree = "<group>"; };
 		1D999465274CAB8900C72273 /* FCMTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenRepository.swift; sourceTree = "<group>"; };
 		1D999467274CAC4700C72273 /* FCMTokenDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenDocument.swift; sourceTree = "<group>"; };
@@ -495,7 +489,6 @@
 		1DAEB00F275603C80040E8C1 /* RegisterUserUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RegisterUserUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DAEB011275603C80040E8C1 /* RegisterUserUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserUseCaseTest.swift; sourceTree = "<group>"; };
 		1DAEB02427560E8F0040E8C1 /* FCMTokenUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FCMTokenUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1DAEB02627560E8F0040E8C1 /* FCMTokenUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenUseCaseTest.swift; sourceTree = "<group>"; };
 		1DAEB02E27560F5F0040E8C1 /* DummyFCMTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyFCMTokenRepository.swift; sourceTree = "<group>"; };
 		1DAEB03A275617010040E8C1 /* FirebaseMessageUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FirebaseMessageUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DAEB03C275617010040E8C1 /* FirebaseMessageUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageUseCaseTest.swift; sourceTree = "<group>"; };
@@ -625,7 +618,6 @@
 		66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationStateUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFontUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCaseProtocol.swift; sourceTree = "<group>"; };
-		66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F5D4792733E88F000FB471 /* PageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEntity.swift; sourceTree = "<group>"; };
 		66F5D47B2733EA32000FB471 /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
@@ -894,7 +886,6 @@
 				1DAEB010275603C80040E8C1 /* RegisterUserUseCaseTest */,
 				66C2CA862755E9F200AFE5EE /* PairUserUseCaseTest */,
 				31BEC8322755EA89009AF22A /* ImageUseCaseTest */,
-				1DAEB02527560E8F0040E8C1 /* FCMTokenUseCaseTest */,
 				66C2CAED275640CA00AFE5EE /* GetRawPageUseCaseTest */,
 				66C2CAAC27561E1200AFE5EE /* RefreshUserUseCaseTest */,
 				66C2CAD727562C1600AFE5EE /* GetPageUseCaseTest */,
@@ -913,14 +904,6 @@
 				1DAEB011275603C80040E8C1 /* RegisterUserUseCaseTest.swift */,
 			);
 			path = RegisterUserUseCaseTest;
-			sourceTree = "<group>";
-		};
-		1DAEB02527560E8F0040E8C1 /* FCMTokenUseCaseTest */ = {
-			isa = PBXGroup;
-			children = (
-				1DAEB02627560E8F0040E8C1 /* FCMTokenUseCaseTest.swift */,
-			);
-			path = FCMTokenUseCaseTest;
 			sourceTree = "<group>";
 		};
 		1DAEB03B275617010040E8C1 /* FirebaseMessageUseCaseTest */ = {
@@ -1263,7 +1246,6 @@
 				FCD24D7D2743ADC1000203F7 /* PushNotificationStateUseCase.swift */,
 				FCD24D7727439717000203F7 /* GlobalFontUseCase.swift */,
 				66C482DA2746135500823151 /* GetRawPageUseCase.swift */,
-				1D999461274CA94600C72273 /* FCMTokenUseCase.swift */,
 				1D99946D274CEFC500C72273 /* FirebaseMessageUseCase.swift */,
 				1D77EDFE2779F9B90007BFF3 /* AuthenticateUseCase.swift */,
 				1D5DDFD528267E4E0050C211 /* AppleAuthProvideUseCase.swift */,
@@ -1474,7 +1456,6 @@
 				66F176202754C6A3006ACB41 /* PushNotificationStateUseCaseProtocol.swift */,
 				66F176222754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift */,
 				66F176242754C74C006ACB41 /* GetRawPageUseCaseProtocol.swift */,
-				66F176262754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift */,
 				66F176282754C7DA006ACB41 /* FirebaseMessageUseCaseProtocol.swift */,
 				1D77EDF72779ED000007BFF3 /* AuthenticateUseCaseProtocol.swift */,
 				1D93999A282F71B100D547A2 /* AgreementUseCaseProtocol.swift */,
@@ -2192,10 +2173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DAEB02727560E8F0040E8C1 /* FCMTokenUseCaseTest.swift in Sources */,
 				1DAEB03027560F7A0040E8C1 /* FCMTokenRepositoryProtocol.swift in Sources */,
-				1DAEB035275613EE0040E8C1 /* FCMTokenUseCaseProtocol.swift in Sources */,
-				1DAEB034275612D30040E8C1 /* FCMTokenUseCase.swift in Sources */,
 				1DAEB03327560FBB0040E8C1 /* DDIDDataTransferObject.swift in Sources */,
 				1DAEB02D27560EA20040E8C1 /* DummyError.swift in Sources */,
 				1DAEB03127560F960040E8C1 /* DummyFCMTokenRepository.swift in Sources */,
@@ -2291,7 +2269,6 @@
 				1D04F41A273954CD00CFCC3A /* CGColor+Extensions.swift in Sources */,
 				665303AA2744CE3400E3075C /* CoreDataPageEntityPersistenceServiceProtocol.swift in Sources */,
 				6653039D2743B49E00E3075C /* CoreDataPersistenceService.swift in Sources */,
-				66F176272754C77C006ACB41 /* FCMTokenUseCaseProtocol.swift in Sources */,
 				1D0C8BC42732AF780091ACC0 /* GetUserUseCase.swift in Sources */,
 				1D8BE07F2743846A00201E3E /* DiaryCollectionViewHeader.swift in Sources */,
 				66F176112754C370006ACB41 /* RegisterUserUseCaseProtocol.swift in Sources */,
@@ -2424,7 +2401,6 @@
 				66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */,
 				FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */,
 				1DBAA7F327E6B64200956C82 /* FCMToken.swift in Sources */,
-				1D999462274CA94600C72273 /* FCMTokenUseCase.swift in Sources */,
 				318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */,
 				66F176152754C413006ACB41 /* ImageComposeUseCaseProtocol.swift in Sources */,
 				66F176172754C4F6006ACB41 /* ImageUseCaseProtocol.swift in Sources */,
