@@ -52,7 +52,7 @@ final class DiaryViewCoordinator: BaseCoordinator {
             fileManagerPersistenceService: fileManagerPersistenceService
         )
         
-        let fcmTokenRepository = FCMTokenRepository(firebaseNetworkService: firebaseNetworkService)
+        let fcmTokenRepository = FCMTokenRepository.shared
         let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
         
         let checkMyTurnUseCase = CheckMyTurnUseCase(pairRepository: pairRepository)

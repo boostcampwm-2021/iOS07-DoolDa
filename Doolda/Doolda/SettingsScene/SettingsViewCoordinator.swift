@@ -53,7 +53,7 @@ class SettingsViewCoordinator: BaseCoordinator {
                 networkService: firebaseNetworkService,
                 pageEntityPersistenceService: CoreDataPageEntityPersistenceService(coreDataPersistenceService: CoreDataPersistenceService.shared)
             )
-            let fcmTokenRepository = FCMTokenRepository(firebaseNetworkService: firebaseNetworkService)
+            let fcmTokenRepository = FCMTokenRepository.shared
             let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 
             let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)

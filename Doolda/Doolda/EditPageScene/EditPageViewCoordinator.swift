@@ -86,7 +86,7 @@ final class EditPageViewCoordinator: BaseCoordinator {
                 coreDataPageEntityPersistenceService: coreDataPageEntityPersistenceService,
                 fileManagerPersistenceService: fileManagerPersistenceService
             )
-            let fcmTokenRepository = FCMTokenRepository(firebaseNetworkService: firebaseNetworkService)
+            let fcmTokenRepository = FCMTokenRepository.shared
             let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
             
             let imageUseCase = ImageUseCase(imageRepository: imageRepository)

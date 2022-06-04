@@ -44,6 +44,7 @@ class UserRepository: UserRepositoryProtocol {
     }
 
     func setMyId(uid: String, ddid: DDID) -> AnyPublisher<DDID, Error> {
+        FCMTokenRepository.shared.currentUserDdid = ddid
         let publisher = self.firebaseNetworkService.setDocument(
             collection: .ddidDictionary,
             document: uid,
@@ -60,6 +61,7 @@ class UserRepository: UserRepositoryProtocol {
             .map { data -> DDID? in
                 guard let ddidString = data["ddid"] as? String,
                       let ddid = DDID(from: ddidString) else { return nil }
+                FCMTokenRepository.shared.currentUserDdid = ddid
                 return ddid
             }
             .eraseToAnyPublisher()

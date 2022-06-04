@@ -59,33 +59,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        guard let token = fcmToken,
-              let uid = Firebase.Auth.auth().currentUser?.uid else { return }
-        
-        // FIXME: 더 좋은 방법 찾아보기
-        let firebaseNetworkService = FirebaseNetworkService.shared
-        let persistenceService = UserDefaultsPersistenceService.shared
-        let userRepository: UserRepository = UserRepository(persistenceService: persistenceService, networkService: firebaseNetworkService)
-        let fcmTokenRepository: FCMTokenRepository = FCMTokenRepository(firebaseNetworkService: firebaseNetworkService)
-        let getMyIdUseCase: GetMyIdUseCase = GetMyIdUseCase(userRepository: userRepository)
-        let fcmTokenUseCase: FCMTokenUseCase = FCMTokenUseCase(fcmTokenRepository: fcmTokenRepository)
-        
-        getMyIdUseCase.getMyId(for: uid)
-            .compactMap { $0 }
-            .sink { completion in
-                guard case .failure(let error) = completion else { return }
-                print(error.localizedDescription)
-            } receiveValue: { [weak self] ddid in
-                guard let self = self else { return }
-                fcmTokenUseCase.setToken(for: ddid, with: token)
-                    .sink { completion in
-                        guard case .failure(let error) = completion else { return }
-                        print(error.localizedDescription)
-                    } receiveValue: { token in
-                        print("SUCCESS: \(token)")
-                    }
-                    .store(in: &self.cancellables)
-            }
-            .store(in: &self.cancellables)
+        FCMTokenRepository.shared.currentFcmToken = fcmToken
     }
 }

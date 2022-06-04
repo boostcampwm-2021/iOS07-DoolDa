@@ -8,11 +8,39 @@
 import Combine
 import Foundation
 
-class FCMTokenRepository: FCMTokenRepositoryProtocol {
-    private let firebaseNetworkService: FirebaseNetworkServiceProtocol
+final class FCMTokenRepository: FCMTokenRepositoryProtocol {
+    static let shared = FCMTokenRepository()
     
-    init(firebaseNetworkService: FirebaseNetworkServiceProtocol) {
-        self.firebaseNetworkService = firebaseNetworkService
+    private let firebaseNetworkService = FirebaseNetworkService.shared
+    
+    private var cancellables: Set<AnyCancellable> = []
+    var tokenErrorHandler: ((Error?) -> Void)?
+    @Published var currentFcmToken: String?
+    @Published var currentUserDdid: DDID?
+    
+    private init() {
+        self.bind()
+    }
+    
+    private func bind() {
+        Publishers.CombineLatest($currentFcmToken, $currentUserDdid)
+            .sink { [weak self] token, ddid in
+                guard let ddid = ddid,
+                      let token = token else { return }
+                self?.setToken(for: ddid, with: token)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func setToken(for ddid: DDID, with token: String) {
+        self.saveToken(for: ddid, with: token)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.tokenErrorHandler?(error)
+            } receiveValue: { token in
+                print("[FCMTokenUseCase] FCM Token updated for user \(ddid.ddidString) with token \(token)")
+            }
+            .store(in: &self.cancellables)
     }
     
     func saveToken(for userId: DDID, with token: String) -> AnyPublisher<String, Error> {
