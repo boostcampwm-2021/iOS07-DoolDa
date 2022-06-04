@@ -8,6 +8,8 @@
 import Combine
 import Foundation
 
+import Firebase
+
 protocol FirebaseNetworkServiceProtocol {
     func getDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<[String: Any], Error>
     func setDocument(collection: FirebaseCollection, document: String, dictionary: [String: Any]) -> AnyPublisher<Void, Error>
@@ -16,6 +18,7 @@ protocol FirebaseNetworkServiceProtocol {
     func getDocuments(collection: FirebaseCollection, conditions: [String: Any]?) -> AnyPublisher<[[String: Any]], Error>
     func getDocuments<T: DataTransferable>(collection: FirebaseCollection, conditions: [String: Any]?) -> AnyPublisher<[T], Error>
     func deleteDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<Void, Error>
+    func deleteDocuments(collection: FirebaseCollection, fieldPath: FieldPath, prefix: String) -> AnyPublisher<Void, Error>
     func uploadData(path: String, fileName: String, data: Data) -> AnyPublisher<URL, Error>
     func donwloadData(path: String, fileName: String) -> AnyPublisher<Data, Error>
     func deleteStorageFolder(path: String) -> AnyPublisher<Void, Error>

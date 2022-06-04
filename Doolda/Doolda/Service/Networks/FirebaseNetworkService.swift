@@ -117,6 +117,28 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
         .eraseToAnyPublisher()
     }
     
+    func deleteDocuments(collection: FirebaseCollection, fieldPath: FieldPath, prefix: String) -> AnyPublisher<Void, Error> {
+        let query = Firestore.firestore().collection(collection.rawValue)
+            .whereField(fieldPath, isGreaterThanOrEqualTo: prefix)
+            .whereField(fieldPath, isLessThan: prefix + "z")
+        
+        return Future { promise in
+            query.getDocuments { snapshot, error in
+                if let error = error { return promise(.failure(error)) }
+                guard let snapshot = snapshot else { return promise(.failure(Errors.invalidDocumentSnapshot)) }
+                let batch = Firestore.firestore().batch()
+                
+                snapshot.documents.forEach { batch.deleteDocument($0.reference) }
+                
+                batch.commit { error in
+                    if let error = error { return promise(.failure(error)) }
+                    promise(.success(()))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
     func uploadData(path: String, fileName: String, data: Data) -> AnyPublisher<URL, Error> {
         let dataPath = "/\(path)/\(fileName)"
         let storage = Storage.storage().reference(withPath: dataPath)
