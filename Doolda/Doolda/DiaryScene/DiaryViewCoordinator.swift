@@ -101,6 +101,12 @@ final class DiaryViewCoordinator: BaseCoordinator {
     }
     
     private func editPageRequested() {
+        // Check if it's ok to request new editing page
+        guard !(self.children.contains { _, coordinator in
+            guard coordinator as? EditPageViewCoordinator != nil else { return false }
+            return true
+        }) else { return }
+        
         let identifier = UUID()
         let coordinator = EditPageViewCoordinator(identifier: identifier, presenter: self.presenter, user: self.user)
         self.children[identifier] = coordinator

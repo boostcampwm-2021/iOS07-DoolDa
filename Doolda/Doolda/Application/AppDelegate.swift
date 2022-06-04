@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    // Called when APNs token is updated
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
@@ -55,9 +56,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     ) {
         completionHandler([.banner, .sound])
     }
+    
+    // Called when user taps the notification banner
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        let data = response.notification.request.content.userInfo
+        
+        if let event = data[PushMessageEntity.DataKey.event] as? String,
+           let notification = PushMessageEntity.Notifications.dict[event] {
+            NotificationCenter.default.post(name: notification, object: self)
+        }
+    }
 }
 
 extension AppDelegate: MessagingDelegate {
+    // Called when fcm token is updated
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         FCMTokenRepository.shared.currentFcmToken = fcmToken
     }

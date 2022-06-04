@@ -144,6 +144,18 @@ final class DiaryViewModel: DiaryViewModelProtocol {
                 self.filterPageEntities(entities: entities, authorFilter: self.authorFilter, orderFilter: self.orderFilter)
             }
             .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.didReceiveUserPostedNewPageEvent)
+            .sink { [weak self] _ in
+                self?.fetchPages()
+            }
+            .store(in: &self.cancellables)
+        
+        NotificationCenter.default.publisher(for: PushMessageEntity.Notifications.didReceiveUserRequestedNewPageEvent)
+            .sink { [weak self] _ in
+                self?.addPageRequested.send()
+            }
+            .store(in: &self.cancellables)
     }
     
     func diaryViewWillAppear() {
