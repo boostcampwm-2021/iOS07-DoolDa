@@ -14,6 +14,7 @@ enum PageRepositoryError: LocalizedError {
     case failedToFetchPages
     case failedToUpdatePage
     case failedToSavePage
+    case failedToDeletePage
     
     var errorDescription: String? {
         switch self {
@@ -21,6 +22,7 @@ enum PageRepositoryError: LocalizedError {
         case .failedToFetchPages: return "페이지 패치에 실패했습니다."
         case .failedToUpdatePage: return "페이지 업데이트에 실패했습니다."
         case .failedToSavePage: return "페이지 저장에 실패했습니다."
+        case .failedToDeletePage: return "페이지 삭제에 실패했습니다."
         }
     }
 }
@@ -114,6 +116,25 @@ class PageRepository: PageRepositoryProtocol {
                         promise(.success(pages))
                     })
                     .store(in: &self.cancellables)
+            }
+            .store(in: &self.cancellables)
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func deletePages(for pair: DDID) -> AnyPublisher<Void, Error> {
+        return Future { [weak self] promise in
+            guard let self = self else { return promise(.failure(PageRepositoryError.failedToDeletePage)) }
+            
+            Publishers.Zip(
+                self.firebaseNetworkService.deleteDocuments(collection: .page, fieldPath: .documentID(), prefix: pair.ddidString),
+                self.firebaseNetworkService.deleteStorageFolder(path: pair.ddidString)
+            )
+            .sink { completion in
+                guard case .failure(let error) = completion else { return }
+                promise(.failure(error))
+            } receiveValue: { _ in
+                promise(.success(()))
             }
             .store(in: &self.cancellables)
         }
