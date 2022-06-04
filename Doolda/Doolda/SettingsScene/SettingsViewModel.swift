@@ -133,20 +133,22 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         }
     }
     
-    // FIXME: NOT IMPLEMENTED
     func deleteAccountButtonDidTap() {
-        self.authenticateUseCase.delete()
+        Publishers.Zip(
+            self.unpairUserUseCase.unpair(user: self.user),
+            self.authenticateUseCase.delete()
+        )
             .sink { [weak self] completion in
-            guard case .failure(let error) = completion else { return }
+                guard case .failure(let error) = completion else { return }
                 try? Auth.auth().signOut()
-            self?.error = error
-        } receiveValue: { _ in
-            NotificationCenter.default.post(
-                name: AppCoordinator.Notifications.appRestartSignal,
-                object: nil
-            )
-        }
-        .store(in: &self.cancellables)
+                self?.error = error
+            } receiveValue: { _ in
+                NotificationCenter.default.post(
+                    name: AppCoordinator.Notifications.appRestartSignal,
+                    object: nil
+                )
+            }
+            .store(in: &self.cancellables)
     }
     
     func deinitRequested() {
