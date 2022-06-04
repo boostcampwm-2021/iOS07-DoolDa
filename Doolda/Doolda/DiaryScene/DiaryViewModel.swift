@@ -21,8 +21,6 @@ protocol DiaryViewModelInput {
     func pageDidDisplay(metaData: PageEntity) -> AnyPublisher<RawPageEntity, Error>
     func pageDidTap(index: Int)
     func getDate(of index: Int) -> Date?
-    func userPostedNewPageNotificationDidReceived()
-    func userRequestedNewPageNotificationDidReceived()
     func deinitRequested()
 }
 
@@ -170,11 +168,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     }
     
     func refreshButtonDidTap() {
-        self.fetchPages()
-        
-        guard let friendId = user.friendId,
-              friendId != user.id else { return }
-        self.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userRequestedNewPage)
+        self.fetchPages(isNotificationNeeded: true)
     }
     
     func settingsButtonDidTap() {
@@ -202,15 +196,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
         return filteredPageEntities[exist: index]?.createdTime
     }
     
-    func userPostedNewPageNotificationDidReceived() {
-        self.fetchPages()
-    }
-    
-    func userRequestedNewPageNotificationDidReceived() {
-        self.fetchPages()
-    }
-    
-    private func fetchPages() {
+    private func fetchPages(isNotificationNeeded: Bool = false) {
         guard let pairId = self.user.pairId else { return }
         self.isRefreshing = true
         
@@ -224,6 +210,11 @@ final class DiaryViewModel: DiaryViewModelProtocol {
                 self?.error = error
                 self?.isRefreshing = false
             } receiveValue: { [weak self] isMyTurn, pages in
+                if isNotificationNeeded, self?.isMyTurn == isMyTurn {
+                    guard let friendId = self?.user.friendId,
+                          friendId != self?.user.id else { return }
+                    self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userRequestedNewPage)
+                }
                 self?.isMyTurn = isMyTurn
                 self?.pageEntities = pages
                 self?.isRefreshing = false
