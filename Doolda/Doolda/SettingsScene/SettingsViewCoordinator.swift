@@ -49,13 +49,21 @@ class SettingsViewCoordinator: BaseCoordinator {
                 networkService: firebaseNetworkService
             )
             let pairRepository = PairRepository(networkService: firebaseNetworkService)
+            let pageRepository = PageRepository(
+                networkService: firebaseNetworkService,
+                pageEntityPersistenceService: CoreDataPageEntityPersistenceService(coreDataPersistenceService: CoreDataPersistenceService.shared)
+            )
             let fcmTokenRepository = FCMTokenRepository(firebaseNetworkService: firebaseNetworkService)
             let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 
             let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)
             let pushNotificationStateUseCase = PushNotificationStateUseCase(pushNotificationStateRepository: pushNotificationStateRepository)
             let authenticationUseCase = AuthenticateUseCase()
-            let unpairUserUseCase = UnpairUserUseCase(userRepository: userRepository, pairRepository: pairRepository)
+            let unpairUserUseCase = UnpairUserUseCase(
+                userRepository: userRepository,
+                pairRepository: pairRepository,
+                pageRepository: pageRepository
+            )
             let authenticateUseCase = AuthenticateUseCase()
             let firebaseMessageUseCase = FirebaseMessageUseCase(
                 fcmTokenRepository: fcmTokenRepository,
