@@ -29,6 +29,8 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
     
     static let shared: FirebaseNetworkService = FirebaseNetworkService()
     
+    private var cancellables: Set<AnyCancellable> = []
+    
     private init() { }
      
     func getDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<[String: Any], Error> {
@@ -144,6 +146,33 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 }
 
                 promise(.success(data))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func deleteStorageFolder(path: String) -> AnyPublisher<Void, Error> {
+        let storage = Storage.storage().reference(withPath: path)
+        
+        return Future { [weak self] promise in
+            guard let self = self else { return }
+            
+            storage.listAll { storageList, error in
+                if let error = error { return promise(.failure(error)) }
+                
+                Publishers.MergeMany(
+                    storageList.items.map({ storageReference in
+                        storageReference.delete()
+                    })
+                )
+                .collect()
+                .sink { completion in
+                    guard case .failure(let error) = completion else { return }
+                    promise(.failure(error))
+                } receiveValue: { _ in
+                    promise(.success(()))
+                }
+                .store(in: &self.cancellables)
             }
         }
         .eraseToAnyPublisher()
