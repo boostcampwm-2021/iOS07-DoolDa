@@ -19,8 +19,8 @@ struct PushMessageEntity {
     }
     
     static let userPairedWithFriend: PushMessageEntity = PushMessageEntity(
-        title: "똑똑! 🙋‍♀️🙋‍♂️",
-        body: "누군가가 당신을 친구로 연결했어요!"
+        title: "연결 완료! 🙋‍♀️🙋‍♂️",
+        body: "친구와 연결되었어요!"
     )
     
     static let userPostedNewPage: PushMessageEntity = PushMessageEntity(
