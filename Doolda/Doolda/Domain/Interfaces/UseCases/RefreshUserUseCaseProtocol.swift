@@ -13,4 +13,5 @@ protocol RefreshUserUseCaseProtocol {
     var errorPublisher: AnyPublisher<Error?, Never> { get }
     
     func refresh(for user: User)
+    func observe(for user: User)
 }

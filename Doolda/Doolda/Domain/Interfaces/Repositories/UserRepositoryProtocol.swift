@@ -18,4 +18,7 @@ protocol UserRepositoryProtocol {
     
     func fetchUser(_ id: DDID) -> AnyPublisher<User, Error>
     func fetchUser(_ user: User) -> AnyPublisher<User, Error>
+    
+    func observeUser(_ id: DDID) -> AnyPublisher<User, Error>
+    func observeUser(_ user: User) -> AnyPublisher<User, Error>
 }
