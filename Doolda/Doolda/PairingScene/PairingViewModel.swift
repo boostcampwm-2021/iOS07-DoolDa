@@ -13,15 +13,13 @@ protocol PairingViewModelInput {
     func pairButtonDidTap()
     func pairSkipButtonDidTap()
     func refreshButtonDidTap()
-    func userPairedWithFriendNotificationDidReceived()
     func deinitRequested()
 }
 
 protocol PairingViewModelOutput {
     var myId: AnyPublisher<String, Never> { get }
     var isFriendIdValid: AnyPublisher<Bool, Never> { get }
-    var pairedUserPublisher: AnyPublisher<User?, Never> { get }
-    var isPairedByRefreshPublisher: AnyPublisher<Bool, Never> { get }
+    var pairedUserPublisher: PassthroughSubject<User?, Never> { get }
     var errorPublisher: AnyPublisher<Error?, Never> { get }
 }
 
@@ -39,8 +37,7 @@ final class PairingViewModel: PairingViewModelProtocol {
         .compactMap { DDID.isValid(ddidString: $0) }
         .eraseToAnyPublisher()
     
-    var pairedUserPublisher: AnyPublisher<User?, Never> { self.$pairedUser.eraseToAnyPublisher() }
-    var isPairedByRefreshPublisher: AnyPublisher<Bool, Never> { self.$isPairedByRefresh.eraseToAnyPublisher() }
+    var pairedUserPublisher = PassthroughSubject<User?, Never>()
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
 
     private let sceneId: UUID
@@ -50,8 +47,6 @@ final class PairingViewModel: PairingViewModelProtocol {
     private let firebaseMessageUseCase: FirebaseMessageUseCaseProtocol
     
     private var cancellables: Set<AnyCancellable> = []
-    @Published private var pairedUser: User?
-    @Published private var isPairedByRefresh: Bool = false
     @Published private var error: Error?
     
     init(
@@ -73,31 +68,21 @@ final class PairingViewModel: PairingViewModelProtocol {
         self.pairUserUseCase.errorPublisher
             .assign(to: &$error)
         
-        self.refreshUserUseCase.errorPublisher
-            .assign(to: &$error)
-        
         self.pairUserUseCase.pairedUserPublisher
             .compactMap { $0 }
             .sink { [weak self] user in
-                self?.pairedUser = user
-                if let friendId = user.friendId, friendId != user.id {
-                    self?.firebaseMessageUseCase.sendMessage(to: friendId, message: PushMessageEntity.userPairedWithFriend)
-                }
-            }
-            .store(in: &self.cancellables)
-        
-        self.refreshUserUseCase.refreshedUserPublisher
-            .compactMap { $0 }
-            .sink { [weak self] user in
-                if user.pairId != nil {
-                    self?.pairedUser = user
-                } else {
-                    self?.isPairedByRefresh = false
-                }
+                self?.validatePairedUser(user)
             }
             .store(in: &self.cancellables)
         
         self.refreshUserUseCase.observe(for: self.user)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] observedUser in
+                self?.validatePairedUser(observedUser)
+            }
+            .store(in: &self.cancellables)
     }
     
     func pairButtonDidTap() {
@@ -111,10 +96,13 @@ final class PairingViewModel: PairingViewModelProtocol {
     
     func refreshButtonDidTap() {
         self.refreshUserUseCase.refresh(for: self.user)
-    }
-    
-    func userPairedWithFriendNotificationDidReceived() {
-        self.refreshUserUseCase.refresh(for: self.user)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] refreshedUser in
+                self?.validatePairedUser(refreshedUser)
+            }
+            .store(in: &self.cancellables)
     }
     
     func deinitRequested() {
@@ -123,5 +111,13 @@ final class PairingViewModel: PairingViewModelProtocol {
             object: nil,
             userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
         )
+    }
+    
+    private func validatePairedUser(_ user: User) {
+        guard let friendId = user.friendId else { return }
+        if friendId != user.id {
+            self.firebaseMessageUseCase.sendMessage(to: friendId, message: .userPairedWithFriend)
+        }
+        self.pairedUserPublisher.send(user)
     }
 }

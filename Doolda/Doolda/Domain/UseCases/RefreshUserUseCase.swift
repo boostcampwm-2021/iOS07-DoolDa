@@ -9,39 +9,17 @@ import Combine
 import Foundation
 
 final class RefreshUserUseCase: RefreshUserUseCaseProtocol {
-    var refreshedUserPublisher: AnyPublisher<User?, Never> { self.$refreshedUser.eraseToAnyPublisher() }
-    var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
-    
     private let userRepository: UserRepositoryProtocol
-    
-    private var cancellables: Set<AnyCancellable> = []
-    @Published private var refreshedUser: User?
-    @Published private var error: Error?
     
     init(userRepository: UserRepositoryProtocol) {
         self.userRepository = userRepository
     }
     
-    func refresh(for user: User) {
-        self.userRepository.fetchUser(user)
-            .sink { [weak self] completion in
-                guard case .failure(let error) = completion else { return }
-                self?.error = error
-            } receiveValue: { [weak self] user in
-                self?.refreshedUser = user
-            }
-            .store(in: &cancellables)
+    func refresh(for user: User) -> AnyPublisher<User, Error> {
+        return self.userRepository.fetchUser(user)
     }
     
-    func observe(for user: User) {
-        self.userRepository.observeUser(user)
-            .sink { [weak self] completion in
-                print(completion)
-                guard case .failure(let error) = completion else { return }
-                self?.error = error
-            } receiveValue: { [weak self] user in
-                self?.refreshedUser = user
-            }
-            .store(in: &self.cancellables)
+    func observe(for user: User) -> AnyPublisher<User, Error> {
+        return self.userRepository.observeUser(user)
     }
 }
