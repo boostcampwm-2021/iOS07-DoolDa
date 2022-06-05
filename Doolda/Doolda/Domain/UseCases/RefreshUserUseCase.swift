@@ -32,4 +32,16 @@ final class RefreshUserUseCase: RefreshUserUseCaseProtocol {
             }
             .store(in: &cancellables)
     }
+    
+    func observe(for user: User) {
+        self.userRepository.observeUser(user)
+            .sink { [weak self] completion in
+                print(completion)
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] user in
+                self?.refreshedUser = user
+            }
+            .store(in: &self.cancellables)
+    }
 }

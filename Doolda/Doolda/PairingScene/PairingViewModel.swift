@@ -91,12 +91,13 @@ final class PairingViewModel: PairingViewModelProtocol {
             .sink { [weak self] user in
                 if user.pairId != nil {
                     self?.pairedUser = user
-
                 } else {
                     self?.isPairedByRefresh = false
                 }
             }
             .store(in: &self.cancellables)
+        
+        self.refreshUserUseCase.observe(for: self.user)
     }
     
     func pairButtonDidTap() {

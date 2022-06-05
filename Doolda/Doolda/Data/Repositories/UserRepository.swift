@@ -98,4 +98,17 @@ class UserRepository: UserRepositoryProtocol {
     func fetchUser(_ user: User) -> AnyPublisher<User, Error> {
         return self.fetchUser(user.id)
     }
+    
+    func observeUser(_ id: DDID) -> AnyPublisher<User, Error> {
+        let publisher: AnyPublisher<UserDataTransferObject, Error> = self.firebaseNetworkService
+            .observeDocument(collection: .user, document: id.ddidString)
+        
+        return publisher
+            .map { $0.toUser(id: id) }
+            .eraseToAnyPublisher()
+    }
+    
+    func observeUser(_ user: User) -> AnyPublisher<User, Error> {
+        return self.observeUser(user.id)
+    }
 }
