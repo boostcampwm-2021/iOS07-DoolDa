@@ -18,6 +18,11 @@ final class FirebaseMessageUseCase: FirebaseMessageUseCaseProtocol {
     
     @Published private var error: Error?
     
+    static let `default` = FirebaseMessageUseCase(
+        fcmTokenRepository: FCMTokenRepository.shared,
+        firebaseMessageRepository: FirebaseMessageRepository(urlSessionNetworkService: URLSessionNetworkService.shared)
+    )
+    
     init(fcmTokenRepository: FCMTokenRepositoryProtocol, firebaseMessageRepository: FirebaseMessageRepositoryProtocol) {
         self.fcmTokenRepository = fcmTokenRepository
         self.firebaseMessageRepository = firebaseMessageRepository

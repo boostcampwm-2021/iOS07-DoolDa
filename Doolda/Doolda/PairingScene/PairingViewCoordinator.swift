@@ -29,15 +29,10 @@ class PairingViewCoordinator: BaseCoordinator {
         )
         
         let pairRepository = PairRepository(networkService: firebaseNetworkService)
-        let fcmTokenRepository = FCMTokenRepository.shared
-        let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
 
         let pairUserUseCase = PairUserUseCase(userRepository: userRepository, pairRepository: pairRepository)
         let refreshUserUseCase = RefreshUserUseCase(userRepository: userRepository)
-        let firebaseMessageUseCase = FirebaseMessageUseCase(
-            fcmTokenRepository: fcmTokenRepository,
-            firebaseMessageRepository: firebaseMessageRepository
-        )
+        let firebaseMessageUseCase = FirebaseMessageUseCase.default
 
         let viewModel = PairingViewModel(
             sceneId: self.identifier,

@@ -86,8 +86,6 @@ final class EditPageViewCoordinator: BaseCoordinator {
                 coreDataPageEntityPersistenceService: coreDataPageEntityPersistenceService,
                 fileManagerPersistenceService: fileManagerPersistenceService
             )
-            let fcmTokenRepository = FCMTokenRepository.shared
-            let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
             
             let imageUseCase = ImageUseCase(imageRepository: imageRepository)
             let editPageUseCase = EditPageUseCase(
@@ -97,10 +95,7 @@ final class EditPageViewCoordinator: BaseCoordinator {
                 rawPageRepository: rawPageRepository,
                 pairRepository: pairRepository
             )
-            let firebaseMessageUseCase = FirebaseMessageUseCase(
-                fcmTokenRepository: fcmTokenRepository,
-                firebaseMessageRepository: firebaseMessageRepository
-            )
+            let firebaseMessageUseCase = FirebaseMessageUseCase.default
             
             let editPageViewModel = EditPageViewModel(
                 sceneId: self.identifier,

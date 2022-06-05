@@ -65,10 +65,7 @@ class SettingsViewCoordinator: BaseCoordinator {
                 pageRepository: pageRepository
             )
             let authenticateUseCase = AuthenticateUseCase()
-            let firebaseMessageUseCase = FirebaseMessageUseCase(
-                fcmTokenRepository: fcmTokenRepository,
-                firebaseMessageRepository: firebaseMessageRepository
-            )
+            let firebaseMessageUseCase = FirebaseMessageUseCase.default
 
             let viewModel = SettingsViewModel(
                 sceneId: self.identifier,
