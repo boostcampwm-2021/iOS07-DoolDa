@@ -29,13 +29,14 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
     
     static let shared: FirebaseNetworkService = FirebaseNetworkService()
     
+    private let firestore = Firestore.firestore()
     private var cancellables: Set<AnyCancellable> = []
     
     private init() { }
      
     func getDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<[String: Any], Error> {
-        return Future { promise in
-            Firestore.firestore().collection(collection.rawValue)
+        return Future { [weak self] promise in
+            self?.firestore.collection(collection.rawValue)
                 .document(document)
                 .getDocument { snapshot, error in
                     if let error = error { return promise(.failure(error)) }
@@ -56,7 +57,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
     }
     
     func getDocuments(collection: FirebaseCollection, conditions: [String: Any]?) -> AnyPublisher<[[String: Any]], Error> {
-        var pageSearchQuery: Query = Firestore.firestore().collection(collection.rawValue)
+        var pageSearchQuery: Query = self.firestore.collection(collection.rawValue)
         
         conditions?.forEach { field, condition in
             pageSearchQuery = pageSearchQuery.whereField(field, isEqualTo: condition)
@@ -89,8 +90,8 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
     }
     
     func setDocument(collection: FirebaseCollection, document: String, dictionary: [String: Any]) -> AnyPublisher<Void, Error> {
-        return Future { promise in
-            Firestore.firestore().collection(collection.rawValue)
+        return Future { [weak self] promise in
+            self?.firestore.collection(collection.rawValue)
                 .document(document)
                 .setData(dictionary) { error in
                     if let error = error { return promise(.failure(error)) }
@@ -106,8 +107,8 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
     }
     
     func deleteDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<Void, Error> {
-        return Future { promise in
-            Firestore.firestore().collection(collection.rawValue)
+        return Future { [weak self] promise in
+            self?.firestore.collection(collection.rawValue)
                 .document(document)
                 .delete { error in
                     if let error = error { return promise(.failure(error)) }
@@ -198,5 +199,28 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    func observeDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<[String: Any], Error> {
+        let subject = PassthroughSubject<[String: Any], Error>()
+        
+        self.firestore.collection(collection.rawValue)
+            .document(document)
+            .addSnapshotListener { snapshot, error in
+                if let error = error { return subject.send(completion: .failure(error)) }
+                guard let dictionary = snapshot?.data() else { return subject.send(completion: .failure(Errors.invalidDocumentSnapshot)) }
+                subject.send(dictionary)
+            }
+        
+        return subject.eraseToAnyPublisher()
+    }
+    
+    func observeDocument<T: DataTransferable>(collection: FirebaseCollection, document: String) -> AnyPublisher<T, Error> {
+        return observeDocument(collection: collection, document: document)
+            .tryMap { dictionary in
+                guard let decoded = T(dictionary: dictionary) else { throw Errors.snapshotNotDecodable }
+                return decoded
+            }
+            .eraseToAnyPublisher()
     }
 }
