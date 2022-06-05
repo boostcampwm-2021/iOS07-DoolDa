@@ -52,16 +52,10 @@ final class DiaryViewCoordinator: BaseCoordinator {
             fileManagerPersistenceService: fileManagerPersistenceService
         )
         
-        let fcmTokenRepository = FCMTokenRepository.shared
-        let firebaseMessageRepository = FirebaseMessageRepository(urlSessionNetworkService: urlSessionNetworkService)
-        
         let checkMyTurnUseCase = CheckMyTurnUseCase(pairRepository: pairRepository)
         let getPageUseCase = GetPageUseCase(pageRepository: pageRepository)
         let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: rawPageRepository)
-        let firebaseMessageUseCase = FirebaseMessageUseCase(
-            fcmTokenRepository: fcmTokenRepository,
-            firebaseMessageRepository: firebaseMessageRepository
-        )
+        let firebaseMessageUseCase = FirebaseMessageUseCase.default
         
         let viewModel = DiaryViewModel(
             sceneId: self.identifier,
