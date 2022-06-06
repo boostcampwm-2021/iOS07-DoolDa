@@ -272,7 +272,7 @@ class DiaryViewController: UIViewController {
             self.pageCollectionView.alwaysBounceHorizontal = false
             self.pageCollectionView.alwaysBounceVertical = true
             self.pageCollectionView.showsVerticalScrollIndicator = true
-            self.navigationController?.hidesBarsOnSwipe = true
+            self.navigationController?.hidesBarsOnSwipe = false
             self.title = "모아보기"
         case .carousel:
             self.pageCollectionView.collectionViewLayout = self.carouselFlowLayout
