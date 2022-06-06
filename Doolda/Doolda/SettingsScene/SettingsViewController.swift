@@ -35,34 +35,6 @@ class SettingsViewController: UIViewController {
         tableView.dataSource = self
         return tableView
     }()
-    
-    private lazy var unpairButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("친구 끊기", for: .normal)
-        button.setTitleColor(.dooldaWarning, for: .normal)
-        return button
-    }()
-
-    private lazy var logoutButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("로그아웃", for: .normal)
-        button.setTitleColor(.dooldaWarning, for: .normal)
-        return button
-    }()
-    
-    private lazy var deleteAccountButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("회원 탈퇴", for: .normal)
-        button.setTitleColor(.dooldaWarning, for: .normal)
-        return button
-    }()
-    
-    private lazy var danzerZoneStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.unpairButton, self.logoutButton, self.deleteAccountButton])
-        stackView.distribution = .fillEqually
-        stackView.axis = .horizontal
-        return stackView
-    }()
 
     private lazy var settingsSections: [SettingsSection] = {
         let alertCell = SettingsTableViewCell(style: .switchControl)
@@ -90,13 +62,29 @@ class SettingsViewController: UIViewController {
         contributorCell.title = "만든 사람들"
         let contributorsOption = SettingsOptions(cell: contributorCell, handler: self.viewModel.contributorCellDidTap)
 
+        let unpairCell = SettingsTableViewCell(style: .normal)
+        unpairCell.title = "친구 끊기"
+        let unpairOption = SettingsOptions(cell: unpairCell, handler: self.showUnpairAlert)
+
+        let logoutCell = SettingsTableViewCell(style: .normal)
+        logoutCell.title = "로그아웃"
+        let logoutOption = SettingsOptions(cell: logoutCell, handler: self.showLogoutAlert)
+
+        let deleteAccountCell = SettingsTableViewCell(style: .normal)
+        deleteAccountCell.title = "회원 탈퇴"
+        let deleteAccountOption = SettingsOptions(cell: deleteAccountCell, handler: self.showDeleteAcountAlert)
+
         let appSection = SettingsSection(title: "앱 설정", settingsOptions: [alertOption, fontOption])
         let serviceSection = SettingsSection(
             title: "서비스 정보",
             settingsOptions: [appVersionOption, openSourceOption, privacyOption, contributorsOption]
         )
+        let dangerSection = SettingsSection(
+            title: "Danger zone",
+            settingsOptions: [unpairOption, logoutOption, deleteAccountOption]
+        )
 
-        let sections: [SettingsSection] = [appSection, serviceSection]
+        let sections: [SettingsSection] = [appSection, serviceSection, dangerSection]
         return sections
     }()
 
@@ -158,11 +146,6 @@ class SettingsViewController: UIViewController {
             section.settingsOptions.forEach { options in
                 options.cell.font = .systemFont(ofSize: 16)
             }
-            
-            danzerZoneStack.arrangedSubviews.forEach { subview in
-                guard let button = subview as? UIButton else { return }
-                button.titleLabel?.font = .systemFont(ofSize: 16)
-            }
         }
     }
 
@@ -192,27 +175,6 @@ class SettingsViewController: UIViewController {
                 guard let error = error as? LocalizedError else { return }
                 let alert = UIAlertController.defaultAlert(title: "오류", message: error.localizedDescription) { _ in }
                 self?.present(alert, animated: true, completion: nil)
-            }
-            .store(in: &self.cancellables)
-        
-        self.unpairButton.publisher(for: .touchUpInside)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.showUnpairAlert()
-            }
-            .store(in: &self.cancellables)
-
-        self.logoutButton.publisher(for: .touchUpInside)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.showLogoutAlert()
-            }
-            .store(in: &self.cancellables)
-
-        self.deleteAccountButton.publisher(for: .touchUpInside)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.showDeleteAcountAlert()
             }
             .store(in: &self.cancellables)
 
@@ -296,22 +258,21 @@ extension SettingsViewController: UITableViewDataSource {
         guard let header = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: SettingsTableViewHeader.identifier
               ) as? SettingsTableViewHeader else { return nil }
-
+        if section == 2 { header.textColor = .dooldaWarning }
         header.title = self.settingsSections[section].title
         return header
     }
 
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == self.settingsSections.count - 1 {
-            return self.danzerZoneStack
-        }
-        return nil
-    }
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        if section == self.settingsSections.count - 1 {
+//            return self.danzerZoneStack
+//        }
+//        return nil
+//    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let section = self.settingsSections[exist: indexPath.section],
               let cell = section.settingsOptions[exist: indexPath.row]?.cell else { return UITableViewCell() }
-
         cell.selectionStyle = .none
         return cell
     }
