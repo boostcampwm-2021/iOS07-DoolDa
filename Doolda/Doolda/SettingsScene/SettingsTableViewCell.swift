@@ -13,7 +13,10 @@ import SnapKit
 class SettingsTableViewCell: UITableViewCell {
 
     enum Style {
-        case detail, disclosure, switchControl
+        case normal
+        case detail
+        case disclosure
+        case switchControl
     }
 
     // MARK: - Static Properties
@@ -111,6 +114,10 @@ class SettingsTableViewCell: UITableViewCell {
         self.layer.addSublayer(self.separator)
 
         switch self.style {
+        case .normal:
+            self.accessoryType = .none
+            self.detailLabel.isHidden = true
+            self.switchControl.isHidden = true
         case .disclosure:
             self.accessoryType = .disclosureIndicator
             self.detailLabel.isHidden = true

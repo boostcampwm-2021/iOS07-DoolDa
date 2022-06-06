@@ -28,6 +28,7 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
 
     @Published var title: String?
     @Published var font: UIFont?
+    @Published var textColor: UIColor?
 
     // MARK: - Private Properties
 
@@ -78,6 +79,13 @@ class SettingsTableViewHeader: UITableViewHeaderFooterView {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.configureFont()
+            }
+            .store(in: &self.cancellables)
+
+        self.$textColor
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] textColor in
+                self?.titleLabel.textColor = textColor
             }
             .store(in: &self.cancellables)
     }
