@@ -109,6 +109,7 @@ final class AgreementViewController: UIViewController {
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
         self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         self.view.addSubview(self.scrollView)
         self.scrollView.snp.makeConstraints { make in
