@@ -18,9 +18,10 @@ protocol SignUpViewModelInput {
 }
 
 protocol SignUpViewModelOutput {
-    var isEmailValidPublisher: CurrentValueSubject<Bool, Never> { get }
-    var isPasswordValidPublisher: CurrentValueSubject<Bool, Never> { get }
-    var isPasswordCheckValidPublisher: CurrentValueSubject<Bool, Never> { get }
+    var isEmailValidPublisher: AnyPublisher<Bool, Never> { get }
+    var isPasswordValidPublisher: AnyPublisher<Bool, Never> { get }
+    var isPasswordCheckValidPublisher: AnyPublisher<Bool, Never> { get }
+    var isAllInputValidPublisher: AnyPublisher<Bool, Never> { get }
     var errorPublisher: AnyPublisher<Error?, Never> { get }
     var signInPageRequested: PassthroughSubject<Void, Never> { get }
     var agreementPageRequested: PassthroughSubject<User, Never> { get }
@@ -43,10 +44,10 @@ enum SignUpError: LocalizedError {
 }
 
 final class SignUpViewModel: SignUpViewModelProtocol {
-    var isEmailValidPublisher = CurrentValueSubject<Bool, Never>(false)
-    var isPasswordValidPublisher = CurrentValueSubject<Bool, Never>(false)
-    var isPasswordCheckValidPublisher = CurrentValueSubject<Bool, Never>(false)
-    var allInputIsValidPublisher = CurrentValueSubject<Bool, Never>(false)
+    var isEmailValidPublisher: AnyPublisher<Bool, Never> { self.$emailValidPublisher.eraseToAnyPublisher() }
+    var isPasswordValidPublisher: AnyPublisher<Bool, Never> { self.$passwordValidPublisher.eraseToAnyPublisher() }
+    var isPasswordCheckValidPublisher: AnyPublisher<Bool, Never> { self.$passwordCheckValidPublisher.eraseToAnyPublisher() }
+    var isAllInputValidPublisher: AnyPublisher<Bool, Never> { self.$allInputValidPublisher.eraseToAnyPublisher() }
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
     var signInPageRequested = PassthroughSubject<Void, Never>()
     var agreementPageRequested = PassthroughSubject<User, Never>()
@@ -54,6 +55,10 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     @Published var emailInput: String = ""
     @Published var passwordInput: String = ""
     @Published var passwordCheckInput: String = ""
+    @Published private var emailValidPublisher: Bool = false
+    @Published private var passwordValidPublisher: Bool = false
+    @Published private var passwordCheckValidPublisher: Bool = false
+    @Published private var allInputValidPublisher: Bool = false
     @Published private var error: Error?
 
     private var cancellables: Set<AnyCancellable> = []
@@ -101,27 +106,26 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     private func bind() {
         self.$emailInput.sink { [weak self] email in
             guard let self = self else { return }
-            self.isEmailValidPublisher.send(self.checkEamilVaild(email))
-            self.checkAllInputVaild()
+            self.emailValidPublisher = self.checkEamilVaild(email)
         }
         .store(in: &self.cancellables)
-
-        self.$passwordInput.sink { [weak self] password in
-            guard let self = self else { return }
-            self.isPasswordValidPublisher.send(self.checkPasswordVaild(password))
-            self.isPasswordCheckValidPublisher.send(self.checkPasswordCheckVaild(self.passwordCheckInput))
-            self.checkAllInputVaild()
-
-        }
-        .store(in: &self.cancellables)
-
-        self.$passwordCheckInput.sink { [weak self] passwordCheckInput in
-            guard let self = self else { return }
-            self.isPasswordValidPublisher.send(self.checkPasswordVaild(self.passwordInput))
-            self.isPasswordCheckValidPublisher.send(self.checkPasswordCheckVaild(passwordCheckInput))
-            self.checkAllInputVaild()
-        }
-        .store(in: &self.cancellables)
+        
+        Publishers.CombineLatest(self.$passwordInput, self.$passwordCheckInput)
+            .sink { [weak self] (password, passwordCheck) in
+                guard let self = self else { return }
+                self.passwordValidPublisher = self.checkPasswordVaild(password)
+                self.passwordCheckValidPublisher = self.checkPasswordCheckVaild(password: password, passwordCheck: passwordCheck)
+            }
+            .store(in: &self.cancellables)
+        
+        Publishers.CombineLatest3(self.$emailValidPublisher, self.$passwordValidPublisher, self.$passwordCheckValidPublisher)
+            .map { (isEmailValid, isPasswordValid, isPasswordCheckValid) in
+                return isEmailValid && isPasswordValid && isPasswordCheckValid
+            }
+            .sink { [weak self] isValid in
+                self?.allInputValidPublisher = isValid
+            }
+            .store(in: &self.cancellables)
     }
 
     private func checkEamilVaild(_ email: String) -> Bool {
@@ -129,18 +133,11 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     }
 
     private func checkPasswordVaild(_ password: String) -> Bool {
-        return true
+        // FIXME: 패스워드 검증을 위한 조건도 추가되어야 함
+        return !password.isEmpty && true
     }
 
-    private func checkPasswordCheckVaild(_ passwordCheck: String) -> Bool {
-        return self.passwordInput == passwordCheck
-    }
-
-    private func checkAllInputVaild() {
-        if self.isEmailValidPublisher.value, self.isPasswordValidPublisher.value, self.isPasswordCheckValidPublisher.value {
-            self.allInputIsValidPublisher.send(true)
-        } else {
-            self.allInputIsValidPublisher.send(false)
-        }
+    private func checkPasswordCheckVaild(password: String, passwordCheck: String) -> Bool {
+        return !passwordCheck.isEmpty && password == passwordCheck
     }
 }

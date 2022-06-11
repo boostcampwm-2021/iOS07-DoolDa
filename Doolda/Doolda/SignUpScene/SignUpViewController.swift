@@ -26,7 +26,11 @@ final class SignUpViewController: UIViewController {
     
     // MARK: - Subviews
     
-    private lazy var scrollView: UIScrollView = UIScrollView()
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        return scrollView
+    }()
     
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
@@ -54,9 +58,7 @@ final class SignUpViewController: UIViewController {
     
     private lazy var emailStateLabel: UILabel = {
         let label = UILabel()
-        label.text = "이메일 형식이 올바르지 않습니다."
         label.textColor = .red
-        label.isHidden = true
         return label
     }()
     
@@ -71,9 +73,7 @@ final class SignUpViewController: UIViewController {
     
     private lazy var passwordStateLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호 형식이 올바르지 않습니다."
         label.textColor = .red
-        label.isHidden = true
         return label
     }()
     
@@ -88,9 +88,7 @@ final class SignUpViewController: UIViewController {
     
     private lazy var passwordCheckStateLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호가 일치하지 않습니다."
         label.textColor = .red
-        label.isHidden = true
         return label
     }()
     
@@ -171,7 +169,6 @@ final class SignUpViewController: UIViewController {
         self.view.backgroundColor = .dooldaBackground
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        self.emailStateLabel.isHidden = true
         let naviHeight = self.navigationController?.navigationBar.frame.height ?? 0
         
         self.view.addSubview(self.signInButton)
@@ -206,6 +203,18 @@ final class SignUpViewController: UIViewController {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.centerX.equalToSuperview()
+        }
+        
+        self.emailStateLabel.snp.makeConstraints { make in
+            make.height.equalTo(16)
+        }
+        
+        self.passwordStateLabel.snp.makeConstraints { make in
+            make.height.equalTo(16)
+        }
+        
+        self.passwordCheckStateLabel.snp.makeConstraints { make in
+            make.height.equalTo(16)
         }
         
         self.scrollView.addSubview(self.signUpButton)
@@ -298,42 +307,37 @@ final class SignUpViewController: UIViewController {
 
     private func bindViewModel() {
         guard let viewModel = self.viewModel else { return }
-
-        viewModel.isEmailValidPublisher.sink { [weak self] isValid in
-            if isValid {
-                self?.emailStateLabel.isHidden = true
-            } else {
-                self?.emailStateLabel.isHidden = false
+        
+        viewModel.isEmailValidPublisher
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isValid in
+                self?.emailStateLabel.text = isValid ? "" : "이메일 형식이 올바르지 않습니다."
             }
-        }
-        .store(in: &self.cancellables)
+            .store(in: &self.cancellables)
 
-        viewModel.isPasswordValidPublisher.sink { [weak self] isValid in
-            if isValid {
-                self?.passwordStateLabel.isHidden = true
-            } else {
-                self?.passwordStateLabel.isHidden = false
+        viewModel.isPasswordValidPublisher
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isValid in
+                self?.passwordStateLabel.text = isValid ? "" : "비밀번호 형식이 올바르지 않습니다."
             }
-        }
-        .store(in: &self.cancellables)
+            .store(in: &self.cancellables)
 
-        viewModel.isPasswordCheckValidPublisher.sink { [weak self] isValid in
-            if isValid {
-                self?.passwordCheckStateLabel.isHidden = true
-            } else {
-                self?.passwordCheckStateLabel.isHidden = false
+        viewModel.isPasswordCheckValidPublisher
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isValid in
+                self?.passwordCheckStateLabel.text = isValid ? "" : "비밀번호가 일치하지 않습니다."
             }
-        }
-        .store(in: &self.cancellables)
+            .store(in: &self.cancellables)
 
-        viewModel.allInputIsValidPublisher.sink { [weak self] isValid in
-            if isValid {
-                self?.signUpButton.isEnabled = true
-            } else {
-                self?.signUpButton.isEnabled = false
+        viewModel.isAllInputValidPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isValid in
+                self?.signUpButton.isEnabled = isValid
             }
-        }
-        .store(in: &self.cancellables)
+            .store(in: &self.cancellables)
 
        viewModel.errorPublisher
             .receive(on: DispatchQueue.main)
