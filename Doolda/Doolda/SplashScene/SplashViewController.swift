@@ -68,6 +68,8 @@ final class SplashViewController: UIViewController {
     
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
+        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 
         self.view.addSubview(backgroundImage)
         self.backgroundImage.snp.makeConstraints { make in
