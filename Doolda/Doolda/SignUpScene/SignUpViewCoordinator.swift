@@ -43,7 +43,7 @@ final class SignUpViewCoordinator: BaseCoordinator {
     }
 
     private func loginPageRequested() {
-        self.presenter.popViewController(animated: true)
+        self.presenter.popViewController(animated: false)
     }
 
     private func agreementPageRequest(user: User) {
