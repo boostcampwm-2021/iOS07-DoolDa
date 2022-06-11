@@ -170,6 +170,7 @@ final class SignUpViewController: UIViewController {
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
         self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.emailStateLabel.isHidden = true
         let naviHeight = self.navigationController?.navigationBar.frame.height ?? 0
         
