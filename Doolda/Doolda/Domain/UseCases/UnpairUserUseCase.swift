@@ -39,35 +39,29 @@ final class UnpairUserUseCase: UnpairUserUseCaseProtocol {
     }
     
     func unpair(user: User) -> AnyPublisher<User, Error> {
-        guard let pairId = user.pairId else { return Fail(error: Errors.userNotPaired).eraseToAnyPublisher() }
-        
-        let resetUser = User(id: user.id, pairId: nil, friendId: nil)
-        let publisher: AnyPublisher<User, Error>
-        
-        if let friendId = user.friendId,
-           resetUser.id != friendId {
-            publisher = Publishers.Zip4(
-                self.userRepository.resetUser(resetUser),
-                self.userRepository.resetUser(User(id: friendId, pairId: nil, friendId: nil)),
-                self.pairRepository.deletePair(with: user),
-                self.pageRepository.deletePages(for: pairId)
-            )
-                .map { user, _, _, _ in
-                    return user
-                }
-                .eraseToAnyPublisher()
-        } else {
-            publisher = Publishers.Zip3(
-                self.userRepository.resetUser(resetUser),
-                self.pairRepository.deletePair(with: user),
-                self.pageRepository.deletePages(for: pairId)
-            )
-                .map { user, _, _ in
-                    return user
-                }
-                .eraseToAnyPublisher()
+        guard let pairId = user.pairId else {
+            return Fail(error: Errors.userNotPaired).eraseToAnyPublisher()
         }
         
-        return publisher
+        if let friendId = user.friendId {
+            return Publishers.Zip4(
+                self.userRepository.setUser(user.unpairedUser()),
+                self.userRepository.fetchUser(friendId)
+                    .map { [weak self] friend in self?.userRepository.setUser(friend.unpairedUser()) }
+                    .eraseToAnyPublisher(),
+                self.pairRepository.deletePair(with: user),
+                self.pageRepository.deletePages(for: pairId)
+            )
+            .map { user, _, _, _ in return user }
+            .eraseToAnyPublisher()
+        } else {
+            return Publishers.Zip3(
+                self.userRepository.setUser(user.unpairedUser()),
+                self.pairRepository.deletePair(with: user),
+                self.pageRepository.deletePages(for: pairId)
+            )
+            .map { user, _, _ in return user }
+            .eraseToAnyPublisher()
+        }
     }
 }
