@@ -55,4 +55,8 @@ struct User: Hashable {
     func pairedUser(with other: User, as pair: DDID) -> User {
         User(id: id, pairId: pair, friendId: other.id, isAgreed: isAgreed)
     }
+    
+    func unpairedUser() -> User {
+        User(id: id, pairId: nil, friendId: nil, isAgreed: isAgreed)
+    }
 }
