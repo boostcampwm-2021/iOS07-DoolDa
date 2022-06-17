@@ -59,6 +59,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
     private let sceneId: UUID
     private let authenticateUseCase: AuthenticateUseCaseProtocol
     private let appleAuthProvider: AppleAuthProvideUseCase
+    private let deviceUseCase: DeviceUseCase
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
     private let getUserUseCase: GetUserUseCaseProtocol
     private let createUserUseCase: CreateUserUseCaseProtocol
@@ -70,6 +71,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         sceneId: UUID,
         authenticateUseCase: AuthenticateUseCaseProtocol,
         appleAuthProvider: AppleAuthProvideUseCase,
+        deviceUseCase: DeviceUseCase,
         getMyIdUseCase: GetMyIdUseCaseProtocol,
         getUserUseCase: GetUserUseCaseProtocol,
         createUserUseCase: CreateUserUseCaseProtocol
@@ -77,6 +79,7 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
         self.sceneId = sceneId
         self.authenticateUseCase = authenticateUseCase
         self.appleAuthProvider = appleAuthProvider
+        self.deviceUseCase = deviceUseCase
         self.getMyIdUseCase = getMyIdUseCase
         self.getUserUseCase = getUserUseCase
         self.createUserUseCase = createUserUseCase
@@ -164,8 +167,38 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
             }
             .store(in: &self.cancellables)
     }
+
+    private func setCurrentDevice(with dooldaUser: User) {
+        self.deviceUseCase.setCurrentDevice(for: dooldaUser)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                UserStateObservingUseCase.shared.observeCurrentDevice(for: dooldaUser)
+                    .sink { [weak self] completion in
+                        guard case .failure(let error) = completion else { return }
+                        self?.error = error
+                    } receiveValue: { [weak self] deviceId in
+                        guard let self = self else { return }
+                        if !self.deviceUseCase.checkIdIsCurrentDevice(with: deviceId) {
+                            do {
+                                try self.authenticateUseCase.signOut()
+                                NotificationCenter.default.post(
+                                    name: AppCoordinator.Notifications.loginDuplicatePopup,
+                                    object: nil
+                                )
+                            } catch(let error) {
+                                self.error = error
+                            }
+                        }
+                    }.store(in: &self.cancellables)
+            }.store(in: &self.cancellables)
+    }
     
     private func validateUser(with dooldaUser: User) {
+        self.setCurrentDevice(with: dooldaUser)
+
         switch (dooldaUser.isAgreed, dooldaUser.isPaired) {
         case (false, _): self.agreementPageRequested.send(dooldaUser)
         case (true, false): self.pairingPageRequested.send(dooldaUser)

@@ -31,6 +31,7 @@ final class SplashViewCoordinator: BaseCoordinator {
         )
         
         let authenticateUseCase = AuthenticateUseCase()
+        let deviceUseCase = DeviceUseCase()
         let getMyIdUseCase = GetMyIdUseCase(userRepository: userRespository)
         let getUserUseCase = GetUserUseCase(userRepository: userRespository)
         let globalFontUseCase = GlobalFontUseCase(globalFontRepository: globalFontRepository)
@@ -39,6 +40,7 @@ final class SplashViewCoordinator: BaseCoordinator {
             sceneId: self.identifier,
             authenticateUseCase: authenticateUseCase,
             getMyIdUseCase: getMyIdUseCase,
+            deviceUseCase: deviceUseCase,
             getUserUseCase: getUserUseCase,
             globalFontUseCase: globalFontUseCase
         )

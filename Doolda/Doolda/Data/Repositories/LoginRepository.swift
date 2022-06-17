@@ -20,7 +20,7 @@ enum LoginRepositoryError: LocalizedError {
     }
 }
 
-class LoginRepository: LoginRepositoryProtocol {
+final class LoginRepository: LoginRepositoryProtocol {
     private let userDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol
     private let firebaseNetworkService: FirebaseNetworkServiceProtocol
 
