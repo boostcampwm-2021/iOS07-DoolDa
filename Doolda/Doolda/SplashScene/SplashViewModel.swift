@@ -30,8 +30,9 @@ final class SplashViewModel: SplashViewModelProtocol {
     private let authenticateUseCase: AuthenticateUseCaseProtocol
     private let getMyIdUseCase: GetMyIdUseCaseProtocol
     private let getUserUseCase: GetUserUseCaseProtocol
+    private let deviceUseCase: DeviceUseCase
     private let globalFontUseCase: GlobalFontUseCaseProtocol
-    
+
     var loginPageRequested = PassthroughSubject<Void, Never>()
     var agreementPageRequested = PassthroughSubject<User, Never>()
     var pairingPageRequested = PassthroughSubject<User, Never>()
@@ -43,12 +44,14 @@ final class SplashViewModel: SplashViewModelProtocol {
         sceneId: UUID,
         authenticateUseCase: AuthenticateUseCaseProtocol,
         getMyIdUseCase: GetMyIdUseCaseProtocol,
+        deviceUseCase: DeviceUseCase,
         getUserUseCase: GetUserUseCaseProtocol,
         globalFontUseCase: GlobalFontUseCaseProtocol
     ) {
         self.sceneId = sceneId
         self.authenticateUseCase = authenticateUseCase
         self.getMyIdUseCase = getMyIdUseCase
+        self.deviceUseCase = deviceUseCase
         self.getUserUseCase = getUserUseCase
         self.globalFontUseCase = globalFontUseCase
         self.applyGlobalFont()
@@ -104,10 +107,40 @@ final class SplashViewModel: SplashViewModelProtocol {
                 self.error = error
             } receiveValue: { [weak self] dooldaUser in
                 self?.validateUser(with: dooldaUser)
+
+            }.store(in: &self.cancellables)
+    }
+
+    private func setCurrentDevice(with dooldaUser: User) {
+        self.deviceUseCase.setCurrentDevice(for: dooldaUser)
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { _ in
+                UserStateObservingUseCase.shared.observeCurrentDevice(for: dooldaUser)
+                    .sink { completion in
+                        guard case .failure(let error) = completion else { return }
+                        self.error = error
+                    } receiveValue: { [weak self] deviceId in
+                        guard let self = self else { return }
+                        if !self.deviceUseCase.checkIdIsCurrentDevice(with: deviceId) {
+                            do {
+                                try self.authenticateUseCase.signOut()
+                                NotificationCenter.default.post(
+                                    name: AppCoordinator.Notifications.loginDuplicatePopup,
+                                    object: nil
+                                )
+                            } catch(let error) {
+                                self.error = error
+                            }
+                        }
+                    }.store(in: &self.cancellables)
             }.store(in: &self.cancellables)
     }
     
     private func validateUser(with dooldaUser: User) {
+        self.setCurrentDevice(with: dooldaUser)
+
         switch (dooldaUser.isAgreed, dooldaUser.isPaired) {
         case (false, _): self.agreementPageRequested.send(dooldaUser)
         case (true, false): self.pairingPageRequested.send(dooldaUser)

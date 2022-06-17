@@ -27,6 +27,7 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
         
         let authenticateUseCase = AuthenticateUseCase()
         let appleAuthProvider = AppleAuthProvideUseCase()
+        let deviceUseCase = DeviceUseCase()
         let getMyIdUseCase = GetMyIdUseCase(userRepository: userRepository)
         let getUserUseCase = GetUserUseCase(userRepository: userRepository)
         let createUserUseCase = CreateUserUseCase(userRepository: userRepository)
@@ -35,6 +36,7 @@ final class AuthenticationViewCoordinator: BaseCoordinator {
             sceneId: self.identifier,
             authenticateUseCase: authenticateUseCase,
             appleAuthProvider: appleAuthProvider,
+            deviceUseCase: deviceUseCase,
             getMyIdUseCase: getMyIdUseCase,
             getUserUseCase: getUserUseCase,
             createUserUseCase: createUserUseCase

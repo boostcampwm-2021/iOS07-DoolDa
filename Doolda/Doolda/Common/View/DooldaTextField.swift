@@ -24,6 +24,7 @@ class DooldaTextField: UIControl {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
+        textField.autocapitalizationType = .none
         textField.font = UIFont(name: FontType.dovemayo.name, size: 16)
         textField.textColor = .dooldaLabel
         textField.leftView = UIView(frame: .init(x: 0, y: 0, width: 25, height: 0))

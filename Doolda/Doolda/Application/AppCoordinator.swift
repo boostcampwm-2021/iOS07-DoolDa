@@ -15,6 +15,7 @@ final class AppCoordinator: BaseCoordinator {
     enum Notifications {
         static let coordinatorDidPop = Notification.Name("coordinatorDidPop")
         static let appRestartSignal = Notification.Name("appRestartSignal")
+        static let loginDuplicatePopup = Notification.Name("loginDuplicatePopup")
     }
     
     enum Keys {
@@ -42,6 +43,22 @@ final class AppCoordinator: BaseCoordinator {
                 self?.children.removeAll()
                 self?.presenter.children.forEach { $0.removeFromParent() }
                 self?.start()
+            }
+            .store(in: &self.cancellables)
+
+        NotificationCenter.default.publisher(for: Notifications.loginDuplicatePopup, object: nil)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let visibleViewController = self.presenter.visibleViewController
+                let alert = UIAlertController.defaultAlert(title: "알림",
+                                                           message: "다른 기기에서 로그인 하였습니다. 현재 기기에서 로그아웃 됩니다.",
+                                                           handler: { [weak self] _ in
+                    self?.children.removeAll()
+                    self?.presenter.children.forEach { $0.removeFromParent() }
+                    self?.start()
+                })
+                visibleViewController?.present(alert, animated: true)
             }
             .store(in: &self.cancellables)
     }
