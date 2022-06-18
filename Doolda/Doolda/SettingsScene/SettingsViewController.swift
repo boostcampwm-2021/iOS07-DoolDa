@@ -172,7 +172,7 @@ class SettingsViewController: UIViewController {
         self.viewModel.errorPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
-                guard let error = error as? LocalizedError else { return }
+                guard let error = error else { return }
                 let alert = UIAlertController.defaultAlert(title: "오류", message: error.localizedDescription) { _ in }
                 self?.present(alert, animated: true, completion: nil)
             }
