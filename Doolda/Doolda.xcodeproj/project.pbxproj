@@ -74,7 +74,6 @@
 		1D99946E274CEFC500C72273 /* FirebaseMessageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D99946D274CEFC500C72273 /* FirebaseMessageUseCase.swift */; };
 		1D9DC09D2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */; };
 		1D9DC09F274A0E290060587B /* FilterOptionBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */; };
-		1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A0274A47D50060587B /* DooldaButton.swift */; };
 		1D9DC0A3274B31950060587B /* DiaryBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */; };
 		1D9DC0A5274B8A890060587B /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */; };
 		1DAEB005275601760040E8C1 /* DummyUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1C8EC52755ECF10044AF95 /* DummyUserRepository.swift */; };
@@ -117,10 +116,8 @@
 		1DD0F3562747ABEC00FC5E65 /* PageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8BE0782740FE5E00201E3E /* PageDocument.swift */; };
 		1DD0F3572747ABFD00FC5E65 /* DDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE936A273564DB0036CED2 /* DDID.swift */; };
 		1DD0F3582747AC0300FC5E65 /* PageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F5D4792733E88F000FB471 /* PageEntity.swift */; };
-		1DD58BD62754ACA600B93184 /* DiaryPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD58BD52754ACA600B93184 /* DiaryPageView.swift */; };
 		1DD6AD4027321F7800592AC8 /* dovemayo.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DD6AD3F27321E5800592AC8 /* dovemayo.otf */; };
 		1DDADCB4274BCE63000330C9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDADCB3274BCE63000330C9 /* Secrets.swift */; };
-		1DE5E5362738BBAA004F794F /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5352738BBAA004F794F /* BaseCoordinator.swift */; };
 		1DE5E53E273929CE004F794F /* EditPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E53D273929CE004F794F /* EditPageUseCase.swift */; };
 		1DE5E540273932B0004F794F /* PageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */; };
 		1DE5E5422739352B004F794F /* RawPageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */; };
@@ -196,7 +193,6 @@
 		664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893F927302905009F03E2 /* SplashViewCoordinator.swift */; };
 		664893FC27302947009F03E2 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664893FB27302947009F03E2 /* SplashViewModel.swift */; };
 		664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664894172730F1B0009F03E2 /* PairingViewModel.swift */; };
-		664C31CD27EC54D1009B7C3A /* DooldaCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664C31CC27EC54D1009B7C3A /* DooldaCheckBox.swift */; };
 		6653039B2743B3FF00E3075C /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 665303992743B3FF00E3075C /* CoreDataModel.xcdatamodeld */; };
 		6653039D2743B49E00E3075C /* CoreDataPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6653039C2743B49E00E3075C /* CoreDataPersistenceService.swift */; };
 		665303A02743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6653039E2743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift */; };
@@ -277,14 +273,12 @@
 		66CCB6E6275666AD00E3FD64 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC445A0C27562590004888B9 /* ComponentType.swift */; };
 		66CCB6E7275667EA00E3FD64 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC445A0C27562590004888B9 /* ComponentType.swift */; };
 		66CCB6F8275924AB00E3FD64 /* polaroid_long.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66CCB6F7275924AB00E3FD64 /* polaroid_long.jpg */; };
-		66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644D273A490800E55C03 /* BottomSheetViewController.swift */; };
 		66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */; };
 		66CD6456273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */; };
 		66CD645A273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6459273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift */; };
 		66CD6464273D125F00E55C03 /* CGImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD6463273D125E00E55C03 /* CGImage+Extensions.swift */; };
 		66CEFDF3284BB6E800990EBA /* StorageReference+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CEFDF2284BB6E800990EBA /* StorageReference+Extensions.swift */; };
 		66ECCD3A273E5342003990EE /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ECCD39273E5342003990EE /* CarouselView.swift */; };
-		66ECCD3C273F7C9F003990EE /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */; };
 		66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760427548260006ACB41 /* UnpairUserUseCase.swift */; };
 		66F176092754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */; };
 		66F1760B2754C27C006ACB41 /* PairUserUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */; };
@@ -314,9 +308,19 @@
 		A40AA6A027F35C0C00754E4F /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */; };
 		A40AA6A227F362A100754E4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */; };
 		A40AA6A627F369EA00754E4F /* AuthenticationViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */; };
-		A4527A7E2829175700760AB0 /* DooldaTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4527A7D2829175700760AB0 /* DooldaTextField.swift */; };
+		CE5E2A88285D7E4A00A91F22 /* DeviceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E2A86285D7E4A00A91F22 /* DeviceUseCase.swift */; };
+		CE5E2A89285D7E4A00A91F22 /* UserStateObservingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E2A87285D7E4A00A91F22 /* UserStateObservingUseCase.swift */; };
+		CE5E2A8B285D7E5900A91F22 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E2A8A285D7E5900A91F22 /* LoginRepository.swift */; };
+		CE5E2A8D285D7E6500A91F22 /* LoginRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E2A8C285D7E6500A91F22 /* LoginRepositoryProtocol.swift */; };
 		CE935E0228313C290033EE07 /* SignUpViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE935E0128313C290033EE07 /* SignUpViewCoordinator.swift */; };
 		CE935E0428313DCE0033EE07 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE935E0328313DCE0033EE07 /* SignUpViewModel.swift */; };
+		CEA7D293285D7CDD00AD7D00 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7D28C285D7CDD00AD7D00 /* BaseCoordinator.swift */; };
+		CEA7D294285D7CDD00AD7D00 /* DooldaCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7D28D285D7CDD00AD7D00 /* DooldaCheckBox.swift */; };
+		CEA7D295285D7CDD00AD7D00 /* DooldaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7D28E285D7CDD00AD7D00 /* DooldaButton.swift */; };
+		CEA7D296285D7CDD00AD7D00 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7D28F285D7CDD00AD7D00 /* BottomSheetViewController.swift */; };
+		CEA7D297285D7CDD00AD7D00 /* DooldaTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7D290285D7CDD00AD7D00 /* DooldaTextField.swift */; };
+		CEA7D298285D7CDD00AD7D00 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7D291285D7CDD00AD7D00 /* CustomActivityIndicator.swift */; };
+		CEA7D299285D7CDD00AD7D00 /* DiaryPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7D292285D7CDD00AD7D00 /* DiaryPageView.swift */; };
 		FC19598A274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */; };
 		FC23C228274E17C200EBAE4C /* PageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */; };
 		FC28CB32274609F300BA47BB /* TextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28CB31274609F300BA47BB /* TextUseCase.swift */; };
@@ -483,7 +487,6 @@
 		1D99946D274CEFC500C72273 /* FirebaseMessageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageUseCase.swift; sourceTree = "<group>"; };
 		1D9DC09C2749F2BE0060587B /* FilterOptionBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewController.swift; sourceTree = "<group>"; };
 		1D9DC09E274A0E290060587B /* FilterOptionBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionBottomSheetViewModel.swift; sourceTree = "<group>"; };
-		1D9DC0A0274A47D50060587B /* DooldaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaButton.swift; sourceTree = "<group>"; };
 		1D9DC0A2274B31940060587B /* DiaryBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryBackgroundView.swift; sourceTree = "<group>"; };
 		1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
 		1DAEB00F275603C80040E8C1 /* RegisterUserUseCaseTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RegisterUserUseCaseTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -496,10 +499,8 @@
 		1DBAA7F227E6B64200956C82 /* FCMToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMToken.swift; sourceTree = "<group>"; };
 		1DBF5714273A2C5100D28F5E /* FontColorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColorType.swift; sourceTree = "<group>"; };
 		1DBF5716273A328D00D28F5E /* PhotoFrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameType.swift; sourceTree = "<group>"; };
-		1DD58BD52754ACA600B93184 /* DiaryPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPageView.swift; sourceTree = "<group>"; };
 		1DD6AD3F27321E5800592AC8 /* dovemayo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dovemayo.otf; sourceTree = "<group>"; };
 		1DDADCB3274BCE63000330C9 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
-		1DE5E5352738BBAA004F794F /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		1DE5E53D273929CE004F794F /* EditPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPageUseCase.swift; sourceTree = "<group>"; };
 		1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRepositoryProtocol.swift; sourceTree = "<group>"; };
 		1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPageRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -566,7 +567,6 @@
 		664893F927302905009F03E2 /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
 		664893FB27302947009F03E2 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		664894172730F1B0009F03E2 /* PairingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewModel.swift; sourceTree = "<group>"; };
-		664C31CC27EC54D1009B7C3A /* DooldaCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaCheckBox.swift; sourceTree = "<group>"; };
 		6653039A2743B3FF00E3075C /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		6653039C2743B49E00E3075C /* CoreDataPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistenceService.swift; sourceTree = "<group>"; };
 		6653039E2743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataPageEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -594,14 +594,12 @@
 		66C482DA2746135500823151 /* GetRawPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRawPageUseCase.swift; sourceTree = "<group>"; };
 		66CAFF232740F63A00A48DCF /* BackgroundTypePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTypePickerViewController.swift; sourceTree = "<group>"; };
 		66CCB6F7275924AB00E3FD64 /* polaroid_long.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = polaroid_long.jpg; sourceTree = "<group>"; };
-		66CD644D273A490800E55C03 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		66CD644F273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerBottomSheetViewController.swift; sourceTree = "<group>"; };
 		66CD6455273BB88A00E55C03 /* PhotoFrameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFrameCollectionViewCell.swift; sourceTree = "<group>"; };
 		66CD6459273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		66CD6463273D125E00E55C03 /* CGImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extensions.swift"; sourceTree = "<group>"; };
 		66CEFDF2284BB6E800990EBA /* StorageReference+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageReference+Extensions.swift"; sourceTree = "<group>"; };
 		66ECCD39273E5342003990EE /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
-		66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		66F1760427548260006ACB41 /* UnpairUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairUserUseCase.swift; sourceTree = "<group>"; };
 		66F176082754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyIdUseCaseProtocol.swift; sourceTree = "<group>"; };
 		66F1760A2754C27C006ACB41 /* PairUserUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairUserUseCaseProtocol.swift; sourceTree = "<group>"; };
@@ -631,9 +629,19 @@
 		A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewCoordinator.swift; sourceTree = "<group>"; };
-		A4527A7D2829175700760AB0 /* DooldaTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DooldaTextField.swift; sourceTree = "<group>"; };
+		CE5E2A86285D7E4A00A91F22 /* DeviceUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceUseCase.swift; sourceTree = "<group>"; };
+		CE5E2A87285D7E4A00A91F22 /* UserStateObservingUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStateObservingUseCase.swift; sourceTree = "<group>"; };
+		CE5E2A8A285D7E5900A91F22 /* LoginRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
+		CE5E2A8C285D7E6500A91F22 /* LoginRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRepositoryProtocol.swift; sourceTree = "<group>"; };
 		CE935E0128313C290033EE07 /* SignUpViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewCoordinator.swift; sourceTree = "<group>"; };
 		CE935E0328313DCE0033EE07 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		CEA7D28C285D7CDD00AD7D00 /* BaseCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseCoordinator.swift; path = View/BaseCoordinator.swift; sourceTree = "<group>"; };
+		CEA7D28D285D7CDD00AD7D00 /* DooldaCheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DooldaCheckBox.swift; path = View/DooldaCheckBox.swift; sourceTree = "<group>"; };
+		CEA7D28E285D7CDD00AD7D00 /* DooldaButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DooldaButton.swift; path = View/DooldaButton.swift; sourceTree = "<group>"; };
+		CEA7D28F285D7CDD00AD7D00 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomSheetViewController.swift; path = View/BottomSheetViewController.swift; sourceTree = "<group>"; };
+		CEA7D290285D7CDD00AD7D00 /* DooldaTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DooldaTextField.swift; path = View/DooldaTextField.swift; sourceTree = "<group>"; };
+		CEA7D291285D7CDD00AD7D00 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomActivityIndicator.swift; path = View/CustomActivityIndicator.swift; sourceTree = "<group>"; };
+		CEA7D292285D7CDD00AD7D00 /* DiaryPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiaryPageView.swift; path = View/DiaryPageView.swift; sourceTree = "<group>"; };
 		FC195989274284E200AB6059 /* StickerPickerBottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPickerBottomSheetViewModel.swift; sourceTree = "<group>"; };
 		FC23C227274E17C200EBAE4C /* PageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDetailViewController.swift; sourceTree = "<group>"; };
 		FC28CB31274609F300BA47BB /* TextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUseCase.swift; sourceTree = "<group>"; };
@@ -952,13 +960,13 @@
 		1DD0F3602747B10000FC5E65 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				66CD644D273A490800E55C03 /* BottomSheetViewController.swift */,
-				66ECCD3B273F7C9E003990EE /* CustomActivityIndicator.swift */,
-				1DE5E5352738BBAA004F794F /* BaseCoordinator.swift */,
-				1D9DC0A0274A47D50060587B /* DooldaButton.swift */,
-				1DD58BD52754ACA600B93184 /* DiaryPageView.swift */,
-				664C31CC27EC54D1009B7C3A /* DooldaCheckBox.swift */,
-				A4527A7D2829175700760AB0 /* DooldaTextField.swift */,
+				CEA7D28C285D7CDD00AD7D00 /* BaseCoordinator.swift */,
+				CEA7D28F285D7CDD00AD7D00 /* BottomSheetViewController.swift */,
+				CEA7D291285D7CDD00AD7D00 /* CustomActivityIndicator.swift */,
+				CEA7D292285D7CDD00AD7D00 /* DiaryPageView.swift */,
+				CEA7D28E285D7CDD00AD7D00 /* DooldaButton.swift */,
+				CEA7D28D285D7CDD00AD7D00 /* DooldaCheckBox.swift */,
+				CEA7D290285D7CDD00AD7D00 /* DooldaTextField.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1174,6 +1182,7 @@
 				1D992B41273D0EAB00B63954 /* PageRepository.swift */,
 				FCD24D792743AACE000203F7 /* PushNotificationStateRepository.swift */,
 				FCD24D7227439268000203F7 /* GlobalFontRepository.swift */,
+				CE5E2A8A285D7E5900A91F22 /* LoginRepository.swift */,
 				1D999465274CAB8900C72273 /* FCMTokenRepository.swift */,
 				1D99946B274CEF2900C72273 /* FirebaseMessageRepository.swift */,
 			);
@@ -1233,6 +1242,8 @@
 				FC9F10572730F0060060FEB7 /* GetMyIdUseCase.swift */,
 				66FE9370273671910036CED2 /* PairUserUseCase.swift */,
 				66F1760427548260006ACB41 /* UnpairUserUseCase.swift */,
+				CE5E2A86285D7E4A00A91F22 /* DeviceUseCase.swift */,
+				CE5E2A87285D7E4A00A91F22 /* UserStateObservingUseCase.swift */,
 				1D0C8BC32732AF780091ACC0 /* GetUserUseCase.swift */,
 				66FE9372273688E10036CED2 /* RefreshUserUseCase.swift */,
 				1D3629FD2733C79300CFC069 /* RegisterUserUseCase.swift */,
@@ -1428,6 +1439,7 @@
 				FCE9D3DB2738C9A00001F155 /* PairRepositoryProtocol.swift */,
 				1DE5E53F273932B0004F794F /* PageRepositoryProtocol.swift */,
 				1DE5E5412739352B004F794F /* RawPageRepositoryProtocol.swift */,
+				CE5E2A8C285D7E6500A91F22 /* LoginRepositoryProtocol.swift */,
 				319C21CD273BA6D8009CE65C /* ImageRepositoryProtocol.swift */,
 				FCD24D7B2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift */,
 				FCD24D74274392AB000203F7 /* GlobalFontRepositoryProtocol.swift */,
@@ -2249,6 +2261,7 @@
 				661A8406274351230077E0E3 /* CheckMyTurnUseCase.swift in Sources */,
 				66F176092754C21B006ACB41 /* GetMyIdUseCaseProtocol.swift in Sources */,
 				317FB617274BAAEC005DF3A3 /* DooldaInfoType.swift in Sources */,
+				CE5E2A8B285D7E5900A91F22 /* LoginRepository.swift in Sources */,
 				1D7F56FF283291950084EFA5 /* CreateUserUseCase.swift in Sources */,
 				66F176232754C6EE006ACB41 /* GlobalFontUseCaseProtocol.swift in Sources */,
 				1D3629FE2733C79300CFC069 /* RegisterUserUseCase.swift in Sources */,
@@ -2262,7 +2275,6 @@
 				1DDADCB4274BCE63000330C9 /* Secrets.swift in Sources */,
 				318AD50E28327BBE00FDB630 /* SignUpUseCase.swift in Sources */,
 				3161EE9827436EC600B922DD /* StickerPickerView.swift in Sources */,
-				A4527A7E2829175700760AB0 /* DooldaTextField.swift in Sources */,
 				1D6232F527313D8E00A9AD6B /* UIView+Extensions.swift in Sources */,
 				66CD6464273D125F00E55C03 /* CGImage+Extensions.swift in Sources */,
 				FC51FA6D274C89330069D39C /* FontSizeControlView.swift in Sources */,
@@ -2273,6 +2285,7 @@
 				1D8BE07F2743846A00201E3E /* DiaryCollectionViewHeader.swift in Sources */,
 				66F176112754C370006ACB41 /* RegisterUserUseCaseProtocol.swift in Sources */,
 				FC5FB79027325C4D008AC3D2 /* UserDocument.swift in Sources */,
+				CEA7D294285D7CDD00AD7D00 /* DooldaCheckBox.swift in Sources */,
 				663F4AB92826995B00B18B52 /* SignUpViewController.swift in Sources */,
 				FCD24D7E2743ADC1000203F7 /* PushNotificationStateUseCase.swift in Sources */,
 				319C21D0273BA7D4009CE65C /* ImageRepository.swift in Sources */,
@@ -2284,7 +2297,6 @@
 				66FE9371273671910036CED2 /* PairUserUseCase.swift in Sources */,
 				66F1761F2754C656006ACB41 /* TextUseCaseProtocol.swift in Sources */,
 				317FB611274A9175005DF3A3 /* SettingsViewCoordinator.swift in Sources */,
-				1DE5E5362738BBAA004F794F /* BaseCoordinator.swift in Sources */,
 				FC51FA67274BB9D60069D39C /* FontColorPickerView.swift in Sources */,
 				66CD645A273BE5A000E55C03 /* PhotoPickerCollectionViewCell.swift in Sources */,
 				1D93999F282F71FA00D547A2 /* AgreementUseCase.swift in Sources */,
@@ -2312,7 +2324,6 @@
 				66C482DB2746135500823151 /* GetRawPageUseCase.swift in Sources */,
 				31012598273842DA00E43160 /* TextComponentEntity.swift in Sources */,
 				1DE5E5422739352B004F794F /* RawPageRepositoryProtocol.swift in Sources */,
-				66ECCD3C273F7C9F003990EE /* CustomActivityIndicator.swift in Sources */,
 				66FE936B273564DB0036CED2 /* DDID.swift in Sources */,
 				3161EE9C274377F400B922DD /* UnpackedStickerCollectionViewCell.swift in Sources */,
 				310D80D32731402F00F15F4F /* PairingViewCoordinator.swift in Sources */,
@@ -2320,8 +2331,10 @@
 				1D6232F7273140CF00A9AD6B /* CopyableLabel.swift in Sources */,
 				FC5FB79C27328579008AC3D2 /* UserDefaultsPersistenceServiceProtocol.swift in Sources */,
 				1D5DDFD628267E4E0050C211 /* AppleAuthProvideUseCase.swift in Sources */,
+				CE5E2A89285D7E4A00A91F22 /* UserStateObservingUseCase.swift in Sources */,
 				1D8BE07D2743437600201E3E /* DiaryViewModel.swift in Sources */,
 				FC51FA69274BBB3C0069D39C /* FontColorCollectionViewCell.swift in Sources */,
+				CEA7D299285D7CDD00AD7D00 /* DiaryPageView.swift in Sources */,
 				6669A6AA27D8E81B007075C3 /* FirebaseNetworkServiceProtocol.swift in Sources */,
 				1D93999B282F71B100D547A2 /* AgreementUseCaseProtocol.swift in Sources */,
 				1D6232EF2731117100A9AD6B /* UIControl+Extensions.swift in Sources */,
@@ -2334,6 +2347,7 @@
 				665303A82744C6F500E3075C /* CoreDataPageEntityPersistenceService.swift in Sources */,
 				1D9DC0A5274B8A890060587B /* Collection+Extensions.swift in Sources */,
 				664893FA27302905009F03E2 /* SplashViewCoordinator.swift in Sources */,
+				CEA7D298285D7CDD00AD7D00 /* CustomActivityIndicator.swift in Sources */,
 				1D8646A3274D2DB600C4511D /* PushMessageEntity.swift in Sources */,
 				FCE9D3DE2738CFB50001F155 /* PairRepository.swift in Sources */,
 				317FB619274BBC9D005DF3A3 /* SettingsTableViewHeader.swift in Sources */,
@@ -2343,18 +2357,20 @@
 				310125C427398DF600E43160 /* ImageUseCase.swift in Sources */,
 				66CD6450273A5C4700E55C03 /* PhotoPickerBottomSheetViewController.swift in Sources */,
 				66F176132754C3C3006ACB41 /* EditPageUseCaseProtocol.swift in Sources */,
+				CE5E2A8D285D7E6500A91F22 /* LoginRepositoryProtocol.swift in Sources */,
+				CEA7D297285D7CDD00AD7D00 /* DooldaTextField.swift in Sources */,
 				FCD24D7C2743AAE2000203F7 /* PushNotificationStateRepositoryProtocol.swift in Sources */,
 				FC9F10582730F0060060FEB7 /* GetMyIdUseCase.swift in Sources */,
 				1DBF5717273A328D00D28F5E /* PhotoFrameType.swift in Sources */,
 				3161EE9A274377E300B922DD /* PackedStickerCollectionViewCell.swift in Sources */,
 				3161EE942742A44100B922DD /* StickerPickerBottomSheetViewController.swift in Sources */,
+				CEA7D296285D7CDD00AD7D00 /* BottomSheetViewController.swift in Sources */,
 				FCC803F62744C22F00FFE4DC /* FontType.swift in Sources */,
 				FCE9D3DC2738C9A00001F155 /* PairRepositoryProtocol.swift in Sources */,
 				FCB7CD7F27E6B87700EDE386 /* UserDataTransferObject.swift in Sources */,
 				CE935E0428313DCE0033EE07 /* SignUpViewModel.swift in Sources */,
 				317FB613274AA879005DF3A3 /* SettingsTableViewCell.swift in Sources */,
 				318D9F5B274CC77800AA6F0E /* FontPickerViewController.swift in Sources */,
-				1DD58BD62754ACA600B93184 /* DiaryPageView.swift in Sources */,
 				317FB60D274A8F59005DF3A3 /* SettingsViewController.swift in Sources */,
 				FC822FB027367AFD00C918A0 /* API.swift in Sources */,
 				A40AA6A627F369EA00754E4F /* AuthenticationViewCoordinator.swift in Sources */,
@@ -2381,12 +2397,11 @@
 				3101259427383DED00E43160 /* PhotoComponentEntity.swift in Sources */,
 				3101259C2738430200E43160 /* StickerPackEntity.swift in Sources */,
 				664893F82730272B009F03E2 /* AppCoordinator.swift in Sources */,
-				664C31CD27EC54D1009B7C3A /* DooldaCheckBox.swift in Sources */,
+				CEA7D293285D7CDD00AD7D00 /* BaseCoordinator.swift in Sources */,
 				1D04F41C273957E600CFCC3A /* BackgroundType.swift in Sources */,
 				FCC803FC27451C9600FFE4DC /* TextEditViewModel.swift in Sources */,
 				6660E3EB2779D94100C2A445 /* AgreementViewController.swift in Sources */,
 				664894182730F1B1009F03E2 /* PairingViewModel.swift in Sources */,
-				66CD644E273A490800E55C03 /* BottomSheetViewController.swift in Sources */,
 				66F1760D2754C2CF006ACB41 /* GetUserUseCaseProtocol.swift in Sources */,
 				66FE936F27356E160036CED2 /* User.swift in Sources */,
 				66F1761B2754C589006ACB41 /* GetPageUseCaseProtocol.swift in Sources */,
@@ -2399,13 +2414,13 @@
 				66F1760B2754C27C006ACB41 /* PairUserUseCaseProtocol.swift in Sources */,
 				664893C1273007ED009F03E2 /* AppDelegate.swift in Sources */,
 				66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */,
+				CEA7D295285D7CDD00AD7D00 /* DooldaButton.swift in Sources */,
 				FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */,
 				1DBAA7F327E6B64200956C82 /* FCMToken.swift in Sources */,
 				318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */,
 				66F176152754C413006ACB41 /* ImageComposeUseCaseProtocol.swift in Sources */,
 				66F176172754C4F6006ACB41 /* ImageUseCaseProtocol.swift in Sources */,
 				1D097E97273CFA5900A4810B /* RawPageRepository.swift in Sources */,
-				1D9DC0A1274A47D50060587B /* DooldaButton.swift in Sources */,
 				310125A027393D3B00E43160 /* ImageComposeUseCase.swift in Sources */,
 				317FB615274B9A92005DF3A3 /* SettingsViewModel.swift in Sources */,
 				310D80D52731405B00F15F4F /* DiaryViewCoordinator.swift in Sources */,
@@ -2413,6 +2428,7 @@
 				66ECCD3A273E5342003990EE /* CarouselView.swift in Sources */,
 				66CAFF242740F63A00A48DCF /* BackgroundTypePickerViewController.swift in Sources */,
 				A40AA6A227F362A100754E4F /* AuthenticationViewModel.swift in Sources */,
+				CE5E2A88285D7E4A00A91F22 /* DeviceUseCase.swift in Sources */,
 				FC9F105B2730F1B20060FEB7 /* UserRepositoryProtocol.swift in Sources */,
 				1D99946E274CEFC500C72273 /* FirebaseMessageUseCase.swift in Sources */,
 				665303A02743B7FE00E3075C /* CoreDataPageEntity+CoreDataClass.swift in Sources */,
