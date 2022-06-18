@@ -263,13 +263,6 @@ extension SettingsViewController: UITableViewDataSource {
         return header
     }
 
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        if section == self.settingsSections.count - 1 {
-//            return self.danzerZoneStack
-//        }
-//        return nil
-//    }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let section = self.settingsSections[exist: indexPath.section],
               let cell = section.settingsOptions[exist: indexPath.row]?.cell else { return UITableViewCell() }
