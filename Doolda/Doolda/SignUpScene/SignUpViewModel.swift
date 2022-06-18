@@ -106,15 +106,15 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     private func bind() {
         self.$emailInput.sink { [weak self] email in
             guard let self = self else { return }
-            self.emailValidPublisher = self.checkEamilVaild(email)
+            self.emailValidPublisher = self.validateEmail(email)
         }
         .store(in: &self.cancellables)
         
         Publishers.CombineLatest(self.$passwordInput, self.$passwordCheckInput)
             .sink { [weak self] (password, passwordCheck) in
                 guard let self = self else { return }
-                self.passwordValidPublisher = self.checkPasswordVaild(password)
-                self.passwordCheckValidPublisher = self.checkPasswordCheckVaild(password: password, passwordCheck: passwordCheck)
+                self.passwordValidPublisher = self.validatePassword(password)
+                self.passwordCheckValidPublisher = self.validatePasswordCheck(password: password, passwordCheck: passwordCheck)
             }
             .store(in: &self.cancellables)
         
@@ -128,16 +128,16 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             .store(in: &self.cancellables)
     }
 
-    private func checkEamilVaild(_ email: String) -> Bool {
+    private func validateEmail(_ email: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}").evaluate(with: email)
     }
 
-    private func checkPasswordVaild(_ password: String) -> Bool {
+    private func validatePassword(_ password: String) -> Bool {
         // FIXME: 패스워드 검증을 위한 조건도 추가되어야 함
         return !password.isEmpty && true
     }
 
-    private func checkPasswordCheckVaild(password: String, passwordCheck: String) -> Bool {
+    private func validatePasswordCheck(password: String, passwordCheck: String) -> Bool {
         return !passwordCheck.isEmpty && password == passwordCheck
     }
 }
