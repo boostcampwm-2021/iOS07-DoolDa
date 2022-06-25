@@ -49,6 +49,10 @@ class CarouselView: UIView {
     
     // MARK: - Private Properties
     
+    private var itemWidth: CGFloat {
+        return self.collectionView.bounds.width + self.itemInterval - self.insetX
+    }
+    
     private var cancellables = Set<AnyCancellable>()
     private weak var carouselDelegate: CarouselViewDelegate?
     private weak var carouselCollectionViewDataSource: UICollectionViewDataSource?
@@ -118,6 +122,15 @@ class CarouselView: UIView {
                 self?.collectionView.contentInset = UIEdgeInsets(top: 0, left: insetX / 2, bottom: 0, right: insetX / 2)
             }
             .store(in: &self.cancellables)
+        
+        self.pageControl.publisher(for: .valueChanged)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let currentPage = self.pageControl.currentPage
+                self.collectionView.scrollToItem(at: IndexPath(item: currentPage, section: 0), at: .centeredHorizontally, animated: true)
+            }
+            .store(in: &self.cancellables)
     }
 }
 
@@ -142,9 +155,7 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
     ) {
         guard self.collectionView == scrollView as? UICollectionView else { return }
         
-        let itemWidth = self.collectionView.bounds.width + self.itemInterval - self.insetX
-        
-        let estimatedIndex = scrollView.contentOffset.x / itemWidth
+        let estimatedIndex = scrollView.contentOffset.x / self.itemWidth
         let nextIndex: Int
         
         if velocity.x > 0 {
@@ -167,8 +178,7 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard self.collectionView == scrollView as? UICollectionView else { return }
-        let itemWidth = self.collectionView.bounds.width + self.itemInterval - self.insetX
-        let estimatedIndex = scrollView.contentOffset.x / itemWidth
+        let estimatedIndex = scrollView.contentOffset.x / self.itemWidth
         self.currentItemIndex = Int(round(estimatedIndex))
     }
     
