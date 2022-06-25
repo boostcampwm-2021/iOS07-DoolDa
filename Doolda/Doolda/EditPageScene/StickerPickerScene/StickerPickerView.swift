@@ -78,16 +78,15 @@ class StickerPickerView: UIView {
 
         self.pageControl.numberOfPages = self.collectionView.dataSource?.numberOfSections?(in: self.collectionView) ?? 0
         self.pageControl.currentPage = 0
-
     }
 
     private func bindUI() {
         self.$currentPack
+            .removeDuplicates()
             .sink { [weak self] index in
                 guard let self = self else { return }
                 self.pageControl.currentPage = index
             }
             .store(in: &self.cancellables)
     }
-
 }
