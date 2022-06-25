@@ -56,6 +56,7 @@ final class BackgroundTypePickerViewController: BottomSheetViewController {
         collectionView.backgroundColor = .clear
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Self.identifier)
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
         return collectionView
