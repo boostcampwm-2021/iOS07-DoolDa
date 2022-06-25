@@ -96,6 +96,7 @@ class CarouselView: UIView {
             .store(in: &self.cancellables)
         
         self.$currentItemIndex
+            .removeDuplicates()
             .sink { [weak self] index in
                 guard let self = self else { return }
                 self.pageControl.currentPage = index
@@ -144,23 +145,31 @@ extension CarouselView: UICollectionViewDataSource, UICollectionViewDelegateFlow
         let itemWidth = self.collectionView.bounds.width + self.itemInterval - self.insetX
         
         let estimatedIndex = scrollView.contentOffset.x / itemWidth
+        let nextIndex: Int
         
         if velocity.x > 0 {
-            self.currentItemIndex = min(Int(ceil(estimatedIndex)), self.collectionView.numberOfItems(inSection: 0) - 1)
+            nextIndex = min(Int(ceil(estimatedIndex)), self.collectionView.numberOfItems(inSection: 0) - 1)
         } else if velocity.x < 0 {
-            self.currentItemIndex = max(Int(floor(estimatedIndex)), 0)
+            nextIndex = max(Int(floor(estimatedIndex)), 0)
         } else {
-            self.currentItemIndex = Int(round(estimatedIndex))
+            nextIndex = Int(round(estimatedIndex))
         }
         
-        if self.currentItemIndex == max(self.collectionView.numberOfItems(inSection: 0) - 1, 0) {
+        if nextIndex == max(self.collectionView.numberOfItems(inSection: 0) - 1, 0) {
             self.carouselDelegate?.carouselViewLastItemDidDisplay?()
         }
         
         targetContentOffset.pointee = CGPoint(
-            x: CGFloat(self.currentItemIndex) * itemWidth - self.collectionView.contentInset.left,
+            x: CGFloat(nextIndex) * itemWidth - self.collectionView.contentInset.left,
             y: 0
         )
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard self.collectionView == scrollView as? UICollectionView else { return }
+        let itemWidth = self.collectionView.bounds.width + self.itemInterval - self.insetX
+        let estimatedIndex = scrollView.contentOffset.x / itemWidth
+        self.currentItemIndex = Int(round(estimatedIndex))
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
