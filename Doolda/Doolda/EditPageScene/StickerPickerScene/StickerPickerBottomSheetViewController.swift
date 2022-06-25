@@ -220,8 +220,6 @@ class StickerPickerBottomSheetViewController: BottomSheetViewController {
 
 extension StickerPickerBottomSheetViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.stickerPickerView.currentPack = indexPath.section
-
         guard let cell = cell as? PackedStickerCollectionViewCell,
               let operationQueue = OperationQueue.current,
               let stickerPack = self.viewModel.getStickerPackEntity(at: indexPath.section) else { return }
@@ -238,6 +236,11 @@ extension StickerPickerBottomSheetViewController: UICollectionViewDelegate {
               let stickerComponentEntity = self.viewModel.stickerDidSelect(at: indexPath) else { return }
         self.delegate?.stickerDidSelected(stickerComponentEntity)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let currentSection = self.stickerPickerView.collectionView.indexPathsForVisibleItems.first?.section else { return }
+        self.stickerPickerView.currentPack = currentSection
     }
 }
 
