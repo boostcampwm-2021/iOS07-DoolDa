@@ -88,5 +88,14 @@ class StickerPickerView: UIView {
                 self.pageControl.currentPage = index
             }
             .store(in: &self.cancellables)
+        
+        self.pageControl.publisher(for: .valueChanged)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let currentPage = self.pageControl.currentPage
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: currentPage), at: .centeredHorizontally, animated: true)
+            }
+            .store(in: &self.cancellables)
     }
 }
