@@ -164,6 +164,7 @@ class DiaryViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] entities in
                 self?.applySnapshot(pageEntities: entities)
+                self?.scrollToPage(of: min(self?.viewModel.currentPage ?? 0, entities.count))
             }
             .store(in: &self.cancellables)
 
@@ -334,6 +335,8 @@ extension DiaryViewController: UICollectionViewDelegateFlowLayout {
         } else {
             actualIndex = Int(round(estimatedIndex))
         }
+        
+        self.viewModel.changePage(to: actualIndex)
         
         self.setTitle(for: actualIndex - 1)
         targetContentOffset.pointee = CGPoint(x: CGFloat(actualIndex) * pageOffset - 16, y: 0)
