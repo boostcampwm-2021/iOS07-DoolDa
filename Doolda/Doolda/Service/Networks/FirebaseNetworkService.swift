@@ -16,20 +16,24 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
         case snapshotNotDecodable
         case dataUploadFailed
         case dataDownloadFailed
+        case requestTimeOut
         
         var errorDescription: String? {
             switch self {
-            case .invalidDocumentSnapshot: return "올바르지 않은 스냅샷입니다."
-            case .snapshotNotDecodable: return "스냅샷 디코딩에 실패했습니다."
-            case .dataUploadFailed: return "데이터 업로드에 실패했습니다."
-            case .dataDownloadFailed: return "데이터 다운로드에 실패했습니다."
+            case .invalidDocumentSnapshot: return "올바르지 않은 스냅샷"
+            case .snapshotNotDecodable: return "스냅샷 디코딩 실패"
+            case .dataUploadFailed: return "데이터 업로드에 실패"
+            case .dataDownloadFailed: return "데이터 다운로드에 실패"
+            case .requestTimeOut: return "요청 시간 초과"
             }
         }
     }
     
     static let shared: FirebaseNetworkService = FirebaseNetworkService()
+    static let timeOutLimit: Int = 60
     
     private let firestore = Firestore.firestore()
+    private let scheduler = DispatchQueue.global()
     private var cancellables: Set<AnyCancellable> = []
     
     private init() { }
@@ -44,6 +48,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                     return promise(.success(dictionary))
                 }
         }
+        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -73,6 +78,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 }
             }
         }
+        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -98,6 +104,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                     return promise(.success(()))
                 }
         }
+        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -115,6 +122,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                     return promise(.success(()))
                 }
         }
+        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -137,6 +145,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 }
             }
         }
+        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -154,6 +163,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 }
             }
         }
+        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -171,6 +181,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 promise(.success(data))
             }
         }
+        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -182,22 +193,19 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
             
             storage.listAll { storageList, error in
                 if let error = error { return promise(.failure(error)) }
-                
-                Publishers.MergeMany(
-                    storageList.items.map({ storageReference in
-                        storageReference.delete()
-                    })
-                )
-                .collect()
-                .sink { completion in
-                    guard case .failure(let error) = completion else { return }
-                    promise(.failure(error))
-                } receiveValue: { _ in
-                    promise(.success(()))
-                }
-                .store(in: &self.cancellables)
+
+                Publishers.MergeMany(storageList.items.map { $0.delete() })
+                    .collect()
+                    .sink { completion in
+                        guard case .failure(let error) = completion else { return }
+                        promise(.failure(error))
+                    } receiveValue: { _ in
+                        promise(.success(()))
+                    }
+                    .store(in: &self.cancellables)
             }
         }
+        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
