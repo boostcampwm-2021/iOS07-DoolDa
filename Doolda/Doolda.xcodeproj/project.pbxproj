@@ -308,6 +308,7 @@
 		A40AA6A027F35C0C00754E4F /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */; };
 		A40AA6A227F362A100754E4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */; };
 		A40AA6A627F369EA00754E4F /* AuthenticationViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */; };
+		CE57C3352868369600F7EB5D /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE57C3342868369600F7EB5D /* UIApplication+Extensions.swift */; };
 		CE5E2A88285D7E4A00A91F22 /* DeviceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E2A86285D7E4A00A91F22 /* DeviceUseCase.swift */; };
 		CE5E2A89285D7E4A00A91F22 /* UserStateObservingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E2A87285D7E4A00A91F22 /* UserStateObservingUseCase.swift */; };
 		CE5E2A8B285D7E5900A91F22 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E2A8A285D7E5900A91F22 /* LoginRepository.swift */; };
@@ -629,6 +630,7 @@
 		A40AA69F27F35C0C00754E4F /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		A40AA6A127F362A100754E4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		A40AA6A527F369EA00754E4F /* AuthenticationViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewCoordinator.swift; sourceTree = "<group>"; };
+		CE57C3342868369600F7EB5D /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		CE5E2A86285D7E4A00A91F22 /* DeviceUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceUseCase.swift; sourceTree = "<group>"; };
 		CE5E2A87285D7E4A00A91F22 /* UserStateObservingUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStateObservingUseCase.swift; sourceTree = "<group>"; };
 		CE5E2A8A285D7E5900A91F22 /* LoginRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
@@ -1337,6 +1339,7 @@
 				66CD6463273D125E00E55C03 /* CGImage+Extensions.swift */,
 				1D9DC0A4274B8A890060587B /* Collection+Extensions.swift */,
 				66CEFDF2284BB6E800990EBA /* StorageReference+Extensions.swift */,
+				CE57C3342868369600F7EB5D /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2416,6 +2419,7 @@
 				66F1760527548260006ACB41 /* UnpairUserUseCase.swift in Sources */,
 				CEA7D295285D7CDD00AD7D00 /* DooldaButton.swift in Sources */,
 				FCD24D7127437F31000203F7 /* UIFont+Extensions.swift in Sources */,
+				CE57C3352868369600F7EB5D /* UIApplication+Extensions.swift in Sources */,
 				1DBAA7F327E6B64200956C82 /* FCMToken.swift in Sources */,
 				318D9F70274E12D900AA6F0E /* PageDetailViewModel.swift in Sources */,
 				66F176152754C413006ACB41 /* ImageComposeUseCaseProtocol.swift in Sources */,

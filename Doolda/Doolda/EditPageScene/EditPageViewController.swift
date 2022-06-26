@@ -191,8 +191,8 @@ class EditPageViewController: UIViewController {
             make.top.equalTo(self.pageView.snp.bottom).offset(5)
             make.width.equalTo(135)
         }
-        
-        self.view.addSubview(self.activityIndicator)
+
+        UIApplication.shared.currentWindow?.addSubview(self.activityIndicator)
         self.activityIndicator.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -389,6 +389,12 @@ class EditPageViewController: UIViewController {
                 self?.present(alert, animated: true, completion: nil)
             }
             .store(in: &self.cancellables)
+
+        self.viewModel?.editPageSavedPublisher
+            .sink { [weak self] _ in
+                self?.activityIndicator.stopAnimating()
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Private Methods

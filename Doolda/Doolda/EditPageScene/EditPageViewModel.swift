@@ -40,6 +40,7 @@ protocol EditPageViewModelOutput {
     var selectedComponentPublisher: AnyPublisher<ComponentEntity?, Never> { get }
     var componentsPublisher: AnyPublisher<[ComponentEntity], Never> { get }
     var backgroundPublisher: AnyPublisher<BackgroundType, Never> { get }
+    var editPageSavedPublisher: AnyPublisher<Void, Never> { get }
     var errorPublisher: AnyPublisher<Error?, Never> { get }
 }
 
@@ -50,6 +51,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     var componentsPublisher: AnyPublisher<[ComponentEntity], Never> { self.$components.eraseToAnyPublisher() }
     var backgroundPublisher: AnyPublisher<BackgroundType, Never> { self.$background.eraseToAnyPublisher() }
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
+    var editPageSavedPublisher: AnyPublisher<Void, Never> { self.editPageSaved.eraseToAnyPublisher() }
     
     var editPageSaved = PassthroughSubject<Void, Never>()
     var editPageCanceled = PassthroughSubject<Void, Never>()
