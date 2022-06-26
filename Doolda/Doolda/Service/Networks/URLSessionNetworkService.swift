@@ -11,19 +11,22 @@ import Accelerate
 
 final class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
     enum Errors: LocalizedError {
-         case invalidUrl
-         
-         var errorDescription: String? {
-             switch self {
-             case .invalidUrl:
-                 return "유효하지 않은 URL입니다."
-             }
-         }
-     }
+        case invalidUrl
+        case requestTimeOut
+
+        var errorDescription: String? {
+            switch self {
+            case .invalidUrl: return "유효하지 않은 URL"
+            case .requestTimeOut: return "요청 시간 초과"
+            }
+        }
+    }
     
     static let shared: URLSessionNetworkService = URLSessionNetworkService()
+    static let timeOutLimit: Int = 60
     
     private let session: URLSession = .shared
+    private let scheduler = DispatchQueue.global()
     private let decoder: JSONDecoder = JSONDecoder()
     
     // MARK: - Initializers
@@ -44,6 +47,7 @@ final class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
                 }
                 return data
             }
+            .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
             .eraseToAnyPublisher()
     }
     
