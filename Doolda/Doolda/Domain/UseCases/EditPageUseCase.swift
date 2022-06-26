@@ -11,12 +11,12 @@ import Foundation
 
 enum EditPageUseCaseError: LocalizedError {
     case rawPageNotFound
-    case failedToSavePage
+    case failedToSavePage(reason: Error)
     
     var errorDescription: String? {
         switch self {
         case .rawPageNotFound: return "편집중인 페이지를 찾을 수 없습니다."
-        case .failedToSavePage: return "페이지 저장에 실패 했습니다."
+        case .failedToSavePage(let reason): return " \(reason.localizedDescription)(으)로 인해 페이지 저장에 실패 했습니다."
         }
     }
 }
@@ -165,17 +165,17 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
                         self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath),
                         self.pairRepository.setRecentlyEditedUser(with: self.user)
                     )
-                        .mapError { _ -> Error in EditPageUseCaseError.failedToSavePage }
-                        .map { _ -> Void in () }
-                        .eraseToAnyPublisher()
+                    .mapError { error in return EditPageUseCaseError.failedToSavePage(reason: error) }
+                    .map { _ in return () }
+                    .eraseToAnyPublisher()
                 } else {
                     savePublisher = Publishers.Zip(
                         self.pageRepository.updatePage(pageEntity),
                         self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath)
                     )
-                        .mapError { _ -> Error in EditPageUseCaseError.failedToSavePage }
-                        .map { _ -> Void in () }
-                        .eraseToAnyPublisher()
+                    .mapError { error in return EditPageUseCaseError.failedToSavePage(reason: error) }
+                    .map { _ in return () }
+                    .eraseToAnyPublisher()
                 }
                 
                 savePublisher
