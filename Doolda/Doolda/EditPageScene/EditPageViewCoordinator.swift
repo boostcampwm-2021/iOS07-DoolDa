@@ -107,6 +107,7 @@ final class EditPageViewCoordinator: BaseCoordinator {
             )
             
             editPageViewModel.editPageSaved
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
                     self?.editingPageSaved()
                 }
