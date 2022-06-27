@@ -320,7 +320,7 @@ final class SignUpViewController: UIViewController {
             .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isValid in
-                self?.passwordStateLabel.text = isValid ? "" : "비밀번호 형식이 올바르지 않습니다."
+                self?.passwordStateLabel.text = isValid ? "" : "비밀번호는 영문, 숫자를 조합하여 8자 이상이어야 합니다."
             }
             .store(in: &self.cancellables)
 
