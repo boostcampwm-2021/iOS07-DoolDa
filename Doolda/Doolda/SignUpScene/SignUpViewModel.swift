@@ -32,12 +32,14 @@ typealias SignUpViewModelProtocol = SignUpViewModelInput & SignUpViewModelOutput
 enum SignUpError: LocalizedError {
     case invalidEmail
     case emailAlreadyInUse
+    case weakPassword
     case invalidError
 
     var errorDescription: String? {
         switch self {
         case .invalidEmail: return "유효하지 않은 이메일입니다."
         case .emailAlreadyInUse: return "이미 사용하고 있는 이메일입니다."
+        case .weakPassword: return "비밀번호는 영문, 숫자를 조합하여 8자리 이상이어야 합니다."
         case .invalidError: return "에러가 발생했습니다. 다시 시도해 주십시오."
         }
     }
@@ -91,6 +93,8 @@ final class SignUpViewModel: SignUpViewModelProtocol {
                         self?.error = SignUpError.invalidEmail
                     case .emailAlreadyInUse:
                         self?.error = SignUpError.emailAlreadyInUse
+                    case .weakPassword:
+                        self?.error = SignUpError.weakPassword
                     default:
                         self?.error = SignUpError.invalidError
                     }
