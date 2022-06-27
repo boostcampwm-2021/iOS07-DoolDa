@@ -22,7 +22,7 @@ protocol EditPageUseCaseProtocol {
     func bringComponentFront()
     func sendComponentBack()
     func removeComponent()
-    func addComponent(_ component: ComponentEntity)
+    func addComponent(_ component: ComponentEntity, withSelection: Bool)
     
     func changeTextComponent(into content: TextComponentEntity)
     

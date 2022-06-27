@@ -186,7 +186,7 @@ final class EditPageViewModel: EditPageViewModelProtocol {
     }
     
     func componentEntityDidAdd(_ component: ComponentEntity) {
-        self.editPageUseCase.addComponent(component)
+        self.editPageUseCase.addComponent(component, withSelection: false)
     }
     
     func backgroundColorDidChange(_ backgroundColor: BackgroundType) {

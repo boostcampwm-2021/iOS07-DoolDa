@@ -108,10 +108,13 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
         self.selectedComponent = self.selectedComponent
     }
 
-    func addComponent(_ component: ComponentEntity) {
+    func addComponent(
+        _ component: ComponentEntity,
+        withSelection: Bool = true
+    ) {
         self.rawPage?.append(component: component)
         self.selectedComponent = component
-        self.selectedComponent = self.selectedComponent
+        self.selectedComponent = withSelection ? self.selectedComponent : nil
     }
     
     func changeTextComponent(into content: TextComponentEntity) {
