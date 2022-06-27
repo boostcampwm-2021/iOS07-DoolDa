@@ -137,8 +137,8 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     }
 
     private func validatePassword(_ password: String) -> Bool {
-        // FIXME: 패스워드 검증을 위한 조건도 추가되어야 함
-        return !password.isEmpty && true
+        let pattern = "(?=.*[a-zA-Z])(?=.*[0-9])[\\w~!@#\\$%\\^&\\*]{8,}"
+        return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: password)
     }
 
     private func validatePasswordCheck(password: String, passwordCheck: String) -> Bool {
