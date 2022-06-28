@@ -238,8 +238,9 @@ extension StickerPickerBottomSheetViewController: UICollectionViewDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let currentSection = self.stickerPickerView.collectionView.indexPathsForVisibleItems.first?.section else { return }
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard let collectionView = scrollView as? UICollectionView else { return }
+        let currentSection = Int(round(CGFloat(collectionView.numberOfSections) * targetContentOffset.pointee.x / scrollView.contentSize.width))
         self.stickerPickerView.currentPack = currentSection
     }
 }
