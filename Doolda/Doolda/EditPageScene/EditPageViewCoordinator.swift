@@ -65,7 +65,6 @@ final class EditPageViewCoordinator: BaseCoordinator {
     func start() {
         DispatchQueue.main.async {
             let fileManagerPersistenceService = FileManagerPersistenceService.shared
-            let urlSessionNetworkService = URLSessionNetworkService.shared
             let firebaseNetworkService = FirebaseNetworkService.shared
             let coreDataPersistenceService = CoreDataPersistenceService.shared
             let coreDataPageEntityPersistenceService = CoreDataPageEntityPersistenceService(
@@ -75,7 +74,7 @@ final class EditPageViewCoordinator: BaseCoordinator {
             let pairRepository = PairRepository(networkService: firebaseNetworkService)
             let imageRepository = ImageRepository(
                 fileManagerService: fileManagerPersistenceService,
-                networkService: urlSessionNetworkService
+                networkService: firebaseNetworkService
             )
             let pageRepository = PageRepository(
                 networkService: FirebaseNetworkService.shared,
@@ -160,9 +159,9 @@ final class EditPageViewCoordinator: BaseCoordinator {
     
     private func addPhotoComponent() {
         let fileManagerPersistenceService = FileManagerPersistenceService.shared
-        let urlSessionNetworkService = URLSessionNetworkService.shared
+        let firebaseNetworkService = FirebaseNetworkService.shared
         
-        let imageRepository = ImageRepository(fileManagerService: fileManagerPersistenceService, networkService: urlSessionNetworkService)
+        let imageRepository = ImageRepository(fileManagerService: fileManagerPersistenceService, networkService: firebaseNetworkService)
         let imageUseCase = ImageUseCase(imageRepository: imageRepository)
         let imageComposeUseCaes = ImageComposeUseCase()
         

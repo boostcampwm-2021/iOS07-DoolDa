@@ -24,11 +24,11 @@ enum ImageRepositoryError: LocalizedError {
 
 class ImageRepository: ImageRepositoryProtocol {
     private let fileManagerPersistenceService: FileManagerPersistenceServiceProtocol
-    private let urlSessionNetworkService: URLSessionNetworkServiceProtocol
+    private let firebaseNetworkService: FirebaseNetworkServiceProtocol
 
-    init(fileManagerService: FileManagerPersistenceServiceProtocol, networkService: URLSessionNetworkServiceProtocol) {
+    init(fileManagerService: FileManagerPersistenceServiceProtocol, networkService: FirebaseNetworkServiceProtocol) {
         self.fileManagerPersistenceService = fileManagerService
-        self.urlSessionNetworkService = networkService
+        self.firebaseNetworkService = networkService
     }
 
     func saveLocal(imageData: Data, fileName: String) -> AnyPublisher<URL, Error> {
@@ -39,16 +39,11 @@ class ImageRepository: ImageRepositoryProtocol {
         guard let pairId = user.pairId else {
             return Fail(error: ImageRepositoryError.nilUserPairId).eraseToAnyPublisher()
         }
-        let urlRequest = FirebaseAPIs.uploadDataFile(pairId.ddidString, fileName, imageData)
-        let publisher: AnyPublisher<[String:String], Error> = self.urlSessionNetworkService.request(urlRequest)
-
-        return publisher.tryMap { _ -> URL in
-            guard let remoteUrl = FirebaseAPIs.downloadDataFile(pairId.ddidString, fileName).urlRequest?.url else {
-                throw ImageRepositoryError.nilRemoteUrl
-            }
-            return remoteUrl
-        }
-        .eraseToAnyPublisher()
+        return self.firebaseNetworkService.uploadData(path: pairId.ddidString, fileName: fileName, data: imageData)
+    }
+    
+    func deleteRemote() {
+        
     }
 
 }
