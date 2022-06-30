@@ -45,4 +45,8 @@ final class ImageUseCase: ImageUseCaseProtocol {
         let imageName = UUID().uuidString
         return imageRepository.saveRemote(user: user, imageData: imageData, fileName: imageName)
     }
+    
+    func deleteRemote(with remoteUrl: URL) -> AnyPublisher<Void, Error> {
+        return imageRepository.deleteRemote(with: remoteUrl)
+    }
 }
