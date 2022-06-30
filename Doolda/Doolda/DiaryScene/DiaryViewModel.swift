@@ -15,7 +15,7 @@ protocol DiaryViewModelInput {
     func settingsButtonDidTap()
     func addPageButtonDidTap()
     func refreshButtonDidTap()
-    func changePage(to index: Int)
+    func changeDisplayedPage(to index: Int)
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
     func filterOptionDidChange(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter)
     func filterBottomSheetDidDismiss()
@@ -33,7 +33,7 @@ protocol DiaryViewModelOutput {
     var isRefreshingPublisher: AnyPublisher<Bool, Never> { get }
     var displayMode: DiaryDisplayMode { get }
     var filteredEntityCount: Int { get }
-    var currentPage: Int { get }
+    var lastDisplayedPage: Int { get }
 }
 
 typealias DiaryViewModelProtocol = DiaryViewModelInput & DiaryViewModelOutput
@@ -103,7 +103,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     var settingsPageRequested = PassthroughSubject<Void, Never>()
     var pageDetailRequested = PassthroughSubject<PageEntity, Never>()
     var filteringSheetRequested = PassthroughSubject<(DiaryAuthorFilter, DiaryOrderFilter), Never>()
-    var currentPage: Int = 0
+    var lastDisplayedPage: Int = 0
     
     @Published var displayMode: DiaryDisplayMode = .carousel
     @Published private var error: Error?
@@ -193,8 +193,8 @@ final class DiaryViewModel: DiaryViewModelProtocol {
         self.filteringSheetRequested.send((self.authorFilter, self.orderFilter))
     }
     
-    func changePage(to index: Int) {
-        self.currentPage = index
+    func changeDisplayedPage(to index: Int) {
+        self.lastDisplayedPage = index
     }
     
     func filterDidApply(author: DiaryAuthorFilter, orderBy: DiaryOrderFilter) {
