@@ -17,6 +17,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
         case dataUploadFailed
         case dataDownloadFailed
         case requestTimeOut
+        case deleteStorageFileFailed
         
         var errorDescription: String? {
             switch self {
@@ -25,6 +26,7 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
             case .dataUploadFailed: return "데이터 업로드에 실패"
             case .dataDownloadFailed: return "데이터 다운로드에 실패"
             case .requestTimeOut: return "요청 시간 초과"
+            case .deleteStorageFileFailed: return "파일 제거에 실패했습니다."
             }
         }
     }
@@ -207,6 +209,20 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
         }
         .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
+    }
+    
+    func deleteStorageFile(path: String, fileName: String) -> AnyPublisher<Void, Error> {
+        let storageReference = Storage.storage().reference(withPath: path).child(fileName)
+        return storageReference.delete()
+            .mapError{ _ in Errors.deleteStorageFileFailed }
+            .eraseToAnyPublisher()
+    }
+    
+    func deleteStorageFile(for url: URL) -> AnyPublisher<Void, Error> {
+        let storageReference = Storage.storage().reference(forURL: url.absoluteString)
+        return storageReference.delete()
+            .mapError{ _ in Errors.deleteStorageFileFailed }
+            .eraseToAnyPublisher()
     }
     
     func observeDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<[String: Any], Error> {

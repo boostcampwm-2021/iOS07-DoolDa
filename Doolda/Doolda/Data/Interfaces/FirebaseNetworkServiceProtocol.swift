@@ -22,6 +22,8 @@ protocol FirebaseNetworkServiceProtocol {
     func uploadData(path: String, fileName: String, data: Data) -> AnyPublisher<URL, Error>
     func donwloadData(path: String, fileName: String) -> AnyPublisher<Data, Error>
     func deleteStorageFolder(path: String) -> AnyPublisher<Void, Error>
+    func deleteStorageFile(path: String, fileName: String) -> AnyPublisher<Void, Error>
+    func deleteStorageFile(for url: URL) -> AnyPublisher<Void, Error>
     func observeDocument(collection: FirebaseCollection, document: String) -> AnyPublisher<[String: Any], Error>
     func observeDocument<T: DataTransferable>(collection: FirebaseCollection, document: String) -> AnyPublisher<T, Error>
 }
