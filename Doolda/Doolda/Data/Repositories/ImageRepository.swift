@@ -42,8 +42,8 @@ class ImageRepository: ImageRepositoryProtocol {
         return self.firebaseNetworkService.uploadData(path: pairId.ddidString, fileName: fileName, data: imageData)
     }
     
-    func deleteRemote() {
-        
+    func deleteRemote(with url: URL) -> AnyPublisher<Void, Error> {
+        return self.firebaseNetworkService.deleteStorageFile(for: url)
     }
 
 }
