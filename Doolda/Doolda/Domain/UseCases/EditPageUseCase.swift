@@ -140,6 +140,8 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
             jsonPath: metaData?.jsonPath ?? path
         )
         
+        let savePagePublisher = isNewPage ? self.pageRepository.savePage(pageEntity) : self.pageRepository.updatePage(pageEntity)
+        
         let imageUploadPublishers = page.components
             .compactMap { $0 as? PhotoComponentEntity }
             .filter { $0.imageUrl.scheme == "file" }
@@ -153,43 +155,26 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
                     .eraseToAnyPublisher()
             }
         
-        Publishers.MergeMany(imageUploadPublishers)
-            .collect()
-            .eraseToAnyPublisher()
+        savePagePublisher
+            .flatMap { [weak self] pageEntity -> AnyPublisher<RawPageEntity, Error> in
+                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage).eraseToAnyPublisher() }
+                return self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath)
+            }
+            .flatMap { _ -> AnyPublisher<[URL], Error> in
+                Publishers.MergeMany(imageUploadPublishers)
+                    .collect()
+                    .eraseToAnyPublisher()
+            }
+            .flatMap { [weak self] _ -> AnyPublisher<DDID, Error> in
+                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage).eraseToAnyPublisher() }
+                if isNewPage { return self.pairRepository.setRecentlyEditedUser(with: self.user) }
+                else { return Just(self.user.id).setFailureType(to: Error.self).eraseToAnyPublisher() }
+            }
             .sink { [weak self] completion in
-                guard case .failure(let error) = completion else {return }
+                guard case .failure(let error) = completion else { return }
                 self?.error = error
             } receiveValue: { [weak self] _ in
-                guard let self = self else { return }
-                let savePublisher: AnyPublisher<Void, Error>
-                if isNewPage {
-                    savePublisher = Publishers.Zip3(
-                        self.pageRepository.savePage(pageEntity),
-                        self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath),
-                        self.pairRepository.setRecentlyEditedUser(with: self.user)
-                    )
-                    .mapError { error in return EditPageUseCaseError.failedToSavePage(reason: error) }
-                    .map { _ in return () }
-                    .eraseToAnyPublisher()
-                } else {
-                    savePublisher = Publishers.Zip(
-                        self.pageRepository.updatePage(pageEntity),
-                        self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath)
-                    )
-                    .mapError { error in return EditPageUseCaseError.failedToSavePage(reason: error) }
-                    .map { _ in return () }
-                    .eraseToAnyPublisher()
-                }
-                
-                savePublisher
-                    .sink { [weak self] completion in
-                        guard case .failure(let error) = completion else { return }
-                        self?.error = error
-                        print(String(describing: error.localizedDescription))
-                    } receiveValue: { [weak self] _ in
-                        self?.result = true
-                    }
-                    .store(in: &self.cancellables)
+                self?.result = true
             }
             .store(in: &self.cancellables)
     }
