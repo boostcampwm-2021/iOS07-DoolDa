@@ -141,6 +141,13 @@ class PageRepository: PageRepositoryProtocol {
         .eraseToAnyPublisher()
     }
     
+    func deletePage(for page: PageEntity) -> AnyPublisher<Void, Error> {
+        guard let pairId = page.author.pairId?.ddidString else {
+            return Fail(error: PageRepositoryError.failedToDeletePage).eraseToAnyPublisher()
+        }
+        return self.firebaseNetworkService.deleteDocument(collection: .page, document: pairId + page.jsonPath)
+    }
+    
     private func savePageToCache(pages: [PageEntity]) -> AnyPublisher<Void, Error> {
         let savePublishers = pages.map { self.pageEntityPersistenceService.savePageEntity($0) }
         
