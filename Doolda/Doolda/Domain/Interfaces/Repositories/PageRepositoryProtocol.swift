@@ -13,4 +13,5 @@ protocol PageRepositoryProtocol {
     func updatePage(_ page: PageEntity) -> AnyPublisher<PageEntity, Error>
     func fetchPages(for pair: DDID) -> AnyPublisher<[PageEntity], Error>
     func deletePages(for pair: DDID) -> AnyPublisher<Void, Error>
+    func deletePage(for page: PageEntity) -> AnyPublisher<Void, Error>
 }
