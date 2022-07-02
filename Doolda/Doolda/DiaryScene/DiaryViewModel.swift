@@ -222,6 +222,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
                 self?.error = error
                 self?.isRefreshing = false
             } receiveValue: { [weak self] isMyTurn, pages in
+                self?.error = DiaryViewModelError.userNotPaired
                 if isNotificationNeeded, self?.isMyTurn == isMyTurn {
                     guard let friendId = self?.user.friendId,
                           friendId != self?.user.id else { return }

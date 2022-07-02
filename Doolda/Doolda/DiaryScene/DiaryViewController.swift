@@ -160,6 +160,20 @@ class DiaryViewController: UIViewController {
     }
     
     private func bindUI() {
+        self.viewModel.errorPublisher
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                let alert = UIAlertController.defaultAlert(
+                    title: "다이어리 가져오기 실패",
+                    message: error.localizedDescription,
+                    buttonTitle: "다시 시도") { [weak self] _ in
+                        self?.viewModel.refreshButtonDidTap()
+                    }
+                self?.present(alert, animated: true)
+            }
+            .store(in: &cancellables)
+
         self.viewModel.filteredPageEntitiesPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] entities in
