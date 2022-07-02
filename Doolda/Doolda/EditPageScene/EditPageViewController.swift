@@ -375,6 +375,7 @@ class EditPageViewController: UIViewController {
             }.store(in: &self.cancellables)
         
         self.viewModel?.backgroundPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] backgroundType in
                 self?.pageView.backgroundColor = UIColor(cgColor: backgroundType.rawValue)
             }.store(in: &self.cancellables)
@@ -391,6 +392,7 @@ class EditPageViewController: UIViewController {
             .store(in: &self.cancellables)
 
         self.viewModel?.editPageSavedPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.activityIndicator.stopAnimating()
             }

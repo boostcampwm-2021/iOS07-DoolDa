@@ -144,26 +144,10 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
             jsonPath: metaData?.jsonPath ?? path
         )
 
-        let imageUploadPublishers = page.components
-            .compactMap { $0 as? PhotoComponentEntity }
-            .filter { $0.imageUrl.scheme == "file" }
-            .map { [weak self] photoComponent -> AnyPublisher<URL, Error> in
-                guard let self = self else { return Fail(error: EditPageUseCaseError.rawPageNotFound).eraseToAnyPublisher() }
-                return self.imageUseCase.saveRemote(for: author, localUrl: photoComponent.imageUrl)
-                    .map { remoteUrl in
-                        photoComponent.imageUrl = remoteUrl
-                        return remoteUrl
-                    }
-                    .eraseToAnyPublisher()
-            }
-
-        Publishers.MergeMany(imageUploadPublishers)
-            .flatMap { [weak self] _ -> AnyPublisher<PageEntity, Error> in
-                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage(reason: nil)).eraseToAnyPublisher() }
-                return isNewPage
-                    ? self.pageRepository.savePage(pageEntity)
-                    : self.pageRepository.updatePage(pageEntity)
-            }
+        func savePage() {
+            (isNewPage
+             ? self.pageRepository.savePage(pageEntity)
+             : self.pageRepository.updatePage(pageEntity))
             .flatMap { [weak self] pageEntity -> AnyPublisher<RawPageEntity, Error> in
                 guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage(reason: nil)).eraseToAnyPublisher() }
                 return self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath)
@@ -178,6 +162,30 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
                 self?.error = error
             } receiveValue: { [weak self] _ in
                 self?.result = true
+            }
+            .store(in: &self.cancellables)
+        }
+        
+        let imageUploadPublishers = page.components
+            .compactMap { $0 as? PhotoComponentEntity }
+            .filter { $0.imageUrl.scheme == "file" }
+            .map { [weak self] photoComponent -> AnyPublisher<URL, Error> in
+                guard let self = self else { return Fail(error: EditPageUseCaseError.rawPageNotFound).eraseToAnyPublisher() }
+                return self.imageUseCase.saveRemote(for: author, localUrl: photoComponent.imageUrl)
+                    .map { remoteUrl in
+                        photoComponent.imageUrl = remoteUrl
+                        return remoteUrl
+                    }
+                    .eraseToAnyPublisher()
+            }
+
+        Publishers.MergeMany(imageUploadPublishers)
+            .collect()
+            .sink { [weak self] completion in
+                guard case .failure(let error) = completion else { return }
+                self?.error = error
+            } receiveValue: { _ in
+                savePage()
             }
             .store(in: &self.cancellables)
     }
