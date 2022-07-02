@@ -11,12 +11,16 @@ import Foundation
 
 enum EditPageUseCaseError: LocalizedError {
     case rawPageNotFound
-    case failedToSavePage(reason: Error)
+    case failedToSavePage(reason: Error?)
     
     var errorDescription: String? {
         switch self {
         case .rawPageNotFound: return "편집중인 페이지를 찾을 수 없습니다."
-        case .failedToSavePage(let reason): return " \(reason.localizedDescription)(으)로 인해 페이지 저장에 실패 했습니다."
+        case .failedToSavePage(let reason):
+            if let reason = reason {
+                return " \(reason.localizedDescription)(으)로 인해 페이지 저장에 실패 했습니다."
+            }
+            return "페이지 저장에 실패 했습니다."
         }
     }
 }
@@ -155,19 +159,19 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
 
         Publishers.MergeMany(imageUploadPublishers)
             .flatMap { [weak self] _ -> AnyPublisher<PageEntity, Error> in
-                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage).eraseToAnyPublisher() }
+                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage(reason: nil)).eraseToAnyPublisher() }
                 return isNewPage
                     ? self.pageRepository.savePage(pageEntity)
                     : self.pageRepository.updatePage(pageEntity)
             }
             .flatMap { [weak self] pageEntity -> AnyPublisher<RawPageEntity, Error> in
-                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage).eraseToAnyPublisher() }
+                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage(reason: nil)).eraseToAnyPublisher() }
                 return self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath)
             }
             .flatMap { [weak self] _ -> AnyPublisher<DDID, Error> in
-                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage).eraseToAnyPublisher() }
+                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage(reason: nil)).eraseToAnyPublisher() }
                 if isNewPage { return self.pairRepository.setRecentlyEditedUser(with: self.user) }
-                else { return Just(self.user.id).setFailureType(to: Error.self).eraseToAnyPublisher() }
+                return Just(self.user.id).setFailureType(to: Error.self).eraseToAnyPublisher()
             }
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
