@@ -32,4 +32,5 @@ extension UIImage {
     static let squareAndArrowUp = UIImage(systemName: "square.and.arrow.up")
     static let squareAndPencil = UIImage(systemName: "square.and.pencil")
     static let dottedLine = UIImage(named: "dottedLine")
+    static let credit = UIImage(named: "credit")
 }
