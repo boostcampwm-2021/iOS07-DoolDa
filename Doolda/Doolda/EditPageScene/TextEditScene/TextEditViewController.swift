@@ -35,6 +35,7 @@ class TextEditViewController: UIViewController {
         textView.backgroundColor = .clear
         textView.textAlignment = .center
         textView.delegate = self
+        textView.textColor = .black
         textView.autocapitalizationType = .none
         textView.tintColor = .clear
         return textView
