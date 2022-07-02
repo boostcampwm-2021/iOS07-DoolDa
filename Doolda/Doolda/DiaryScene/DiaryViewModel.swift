@@ -170,6 +170,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
     
     func pageDidTap(index: Int) {
         let selectedPageEntity = self.filteredPageEntities[index]
+        self.lastDisplayedPage = index + 1
         self.pageDetailRequested.send(selectedPageEntity)
     }
 
