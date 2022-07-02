@@ -12,12 +12,10 @@ import Accelerate
 final class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
     enum Errors: LocalizedError {
         case invalidUrl
-        case requestTimeOut
 
         var errorDescription: String? {
             switch self {
             case .invalidUrl: return "유효하지 않은 URL"
-            case .requestTimeOut: return "요청 시간 초과"
             }
         }
     }
@@ -47,7 +45,6 @@ final class URLSessionNetworkService: URLSessionNetworkServiceProtocol {
                 }
                 return data
             }
-            .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
             .eraseToAnyPublisher()
     }
     

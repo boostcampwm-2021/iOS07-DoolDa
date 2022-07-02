@@ -82,11 +82,15 @@ enum DiaryOrderFilter: String, CaseIterable {
 
 enum DiaryViewModelError: LocalizedError {
     case userNotPaired
+    case recentUserError
+    case fetchPageError
     
     var errorDescription: String? {
         switch self {
         case .userNotPaired:
             return "연결된 짝이 없습니다."
+        case .recentUserError: return "recent"
+        case .fetchPageError: return "fetch"
         }
     }
 }
@@ -220,8 +224,8 @@ final class DiaryViewModel: DiaryViewModelProtocol {
         self.isRefreshing = true
         
         Publishers.Zip(
-            self.checkMyTurnUseCase.checkTurn(for: self.user),
-            self.getPageUseCase.getPages(for: pairId)
+            self.checkMyTurnUseCase.checkTurn(for: self.user).eraseToAnyPublisher(),
+            self.getPageUseCase.getPages(for: pairId).eraseToAnyPublisher()
         )
             .delay(for: .seconds(1), scheduler: DispatchQueue.global())
             .sink { [weak self] completion in

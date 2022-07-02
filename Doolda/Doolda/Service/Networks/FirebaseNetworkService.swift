@@ -16,7 +16,6 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
         case snapshotNotDecodable
         case dataUploadFailed
         case dataDownloadFailed
-        case requestTimeOut
         case deleteStorageFileFailed
         
         var errorDescription: String? {
@@ -25,17 +24,14 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
             case .snapshotNotDecodable: return "스냅샷 디코딩 실패"
             case .dataUploadFailed: return "데이터 업로드에 실패"
             case .dataDownloadFailed: return "데이터 다운로드에 실패"
-            case .requestTimeOut: return "요청 시간 초과"
             case .deleteStorageFileFailed: return "파일 제거에 실패했습니다."
             }
         }
     }
     
     static let shared: FirebaseNetworkService = FirebaseNetworkService()
-    static let timeOutLimit: Int = 60
     
     private let firestore = Firestore.firestore()
-    private let scheduler = DispatchQueue.global()
     private var cancellables: Set<AnyCancellable> = []
     
     private init() { }
@@ -50,7 +46,6 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                     return promise(.success(dictionary))
                 }
         }
-        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -80,7 +75,6 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 }
             }
         }
-        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -106,7 +100,6 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                     return promise(.success(()))
                 }
         }
-        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -124,7 +117,6 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                     return promise(.success(()))
                 }
         }
-        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -147,7 +139,6 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 }
             }
         }
-        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -165,7 +156,6 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 }
             }
         }
-        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -183,7 +173,6 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                 promise(.success(data))
             }
         }
-        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     
@@ -207,7 +196,6 @@ class FirebaseNetworkService: FirebaseNetworkServiceProtocol {
                     .store(in: &self.cancellables)
             }
         }
-        .timeout(.seconds(Self.timeOutLimit), scheduler: scheduler, customError: { Errors.requestTimeOut })
         .eraseToAnyPublisher()
     }
     

@@ -15,6 +15,7 @@ enum PageRepositoryError: LocalizedError {
     case failedToUpdatePage
     case failedToSavePage
     case failedToDeletePage
+    case tempError
     
     var errorDescription: String? {
         switch self {
@@ -23,6 +24,7 @@ enum PageRepositoryError: LocalizedError {
         case .failedToUpdatePage: return "페이지 업데이트에 실패했습니다."
         case .failedToSavePage: return "페이지 저장에 실패했습니다."
         case .failedToDeletePage: return "페이지 삭제에 실패했습니다."
+        case .tempError: return "임시"
         }
     }
 }
@@ -98,26 +100,27 @@ class PageRepository: PageRepositoryProtocol {
                 conditions: conditions
             )
             
-            firebaseNetworkServicePublisher.sink { completion in
-                guard case .failure(let error) = completion else { return }
-                promise(.failure(error))
-            } receiveValue: { [weak self] pages in
-                guard let self = self else {
-                    return promise(.failure(PageRepositoryError.failedToFetchPages))
-                }
+            firebaseNetworkServicePublisher
+                .sink { completion in
+                    guard case .failure(let error) = completion else { return }
+                    promise(.failure(error))
+                } receiveValue: { [weak self] pages in
+                    guard let self = self else {
+                        return promise(.failure(PageRepositoryError.failedToFetchPages))
+                    }
 
-                // FIXME: - Firebase 내부적으로 Offline Data Access를 위해 캐싱 처리를 하는것 같아  보입니다. 따라서, PageEntity에 대한 추가적인 캐싱이 불필요해보여요
-                // https://firebase.google.com/docs/firestore/manage-data/enable-offline
-                self.savePageToCache(pages: pages)
-                    .sink(receiveCompletion: { completion in
-                        guard case .failure(let error) = completion else { return }
-                        promise(.failure(error))
-                    }, receiveValue: { _ in
-                        promise(.success(pages))
-                    })
-                    .store(in: &self.cancellables)
-            }
-            .store(in: &self.cancellables)
+                    // FIXME: - Firebase 내부적으로 Offline Data Access를 위해 캐싱 처리를 하는것 같아  보입니다. 따라서, PageEntity에 대한 추가적인 캐싱이 불필요해보여요
+                    // https://firebase.google.com/docs/firestore/manage-data/enable-offline
+                    self.savePageToCache(pages: pages)
+                        .sink(receiveCompletion: { completion in
+                            guard case .failure(let error) = completion else { return }
+                            promise(.failure(error))
+                        }, receiveValue: { _ in
+                            promise(.success(pages))
+                        })
+                        .store(in: &self.cancellables)
+                }
+                .store(in: &self.cancellables)
         }
         .eraseToAnyPublisher()
     }
