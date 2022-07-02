@@ -228,6 +228,7 @@ final class DiaryViewModel: DiaryViewModelProtocol {
             self.getPageUseCase.getPages(for: pairId).eraseToAnyPublisher()
         )
             .delay(for: .seconds(1), scheduler: DispatchQueue.global())
+            .timeout(.seconds(6), scheduler: DispatchQueue.global())
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.error = error
