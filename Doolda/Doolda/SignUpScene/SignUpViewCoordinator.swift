@@ -33,7 +33,9 @@ final class SignUpViewCoordinator: BaseCoordinator {
         }
         .store(in: &self.cancellables)
 
-        viewModel.agreementPageRequested.sink { [weak self] user in
+        viewModel.agreementPageRequested
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] user in
             self?.agreementPageRequest(user: user)
         }
         .store(in: &self.cancellables)
