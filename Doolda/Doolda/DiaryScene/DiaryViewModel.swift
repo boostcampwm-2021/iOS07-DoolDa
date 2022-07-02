@@ -225,8 +225,9 @@ final class DiaryViewModel: DiaryViewModelProtocol {
         )
             .delay(for: .seconds(1), scheduler: DispatchQueue.global())
             .sink { [weak self] completion in
-                guard case .failure(let error) = completion else { return }
-                self?.error = error
+                if case .failure(let error) = completion {
+                    self?.error = error
+                }
                 self?.isRefreshing = false
             } receiveValue: { [weak self] isMyTurn, pages in
                 if isNotificationNeeded, self?.isMyTurn == isMyTurn {
@@ -236,7 +237,6 @@ final class DiaryViewModel: DiaryViewModelProtocol {
                 }
                 self?.isMyTurn = isMyTurn
                 self?.pageEntities = pages
-                self?.isRefreshing = false
             }
             .store(in: &self.cancellables)
     }
