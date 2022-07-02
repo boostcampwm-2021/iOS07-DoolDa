@@ -107,8 +107,7 @@ class SettingsViewCoordinator: BaseCoordinator {
         viewController.titleText = option.title
 
         if option == .contributor {
-            // FIXME: 만든 사람들 이미지를 넣어야함!!
-            // viewController.image = UIImage.contributorImage
+            viewController.image = .credit
         } else {
             viewController.contentText = option.content
         }

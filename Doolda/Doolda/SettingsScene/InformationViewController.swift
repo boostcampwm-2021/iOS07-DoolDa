@@ -14,7 +14,7 @@ class InformationViewController: UIViewController {
 
     // MARK: - Subviews
 
-    private var textView: UITextView = {
+    private let textView: UITextView = {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 16)
         textView.textColor = .dooldaLabel
@@ -24,8 +24,15 @@ class InformationViewController: UIViewController {
         return textView
     }()
 
-    private var imageView: UIImageView = {
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.alwaysBounceVertical = false
+        return scrollView
+    }()
+    
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
@@ -58,16 +65,20 @@ class InformationViewController: UIViewController {
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
 
+        self.view.addSubview(self.scrollView)
+        self.scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        
         self.view.addSubview(self.textView)
         self.textView.snp.makeConstraints { make in
             make.top.leading.equalTo(self.view.safeAreaLayoutGuide).offset(16)
             make.bottom.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-16)
         }
 
-        self.view.addSubview(self.imageView)
+        self.scrollView.addSubview(self.imageView)
         self.imageView.snp.makeConstraints { make in
-            make.top.leading.equalTo(self.view.safeAreaLayoutGuide).offset(16)
-            make.bottom.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-16)
+            make.top.leading.trailing.equalToSuperview()
         }
     }
 
