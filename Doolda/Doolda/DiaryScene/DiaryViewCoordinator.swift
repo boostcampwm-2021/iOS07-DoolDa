@@ -54,7 +54,7 @@ final class DiaryViewCoordinator: BaseCoordinator {
         
         let checkMyTurnUseCase = CheckMyTurnUseCase(pairRepository: pairRepository)
         let getPageUseCase = GetPageUseCase(pageRepository: pageRepository)
-        let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: rawPageRepository)
+        let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: rawPageRepository, pageRepository: pageRepository)
         let firebaseMessageUseCase = FirebaseMessageUseCase.default
         
         let viewModel = DiaryViewModel(
