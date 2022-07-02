@@ -12,25 +12,40 @@ import SnapKit
 
 class InformationViewController: UIViewController {
 
+    // MARK: - Modes
+
+    enum DisplayMode {
+        case text(content: String)
+        case image(content: UIImage?)
+    }
+
     // MARK: - Subviews
 
-    private let textView: UITextView = {
+    private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 16)
         textView.textColor = .dooldaLabel
         textView.backgroundColor = .clear
         textView.isScrollEnabled = true
         textView.isEditable = false
+        textView.showsVerticalScrollIndicator = false
+        textView.contentInsetAdjustmentBehavior = .never
         return textView
     }()
 
-    private let scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.contentInset = .zero
+        scrollView.bounces = false
         scrollView.alwaysBounceVertical = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
         return scrollView
     }()
+
+    private lazy var contentView = UIView()
     
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -38,9 +53,8 @@ class InformationViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    @Published var titleText: String?
-    @Published var contentText: String?
-    @Published var image: UIImage?
+    private let titleText: String
+    private let mode: DisplayMode
 
     // MARK: - Private Properties
 
@@ -48,9 +62,14 @@ class InformationViewController: UIViewController {
 
     // MARK: - Initializers
 
-    convenience init() {
-        self.init(nibName: nil, bundle: nil)
-        self.bindUI()
+    init(titleText: String, mode: DisplayMode) {
+        self.titleText = titleText
+        self.mode = mode
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - LifeCycle Methods
@@ -64,45 +83,34 @@ class InformationViewController: UIViewController {
 
     private func configureUI() {
         self.view.backgroundColor = .dooldaBackground
+        self.title = titleText
 
-        self.view.addSubview(self.scrollView)
-        self.scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view.safeAreaLayoutGuide)
-        }
-        
-        self.view.addSubview(self.textView)
-        self.textView.snp.makeConstraints { make in
-            make.top.leading.equalTo(self.view.safeAreaLayoutGuide).offset(16)
-            make.bottom.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(-16)
-        }
+        switch mode {
+        case let .text(content):
+            self.view.addSubview(self.textView)
+            self.textView.text = content
+            self.textView.snp.makeConstraints { make in
+                make.top.bottomMargin.equalTo(self.view.safeAreaLayoutGuide)
+                make.leading.trailing.equalToSuperview().inset(16)
+            }
+        case let .image(content):
+            self.view.addSubview(self.scrollView)
+            self.scrollView.snp.makeConstraints { make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide)
+                make.bottom.leading.trailing.equalToSuperview()
+            }
 
-        self.scrollView.addSubview(self.imageView)
-        self.imageView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            self.scrollView.addSubview(contentView)
+            contentView.snp.makeConstraints { make in
+                make.top.bottom.width.equalToSuperview()
+            }
+
+            self.contentView.addSubview(self.imageView)
+            self.imageView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+
+            imageView.image = content
         }
     }
-
-    private func bindUI() {
-        self.$titleText
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] title in
-                self?.navigationItem.title = title
-            }
-            .store(in: &self.cancellables)
-
-        self.$contentText
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] contentText in
-                self?.textView.text = contentText
-            }
-            .store(in: &self.cancellables)
-
-        self.$image
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] image in
-                self?.imageView.image = image
-            }
-            .store(in: &self.cancellables)
-    }
-
 }

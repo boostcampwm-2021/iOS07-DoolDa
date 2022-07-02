@@ -103,14 +103,15 @@ class SettingsViewCoordinator: BaseCoordinator {
     }
 
     private func informationViewRequested(for option: DooldaInfoType) {
-        let viewController = InformationViewController()
-        viewController.titleText = option.title
+        let viewController: InformationViewController
 
-        if option == .contributor {
-            viewController.image = .credit
-        } else {
-            viewController.contentText = option.content
+        switch option {
+        case .contributor:
+            viewController = InformationViewController(titleText: option.title, mode: .image(content: .credit))
+        default:
+            viewController = InformationViewController(titleText: option.title, mode: .text(content: option.content))
         }
+
         self.presenter.topViewController?.navigationController?.pushViewController(viewController, animated: true)
     }
 }
