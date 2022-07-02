@@ -139,9 +139,7 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
             updatedTime: currentTime,
             jsonPath: metaData?.jsonPath ?? path
         )
-        
-        let savePagePublisher = isNewPage ? self.pageRepository.savePage(pageEntity) : self.pageRepository.updatePage(pageEntity)
-        
+
         let imageUploadPublishers = page.components
             .compactMap { $0 as? PhotoComponentEntity }
             .filter { $0.imageUrl.scheme == "file" }
@@ -154,16 +152,17 @@ final class EditPageUseCase: EditPageUseCaseProtocol {
                     }
                     .eraseToAnyPublisher()
             }
-        
-        savePagePublisher
+
+        Publishers.MergeMany(imageUploadPublishers)
+            .flatMap { [weak self] _ -> AnyPublisher<PageEntity, Error> in
+                guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage).eraseToAnyPublisher() }
+                return isNewPage
+                    ? self.pageRepository.savePage(pageEntity)
+                    : self.pageRepository.updatePage(pageEntity)
+            }
             .flatMap { [weak self] pageEntity -> AnyPublisher<RawPageEntity, Error> in
                 guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage).eraseToAnyPublisher() }
                 return self.rawPageRepository.save(rawPage: page, at: pairId, with: pageEntity.jsonPath)
-            }
-            .flatMap { _ -> AnyPublisher<[URL], Error> in
-                Publishers.MergeMany(imageUploadPublishers)
-                    .collect()
-                    .eraseToAnyPublisher()
             }
             .flatMap { [weak self] _ -> AnyPublisher<DDID, Error> in
                 guard let self = self else { return Fail(error: EditPageUseCaseError.failedToSavePage).eraseToAnyPublisher() }

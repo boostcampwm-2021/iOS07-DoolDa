@@ -61,7 +61,12 @@ final class PageDetailViewCoordinator: BaseCoordinator {
             fileManagerPersistenceService: fileManagerPersistenceService
         )
 
-        let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: rawPageRepository)
+        let pageRepository = PageRepository(
+            networkService: FirebaseNetworkService.shared,
+            pageEntityPersistenceService: coreDataPageEntityPersistenceService
+        )
+
+        let getRawPageUseCase = GetRawPageUseCase(rawPageRepository: rawPageRepository, pageRepository: pageRepository)
 
         let viewModel = PageDetaillViewModel(
             sceneId: self.identifier,
