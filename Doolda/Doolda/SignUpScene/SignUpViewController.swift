@@ -319,8 +319,14 @@ final class SignUpViewController: UIViewController {
         viewModel.isPasswordValidPublisher
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isValid in
-                self?.passwordStateLabel.text = isValid ? "" : "비밀번호는 영문, 숫자를 조합하여 8자 이상이어야 합니다."
+            .sink { [weak self] passwordValid in
+                var passwordText = ""
+                switch passwordValid {
+                case .weakPassword:  passwordText = "비밀번호는 영문, 숫자를 조합하여 8자 이상이어야 합니다."
+                case .invalidSymbol: passwordText = "특수문자는 ~,!,@,#,$,%,^,&,* 만 사용가능합니다."
+                case .isValid: passwordText = ""
+                }
+                self?.passwordStateLabel.text = passwordText
             }
             .store(in: &self.cancellables)
 

@@ -19,7 +19,7 @@ protocol SignUpViewModelInput {
 
 protocol SignUpViewModelOutput {
     var isEmailValidPublisher: AnyPublisher<Bool, Never> { get }
-    var isPasswordValidPublisher: AnyPublisher<Bool, Never> { get }
+    var isPasswordValidPublisher: AnyPublisher<PasswordCheck, Never> { get }
     var isPasswordCheckValidPublisher: AnyPublisher<Bool, Never> { get }
     var isAllInputValidPublisher: AnyPublisher<Bool, Never> { get }
     var errorPublisher: AnyPublisher<Error?, Never> { get }
@@ -45,9 +45,15 @@ enum SignUpError: LocalizedError {
     }
 }
 
+enum PasswordCheck {
+    case isValid
+    case weakPassword
+    case invalidSymbol
+}
+
 final class SignUpViewModel: SignUpViewModelProtocol {
     var isEmailValidPublisher: AnyPublisher<Bool, Never> { self.$emailValidPublisher.eraseToAnyPublisher() }
-    var isPasswordValidPublisher: AnyPublisher<Bool, Never> { self.$passwordValidPublisher.eraseToAnyPublisher() }
+    var isPasswordValidPublisher: AnyPublisher<PasswordCheck, Never> { self.$passwordValidPublisher.eraseToAnyPublisher() }
     var isPasswordCheckValidPublisher: AnyPublisher<Bool, Never> { self.$passwordCheckValidPublisher.eraseToAnyPublisher() }
     var isAllInputValidPublisher: AnyPublisher<Bool, Never> { self.$allInputValidPublisher.eraseToAnyPublisher() }
     var errorPublisher: AnyPublisher<Error?, Never> { self.$error.eraseToAnyPublisher() }
@@ -58,7 +64,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     @Published var passwordInput: String = ""
     @Published var passwordCheckInput: String = ""
     @Published private var emailValidPublisher: Bool = false
-    @Published private var passwordValidPublisher: Bool = false
+    @Published private var passwordValidPublisher: PasswordCheck = .weakPassword
     @Published private var passwordCheckValidPublisher: Bool = false
     @Published private var allInputValidPublisher: Bool = false
     @Published private var error: Error?
@@ -83,7 +89,8 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         self.signUpUseCase.signUp(email: self.emailInput, password: self.passwordInput)
             .compactMap { $0 }
             .flatMap { [weak self] authRataResult in
-                return self?.createUserUseCase.create(uid: authRataResult.user.uid) ?? Empty<User, Error>(completeImmediately: true).eraseToAnyPublisher()
+                return self?.createUserUseCase.create(uid: authRataResult.user.uid)
+                ?? Empty<User, Error>(completeImmediately: true).eraseToAnyPublisher()
             }
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
@@ -124,7 +131,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         
         Publishers.CombineLatest3(self.$emailValidPublisher, self.$passwordValidPublisher, self.$passwordCheckValidPublisher)
             .map { (isEmailValid, isPasswordValid, isPasswordCheckValid) in
-                return isEmailValid && isPasswordValid && isPasswordCheckValid
+                return isEmailValid && (isPasswordValid == .isValid) && isPasswordCheckValid
             }
             .sink { [weak self] isValid in
                 self?.allInputValidPublisher = isValid
@@ -136,9 +143,13 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         return NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}").evaluate(with: email)
     }
 
-    private func validatePassword(_ password: String) -> Bool {
-        let pattern = "(?=.*[a-zA-Z])(?=.*[0-9])[\\w~!@#\\$%\\^&\\*]{8,}"
-        return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: password)
+    private func validatePassword(_ password: String) -> PasswordCheck {
+        let invalidSymbol = "^[\\w~!@#\\$%\\^&\\*]*$"
+        let weakPassword = "(?=.*[a-zA-Z])(?=.*[0-9])[\\w~!@#\\$%\\^&\\*]{8,}"
+
+        if !NSPredicate(format: "SELF MATCHES %@", invalidSymbol).evaluate(with: password) { return .invalidSymbol }
+        if !NSPredicate(format: "SELF MATCHES %@", weakPassword).evaluate(with: password) { return .weakPassword }
+        return .isValid
     }
 
     private func validatePasswordCheck(password: String, passwordCheck: String) -> Bool {
