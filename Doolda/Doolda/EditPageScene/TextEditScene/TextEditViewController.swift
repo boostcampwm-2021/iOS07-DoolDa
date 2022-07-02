@@ -171,9 +171,11 @@ class TextEditViewController: UIViewController {
         
         self.fontSizeControl.publisher(for: .allTouchEvents)
             .sink { [weak self] control in
-                guard let self = self ,
-                      let fontsizeControl = control as? FontSizeControl else { return }
-                self.inputTextView.font = .systemFont(ofSize: 18 * fontsizeControl.value)
+                guard let self = self,
+                      let fontSizeControl = control as? FontSizeControl,
+                      fontSizeControl.value != 0 else { return }
+
+                self.inputTextView.font = .systemFont(ofSize: 18 * fontSizeControl.value)
                 let maximumWidth: CGFloat = self.view.frame.width - 40
                 let newSize = self.inputTextView.sizeThatFits(CGSize(width: maximumWidth, height: CGFloat.greatestFiniteMagnitude))
                 
