@@ -99,8 +99,13 @@ final class SplashViewController: UIViewController {
         self.viewModel.errorPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
-                guard error != nil else { return }
-                self?.showErrorAlert()
+                guard let error = error else { return }
+
+                switch error._code {
+                // Network Connection에 문제가 있는 경우
+                case 17020: self?.showErrorAlert()
+                default: self?.showLogoutAndRetryAlert(with: error)
+                }
             }
             .store(in: &cancellables)
     }
@@ -111,6 +116,16 @@ final class SplashViewController: UIViewController {
         let alert = UIAlertController.networkAlert { _ in
             self.viewModel.validateAccount()
         }
+        self.present(alert, animated: true)
+    }
+
+    private func showLogoutAndRetryAlert(with error: Error) {
+        let alert = UIAlertController.defaultAlert(
+            title: "에러 발생",
+            message: error.localizedDescription,
+            buttonTitle: "다시 시도") { [weak self] _ in
+                self?.viewModel.didTapRetryButton()
+            }
         self.present(alert, animated: true)
     }
 }

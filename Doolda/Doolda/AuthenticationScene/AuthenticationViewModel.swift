@@ -140,7 +140,8 @@ final class AuthenticationViewModel: AuthenticationViewModelProtocol {
             .sink { [weak self] completion in
                 guard case .failure(let error) = completion else { return }
                 switch error {
-                case FirebaseNetworkService.Errors.invalidDocumentSnapshot: self?.createUserAndValidate(with: user.uid)
+                // 유저가 Apple Login으로 회원가입/로그인 모두 진행하는 경우
+                case GetMyIdUseCase.Errors.failedToAcquireId(_): self?.createUserAndValidate(with: user.uid)
                 default: self?.error = error
                 }
             } receiveValue: { [weak self] ddid in

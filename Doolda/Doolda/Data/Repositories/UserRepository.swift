@@ -7,26 +7,6 @@
 import Combine
 import Foundation
 
-enum UserRepositoryError: LocalizedError {
-    case nilUserId
-    case nilFriendId
-    case DTOInitError
-    case savePairIdFail
-    
-    var errorDescription: String? {
-        switch self {
-        case .nilUserId:
-            return "유저의 아이디가 존재하지 않습니다."
-        case .nilFriendId:
-            return "친구의 아이디가 존재하지 않습니다."
-        case .DTOInitError:
-            return "DataTransferObjects가 올바르지 않습니다."
-        case .savePairIdFail:
-            return "PairID를 저장하는데 실패했습니다"
-        }
-    }
-}
-
 class UserRepository: UserRepositoryProtocol {
     private let userDefaultsPersistenceService: UserDefaultsPersistenceServiceProtocol
     private let firebaseNetworkService: FirebaseNetworkServiceProtocol
