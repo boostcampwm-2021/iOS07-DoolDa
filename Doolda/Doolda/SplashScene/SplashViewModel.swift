@@ -13,6 +13,7 @@ import FirebaseAuth
 protocol SplashViewModelInput {
     func validateAccount()
     func deinitRequested()
+    func didTapRetryButton()
 }
 
 protocol SplashViewModelOutput {
@@ -63,6 +64,18 @@ final class SplashViewModel: SplashViewModelProtocol {
             object: nil,
             userInfo: [BaseCoordinator.Keys.sceneId: self.sceneId]
         )
+    }
+
+    func didTapRetryButton() {
+        do {
+            try authenticateUseCase.signOut()
+            NotificationCenter.default.post(
+                name: AppCoordinator.Notifications.appRestartSignal,
+                object: nil
+            )
+        } catch {
+            self.error = error
+        }
     }
     
     /// get current firebase user using firebase auth.
