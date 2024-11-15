@@ -24,20 +24,16 @@
 
 </br>
 
-## 배포 링크 🔗
-<Blockquote>
-둘다를 직접 실행할 수 있는 배포링크입니다.
-</Blockquote>
-
-[둘다 배포링크](http://yabbyark.iptime.org)
+## AppStore 🔗
+[둘다 AppStore](https://apps.apple.com/kr/app/%EB%91%98%EB%8B%A4/id1632731921)
 
 </br>
 
 ## Bool 바다 소개 🔥
  | S007 김민주 | S017 박세원 | S027 양승훈 | S053 정지승 |
 | :--------: | :--------: | :--------: | :--------: |
-| [@minglely](https://github.com/minglely) | [@ehWld](https://github.com/ehWld) | [@yabby1997](https://github.com/yabby1997) | [@JungJiSeung](https://github.com/JungJiSeung) |
-| <img src="https://avatars.githubusercontent.com/minglely" width="150">     | <img src="https://avatars.githubusercontent.com/ehWld" width="150">      | <img src="https://avatars.githubusercontent.com/yabby1997" width="150">      | <img src="https://avatars.githubusercontent.com/JungJiSeung" width="150"> |
+| [@doingsquirrel](https://github.com/doingsquirrel) | [@ehWld](https://github.com/ehWld) | [@yabby1997](https://github.com/yabby1997) | [@ralph](https://github.com/rlsmd9) |
+| <img src="https://avatars.githubusercontent.com/doingsquirrel" width="150">     | <img src="https://avatars.githubusercontent.com/ehWld" width="150">      | <img src="https://avatars.githubusercontent.com/yabby1997" width="150">      | <img src="https://avatars.githubusercontent.com/rlsmd9" width="150"> |
 
 </br>
 
